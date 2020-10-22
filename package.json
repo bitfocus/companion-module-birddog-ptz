@@ -1,0 +1,19 @@
+{
+	"name": "birddog-visca",
+	"version": "1.0.0",
+	"api_version": "1.0.0",
+	"keywords": [
+		"Protocol",
+		"Camera"
+	],
+	"manufacturer": "Birddog",
+	"product": "Visca",
+	"shortname": "Birddog",
+	"description": "This module controls Birddog Cameras over IP Visca protocol",
+	"main": "index.js",
+	"scripts": {
+		"test": "echo \"Error: no test specified\" && exit 1"
+	},
+	"author": "Benni M. <info@benni-m.de>",
+	"license": "MIT"
+}
