@@ -504,7 +504,21 @@ instance.prototype.actions = function(system) {
 
 
 	var actions = {
-
+		'power':         {
+			label: 'Power On/Off',
+			options: [
+				{
+					type: 'dropdown',
+					label: 'On/Off',
+					id: 'val',
+					choices: [
+						{ id: '0', label: 'On' },
+						{ id: '1', label: 'Off' }
+					],
+					default: '0'
+				}
+			]
+		},
 		'pt':         {
 			label: 'Pan/Tilt',
 			options: [
@@ -769,23 +783,6 @@ instance.prototype.actions = function(system) {
 				}
 			]
 		},
-		'speedPset':      {
-			label: 'Preset Drive Speed',
-			options: [
-				{
-					type: 'dropdown',
-					label: 'Preset Nr.',
-					id: 'val',
-					choices: PRESET
-				},
-				{
-					type: 'dropdown',
-					label: 'speed setting',
-					id: 'speed',
-					choices: SPEED
-				}
-			]
-		},
 		'tally':          {
 			label: 'Tally on/off',
 			options: [
@@ -865,7 +862,16 @@ instance.prototype.action = function(action) {
 	var fb = '';
 
 	switch (action.action) {
-		
+		case 'power':
+			if (opt.val == '0') {
+				cmd = '\x81\x01\x04\x00\x02\xFF';
+			}
+			if (opt.val == '1') {
+				cmd = '\x81\x01\x04\x00\x03\xFF';
+			}
+			self.sendVISCACommand(cmd);
+			break;
+
 		case 'pt':
 			switch(opt.val){
 				case '0':
@@ -1161,13 +1167,6 @@ instance.prototype.action = function(action) {
 			cmd = Buffer.from('\x81\x01\x04\x3F\x02\x00\xFF', 'binary');
 			cmd.writeUInt8(opt.val,5);
 			//cmd.writeUInt8((opt.val - parseInt(opt.val.toString(8) >> 4)*16),7);
-			self.sendVISCACommand(cmd);
-			break;
-
-		case 'speedPset':
-			//cmd = '\x81\x01\x7E\x01\x0B' + String.fromCharCode(parseInt(opt.val,16) & 0xFF) + String.fromCharCode(parseInt(opt.speed,16) & 0xFF) + '\xFF';
-			//self.sendVISCACommand(cmd);
-			cmd = '\x81\x09\x04\x43\xFF';
 			self.sendVISCACommand(cmd);
 			break;
 
