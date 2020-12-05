@@ -159,7 +159,7 @@ var PRESET = [
 
 instance.prototype.sendVISCACommand = function(payload) {
 	var self = this;
-	var buf = new Buffer(32);
+	var buf = Buffer.from(32);
 
 		// 0x01 0x00 = VISCA Command
 		buf[0] = 0x01;
@@ -187,7 +187,7 @@ instance.prototype.sendVISCACommand = function(payload) {
 
 instance.prototype.sendVISCACommand = function(payload, counter) {
 	var self = this;
-	var buf = new Buffer(32);
+	var buf = Buffer.from(32);
 
 		// 0x01 0x00 = VISCA Command
 		buf[0] = 0x01;
@@ -306,7 +306,7 @@ instance.prototype.sendResponse = function(data) {
 
 instance.prototype.sendControlCommand = function(payload) {
 	var self = this;
-	var buf = new Buffer(32);
+	var buf = Buffer.from(32);
 
 	// 0x01 0x00 = VISCA Command
 	buf[0] = 0x02;
@@ -1218,7 +1218,7 @@ instance.prototype.action = function(action) {
 
 		case 'custom':
 			var hexData = opt.custom.replace(/\s+/g, '');
-			var tempBuffer = new Buffer(hexData, 'hex');
+			var tempBuffer = Buffer.from(hexData, 'hex');
 			cmd = tempBuffer.toString('binary');
 			if ((tempBuffer[0] & 0xF0) === 0x80) {
 				self.sendVISCACommand(cmd);
