@@ -64,70 +64,70 @@ var SHUTTER = [
 ];
 
 var PRESET = [
-	{ id: '64', label: 'Preset 64' },
-	{ id: '63', label: 'Preset 63' },
-	{ id: '62', label: 'Preset 62' },
-	{ id: '61', label: 'Preset 61' },
-	{ id: '60', label: 'Preset 60' },
-	{ id: '59', label: 'Preset 59' },
-	{ id: '58', label: 'Preset 58' },
-	{ id: '57', label: 'Preset 57' },
-	{ id: '56', label: 'Preset 56' },
-	{ id: '55', label: 'Preset 55' },
-	{ id: '54', label: 'Preset 54' },
-	{ id: '53', label: 'Preset 53' },
-	{ id: '52', label: 'Preset 52' },
-	{ id: '51', label: 'Preset 51' },
-	{ id: '50', label: 'Preset 50' },
-	{ id: '49', label: 'Preset 49' },
-	{ id: '48', label: 'Preset 48' },
-	{ id: '47', label: 'Preset 47' },
-	{ id: '46', label: 'Preset 46' },
-	{ id: '45', label: 'Preset 45' },
-	{ id: '44', label: 'Preset 44' },
-	{ id: '43', label: 'Preset 43' },
-	{ id: '42', label: 'Preset 42' },
-	{ id: '41', label: 'Preset 41' },
-	{ id: '40', label: 'Preset 40' },
-	{ id: '39', label: 'Preset 39' },
-	{ id: '38', label: 'Preset 38' },
-	{ id: '37', label: 'Preset 37' },
-	{ id: '36', label: 'Preset 36' },
-	{ id: '35', label: 'Preset 35' },
-	{ id: '34', label: 'Preset 34' },
-	{ id: '33', label: 'Preset 33' },
-	{ id: '32', label: 'Preset 32' },
-	{ id: '31', label: 'Preset 31' },
-	{ id: '30', label: 'Preset 30' },
-	{ id: '29', label: 'Preset 29' },
-	{ id: '28', label: 'Preset 28' },
-	{ id: '27', label: 'Preset 27' },
-	{ id: '26', label: 'Preset 26' },
-	{ id: '25', label: 'Preset 25' },
-	{ id: '24', label: 'Preset 24' },
-	{ id: '23', label: 'Preset 23' },
-	{ id: '22', label: 'Preset 22' },
-	{ id: '21', label: 'Preset 21' },
-	{ id: '20', label: 'Preset 20' },
-	{ id: '19', label: 'Preset 19' },
-	{ id: '18', label: 'Preset 18' },
-	{ id: '17', label: 'Preset 17' },
-	{ id: '16', label: 'Preset 16' },
-	{ id: '15', label: 'Preset 15' },
-	{ id: '14', label: 'Preset 14' },
-	{ id: '13', label: 'Preset 13' },
-	{ id: '12', label: 'Preset 12' },
-	{ id: '11', label: 'Preset 11' },
-	{ id: '10', label: 'Preset 10' },
-	{ id: '9', label: 'Preset 9' },
-	{ id: '8', label: 'Preset 8' },
-	{ id: '7', label: 'Preset 7' },
-	{ id: '6', label: 'Preset 6' },
-	{ id: '5', label: 'Preset 5' },
-	{ id: '4', label: 'Preset 4' },
-	{ id: '3', label: 'Preset 3' },
-	{ id: '2', label: 'Preset 2' },
-	{ id: '1', label: 'Preset 1' }
+	{ id: '63', label: 'Preset 64' },
+	{ id: '62', label: 'Preset 63' },
+	{ id: '61', label: 'Preset 62' },
+	{ id: '60', label: 'Preset 61' },
+	{ id: '59', label: 'Preset 60' },
+	{ id: '58', label: 'Preset 59' },
+	{ id: '57', label: 'Preset 58' },
+	{ id: '56', label: 'Preset 57' },
+	{ id: '55', label: 'Preset 56' },
+	{ id: '54', label: 'Preset 55' },
+	{ id: '53', label: 'Preset 54' },
+	{ id: '52', label: 'Preset 53' },
+	{ id: '51', label: 'Preset 52' },
+	{ id: '50', label: 'Preset 51' },
+	{ id: '49', label: 'Preset 50' },
+	{ id: '48', label: 'Preset 49' },
+	{ id: '47', label: 'Preset 48' },
+	{ id: '46', label: 'Preset 47' },
+	{ id: '45', label: 'Preset 46' },
+	{ id: '44', label: 'Preset 45' },
+	{ id: '43', label: 'Preset 44' },
+	{ id: '42', label: 'Preset 43' },
+	{ id: '41', label: 'Preset 42' },
+	{ id: '40', label: 'Preset 41' },
+	{ id: '39', label: 'Preset 40' },
+	{ id: '38', label: 'Preset 39' },
+	{ id: '37', label: 'Preset 38' },
+	{ id: '36', label: 'Preset 37' },
+	{ id: '35', label: 'Preset 36' },
+	{ id: '34', label: 'Preset 35' },
+	{ id: '33', label: 'Preset 34' },
+	{ id: '32', label: 'Preset 33' },
+	{ id: '31', label: 'Preset 32' },
+	{ id: '30', label: 'Preset 31' },
+	{ id: '29', label: 'Preset 30' },
+	{ id: '28', label: 'Preset 29' },
+	{ id: '27', label: 'Preset 28' },
+	{ id: '26', label: 'Preset 27' },
+	{ id: '25', label: 'Preset 26' },
+	{ id: '24', label: 'Preset 25' },
+	{ id: '23', label: 'Preset 24' },
+	{ id: '22', label: 'Preset 23' },
+	{ id: '21', label: 'Preset 22' },
+	{ id: '20', label: 'Preset 21' },
+	{ id: '19', label: 'Preset 20' },
+	{ id: '18', label: 'Preset 19' },
+	{ id: '17', label: 'Preset 18' },
+	{ id: '16', label: 'Preset 17' },
+	{ id: '15', label: 'Preset 16' },
+	{ id: '14', label: 'Preset 15' },
+	{ id: '13', label: 'Preset 14' },
+	{ id: '12', label: 'Preset 13' },
+	{ id: '11', label: 'Preset 12' },
+	{ id: '10', label: 'Preset 11' },
+	{ id: '9', label: 'Preset 10' },
+	{ id: '8', label: 'Preset 9' },
+	{ id: '7', label: 'Preset 8' },
+	{ id: '6', label: 'Preset 7' },
+	{ id: '5', label: 'Preset 6' },
+	{ id: '4', label: 'Preset 5' },
+	{ id: '3', label: 'Preset 4' },
+	{ id: '2', label: 'Preset 3' },
+	{ id: '1', label: 'Preset 2' },
+	{ id: '0', label: 'Preset 1' }
 ];
 
 	var SPEED = [
@@ -519,6 +519,21 @@ instance.prototype.actions = function(system) {
 				}
 			]
 		},
+		'initalize':         {
+			label: 'Initalize / Reset',
+			options: [
+				{
+					type: 'dropdown',
+					label: 'Lens/Reset',
+					id: 'val',
+					choices: [
+						{ id: '0', label: 'Lens Initalizeation' },
+						{ id: '1', label: 'Camera Reset' }
+					],
+					default: '0'
+				}
+			]
+		},
 		'pt':         {
 			label: 'Pan/Tilt',
 			options: [
@@ -603,8 +618,8 @@ instance.prototype.actions = function(system) {
 					choices: [
 						{ id: '0', label: 'Focus Near' },
 						{ id: '1', label: 'Focus Far' },
-						{ id: '2', label: 'Forcus Stop' },
-						{ id: '3', label: 'Forcus One Push Auto' },
+						{ id: '2', label: 'Focus Stop' },
+						{ id: '3', label: 'Focus One Push Auto' },
 					],
 					default: '0'
 				}
@@ -634,6 +649,30 @@ instance.prototype.actions = function(system) {
 						{ id: '1', label: 'Manual' },
 						{ id: '2', label: 'Shutter Pri' },
 						{ id: '3', label: 'Iris Pri' },
+					],
+					default: '0'
+				}
+			]
+		},
+		'wb':           {
+			label: 'White Balance',
+			options: [
+				{
+					type: 'dropdown',
+					label: 'Mode setting',
+					id: 'val',
+					choices: [
+						{ id: '0', label: 'Auto' },
+						{ id: '1', label: 'Indoor' },
+						{ id: '2', label: 'Outdoor' },
+						{ id: '3', label: 'One Push Mode' },
+						{ id: '4', label: 'ATW' },
+						{ id: '5', label: 'Manual' },
+						{ id: '6', label: 'One Push Trigger' },
+						{ id: '7', label: 'Outdoor Auto' },
+						{ id: '8', label: 'Sodium Lamp Auto' },
+						{ id: '9', label: 'Sodium Lamp' },
+						{ id: '10', label: 'Sodium Lamp Outdoor Auto' }
 					],
 					default: '0'
 				}
@@ -783,6 +822,84 @@ instance.prototype.actions = function(system) {
 				}
 			]
 		},
+		'pictureEffect':     {
+			label: 'Picture Effect Setting',
+			options: [
+				{
+					type: 'dropdown',
+					label: 'Effect',
+					id: 'val',
+					choices: [ 
+						{ id: '0', label: 'Off' },
+						{ id: '1', label: 'Neg.Art' },
+						{ id: '2', label: 'Black White' }
+					],
+					default: '0'
+				}
+			]
+		},
+		'defog':          {
+			label: 'Defog',
+			options: [
+				{
+					type: 'dropdown',
+					label: 'On / Off',
+					id: 'val',
+					choices: [
+						{ id: '0', label: 'Off' },
+						{ id: '1', label: 'low' },
+						{ id: '2', label: 'mid' },
+						{ id: '3', label: 'high' }
+						],
+					default: '0'
+				}
+			]
+		},
+		'irMode':          {
+			label: 'IR Correction',
+			options: [
+				{
+					type: 'dropdown',
+					label: 'On / Off',
+					id: 'bol',
+					choices: [
+						{ id: '0', label: 'Standard' },
+						{ id: '1', label: 'IR Light' }
+						],
+					default: '0'
+				}
+			]
+		},
+		'hrMode':          {
+			label: 'High Resolution Mode',
+			options: [
+				{
+					type: 'dropdown',
+					label: 'On / Off',
+					id: 'bol',
+					choices: [
+						{ id: '0', label: 'Off' },
+						{ id: '1', label: 'On' }
+						],
+					default: '0'
+				}
+			]
+		},
+		'highSensitivity':          {
+			label: 'High Sensitivity on/off',
+			options: [
+				{
+					type: 'dropdown',
+					label: 'On / Off',
+					id: 'bol',
+					choices: [
+						{ id: '0', label: 'Off' },
+						{ id: '1', label: 'On' }
+						],
+					default: '0'
+				}
+			]
+		},
 		'tally':          {
 			label: 'Tally on/off',
 			options: [
@@ -790,7 +907,8 @@ instance.prototype.actions = function(system) {
 					type: 'dropdown',
 					label: 'On / Off',
 					id: 'bol',
-					choices: [ { id: '0', label: 'Off' }, { id: '1', label: 'On' } ]
+					choices: [ { id: '0', label: 'Off' }, { id: '1', label: 'On' } ],
+					default: '0'
 				}
 			]
 		},
@@ -868,6 +986,16 @@ instance.prototype.action = function(action) {
 			}
 			if (opt.val == '1') {
 				cmd = '\x81\x01\x04\x00\x03\xFF';
+			}
+			self.sendVISCACommand(cmd);
+			break;
+
+		case 'initalize':
+			if (opt.val == '0') {
+				cmd = '\x81\x04\x19\x01\xFF';
+			}
+			if (opt.val == '1') {
+				cmd = '\x81\x04\x19\x03\xFF';
 			}
 			self.sendVISCACommand(cmd);
 			break;
@@ -988,7 +1116,7 @@ instance.prototype.action = function(action) {
 					cmd = '\x81\x01\x04\x08\x02\xFF';
 				break;
 				case '2':
-					cmd = '\x81\x01\x04\x38\x00\xFF';
+					cmd = '\x81\x01\x04\x08\x00\xFF';
 				break;
 				case '3':
 					cmd = '\x81\x01\x04\x18\x01\xFF';
@@ -1022,6 +1150,45 @@ instance.prototype.action = function(action) {
 			}
 			if (opt.val == 4){
 				cmd = '\x81\x01\x04\x39\x0E\xFF';
+			}
+			self.sendVISCACommand(cmd);
+			break;
+
+		case 'wb':
+			switch(opt.val){
+				case '0':
+					cmd = '\x81\x01\x04\x35\x00\xFF';
+				break;
+				case '1':
+					cmd = '\x81\x01\x04\x35\x01\xFF';
+				break;
+				case '2':
+					cmd = '\x81\x01\x04\x35\x02\xFF';
+				break;
+				case '3':
+					cmd = '\x81\x01\x04\x35\x03\xFF';
+				break;
+				case '4':
+					cmd = '\x81\x01\x04\x35\x04\xFF';
+				break;
+				case '5':
+					cmd = '\x81\x01\x04\x35\x05\xFF';
+				break;
+				case '6':
+					cmd = '\x81\x01\x04\x10\x05\xFF';
+				break;
+				case '7':
+					cmd = '\x81\x01\x04\x35\x06\xFF';
+				break;
+				case '8':
+					cmd = '\x81\x01\x04\x35\x07\xFF';
+				break;
+				case '9':
+					cmd = '\x81\x01\x04\x35\x08\xFF';
+				break;
+				case '10':
+					cmd = '\x81\x01\x04\x35\x09\xFF';
+				break;
 			}
 			self.sendVISCACommand(cmd);
 			break;
@@ -1167,6 +1334,70 @@ instance.prototype.action = function(action) {
 			cmd = Buffer.from('\x81\x01\x04\x3F\x02\x00\xFF', 'binary');
 			cmd.writeUInt8(opt.val,5);
 			//cmd.writeUInt8((opt.val - parseInt(opt.val.toString(8) >> 4)*16),7);
+			self.sendVISCACommand(cmd);
+			break;
+
+
+		case 'pictureEffect':
+			switch(opt.val){
+				case '0':
+					cmd = '\x81\x01\x04\x63\x00\xFF';
+				break;
+				case '1':
+					cmd = '\x81\x01\x04\x63\x02\xFF';
+				break;
+				case '2':
+					cmd = '\x81\x01\x04\x63\x04\xFF';
+				break;
+			}
+			self.sendVISCACommand(cmd);
+			break;
+
+		case 'defog':
+			switch(opt.val){
+				case '0':
+					cmd = '\x81\x01\x04\x37\x03\xFF';
+				break;
+				case '1':
+					cmd = '\x81\x01\x04\x37\x01\xFF';
+				break;
+				case '2':
+					cmd = '\x81\x01\x04\x37\x02\xFF';
+				break;
+				case '3':
+					cmd = '\x81\x01\x04\x37\x03\xFF';
+				break;
+			}
+			self.sendVISCACommand(cmd);
+			break;
+
+		case 'irMode':
+			if (opt.bol == 0){
+				cmd = '\x81\x01\x04\x11\x00\xFF';
+			}
+			if (opt.bol == 1){
+				cmd = '\x81\x01\x04\x11\x01\xFF';
+			}
+			self.sendVISCACommand(cmd);
+			break;
+
+		case 'hrMode':
+			if (opt.bol == 0){
+				cmd = '\x81\x01\x04\x52\x03\xFF';
+			}
+			if (opt.bol == 1){
+				cmd = '\x81\x01\x04\x52\x02\xFF';
+			}
+			self.sendVISCACommand(cmd);
+			break;
+
+		case 'highSensitivity':
+			if (opt.bol == 0){
+				cmd = '\x81\x01\x04\x5E\x03\xFF';
+			}
+			if (opt.bol == 1){
+				cmd = '\x81\x01\x04\x5E\x02\xFF';
+			}
 			self.sendVISCACommand(cmd);
 			break;
 
