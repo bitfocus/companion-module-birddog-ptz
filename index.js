@@ -458,7 +458,7 @@ instance.prototype.config_fields = function () {
 		{
 			type: 'dropdown',
 			id: 'poolActive',
-			label: 'Acivate pool every 3sec',
+			label: 'Activate pool every 3 sec',
 			default: 'off',
 			choices:  [
 				{ id: 'off', label: 'Off' },
@@ -527,7 +527,7 @@ instance.prototype.actions = function(system) {
 					label: 'Lens/Reset',
 					id: 'val',
 					choices: [
-						{ id: '0', label: 'Lens Initalizeation' },
+						{ id: '0', label: 'Lens Initialization' },
 						{ id: '1', label: 'Camera Reset' }
 					],
 					default: '0'
