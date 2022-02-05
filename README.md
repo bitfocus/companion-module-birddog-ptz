@@ -3,7 +3,7 @@ See HELP.md and LICENSE
 
 V1.0.3
 
-- fix	Preset number was not write
+- fix	Preset number was not right
 - fix	command Focus stop not working
 - add	commands :	High Sensitivity On/Off
 					Pixture Effect Off/Negativ/B&W
