@@ -360,10 +360,10 @@ instance.prototype.init_udp = function() {
 		self.sendControlCommand('\x01');
 		self.packet_counter = 0;
 
-		// pool monitoring
-		if(self.config.poolActive == 'on'){
-			self.pool_interval = setInterval(self.pool.bind(self), 3000);//ms for pool
-			self.pool();
+		// poll monitoring
+		if(self.config.pollActive == 'on'){
+			self.poll_interval = setInterval(self.poll.bind(self), 3000);//ms for poll
+			self.poll();
 		}
 
 		self.udp.on('status_change', function (status, message) {
@@ -417,7 +417,7 @@ instance.prototype.updateConfig = function(config) {
 		delete self.udp;
 	}
 
-	clearInterval(self.pool_interval);
+	clearInterval(self.poll_interval);
 
 	self.status(self.STATUS_UNKNOWN);
 
@@ -425,10 +425,10 @@ instance.prototype.updateConfig = function(config) {
 		self.udp = new udp(self.config.host, self.port);
 		self.init_feedbacks();
 
-		// pool monitoring
-		if(self.config.poolActive == 'on'){
-			self.pool_interval = setInterval(self.pool.bind(self), 3000);//ms for pool
-			self.pool();
+		// poll monitoring
+		if(self.config.pollActive == 'on'){
+			self.poll_interval = setInterval(self.poll.bind(self), 3000);//ms for poll
+			self.poll();
 		}
 
 		self.udp.on('status_change', function (status, message) {
@@ -457,8 +457,8 @@ instance.prototype.config_fields = function () {
 		},
 		{
 			type: 'dropdown',
-			id: 'poolActive',
-			label: 'Activate pool every 3 sec',
+			id: 'pollActive',
+			label: 'Activate poll every 3 sec',
 			default: 'off',
 			choices:  [
 				{ id: 'off', label: 'Off' },
@@ -472,7 +472,7 @@ instance.prototype.config_fields = function () {
 instance.prototype.destroy = function() {
 	var self = this;
 
-	clearInterval(self.pool_interval);
+	clearInterval(self.poll_interval);
 
 	var feedbacks = {};
 	self.setFeedbackDefinitions(feedbacks);
@@ -483,7 +483,7 @@ instance.prototype.destroy = function() {
 	debug("destroy", self.id);
 };
 
-instance.prototype.pool = function() {
+instance.prototype.poll = function() {
 	var self = this;
 
 	//shutter
