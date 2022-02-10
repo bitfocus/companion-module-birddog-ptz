@@ -219,22 +219,22 @@ module.exports = {
 				},
 			],
 		}
-		;(actions['ptSpeedU'] = { label: 'P/T Speed Up' }),
-			(actions['ptSpeedD'] = { label: 'P/T Speed Down' }),
-			(actions['ptSlow'] = {
-				label: 'P/T Slow Mode',
-				options: [
-					{
-						type: 'dropdown',
-						label: 'Slow Mode On/Off',
-						id: 'bol',
-						choices: [
-							{ id: '1', label: 'Off' },
-							{ id: '0', label: 'On' },
-						],
-					},
-				],
-			})
+		actions['ptSpeedU'] = { label: 'P/T Speed Up' }
+		actions['ptSpeedD'] = { label: 'P/T Speed Down' }
+		actions['ptSlow'] = {
+			label: 'P/T Slow Mode',
+			options: [
+				{
+					type: 'dropdown',
+					label: 'Slow Mode On/Off',
+					id: 'bol',
+					choices: [
+						{ id: '1', label: 'Off' },
+						{ id: '0', label: 'On' },
+					],
+				},
+			],
+		}
 		actions['zoom'] = {
 			label: 'Zoom',
 			options: [

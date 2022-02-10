@@ -5,6 +5,7 @@ const { updateVariableDefinitions, updateSourceVariables } = require('./variable
 const { initFeedbacks } = require('./feedbacks')
 
 const udp = require('../../udp')
+const fetch = require('node-fetch')
 
 let debug
 let log
@@ -29,12 +30,12 @@ class instance extends instance_skel {
 				id: 'info',
 				width: 12,
 				label: 'Information',
-				value: 'This module controls Birddog Cameras over IP Visca protocol',
+				value: 'This module controls BirdDog PTZ Cameras.',
 			},
 			{
 				type: 'textinput',
 				id: 'host',
-				label: 'Target IP',
+				label: 'Device IP',
 				width: 6,
 				regex: this.REGEX_IP,
 			},
@@ -90,13 +91,16 @@ class instance extends instance_skel {
 	init() {
 		debug = this.debug
 		log = this.log
-		this.port = 52381
+
 		this.status(this.STATUS_WARNING, 'Connecting')
+
 		this.actions()
 		this.initVariables()
 		this.initFeedbacks()
 		this.initPresets()
 
+		this.port = 52381
+		this.sendCommand('about', 'GET')
 		this.init_udp()
 	}
 
@@ -636,6 +640,67 @@ class instance extends instance_skel {
 		}
 	}
 
+	sendCommand(cmd, type, params) {
+		let url = `http://${this.config.host}:8080/${cmd}`
+		let options = {}
+		if (type == 'PUT' || type == 'POST') {
+			options = {
+				method: type,
+				body: params != undefined ? JSON.stringify(params) : null,
+				headers: { 'Content-Type': 'application/json' },
+			}
+		} else {
+			options = {
+				method: type,
+				headers: { 'Content-Type': 'application/json' },
+			}
+		}
+
+		fetch(url, options)
+			.then((res) => {
+				if (res.status == 200) {
+					return res.json()
+				}
+			})
+			.then((json) => {
+				let data = json
+				if (data) {
+					this.processData(decodeURI(url), data)
+				} else {
+					this.log('warn', `Command failed`)
+				}
+			})
+			.catch((err) => {
+				this.debug(err)
+				let errorText = String(err)
+				if (errorText.match('ECONNREFUSED')) {
+					if (this.errorCount < 1) {
+						this.status(this.STATUS_ERROR)
+						this.log('error', 'Unable to connect to BirdDog')
+					}
+					if (this.errorCount > 60 && this.pollingInterval == 1000) {
+						this.pollingInterval = 5000
+						this.setupPolling()
+					}
+					this.errorCount++
+				} else if (errorText.match('ETIMEDOUT') || errorText.match('ENOTFOUND')) {
+					if (this.timeOut < 1) {
+						this.status(this.STATUS_ERROR)
+						this.log('error', 'Unable to connect to BirdDog')
+						this.timeOut++
+					}
+				}
+			})
+	}
+	processData(cmd, data) {
+		if (cmd.match('/about')) {
+			this.debug('HERE', data.HostName)
+			if (this.currentStatus != 0) {
+				this.status(this.STATUS_OK)
+				this.log('info', `Connected to ${data.HostName}`)
+			}
+		}
+	}
 	///OLD
 
 	sendVISCACommand(payload, counter) {
@@ -722,11 +787,11 @@ class instance extends instance_skel {
 				this.poll()
 			}
 
-			this.udp.on('status_change', function (status, message) {
-				//this.status(status, message)
+			this.udp.on('status_change', (status, message) => {
+				this.status(status, message)
 			})
-			this.udp.on('data', function (data) {
-				//this.instance.incomingData(data)
+			this.udp.on('data', (data) => {
+				this.incomingData(data)
 			})
 			debug(this.udp.host, ':', this.port)
 		}

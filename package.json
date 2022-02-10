@@ -6,15 +6,18 @@
 		"Protocol",
 		"Camera"
 	],
-	"manufacturer": "Birddog",
-	"product": "Visca",
-	"shortname": "Birddog",
-	"description": "This module controls Birddog Cameras over IP Visca protocol",
+	"manufacturer": "BirdDog",
+	"product": "PTZ",
+	"shortname": "BirdDog PTZ",
+	"description": "This module controls BirdDog PTZ cameras.",
 	"main": "index.js",
 	"scripts": {
 		"test": "echo \"Error: no test specified\" && exit 1"
 	},
 	"author": "Benni M. <info@benni-m.de>",
+	"contributors": [
+		"Bryce Seifert"
+	],
 	"license": "MIT",
 	"homepage": "https://github.com/bitfocus/companion-module-birddog-visca#readme",
 	"bugs": {
@@ -23,5 +26,8 @@
 	"repository": {
 		"type": "git",
 		"url": "git+https://github.com/bitfocus/companion-module-birddog-visca.git"
+	},
+	"dependencies": {
+		"node-fetch": "^2.6.7"
 	}
 }
