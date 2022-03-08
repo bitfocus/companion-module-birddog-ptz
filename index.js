@@ -21,6 +21,102 @@ class instance extends instance_skel {
 
 		this.updateVariableDefinitions = updateVariableDefinitions
 		this.updateSourceVariables = updateSourceVariables
+
+		this.camera = {}
+
+		this.IRIS = [
+			{ id: '17', label: 'F1.6' },
+			{ id: '16', label: 'F2.0' },
+			{ id: '15', label: 'F2.4' },
+			{ id: '14', label: 'F2.8' },
+			{ id: '13', label: 'F3.4' },
+			{ id: '12', label: 'F4.0' },
+			{ id: '11', label: 'F4.8' },
+			{ id: '10', label: 'F5.6' },
+			{ id: '09', label: 'F6.8' },
+			{ id: '08', label: 'F8.0' },
+			{ id: '07', label: 'F9.6' },
+			{ id: '06', label: 'F11.0' },
+			{ id: '05', label: 'F14.0' },
+			{ id: '00', label: 'CLOSED' },
+		]
+
+		this.GAIN = [
+			{ id: '1', label: '0 dB' },
+			{ id: '2', label: '3.6 dB' },
+			{ id: '3', label: '7.1 dB' },
+			{ id: '4', label: '10.7 dB' },
+			{ id: '5', label: '14.3 dB' },
+			{ id: '6', label: '17.8 dB' },
+			{ id: '7', label: '21.4 dB' },
+			{ id: '8', label: '25.0 dB' },
+			{ id: '9', label: '28.6 dB' },
+			{ id: '10', label: '32.1 dB' },
+			{ id: '11', label: '35.7 dB' },
+			{ id: '12', label: '39.3 dB' },
+			{ id: '13', label: '42.8 dB' },
+			{ id: '14', label: '46.4 dB' },
+			{ id: '15', label: '50.0 dB' },
+		]
+
+		this.SHUTTER = [
+			{ id: '0', label: '1/1 | 1/1' },
+			{ id: '1', label: '1/2 | 1/2' },
+			{ id: '2', label: '1/4 | 1/4' },
+			{ id: '3', label: '1/8 | 1/8' },
+			{ id: '4', label: '1/15 | 1/12' },
+			{ id: '5', label: '1/30 | 1/25' },
+			{ id: '6', label: '1/60 | 1/50' },
+			{ id: '7', label: '1/90 | 1/75' },
+			{ id: '8', label: '1/100 | 1/100' },
+			{ id: '9', label: '1/125 | 1/120' },
+			{ id: '10', label: '1/180 | 1/150' },
+			{ id: '11', label: '1/250 | 1/215' },
+			{ id: '12', label: '1/350 | 1/300' },
+			{ id: '13', label: '1/500 | 1/425' },
+			{ id: '14', label: '1/725 | 1/600' },
+			{ id: '15', label: '1/1000 | 1/1000' },
+			{ id: '16', label: '1/1500 | 1/1250' },
+			{ id: '17', label: '1/2000 | 1/1750' },
+			{ id: '18', label: '1/3000 | 1/2500' },
+			{ id: '19', label: '1/4000 | 1/3500' },
+			{ id: '20', label: '1/6000 | 1/6000' },
+			{ id: '21', label: '1/10000 | 1/10000' },
+		]
+
+		this.PRESET = []
+		let i = 0
+		for (i = 0; i < 64; i++) {
+			let presetNumber = i + 1
+			this.PRESET.push({ id: i, label: `Preset ${presetNumber}` })
+		}
+
+		this.SPEED = [
+			{ id: '01', label: 'Speed 01 (Slow)' },
+			{ id: '02', label: 'Speed 02' },
+			{ id: '03', label: 'Speed 03' },
+			{ id: '04', label: 'Speed 04' },
+			{ id: '05', label: 'Speed 05' },
+			{ id: '06', label: 'Speed 06' },
+			{ id: '07', label: 'Speed 07' },
+			{ id: '08', label: 'Speed 08' },
+			{ id: '09', label: 'Speed 09' },
+			{ id: '0A', label: 'Speed 10' },
+			{ id: '0B', label: 'Speed 11' },
+			{ id: '0C', label: 'Speed 12' },
+			{ id: '0D', label: 'Speed 13' },
+			{ id: '0E', label: 'Speed 14' },
+			{ id: '0F', label: 'Speed 15' },
+			{ id: '10', label: 'Speed 16' },
+			{ id: '11', label: 'Speed 17' },
+			{ id: '12', label: 'Speed 18' },
+			{ id: '13', label: 'Speed 19' },
+			{ id: '14', label: 'Speed 20' },
+			{ id: '15', label: 'Speed 21' },
+			{ id: '16', label: 'Speed 22' },
+			{ id: '17', label: 'Speed 23' },
+			{ id: '18', label: 'Speed 24 (Fast)' },
+		]
 	}
 
 	config_fields() {
@@ -73,9 +169,11 @@ class instance extends instance_skel {
 				this.poll()
 			}
 
-			this.udp.on('status_change', function (status, message) {
-				this.status(status, message)
+			this.udp.on('status_change', (status, message) => {
+				//this.status(status, message)
 			})
+
+			this.sendCommand('about', 'GET')
 		}
 	}
 
@@ -99,8 +197,16 @@ class instance extends instance_skel {
 		this.initFeedbacks()
 		this.initPresets()
 
-		this.port = 52381
+		this.port = 52381 // Visca port
 		this.sendCommand('about', 'GET')
+		this.sendCommand('analogaudiosetup', 'GET')
+		this.sendCommand('encodesetup', 'GET')
+		this.sendCommand('birddogptzsetup', 'GET')
+		this.sendCommand('birddogexpsetup', 'GET')
+		this.sendCommand('birddogwbsetup', 'GET')
+		this.sendCommand('birddogpicsetup', 'GET')
+		this.sendCommand('birddogcmsetup', 'GET')
+		this.sendCommand('birddogadvancesetup', 'GET')
 		this.init_udp()
 	}
 
@@ -232,9 +338,9 @@ class instance extends instance_skel {
 			case 'ptSpeedS':
 				this.ptSpeed = opt.speed
 
-				var idx = -1
-				for (var i = 0; i < SPEED.length; ++i) {
-					if (SPEED[i].id == this.ptSpeed) {
+				let idx = -1
+				for (let i = 0; i < this.SPEED.length; ++i) {
+					if (this.SPEED[i].id == this.ptSpeed) {
 						idx = i
 						break
 					}
@@ -251,7 +357,7 @@ class instance extends instance_skel {
 				} else if (this.ptSpeedIndex < 23) {
 					this.ptSpeedIndex++
 				}
-				this.ptSpeed = SPEED[this.ptSpeedIndex].id
+				this.ptSpeed = this.SPEED[this.ptSpeedIndex].id
 				break
 
 			case 'ptSpeedU':
@@ -260,7 +366,7 @@ class instance extends instance_skel {
 				} else if (this.ptSpeedIndex > 0) {
 					this.ptSpeedIndex--
 				}
-				this.ptSpeed = SPEED[this.ptSpeedIndex].id
+				this.ptSpeed = this.SPEED[this.ptSpeedIndex].id
 				break
 
 			case 'zoom':
@@ -388,7 +494,7 @@ class instance extends instance_skel {
 						break
 					case 'value':
 						cmd = Buffer.from('\x81\x01\x04\x4C\x00\x00\x00\x00\xFF', 'binary')
-						var number = opt.value
+						let number = opt.value
 						if (number > 255) {
 							number = '255'
 						}
@@ -414,7 +520,7 @@ class instance extends instance_skel {
 						break
 					case 'value':
 						cmd = Buffer.from('\x81\x01\x04\x43\x00\x00\x00\x00\xFF', 'binary')
-						var number = opt.value
+						let number = opt.value
 						if (number > 255) {
 							number = '255'
 						}
@@ -439,7 +545,7 @@ class instance extends instance_skel {
 						break
 					case 'value':
 						cmd = Buffer.from('\x81\x01\x04\x44\x00\x00\x00\x00\xFF', 'binary')
-						var number = opt.value
+						let number = opt.value
 						if (number > 255) {
 							number = '255'
 						}
@@ -464,7 +570,7 @@ class instance extends instance_skel {
 						break
 					case 'value':
 						cmd = Buffer.from('\x81\x01\x04\x4B\x00\x00\x00\x00\xFF', 'binary')
-						var number = opt.value
+						let number = opt.value
 						if (number > 255) {
 							number = '255'
 						}
@@ -491,7 +597,7 @@ class instance extends instance_skel {
 						break
 					case 'value':
 						cmd = Buffer.from('\x81\x01\x04\x4A\x00\x00\x00\x00\xFF', 'binary')
-						var number = opt.value
+						let number = opt.value
 						if (number > 255) {
 							number = '255'
 						}
@@ -628,8 +734,8 @@ class instance extends instance_skel {
 				break
 
 			case 'custom':
-				var hexData = opt.custom.replace(/\s+/g, '')
-				var tempBuffer = Buffer.from(hexData, 'hex')
+				let hexData = opt.custom.replace(/\s+/g, '')
+				let tempBuffer = Buffer.from(hexData, 'hex')
 				cmd = tempBuffer.toString('binary')
 				if ((tempBuffer[0] & 0xf0) === 0x80) {
 					this.sendVISCACommand(cmd)
@@ -642,18 +748,12 @@ class instance extends instance_skel {
 
 	sendCommand(cmd, type, params) {
 		let url = `http://${this.config.host}:8080/${cmd}`
-		let options = {}
+		let options = {
+			method: type,
+			headers: { 'Content-Type': 'application/json' },
+		}
 		if (type == 'PUT' || type == 'POST') {
-			options = {
-				method: type,
-				body: params != undefined ? JSON.stringify(params) : null,
-				headers: { 'Content-Type': 'application/json' },
-			}
-		} else {
-			options = {
-				method: type,
-				headers: { 'Content-Type': 'application/json' },
-			}
+			options.body = params != undefined ? JSON.stringify(params) : null
 		}
 
 		fetch(url, options)
@@ -672,39 +772,50 @@ class instance extends instance_skel {
 			})
 			.catch((err) => {
 				this.debug(err)
-				let errorText = String(err)
-				if (errorText.match('ECONNREFUSED')) {
-					if (this.errorCount < 1) {
-						this.status(this.STATUS_ERROR)
-						this.log('error', 'Unable to connect to BirdDog')
-					}
-					if (this.errorCount > 60 && this.pollingInterval == 1000) {
-						this.pollingInterval = 5000
-						this.setupPolling()
-					}
-					this.errorCount++
-				} else if (errorText.match('ETIMEDOUT') || errorText.match('ENOTFOUND')) {
-					if (this.timeOut < 1) {
-						this.status(this.STATUS_ERROR)
-						this.log('error', 'Unable to connect to BirdDog')
-						this.timeOut++
-					}
-				}
 			})
 	}
+
 	processData(cmd, data) {
 		if (cmd.match('/about')) {
-			this.debug('HERE', data.HostName)
 			if (this.currentStatus != 0) {
 				this.status(this.STATUS_OK)
 				this.log('info', `Connected to ${data.HostName}`)
 			}
+			this.camera.about = data
+		} else if (cmd.match('/analogaudiosetup')) {
+			this.camera.audio = data
+		} else if (cmd.match('/encodesetup')) {
+			this.camera.encode = data
+			this.setVariable('video_format', data.VideoFormat)
+		} else if (cmd.match('/birddogptzsetup')) {
+			this.camera.ptz = data
+			this.setVariable('pan_speed', data.PanSpeed)
+			this.ptSpeed = data.PanSpeed ? data.PanSpeed : '0C'
+			this.setVariable('tilt_speed', data.TiltSpeed)
+			this.setVariable('zoom_speed', data.ZoomSpeed)
+		} else if (cmd.match('/birddogexpsetup')) {
+			this.camera.exposure = data
+			this.setVariable('exposure_mode', data.ExpMode)
+			this.setVariable('iris', this.IRIS.find((o) => o.id == data.IrisLevel)?.label)
+			this.setVariable('gain', this.GAIN.find((o) => o.id == data.GainLevel)?.label)
+			this.setVariable('gain_limit', this.GAIN.find((o) => o.id == data.GainLimit)?.label)
+			this.setVariable('shutter_speed', this.SHUTTER.find((o) => o.id == data.ShutterSpeed)?.label)
+		} else if (cmd.match('/birddogwbsetup')) {
+			this.camera.wb = data
+			this.setVariable('wb_mode', data.WbMode)
+			this.setVariable('wb_blue_gain', data.BlueGain)
+			this.setVariable('wb_red_gain', data.RedGain)
+		} else if (cmd.match('/birddogpicsetup')) {
+			this.camera.pic = data
+		} else if (cmd.match('/birddogcmsetup')) {
+			this.camera.color = data
+		} else if (cmd.match('/birddogadvancesetup')) {
+			this.camera.advanced = data
 		}
 	}
-	///OLD
 
 	sendVISCACommand(payload, counter) {
-		var buf = Buffer.alloc(32)
+		let buf = Buffer.alloc(32)
 
 		// 0x01 0x00 = VISCA Command
 		buf[0] = 0x01
@@ -726,7 +837,7 @@ class instance extends instance_skel {
 			counter.copy(buf, 7)
 		}
 
-		var newbuf = buf.slice(0, 8 + payload.length)
+		let newbuf = buf.slice(0, 8 + payload.length)
 
 		// udp.send(newbuf);
 
@@ -744,7 +855,7 @@ class instance extends instance_skel {
 	}
 
 	sendControlCommand(payload) {
-		var buf = Buffer.alloc(32)
+		let buf = Buffer.alloc(32)
 
 		// 0x01 0x00 = VISCA Command
 		buf[0] = 0x02
@@ -761,13 +872,14 @@ class instance extends instance_skel {
 			payload.copy(buf, 8)
 		}
 
-		var newbuf = buf.slice(0, 8 + payload.length)
+		let newbuf = buf.slice(0, 8 + payload.length)
 
 		// udp.send(newbuf);
 
 		debug('sending', newbuf, 'to', this.udp.host)
 		this.udp.send(newbuf)
 	}
+
 	init_udp() {
 		if (this.udp !== undefined) {
 			this.udp.destroy()
@@ -788,7 +900,7 @@ class instance extends instance_skel {
 			}
 
 			this.udp.on('status_change', (status, message) => {
-				this.status(status, message)
+				//this.status(status, message)
 			})
 			this.udp.on('data', (data) => {
 				this.incomingData(data)
@@ -796,17 +908,17 @@ class instance extends instance_skel {
 			debug(this.udp.host, ':', this.port)
 		}
 	}
+
 	poll() {
-		//shutter
-		this.sendVISCACommand('\x81\x09\x04\x4a\xFF', '\x4a')
-		//gain
-		this.sendVISCACommand('\x81\x09\x04\x4c\xFF', '\x4c')
-		//gain red
-		this.sendVISCACommand('\x81\x09\x04\x43\xFF', '\x43')
-		//gain blue
-		this.sendVISCACommand('\x81\x09\x04\x44\xFF', '\x44')
-		//iris
-		this.sendVISCACommand('\x81\x09\x04\x4b\xFF', '\x4b')
+		this.debug('Polling camera')
+		this.sendCommand('analogaudiosetup', 'GET')
+		this.sendCommand('encodesetup', 'GET')
+		this.sendCommand('birddogptzsetup', 'GET')
+		this.sendCommand('birddogexpsetup', 'GET')
+		this.sendCommand('birddogwbsetup', 'GET')
+		this.sendCommand('birddogpicsetup', 'GET')
+		this.sendCommand('birddogcmsetup', 'GET')
+		this.sendCommand('birddogadvancesetup', 'GET')
 	}
 }
 exports = module.exports = instance

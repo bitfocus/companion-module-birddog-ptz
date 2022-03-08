@@ -493,21 +493,12 @@ exports.getPresets = function () {
 			size: '18',
 			color: '16777215',
 			bgcolor: this.rgb(0, 0, 0),
-			latch: true,
 		},
 		actions: [
 			{
 				action: 'expM',
 				options: {
 					bol: 0,
-				},
-			},
-		],
-		release_actions: [
-			{
-				action: 'expM',
-				options: {
-					bol: 1,
 				},
 			},
 		],
