@@ -18,11 +18,11 @@ module.exports = {
 			],
 		}
 		actions['initalize'] = {
-			label: 'Initalize / Reset',
+			label: 'Initialize / Reset',
 			options: [
 				{
 					type: 'dropdown',
-					label: 'Lens/Reset',
+					label: 'Type',
 					id: 'val',
 					choices: [
 						{ id: '0', label: 'Lens Initialization' },
@@ -37,7 +37,7 @@ module.exports = {
 			options: [
 				{
 					type: 'dropdown',
-					label: 'Pan/Tilt',
+					label: 'Direction',
 					id: 'val',
 					choices: [
 						{ id: '0', label: 'Left' },
@@ -60,7 +60,7 @@ module.exports = {
 			options: [
 				{
 					type: 'dropdown',
-					label: 'Speed Setting',
+					label: 'Speed',
 					id: 'speed',
 					choices: this.SPEED,
 					default: '0C',
@@ -74,7 +74,7 @@ module.exports = {
 			options: [
 				{
 					type: 'dropdown',
-					label: 'Slow Mode On/Off',
+					label: 'Slow Mode',
 					id: 'bol',
 					choices: [
 						{ id: '1', label: 'Off' },
@@ -88,7 +88,7 @@ module.exports = {
 			options: [
 				{
 					type: 'dropdown',
-					label: 'Zoom Setting',
+					label: 'Direction',
 					id: 'val',
 					choices: [
 						{ id: '0', label: 'Zoom In' },
@@ -104,7 +104,7 @@ module.exports = {
 			options: [
 				{
 					type: 'dropdown',
-					label: 'Clear Image On/Off',
+					label: 'Clear Image',
 					id: 'bol',
 					choices: [
 						{ id: '0', label: 'Off' },
@@ -118,7 +118,7 @@ module.exports = {
 			options: [
 				{
 					type: 'dropdown',
-					label: 'Focus Setting',
+					label: 'Direction',
 					id: 'val',
 					choices: [
 						{ id: '0', label: 'Focus Near' },
@@ -135,7 +135,7 @@ module.exports = {
 			options: [
 				{
 					type: 'dropdown',
-					label: 'Auto / Manual Focus',
+					label: 'Mode',
 					id: 'bol',
 					choices: [
 						{ id: '0', label: 'Auto Focus' },
@@ -150,7 +150,7 @@ module.exports = {
 			options: [
 				{
 					type: 'dropdown',
-					label: 'Mode setting',
+					label: 'Mode',
 					id: 'val',
 					choices: [
 						{ id: '0', label: 'Full Auto' },
@@ -167,7 +167,7 @@ module.exports = {
 			options: [
 				{
 					type: 'dropdown',
-					label: 'Mode setting',
+					label: 'Mode',
 					id: 'val',
 					choices: [
 						{ id: '0', label: 'Auto' },
@@ -191,7 +191,7 @@ module.exports = {
 			options: [
 				{
 					type: 'dropdown',
-					label: 'Gain setting',
+					label: 'Gain',
 					id: 'val',
 					choices: [
 						{ id: 'up', label: 'UP' },
@@ -207,6 +207,7 @@ module.exports = {
 					id: 'value',
 					choices: this.GAIN,
 					default: 01,
+					isVisible: (action) => action.options.val === 'value',
 				},
 			],
 		}
@@ -215,7 +216,7 @@ module.exports = {
 			options: [
 				{
 					type: 'dropdown',
-					label: 'Gain Red setting',
+					label: 'Gain Red',
 					id: 'val',
 					choices: [
 						{ id: 'up', label: 'UP' },
@@ -226,11 +227,13 @@ module.exports = {
 					default: 'up',
 				},
 				{
-					type: 'dropdown',
-					label: 'VALUE',
+					type: 'number',
+					label: 'Value',
 					id: 'value',
-					choices: { id: 'up', label: 'UP' }, //FIX ME
-					default: '200',
+					default: 127,
+					min: 0,
+					max: 255,
+					isVisible: (action) => action.options.val === 'value',
 				},
 			],
 		}
@@ -239,7 +242,7 @@ module.exports = {
 			options: [
 				{
 					type: 'dropdown',
-					label: 'Gain Blue setting',
+					label: 'Gain Blue',
 					id: 'val',
 					choices: [
 						{ id: 'up', label: 'UP' },
@@ -250,11 +253,13 @@ module.exports = {
 					default: 'up',
 				},
 				{
-					type: 'dropdown',
-					label: 'VALUE',
+					type: 'number',
+					label: 'Value',
 					id: 'value',
-					choices: { id: 'up', label: 'UP' }, //FIX ME
-					default: '200',
+					default: 127,
+					min: 0,
+					max: 255,
+					isVisible: (action) => action.options.val === 'value',
 				},
 			],
 		}
@@ -263,7 +268,7 @@ module.exports = {
 			options: [
 				{
 					type: 'dropdown',
-					label: 'Iris setting',
+					label: 'Iris',
 					id: 'val',
 					choices: [
 						{ id: 'up', label: 'UP' },
@@ -275,10 +280,11 @@ module.exports = {
 				},
 				{
 					type: 'dropdown',
-					label: 'VALUE',
+					label: 'Value',
 					id: 'value',
 					choices: this.IRIS,
 					default: 11,
+					isVisible: (action) => action.options.val === 'value',
 				},
 			],
 		}
@@ -287,7 +293,7 @@ module.exports = {
 			options: [
 				{
 					type: 'dropdown',
-					label: 'Shutter setting',
+					label: 'Shutter',
 					id: 'val',
 					choices: [
 						{ id: 'up', label: 'UP' },
@@ -303,6 +309,7 @@ module.exports = {
 					id: 'value',
 					choices: this.SHUTTER,
 					default: 11,
+					isVisible: (action) => action.options.val === 'value',
 				},
 			],
 		}
@@ -311,7 +318,7 @@ module.exports = {
 			options: [
 				{
 					type: 'dropdown',
-					label: 'Preset Nr.',
+					label: 'Preset Number',
 					id: 'val',
 					choices: this.PRESET,
 					default: 0,
@@ -331,7 +338,7 @@ module.exports = {
 			],
 		}
 		actions['pictureEffect'] = {
-			label: 'Picture Effect Setting',
+			label: 'Picture Effect',
 			options: [
 				{
 					type: 'dropdown',
@@ -394,7 +401,7 @@ module.exports = {
 			],
 		}
 		actions['highSensitivity'] = {
-			label: 'High Sensitivity on/off',
+			label: 'High Sensitivity',
 			options: [
 				{
 					type: 'dropdown',
@@ -428,7 +435,7 @@ module.exports = {
 			options: [
 				{
 					type: 'dropdown',
-					label: 'Freeze On/Off',
+					label: 'Freeze',
 					id: 'val',
 					choices: [
 						{ id: '0', label: 'On' },

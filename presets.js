@@ -701,7 +701,7 @@ exports.getPresets = function () {
 			label: 'Save Preset ' + parseInt(save + 1),
 			bank: {
 				style: 'text',
-				text: 'SAVE\\nPSET\\n' + parseInt(save + 1),
+				text: 'SAVE\\nPRESET\\n' + parseInt(save + 1),
 				size: '14',
 				color: '16777215',
 				bgcolor: this.rgb(0, 0, 0),
@@ -724,7 +724,7 @@ exports.getPresets = function () {
 			label: 'Recall Preset ' + parseInt(recall + 1),
 			bank: {
 				style: 'text',
-				text: 'Recall\\nPSET\\n' + parseInt(recall + 1),
+				text: 'Recall\\nPRESET\\n' + parseInt(recall + 1),
 				size: '14',
 				color: '16777215',
 				bgcolor: this.rgb(0, 0, 0),

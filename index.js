@@ -59,30 +59,57 @@ class instance extends instance_skel {
 			{ id: '15', label: '50.0 dB' },
 		]
 
-		this.SHUTTER = [
-			{ id: '0', label: '1/1 | 1/1' },
-			{ id: '1', label: '1/2 | 1/2' },
-			{ id: '2', label: '1/4 | 1/4' },
-			{ id: '3', label: '1/8 | 1/8' },
-			{ id: '4', label: '1/15 | 1/12' },
-			{ id: '5', label: '1/30 | 1/25' },
-			{ id: '6', label: '1/60 | 1/50' },
-			{ id: '7', label: '1/90 | 1/75' },
-			{ id: '8', label: '1/100 | 1/100' },
-			{ id: '9', label: '1/125 | 1/120' },
-			{ id: '10', label: '1/180 | 1/150' },
-			{ id: '11', label: '1/250 | 1/215' },
-			{ id: '12', label: '1/350 | 1/300' },
-			{ id: '13', label: '1/500 | 1/425' },
-			{ id: '14', label: '1/725 | 1/600' },
-			{ id: '15', label: '1/1000 | 1/1000' },
-			{ id: '16', label: '1/1500 | 1/1250' },
-			{ id: '17', label: '1/2000 | 1/1750' },
-			{ id: '18', label: '1/3000 | 1/2500' },
-			{ id: '19', label: '1/4000 | 1/3500' },
-			{ id: '20', label: '1/6000 | 1/6000' },
-			{ id: '21', label: '1/10000 | 1/10000' },
+		this.SHUTTER_NTSC = [
+			{ id: '0', label: '1/1' },
+			{ id: '1', label: '1/2' },
+			{ id: '2', label: '1/4' },
+			{ id: '3', label: '1/8' },
+			{ id: '4', label: '1/15' },
+			{ id: '5', label: '1/30' },
+			{ id: '6', label: '1/60' },
+			{ id: '7', label: '1/90' },
+			{ id: '8', label: '1/100' },
+			{ id: '9', label: '1/125' },
+			{ id: '10', label: '1/180' },
+			{ id: '11', label: '1/250' },
+			{ id: '12', label: '1/350' },
+			{ id: '13', label: '1/500' },
+			{ id: '14', label: '1/725' },
+			{ id: '15', label: '1/1000' },
+			{ id: '16', label: '1/1500' },
+			{ id: '17', label: '1/2000' },
+			{ id: '18', label: '1/3000' },
+			{ id: '19', label: '1/4000' },
+			{ id: '20', label: '1/6000' },
+			{ id: '21', label: '1/10000' },
 		]
+
+		this.SHUTTER_PAL = [
+			{ id: '0', label: '1/1' },
+			{ id: '1', label: '1/2' },
+			{ id: '2', label: '1/4' },
+			{ id: '3', label: '1/8' },
+			{ id: '4', label: '1/12' },
+			{ id: '5', label: '1/25' },
+			{ id: '6', label: '1/50' },
+			{ id: '7', label: '1/75' },
+			{ id: '8', label: '1/100' },
+			{ id: '9', label: '1/120' },
+			{ id: '10', label: '1/150' },
+			{ id: '11', label: '1/215' },
+			{ id: '12', label: '1/300' },
+			{ id: '13', label: '1/425' },
+			{ id: '14', label: '1/600' },
+			{ id: '15', label: '1/1000' },
+			{ id: '16', label: '1/1250' },
+			{ id: '17', label: '1/1750' },
+			{ id: '18', label: '1/2500' },
+			{ id: '19', label: '1/3500' },
+			{ id: '20', label: '1/6000' },
+			{ id: '21', label: '1/10000' },
+		]
+
+		this.SHUTTER = this.SHUTTER_NTSC
 
 		this.PRESET = []
 		let i = 0
@@ -135,53 +162,25 @@ class instance extends instance_skel {
 				width: 6,
 				regex: this.REGEX_IP,
 			},
-			{
-				type: 'dropdown',
-				id: 'pollActive',
-				label: 'Activate poll every 3 sec',
-				default: 'off',
-				choices: [
-					{ id: 'off', label: 'Off' },
-					{ id: 'on', label: 'On' },
-				],
-			},
 		]
 	}
 
 	updateConfig(config) {
 		this.config = config
 
-		if (this.udp !== undefined) {
-			this.udp.destroy()
-			delete this.udp
-		}
-
-		clearInterval(this.poll_interval)
-
-		this.status(this.STATUS_UNKNOWN)
+		this.status(this.STATUS_WARNING, 'Connecting')
 
 		if (this.config.host !== undefined) {
-			this.udp = new udp(this.config.host, this.port)
-
-			// poll monitoring
-			if (this.config.pollActive == 'on') {
-				this.poll_interval = setInterval(this.poll.bind(this), 3000) //ms for poll
-				this.poll()
-			}
-
-			this.udp.on('status_change', (status, message) => {
-				//this.status(status, message)
-			})
-
-			this.sendCommand('about', 'GET')
+			this.init_udp()
 		}
 	}
 
 	destroy() {
-		clearInterval(this.poll_interval)
-
 		if (this.udp !== undefined) {
 			this.udp.destroy()
+		}
+		if (this.poll_interval !== undefined) {
+			clearInterval(this.poll_interval)
 		}
 		debug('destroy', this.id)
 	}
@@ -495,9 +494,6 @@ class instance extends instance_skel {
 					case 'value':
 						cmd = Buffer.from('\x81\x01\x04\x4C\x00\x00\x00\x00\xFF', 'binary')
 						let number = opt.value
-						if (number > 255) {
-							number = '255'
-						}
 						cmd.writeUInt8(number.toString(8) >> 4, 6)
 						cmd.writeUInt8(number - parseInt(number.toString(8) >> 4) * 16, 7)
 						fb = Buffer.from('\x5c', 'binary')
@@ -520,10 +516,7 @@ class instance extends instance_skel {
 						break
 					case 'value':
 						cmd = Buffer.from('\x81\x01\x04\x43\x00\x00\x00\x00\xFF', 'binary')
-						let number = opt.value
-						if (number > 255) {
-							number = '255'
-						}
+						let number = opt.value.toString()
 						cmd.writeUInt8(number.toString(8) >> 4, 6)
 						cmd.writeUInt8(number - parseInt(number.toString(8) >> 4) * 16, 7)
 						break
@@ -545,10 +538,7 @@ class instance extends instance_skel {
 						break
 					case 'value':
 						cmd = Buffer.from('\x81\x01\x04\x44\x00\x00\x00\x00\xFF', 'binary')
-						let number = opt.value
-						if (number > 255) {
-							number = '255'
-						}
+						let number = opt.value.toString()
 						cmd.writeUInt8(number.toString(8) >> 4, 6)
 						cmd.writeUInt8(number - parseInt(number.toString(8) >> 4) * 16, 7)
 						break
@@ -772,6 +762,16 @@ class instance extends instance_skel {
 			})
 			.catch((err) => {
 				this.debug(err)
+				let errorText = String(err)
+				if (errorText.match('ECONNREFUSED') || errorText.match('ENOTFOUND') || errorText.match('EHOSTDOWN')) {
+					if (this.currentStatus != 2) {
+						this.status(this.STATUS_ERROR)
+						this.log(
+							'error',
+							`Connection lost to ${this.camera?.about?.HostName ? this.camera.about.HostName : 'BirdDog PTZ camera'}`
+						)
+					}
+				}
 			})
 	}
 
@@ -785,6 +785,15 @@ class instance extends instance_skel {
 		} else if (cmd.match('/analogaudiosetup')) {
 			this.camera.audio = data
 		} else if (cmd.match('/encodesetup')) {
+			if (!this.camera?.encode || this.camera?.encode?.VideoFormat !== data.VideoFormat) {
+				if (data.VideoFormat.match('25') || data.VideoFormat.match('50')) {
+					this.SHUTTER = this.SHUTTER_PAL
+					this.actions()
+				} else {
+					this.SHUTTER = this.SHUTTER_NTSC
+					this.actions()
+				}
+			}
 			this.camera.encode = data
 			this.setVariable('video_format', data.VideoFormat)
 		} else if (cmd.match('/birddogptzsetup')) {
@@ -885,7 +894,9 @@ class instance extends instance_skel {
 			this.udp.destroy()
 			delete this.udp
 		}
-
+		if (this.poll_interval !== undefined) {
+			clearInterval(this.poll_interval)
+		}
 		if (this.config.host !== undefined) {
 			this.udp = new udp(this.config.host, this.port)
 
@@ -893,11 +904,8 @@ class instance extends instance_skel {
 			this.sendControlCommand('\x01')
 			this.packet_counter = 0
 
-			// poll monitoring
-			if (this.config.pollActive == 'on') {
-				this.poll_interval = setInterval(this.poll.bind(this), 3000) //ms for poll
-				this.poll()
-			}
+			this.poll_interval = setInterval(this.poll.bind(this), 3000) //ms for poll
+			this.poll()
 
 			this.udp.on('status_change', (status, message) => {
 				//this.status(status, message)
@@ -911,6 +919,7 @@ class instance extends instance_skel {
 
 	poll() {
 		this.debug('Polling camera')
+		this.sendCommand('about', 'GET')
 		this.sendCommand('analogaudiosetup', 'GET')
 		this.sendCommand('encodesetup', 'GET')
 		this.sendCommand('birddogptzsetup', 'GET')
