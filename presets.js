@@ -357,34 +357,6 @@ exports.getPresets = function () {
 	})
 	presets.push({
 		category: 'Lens',
-		label: 'CI Zoom',
-		bank: {
-			style: 'text',
-			text: 'CI\\nZOOM',
-			size: '18',
-			color: '16777215',
-			bgcolor: this.rgb(0, 0, 0),
-			latch: true,
-		},
-		actions: [
-			{
-				action: 'ciZoom',
-				options: {
-					bol: 1,
-				},
-			},
-		],
-		release_actions: [
-			{
-				action: 'ciZoom',
-				options: {
-					bol: 0,
-				},
-			},
-		],
-	})
-	presets.push({
-		category: 'Lens',
 		label: 'Focus Near',
 		bank: {
 			style: 'text',

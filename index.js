@@ -383,16 +383,6 @@ class instance extends instance_skel {
 				this.sendVISCACommand(cmd)
 				break
 
-			case 'ciZoom':
-				if (opt.bol == 0) {
-					cmd = '\x81\x01\x04\x06\x03\xFF'
-				}
-				if (opt.bol == 1) {
-					cmd = '\x81\x01\x04\x06\x04\xFF'
-				}
-				this.sendVISCACommand(cmd)
-				break
-
 			case 'focus':
 				switch (opt.val) {
 					case '0':
@@ -918,7 +908,6 @@ class instance extends instance_skel {
 	}
 
 	poll() {
-		this.debug('Polling camera')
 		this.sendCommand('about', 'GET')
 		this.sendCommand('analogaudiosetup', 'GET')
 		this.sendCommand('encodesetup', 'GET')

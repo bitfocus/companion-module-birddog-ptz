@@ -99,20 +99,6 @@ module.exports = {
 				},
 			],
 		}
-		actions['ciZoom'] = {
-			label: 'Clear Image Zoom',
-			options: [
-				{
-					type: 'dropdown',
-					label: 'Clear Image',
-					id: 'bol',
-					choices: [
-						{ id: '0', label: 'Off' },
-						{ id: '1', label: 'On' },
-					],
-				},
-			],
-		}
 		actions['focus'] = {
 			label: 'Focus',
 			options: [
@@ -401,7 +387,7 @@ module.exports = {
 			],
 		}
 		actions['highSensitivity'] = {
-			label: 'High Sensitivity',
+			label: 'High Sensitivity Mode',
 			options: [
 				{
 					type: 'dropdown',
@@ -416,7 +402,7 @@ module.exports = {
 			],
 		}
 		actions['tally'] = {
-			label: 'Tally on/off',
+			label: 'Tally',
 			options: [
 				{
 					type: 'dropdown',
