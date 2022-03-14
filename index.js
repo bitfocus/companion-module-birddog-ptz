@@ -87,8 +87,8 @@ class instance extends instance_skel {
 		this.SHUTTER_PAL = [
 			{ id: '0', label: '1/1' },
 			{ id: '1', label: '1/2' },
-			{ id: '2', label: '1/4' },
-			{ id: '3', label: '1/8' },
+			{ id: '2', label: '1/3' },
+			{ id: '3', label: '1/6' },
 			{ id: '4', label: '1/12' },
 			{ id: '5', label: '1/25' },
 			{ id: '6', label: '1/50' },
