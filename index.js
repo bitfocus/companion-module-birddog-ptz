@@ -33,12 +33,12 @@ class instance extends instance_skel {
 			{ id: '12', label: 'F4.0' },
 			{ id: '11', label: 'F4.8' },
 			{ id: '10', label: 'F5.6' },
-			{ id: '09', label: 'F6.8' },
-			{ id: '08', label: 'F8.0' },
-			{ id: '07', label: 'F9.6' },
-			{ id: '06', label: 'F11.0' },
-			{ id: '05', label: 'F14.0' },
-			{ id: '00', label: 'CLOSED' },
+			{ id: '9', label: 'F6.8' },
+			{ id: '8', label: 'F8.0' },
+			{ id: '7', label: 'F9.6' },
+			{ id: '6', label: 'F11.0' },
+			{ id: '5', label: 'F14.0' },
+			{ id: '0', label: 'CLOSED' },
 		]
 
 		this.GAIN = [
@@ -795,7 +795,7 @@ class instance extends instance_skel {
 		} else if (cmd.match('/birddogexpsetup')) {
 			this.camera.exposure = data
 			this.setVariable('exposure_mode', data.ExpMode)
-			this.setVariable('iris', this.IRIS.find((o) => o.id == data.IrisLevel)?.label)
+			this.setVariable('iris', data.IrisLevel == '4' ? 'CLOSED' : this.IRIS.find((o) => o.id == data.IrisLevel)?.label)
 			this.setVariable('gain', this.GAIN.find((o) => o.id == data.GainLevel)?.label)
 			this.setVariable('gain_limit', this.GAIN.find((o) => o.id == data.GainLimit)?.label)
 			this.setVariable('shutter_speed', this.SHUTTER.find((o) => o.id == data.ShutterSpeed)?.label)
