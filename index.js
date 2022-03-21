@@ -198,6 +198,7 @@ class instance extends instance_skel {
 
 		this.port = 52381 // Visca port
 		this.sendCommand('about', 'GET')
+		this.sendCommand('version, 'GET')
 		this.sendCommand('analogaudiosetup', 'GET')
 		this.sendCommand('encodesetup', 'GET')
 		this.sendCommand('birddogptzsetup', 'GET')
@@ -772,6 +773,9 @@ class instance extends instance_skel {
 				this.log('info', `Connected to ${data.HostName}`)
 			}
 			this.camera.about = data
+		} else if (cmd.match('/version')) {
+			this.camera.version = data
+			this.setVariable('version'.data)
 		} else if (cmd.match('/analogaudiosetup')) {
 			this.camera.audio = data
 		} else if (cmd.match('/encodesetup')) {
