@@ -826,7 +826,7 @@ class instance extends instance_skel {
 			this.setVariable('slow_shutter_limit', data.SlowShutterLimit)
 			this.setVariable('shutter_control_overwrite', data.ShutterControlOverwrite)
 			this.setVariable('shutter_speed_overwrite', data.ShutterSpeedOverwrite)
-			this.setVariable('shutter_max_speed', data.ShutterMaxSpeed)	
+			this.setVariable('shutter_max_speed', data.ShutterMaxSpeed)
 			this.setVariable('shutter_min_speed', data.ShutterMinSpeed)
 			this.setVariable('gain_point', data.GainPoint)
 			this.setVariable('gain_point_position', data.GainPointPosition)

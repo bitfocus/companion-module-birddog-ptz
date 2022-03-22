@@ -30,7 +30,7 @@ exports.updateVariableDefinitions = function () {
 		label: `Audio Output`,
 		name: `audio_output`,
 	})
-	
+
 	variables.push({
 		label: `Backlight`,
 		name: `backlight`,
@@ -56,7 +56,7 @@ exports.updateVariableDefinitions = function () {
 		name: `bright_level`,
 	})
 
-		variables.push({
+	variables.push({
 		label: `Chroma Suppress`,
 		name: `chroma_suppress`,
 	})
@@ -65,7 +65,7 @@ exports.updateVariableDefinitions = function () {
 		label: `Color Temp`,
 		name: `color_temp`,
 	})
-	
+
 	variables.push({
 		label: `Contrast`,
 		name: `contrast`,
@@ -85,7 +85,7 @@ exports.updateVariableDefinitions = function () {
 		label: `Exposure Compensation`,
 		name: `exposure_comp`,
 	})
-	
+
 	variables.push({
 		label: `Exposure Compensation Level`,
 		name: `exposure_comp_level`,
@@ -110,7 +110,7 @@ exports.updateVariableDefinitions = function () {
 		label: `Gain Point`,
 		name: `gain_point`,
 	})
-	
+
 	variables.push({
 		label: `Gain Point Position`,
 		name: `gain_point_position`,
@@ -131,7 +131,7 @@ exports.updateVariableDefinitions = function () {
 		name: `hlc_mode`,
 	})
 
-		variables.push({
+	variables.push({
 		label: `Hue`,
 		name: `hue`,
 	})
@@ -200,7 +200,7 @@ exports.updateVariableDefinitions = function () {
 		name: `saturation`,
 	})
 
-		variables.push({
+	variables.push({
 		label: `Sharpness`,
 		name: `sharpness`,
 	})
@@ -214,7 +214,7 @@ exports.updateVariableDefinitions = function () {
 		label: `Shutter Max Speed`,
 		name: `shutter_max_speed`,
 	})
-	
+
 	variables.push({
 		label: `Shutter Min Speed`,
 		name: `shutter_min_speed`,
@@ -239,12 +239,12 @@ exports.updateVariableDefinitions = function () {
 		label: `Slow Shutter Limit`,
 		name: `slow_shutter_limit`,
 	})
-	
+
 	variables.push({
 		label: `Spotlight`,
 		name: `spotlight`,
 	})
-	
+
 	variables.push({
 		label: `Stabilizer`,
 		name: `stabilizer`,
@@ -254,7 +254,7 @@ exports.updateVariableDefinitions = function () {
 		label: `Status`,
 		name: `status`,
 	})
-	
+
 	variables.push({
 		label: `Stream Name`,
 		name: `stream_name`,
