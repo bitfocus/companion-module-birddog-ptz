@@ -199,7 +199,10 @@ class instance extends instance_skel {
 		this.port = 52381 // Visca port
 		this.sendCommand('about', 'GET')
 		this.sendCommand('analogaudiosetup', 'GET')
+		this.sendCommand('videooutputinterface', 'GET')
+		this.sendCommand('encodetransport', 'GET')
 		this.sendCommand('encodesetup', 'GET')
+		this.sendCommand('NDIDisServer', 'GET')
 		this.sendCommand('birddogptzsetup', 'GET')
 		this.sendCommand('birddogexpsetup', 'GET')
 		this.sendCommand('birddogwbsetup', 'GET')
@@ -772,8 +775,18 @@ class instance extends instance_skel {
 				this.log('info', `Connected to ${data.HostName}`)
 			}
 			this.camera.about = data
+			this.setVariable('status', data.Status)
+		} else if (cmd.match('/videooutputinterface')) {
+			this.camera.videooutput = data
+			this.setVariable('video_output', data.videooutput)
 		} else if (cmd.match('/analogaudiosetup')) {
 			this.camera.audio = data
+			this.setVariable('audio_in_gain', data.AnalogAudioInGain)
+			this.setVariable('audio_out_gain', data.AnalogAudioOutGain)
+			this.setVariable('audio_output', data.AnalogAudiooutputselect)
+		} else if (cmd.match('/encodetransport')) {
+			this.camera.transport = data
+			this.setVariable('transmit_method', data.txpm)
 		} else if (cmd.match('/encodesetup')) {
 			if (!this.camera?.encode || this.camera?.encode?.VideoFormat !== data.VideoFormat) {
 				if (data.VideoFormat.match('25') || data.VideoFormat.match('50')) {
@@ -786,6 +799,17 @@ class instance extends instance_skel {
 			}
 			this.camera.encode = data
 			this.setVariable('video_format', data.VideoFormat)
+			this.setVariable('bandwidth', data.BandwidthSelect)
+			this.setVariable('bandwidth_mode', data.BandwidthMode)
+			this.setVariable('ndi_audio', data.NDIAudio)
+			this.setVariable('ndi_group', data.NDIGroup)
+			this.setVariable('ndi_group_name', data.NDIGroupName)
+			this.setVariable('stream_name', data.StreamName)
+			this.setVariable('tally_mode', data.TallyMode)
+		} else if (cmd.match('/NDIDisServer')) {
+			this.camera.ndiserver = data
+			this.setVariable('ndi_discovery_server', data.NDIDisServ)
+			this.setVariable('ndi_discovery_server_ip', data.NDIDisServIP)
 		} else if (cmd.match('/birddogptzsetup')) {
 			this.camera.ptz = data
 			this.setVariable('pan_speed', data.PanSpeed)
@@ -795,6 +819,21 @@ class instance extends instance_skel {
 		} else if (cmd.match('/birddogexpsetup')) {
 			this.camera.exposure = data
 			this.setVariable('exposure_mode', data.ExpMode)
+			this.setVariable('exposure_comp', data.ExpCompEn)
+			this.setVariable('exposure_comp_level', data.ExpCompLvl)
+			this.setVariable('ae_reponse', data.AeReponse)
+			this.setVariable('slow_shutter', data.SlowShutterEn)
+			this.setVariable('slow_shutter_limit', data.SlowShutterLimit)
+			this.setVariable('shutter_control_overwrite', data.ShutterControlOverwrite)
+			this.setVariable('shutter_speed_overwrite', data.ShutterSpeedOverwrite)
+			this.setVariable('shutter_max_speed', data.ShutterMaxSpeed)	
+			this.setVariable('shutter_min_speed', data.ShutterMinSpeed)
+			this.setVariable('gain_point', data.GainPoint)
+			this.setVariable('gain_point_position', data.GainPointPosition)
+			this.setVariable('bright_level', data.BrightLevel)
+			this.setVariable('high_sensitivity', data.HighSensitivity)
+			this.setVariable('backlight', data.BackLight)
+			this.setVariable('spotlight', data.Spotlight)
 			this.setVariable('iris', this.IRIS.find((o) => o.id == data.IrisLevel)?.label)
 			this.setVariable('gain', this.GAIN.find((o) => o.id == data.GainLevel)?.label)
 			this.setVariable('gain_limit', this.GAIN.find((o) => o.id == data.GainLimit)?.label)
@@ -804,8 +843,28 @@ class instance extends instance_skel {
 			this.setVariable('wb_mode', data.WbMode)
 			this.setVariable('wb_blue_gain', data.BlueGain)
 			this.setVariable('wb_red_gain', data.RedGain)
+			this.setVariable('color_temp', data.ColorTemp)
 		} else if (cmd.match('/birddogpicsetup')) {
 			this.camera.pic = data
+			this.setVariable('backlight_com', data.BackLightCom)
+			this.setVariable('chroma_suppress', data.ChromeSuppress)
+			this.setVariable('saturation', data.Color)
+			this.setVariable('contrast', data.Contrast)
+			this.setVariable('effect', data.Effect)
+			this.setVariable('flip', data.Flip)
+			this.setVariable('gamma', data.Gamma)
+			this.setVariable('hlc_mode', data.HighlightComp)
+			this.setVariable('hue', data.Hue)
+			this.setVariable('ir_cutfilter', data.IRCutFilter)
+			this.setVariable('mirror', data.Mirror)
+			this.setVariable('noise_reduction', data.NoiseReduction)
+			this.setVariable('sharpness', data.Sharpness)
+			this.setVariable('stabilizer', data.Stabilizer)
+			this.setVariable('2d_nr', data.TWODNR)
+			this.setVariable('3d_nr', data.ThreeDNR)
+			this.setVariable('wide_dynamic_range', data.WideDynamicRange)
+			this.setVariable('low_latency', data.LowLatency)
+			this.setVariable('nd_filter', data.NDFilter)
 		} else if (cmd.match('/birddogcmsetup')) {
 			this.camera.color = data
 		} else if (cmd.match('/birddogadvancesetup')) {
@@ -909,8 +968,11 @@ class instance extends instance_skel {
 
 	poll() {
 		this.sendCommand('about', 'GET')
+		this.sendCommand('videooutputinterface', 'GET')
 		this.sendCommand('analogaudiosetup', 'GET')
+		this.sendCommand('encodetransport', 'GET')
 		this.sendCommand('encodesetup', 'GET')
+		this.sendCommand('NDIDisServer', 'GET')
 		this.sendCommand('birddogptzsetup', 'GET')
 		this.sendCommand('birddogexpsetup', 'GET')
 		this.sendCommand('birddogwbsetup', 'GET')
