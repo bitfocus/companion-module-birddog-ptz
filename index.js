@@ -772,6 +772,7 @@ class instance extends instance_skel {
 				this.log('info', `Connected to ${data.HostName}`)
 			}
 			this.camera.about = data
+			this.setVariable('version', data.FirmwareVersion.substring(7, 12))
 		} else if (cmd.match('/analogaudiosetup')) {
 			this.camera.audio = data
 		} else if (cmd.match('/encodesetup')) {
