@@ -59,5 +59,10 @@ exports.updateVariableDefinitions = function () {
 		name: `video_format`,
 	})
 
+	variables.push({
+		label: `Version`,
+		name: `version`,
+	})
+
 	this.setVariableDefinitions(variables)
 }
