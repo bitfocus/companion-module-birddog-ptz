@@ -310,5 +310,10 @@ exports.updateVariableDefinitions = function () {
 		name: `zoom_speed`,
 	})
 
+	variables.push({
+		label: `Version`,
+		name: `version`,
+	})
+
 	this.setVariableDefinitions(variables)
 }

@@ -33,12 +33,12 @@ class instance extends instance_skel {
 			{ id: '12', label: 'F4.0' },
 			{ id: '11', label: 'F4.8' },
 			{ id: '10', label: 'F5.6' },
-			{ id: '09', label: 'F6.8' },
-			{ id: '08', label: 'F8.0' },
-			{ id: '07', label: 'F9.6' },
-			{ id: '06', label: 'F11.0' },
-			{ id: '05', label: 'F14.0' },
-			{ id: '00', label: 'CLOSED' },
+			{ id: '9', label: 'F6.8' },
+			{ id: '8', label: 'F8.0' },
+			{ id: '7', label: 'F9.6' },
+			{ id: '6', label: 'F11.0' },
+			{ id: '5', label: 'F14.0' },
+			{ id: '0', label: 'CLOSED' },
 		]
 
 		this.GAIN = [
@@ -750,7 +750,7 @@ class instance extends instance_skel {
 				if (data) {
 					this.processData(decodeURI(url), data)
 				} else {
-					this.log('warn', `Command failed`)
+					this.debug(`Command failed ${url}`)
 				}
 			})
 			.catch((err) => {
@@ -770,11 +770,18 @@ class instance extends instance_skel {
 
 	processData(cmd, data) {
 		if (cmd.match('/about')) {
-			if (this.currentStatus != 0) {
+			if (this.currentStatus != 0 && data.FirmwareVersion) {
 				this.status(this.STATUS_OK)
 				this.log('info', `Connected to ${data.HostName}`)
+			} else if (data.Version === '1.0' && this.currentStatus != 2) {
+				this.log('error', 'Please upgrade your BirdDog camera to the latest LTS firmware to use this module')
+				this.status(this.STATUS_ERROR)
+				if (this.poll_interval !== undefined) {
+					clearInterval(this.poll_interval)
+				}
 			}
 			this.camera.about = data
+      this.setVariable('version', data.FirmwareVersion.substring(7, 12))
 			this.setVariable('status', data.Status)
 		} else if (cmd.match('/videooutputinterface')) {
 			this.camera.videooutput = data
@@ -834,7 +841,7 @@ class instance extends instance_skel {
 			this.setVariable('high_sensitivity', data.HighSensitivity)
 			this.setVariable('backlight', data.BackLight)
 			this.setVariable('spotlight', data.Spotlight)
-			this.setVariable('iris', this.IRIS.find((o) => o.id == data.IrisLevel)?.label)
+			this.setVariable('iris', data.IrisLevel == '4' ? 'CLOSED' : this.IRIS.find((o) => o.id == data.IrisLevel)?.label)
 			this.setVariable('gain', this.GAIN.find((o) => o.id == data.GainLevel)?.label)
 			this.setVariable('gain_limit', this.GAIN.find((o) => o.id == data.GainLimit)?.label)
 			this.setVariable('shutter_speed', this.SHUTTER.find((o) => o.id == data.ShutterSpeed)?.label)
