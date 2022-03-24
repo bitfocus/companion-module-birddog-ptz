@@ -781,7 +781,7 @@ class instance extends instance_skel {
 				}
 			}
 			this.camera.about = data
-      this.setVariable('version', data.FirmwareVersion.substring(7, 12))
+     		this.setVariable('version', data.FirmwareVersion.substring(7, 12))
 			this.setVariable('status', data.Status)
 		} else if (cmd.match('/videooutputinterface')) {
 			this.camera.videooutput = data
