@@ -747,7 +747,7 @@ class instance extends instance_skel {
 				if (data) {
 					this.processData(decodeURI(url), data)
 				} else {
-					this.log('warn', `Command failed`)
+					this.debug(`Command failed ${url}`)
 				}
 			})
 			.catch((err) => {
@@ -767,9 +767,15 @@ class instance extends instance_skel {
 
 	processData(cmd, data) {
 		if (cmd.match('/about')) {
-			if (this.currentStatus != 0) {
+			if (this.currentStatus != 0 && data.FirmwareVersion) {
 				this.status(this.STATUS_OK)
 				this.log('info', `Connected to ${data.HostName}`)
+			} else if (data.Version === '1.0' && this.currentStatus != 2) {
+				this.log('error', 'Please upgrade your BirdDog camera to the latest LTS firmware to use this module')
+				this.status(this.STATUS_ERROR)
+				if (this.poll_interval !== undefined) {
+					clearInterval(this.poll_interval)
+				}
 			}
 			this.camera.about = data
 			this.setVariable('version', data.FirmwareVersion.substring(7, 12))
