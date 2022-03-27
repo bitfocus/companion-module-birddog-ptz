@@ -276,6 +276,11 @@ exports.updateVariableDefinitions = function () {
 	})
 
 	variables.push({
+		label: `Version`,
+		name: `version`,
+	})
+
+	variables.push({
 		label: `Video Format`,
 		name: `video_format`,
 	})
@@ -308,11 +313,6 @@ exports.updateVariableDefinitions = function () {
 	variables.push({
 		label: `Zoom Speed`,
 		name: `zoom_speed`,
-	})
-
-	variables.push({
-		label: `Version`,
-		name: `version`,
 	})
 
 	this.setVariableDefinitions(variables)
