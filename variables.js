@@ -17,6 +17,11 @@ exports.updateVariableDefinitions = function () {
 	})
 
 	variables.push({
+		label: `Auto Focus Mode`,
+		name: `af_mode`,
+	})
+
+	variables.push({
 		label: `Audio In Gain`,
 		name: `audio_in_gain`,
 	})
@@ -248,6 +253,11 @@ exports.updateVariableDefinitions = function () {
 	variables.push({
 		label: `Stabilizer`,
 		name: `stabilizer`,
+	})
+
+	variables.push({
+		label: `Standby`,
+		name: `standby`,
 	})
 
 	variables.push({
