@@ -905,15 +905,10 @@ class instance extends instance_skel {
 
 		let newbuf = buf.slice(0, 8 + payload.length)
 
-		// udp.send(newbuf);
-
-		debug('sending', newbuf, 'to', this.udp.host)
 		this.udp.send(newbuf)
 	}
 
 	incomingData(data) {
-		debug('incoming', data)
-
 		switch (data[7].toString(16)) {
 			case '4a': // Query Standby status
 				if (data[8] == 0x90 && data[9] == 0x50 && data[10] == 0x02 && data[11] == 0xff) {
@@ -923,24 +918,19 @@ class instance extends instance_skel {
 					this.camera.status = 'standby'
 					this.setVariable('standby', 'Standby')
 				}
-			this.checkFeedbacks()
-			break;
+				this.checkFeedbacks()
+				break
 			case '5a': // Query Auto Focus mode
-			if (data[8] == 0x90 && data[9] == 0x50 && data[10] == 0x02 && data[11] == 0xff) {
-				this.camera.AFMode = 'Auto'
-				this.setVariable('af_mode', 'Auto')
-			} else if (data[8] == 0x90 && data[9] == 0x50 && data[10] == 0x03 && data[11] == 0xff) {
-				this.camera.AFMode = 'Manual'
-				this.setVariable('af_mode', 'Manual')
-			}
-			this.checkFeedbacks()
-			break;		
+				if (data[8] == 0x90 && data[9] == 0x50 && data[10] == 0x02 && data[11] == 0xff) {
+					this.camera.AFMode = 'Auto'
+					this.setVariable('af_mode', 'Auto')
+				} else if (data[8] == 0x90 && data[9] == 0x50 && data[10] == 0x03 && data[11] == 0xff) {
+					this.camera.AFMode = 'Manual'
+					this.setVariable('af_mode', 'Manual')
+				}
+				this.checkFeedbacks()
+				break
 		}
-	}
-
-	sendResponse(data) {
-		debug('test')
-		//this.sendVISCACommand(cmd,data);
 	}
 
 	sendControlCommand(payload) {
@@ -963,9 +953,6 @@ class instance extends instance_skel {
 
 		let newbuf = buf.slice(0, 8 + payload.length)
 
-		// udp.send(newbuf);
-
-		debug('sending', newbuf, 'to', this.udp.host)
 		this.udp.send(newbuf)
 	}
 

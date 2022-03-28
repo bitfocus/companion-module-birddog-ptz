@@ -102,3 +102,7 @@ This module allows you to control any [BirdDog](https://birddog.tv/ptz-range/) P
 | **White Balance - Red Gain**    |       Y        |         Y          |      Y       |
 | **Wide Dynamic Range**          |       Y        |                    |              |
 | **Zoom Speed**                  |       Y        |         Y          |      Y       |
+
+### Available Feedback
+- wb_mode
+- standby_mode

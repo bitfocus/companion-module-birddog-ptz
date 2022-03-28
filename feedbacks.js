@@ -1,17 +1,16 @@
 exports.initFeedbacks = function () {
 	const feedbacks = {}
 
-	const ColourWhite = this.rgb(255, 255, 255) // White
+	const ColorWhite = this.rgb(255, 255, 255) // White
 	const ColorBlack = this.rgb(0, 0, 0) // Black
 	const ColorRed = this.rgb(255, 0, 0) // Red
 	const ColorGreen = this.rgb(0, 255, 0) // Green
 	const ColorOrange = this.rgb(255, 102, 0) // Orange
 
-
 	feedbacks.wb_mode = {
 		type: 'boolean',
 		label: 'Camera White Balance Mode',
-		description: 'Chanage the change the color of the button based on the WB mode',
+		description: 'Change the style of the button based on the WB mode',
 		style: {
 			color: ColorBlack,
 			bgcolor: ColorGreen,
@@ -34,14 +33,16 @@ exports.initFeedbacks = function () {
 			},
 		],
 		callback: (feedback) => {
-			return this.camera.wb.WbMode == feedback.options.white_balance
+			if (this.camera?.wb?.WbMode == feedback.options.white_balance) {
+				return true
+			}
 		},
 	}
 
 	feedbacks.standby_status = {
 		type: 'boolean',
 		label: 'Camera Standby Status',
-		description: 'If the camera is in standby, change the color of the button',
+		description: 'If the camera is in standby, change the style of the button',
 		style: {
 			color: ColorBlack,
 			bgcolor: ColorGreen,
@@ -64,6 +65,6 @@ exports.initFeedbacks = function () {
 	}
 
 	this.setFeedbackDefinitions(feedbacks)
-	
+
 	return feedbacks
 }
