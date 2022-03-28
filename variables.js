@@ -17,6 +17,11 @@ exports.updateVariableDefinitions = function () {
 	})
 
 	variables.push({
+		label: `Auto Focus Mode`,
+		name: `af_mode`,
+	})
+
+	variables.push({
 		label: `Audio In Gain`,
 		name: `audio_in_gain`,
 	})
@@ -251,6 +256,11 @@ exports.updateVariableDefinitions = function () {
 	})
 
 	variables.push({
+		label: `Standby`,
+		name: `standby`,
+	})
+
+	variables.push({
 		label: `Status`,
 		name: `status`,
 	})
@@ -273,6 +283,11 @@ exports.updateVariableDefinitions = function () {
 	variables.push({
 		label: `Transmit Method`,
 		name: `transmit_method`,
+	})
+
+	variables.push({
+		label: `Version`,
+		name: `version`,
 	})
 
 	variables.push({
@@ -308,11 +323,6 @@ exports.updateVariableDefinitions = function () {
 	variables.push({
 		label: `Zoom Speed`,
 		name: `zoom_speed`,
-	})
-
-	variables.push({
-		label: `Version`,
-		name: `version`,
 	})
 
 	this.setVariableDefinitions(variables)

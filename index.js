@@ -781,7 +781,7 @@ class instance extends instance_skel {
 				}
 			}
 			this.camera.about = data
-      this.setVariable('version', data.FirmwareVersion.substring(7, 12))
+			this.setVariable('version', data.FirmwareVersion.substring(7, 12))
 			this.setVariable('status', data.Status)
 		} else if (cmd.match('/videooutputinterface')) {
 			this.camera.videooutput = data
@@ -851,6 +851,7 @@ class instance extends instance_skel {
 			this.setVariable('wb_blue_gain', data.BlueGain)
 			this.setVariable('wb_red_gain', data.RedGain)
 			this.setVariable('color_temp', data.ColorTemp)
+			this.checkFeedbacks()
 		} else if (cmd.match('/birddogpicsetup')) {
 			this.camera.pic = data
 			this.setVariable('backlight_com', data.BackLightCom)
@@ -904,19 +905,32 @@ class instance extends instance_skel {
 
 		let newbuf = buf.slice(0, 8 + payload.length)
 
-		// udp.send(newbuf);
-
-		debug('sending', newbuf, 'to', this.udp.host)
 		this.udp.send(newbuf)
 	}
 
 	incomingData(data) {
-		debug('incoming', data)
-	}
-
-	sendResponse(data) {
-		debug('test')
-		//this.sendVISCACommand(cmd,data);
+		switch (data[7].toString(16)) {
+			case '4a': // Query Standby status
+				if (data[8] == 0x90 && data[9] == 0x50 && data[10] == 0x02 && data[11] == 0xff) {
+					this.camera.status = 'on'
+					this.setVariable('standby', 'On')
+				} else if (data[8] == 0x90 && data[9] == 0x50 && data[10] == 0x03 && data[11] == 0xff) {
+					this.camera.status = 'standby'
+					this.setVariable('standby', 'Standby')
+				}
+				this.checkFeedbacks()
+				break
+			case '5a': // Query Auto Focus mode
+				if (data[8] == 0x90 && data[9] == 0x50 && data[10] == 0x02 && data[11] == 0xff) {
+					this.camera.AFMode = 'Auto'
+					this.setVariable('af_mode', 'Auto')
+				} else if (data[8] == 0x90 && data[9] == 0x50 && data[10] == 0x03 && data[11] == 0xff) {
+					this.camera.AFMode = 'Manual'
+					this.setVariable('af_mode', 'Manual')
+				}
+				this.checkFeedbacks()
+				break
+		}
 	}
 
 	sendControlCommand(payload) {
@@ -939,9 +953,6 @@ class instance extends instance_skel {
 
 		let newbuf = buf.slice(0, 8 + payload.length)
 
-		// udp.send(newbuf);
-
-		debug('sending', newbuf, 'to', this.udp.host)
 		this.udp.send(newbuf)
 	}
 
@@ -986,6 +997,11 @@ class instance extends instance_skel {
 		this.sendCommand('birddogpicsetup', 'GET')
 		this.sendCommand('birddogcmsetup', 'GET')
 		this.sendCommand('birddogadvancesetup', 'GET')
+		// Query Standby status
+		this.sendVISCACommand('\x81\x09\x04\x00\xFF', '\x4a')
+		// Query Auto Focus Mode
+		this.sendVISCACommand('\x81\x09\x04\x38\xFF', '\x5a')
+		this.checkFeedbacks()
 	}
 }
 exports = module.exports = instance

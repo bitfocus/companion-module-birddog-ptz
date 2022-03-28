@@ -35,68 +35,74 @@ This module allows you to control any [BirdDog](https://birddog.tv/ptz-range/) P
 
 ### Available Variables
 
-Avaiable for P100,PF120,P200,A200,A300,P400 & P4K unless specified otherwise
+|                                 | **P100/PF120** | **P200/A200/A300** | **P400/P4K** |
+| ------------------------------- | :------------: | :----------------: | :----------: |
+| **2D NR**                       |                |                    |      Y       |
+| **3D NR**                       |                |                    |      Y       |
+| **Ae Response**                 |                |         Y          |      Y       |
+| **Auto Focus Mode**             |       Y        |         Y          |      Y       |
+| **Audio In Gain**               |       Y        |         Y          |      Y       |
+| **Audio Out Gain**              |       Y        |         Y          |      Y       |
+| **Audio Output**                |       Y        |         Y          |      Y       |
+| **Backlight**                   |                |                    |      Y       |
+| **Back Light Com**              |                |         Y          |              |
+| **Bandwidth**                   |       Y        |         Y          |      Y       |
+| **Bandwidth Mode**              |       Y        |         Y          |      Y       |
+| **Bright Level**                |       Y        |         Y          |      Y       |
+| **Chroma Suppress**             |                |         Y          |      Y       |
+| **Color Temp**                  |       Y        |                    |              |
+| **Contrast**                    |       Y        |                    |              |
+| **Effect**                      |       Y        |         Y          |              |
+| **Exposure Mode**               |       Y        |         Y          |      Y       |
+| **Exposure Compensation**       |       Y        |         Y          |      Y       |
+| **Exposure Compensation Level** |       Y        |         Y          |      Y       |
+| **Flip**                        |       Y        |         Y          |      Y       |
+| **Gain**                        |       Y        |         Y          |      Y       |
+| **Gain Limit**                  |                |         Y          |      Y       |
+| **Gain Point**                  |                |                    |      Y       |
+| **Gain Point Position**         |                |                    |      Y       |
+| **Gamma**                       |       Y        |         Y          |              |
+| **High Sensitivity**            |                |         Y          |      Y       |
+| **HLC Mode**                    |                |         Y          |      Y       |
+| **Hue**                         |       Y        |                    |              |
+| **Iris**                        |       Y        |         Y          |      Y       |
+| **IR Cut Filter**               |                |         Y          |      Y       |
+| **Low Latency**                 |                |  P200_A4_A5 ONLY   |              |
+| **Mirror**                      |       Y        |         Y          |      Y       |
+| **ND Filter**                   |                |                    |      Y       |
+| **NDI Audio**                   |       Y        |         Y          |      Y       |
+| **NDI Discovery Server**        |       Y        |         Y          |      Y       |
+| **NDI Discovery Server IP**     |       Y        |         Y          |      Y       |
+| **NDI Group**                   |       Y        |         Y          |      Y       |
+| **NDI Group Name**              |       Y        |         Y          |      Y       |
+| **Noise Reduction**             |       Y        |         Y          |              |
+| **Pan Speed**                   |       Y        |         Y          |      Y       |
+| **Saturation**                  |       Y        |                    |              |
+| **Sharpness**                   |       Y        |         Y          |              |
+| **Shutter Control Overwrite**   |       Y        |                    |              |
+| **Shutter Max Speed**           |                |                    |      Y       |
+| **Shutter Min Speed**           |                |                    |      Y       |
+| **Shutter Speed**               |       Y        |         Y          |      Y       |
+| **Shutter Speed Overwrite**     |       Y        |                    |              |
+| **Slow Shutter**                |                |         Y          |      Y       |
+| **Slow Shutter Limit**          |                |         Y          |      Y       |
+| **Spotlight**                   |                |                    |      Y       |
+| **Stabilizer**                  |                |         Y          |      Y       |
+| **Standby**                     |       Y        |         ?          |      ?       |
+| **Status**                      |       Y        |         Y          |      Y       |
+| **Stream Name**                 |       Y        |         Y          |      Y       |
+| **Tally Mode**                  |       Y        |         Y          |      Y       |
+| **Tilt Speed**                  |       Y        |         Y          |      Y       |
+| **Transmit Method**             |       Y        |         Y          |      Y       |
+| **Version**                     |       Y        |         Y          |      Y       |
+| **Video Format**                |       Y        |         Y          |      Y       |
+| **Video Output**                |                |                    |      Y       |
+| **White Balance Mode**          |       Y        |         Y          |      Y       |
+| **White Balance - Blue Gain**   |       Y        |         Y          |      Y       |
+| **White Balance - Red Gain**    |       Y        |         Y          |      Y       |
+| **Wide Dynamic Range**          |       Y        |                    |              |
+| **Zoom Speed**                  |       Y        |         Y          |      Y       |
 
-- 2D NR (P400/P4K only)
-- 3D NR (P400/P4K only)
-- Ae Response (Not available P100/PF120)
-- Audio In Gain
-- Audio Out Gain
-- Audio Output
-- Backlight (P400/P4K only)
-- Back Light Com (P200/A200/A300 only)
-- Bandwidth
-- Bandwidth Mode
-- Bright Level
-- Chroma Suppress (Not available P100/PF120)
-- Color Temp (P100/PF120 only)
-- Contrast (P100/PF120 only)
-- Effect (Not available P400/P4K)
-- Exposure Mode
-- Exposure Compensation
-- Exposure Compensation Level
-- Flip
-- Gain
-- Gain Limit (Not available P100/PF120)
-- Gain Point (P400/P4K only)
-- Gain Point Position (P400/P4K only)
-- Gamma (Not available P400/P4K)
-- High Sensitvity (Not available P100/PF120)
-- HLC Mode (Not available P100/PF120)
-- Hue (P100/PF120 only)
-- Iris
-- IR Cut Filter (Not available P100/PF120)
-- Low Latency (P200_A4_A5 only)
-- Mirror
-- ND Filter (P400/P4K only)
-- NDI Audio
-- NDI Discovery Server
-- NDI Discovery Server IP
-- NDI Group
-- NDI Group Name
-- Noise Reduction (Not available P400/P4K)
-- Pan Speed
-- Saturation (P100/PF120 only)
-- Sharpness (Not available P400/P4K)
-- Shutter Control Overwrite (P100/PF120 only)
-- Shutter Max Speed (P400/P4K only)
-- Shutter Min Speed (P400/P4K only)
-- Shutter Speed
-- Shutter Speed Overwrite (P100/PF120 only)
-- Slow Shutter (Not available P100/PF120)
-- Slow Shutter Limit (Not available P100/PF120)
-- Spotlight (P400/P4K only)
-- Stabilizer (Not available P100/PF120)
-- Status
-- Stream Name
-- Tally Mode
-- Tilt Speed
-- Transmit Method
-- Version
-- Video Format
-- Video Output (P400/P4K only)
-- White Balance Mode
-- White Balance - Blue Gain
-- White Balance - Red Gain
-- Wide Dynamic Range (P100/PF120 only)
-- Zoom Speed
+### Available Feedback
+- wb_mode
+- standby_mode
