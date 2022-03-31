@@ -113,7 +113,7 @@ class instance extends instance_skel {
 
 		this.PRESET = []
 		let i = 0
-		for (i = 0; i < 64; i++) {
+		for (i = 0; i < 9; i++) {
 			let presetNumber = i + 1
 			this.PRESET.push({ id: i, label: `Preset ${presetNumber}` })
 		}
