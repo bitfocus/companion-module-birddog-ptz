@@ -1,4 +1,4 @@
-const CHOICES = require ('./choices.js')
+const CHOICES = require('./choices.js')
 
 exports.initFeedbacks = function () {
 	const feedbacks = {}
@@ -23,7 +23,7 @@ exports.initFeedbacks = function () {
 				label: 'White Balance Mode',
 				id: 'white_balance',
 				default: 'AUTO',
-				choices: CHOICES. WB_MODE_1,
+				choices: CHOICES.WB_MODE_1,
 			},
 		],
 		callback: (feedback) => {
