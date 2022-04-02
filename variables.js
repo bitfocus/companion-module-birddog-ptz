@@ -296,11 +296,6 @@ exports.updateVariableDefinitions = function () {
 	})
 
 	variables.push({
-		label: `Video Output`,
-		name: `video_output`,
-	})
-
-	variables.push({
 		label: `White Balance Mode`,
 		name: `wb_mode`,
 	})

@@ -4,8 +4,8 @@ module.exports = {
 	// ############
 
 	ON_OFF: [
-		{ id: 'On', label: 'On' },
-		{ id: 'Off', label: 'Off' },
+		{ id: 'on', label: 'On' },
+		{ id: 'off', label: 'Off' },
 	],
 
 	STANDBY: [
@@ -303,9 +303,9 @@ module.exports = {
 	// Focus Mode Look Ups
 	// ############
 
-	ANALOG_AUDIO_OUTPUT: [
-		{ id: 'AutoFocus', label: 'Auto Focus' },
-		{ id: 'Manual', label: 'Manual' },
+	AUTO_FOCUS: [
+		{ id: '0', label: 'Auto Focus' },
+		{ id: '1', label: 'Manual' },
 	],
 
 	// ############
@@ -318,14 +318,19 @@ module.exports = {
 		{ id: 'DecodeLoop', label: 'DecodeLoop' },
 	],
 
+	TALLY_MODE: [
+		{ id: '1', label: 'Tally On' },
+		{ id: '0', label: 'Tally Off' },
+	],
+
 	// ############
 	// NDI ENCODE Look Ups
 	// ############
 
 	ENCODE_TXPM: [
-		{ id: 'Mulitcast', label: 'Mulitcast' },
+		{ id: 'Multicast', label: 'Multicast' },
 		{ id: 'TCP', label: 'TCP' },
-		{ id: 'Multi-TCP', label: 'Multi-TCP' },
+		{ id: 'MultiTCP', label: 'Multi-TCP' },
 		{ id: 'UDP', label: 'UDP' },
 	],
 
@@ -340,11 +345,6 @@ module.exports = {
 		{ id: 'NDIManaged', label: 'NDI Managed' },
 	],
 
-	ENCODE_TALLY_MODE: [
-		{ id: 'TallyOn', label: 'Tally On' },
-		{ id: 'TallyOff', label: 'Tally Off' },
-	],
-
 	ENCODE_NDIGroup: [
 		{ id: 'NDIGroupEn', label: 'NDI Group Enabled' },
 		{ id: 'NDIGroupDis', label: 'NDI Group Disabled' },
@@ -355,10 +355,10 @@ module.exports = {
 	// ############
 
 	EXP_MODE_1: [
-		{ id: 'FULL-AUTO', label: 'FULL-AUTO' },
-		{ id: 'MANUAL', label: 'MANUAL' },
-		{ id: 'SHUTTER-PRI', label: 'SHUTTER-PRI' },
-		{ id: 'IRIS-PRI', label: 'IRIS-PRI' },
+		{ id: '0', label: 'Full Auto' },
+		{ id: '1', label: 'Manual' },
+		{ id: '2', label: 'Shutter Priority' },
+		{ id: '3', label: 'Iris Priority' },
 	],
 
 	EXP_MODE_2: [
@@ -382,27 +382,29 @@ module.exports = {
 	// White Balance Mode Look Ups
 	// ############
 
+	//P100, PF120
 	WB_MODE_1: [
 		{ id: 'AUTO', label: 'Auto' },
 		{ id: 'INDOOR', label: 'Indoor' },
 		{ id: 'OUTDOOR', label: 'Outdoor' },
-		{ id: 'ONEPUSH', label: 'OnePush' },
+		{ id: 'ONEPUSH', label: 'One Push Mode' },
 		{ id: 'ATW', label: 'ATW' },
 		{ id: 'MANUAL1', label: 'Manual 1' },
 		{ id: 'MANUAL2', label: 'Manual 2' },
 	],
 
+	//P200, A200, P400, P4K
 	WB_MODE_2: [
 		{ id: 'AUTO', label: 'Auto' },
 		{ id: 'INDOOR', label: 'Indoor' },
 		{ id: 'OUTDOOR', label: 'Outdoor' },
 		{ id: 'OUTDOOR-AUTO', label: 'Outdoor Auto' },
-		{ id: 'ONEPUSH', label: 'OnePush' },
+		{ id: 'ONEPUSH', label: 'One Push Mode' },
 		{ id: 'ATW', label: 'ATW' },
 		{ id: 'MANUAL1', label: 'Manual' },
-		{ id: 'SVL-AUTO', label: 'Sodium Lamp Auto' },
-		{ id: 'SVL', label: 'Sodium Lamp' },
-		{ id: 'SVL-OUTDOOR-AUTO', label: 'Sodium Lamp Outdoor Auto' },
+		{ id: 'SLV-AUTO', label: 'Sodium Lamp Auto' },
+		{ id: 'SLV', label: 'Sodium Lamp' },
+		{ id: 'SLV-OUTDOOR-AUTO', label: 'Sodium Lamp Outdoor Auto' },
 	],
 
 	WB_SELECT: [
@@ -417,7 +419,7 @@ module.exports = {
 	// ############
 
 	PICTURE_EFFECT: [
-		{ id: 'BW', label: 'BW' },
+		{ id: 'BW', label: 'Black & White' },
 		{ id: 'OFF', label: 'Off' },
 	],
 

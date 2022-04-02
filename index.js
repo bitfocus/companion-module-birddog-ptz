@@ -3,6 +3,7 @@ const actions = require('./actions')
 const presets = require('./presets')
 const { updateVariableDefinitions, updateSourceVariables } = require('./variables')
 const { initFeedbacks } = require('./feedbacks')
+const upgradeScripts = require('./upgrades')
 
 const udp = require('../../udp')
 const fetch = require('node-fetch')
@@ -146,6 +147,14 @@ class instance extends instance_skel {
 		]
 	}
 
+	static GetUpgradeScripts() {
+		return [upgradeScripts.choicesUpgrade]
+	}
+
+	// Tell companion to re-run from the first upgrade script each time. Use higher numbers to run from later points.
+	// Make sure to NOT commit this line uncommented
+	//static DEVELOPER_forceStartupUpgradeScript = 0
+
 	config_fields() {
 		return [
 			{
@@ -199,7 +208,6 @@ class instance extends instance_skel {
 		this.port = 52381 // Visca port
 		this.sendCommand('about', 'GET')
 		this.sendCommand('analogaudiosetup', 'GET')
-		this.sendCommand('videooutputinterface', 'GET')
 		this.sendCommand('encodetransport', 'GET')
 		this.sendCommand('encodesetup', 'GET')
 		this.sendCommand('NDIDisServer', 'GET')
@@ -236,10 +244,10 @@ class instance extends instance_skel {
 
 		switch (action.action) {
 			case 'power':
-				if (opt.val == '0') {
+				if (opt.val == 'on') {
 					cmd = '\x81\x01\x04\x00\x02\xFF'
 				}
-				if (opt.val == '1') {
+				if (opt.val == 'off') {
 					cmd = '\x81\x01\x04\x00\x03\xFF'
 				}
 				this.sendVISCACommand(cmd)
@@ -328,10 +336,10 @@ class instance extends instance_skel {
 				break
 
 			case 'ptSlow':
-				if (opt.bol == '0') {
+				if (opt.val == 'on') {
 					cmd = '\x81\x01\x06\x44\x02\xFF'
 				}
-				if (opt.bol == '1') {
+				if (opt.val == 'off') {
 					cmd = '\x81\x01\x06\x44\x03\xFF'
 				}
 				this.sendVISCACommand(cmd)
@@ -435,40 +443,45 @@ class instance extends instance_skel {
 
 			case 'wb':
 				switch (opt.val) {
-					case '0':
+					case 'AUTO':
 						cmd = '\x81\x01\x04\x35\x00\xFF'
 						break
-					case '1':
+					case 'INDOOR':
 						cmd = '\x81\x01\x04\x35\x01\xFF'
 						break
-					case '2':
+					case 'OUTDOOR':
 						cmd = '\x81\x01\x04\x35\x02\xFF'
 						break
-					case '3':
+					case 'ONEPUSH':
 						cmd = '\x81\x01\x04\x35\x03\xFF'
 						break
-					case '4':
+					case 'ATW':
 						cmd = '\x81\x01\x04\x35\x04\xFF'
 						break
-					case '5':
+					case 'MANUAL1':
 						cmd = '\x81\x01\x04\x35\x05\xFF'
 						break
-					case '6':
-						cmd = '\x81\x01\x04\x10\x05\xFF'
-						break
-					case '7':
+					case 'MANUAL2':
 						cmd = '\x81\x01\x04\x35\x06\xFF'
 						break
-					case '8':
+					case 'OUTDOOR-AUTO':
+						cmd = '\x81\x01\x04\x35\x06\xFF'
+						break
+					case 'SLV-AUTO':
 						cmd = '\x81\x01\x04\x35\x07\xFF'
 						break
-					case '9':
+					case 'SLV':
 						cmd = '\x81\x01\x04\x35\x08\xFF'
 						break
-					case '10':
+					case 'SLV-OUTDOOR-AUTO':
 						cmd = '\x81\x01\x04\x35\x09\xFF'
 						break
 				}
+				this.sendVISCACommand(cmd)
+				break
+
+			case 'wbOnePush':
+				cmd = '\x81\x01\x04\x10\x05\xFF'
 				this.sendVISCACommand(cmd)
 				break
 
@@ -609,13 +622,10 @@ class instance extends instance_skel {
 
 			case 'pictureEffect':
 				switch (opt.val) {
-					case '0':
+					case 'OFF':
 						cmd = '\x81\x01\x04\x63\x00\xFF'
 						break
-					case '1':
-						cmd = '\x81\x01\x04\x63\x02\xFF'
-						break
-					case '2':
+					case 'BW':
 						cmd = '\x81\x01\x04\x63\x04\xFF'
 						break
 				}
@@ -651,30 +661,30 @@ class instance extends instance_skel {
 				break
 
 			case 'hrMode':
-				if (opt.bol == 0) {
+				if (opt.val == 'off') {
 					cmd = '\x81\x01\x04\x52\x03\xFF'
 				}
-				if (opt.bol == 1) {
+				if (opt.val == 'on') {
 					cmd = '\x81\x01\x04\x52\x02\xFF'
 				}
 				this.sendVISCACommand(cmd)
 				break
 
 			case 'highSensitivity':
-				if (opt.bol == 0) {
+				if (opt.val == 'off') {
 					cmd = '\x81\x01\x04\x5E\x03\xFF'
 				}
-				if (opt.bol == 1) {
+				if (opt.val == 'on') {
 					cmd = '\x81\x01\x04\x5E\x02\xFF'
 				}
 				this.sendVISCACommand(cmd)
 				break
 
 			case 'tally':
-				if (opt.bol == 0) {
+				if (opt.val == 'off') {
 					cmd = '\x81\x01\x7E\x01\x0A\x00\x03\xFF'
 				}
-				if (opt.bol == 1) {
+				if (opt.val == 'on') {
 					cmd = '\x81\x01\x7E\x01\x0A\x00\x02\xFF'
 				}
 				this.sendVISCACommand(cmd)
@@ -682,10 +692,10 @@ class instance extends instance_skel {
 
 			case 'freeze':
 				switch (opt.val) {
-					case '0':
+					case 'on':
 						cmd = '\x81\x01\x04\x62\x02\xFF'
 						break
-					case '1':
+					case 'off':
 						cmd = '\x81\x01\x04\x62\x03\xFF'
 						break
 				}
@@ -694,10 +704,10 @@ class instance extends instance_skel {
 
 			case 'picFlip':
 				switch (opt.val) {
-					case '0':
+					case 'off':
 						cmd = '\x81\x01\x04\x66\x03\xFF'
 						break
-					case '1':
+					case 'on':
 						cmd = '\x81\x01\x04\x66\x02\xFF'
 						break
 				}
@@ -706,10 +716,10 @@ class instance extends instance_skel {
 
 			case 'picMirror':
 				switch (opt.val) {
-					case '0':
+					case 'off':
 						cmd = '\x81\x01\x04\x61\x03\xFF'
 						break
-					case '1':
+					case 'on':
 						cmd = '\x81\x01\x04\x61\x02\xFF'
 						break
 				}
@@ -783,9 +793,6 @@ class instance extends instance_skel {
 			this.camera.about = data
 			this.setVariable('version', data.FirmwareVersion.substring(7, 12))
 			this.setVariable('status', data.Status)
-		} else if (cmd.match('/videooutputinterface')) {
-			this.camera.videooutput = data
-			this.setVariable('video_output', data.videooutput)
 		} else if (cmd.match('/analogaudiosetup')) {
 			this.camera.audio = data
 			this.setVariable('audio_in_gain', data.AnalogAudioInGain)
@@ -986,7 +993,6 @@ class instance extends instance_skel {
 
 	poll() {
 		this.sendCommand('about', 'GET')
-		this.sendCommand('videooutputinterface', 'GET')
 		this.sendCommand('analogaudiosetup', 'GET')
 		this.sendCommand('encodetransport', 'GET')
 		this.sendCommand('encodesetup', 'GET')

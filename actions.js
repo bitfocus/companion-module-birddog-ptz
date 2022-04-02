@@ -1,3 +1,5 @@
+const CHOICES = require('./choices.js')
+
 module.exports = {
 	getActions() {
 		let actions = {}
@@ -9,11 +11,8 @@ module.exports = {
 					type: 'dropdown',
 					label: 'On/Off',
 					id: 'val',
-					choices: [
-						{ id: '0', label: 'On' },
-						{ id: '1', label: 'Off' },
-					],
-					default: '0',
+					choices: CHOICES.ON_OFF,
+					default: 'on',
 				},
 			],
 		}
@@ -75,11 +74,9 @@ module.exports = {
 				{
 					type: 'dropdown',
 					label: 'Slow Mode',
-					id: 'bol',
-					choices: [
-						{ id: '1', label: 'Off' },
-						{ id: '0', label: 'On' },
-					],
+					id: 'val',
+					choices: CHOICES.ON_OFF,
+					default: 'on',
 				},
 			],
 		}
@@ -149,28 +146,23 @@ module.exports = {
 			],
 		}
 		actions['wb'] = {
-			label: 'White Balance',
+			label: 'White Balance Mode',
 			options: [
 				{
 					type: 'dropdown',
 					label: 'Mode',
 					id: 'val',
-					choices: [
-						{ id: '0', label: 'Auto' },
-						{ id: '1', label: 'Indoor' },
-						{ id: '2', label: 'Outdoor' },
-						{ id: '3', label: 'One Push Mode' },
-						{ id: '4', label: 'ATW' },
-						{ id: '5', label: 'Manual' },
-						{ id: '6', label: 'One Push Trigger' },
-						{ id: '7', label: 'Outdoor Auto' },
-						{ id: '8', label: 'Sodium Lamp Auto' },
-						{ id: '9', label: 'Sodium Lamp' },
-						{ id: '10', label: 'Sodium Lamp Outdoor Auto' },
-					],
-					default: '0',
+					choices:
+						this.camera?.about?.version == 'P100' || this.camera?.about?.version == 'PF120'
+							? CHOICES.WB_MODE_1
+							: CHOICES.WB_MODE_2,
+					default: 'AUTO',
 				},
 			],
+		}
+		actions['wbOnePush'] = {
+			label: 'White Balance One Push Trigger',
+			description: 'Camera must be in One Push mode in order to use this action',
 		}
 		actions['gain'] = {
 			label: 'Gain',
@@ -179,12 +171,7 @@ module.exports = {
 					type: 'dropdown',
 					label: 'Gain',
 					id: 'val',
-					choices: [
-						{ id: 'up', label: 'UP' },
-						{ id: 'down', label: 'DOWN' },
-						{ id: 'reset', label: 'RESET' },
-						{ id: 'value', label: 'VALUE' },
-					],
+					choices: CHOICES.UP_DOWN_RESET_VALUE,
 					default: 'up',
 				},
 				{
@@ -204,12 +191,7 @@ module.exports = {
 					type: 'dropdown',
 					label: 'Gain Red',
 					id: 'val',
-					choices: [
-						{ id: 'up', label: 'UP' },
-						{ id: 'down', label: 'DOWN' },
-						{ id: 'reset', label: 'RESET' },
-						{ id: 'value', label: 'VALUE' },
-					],
+					choices: CHOICES.UP_DOWN_RESET_VALUE,
 					default: 'up',
 				},
 				{
@@ -230,12 +212,7 @@ module.exports = {
 					type: 'dropdown',
 					label: 'Gain Blue',
 					id: 'val',
-					choices: [
-						{ id: 'up', label: 'UP' },
-						{ id: 'down', label: 'DOWN' },
-						{ id: 'reset', label: 'RESET' },
-						{ id: 'value', label: 'VALUE' },
-					],
+					choices: CHOICES.UP_DOWN_RESET_VALUE,
 					default: 'up',
 				},
 				{
@@ -256,12 +233,7 @@ module.exports = {
 					type: 'dropdown',
 					label: 'Iris',
 					id: 'val',
-					choices: [
-						{ id: 'up', label: 'UP' },
-						{ id: 'down', label: 'DOWN' },
-						{ id: 'reset', label: 'RESET' },
-						{ id: 'value', label: 'VALUE' },
-					],
+					choices: CHOICES.UP_DOWN_RESET_VALUE,
 					default: 'up',
 				},
 				{
@@ -281,12 +253,7 @@ module.exports = {
 					type: 'dropdown',
 					label: 'Shutter',
 					id: 'val',
-					choices: [
-						{ id: 'up', label: 'UP' },
-						{ id: 'down', label: 'DOWN' },
-						{ id: 'reset', label: 'RESET' },
-						{ id: 'value', label: 'VALUE' },
-					],
+					choices: CHOICES.UP_DOWN_RESET_VALUE,
 					default: 'up',
 				},
 				{
@@ -330,12 +297,8 @@ module.exports = {
 					type: 'dropdown',
 					label: 'Effect',
 					id: 'val',
-					choices: [
-						{ id: '0', label: 'Off' },
-						{ id: '1', label: 'Neg.Art' },
-						{ id: '2', label: 'Black White' },
-					],
-					default: '0',
+					choices: CHOICES.PICTURE_EFFECT,
+					default: 'BW',
 				},
 			],
 		}
@@ -377,12 +340,9 @@ module.exports = {
 				{
 					type: 'dropdown',
 					label: 'On / Off',
-					id: 'bol',
-					choices: [
-						{ id: '0', label: 'Off' },
-						{ id: '1', label: 'On' },
-					],
-					default: '0',
+					id: 'val',
+					choices: CHOICES.ON_OFF,
+					default: 'on',
 				},
 			],
 		}
@@ -392,12 +352,9 @@ module.exports = {
 				{
 					type: 'dropdown',
 					label: 'On / Off',
-					id: 'bol',
-					choices: [
-						{ id: '0', label: 'Off' },
-						{ id: '1', label: 'On' },
-					],
-					default: '0',
+					id: 'val',
+					choices: CHOICES.ON_OFF,
+					default: 'on',
 				},
 			],
 		}
@@ -407,12 +364,9 @@ module.exports = {
 				{
 					type: 'dropdown',
 					label: 'On / Off',
-					id: 'bol',
-					choices: [
-						{ id: '0', label: 'Off' },
-						{ id: '1', label: 'On' },
-					],
-					default: '0',
+					id: 'val',
+					choices: CHOICES.ON_OFF,
+					default: 'on',
 				},
 			],
 		}
@@ -423,11 +377,8 @@ module.exports = {
 					type: 'dropdown',
 					label: 'Freeze',
 					id: 'val',
-					choices: [
-						{ id: '0', label: 'On' },
-						{ id: '1', label: 'Off' },
-					],
-					default: '0',
+					choices: CHOICES.ON_OFF,
+					default: 'on',
 				},
 			],
 		}
@@ -436,13 +387,10 @@ module.exports = {
 			options: [
 				{
 					type: 'dropdown',
-					label: 'Flip On/Off',
+					label: 'On/Off',
 					id: 'val',
-					choices: [
-						{ id: '0', label: 'Off' },
-						{ id: '1', label: 'On' },
-					],
-					default: '0',
+					choices: CHOICES.ON_OFF,
+					default: 'on',
 				},
 			],
 		}
@@ -451,13 +399,10 @@ module.exports = {
 			options: [
 				{
 					type: 'dropdown',
-					label: 'Mirror On/Off',
+					label: 'On/Off',
 					id: 'val',
-					choices: [
-						{ id: '0', label: 'Off' },
-						{ id: '1', label: 'On' },
-					],
-					default: '0',
+					choices: CHOICES.ON_OFF,
+					default: 'on',
 				},
 			],
 		}

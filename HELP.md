@@ -14,6 +14,8 @@ This module allows you to control any [BirdDog](https://birddog.tv/ptz-range/) P
 - Focus (Near / Far / One Push)
 - Focus Mode (Auto or Manual)
 - Exposure Mode
+- White Balance Mode
+- White Balance One Push Trigger
 - Gain
 - Gain Red
 - Gain Blue
@@ -104,5 +106,6 @@ This module allows you to control any [BirdDog](https://birddog.tv/ptz-range/) P
 | **Zoom Speed**                  |       Y        |         Y          |      Y       |
 
 ### Available Feedback
+
 - wb_mode
 - standby_mode

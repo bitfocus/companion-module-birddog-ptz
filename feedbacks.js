@@ -22,8 +22,11 @@ exports.initFeedbacks = function () {
 				type: 'dropdown',
 				label: 'White Balance Mode',
 				id: 'white_balance',
+				choices:
+					this.camera?.about?.version == 'P100' || this.camera?.about?.version == 'PF120'
+						? CHOICES.WB_MODE_1
+						: CHOICES.WB_MODE_2,
 				default: 'AUTO',
-				choices: CHOICES.WB_MODE_1,
 			},
 		],
 		callback: (feedback) => {
@@ -46,8 +49,8 @@ exports.initFeedbacks = function () {
 				type: 'dropdown',
 				label: 'Status',
 				id: 'status',
-				default: 'on',
 				choices: CHOICES.STANDBY,
+				default: 'on',
 			},
 		],
 		callback: (feedback) => {
