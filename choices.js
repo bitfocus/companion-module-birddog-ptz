@@ -3,29 +3,41 @@ module.exports ={
     // Basic Look Ups
     // ############
 
-    CHOICES_ON_OFF: [
+    ON_OFF: [
         { id: 'On',  label: 'On' },
         { id: 'Off',  label: 'Off' },
     ],
 
-    CHOICES_L_M_H: [
+    STANDBY: [
+        { id: 'on',  label: 'On' },
+        { id: 'standby',  label: 'Standby' },
+    ],
+
+    L_M_H: [
         { id: 'LOW',  label: 'Low' },
         { id: 'MEDIUM',  label: 'Medium' },
         { id: 'HIGH',  label: 'High' },
     ],
 
-    CHOICES_OFF_L_M_H: [
+    OFF_L_M_H: [
         { id: 'OFF',  label: 'Off' },
         { id: 'LOW',  label: 'Low' },
         { id: 'MEDIUM',  label: 'Medium' },
         { id: 'HIGH',  label: 'High' },
+    ],
+
+    UP_DOWN_RESET_VALUE: [
+        { id: 'up', label: 'UP' },
+        { id: 'down', label: 'DOWN' },
+        { id: 'reset', label: 'RESET' },
+        { id: 'value', label: 'VALUE' },
     ],
     
     // ############
     // IRIS Look Ups
     // ############
 
-    CHOICES_IRIS_P100: [
+    IRIS_P100: [
         { id: '0', label: 'CLOSED' },
         { id: '1', label: 'F14.0' },
         { id: '2', label: 'F11.0' },
@@ -47,7 +59,7 @@ module.exports ={
     // GAIN Look Ups
     // ############
 
-    CHOICES_GAIN_P100: [
+    GAIN_P100: [
         { id: '0', label: '0 dB' },
         { id: '1', label: '2 dB' },
         { id: '2', label: '4 dB' },
@@ -70,7 +82,7 @@ module.exports ={
     // Shutter Look Ups
     // ############
 
-    CHOICES_SHUTTER_NTSC: [
+    SHUTTER_60: [
 		{ id: '0', label: '1/1' },
 		{ id: '1', label: '1/2' },
 		{ id: '2', label: '1/4' },
@@ -95,7 +107,7 @@ module.exports ={
 		{ id: '21', label: '1/10000' },
 	],
 
-	CHOICES_SHUTTER_PAL: [
+	SHUTTER_50: [
 		{ id: '0', label: '1/1' },
 		{ id: '1', label: '1/2' },
 		{ id: '2', label: '1/3' },
@@ -120,7 +132,7 @@ module.exports ={
 		{ id: '21', label: '1/10000' },
     ],
 
-    CHOICES_SHUTTER_4K_60: [
+    SHUTTER_4K_60: [
 		{ id: '6', label: '1/1' },
         { id: '7', label: '2/3' },
 		{ id: '8', label: '1/2' },
@@ -151,7 +163,7 @@ module.exports ={
         { id: '33', label: '1/10000' },
     ],
 
-    CHOICES_SHUTTER_4K_50: [
+    SHUTTER_4K_50: [
 		{ id: '6', label: '1/1' },
         { id: '7', label: '2/3' },
 		{ id: '8', label: '1/2' },
@@ -182,7 +194,7 @@ module.exports ={
         { id: '33', label: '1/10000' },
     ],
 
-    CHOICES_SHUTTER_4K_24: [
+    SHUTTER_4K_24: [
 		{ id: '6', label: '1/1' },
         { id: '7', label: '2/3' },
 		{ id: '8', label: '1/2' },
@@ -214,10 +226,10 @@ module.exports ={
     ],
 
     // ############
-    // PTZ Speed Look Ups
+    // PTZ Look Ups
     // ############
 
-    CHOICES_ZOOM_SPEED: [
+    ZOOM_SPEED: [
         { id: 0,  label: 'Speed 00 (Slow)' },
         { id: 1,  label: 'Speed 01' },
         { id: 2,  label: 'Speed 02' },
@@ -228,7 +240,7 @@ module.exports ={
         { id: 7,  label: 'Speed 07 (Fast)' },
     ],
 
-    CHOICES_PAN_SPEED: [
+    PAN_SPEED: [
         { id: 0,  label: 'Speed 00 (Slow)' },
         { id: 1,  label: 'Speed 01' },
         { id: 2,  label: 'Speed 02' },
@@ -253,7 +265,7 @@ module.exports ={
         { id: 21,  label: 'Speed 21 (Fast)' },
     ],
 
-    CHOICES_TILT_SPEED: [
+    TILT_SPEED: [
         { id: 0,  label: 'Speed 00 (Slow)' },
         { id: 1,  label: 'Speed 01' },
         { id: 2,  label: 'Speed 02' },
@@ -275,11 +287,33 @@ module.exports ={
         { id: 18,  label: 'Speed 18 (Fast)' },
     ],
     
+    PTZ_DIRECTION: [
+        { id: '0', label: 'Left' },
+        { id: '1', label: 'Right' },
+        { id: '2', label: 'Up' },
+        { id: '3', label: 'Down' },
+        { id: '4', label: 'Up Left' },
+        { id: '5', label: 'Up Right' },
+        { id: '6', label: 'Down Left' },
+        { id: '7', label: 'Down Right' },
+        { id: '8', label: 'P/T Stop' },
+        { id: '9', label: 'P/T Home' },
+    ],
+
+    // ############
+    // Focus Mode Look Ups
+    // ############
+
+    ANALOG_AUDIO_OUTPUT: [
+        { id: 'AutoFocus',  label: 'Auto Focus' },
+        { id: 'Manual',  label: 'Manual' },
+    ],
+    
     // ############
     // Device Settings Look Ups
     // ############
 
-    CHOICES_ANALOG_AUDIO_OUTPUT: [
+    ANALOG_AUDIO_OUTPUT: [
         { id: 'DecodeMain',  label: 'DecodeMain' },
         { id: 'DecodeComms',  label: 'DecodeComms' },
         { id: 'DecodeLoop',  label: 'DecodeLoop' },
@@ -289,30 +323,30 @@ module.exports ={
     // NDI ENCODE Look Ups
     // ############
 
-    CHOICES_ENCODE_TXPM: [
+    ENCODE_TXPM: [
         { id: 'Mulitcast',  label: 'Mulitcast' },
         { id: 'TCP',  label: 'TCP' },
         { id: 'Multi-TCP',  label: 'Multi-TCP' },
         { id: 'UDP',  label: 'UDP' },
     ],
 
-    CHOICES_ENCODE_NDI_AUDIO: [
+    ENCODE_NDI_AUDIO: [
         { id: 'NDIAudioMain',  label: 'NDI Audio Main' },
         { id: 'NDIAudioAnalog',  label: 'NDI Audio Analog' },
         { id: 'NDIAudioMute',  label: 'NDI Audio Mute' },
     ],
 
-    CHOICES_ENCODE_BANDWIDTH_MODE: [
+    ENCODE_BANDWIDTH_MODE: [
         { id: 'Manual',  label: 'Manual' },
         { id: 'NDIManaged',  label: 'NDI Managed' },
     ],
 
-    CHOICES_ENCODE_TALLY_MODE: [
+    ENCODE_TALLY_MODE: [
         { id: 'TallyOn',  label: 'Tally On' },
         { id: 'TallyOff',  label: 'Tally Off' },
     ],
 
-    CHOICES_ENCODE_NDIGroup: [
+    ENCODE_NDIGroup: [
         { id: 'NDIGroupEn',  label: 'NDI Group Enabled' },
         { id: 'NDIGroupDis',  label: 'NDI Group Disabled' },
     ],
@@ -321,14 +355,14 @@ module.exports ={
     // Exposure Mode Look Ups
     // ############
 
-    CHOICES_EXP_MODE_1: [
+    EXP_MODE_1: [
         { id: 'FULL-AUTO',  label: 'FULL-AUTO' },
         { id: 'MANUAL' ,  label: 'MANUAL' },
         { id: 'SHUTTER-PRI',  label: 'SHUTTER-PRI' },
         { id: 'IRIS-PRI',  label: 'IRIS-PRI' },
     ],
 
-    CHOICES_EXP_MODE_2: [
+    EXP_MODE_2: [
         { id: 'FULL-AUTO',  label: 'FULL-AUTO' },
         { id: 'MANUAL' ,  label: 'MANUAL' },
         { id: 'SHUTTER-PRI',  label: 'SHUTTER-PRI' },
@@ -336,7 +370,7 @@ module.exports ={
         { id: 'BRIGHT',  label: 'BRIGHT' },
     ],
 
-    CHOICES_EXP_MODE_3: [
+    EXP_MODE_3: [
         { id: 'FULL-AUTO',  label: 'FULL-AUTO' },
         { id: 'MANUAL' ,  label: 'MANUAL' },
         { id: 'SHUTTER-PRI',  label: 'SHUTTER-PRI' },
@@ -349,7 +383,7 @@ module.exports ={
     // White Balance Mode Look Ups
     // ############
 
-    CHOICES_WB_MODE_1: [
+    WB_MODE_1: [
         { id: 'AUTO', label: 'Auto' },
         { id: 'INDOOR', label: 'Indoor' },
         { id: 'OUTDOOR', label: 'Outdoor' },
@@ -359,7 +393,7 @@ module.exports ={
         { id: 'MANUAL2', label: 'Manual 2' },
     ],
 
-    CHOICES_WB_MODE_2: [
+    WB_MODE_2: [
         { id: 'AUTO', label: 'Auto' },
         { id: 'INDOOR', label: 'Indoor' },
         { id: 'OUTDOOR', label: 'Outdoor' },
@@ -372,7 +406,7 @@ module.exports ={
         { id: 'SVL-OUTDOOR-AUTO',  label: 'Sodium Lamp Outdoor Auto'},
     ],
 
-    CHOICES_WB_SELECT: [
+    WB_SELECT: [
         { id: 'FL LIGHT', label: 'FL LIGHT' },
         { id: 'STD', label: 'STD' },
         { id: 'OFF', label: 'OFF' },
@@ -385,12 +419,12 @@ module.exports ={
     // Picture Setup Look Ups
     // ############
 
-    CHOICES_PICTURE_EFFECT: [
+    PICTURE_EFFECT: [
         { id: 'BW',  label: 'BW' },
         { id: 'OFF',  label: 'Off' },
     ],
 
-    CHOICES_IR_CUT_FILTER: [
+    IR_CUT_FILTER: [
         { id: 'Auto',  label: 'Auto' },
         { id: 'On',  label: 'On' },
         { id: 'Off',  label: 'Off' },
@@ -400,7 +434,7 @@ module.exports ={
     // Advanced Settings Look Ups
     // ############
 
-    CHOICES_BRIGHTNESS_COMP: [
+    BRIGHTNESS_COMP: [
         { id: 'VERY DARK',  label: 'Very Dark' },
         { id: 'DARK',  label: 'Dark' },
         { id: 'STANDARD',  label: 'Standard' },
@@ -411,7 +445,7 @@ module.exports ={
     // P400/P4K Settings Look Ups
     // ############
 
-    CHOICES_4K_BANDWIDTH: [
+    BANDWIDTH_4K: [
         { id: 'DEFAULT',  label: 'Default' },
         { id: 'LOW',  label: 'Low' },
         { id: 'MIDDLE',  label: 'Middle' },
@@ -419,7 +453,7 @@ module.exports ={
         { id: 'WIDE',  label: 'Wide' },
     ],
     
-    CHOICES_4K_BW_BALANCE: [
+    BW_BALANCE_4K: [
         { id: 'TYPE1',  label: 'Type 1' },
         { id: 'TYPE2',  label: 'Type 2' },
         { id: 'TYPE3',  label: 'Type 3' },
@@ -431,7 +465,7 @@ module.exports ={
     // Gamma Settings Look Ups
     // ############
 
-    CHOICES_GAMMA_SETTINGS: [
+    GAMMA_SETTINGS: [
         { id: 'PATTERN',  label: 'Pattern' },
         { id: 'STANDARD',  label: 'Standard' },
         { id: 'STRAIGHT',  label: 'Straight' },

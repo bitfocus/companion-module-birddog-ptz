@@ -1,3 +1,5 @@
+const CHOICES = require ('./choices.js')
+
 exports.initFeedbacks = function () {
 	const feedbacks = {}
 
@@ -21,15 +23,7 @@ exports.initFeedbacks = function () {
 				label: 'White Balance Mode',
 				id: 'white_balance',
 				default: 'AUTO',
-				choices: [
-					{ id: 'AUTO', label: 'Auto' },
-					{ id: 'INDOOR', label: 'Indoor' },
-					{ id: 'OUTDOOR', label: 'Outdoor' },
-					{ id: 'ONEPUSH', label: 'OnePush' },
-					{ id: 'ATW', label: 'ATW' },
-					{ id: 'MANUAL1', label: 'Manual1' },
-					{ id: 'MANUAL2', label: 'Manual2' },
-				],
+				choices: CHOICES. WB_MODE_1,
 			},
 		],
 		callback: (feedback) => {
@@ -53,10 +47,7 @@ exports.initFeedbacks = function () {
 				label: 'Status',
 				id: 'status',
 				default: 'on',
-				choices: [
-					{ id: 'on', label: 'On' },
-					{ id: 'standby', label: 'Standby' },
-				],
+				choices: CHOICES.STANDBY,
 			},
 		],
 		callback: (feedback) => {
