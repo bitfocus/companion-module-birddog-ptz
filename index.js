@@ -112,13 +112,6 @@ class instance extends instance_skel {
 
 		this.SHUTTER = this.SHUTTER_NTSC
 
-		this.PRESET = []
-		let i = 0
-		for (i = 0; i < 64; i++) {
-			let presetNumber = i + 1
-			this.PRESET.push({ id: i, label: `Preset ${presetNumber}` })
-		}
-
 		this.SPEED = [
 			{ id: '01', label: 'Speed 01 (Slow)' },
 			{ id: '02', label: 'Speed 02' },
@@ -244,21 +237,13 @@ class instance extends instance_skel {
 
 		switch (action.action) {
 			case 'power':
-				if (opt.val == 'on') {
-					cmd = '\x81\x01\x04\x00\x02\xFF'
-				}
-				if (opt.val == 'off') {
-					cmd = '\x81\x01\x04\x00\x03\xFF'
-				}
-				this.sendVISCACommand(cmd)
-				break
-
-			case 'initalize':
-				if (opt.val == '0') {
-					cmd = '\x81\x04\x19\x01\xFF'
-				}
-				if (opt.val == '1') {
-					cmd = '\x81\x04\x19\x03\xFF'
+				switch (opt.val) {
+					case 'On':
+						cmd = '\x81\x01\x04\x00\x02\xFF'
+						break
+					case 'Off':
+						cmd = '\x81\x01\x04\x00\x03\xFF'
+						break
 				}
 				this.sendVISCACommand(cmd)
 				break
@@ -336,11 +321,13 @@ class instance extends instance_skel {
 				break
 
 			case 'ptSlow':
-				if (opt.val == 'on') {
-					cmd = '\x81\x01\x06\x44\x02\xFF'
-				}
-				if (opt.val == 'off') {
-					cmd = '\x81\x01\x06\x44\x03\xFF'
+				switch (opt.val) {
+					case 'On':
+						cmd = '\x81\x01\x06\x44\x02\xFF'
+						break
+					case 'Off':
+						cmd = '\x81\x01\x06\x44\x03\xFF'
+						break
 				}
 				this.sendVISCACommand(cmd)
 				break
@@ -413,30 +400,37 @@ class instance extends instance_skel {
 				break
 
 			case 'focusM':
-				if (opt.bol == 0) {
-					cmd = '\x81\x01\x04\x38\x02\xFF'
-				}
-				if (opt.bol == 1) {
-					cmd = '\x81\x01\x04\x38\x03\xFF'
+				switch (opt.val) {
+					case 'AutoFocus':
+						cmd = '\x81\x01\x04\x38\x02\xFF'
+						break
+					case 'Manual':
+						cmd = '\x81\x01\x04\x38\x03\xFF'
+						break
 				}
 				this.sendVISCACommand(cmd)
 				break
 
 			case 'expM':
-				if (opt.val == 0) {
-					cmd = '\x81\x01\x04\x39\x00\xFF'
-				}
-				if (opt.val == 1) {
-					cmd = '\x81\x01\x04\x39\x03\xFF'
-				}
-				if (opt.val == 2) {
-					cmd = '\x81\x01\x04\x39\x0A\xFF'
-				}
-				if (opt.val == 3) {
-					cmd = '\x81\x01\x04\x39\x0B\xFF'
-				}
-				if (opt.val == 4) {
-					cmd = '\x81\x01\x04\x39\x0E\xFF'
+				switch (opt.val) {
+					case 'FULL-AUTO':
+						cmd = '\x81\x01\x04\x39\x00\xFF'
+						break
+					case 'MANUAL':
+						cmd = '\x81\x01\x04\x39\x03\xFF'
+						break
+					case 'SHUTTER-PRI':
+						cmd = '\x81\x01\x04\x39\x0A\xFF'
+						break
+					case 'IRIS-PRI':
+						cmd = '\x81\x01\x04\x39\x0B\xFF'
+						break
+					case 'BRIGHT':
+						cmd = '\x81\x01\x04\x39\x0D\xFF'
+						break
+					case 'GAIN-PRI':
+						cmd = '\x81\x01\x04\x39\x0E\xFF'
+						break
 				}
 				this.sendVISCACommand(cmd)
 				break
@@ -608,14 +602,14 @@ class instance extends instance_skel {
 
 			case 'savePset':
 				cmd = Buffer.from('\x81\x01\x04\x3F\x01\x00\xFF', 'binary')
-				cmd.writeUInt8(opt.val, 5)
+				cmd.writeUInt8(opt.val - 1, 5)
 				//cmd.writeUInt8((opt.val - parseInt(opt.val.toString(8) >> 4)*16),7);
 				this.sendVISCACommand(cmd)
 				break
 
 			case 'recallPset':
 				cmd = Buffer.from('\x81\x01\x04\x3F\x02\x00\xFF', 'binary')
-				cmd.writeUInt8(opt.val, 5)
+				cmd.writeUInt8(opt.val - 1, 5)
 				//cmd.writeUInt8((opt.val - parseInt(opt.val.toString(8) >> 4)*16),7);
 				this.sendVISCACommand(cmd)
 				break
@@ -651,51 +645,62 @@ class instance extends instance_skel {
 				break
 
 			case 'irMode':
-				if (opt.bol == 0) {
-					cmd = '\x81\x01\x04\x11\x00\xFF'
-				}
-				if (opt.bol == 1) {
-					cmd = '\x81\x01\x04\x11\x01\xFF'
+				switch (opt.val) {
+					case 'Auto':
+						cmd = '\x81\x01\x04\x3F\x02\x40\xFF'
+						break
+					case 'On':
+						cmd = '\x81\x01\x04\x3F\x01\x3F\xFF'
+						break
+					case 'Off':
+						cmd = '\x81\x01\x04\x3F\x02\x3F\xFF'
+						break
 				}
 				this.sendVISCACommand(cmd)
 				break
 
 			case 'hrMode':
-				if (opt.val == 'off') {
-					cmd = '\x81\x01\x04\x52\x03\xFF'
-				}
-				if (opt.val == 'on') {
-					cmd = '\x81\x01\x04\x52\x02\xFF'
+				switch (opt.val) {
+					case 'On':
+						cmd = '\x81\x01\x04\x52\x02\xFF'
+						break
+					case 'Off':
+						cmd = '\x81\x01\x04\x52\x03\xFF'
+						break
 				}
 				this.sendVISCACommand(cmd)
 				break
 
 			case 'highSensitivity':
-				if (opt.val == 'off') {
-					cmd = '\x81\x01\x04\x5E\x03\xFF'
-				}
-				if (opt.val == 'on') {
-					cmd = '\x81\x01\x04\x5E\x02\xFF'
+				switch (opt.val) {
+					case 'On':
+						cmd = '\x81\x01\x04\x5E\x02\xFF'
+						break
+					case 'Off':
+						cmd = '\x81\x01\x04\x5E\x03\xFF'
+						break
 				}
 				this.sendVISCACommand(cmd)
 				break
 
 			case 'tally':
-				if (opt.val == 'off') {
-					cmd = '\x81\x01\x7E\x01\x0A\x00\x03\xFF'
-				}
-				if (opt.val == 'on') {
-					cmd = '\x81\x01\x7E\x01\x0A\x00\x02\xFF'
+				switch (opt.val) {
+					case 'TallyOn':
+						cmd = '\x81\x01\x7E\x01\x0A\x00\x02\xFF'
+						break
+					case 'TallyOff':
+						cmd = '\x81\x01\x7E\x01\x0A\x00\x03\xFF'
+						break
 				}
 				this.sendVISCACommand(cmd)
 				break
 
 			case 'freeze':
 				switch (opt.val) {
-					case 'on':
+					case 'On':
 						cmd = '\x81\x01\x04\x62\x02\xFF'
 						break
-					case 'off':
+					case 'Off':
 						cmd = '\x81\x01\x04\x62\x03\xFF'
 						break
 				}
@@ -704,11 +709,11 @@ class instance extends instance_skel {
 
 			case 'picFlip':
 				switch (opt.val) {
-					case 'off':
-						cmd = '\x81\x01\x04\x66\x03\xFF'
-						break
-					case 'on':
+					case 'On':
 						cmd = '\x81\x01\x04\x66\x02\xFF'
+						break
+					case 'Off':
+						cmd = '\x81\x01\x04\x66\x03\xFF'
 						break
 				}
 				this.sendVISCACommand(cmd)
@@ -716,11 +721,11 @@ class instance extends instance_skel {
 
 			case 'picMirror':
 				switch (opt.val) {
-					case 'off':
-						cmd = '\x81\x01\x04\x61\x03\xFF'
-						break
-					case 'on':
+					case 'On':
 						cmd = '\x81\x01\x04\x61\x02\xFF'
+						break
+					case 'Off':
+						cmd = '\x81\x01\x04\x61\x03\xFF'
 						break
 				}
 				this.sendVISCACommand(cmd)
@@ -835,7 +840,7 @@ class instance extends instance_skel {
 			this.setVariable('exposure_mode', data.ExpMode)
 			this.setVariable('exposure_comp', data.ExpCompEn)
 			this.setVariable('exposure_comp_level', data.ExpCompLvl)
-			this.setVariable('ae_reponse', data.AeReponse)
+			this.setVariable('ae_response', data.AeReponse)
 			this.setVariable('slow_shutter', data.SlowShutterEn)
 			this.setVariable('slow_shutter_limit', data.SlowShutterLimit)
 			this.setVariable('shutter_control_overwrite', data.ShutterControlOverwrite)

@@ -4,8 +4,8 @@ module.exports = {
 	// ############
 
 	ON_OFF: [
-		{ id: 'on', label: 'On' },
-		{ id: 'off', label: 'Off' },
+		{ id: 'On', label: 'On' },
+		{ id: 'Off', label: 'Off' },
 	],
 
 	STANDBY: [
@@ -299,13 +299,26 @@ module.exports = {
 		{ id: '9', label: 'P/T Home' },
 	],
 
+	PTZ_ZOOM: [
+		{ id: '0', label: 'Zoom In' },
+		{ id: '1', label: 'Zoom Out' },
+		{ id: '2', label: 'Zoom Stop' },
+	],
+
 	// ############
-	// Focus Mode Look Ups
+	// Focus Look Ups
 	// ############
 
 	AUTO_FOCUS: [
-		{ id: '0', label: 'Auto Focus' },
-		{ id: '1', label: 'Manual' },
+		{ id: 'AutoFocus', label: 'Auto Focus' },
+		{ id: 'Manual', label: 'Manual' },
+	],
+
+	FOCUS_CONTROL: [
+		{ id: '0', label: 'Focus Near' },
+		{ id: '1', label: 'Focus Far' },
+		{ id: '2', label: 'Focus Stop' },
+		{ id: '3', label: 'Focus One Push Auto' },
 	],
 
 	// ############
@@ -319,8 +332,8 @@ module.exports = {
 	],
 
 	TALLY_MODE: [
-		{ id: '1', label: 'Tally On' },
-		{ id: '0', label: 'Tally Off' },
+		{ id: 'TallyOn', label: 'Tally On' },
+		{ id: 'TallyOff', label: 'Tally Off' },
 	],
 
 	// ############
@@ -330,7 +343,7 @@ module.exports = {
 	ENCODE_TXPM: [
 		{ id: 'Multicast', label: 'Multicast' },
 		{ id: 'TCP', label: 'TCP' },
-		{ id: 'MultiTCP', label: 'Multi-TCP' },
+		{ id: 'Multi-TCP', label: 'Multi-TCP' },
 		{ id: 'UDP', label: 'UDP' },
 	],
 
@@ -353,14 +366,14 @@ module.exports = {
 	// ############
 	// Exposure Mode Look Ups
 	// ############
-
+	//P100, PF120
 	EXP_MODE_1: [
-		{ id: '0', label: 'Full Auto' },
-		{ id: '1', label: 'Manual' },
-		{ id: '2', label: 'Shutter Priority' },
-		{ id: '3', label: 'Iris Priority' },
+		{ id: 'FULL-AUTO', label: 'FULL-AUTO' },
+		{ id: 'MANUAL', label: 'MANUAL' },
+		{ id: 'SHUTTER-PRI', label: 'SHUTTER-PRI' },
+		{ id: 'IRIS-PRI', label: 'IRIS-PRI' },
 	],
-
+	//P200, A200
 	EXP_MODE_2: [
 		{ id: 'FULL-AUTO', label: 'FULL-AUTO' },
 		{ id: 'MANUAL', label: 'MANUAL' },
@@ -368,7 +381,7 @@ module.exports = {
 		{ id: 'IRIS-PRI', label: 'IRIS-PRI' },
 		{ id: 'BRIGHT', label: 'BRIGHT' },
 	],
-
+	//P400, P4K
 	EXP_MODE_3: [
 		{ id: 'FULL-AUTO', label: 'FULL-AUTO' },
 		{ id: 'MANUAL', label: 'MANUAL' },
@@ -420,7 +433,7 @@ module.exports = {
 
 	PICTURE_EFFECT: [
 		{ id: 'BW', label: 'Black & White' },
-		{ id: 'OFF', label: 'Off' },
+		{ id: 'Off', label: 'Off' },
 	],
 
 	IR_CUT_FILTER: [

@@ -5,37 +5,37 @@ module.exports = {
 		actions.forEach((action) => {
 			if (action.action === 'power' || action.action === 'freeze') {
 				if (action.options.val == '0') {
-					action.options.val = 'on'
+					action.options.val = 'On'
 					changed = true
 				} else if (action.options.val == '1') {
-					action.options.val = 'off'
+					action.options.val = 'Off'
 					changed = true
 				}
 			}
 			if (action.action === 'ptSlow') {
 				if (action.options.bol == '0') {
-					action.options.val = 'on'
+					action.options.val = 'On'
 					changed = true
 				} else if (action.options.bol == '1') {
-					action.options.val = 'off'
+					action.options.val = 'Off'
 					changed = true
 				}
 			}
-			if (action.action === 'hrMode' || action.action === 'highSensitivity' || action.action === 'tally') {
+			if (action.action === 'hrMode' || action.action === 'highSensitivity') {
 				if (action.options.bol == '1') {
-					action.options.val = 'on'
+					action.options.val = 'On'
 					changed = true
 				} else if (action.options.bol == '0') {
-					action.options.val = 'off'
+					action.options.val = 'Off'
 					changed = true
 				}
 			}
 			if (action.action === 'picFlip' || action.action === 'picMirror') {
 				if (action.options.val == '1') {
-					action.options.val = 'on'
+					action.options.val = 'On'
 					changed = true
 				} else if (action.options.val == '0') {
-					action.options.val = 'off'
+					action.options.val = 'Off'
 					changed = true
 				}
 			}
@@ -83,12 +83,62 @@ module.exports = {
 				action.options.val = val
 				changed = true
 			}
+			if (action.action === 'expM') {
+				let val
+				if (!isNaN(action.options.val)) {
+					switch (action.options.val) {
+						case '0':
+							val = 'FULL-AUTO'
+							break
+						case '1':
+							val = 'MANUAL'
+							break
+						case '2':
+							val = 'SHUTTER-PRI'
+							break
+						case '3':
+							val = 'IRIS-PRI'
+							break
+					}
+				} else {
+					val = action.options.val
+				}
+				action.options.val = val
+				changed = true
+			}
 			if (action.action === 'pictureEffect') {
 				if (action.options.val == '1' || action.options.val == '2') {
 					action.options.val = 'BW'
 					changed = true
 				} else if (action.options.val == '0') {
-					action.options.val = 'OFF'
+					action.options.val = 'Off'
+					changed = true
+				}
+			}
+			if (action.action === 'focusM') {
+				if (action.options.bol == '0') {
+					action.options.val = 'AutoFocus'
+					changed = true
+				} else if (action.options.bol == '1') {
+					action.options.val = 'Manual'
+					changed = true
+				}
+			}
+			if (action.action === 'tally') {
+				if (action.options.bol == '1') {
+					action.options.val = 'TallyOn'
+					changed = true
+				} else if (action.options.bol == '0') {
+					action.options.val = 'TallyOff'
+					changed = true
+				}
+			}
+			if (action.action === 'irMode') {
+				if (action.options.bol == '0') {
+					action.options.val = 'On'
+					changed = true
+				} else if (action.options.bol == '1') {
+					action.options.val = 'Off'
 					changed = true
 				}
 			}
