@@ -117,10 +117,6 @@ class instance extends instance_skel {
 		return [upgradeScripts.choicesUpgrade]
 	}
 
-	// Tell companion to re-run from the first upgrade script each time. Use higher numbers to run from later points.
-	// Make sure to NOT commit this line uncommented
-	static DEVELOPER_forceStartupUpgradeScript = 0
-
 	config_fields() {
 		return [
 			{
