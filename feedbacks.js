@@ -1,3 +1,5 @@
+const CHOICES = require('./choices.js')
+
 exports.initFeedbacks = function () {
 	const feedbacks = {}
 
@@ -20,16 +22,11 @@ exports.initFeedbacks = function () {
 				type: 'dropdown',
 				label: 'White Balance Mode',
 				id: 'white_balance',
+				choices:
+					this.camera?.about?.version == 'P100' || this.camera?.about?.version == 'PF120'
+						? CHOICES.WB_MODE_1
+						: CHOICES.WB_MODE_2,
 				default: 'AUTO',
-				choices: [
-					{ id: 'AUTO', label: 'Auto' },
-					{ id: 'INDOOR', label: 'Indoor' },
-					{ id: 'OUTDOOR', label: 'Outdoor' },
-					{ id: 'ONEPUSH', label: 'OnePush' },
-					{ id: 'ATW', label: 'ATW' },
-					{ id: 'MANUAL1', label: 'Manual1' },
-					{ id: 'MANUAL2', label: 'Manual2' },
-				],
 			},
 		],
 		callback: (feedback) => {
@@ -52,11 +49,8 @@ exports.initFeedbacks = function () {
 				type: 'dropdown',
 				label: 'Status',
 				id: 'status',
+				choices: CHOICES.STANDBY,
 				default: 'on',
-				choices: [
-					{ id: 'on', label: 'On' },
-					{ id: 'standby', label: 'Standby' },
-				],
 			},
 		],
 		callback: (feedback) => {

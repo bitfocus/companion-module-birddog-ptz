@@ -271,33 +271,77 @@ exports.getPresets = function () {
 	})
 	presets.push({
 		category: 'Pan/Tilt',
-		label: 'Speed Up',
+		label: 'Pan Speed Up',
 		bank: {
 			style: 'text',
-			text: 'SPEED\\nUP',
-			size: '18',
+			text: 'PAN SPEED\\nUP',
+			size: 'auto',
 			color: '16777215',
 			bgcolor: this.rgb(0, 0, 0),
 		},
 		actions: [
 			{
-				action: 'ptSpeedU',
+				action: 'panSpeed',
+				options: {
+					type: 'up',
+				},
 			},
 		],
 	})
 	presets.push({
 		category: 'Pan/Tilt',
-		label: 'Speed Down',
+		label: 'Pan Speed Down',
 		bank: {
 			style: 'text',
-			text: 'SPEED\\nDOWN',
-			size: '18',
+			text: 'PAN SPEED\\nDOWN',
+			size: 'auto',
 			color: '16777215',
 			bgcolor: this.rgb(0, 0, 0),
 		},
 		actions: [
 			{
-				action: 'ptSpeedD',
+				action: 'panSpeed',
+				options: {
+					type: 'down',
+				},
+			},
+		],
+	})
+	presets.push({
+		category: 'Pan/Tilt',
+		label: 'Tilt Speed Up',
+		bank: {
+			style: 'text',
+			text: 'TILT SPEED\\nUP',
+			size: 'auto',
+			color: '16777215',
+			bgcolor: this.rgb(0, 0, 0),
+		},
+		actions: [
+			{
+				action: 'tiltSpeed',
+				options: {
+					type: 'up',
+				},
+			},
+		],
+	})
+	presets.push({
+		category: 'Pan/Tilt',
+		label: 'Tilt Speed Down',
+		bank: {
+			style: 'text',
+			text: 'TILT SPEED\\nDOWN',
+			size: 'auto',
+			color: '16777215',
+			bgcolor: this.rgb(0, 0, 0),
+		},
+		actions: [
+			{
+				action: 'tiltSpeed',
+				options: {
+					type: 'down',
+				},
 			},
 		],
 	})
@@ -424,7 +468,7 @@ exports.getPresets = function () {
 			{
 				action: 'focusM',
 				options: {
-					bol: 0,
+					val: 'AutoFocus',
 				},
 			},
 		],
@@ -432,7 +476,7 @@ exports.getPresets = function () {
 			{
 				action: 'focusM',
 				options: {
-					bol: 1,
+					val: 'Manual',
 				},
 			},
 		],
@@ -470,7 +514,7 @@ exports.getPresets = function () {
 			{
 				action: 'expM',
 				options: {
-					bol: 0,
+					val: 'FULL-AUTO',
 				},
 			},
 		],
@@ -682,7 +726,7 @@ exports.getPresets = function () {
 				{
 					action: 'savePset',
 					options: {
-						val: '0' + save.toString(16).toUpperCase(),
+						val: parseInt(save + 1),
 					},
 				},
 			],
@@ -705,7 +749,7 @@ exports.getPresets = function () {
 				{
 					action: 'recallPset',
 					options: {
-						val: '0' + recall.toString(16).toUpperCase(),
+						val: parseInt(recall + 1),
 					},
 				},
 			],

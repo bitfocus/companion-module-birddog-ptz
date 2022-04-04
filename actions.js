@@ -1,3 +1,5 @@
+const CHOICES = require('./choices.js')
+
 module.exports = {
 	getActions() {
 		let actions = {}
@@ -9,26 +11,8 @@ module.exports = {
 					type: 'dropdown',
 					label: 'On/Off',
 					id: 'val',
-					choices: [
-						{ id: '0', label: 'On' },
-						{ id: '1', label: 'Off' },
-					],
-					default: '0',
-				},
-			],
-		}
-		actions['initalize'] = {
-			label: 'Initialize / Reset',
-			options: [
-				{
-					type: 'dropdown',
-					label: 'Type',
-					id: 'val',
-					choices: [
-						{ id: '0', label: 'Lens Initialization' },
-						{ id: '1', label: 'Camera Reset' },
-					],
-					default: '0',
+					choices: CHOICES.ON_OFF,
+					default: 'On',
 				},
 			],
 		}
@@ -39,47 +23,68 @@ module.exports = {
 					type: 'dropdown',
 					label: 'Direction',
 					id: 'val',
-					choices: [
-						{ id: '0', label: 'Left' },
-						{ id: '1', label: 'Right' },
-						{ id: '2', label: 'Up' },
-						{ id: '3', label: 'Down' },
-						{ id: '4', label: 'Up Left' },
-						{ id: '5', label: 'Up Right' },
-						{ id: '6', label: 'Down Left' },
-						{ id: '7', label: 'Down Right' },
-						{ id: '8', label: 'P/T Stop' },
-						{ id: '9', label: 'P/T Home' },
-					],
+					choices: CHOICES.PTZ_DIRECTION,
 					default: '0',
 				},
 			],
 		}
-		actions['ptSpeedS'] = {
-			label: 'P/T Speed',
+		actions['panSpeed'] = {
+			label: 'Pan Speed',
 			options: [
 				{
 					type: 'dropdown',
-					label: 'Speed',
-					id: 'speed',
-					choices: this.SPEED,
-					default: '0C',
+					label: 'Action',
+					id: 'type',
+					choices: CHOICES.SPEED_CHANGES,
+					default: 'up',
+				},
+				{
+					type: 'dropdown',
+					label: 'Value',
+					id: 'value',
+					choices: CHOICES.PAN_SPEED,
+					default: 11,
+					isVisible: (action) => action.options.type === 'value',
 				},
 			],
 		}
-		actions['ptSpeedU'] = { label: 'P/T Speed Up' }
-		actions['ptSpeedD'] = { label: 'P/T Speed Down' }
-		actions['ptSlow'] = {
-			label: 'P/T Slow Mode',
+		actions['tiltSpeed'] = {
+			label: 'Tilt Speed',
 			options: [
 				{
 					type: 'dropdown',
-					label: 'Slow Mode',
-					id: 'bol',
-					choices: [
-						{ id: '1', label: 'Off' },
-						{ id: '0', label: 'On' },
-					],
+					label: 'Action',
+					id: 'type',
+					choices: CHOICES.SPEED_CHANGES,
+					default: 'up',
+				},
+				{
+					type: 'dropdown',
+					label: 'Value',
+					id: 'value',
+					choices: CHOICES.TILT_SPEED,
+					default: 9,
+					isVisible: (action) => action.options.speed === 'value',
+				},
+			],
+		}
+		actions['zoomSpeed'] = {
+			label: 'Zoom Speed',
+			options: [
+				{
+					type: 'dropdown',
+					label: 'Action',
+					id: 'type',
+					choices: CHOICES.SPEED_CHANGES,
+					default: 'up',
+				},
+				{
+					type: 'dropdown',
+					label: 'Value',
+					id: 'value',
+					choices: CHOICES.ZOOM_SPEED,
+					default: 4,
+					isVisible: (action) => action.options.speed === 'value',
 				},
 			],
 		}
@@ -90,11 +95,7 @@ module.exports = {
 					type: 'dropdown',
 					label: 'Direction',
 					id: 'val',
-					choices: [
-						{ id: '0', label: 'Zoom In' },
-						{ id: '1', label: 'Zoom Out' },
-						{ id: '2', label: 'Zoom Stop' },
-					],
+					choices: CHOICES.PTZ_ZOOM,
 					default: '0',
 				},
 			],
@@ -106,12 +107,7 @@ module.exports = {
 					type: 'dropdown',
 					label: 'Direction',
 					id: 'val',
-					choices: [
-						{ id: '0', label: 'Focus Near' },
-						{ id: '1', label: 'Focus Far' },
-						{ id: '2', label: 'Focus Stop' },
-						{ id: '3', label: 'Focus One Push Auto' },
-					],
+					choices: CHOICES.FOCUS_CONTROL,
 					default: '0',
 				},
 			],
@@ -122,14 +118,19 @@ module.exports = {
 				{
 					type: 'dropdown',
 					label: 'Mode',
-					id: 'bol',
-					choices: [
-						{ id: '0', label: 'Auto Focus' },
-						{ id: '1', label: 'Manual Focus' },
-					],
-					default: '0',
+					id: 'val',
+					choices: CHOICES.AUTO_FOCUS,
+					default: 'AutoFocus',
 				},
 			],
+		}
+		let exposureMode
+		if (this.camera?.about?.version == 'P400' || this.camera?.about?.version == 'P4K') {
+			exposureMode = CHOICES.EXP_MODE_3
+		} else if (this.camera?.about?.version == 'P100' || this.camera?.about?.version == 'PF120') {
+			exposureMode = CHOICES.EXP_MODE_1
+		} else {
+			exposureMode = CHOICES.EXP_MODE_2
 		}
 		actions['expM'] = {
 			label: 'Exposure Mode',
@@ -138,39 +139,29 @@ module.exports = {
 					type: 'dropdown',
 					label: 'Mode',
 					id: 'val',
-					choices: [
-						{ id: '0', label: 'Full Auto' },
-						{ id: '1', label: 'Manual' },
-						{ id: '2', label: 'Shutter Priority' },
-						{ id: '3', label: 'Iris Priority' },
-					],
-					default: '0',
+					choices: exposureMode,
+					default: 'FULL-AUTO',
 				},
 			],
 		}
 		actions['wb'] = {
-			label: 'White Balance',
+			label: 'White Balance Mode',
 			options: [
 				{
 					type: 'dropdown',
 					label: 'Mode',
 					id: 'val',
-					choices: [
-						{ id: '0', label: 'Auto' },
-						{ id: '1', label: 'Indoor' },
-						{ id: '2', label: 'Outdoor' },
-						{ id: '3', label: 'One Push Mode' },
-						{ id: '4', label: 'ATW' },
-						{ id: '5', label: 'Manual' },
-						{ id: '6', label: 'One Push Trigger' },
-						{ id: '7', label: 'Outdoor Auto' },
-						{ id: '8', label: 'Sodium Lamp Auto' },
-						{ id: '9', label: 'Sodium Lamp' },
-						{ id: '10', label: 'Sodium Lamp Outdoor Auto' },
-					],
-					default: '0',
+					choices:
+						this.camera?.about?.version == 'P100' || this.camera?.about?.version == 'PF120'
+							? CHOICES.WB_MODE_1
+							: CHOICES.WB_MODE_2,
+					default: 'AUTO',
 				},
 			],
+		}
+		actions['wbOnePush'] = {
+			label: 'White Balance One Push Trigger',
+			description: 'Camera must be in One Push mode in order to use this action',
 		}
 		actions['gain'] = {
 			label: 'Gain',
@@ -179,17 +170,12 @@ module.exports = {
 					type: 'dropdown',
 					label: 'Gain',
 					id: 'val',
-					choices: [
-						{ id: 'up', label: 'UP' },
-						{ id: 'down', label: 'DOWN' },
-						{ id: 'reset', label: 'RESET' },
-						{ id: 'value', label: 'VALUE' },
-					],
+					choices: CHOICES.UP_DOWN_RESET_VALUE,
 					default: 'up',
 				},
 				{
 					type: 'dropdown',
-					label: 'VALUE',
+					label: 'Value',
 					id: 'value',
 					choices: this.GAIN,
 					default: 01,
@@ -204,12 +190,7 @@ module.exports = {
 					type: 'dropdown',
 					label: 'Gain Red',
 					id: 'val',
-					choices: [
-						{ id: 'up', label: 'UP' },
-						{ id: 'down', label: 'DOWN' },
-						{ id: 'reset', label: 'RESET' },
-						{ id: 'value', label: 'VALUE' },
-					],
+					choices: CHOICES.UP_DOWN_RESET_VALUE,
 					default: 'up',
 				},
 				{
@@ -230,12 +211,7 @@ module.exports = {
 					type: 'dropdown',
 					label: 'Gain Blue',
 					id: 'val',
-					choices: [
-						{ id: 'up', label: 'UP' },
-						{ id: 'down', label: 'DOWN' },
-						{ id: 'reset', label: 'RESET' },
-						{ id: 'value', label: 'VALUE' },
-					],
+					choices: CHOICES.UP_DOWN_RESET_VALUE,
 					default: 'up',
 				},
 				{
@@ -256,12 +232,7 @@ module.exports = {
 					type: 'dropdown',
 					label: 'Iris',
 					id: 'val',
-					choices: [
-						{ id: 'up', label: 'UP' },
-						{ id: 'down', label: 'DOWN' },
-						{ id: 'reset', label: 'RESET' },
-						{ id: 'value', label: 'VALUE' },
-					],
+					choices: CHOICES.UP_DOWN_RESET_VALUE,
 					default: 'up',
 				},
 				{
@@ -281,17 +252,12 @@ module.exports = {
 					type: 'dropdown',
 					label: 'Shutter',
 					id: 'val',
-					choices: [
-						{ id: 'up', label: 'UP' },
-						{ id: 'down', label: 'DOWN' },
-						{ id: 'reset', label: 'RESET' },
-						{ id: 'value', label: 'VALUE' },
-					],
+					choices: CHOICES.UP_DOWN_RESET_VALUE,
 					default: 'up',
 				},
 				{
 					type: 'dropdown',
-					label: 'VALUE',
+					label: 'Value',
 					id: 'value',
 					choices: this.SHUTTER,
 					default: 11,
@@ -303,11 +269,12 @@ module.exports = {
 			label: 'Save Preset',
 			options: [
 				{
-					type: 'dropdown',
+					type: 'number',
 					label: 'Preset Number',
 					id: 'val',
-					choices: this.PRESET,
-					default: 0,
+					default: 1,
+					min: 1,
+					max: 64,
 				},
 			],
 		}
@@ -315,11 +282,12 @@ module.exports = {
 			label: 'Recall Preset',
 			options: [
 				{
-					type: 'dropdown',
-					label: 'Preset Nr.',
+					type: 'number',
+					label: 'Preset Number',
 					id: 'val',
-					choices: this.PRESET,
-					default: 0,
+					default: 1,
+					min: 1,
+					max: 64,
 				},
 			],
 		}
@@ -330,12 +298,8 @@ module.exports = {
 					type: 'dropdown',
 					label: 'Effect',
 					id: 'val',
-					choices: [
-						{ id: '0', label: 'Off' },
-						{ id: '1', label: 'Neg.Art' },
-						{ id: '2', label: 'Black White' },
-					],
-					default: '0',
+					choices: CHOICES.PICTURE_EFFECT,
+					default: 'BW',
 				},
 			],
 		}
@@ -357,17 +321,14 @@ module.exports = {
 			],
 		}
 		actions['irMode'] = {
-			label: 'IR Correction',
+			label: 'IR Cut Filter',
 			options: [
 				{
 					type: 'dropdown',
 					label: 'On / Off',
-					id: 'bol',
-					choices: [
-						{ id: '0', label: 'Standard' },
-						{ id: '1', label: 'IR Light' },
-					],
-					default: '0',
+					id: 'val',
+					choices: CHOICES.IR_CUT_FILTER,
+					default: 'On',
 				},
 			],
 		}
@@ -377,12 +338,9 @@ module.exports = {
 				{
 					type: 'dropdown',
 					label: 'On / Off',
-					id: 'bol',
-					choices: [
-						{ id: '0', label: 'Off' },
-						{ id: '1', label: 'On' },
-					],
-					default: '0',
+					id: 'val',
+					choices: CHOICES.ON_OFF,
+					default: 'On',
 				},
 			],
 		}
@@ -392,12 +350,9 @@ module.exports = {
 				{
 					type: 'dropdown',
 					label: 'On / Off',
-					id: 'bol',
-					choices: [
-						{ id: '0', label: 'Off' },
-						{ id: '1', label: 'On' },
-					],
-					default: '0',
+					id: 'val',
+					choices: CHOICES.ON_OFF,
+					default: 'On',
 				},
 			],
 		}
@@ -407,12 +362,9 @@ module.exports = {
 				{
 					type: 'dropdown',
 					label: 'On / Off',
-					id: 'bol',
-					choices: [
-						{ id: '0', label: 'Off' },
-						{ id: '1', label: 'On' },
-					],
-					default: '0',
+					id: 'val',
+					choices: CHOICES.TALLY_MODE,
+					default: 'TallyOn',
 				},
 			],
 		}
@@ -421,13 +373,10 @@ module.exports = {
 			options: [
 				{
 					type: 'dropdown',
-					label: 'Freeze',
+					label: 'On / Off',
 					id: 'val',
-					choices: [
-						{ id: '0', label: 'On' },
-						{ id: '1', label: 'Off' },
-					],
-					default: '0',
+					choices: CHOICES.ON_OFF,
+					default: 'On',
 				},
 			],
 		}
@@ -436,13 +385,10 @@ module.exports = {
 			options: [
 				{
 					type: 'dropdown',
-					label: 'Flip On/Off',
+					label: 'On / Off',
 					id: 'val',
-					choices: [
-						{ id: '0', label: 'Off' },
-						{ id: '1', label: 'On' },
-					],
-					default: '0',
+					choices: CHOICES.ON_OFF,
+					default: 'On',
 				},
 			],
 		}
@@ -451,18 +397,15 @@ module.exports = {
 			options: [
 				{
 					type: 'dropdown',
-					label: 'Mirror On/Off',
+					label: 'On / Off',
 					id: 'val',
-					choices: [
-						{ id: '0', label: 'Off' },
-						{ id: '1', label: 'On' },
-					],
-					default: '0',
+					choices: CHOICES.ON_OFF,
+					default: 'On',
 				},
 			],
 		}
 		actions['custom'] = {
-			label: 'Custom Command',
+			label: 'Custom Visca Command',
 			options: [
 				{
 					type: 'textinput',

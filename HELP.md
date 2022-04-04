@@ -11,9 +11,14 @@ This module allows you to control any [BirdDog](https://birddog.tv/ptz-range/) P
 
 - Pan/Tilt
 - Zoom
+- Pan Speed
+- Tilt Speed
+- Zoom Speed
 - Focus (Near / Far / One Push)
 - Focus Mode (Auto or Manual)
 - Exposure Mode
+- White Balance Mode
+- White Balance One Push Trigger
 - Gain
 - Gain Red
 - Gain Blue
@@ -28,7 +33,7 @@ This module allows you to control any [BirdDog](https://birddog.tv/ptz-range/) P
 - Picture Flip
 - Picture Mirror
 - Defog
-- IR Correction
+- IR Cut Filter
 - High Resolution Mode
 - High Sensitivity Mode
 - Custom Command (81 01 04 07 02 FF)
@@ -104,5 +109,6 @@ This module allows you to control any [BirdDog](https://birddog.tv/ptz-range/) P
 | **Zoom Speed**                  |       Y        |         Y          |      Y       |
 
 ### Available Feedback
+
 - wb_mode
 - standby_mode
