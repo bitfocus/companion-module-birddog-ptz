@@ -12,15 +12,6 @@ module.exports = {
 					changed = true
 				}
 			}
-			if (action.action === 'ptSlow') {
-				if (action.options.bol == '0') {
-					action.options.val = 'On'
-					changed = true
-				} else if (action.options.bol == '1') {
-					action.options.val = 'Off'
-					changed = true
-				}
-			}
 			if (action.action === 'hrMode' || action.action === 'highSensitivity') {
 				if (action.options.bol == '1') {
 					action.options.val = 'On'
@@ -141,6 +132,99 @@ module.exports = {
 					action.options.val = 'Off'
 					changed = true
 				}
+			}
+			if (action.action === 'ptSpeedU') {
+				action.action = 'panSpeed'
+				action.options.type = 'up'
+				changed = true
+			}
+			if (action.action === 'ptSpeedD') {
+				action.action = 'panSpeed'
+				action.options.type = 'down'
+				changed = true
+			}
+			if (action.action === 'ptSpeedS') {
+				action.action = 'panSpeed'
+				action.options.type = 'value'
+				let val
+				if (action.options.speed) {
+					switch (action.options.speed) {
+						case '01':
+							val = 1
+							break
+						case '02':
+							val = 2
+							break
+						case '03':
+							val = 3
+							break
+						case '04':
+							val = 4
+							break
+						case '05':
+							val = 5
+							break
+						case '06':
+							val = 6
+							break
+						case '07':
+							val = 7
+							break
+						case '08':
+							val = 8
+							break
+						case '09':
+							val = 9
+							break
+						case '0A':
+							val = 10
+							break
+						case '0B':
+							val = 11
+							break
+						case '0C':
+							val = 12
+							break
+						case '0D':
+							val = 13
+							break
+						case '0E':
+							val = 14
+							break
+						case '0F':
+							val = 15
+							break
+						case '10':
+							val = 16
+							break
+						case '11':
+							val = 17
+							break
+						case '12':
+							val = 18
+							break
+						case '13':
+							val = 19
+							break
+						case '14':
+							val = 20
+							break
+						case '15':
+							val = 21
+							break
+						case '16':
+							val = 21
+							break
+						case '17':
+							val = 21
+							break
+						case '18':
+							val = 21
+							break
+					}
+				}
+				action.options.value = val
+				changed = true
 			}
 		})
 		return changed

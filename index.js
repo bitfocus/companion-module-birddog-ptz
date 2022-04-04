@@ -111,33 +111,6 @@ class instance extends instance_skel {
 		]
 
 		this.SHUTTER = this.SHUTTER_NTSC
-
-		this.SPEED = [
-			{ id: '01', label: 'Speed 01 (Slow)' },
-			{ id: '02', label: 'Speed 02' },
-			{ id: '03', label: 'Speed 03' },
-			{ id: '04', label: 'Speed 04' },
-			{ id: '05', label: 'Speed 05' },
-			{ id: '06', label: 'Speed 06' },
-			{ id: '07', label: 'Speed 07' },
-			{ id: '08', label: 'Speed 08' },
-			{ id: '09', label: 'Speed 09' },
-			{ id: '0A', label: 'Speed 10' },
-			{ id: '0B', label: 'Speed 11' },
-			{ id: '0C', label: 'Speed 12' },
-			{ id: '0D', label: 'Speed 13' },
-			{ id: '0E', label: 'Speed 14' },
-			{ id: '0F', label: 'Speed 15' },
-			{ id: '10', label: 'Speed 16' },
-			{ id: '11', label: 'Speed 17' },
-			{ id: '12', label: 'Speed 18' },
-			{ id: '13', label: 'Speed 19' },
-			{ id: '14', label: 'Speed 20' },
-			{ id: '15', label: 'Speed 21' },
-			{ id: '16', label: 'Speed 22' },
-			{ id: '17', label: 'Speed 23' },
-			{ id: '18', label: 'Speed 24 (Fast)' },
-		]
 	}
 
 	static GetUpgradeScripts() {
@@ -146,7 +119,7 @@ class instance extends instance_skel {
 
 	// Tell companion to re-run from the first upgrade script each time. Use higher numbers to run from later points.
 	// Make sure to NOT commit this line uncommented
-	//static DEVELOPER_forceStartupUpgradeScript = 0
+	static DEVELOPER_forceStartupUpgradeScript = 0
 
 	config_fields() {
 		return [
@@ -235,6 +208,12 @@ class instance extends instance_skel {
 		let cmd = ''
 		let fb = ''
 
+		let panSpeed = this.camera?.ptz?.PanSpeed ? this.camera.ptz.PanSpeed : 11
+		let tiltSpeed = this.camera?.ptz?.PanSpeed ? this.camera.ptz.TiltSpeed : 9
+		let zoomSpeed = this.camera?.ptz?.ZoomSpeed ? this.camera.ptz.ZoomSpeed : 4
+		let newSpeed
+		let body = {}
+
 		switch (action.action) {
 			case 'power':
 				switch (opt.val) {
@@ -249,69 +228,36 @@ class instance extends instance_skel {
 				break
 
 			case 'pt':
+				panSpeed = String.fromCharCode(parseInt(panSpeed, 16) & 0xff)
+				tiltSpeed = String.fromCharCode(parseInt(tiltSpeed, 16) & 0xff)
+
 				switch (opt.val) {
 					case '0':
-						cmd =
-							'\x81\x01\x06\x01' +
-							String.fromCharCode(parseInt(this.ptSpeed, 16) & 0xff) +
-							String.fromCharCode(parseInt(this.ptSpeed, 16) & 0xff) +
-							'\x01\x03\xFF'
+						cmd = `\x81\x01\x06\x01${panSpeed}${tiltSpeed}\x01\x03\xFF`
 						break
 					case '1':
-						cmd =
-							'\x81\x01\x06\x01' +
-							String.fromCharCode(parseInt(this.ptSpeed, 16) & 0xff) +
-							String.fromCharCode(parseInt(this.ptSpeed, 16) & 0xff) +
-							'\x02\x03\xFF'
+						cmd = `\x81\x01\x06\x01${panSpeed}${tiltSpeed}\x02\x03\xFF`
 						break
 					case '2':
-						cmd =
-							'\x81\x01\x06\x01' +
-							String.fromCharCode(parseInt(this.ptSpeed, 16) & 0xff) +
-							String.fromCharCode(parseInt(this.ptSpeed, 16) & 0xff) +
-							'\x03\x01\xFF'
+						cmd = `\x81\x01\x06\x01${panSpeed}${tiltSpeed}\x03\x01\xFF`
 						break
 					case '3':
-						cmd =
-							'\x81\x01\x06\x01' +
-							String.fromCharCode(parseInt(this.ptSpeed, 16) & 0xff) +
-							String.fromCharCode(parseInt(this.ptSpeed, 16) & 0xff) +
-							'\x03\x02\xFF'
+						cmd = `\x81\x01\x06\x01${panSpeed}${tiltSpeed}\x03\x02\xFF`
 						break
 					case '4':
-						cmd =
-							'\x81\x01\x06\x01' +
-							String.fromCharCode(parseInt(this.ptSpeed, 16) & 0xff) +
-							String.fromCharCode(parseInt(this.ptSpeed, 16) & 0xff) +
-							'\x01\x01\xFF'
+						cmd = `\x81\x01\x06\x01${panSpeed}${tiltSpeed}\x01\x01\xFF`
 						break
 					case '5':
-						cmd =
-							'\x81\x01\x06\x01' +
-							String.fromCharCode(parseInt(this.ptSpeed, 16) & 0xff) +
-							String.fromCharCode(parseInt(this.ptSpeed, 16) & 0xff) +
-							'\x02\x01\xFF'
+						cmd = `\x81\x01\x06\x01${panSpeed}${tiltSpeed}\x02\x01\xFF`
 						break
 					case '6':
-						cmd =
-							'\x81\x01\x06\x01' +
-							String.fromCharCode(parseInt(this.ptSpeed, 16) & 0xff) +
-							String.fromCharCode(parseInt(this.ptSpeed, 16) & 0xff) +
-							'\x01\x02\xFF'
+						cmd = `\x81\x01\x06\x01${panSpeed}${tiltSpeed}\x01\x02\xFF`
 						break
 					case '7':
-						cmd =
-							'\x81\x01\x06\x01' +
-							String.fromCharCode(parseInt(this.ptSpeed, 16) & 0xff) +
-							String.fromCharCode(parseInt(this.ptSpeed, 16) & 0xff) +
-							'\x02\x02\xFF'
+						cmd = `\x81\x01\x06\x01${panSpeed}${tiltSpeed}\x02\x02\xFF`
 						break
 					case '8':
-						cmd =
-							'\x81\x01\x06\x01' +
-							String.fromCharCode(parseInt(this.ptSpeed, 16) & 0xff) +
-							String.fromCharCode(parseInt(this.ptSpeed, 16) & 0xff) +
-							'\x03\x03\xFF'
+						cmd = `\x81\x01\x06\x01${panSpeed}${tiltSpeed}\x03\x03\xFF`
 						break
 					case '9':
 						cmd = '\x81\x01\x06\x04\xFF'
@@ -320,50 +266,58 @@ class instance extends instance_skel {
 				this.sendVISCACommand(cmd)
 				break
 
-			case 'ptSlow':
-				switch (opt.val) {
-					case 'On':
-						cmd = '\x81\x01\x06\x44\x02\xFF'
+			case 'panSpeed':
+				switch (opt.type) {
+					case 'up':
+						newSpeed = panSpeed < 21 ? ++panSpeed : panSpeed
 						break
-					case 'Off':
-						cmd = '\x81\x01\x06\x44\x03\xFF'
+					case 'down':
+						newSpeed = panSpeed > 1 ? --panSpeed : panSpeed
+						break
+					case 'value':
+						newSpeed = opt.value
 						break
 				}
-				this.sendVISCACommand(cmd)
+				body = {
+					PanSpeed: String(newSpeed),
+				}
+				this.sendCommand('birddogptzsetup', 'POST', body)
 				break
 
-			case 'ptSpeedS':
-				this.ptSpeed = opt.speed
-
-				let idx = -1
-				for (let i = 0; i < this.SPEED.length; ++i) {
-					if (this.SPEED[i].id == this.ptSpeed) {
-						idx = i
+			case 'tiltSpeed':
+				switch (opt.type) {
+					case 'up':
+						newSpeed = tiltSpeed < 18 ? ++tiltSpeed : tiltSpeed
 						break
-					}
+					case 'down':
+						newSpeed = tiltSpeed > 1 ? --tiltSpeed : tiltSpeed
+						break
+					case 'value':
+						newSpeed = opt.value
+						break
 				}
-				if (idx > -1) {
-					this.ptSpeedIndex = idx
+				body = {
+					TiltSpeed: String(newSpeed),
 				}
-				debug(this.ptSpeed + ' == ' + this.ptSpeedIndex)
+				this.sendCommand('birddogptzsetup', 'POST', body)
 				break
 
-			case 'ptSpeedD':
-				if (this.ptSpeedIndex == 23) {
-					this.ptSpeedIndex = 23
-				} else if (this.ptSpeedIndex < 23) {
-					this.ptSpeedIndex++
+			case 'zoomSpeed':
+				switch (opt.type) {
+					case 'up':
+						newSpeed = zoomSpeed < 7 ? ++zoomSpeed : zoomSpeed
+						break
+					case 'down':
+						newSpeed = zoomSpeed > 1 ? --zoomSpeed : zoomSpeed
+						break
+					case 'value':
+						newSpeed = opt.value
+						break
 				}
-				this.ptSpeed = this.SPEED[this.ptSpeedIndex].id
-				break
-
-			case 'ptSpeedU':
-				if (this.ptSpeedIndex == 0) {
-					this.ptSpeedIndex = 0
-				} else if (this.ptSpeedIndex > 0) {
-					this.ptSpeedIndex--
+				body = {
+					ZoomSpeed: String(newSpeed),
 				}
-				this.ptSpeed = this.SPEED[this.ptSpeedIndex].id
+				this.sendCommand('birddogptzsetup', 'POST', body)
 				break
 
 			case 'zoom':
@@ -762,7 +716,7 @@ class instance extends instance_skel {
 			})
 			.then((json) => {
 				let data = json
-				if (data) {
+				if (data && type == 'GET') {
 					this.processData(decodeURI(url), data)
 				} else {
 					this.debug(`Command failed ${url}`)
@@ -795,9 +749,11 @@ class instance extends instance_skel {
 					clearInterval(this.poll_interval)
 				}
 			}
-			this.camera.about = data
-			this.setVariable('version', data.FirmwareVersion.substring(7, 12))
-			this.setVariable('status', data.Status)
+			if (data.FirmwareVersion) {
+				this.camera.about = data
+				this.setVariable('version', data.FirmwareVersion.substring(7, 12))
+				this.setVariable('status', data.Status)
+			}
 		} else if (cmd.match('/analogaudiosetup')) {
 			this.camera.audio = data
 			this.setVariable('audio_in_gain', data.AnalogAudioInGain)

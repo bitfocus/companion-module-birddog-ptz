@@ -28,29 +28,63 @@ module.exports = {
 				},
 			],
 		}
-		actions['ptSpeedS'] = {
-			label: 'P/T Speed',
+		actions['panSpeed'] = {
+			label: 'Pan Speed',
 			options: [
 				{
 					type: 'dropdown',
-					label: 'Speed',
-					id: 'speed',
-					choices: this.SPEED,
-					default: '0C',
+					label: 'Action',
+					id: 'type',
+					choices: CHOICES.SPEED_CHANGES,
+					default: 'up',
+				},
+				{
+					type: 'dropdown',
+					label: 'Value',
+					id: 'value',
+					choices: CHOICES.PAN_SPEED,
+					default: 11,
+					isVisible: (action) => action.options.type === 'value',
 				},
 			],
 		}
-		actions['ptSpeedU'] = { label: 'P/T Speed Up' }
-		actions['ptSpeedD'] = { label: 'P/T Speed Down' }
-		actions['ptSlow'] = {
-			label: 'P/T Slow Mode',
+		actions['tiltSpeed'] = {
+			label: 'Tilt Speed',
 			options: [
 				{
 					type: 'dropdown',
-					label: 'On / Off',
-					id: 'val',
-					choices: CHOICES.ON_OFF,
-					default: 'On',
+					label: 'Action',
+					id: 'type',
+					choices: CHOICES.SPEED_CHANGES,
+					default: 'up',
+				},
+				{
+					type: 'dropdown',
+					label: 'Value',
+					id: 'value',
+					choices: CHOICES.TILT_SPEED,
+					default: 9,
+					isVisible: (action) => action.options.speed === 'value',
+				},
+			],
+		}
+		actions['zoomSpeed'] = {
+			label: 'Zoom Speed',
+			options: [
+				{
+					type: 'dropdown',
+					label: 'Action',
+					id: 'type',
+					choices: CHOICES.SPEED_CHANGES,
+					default: 'up',
+				},
+				{
+					type: 'dropdown',
+					label: 'Value',
+					id: 'value',
+					choices: CHOICES.ZOOM_SPEED,
+					default: 4,
+					isVisible: (action) => action.options.speed === 'value',
 				},
 			],
 		}
@@ -141,7 +175,7 @@ module.exports = {
 				},
 				{
 					type: 'dropdown',
-					label: 'VALUE',
+					label: 'Value',
 					id: 'value',
 					choices: this.GAIN,
 					default: 01,
@@ -223,7 +257,7 @@ module.exports = {
 				},
 				{
 					type: 'dropdown',
-					label: 'VALUE',
+					label: 'Value',
 					id: 'value',
 					choices: this.SHUTTER,
 					default: 11,

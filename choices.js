@@ -54,6 +54,23 @@ module.exports = {
 		{ id: '13', label: 'F1.8' },
 	],
 
+	IRIS_P200: [
+		{ id: '0', label: 'CLOSED' },
+		{ id: '5', label: 'F14.0' },
+		{ id: '6', label: 'F11.0' },
+		{ id: '7', label: 'F9.6' },
+		{ id: '8', label: 'F8.0' },
+		{ id: '9', label: 'F6.8' },
+		{ id: '10', label: 'F5.6' },
+		{ id: '11', label: 'F4.8' },
+		{ id: '12', label: 'F4.0' },
+		{ id: '13', label: 'F3.4' },
+		{ id: '14', label: 'F2.8' },
+		{ id: '15', label: 'F2.4' },
+		{ id: '16', label: 'F2.0' },
+		{ id: '17', label: 'F1.6' },
+	],
+
 	// ############
 	// GAIN Look Ups
 	// ############
@@ -284,6 +301,12 @@ module.exports = {
 		{ id: 16, label: 'Speed 16' },
 		{ id: 17, label: 'Speed 17' },
 		{ id: 18, label: 'Speed 18 (Fast)' },
+	],
+
+	SPEED_CHANGES: [
+		{ id: 'up', label: 'Speed Up' },
+		{ id: 'down', label: 'Speed Down' },
+		{ id: 'value', label: 'Speed Value' },
 	],
 
 	PTZ_DIRECTION: [
