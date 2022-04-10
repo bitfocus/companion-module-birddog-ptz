@@ -97,11 +97,6 @@ exports.updateVariableDefinitions = function () {
 	})
 
 	variables.push({
-		label: `Firmware`,
-		name: `firmware`,
-	})
-
-	variables.push({
 		label: `Flip`,
 		name: `flip`,
 	})
@@ -164,11 +159,6 @@ exports.updateVariableDefinitions = function () {
 	variables.push({
 		label: `Mirror`,
 		name: `mirror`,
-	})
-
-	variables.push({
-		label: `Model`,
-		name: `model`,
 	})
 
 	variables.push({
@@ -293,6 +283,11 @@ exports.updateVariableDefinitions = function () {
 	variables.push({
 		label: `Transmit Method`,
 		name: `transmit_method`,
+	})
+
+	variables.push({
+		label: `Version`,
+		name: `version`,
 	})
 
 	variables.push({

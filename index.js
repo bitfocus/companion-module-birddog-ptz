@@ -752,9 +752,8 @@ class instance extends instance_skel {
 				this.camera.firmware = data.FirmwareVersion.substring(data.FirmwareVersion.lastIndexOf(' ')+1,data.FirmwareVersion.length)
 				this.setVariable('model',this.camera.model)
 				this.setVariable('firmware',this.camera.firmware)
-				this.setVariable('status', data.Status)
 			}
-
+			this.setVariable('status', data.Status)
 		} else if (cmd.match('/analogaudiosetup')) {
 			this.camera.audio = data
 			this.setVariable('audio_in_gain', data.AnalogAudioInGain)
