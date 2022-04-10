@@ -4,6 +4,7 @@ const presets = require('./presets')
 const { updateVariableDefinitions, updateSourceVariables } = require('./variables')
 const { initFeedbacks } = require('./feedbacks')
 const upgradeScripts = require('./upgrades')
+const choices = require('./choices.js')
 
 const udp = require('../../udp')
 const fetch = require('node-fetch')
@@ -747,9 +748,13 @@ class instance extends instance_skel {
 			}
 			if (data.FirmwareVersion) {
 				this.camera.about = data
-				this.setVariable('version', data.FirmwareVersion.substring(7, 12))
+				this.camera.model = data.FirmwareVersion.substring(data.FirmwareVersion.indexOf(' ')+1,data.FirmwareVersion.lastIndexOf(' '))
+				this.camera.firmware = data.FirmwareVersion.substring(data.FirmwareVersion.lastIndexOf(' ')+1,data.FirmwareVersion.length)
+				this.setVariable('model',this.camera.model)
+				this.setVariable('firmware',this.camera.firmware)
 				this.setVariable('status', data.Status)
 			}
+
 		} else if (cmd.match('/analogaudiosetup')) {
 			this.camera.audio = data
 			this.setVariable('audio_in_gain', data.AnalogAudioInGain)

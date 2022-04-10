@@ -61,6 +61,7 @@ This module allows you to control any [BirdDog](https://birddog.tv/ptz-range/) P
 | **Exposure Mode**               |       Y        |         Y          |      Y       |
 | **Exposure Compensation**       |       Y        |         Y          |      Y       |
 | **Exposure Compensation Level** |       Y        |         Y          |      Y       |
+| **Firmware**                    |       Y        |         Y          |      Y       |
 | **Flip**                        |       Y        |         Y          |      Y       |
 | **Gain**                        |       Y        |         Y          |      Y       |
 | **Gain Limit**                  |                |         Y          |      Y       |
@@ -74,6 +75,7 @@ This module allows you to control any [BirdDog](https://birddog.tv/ptz-range/) P
 | **IR Cut Filter**               |                |         Y          |      Y       |
 | **Low Latency**                 |                |  P200_A4_A5 ONLY   |              |
 | **Mirror**                      |       Y        |         Y          |      Y       |
+| **Model**                       |       Y        |         Y          |      Y       |
 | **ND Filter**                   |                |                    |      Y       |
 | **NDI Audio**                   |       Y        |         Y          |      Y       |
 | **NDI Discovery Server**        |       Y        |         Y          |      Y       |
@@ -99,7 +101,6 @@ This module allows you to control any [BirdDog](https://birddog.tv/ptz-range/) P
 | **Tally Mode**                  |       Y        |         Y          |      Y       |
 | **Tilt Speed**                  |       Y        |         Y          |      Y       |
 | **Transmit Method**             |       Y        |         Y          |      Y       |
-| **Version**                     |       Y        |         Y          |      Y       |
 | **Video Format**                |       Y        |         Y          |      Y       |
 | **Video Output**                |                |                    |      Y       |
 | **White Balance Mode**          |       Y        |         Y          |      Y       |
