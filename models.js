@@ -91,7 +91,10 @@ module.exports = {
 				'P400',
 				'P4K',
 			],
-			// video_output: [],
+			video_output: [
+				'P400',
+				'P4K',
+			],
 			//NDI Encode
 			bandwidth: [
 				'P100',

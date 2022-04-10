@@ -139,7 +139,7 @@ exports.updateVariableDefinitions = function () {
 		})
 	}
 
-	if (MODEL.version.includes(this.camera.model)) {
+	if (MODEL.firmware.includes(this.camera.model)) {
 		variables.push({
 			label: `Firmware`,
 			name: `firmware`,
@@ -237,7 +237,7 @@ exports.updateVariableDefinitions = function () {
 		})
 	}
 	
-	if (MODEL.version.includes(this.camera.model)) {
+	if (MODEL.model.includes(this.camera.model)) {
 		variables.push({
 			label: `Model`,
 			name: `model`,
