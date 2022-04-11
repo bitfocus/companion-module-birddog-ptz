@@ -252,7 +252,7 @@ module.exports = {
 				'P400',
 				'P4K',
 			],
-				
+
 			// Focus Settings
 			af_mode: [
 				'P100',
@@ -466,10 +466,7 @@ module.exports = {
 			// /birddogadvancesetup
 			// /birddogexternalsetup
 			// /birddogdetsetup
-			bandwidth: [
-				'P400',
-				'P4K',
-			],
+			bandwidth: ['P400', 'P4K'],
 			// /birddoggammasetup
 		},
 		{
