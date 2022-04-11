@@ -91,10 +91,7 @@ module.exports = {
 				'P400',
 				'P4K',
 			],
-			video_output: [
-				'P400',
-				'P4K',
-			],
+			video_output: ['P400', 'P4K'],
 			//NDI Encode
 			bandwidth: [
 				'P100',
@@ -168,13 +165,7 @@ module.exports = {
 				'P400',
 				'P4K',
 			],
-			tally_mode: [
-                'PF120',
-                'P200_A2_A3',
-                'P200_A4_A5',
-                'P400',
-                'P4K'
-            ],
+			tally_mode: ['PF120', 'P200_A2_A3', 'P200_A4_A5', 'P400', 'P4K'],
 			transmit_method: [
 				'P100',
 				'PF120',
@@ -261,20 +252,8 @@ module.exports = {
 				'P4K',
 			],
 			//Exposure
-			ae_response: [
-                'P200_A2_A3',
-                'P200_A4_A5',
-                'A200_GEN1',
-                'A200_GEN2',
-                'A300_GEN1',
-                'A300_GEN2',
-                'P400',
-                'P4K'
-            ],
-			backlight: [
-                'P400',
-                'P4K'
-            ],
+			ae_response: ['P200_A2_A3', 'P200_A4_A5', 'A200_GEN1', 'A200_GEN2', 'A300_GEN1', 'A300_GEN2', 'P400', 'P4K'],
+			backlight: ['P400', 'P4K'],
 			bright_level: [
 				'P100',
 				'PF120',
@@ -335,34 +314,10 @@ module.exports = {
 				'P400',
 				'P4K',
 			],
-			gain_limit: [
-                'P200_A2_A3',
-                'P200_A4_A5',
-                'A200_GEN1',
-                'A200_GEN2',
-                'A300_GEN1',
-                'A300_GEN2',
-                'P400',
-                'P4K'
-            ],
-			gain_point: [
-                'P400',
-                'P4K'
-            ],
-			gain_point_position: [
-                'P400',
-                'P4K'
-            ],
-			high_sensitivity: [
-                'P200_A2_A3',
-                'P200_A4_A5',
-                'A200_GEN1',
-                'A200_GEN2',
-                'A300_GEN1',
-                'A300_GEN2',
-                'P400',
-                'P4K'
-            ],
+			gain_limit: ['P200_A2_A3', 'P200_A4_A5', 'A200_GEN1', 'A200_GEN2', 'A300_GEN1', 'A300_GEN2', 'P400', 'P4K'],
+			gain_point: ['P400', 'P4K'],
+			gain_point_position: ['P400', 'P4K'],
+			high_sensitivity: ['P200_A2_A3', 'P200_A4_A5', 'A200_GEN1', 'A200_GEN2', 'A300_GEN1', 'A300_GEN2', 'P400', 'P4K'],
 			iris: [
 				'P100',
 				'PF120',
@@ -375,18 +330,9 @@ module.exports = {
 				'P400',
 				'P4K',
 			],
-			shutter_control_overwrite: [
-                'P100',
-                'PF120'
-            ],
-			shutter_max_speed: [
-                'P400',
-                'P4K'
-            ],
-			shutter_min_speed: [
-                'P400',
-                'P4K'
-            ],
+			shutter_control_overwrite: ['P100', 'PF120'],
+			shutter_max_speed: ['P400', 'P4K'],
+			shutter_min_speed: ['P400', 'P4K'],
 			shutter_speed: [
 				'P100',
 				'PF120',
@@ -399,19 +345,8 @@ module.exports = {
 				'P400',
 				'P4K',
 			],
-			shutter_speed_overwrite: [
-                'P100',
-                'PF120'
-            ],
-			slow_shutter: [
-                'P200_A2_A3',
-                'P200_A4_A5',
-                'A200_GEN1',
-                'A200_GEN2',
-                'A300_GEN1',
-                'A300_GEN2',
-                'P400',
-                'P4K'],
+			shutter_speed_overwrite: ['P100', 'PF120'],
+			slow_shutter: ['P200_A2_A3', 'P200_A4_A5', 'A200_GEN1', 'A200_GEN2', 'A300_GEN1', 'A300_GEN2', 'P400', 'P4K'],
 			slow_shutter_limit: [
 				'P200_A2_A3',
 				'P200_A4_A5',
@@ -422,10 +357,7 @@ module.exports = {
 				'P400',
 				'P4K',
 			],
-			spotlight: [
-                'P400',
-                'P4K'
-            ],
+			spotlight: ['P400', 'P4K'],
 			//White Balance
 			wb_blue_gain: [
 				'P100',
@@ -439,10 +371,7 @@ module.exports = {
 				'P400',
 				'P4K',
 			],
-			color_temp: [
-                'P100',
-                'PF120'
-            ],
+			color_temp: ['P100', 'PF120'],
 			wb_red_gain: [
 				'P100',
 				'PF120',
@@ -468,37 +397,10 @@ module.exports = {
 				'P4K',
 			],
 			//Picture Settings
-			backlight_com: [
-                'P200_A2_A3',
-                'P200_A4_A5',
-                'A200_GEN1',
-                'A200_GEN2',
-                'A300_GEN1',
-                'A300_GEN2'
-            ],
-			chroma_suppress: [
-                'P200_A2_A3',
-                'P200_A4_A5',
-                'A200_GEN1',
-                'A200_GEN2',
-                'A300_GEN1',
-                'A300_GEN2',
-                'P400',
-                'P4K'
-            ],
-			contrast: [
-                'P100',
-                'PF120'
-            ],
-			effect: [
-                'P100',
-                'PF120',
-                'P200_A2_A3',
-                'P200_A4_A5',
-                'A200_GEN1',
-                'A200_GEN2',
-                'A300_GEN1',
-                'A300_GEN2'],
+			backlight_com: ['P200_A2_A3', 'P200_A4_A5', 'A200_GEN1', 'A200_GEN2', 'A300_GEN1', 'A300_GEN2'],
+			chroma_suppress: ['P200_A2_A3', 'P200_A4_A5', 'A200_GEN1', 'A200_GEN2', 'A300_GEN1', 'A300_GEN2', 'P400', 'P4K'],
+			contrast: ['P100', 'PF120'],
+			effect: ['P100', 'PF120', 'P200_A2_A3', 'P200_A4_A5', 'A200_GEN1', 'A200_GEN2', 'A300_GEN1', 'A300_GEN2'],
 			flip: [
 				'P100',
 				'PF120',
@@ -511,38 +413,10 @@ module.exports = {
 				'P400',
 				'P4K',
 			],
-			gamma: [
-                'P100',
-                'PF120',
-                'P200_A2_A3',
-                'P200_A4_A5',
-                'A200_GEN1',
-                'A200_GEN2',
-                'A300_GEN1',
-                'A300_GEN2'],
-			hlc_mode: [
-                'P200_A2_A3',
-                'P200_A4_A5',
-                'A200_GEN1',
-                'A200_GEN2',
-                'A300_GEN1',
-                'A300_GEN2',
-                'P400',
-                'P4K'],
-			hue: [
-                'P100',
-                'PF120'
-            ],
-			ir_cutfilter: [
-                'P200_A2_A3',
-                'P200_A4_A5',
-                'A200_GEN1',
-                'A200_GEN2',
-                'A300_GEN1',
-                'A300_GEN2',
-                'P400',
-                'P4K'
-            ],
+			gamma: ['P100', 'PF120', 'P200_A2_A3', 'P200_A4_A5', 'A200_GEN1', 'A200_GEN2', 'A300_GEN1', 'A300_GEN2'],
+			hlc_mode: ['P200_A2_A3', 'P200_A4_A5', 'A200_GEN1', 'A200_GEN2', 'A300_GEN1', 'A300_GEN2', 'P400', 'P4K'],
+			hue: ['P100', 'PF120'],
+			ir_cutfilter: ['P200_A2_A3', 'P200_A4_A5', 'A200_GEN1', 'A200_GEN2', 'A300_GEN1', 'A300_GEN2', 'P400', 'P4K'],
 			mirror: [
 				'P100',
 				'PF120',
@@ -565,48 +439,14 @@ module.exports = {
 				'A300_GEN1',
 				'A300_GEN2',
 			],
-			saturation: [
-                'P100',
-                'PF120'
-            ],
-			sharpness: [
-                'P100',
-                'PF120',
-                'P200_A2_A3',
-                'P200_A4_A5',
-                'A200_GEN1',
-                'A200_GEN2',
-                'A300_GEN1',
-                'A300_GEN2'
-            ],
-			stabilizer: [
-                'P200_A2_A3',
-                'P200_A4_A5',
-                'A200_GEN1',
-                'A200_GEN2',
-                'A300_GEN1',
-                'A300_GEN2',
-                'P400',
-                'P4K'
-            ],
-			twod_nr: [
-                'P400',
-                'P4K'
-            ],
-			threed_nr: [
-                'P400',
-                'P4K'
-            ],
-			wide_dynamic_range: [
-                'P100',
-                'PF120'
-            ],
-			low_latency: [
-                'P200_A4_A5'
-            ],
-			nd_filter: [
-                'P4K'
-            ],
+			saturation: ['P100', 'PF120'],
+			sharpness: ['P100', 'PF120', 'P200_A2_A3', 'P200_A4_A5', 'A200_GEN1', 'A200_GEN2', 'A300_GEN1', 'A300_GEN2'],
+			stabilizer: ['P200_A2_A3', 'P200_A4_A5', 'A200_GEN1', 'A200_GEN2', 'A300_GEN1', 'A300_GEN2', 'P400', 'P4K'],
+			twod_nr: ['P400', 'P4K'],
+			threed_nr: ['P400', 'P4K'],
+			wide_dynamic_range: ['P100', 'PF120'],
+			low_latency: ['P200_A4_A5'],
+			nd_filter: ['P4K'],
 			//Focus Settings
 			af_mode: [
 				'P100',
@@ -649,10 +489,7 @@ module.exports = {
 				'P400',
 				'P4K',
 			],
-			videooutputinterface: [
-                'P400',
-                'P4K'
-            ],
+			videooutputinterface: ['P400', 'P4K'],
 			//NDI Encode
 			encodesetup: [
 				'P100',
@@ -776,42 +613,15 @@ module.exports = {
 				'P4K',
 			],
 			//Color Matrix
-			birddogcmsetup: [
-                'P100',
-                'PF120',
-                'P200_A2_A3',
-                'P200_A4_A5',
-                'A200_GEN1',
-                'A200_GEN2',
-                'A300_GEN1',
-                'A300_GEN2'
-            ],
+			birddogcmsetup: ['P100', 'PF120', 'P200_A2_A3', 'P200_A4_A5', 'A200_GEN1', 'A200_GEN2', 'A300_GEN1', 'A300_GEN2'],
 			//Advanced Settings
-			birddogadvancesetup: [
-                'P200_A2_A3',
-                'P200_A4_A5',
-                'A200_GEN1',
-                'A200_GEN2',
-                'A300_GEN1',
-                'A300_GEN2'
-            ],
+			birddogadvancesetup: ['P200_A2_A3', 'P200_A4_A5', 'A200_GEN1', 'A200_GEN2', 'A300_GEN1', 'A300_GEN2'],
 			//External Settings
-			birddogexternalsetup: [
-                'A200_GEN1',
-                'A200_GEN2',
-                'A300_GEN1',
-                'A300_GEN2'
-            ],
+			birddogexternalsetup: ['A200_GEN1', 'A200_GEN2', 'A300_GEN1', 'A300_GEN2'],
 			//Detail
-			birddogdetsetup: [
-                'P400',
-                'P4K'
-            ],
+			birddogdetsetup: ['P400', 'P4K'],
 			//Gamma
-			birddoggammasetup: [
-                'P400',
-                'P4K'
-            ],
+			birddoggammasetup: ['P400', 'P4K'],
 		},
 		{
 			group: 'actions',

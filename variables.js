@@ -236,7 +236,7 @@ exports.updateVariableDefinitions = function () {
 			name: `mirror`,
 		})
 	}
-	
+
 	if (MODEL.model.includes(this.camera.model)) {
 		variables.push({
 			label: `Model`,

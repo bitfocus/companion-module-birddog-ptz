@@ -748,10 +748,16 @@ class instance extends instance_skel {
 			}
 			if (data.FirmwareVersion) {
 				this.camera.about = data
-				this.camera.model = data.FirmwareVersion.substring(data.FirmwareVersion.indexOf(' ')+1,data.FirmwareVersion.lastIndexOf(' '))
-				this.camera.firmware = data.FirmwareVersion.substring(data.FirmwareVersion.lastIndexOf(' ')+1,data.FirmwareVersion.length)
-				this.setVariable('model',this.camera.model)
-				this.setVariable('firmware',this.camera.firmware)
+				this.camera.model = data.FirmwareVersion.substring(
+					data.FirmwareVersion.indexOf(' ') + 1,
+					data.FirmwareVersion.lastIndexOf(' ')
+				)
+				this.camera.firmware = data.FirmwareVersion.substring(
+					data.FirmwareVersion.lastIndexOf(' ') + 1,
+					data.FirmwareVersion.length
+				)
+				this.setVariable('model', this.camera.model)
+				this.setVariable('firmware', this.camera.firmware)
 			}
 			this.setVariable('status', data.Status)
 		} else if (cmd.match('/analogaudiosetup')) {
