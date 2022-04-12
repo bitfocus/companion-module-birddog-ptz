@@ -1,7 +1,7 @@
 const instance_skel = require('../../instance_skel')
 const actions = require('./actions')
 const presets = require('./presets')
-const { defineVariables, updateSourceVariables } = require('./variables')
+const { updateVariableDefinitions, updateSourceVariables } = require('./variables')
 const { initFeedbacks } = require('./feedbacks')
 const upgradeScripts = require('./upgrades')
 const choices = require('./choices.js')
@@ -21,7 +21,7 @@ class instance extends instance_skel {
 			...presets,
 		})
 
-		this.defineVariables = defineVariables
+		this.updateVariableDefinitions = updateVariableDefinitions
 		this.updateSourceVariables = updateSourceVariables
 
 		this.camera = {}
@@ -184,7 +184,7 @@ class instance extends instance_skel {
 	}
 
 	initVariables() {
-		this.defineVariables()
+		this.updateVariableDefinitions()
 	}
 
 	initFeedbacks() {
@@ -748,16 +748,10 @@ class instance extends instance_skel {
 			}
 			if (data.FirmwareVersion) {
 				this.camera.about = data
-				this.camera.model = data.FirmwareVersion.substring(
-					data.FirmwareVersion.indexOf(' ') + 1,
-					data.FirmwareVersion.lastIndexOf(' ')
-				)
-				this.camera.firmware = data.FirmwareVersion.substring(
-					data.FirmwareVersion.lastIndexOf(' ') + 1,
-					data.FirmwareVersion.length
-				)
-				this.setVariable('model', this.camera.model)
-				this.setVariable('firmware', this.camera.firmware)
+				this.camera.model = data.FirmwareVersion.substring(data.FirmwareVersion.indexOf(' ')+1,data.FirmwareVersion.lastIndexOf(' '))
+				this.camera.firmware = data.FirmwareVersion.substring(data.FirmwareVersion.lastIndexOf(' ')+1,data.FirmwareVersion.length)
+				this.setVariable('model',this.camera.model)
+				this.setVariable('firmware',this.camera.firmware)
 			}
 			this.setVariable('status', data.Status)
 		} else if (cmd.match('/analogaudiosetup')) {
@@ -798,7 +792,7 @@ class instance extends instance_skel {
 			this.setVariable('tilt_speed', data.TiltSpeed)
 			this.setVariable('zoom_speed', data.ZoomSpeed)
 		} else if (cmd.match('/birddogexpsetup')) {
-			this.camera.expsetup = data
+			this.camera.exposure = data
 			this.setVariable('exposure_mode', data.ExpMode)
 			this.setVariable('exposure_comp', data.ExpCompEn)
 			this.setVariable('exposure_comp_level', data.ExpCompLvl)
@@ -820,14 +814,14 @@ class instance extends instance_skel {
 			this.setVariable('gain_limit', this.GAIN.find((o) => o.id == data.GainLimit)?.label)
 			this.setVariable('shutter_speed', this.SHUTTER.find((o) => o.id == data.ShutterSpeed)?.label)
 		} else if (cmd.match('/birddogwbsetup')) {
-			this.camera.wbsetup = data
+			this.camera.wb = data
 			this.setVariable('wb_mode', data.WbMode)
 			this.setVariable('wb_blue_gain', data.BlueGain)
 			this.setVariable('wb_red_gain', data.RedGain)
 			this.setVariable('color_temp', data.ColorTemp)
 			this.checkFeedbacks()
 		} else if (cmd.match('/birddogpicsetup')) {
-			this.camera.picsetup = data
+			this.camera.pic = data
 			this.setVariable('backlight_com', data.BackLightCom)
 			this.setVariable('chroma_suppress', data.ChromeSuppress)
 			this.setVariable('saturation', data.Color)
@@ -896,10 +890,10 @@ class instance extends instance_skel {
 				break
 			case '5a': // Query Auto Focus mode
 				if (data[8] == 0x90 && data[9] == 0x50 && data[10] == 0x02 && data[11] == 0xff) {
-					this.camera.focus.mode = 'Auto'
+					this.camera.AFMode = 'Auto'
 					this.setVariable('af_mode', 'Auto')
 				} else if (data[8] == 0x90 && data[9] == 0x50 && data[10] == 0x03 && data[11] == 0xff) {
-					this.camera.focus.mode = 'Manual'
+					this.camera.AFMode = 'Manual'
 					this.setVariable('af_mode', 'Manual')
 				}
 				this.checkFeedbacks()

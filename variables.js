@@ -4,7 +4,7 @@ const CHOICES = require('./choices.js')
 // ##########################
 // #### Define Variables ####
 // ##########################
-exports.defineVariables = function () {
+exports.updateVariableDefinitions = function () {
 	const variables = []
 
 	var MODEL = {}
@@ -485,7 +485,7 @@ exports.defineVariables = function () {
 // #########################
 // #### Check Variables ####
 // #########################
-exports.checkVariables = function () {
+exports.updateSourceVariables = function () {
 	var MODEL = {}
 
 	MODEL = MODELS.find((MODELS) => MODELS.group == 'variables')
