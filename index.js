@@ -1,10 +1,11 @@
 const instance_skel = require('../../instance_skel')
 const actions = require('./actions')
 const presets = require('./presets')
-const { updateVariableDefinitions, updateSourceVariables } = require('./variables')
+const { updateVariableDefinitions, updateVariables } = require('./variables')
 const { initFeedbacks } = require('./feedbacks')
 const upgradeScripts = require('./upgrades')
-const choices = require('./choices.js')
+const choices = require('./choices')
+const { getCameraInfo } = require('./utils')
 
 const udp = require('../../udp')
 const fetch = require('node-fetch')
@@ -19,10 +20,10 @@ class instance extends instance_skel {
 		Object.assign(this, {
 			...actions,
 			...presets,
+			...updateVariableDefinitions,
+			...updateVariables,
+			...getCameraInfo,
 		})
-
-		this.updateVariableDefinitions = updateVariableDefinitions
-		this.updateSourceVariables = updateSourceVariables
 
 		this.camera = {}
 
@@ -164,22 +165,13 @@ class instance extends instance_skel {
 		this.status(this.STATUS_WARNING, 'Connecting')
 
 		this.actions()
+		this.sendCommand('about', 'GET')
 		this.initVariables()
 		this.initFeedbacks()
 		this.initPresets()
 
 		this.port = 52381 // Visca port
-		this.sendCommand('about', 'GET')
-		this.sendCommand('analogaudiosetup', 'GET')
-		this.sendCommand('encodetransport', 'GET')
-		this.sendCommand('encodesetup', 'GET')
-		this.sendCommand('NDIDisServer', 'GET')
-		this.sendCommand('birddogptzsetup', 'GET')
-		this.sendCommand('birddogexpsetup', 'GET')
-		this.sendCommand('birddogwbsetup', 'GET')
-		this.sendCommand('birddogpicsetup', 'GET')
-		this.sendCommand('birddogcmsetup', 'GET')
-		this.sendCommand('birddogadvancesetup', 'GET')
+		this.getCameraInfo()
 		this.init_udp()
 	}
 
@@ -199,7 +191,7 @@ class instance extends instance_skel {
 	actions(system) {
 		this.setActions(this.getActions())
 	}
-
+	
 	action(action) {
 		let opt = action.options
 		let cmd = ''
@@ -750,10 +742,10 @@ class instance extends instance_skel {
 				this.camera.about = data
 				this.camera.model = data.FirmwareVersion.substring(data.FirmwareVersion.indexOf(' ')+1,data.FirmwareVersion.lastIndexOf(' '))
 				this.camera.firmware = data.FirmwareVersion.substring(data.FirmwareVersion.lastIndexOf(' ')+1,data.FirmwareVersion.length)
-				this.setVariable('model',this.camera.model)
-				this.setVariable('firmware',this.camera.firmware)
+			//	this.setVariable('model',this.camera.model)
+			//	this.setVariable('firmware',this.camera.firmware)
 			}
-			this.setVariable('status', data.Status)
+			// this.setVariable('status', data.Status)
 		} else if (cmd.match('/analogaudiosetup')) {
 			this.camera.audio = data
 			this.setVariable('audio_in_gain', data.AnalogAudioInGain)

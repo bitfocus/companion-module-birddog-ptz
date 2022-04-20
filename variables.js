@@ -485,7 +485,7 @@ exports.updateVariableDefinitions = function () {
 // #########################
 // #### Check Variables ####
 // #########################
-exports.updateSourceVariables = function () {
+exports.updateVariables = function () {
 	var MODEL = {}
 
 	MODEL = MODELS.find((MODELS) => MODELS.group == 'variables')
