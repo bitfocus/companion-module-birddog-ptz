@@ -1,5 +1,6 @@
 var { MODELS } = require('./models.js')
 const CHOICES = require('./choices.js')
+const VISCA = require('./constants')
 
 // #########################
 // #### Get Camera Info ####
@@ -16,4 +17,9 @@ exports.getCameraInfo = function () {
     this.sendCommand('birddogpicsetup', 'GET')
     this.sendCommand('birddogcmsetup', 'GET')
     this.sendCommand('birddogadvancesetup', 'GET')
+    // Query Standby status
+	this.sendVISCACommand(VISCA.QRY_STANDBY, '\x4a')
+	// Query Auto Focus Mode
+	this.sendVISCACommand(VISCA.QRY_FOCUS_MODE, '\x5a')
+   
 }
