@@ -53,6 +53,8 @@ This module allows you to control any [BirdDog](https://birddog.tv/ptz-range/) P
 | **Back Light Com**              |                |         Y          |              |
 | **Bandwidth**                   |       Y        |         Y          |      Y       |
 | **Bandwidth Mode**              |       Y        |         Y          |      Y       |
+| **Bandwidth Select**            |       Y        |         Y          |      Y       |
+| **Blue Gain**                   |       Y        |         Y          |      Y       |
 | **Bright Level**                |       Y        |         Y          |      Y       |
 | **Chroma Suppress**             |                |         Y          |      Y       |
 | **Color Temp**                  |       Y        |                    |              |
@@ -84,6 +86,7 @@ This module allows you to control any [BirdDog](https://birddog.tv/ptz-range/) P
 | **NDI Group Name**              |       Y        |         Y          |      Y       |
 | **Noise Reduction**             |       Y        |         Y          |              |
 | **Pan Speed**                   |       Y        |         Y          |      Y       |
+| **Red Gain**                    |       Y        |         Y          |      Y       |
 | **Saturation**                  |       Y        |                    |              |
 | **Sharpness**                   |       Y        |         Y          |              |
 | **Shutter Control Overwrite**   |       Y        |                    |              |
@@ -104,8 +107,6 @@ This module allows you to control any [BirdDog](https://birddog.tv/ptz-range/) P
 | **Video Format**                |       Y        |         Y          |      Y       |
 | **Video Output**                |                |                    |      Y       |
 | **White Balance Mode**          |       Y        |         Y          |      Y       |
-| **White Balance - Blue Gain**   |       Y        |         Y          |      Y       |
-| **White Balance - Red Gain**    |       Y        |         Y          |      Y       |
 | **Wide Dynamic Range**          |       Y        |                    |              |
 | **Zoom Speed**                  |       Y        |         Y          |      Y       |
 
