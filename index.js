@@ -913,7 +913,7 @@ class instance extends instance_skel {
 		this.sendCommand('about', 'GET')
 		this.sendCommand('analogaudiosetup', 'GET')
 		this.sendCommand('encodetransport', 'GET')
-		this.sendCommand('encodesetup', 'GET')
+		//this.sendCommand('encodesetup', 'GET') Temporary skip to avoid BirdDog API bug
 		this.sendCommand('NDIDisServer', 'GET')
 		this.sendCommand('birddogptzsetup', 'GET')
 		this.sendCommand('birddogexpsetup', 'GET')
