@@ -171,7 +171,6 @@ class instance extends instance_skel {
 		this.initPresets()
 
 		this.port = 52381 // Visca port
-		this.debug('----Initial Camera Info----')
 		this.sendCommand('about', 'GET')
 		this.sendCommand('analogaudiosetup', 'GET')
 		this.sendCommand('encodetransport', 'GET')
@@ -188,8 +187,6 @@ class instance extends instance_skel {
 		this.sendVISCACommand(VISCA.QRY_STANDBY, '\x4a')
 		// Query Auto Focus Mode
 		this.sendVISCACommand(VISCA.QRY_FOCUS_MODE, '\x5a')
-		this.debug('----Camera Setup----', this.camera)
-		this.debug('----Initial Variable Update----')
 		this.updateVariables()
 	}
 
