@@ -167,7 +167,6 @@ class instance extends instance_skel {
 		this.status(this.STATUS_WARNING, 'Connecting')
 
 		this.actions()
-		this.initVariables()
 		this.initFeedbacks()
 		this.initPresets()
 
@@ -764,6 +763,7 @@ class instance extends instance_skel {
 					data.FirmwareVersion.indexOf(' ') + 1,
 					data.FirmwareVersion.lastIndexOf(' ')
 				)
+				model = model.replace(/ /g, '_')
 				if (!this.camera.model || this.camera.model != model) {
 					this.camera.model = model
 					this.initVariables()
