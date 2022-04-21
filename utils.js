@@ -6,6 +6,7 @@ const VISCA = require('./constants')
 // #### Get Camera Info ####
 // #########################
 exports.getCameraInfo = function () {
+    this.debug('----Getting Camera Info----')
     this.sendCommand('about', 'GET')
     this.sendCommand('analogaudiosetup', 'GET')
     this.sendCommand('encodetransport', 'GET')
@@ -21,5 +22,4 @@ exports.getCameraInfo = function () {
 	this.sendVISCACommand(VISCA.QRY_STANDBY, '\x4a')
 	// Query Auto Focus Mode
 	this.sendVISCACommand(VISCA.QRY_FOCUS_MODE, '\x5a')
-   
 }

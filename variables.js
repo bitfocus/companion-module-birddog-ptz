@@ -8,9 +8,9 @@ exports.updateVariableDefinitions = function () {
 	const variables = []
 
 	var MODEL = {}
-
+	
 	MODEL = MODELS.find((MODELS) => MODELS.group == 'variables')
-
+	
 	if (MODEL.twod_nr.includes(this.camera.model)) {
 		variables.push({
 			label: `2D NR`,
@@ -28,13 +28,6 @@ exports.updateVariableDefinitions = function () {
 		variables.push({
 			label: `Ae Response`,
 			name: `ae_response`,
-		})
-	}
-
-	if (MODEL.af_mode.includes(this.camera.model)) {
-		variables.push({
-			label: `Auto Focus Mode`,
-			name: `af_mode`,
 		})
 	}
 
@@ -168,6 +161,13 @@ exports.updateVariableDefinitions = function () {
 		variables.push({
 			label: `Flip`,
 			name: `flip`,
+		})
+	}
+
+	if (MODEL.focus_mode.includes(this.camera.model)) {
+		variables.push({
+			label: `Focus Mode`,
+			name: `focus_mode`,
 		})
 	}
 
@@ -483,9 +483,10 @@ exports.updateVariableDefinitions = function () {
 }
 
 // #########################
-// #### Check Variables ####
+// #### Update Variables ####
 // #########################
 exports.updateVariables = function () {
+	
 	var MODEL = {}
 
 	MODEL = MODELS.find((MODELS) => MODELS.group == 'variables')
@@ -586,8 +587,8 @@ exports.updateVariables = function () {
 	}
 
 	// Focus Settings
-	if (MODEL.af_mode.includes(this.camera.model)) {
-		this.setVariable('af_mode', this.camera.focus.mode)
+	if (MODEL.focus_mode.includes(this.camera.model)) {
+		this.setVariable('focus_mode', this.camera.focus.mode)
 	}
 
 	// /birddogexpsetup
@@ -770,7 +771,7 @@ exports.updateVariables = function () {
 		this.setVariable('wide_dynamic_range', this.camera.picsetup.WideDynamicRange)
 	}
 
-	// //birddogcmsetup
+	// /birddogcmsetup
 	// /birddogadvancesetup
 	// /birddogexternalsetup
 	// /birddogdetsetup

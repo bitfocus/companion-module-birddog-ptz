@@ -254,7 +254,7 @@ module.exports = {
 			],
 
 			// Focus Settings
-			af_mode: [
+			focus_mode: [
 				'P100',
 				'PF120',
 				'P200_A2_A3',

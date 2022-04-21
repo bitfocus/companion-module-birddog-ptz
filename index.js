@@ -6,6 +6,7 @@ const { initFeedbacks } = require('./feedbacks')
 const upgradeScripts = require('./upgrades')
 const choices = require('./choices')
 const { getCameraInfo } = require('./utils')
+const VISCA = require('./constants')
 
 const udp = require('../../udp')
 const fetch = require('node-fetch')
@@ -170,9 +171,29 @@ class instance extends instance_skel {
 		this.initFeedbacks()
 		this.initPresets()
 
+
 		this.port = 52381 // Visca port
-		this.getCameraInfo()
+		this.debug('----Initial Camera Info----')
+		this.sendCommand('about', 'GET')
+		this.sendCommand('analogaudiosetup', 'GET')
+		this.sendCommand('encodetransport', 'GET')
+		this.sendCommand('encodesetup', 'GET')
+		this.sendCommand('NDIDisServer', 'GET')
+		this.sendCommand('birddogptzsetup', 'GET')
+		this.sendCommand('birddogexpsetup', 'GET')
+		this.sendCommand('birddogwbsetup', 'GET')
+		this.sendCommand('birddogpicsetup', 'GET')
+		this.sendCommand('birddogcmsetup', 'GET')
+		this.sendCommand('birddogadvancesetup', 'GET')
 		this.init_udp()
+		// Query Standby status
+		this.sendVISCACommand(VISCA.QRY_STANDBY, '\x4a')
+		// Query Auto Focus Mode
+		this.sendVISCACommand(VISCA.QRY_FOCUS_MODE, '\x5a')
+		this.debug('----Camera Setup----', this.camera)
+		this.debug('----Initial Variable Update----')
+		this.updateVariables()
+		
 	}
 
 	initVariables() {
@@ -773,17 +794,18 @@ class instance extends instance_skel {
 			this.camera.ptz = data
 			this.ptSpeed = data.PanSpeed ? data.PanSpeed : '0C'
 		} else if (cmd.match('/birddogexpsetup')) {
-			this.camera.exposure = data
+			this.camera.expsetup = data
 		} else if (cmd.match('/birddogwbsetup')) {
-			this.camera.wb = data
+			this.camera.wbsetup = data
 		} else if (cmd.match('/birddogpicsetup')) {
-			this.camera.pic = data
+			this.camera.picsetup = data
 		} else if (cmd.match('/birddogcmsetup')) {
-			this.camera.color = data
+			this.camera.cmsetup = data
 		} else if (cmd.match('/birddogadvancesetup')) {
-			this.camera.advanced = data
+			this.camera.advancesetup = data
 		}
 		this.updateVariables()
+		this.checkFeedbacks()
 	}
 
 	sendVISCACommand(payload, counter) {
@@ -825,11 +847,14 @@ class instance extends instance_skel {
 				break
 			case '5a': // Query Auto Focus mode
 				if (data[8] == 0x90 && data[9] == 0x50 && data[10] == 0x02 && data[11] == 0xff) {
-					this.camera.focus.mode = 'Auto'
+					this.camera.focus = JSON.parse('{"mode":"Auto"}')
+					this.updateVariables()
 				} else if (data[8] == 0x90 && data[9] == 0x50 && data[10] == 0x03 && data[11] == 0xff) {
-					this.camera.focus.mode = 'Manual'
+					this.camera.focus = JSON.parse('{"mode":"Manual"}')
+					
 				}
-				break
+				this.updateVariables()
+				this.checkFeedbacks()
 		}
 	}
 
@@ -885,8 +910,23 @@ class instance extends instance_skel {
 	}
 
 	poll() {
-		this.getCameraInfo()
-		this.checkFeedbacks()
+		this.debug('----Polling Camera----')
+		this.sendCommand('about', 'GET')
+		this.sendCommand('analogaudiosetup', 'GET')
+		this.sendCommand('encodetransport', 'GET')
+		this.sendCommand('encodesetup', 'GET')
+		this.sendCommand('NDIDisServer', 'GET')
+		this.sendCommand('birddogptzsetup', 'GET')
+		this.sendCommand('birddogexpsetup', 'GET')
+		this.sendCommand('birddogwbsetup', 'GET')
+		this.sendCommand('birddogpicsetup', 'GET')
+		this.sendCommand('birddogcmsetup', 'GET')
+		this.sendCommand('birddogadvancesetup', 'GET')
+		// Query Standby status
+		this.sendVISCACommand(VISCA.QRY_STANDBY, '\x4a')
+		// Query Auto Focus Mode
+		this.sendVISCACommand(VISCA.QRY_FOCUS_MODE, '\x5a')
+		// this.debug('----Camera Setup----', this.camera)
 	}
 }
 exports = module.exports = instance
