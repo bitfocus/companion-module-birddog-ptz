@@ -53,6 +53,8 @@ This module allows you to control any [BirdDog](https://birddog.tv/ptz-range/) P
 | **Back Light Com**              |                |         Y          |              |
 | **Bandwidth**                   |       Y        |         Y          |      Y       |
 | **Bandwidth Mode**              |       Y        |         Y          |      Y       |
+| **Bandwidth Select**            |       Y        |         Y          |      Y       |
+| **Blue Gain**                   |       Y        |         Y          |      Y       |
 | **Bright Level**                |       Y        |         Y          |      Y       |
 | **Chroma Suppress**             |                |         Y          |      Y       |
 | **Color Temp**                  |       Y        |                    |              |
@@ -61,6 +63,7 @@ This module allows you to control any [BirdDog](https://birddog.tv/ptz-range/) P
 | **Exposure Mode**               |       Y        |         Y          |      Y       |
 | **Exposure Compensation**       |       Y        |         Y          |      Y       |
 | **Exposure Compensation Level** |       Y        |         Y          |      Y       |
+| **Firmware**                    |       Y        |         Y          |      Y       |
 | **Flip**                        |       Y        |         Y          |      Y       |
 | **Gain**                        |       Y        |         Y          |      Y       |
 | **Gain Limit**                  |                |         Y          |      Y       |
@@ -74,6 +77,7 @@ This module allows you to control any [BirdDog](https://birddog.tv/ptz-range/) P
 | **IR Cut Filter**               |                |         Y          |      Y       |
 | **Low Latency**                 |                |  P200_A4_A5 ONLY   |              |
 | **Mirror**                      |       Y        |         Y          |      Y       |
+| **Model**                       |       Y        |         Y          |      Y       |
 | **ND Filter**                   |                |                    |      Y       |
 | **NDI Audio**                   |       Y        |         Y          |      Y       |
 | **NDI Discovery Server**        |       Y        |         Y          |      Y       |
@@ -82,6 +86,7 @@ This module allows you to control any [BirdDog](https://birddog.tv/ptz-range/) P
 | **NDI Group Name**              |       Y        |         Y          |      Y       |
 | **Noise Reduction**             |       Y        |         Y          |              |
 | **Pan Speed**                   |       Y        |         Y          |      Y       |
+| **Red Gain**                    |       Y        |         Y          |      Y       |
 | **Saturation**                  |       Y        |                    |              |
 | **Sharpness**                   |       Y        |         Y          |              |
 | **Shutter Control Overwrite**   |       Y        |                    |              |
@@ -99,12 +104,9 @@ This module allows you to control any [BirdDog](https://birddog.tv/ptz-range/) P
 | **Tally Mode**                  |       Y        |         Y          |      Y       |
 | **Tilt Speed**                  |       Y        |         Y          |      Y       |
 | **Transmit Method**             |       Y        |         Y          |      Y       |
-| **Version**                     |       Y        |         Y          |      Y       |
 | **Video Format**                |       Y        |         Y          |      Y       |
 | **Video Output**                |                |                    |      Y       |
 | **White Balance Mode**          |       Y        |         Y          |      Y       |
-| **White Balance - Blue Gain**   |       Y        |         Y          |      Y       |
-| **White Balance - Red Gain**    |       Y        |         Y          |      Y       |
 | **Wide Dynamic Range**          |       Y        |                    |              |
 | **Zoom Speed**                  |       Y        |         Y          |      Y       |
 
