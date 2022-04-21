@@ -501,7 +501,7 @@ exports.updateVariables = function () {
 		}
 
 		if (MODEL.standby.includes(this.camera.model)) {
-			this.setVariable('standby', this.camera.status)
+			this.setVariable('standby', this.camera.status === 'on' ? 'Cam On' : 'Standby')
 		}
 
 		if (MODEL.status.includes(this.camera.model)) {
@@ -570,7 +570,7 @@ exports.updateVariables = function () {
 	// /NDIDisServer
 	if (this.camera.ndiserver) {
 		if (MODEL.ndi_discovery_server.includes(this.camera.model)) {
-			this.setVariable('ndi_discovery_server', this.camera.ndiserver.NDIDisServ)
+			this.setVariable('ndi_discovery_server', this.camera.ndiserver.NDIDisServ === 'NDIDisServEn' ? 'On' : 'Off')
 		}
 
 		if (MODEL.ndi_discovery_server_ip.includes(this.camera.model)) {

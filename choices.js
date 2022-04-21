@@ -9,7 +9,7 @@ module.exports = {
 	],
 
 	STANDBY: [
-		{ id: 'on', label: 'On' },
+		{ id: 'on', label: 'Cam On' },
 		{ id: 'standby', label: 'Standby' },
 	],
 
