@@ -171,7 +171,6 @@ class instance extends instance_skel {
 		this.initFeedbacks()
 		this.initPresets()
 
-
 		this.port = 52381 // Visca port
 		this.debug('----Initial Camera Info----')
 		this.sendCommand('about', 'GET')
@@ -193,7 +192,6 @@ class instance extends instance_skel {
 		this.debug('----Camera Setup----', this.camera)
 		this.debug('----Initial Variable Update----')
 		this.updateVariables()
-		
 	}
 
 	initVariables() {
@@ -212,7 +210,7 @@ class instance extends instance_skel {
 	actions(system) {
 		this.setActions(this.getActions())
 	}
-	
+
 	action(action) {
 		let opt = action.options
 		let cmd = ''
@@ -762,17 +760,19 @@ class instance extends instance_skel {
 			if (data.FirmwareVersion) {
 				this.camera.about = data
 
-                let model = data.FirmwareVersion.substring(
-                    data.FirmwareVersion.indexOf(' ') + 1,
-                    data.FirmwareVersion.lastIndexOf(' ')
-                )
-                if (!this.camera.model || this.camera.model != model) {
-                    this.camera.model = model
-                    this.initVariables()
+				let model = data.FirmwareVersion.substring(
+					data.FirmwareVersion.indexOf(' ') + 1,
+					data.FirmwareVersion.lastIndexOf(' ')
+				)
+				if (!this.camera.model || this.camera.model != model) {
+					this.camera.model = model
+					this.initVariables()
 				}
-				this.camera.firmware = data.FirmwareVersion.substring(data.FirmwareVersion.lastIndexOf(' ')+1,data.FirmwareVersion.length)
+				this.camera.firmware = data.FirmwareVersion.substring(
+					data.FirmwareVersion.lastIndexOf(' ') + 1,
+					data.FirmwareVersion.length
+				)
 			}
-			
 		} else if (cmd.match('/analogaudiosetup')) {
 			this.camera.audio = data
 		} else if (cmd.match('/encodetransport')) {
@@ -851,7 +851,6 @@ class instance extends instance_skel {
 					this.updateVariables()
 				} else if (data[8] == 0x90 && data[9] == 0x50 && data[10] == 0x03 && data[11] == 0xff) {
 					this.camera.focus = JSON.parse('{"mode":"Manual"}')
-					
 				}
 				this.updateVariables()
 				this.checkFeedbacks()

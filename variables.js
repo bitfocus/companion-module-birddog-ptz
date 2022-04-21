@@ -8,9 +8,9 @@ exports.updateVariableDefinitions = function () {
 	const variables = []
 
 	var MODEL = {}
-	
+
 	MODEL = MODELS.find((MODELS) => MODELS.group == 'variables')
-	
+
 	if (MODEL.twod_nr.includes(this.camera.model)) {
 		variables.push({
 			label: `2D NR`,
@@ -486,7 +486,6 @@ exports.updateVariableDefinitions = function () {
 // #### Update Variables ####
 // #########################
 exports.updateVariables = function () {
-	
 	var MODEL = {}
 
 	MODEL = MODELS.find((MODELS) => MODELS.group == 'variables')
