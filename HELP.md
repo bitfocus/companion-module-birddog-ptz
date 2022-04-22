@@ -2,12 +2,12 @@
 
 This module allows you to control any [BirdDog](https://birddog.tv/ptz-range/) PTZ camera.
 
-### Configuration
+## Configuration
 
 - Make sure the BirdDog PTZ camera is on the latest firmware version, which should include `LTS` in the version name. You can download the latest firmware from the [BirdDog downloads page](https://birddog.tv/downloads/).
 - Enter the IP address of the BirdDog device into the module settings
 
-### Available Actions
+## Available Actions
 
 - Pan/Tilt
 - Zoom
@@ -38,7 +38,7 @@ This module allows you to control any [BirdDog](https://birddog.tv/ptz-range/) P
 - High Sensitivity Mode
 - Custom Command (81 01 04 07 02 FF)
 
-### Available Variables
+## Available Variables
 
 |                                 | **P100/PF120** | **P200/A200/A300** | **P400/P4K** |
 | ------------------------------- | :------------: | :----------------: | :----------: |
@@ -110,7 +110,7 @@ This module allows you to control any [BirdDog](https://birddog.tv/ptz-range/) P
 | **Wide Dynamic Range**          |       Y        |                    |              |
 | **Zoom Speed**                  |       Y        |         Y          |      Y       |
 
-### Available Feedback
+## Available Feedback
 
 - wb_mode
 - standby_mode
