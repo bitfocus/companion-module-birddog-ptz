@@ -8,6 +8,7 @@ See [HELP.md](https://github.com/bitfocus/companion-module-birddog-ptz/blob/main
 ## Changes
 ### v2.0.1
 - Rename module to companion-module-birddog-ptz to better reflect module
+- Display only applicable variables based on BirdDog camera model
 ### v2.0.0
 - Refactor for Birddog API v2.0
 - New Variables
