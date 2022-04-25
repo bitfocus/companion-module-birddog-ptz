@@ -4,8 +4,8 @@ const presets = require('./presets')
 const { updateVariableDefinitions, updateVariables } = require('./variables')
 const { initFeedbacks } = require('./feedbacks')
 const upgradeScripts = require('./upgrades')
-const choices = require('./choices')
-const { getCameraInfo } = require('./utils')
+const CHOICES = require('./choices')
+const { getCameraInfo, addStringToBinary } = require('./utils')
 const VISCA = require('./constants')
 
 const udp = require('../../udp')
@@ -26,95 +26,11 @@ class instance extends instance_skel {
 		this.updateVariableDefinitions = updateVariableDefinitions
 		this.updateVariables = updateVariables
 		this.getCameraInfo = getCameraInfo
+		this.addStringToBinary = addStringToBinary
 
 		this.camera = {}
 
-		this.IRIS = [
-			{ id: '17', label: 'F1.6' },
-			{ id: '16', label: 'F2.0' },
-			{ id: '15', label: 'F2.4' },
-			{ id: '14', label: 'F2.8' },
-			{ id: '13', label: 'F3.4' },
-			{ id: '12', label: 'F4.0' },
-			{ id: '11', label: 'F4.8' },
-			{ id: '10', label: 'F5.6' },
-			{ id: '9', label: 'F6.8' },
-			{ id: '8', label: 'F8.0' },
-			{ id: '7', label: 'F9.6' },
-			{ id: '6', label: 'F11.0' },
-			{ id: '5', label: 'F14.0' },
-			{ id: '0', label: 'CLOSED' },
-		]
-
-		this.GAIN = [
-			{ id: '1', label: '0 dB' },
-			{ id: '2', label: '3.6 dB' },
-			{ id: '3', label: '7.1 dB' },
-			{ id: '4', label: '10.7 dB' },
-			{ id: '5', label: '14.3 dB' },
-			{ id: '6', label: '17.8 dB' },
-			{ id: '7', label: '21.4 dB' },
-			{ id: '8', label: '25.0 dB' },
-			{ id: '9', label: '28.6 dB' },
-			{ id: '10', label: '32.1 dB' },
-			{ id: '11', label: '35.7 dB' },
-			{ id: '12', label: '39.3 dB' },
-			{ id: '13', label: '42.8 dB' },
-			{ id: '14', label: '46.4 dB' },
-			{ id: '15', label: '50.0 dB' },
-		]
-
-		this.SHUTTER_NTSC = [
-			{ id: '0', label: '1/1' },
-			{ id: '1', label: '1/2' },
-			{ id: '2', label: '1/4' },
-			{ id: '3', label: '1/8' },
-			{ id: '4', label: '1/15' },
-			{ id: '5', label: '1/30' },
-			{ id: '6', label: '1/60' },
-			{ id: '7', label: '1/90' },
-			{ id: '8', label: '1/100' },
-			{ id: '9', label: '1/125' },
-			{ id: '10', label: '1/180' },
-			{ id: '11', label: '1/250' },
-			{ id: '12', label: '1/350' },
-			{ id: '13', label: '1/500' },
-			{ id: '14', label: '1/725' },
-			{ id: '15', label: '1/1000' },
-			{ id: '16', label: '1/1500' },
-			{ id: '17', label: '1/2000' },
-			{ id: '18', label: '1/3000' },
-			{ id: '19', label: '1/4000' },
-			{ id: '20', label: '1/6000' },
-			{ id: '21', label: '1/10000' },
-		]
-
-		this.SHUTTER_PAL = [
-			{ id: '0', label: '1/1' },
-			{ id: '1', label: '1/2' },
-			{ id: '2', label: '1/3' },
-			{ id: '3', label: '1/6' },
-			{ id: '4', label: '1/12' },
-			{ id: '5', label: '1/25' },
-			{ id: '6', label: '1/50' },
-			{ id: '7', label: '1/75' },
-			{ id: '8', label: '1/100' },
-			{ id: '9', label: '1/120' },
-			{ id: '10', label: '1/150' },
-			{ id: '11', label: '1/215' },
-			{ id: '12', label: '1/300' },
-			{ id: '13', label: '1/425' },
-			{ id: '14', label: '1/600' },
-			{ id: '15', label: '1/1000' },
-			{ id: '16', label: '1/1250' },
-			{ id: '17', label: '1/1750' },
-			{ id: '18', label: '1/2500' },
-			{ id: '19', label: '1/3500' },
-			{ id: '20', label: '1/6000' },
-			{ id: '21', label: '1/10000' },
-		]
-
-		this.SHUTTER = this.SHUTTER_NTSC
+		this.SHUTTER = CHOICES.SHUTTER_50
 	}
 
 	static GetUpgradeScripts() {
@@ -166,7 +82,7 @@ class instance extends instance_skel {
 
 		this.status(this.STATUS_WARNING, 'Connecting')
 
-		this.actions()
+		//this.actions()
 		this.initFeedbacks()
 		this.initPresets()
 
@@ -174,19 +90,13 @@ class instance extends instance_skel {
 		this.sendCommand('about', 'GET')
 		this.sendCommand('analogaudiosetup', 'GET')
 		this.sendCommand('encodetransport', 'GET')
-		this.sendCommand('encodesetup', 'GET')
+		// this.sendCommand('encodesetup', 'GET') Temporary skip to avoid BirdDog API bug
 		this.sendCommand('NDIDisServer', 'GET')
 		this.sendCommand('birddogptzsetup', 'GET')
 		this.sendCommand('birddogexpsetup', 'GET')
 		this.sendCommand('birddogwbsetup', 'GET')
 		this.sendCommand('birddogpicsetup', 'GET')
-		this.sendCommand('birddogcmsetup', 'GET')
-		this.sendCommand('birddogadvancesetup', 'GET')
-		this.init_udp()
-		// Query Standby status
-		this.sendVISCACommand(VISCA.QRY_STANDBY, '\x4a')
-		// Query Auto Focus Mode
-		this.sendVISCACommand(VISCA.QRY_FOCUS_MODE, '\x5a')
+
 		this.updateVariables()
 	}
 
@@ -216,55 +126,53 @@ class instance extends instance_skel {
 		let tiltSpeed = this.camera?.ptz?.PanSpeed ? this.camera.ptz.TiltSpeed : 9
 		let zoomSpeed = this.camera?.ptz?.ZoomSpeed ? this.camera.ptz.ZoomSpeed : 4
 		let newSpeed
+		let newValue
 		let body = {}
 
 		switch (action.action) {
 			case 'power':
 				switch (opt.val) {
 					case 'On':
-						cmd = '\x81\x01\x04\x00\x02\xFF'
+						cmd = VISCA.MSG_CAM + VISCA.CAM_POWER + VISCA.DATA_ONVAL + VISCA.END_MSG
 						break
 					case 'Off':
-						cmd = '\x81\x01\x04\x00\x03\xFF'
+						cmd = VISCA.MSG_CAM + VISCA.CAM_POWER + VISCA.DATA_OFFVAL + VISCA.END_MSG
 						break
 				}
 				this.sendVISCACommand(cmd)
 				break
 
 			case 'pt':
-				panSpeed = String.fromCharCode(parseInt(panSpeed, 16) & 0xff)
-				tiltSpeed = String.fromCharCode(parseInt(tiltSpeed, 16) & 0xff)
-
 				switch (opt.val) {
-					case '0':
-						cmd = `\x81\x01\x06\x01${panSpeed}${tiltSpeed}\x01\x03\xFF`
+					case 'left':
+						cmd = VISCA.MSG_OPERATION + VISCA.OP_PAN_DRIVE + String.fromCharCode(panSpeed) + String.fromCharCode(tiltSpeed) + VISCA.DATA_PANLEFT + VISCA.DATA_NOTILT + VISCA.END_MSG
 						break
-					case '1':
-						cmd = `\x81\x01\x06\x01${panSpeed}${tiltSpeed}\x02\x03\xFF`
+					case 'right':
+						cmd = VISCA.MSG_OPERATION + VISCA.OP_PAN_DRIVE + String.fromCharCode(panSpeed) + String.fromCharCode(tiltSpeed) + VISCA.DATA_PANRIGHT + VISCA.DATA_NOTILT + VISCA.END_MSG
 						break
-					case '2':
-						cmd = `\x81\x01\x06\x01${panSpeed}${tiltSpeed}\x03\x01\xFF`
+					case 'up':
+						cmd = VISCA.MSG_OPERATION + VISCA.OP_PAN_DRIVE + String.fromCharCode(panSpeed) + String.fromCharCode(tiltSpeed) + VISCA.DATA_NOPAN + VISCA.DATA_TILTUP + VISCA.END_MSG
 						break
-					case '3':
-						cmd = `\x81\x01\x06\x01${panSpeed}${tiltSpeed}\x03\x02\xFF`
+					case 'down':
+						cmd = VISCA.MSG_OPERATION + VISCA.OP_PAN_DRIVE + String.fromCharCode(panSpeed) + String.fromCharCode(tiltSpeed) + VISCA.DATA_NOPAN + VISCA.DATA_TILTDOWN + VISCA.END_MSG
 						break
-					case '4':
-						cmd = `\x81\x01\x06\x01${panSpeed}${tiltSpeed}\x01\x01\xFF`
+					case 'up_left':
+						cmd = VISCA.MSG_OPERATION + VISCA.OP_PAN_DRIVE + String.fromCharCode(panSpeed) + String.fromCharCode(tiltSpeed) + VISCA.DATA_PANLEFT + VISCA.DATA_TILTUP + VISCA.END_MSG
 						break
-					case '5':
-						cmd = `\x81\x01\x06\x01${panSpeed}${tiltSpeed}\x02\x01\xFF`
+					case 'up_right':
+						cmd = VISCA.MSG_OPERATION + VISCA.OP_PAN_DRIVE + String.fromCharCode(panSpeed) + String.fromCharCode(tiltSpeed) + VISCA.DATA_PANRIGHT + VISCA.DATA_TILTUP + VISCA.END_MSG
 						break
-					case '6':
-						cmd = `\x81\x01\x06\x01${panSpeed}${tiltSpeed}\x01\x02\xFF`
+					case 'down_left':
+						cmd = VISCA.MSG_OPERATION + VISCA.OP_PAN_DRIVE + String.fromCharCode(panSpeed) + String.fromCharCode(tiltSpeed) + VISCA.DATA_PANLEFT + VISCA.DATA_TILTDOWN + VISCA.END_MSG
 						break
-					case '7':
-						cmd = `\x81\x01\x06\x01${panSpeed}${tiltSpeed}\x02\x02\xFF`
+					case 'down_right':
+						cmd = VISCA.MSG_OPERATION + VISCA.OP_PAN_DRIVE + String.fromCharCode(panSpeed) + String.fromCharCode(tiltSpeed) + VISCA.DATA_PANRIGHT + VISCA.DATA_TILTDOWN + VISCA.END_MSG
 						break
-					case '8':
-						cmd = `\x81\x01\x06\x01${panSpeed}${tiltSpeed}\x03\x03\xFF`
+					case 'stop':
+						cmd = VISCA.MSG_OPERATION + VISCA.OP_PAN_DRIVE + String.fromCharCode(panSpeed) + String.fromCharCode(tiltSpeed) + VISCA.DATA_NOPAN + VISCA.DATA_NOTILT + VISCA.END_MSG
 						break
-					case '9':
-						cmd = '\x81\x01\x06\x04\xFF'
+					case 'home':
+						cmd = VISCA.MSG_OPERATION + VISCA.OP_PAN_HOME + VISCA.END_MSG
 						break
 				}
 				this.sendVISCACommand(cmd)
@@ -291,7 +199,7 @@ class instance extends instance_skel {
 			case 'tiltSpeed':
 				switch (opt.type) {
 					case 'up':
-						newSpeed = tiltSpeed < 18 ? ++tiltSpeed : tiltSpeed
+						
 						break
 					case 'down':
 						newSpeed = tiltSpeed > 1 ? --tiltSpeed : tiltSpeed
@@ -326,14 +234,14 @@ class instance extends instance_skel {
 
 			case 'zoom':
 				switch (opt.val) {
-					case '0':
-						cmd = '\x81\x01\x04\x07\x02\xFF'
+					case 'in':
+						cmd = VISCA.MSG_CAM + VISCA.CAM_ZOOM + this.addStringToBinary(VISCA.CMD_CAM_ZOOM_TELE_WITH_SPEED, zoomSpeed) + VISCA.END_MSG
 						break
-					case '1':
-						cmd = '\x81\x01\x04\x07\x03\xFF'
+					case 'out':
+						cmd = VISCA.MSG_CAM + VISCA.CAM_ZOOM + this.addStringToBinary(VISCA.CMD_CAM_ZOOM_WIDE_WITH_SPEED, zoomSpeed) + VISCA.END_MSG
 						break
-					case '2':
-						cmd = '\x81\x01\x04\x07\x00\xFF'
+					case 'stop':
+						cmd = VISCA.MSG_CAM + VISCA.CAM_ZOOM + VISCA.CMD_CAM_ZOOM_STOP + VISCA.END_MSG
 						break
 				}
 				this.sendVISCACommand(cmd)
@@ -341,17 +249,17 @@ class instance extends instance_skel {
 
 			case 'focus':
 				switch (opt.val) {
-					case '0':
-						cmd = '\x81\x01\x04\x08\x03\xFF'
+					case 'near':
+						cmd = VISCA.MSG_CAM + VISCA.CAM_FOCUS + VISCA.CMD_CAM_FOCUS_NEAR + VISCA.END_MSG
 						break
-					case '1':
-						cmd = '\x81\x01\x04\x08\x02\xFF'
+					case 'far':
+						cmd = VISCA.MSG_CAM + VISCA.CAM_FOCUS + VISCA.CMD_CAM_FOCUS_FAR + VISCA.END_MSG
 						break
-					case '2':
-						cmd = '\x81\x01\x04\x08\x00\xFF'
+					case 'stop':
+						cmd = VISCA.MSG_CAM + VISCA.CAM_FOCUS + VISCA.CMD_CAM_FOCUS_STOP + VISCA.END_MSG
 						break
-					case '3':
-						cmd = '\x81\x01\x04\x18\x01\xFF'
+					case 'trigger':
+						cmd = VISCA.MSG_CAM + VISCA.CAM_FOCUS_TRIGGER + VISCA.CMD_CAM_FOCUS_TRIGGER_NOW + VISCA.END_MSG
 						break
 				}
 				this.sendVISCACommand(cmd)
@@ -360,228 +268,148 @@ class instance extends instance_skel {
 			case 'focusM':
 				switch (opt.val) {
 					case 'AutoFocus':
-						cmd = '\x81\x01\x04\x38\x02\xFF'
+						cmd = VISCA.MSG_CAM + VISCA.CAM_FOCUS_AUTO + VISCA.DATA_ONVAL + VISCA.END_MSG
 						break
 					case 'Manual':
-						cmd = '\x81\x01\x04\x38\x03\xFF'
+						cmd = VISCA.MSG_CAM + VISCA.CAM_FOCUS_AUTO + VISCA.DATA_OFFVAL + VISCA.END_MSG
 						break
 				}
 				this.sendVISCACommand(cmd)
 				break
 
 			case 'expM':
-				switch (opt.val) {
-					case 'FULL-AUTO':
-						cmd = '\x81\x01\x04\x39\x00\xFF'
-						break
-					case 'MANUAL':
-						cmd = '\x81\x01\x04\x39\x03\xFF'
-						break
-					case 'SHUTTER-PRI':
-						cmd = '\x81\x01\x04\x39\x0A\xFF'
-						break
-					case 'IRIS-PRI':
-						cmd = '\x81\x01\x04\x39\x0B\xFF'
-						break
-					case 'BRIGHT':
-						cmd = '\x81\x01\x04\x39\x0D\xFF'
-						break
-					case 'GAIN-PRI':
-						cmd = '\x81\x01\x04\x39\x0E\xFF'
-						break
+				body = {
+					ExpMode: String(opt.value),
 				}
-				this.sendVISCACommand(cmd)
+				this.sendCommand('birddogexpsetup', 'POST', body)
 				break
 
 			case 'wb':
-				switch (opt.val) {
-					case 'AUTO':
-						cmd = '\x81\x01\x04\x35\x00\xFF'
-						break
-					case 'INDOOR':
-						cmd = '\x81\x01\x04\x35\x01\xFF'
-						break
-					case 'OUTDOOR':
-						cmd = '\x81\x01\x04\x35\x02\xFF'
-						break
-					case 'ONEPUSH':
-						cmd = '\x81\x01\x04\x35\x03\xFF'
-						break
-					case 'ATW':
-						cmd = '\x81\x01\x04\x35\x04\xFF'
-						break
-					case 'MANUAL1':
-						cmd = '\x81\x01\x04\x35\x05\xFF'
-						break
-					case 'MANUAL2':
-						cmd = '\x81\x01\x04\x35\x06\xFF'
-						break
-					case 'OUTDOOR-AUTO':
-						cmd = '\x81\x01\x04\x35\x06\xFF'
-						break
-					case 'SLV-AUTO':
-						cmd = '\x81\x01\x04\x35\x07\xFF'
-						break
-					case 'SLV':
-						cmd = '\x81\x01\x04\x35\x08\xFF'
-						break
-					case 'SLV-OUTDOOR-AUTO':
-						cmd = '\x81\x01\x04\x35\x09\xFF'
-						break
+				body = {
+					WbMode: String(opt.value),
 				}
-				this.sendVISCACommand(cmd)
+				this.sendCommand('birddogwbsetup', 'POST', body)
 				break
 
 			case 'wbOnePush':
-				cmd = '\x81\x01\x04\x10\x05\xFF'
+				cmd = VISCA.MSG_CAM + VISCA.CAM_WB_TRIGGER + VISCA.CMD_CAM_WB_TRIGGER_NOW + VISCA.END_MSG
 				this.sendVISCACommand(cmd)
 				break
 
 			case 'gain':
-				fb = Buffer.from('\x4c', 'binary')
+				let gain = this.camera?.expsetup?.GainLevel ? this.camera.expsetup.GainLevel : 4
 				switch (opt.val) {
 					case 'up':
-						cmd = '\x81\x01\x04\x0C\x02\xFF'
+						newValue = gain < 15 ? ++gain : gain
 						break
 					case 'down':
-						cmd = '\x81\x01\x04\x0C\x03\xFF'
-						break
-					case 'reset':
-						cmd = '\x81\x01\x04\x0C\x00\xFF'
+						newValue = gain > 0 ? --gain : gain
 						break
 					case 'value':
-						cmd = Buffer.from('\x81\x01\x04\x4C\x00\x00\x00\x00\xFF', 'binary')
-						let number = opt.value
-						cmd.writeUInt8(number.toString(8) >> 4, 6)
-						cmd.writeUInt8(number - parseInt(number.toString(8) >> 4) * 16, 7)
-						fb = Buffer.from('\x5c', 'binary')
+						newValue = opt.value		
 						break
 				}
-				this.sendVISCACommand(cmd, fb)
+				body = {
+					GainLevel: String(newValue),
+				}
+				this.sendCommand('birddogexpsetup', 'POST', body)
 				break
 
 			case 'gainRed':
-				fb = Buffer.from('\x43', 'binary')
+				let gainRed = this.camera?.wbsetup?.RedGain ? this.camera.wbsetup.RedGain : 128
 				switch (opt.val) {
 					case 'up':
-						cmd = '\x81\x01\x04\x03\x02\xFF'
+						newValue = gainRed < 255 ? ++gainRed : gainRed
 						break
 					case 'down':
-						cmd = '\x81\x01\x04\x03\x03\xFF'
-						break
-					case 'reset':
-						cmd = '\x81\x01\x04\x03\x00\xFF'
+						newValue = gainRed > 0 ? --gainRed : gainRed
 						break
 					case 'value':
-						cmd = Buffer.from('\x81\x01\x04\x43\x00\x00\x00\x00\xFF', 'binary')
-						let number = opt.value.toString()
-						cmd.writeUInt8(number.toString(8) >> 4, 6)
-						cmd.writeUInt8(number - parseInt(number.toString(8) >> 4) * 16, 7)
+						newValue = opt.value
 						break
 				}
-				this.sendVISCACommand(cmd, fb)
+				body = {
+					RedGain: String(newValue),
+				}
+				this.sendCommand('birddogwbsetup', 'POST', body)
 				break
 
 			case 'gainBlue':
-				fb = Buffer.from('\x44', 'binary')
+				let gainBlue = this.camera?.wbsetup?.RedGain ? this.camera.wbsetup.RedGain : 128
 				switch (opt.val) {
 					case 'up':
-						cmd = '\x81\x01\x04\x04\x02\xFF'
+						newValue = gainBlue < 255 ? ++gainBlue : gainBlue
 						break
 					case 'down':
-						cmd = '\x81\x01\x04\x04\x03\xFF'
-						break
-					case 'reset':
-						cmd = '\x81\x01\x04\x04\x00\xFF'
+						newValue = gainBlue > 0 ? --gainBlue : gainBlue
 						break
 					case 'value':
-						cmd = Buffer.from('\x81\x01\x04\x44\x00\x00\x00\x00\xFF', 'binary')
-						let number = opt.value.toString()
-						cmd.writeUInt8(number.toString(8) >> 4, 6)
-						cmd.writeUInt8(number - parseInt(number.toString(8) >> 4) * 16, 7)
+						newValue = opt.value
 						break
 				}
-				this.sendVISCACommand(cmd, fb)
+				body = {
+					RedGain: String(newValue),
+				}
+				this.sendCommand('birddogwbsetup', 'POST', body)
 				break
 
 			case 'iris':
-				fb = Buffer.from('\x4b', 'binary')
+				let iris = this.camera?.expsetup?.IrisLevel ? this.camera.expsetup.IrisLevel : 0
 				switch (opt.val) {
 					case 'up':
-						cmd = '\x81\x01\x04\x0B\x02\xFF'
+						newValue = iris < 13 ? ++iris : iris
 						break
 					case 'down':
-						cmd = '\x81\x01\x04\x0B\x03\xFF'
-						break
-					case 'reset':
-						cmd = '\x81\x01\x04\x0B\x00\xFF'
+						newValue = iris > 0 ? ++iris : iris
 						break
 					case 'value':
-						cmd = Buffer.from('\x81\x01\x04\x4B\x00\x00\x00\x00\xFF', 'binary')
-						let number = opt.value
-						if (number > 255) {
-							number = '255'
-						}
-						debug(number)
-						cmd.writeUInt8(number.toString(8) >> 4, 6)
-						cmd.writeUInt8(number - parseInt(number.toString(8) >> 4) * 16, 7)
-						fb = Buffer.from('\x5b', 'binary')
+						newValue = opt.value
 						break
 				}
-				this.sendVISCACommand(cmd, fb)
+				body = {
+					IrisLevel: String(newValue),
+				}
+				this.sendCommand('birddogexpsetup', 'POST', body)
 				break
 
 			case 'shut':
-				fb = Buffer.from('\x4a', 'binary')
+				let shutter_speed = this.camera?.expsetup?.shutter_speed ? this.camera.expsetup.shutter_speed : 0
 				switch (opt.val) {
 					case 'up':
-						cmd = '\x81\x01\x04\x0A\x02\xFF'
+						newValue = shutter_speed < 21 ? ++shutter_speed : shutter_speed
 						break
 					case 'down':
-						cmd = '\x81\x01\x04\x0A\x03\xFF'
-						break
-					case 'reset':
-						cmd = '\x81\x01\x04\x0A\x00\xFF'
+						newValue = shutter_speed > 0 ? ++shutter_speed : shutter_speed
 						break
 					case 'value':
-						cmd = Buffer.from('\x81\x01\x04\x4A\x00\x00\x00\x00\xFF', 'binary')
-						let number = opt.value
-						if (number > 255) {
-							number = '255'
-						}
-						debug(number)
-						cmd.writeUInt8(number.toString(8) >> 4, 6)
-						cmd.writeUInt8(number - parseInt(number.toString(8) >> 4) * 16, 7)
-						fb = Buffer.from('\x5a', 'binary')
+						newValue = opt.value
 						break
 				}
-				this.sendVISCACommand(cmd, fb)
+				body = {
+					IrisLevel: String(newValue),
+				}
+				this.sendCommand('birddogexpsetup', 'POST', body)
 				break
 
 			case 'savePset':
-				cmd = Buffer.from('\x81\x01\x04\x3F\x01\x00\xFF', 'binary')
-				cmd.writeUInt8(opt.val - 1, 5)
-				//cmd.writeUInt8((opt.val - parseInt(opt.val.toString(8) >> 4)*16),7);
-				this.sendVISCACommand(cmd)
+				body = {
+					Preset: String('Preset-'+ opt.value),
+				}
+				this.sendCommand('save', 'POST', body)
 				break
 
 			case 'recallPset':
-				cmd = Buffer.from('\x81\x01\x04\x3F\x02\x00\xFF', 'binary')
-				cmd.writeUInt8(opt.val - 1, 5)
-				//cmd.writeUInt8((opt.val - parseInt(opt.val.toString(8) >> 4)*16),7);
-				this.sendVISCACommand(cmd)
+				body = {
+					Preset: String('Preset-'+ opt.value),
+				}
+				this.sendCommand('recall', 'POST', body)
 				break
 
 			case 'pictureEffect':
-				switch (opt.val) {
-					case 'OFF':
-						cmd = '\x81\x01\x04\x63\x00\xFF'
-						break
-					case 'BW':
-						cmd = '\x81\x01\x04\x63\x04\xFF'
-						break
+				body = {
+					Effect: String(opt.value),
 				}
-				this.sendVISCACommand(cmd)
+				this.sendCommand('birddogpicsetup', 'POST', body)
 				break
 
 			case 'defog':
@@ -603,18 +431,10 @@ class instance extends instance_skel {
 				break
 
 			case 'irMode':
-				switch (opt.val) {
-					case 'Auto':
-						cmd = '\x81\x01\x04\x3F\x02\x40\xFF'
-						break
-					case 'On':
-						cmd = '\x81\x01\x04\x3F\x01\x3F\xFF'
-						break
-					case 'Off':
-						cmd = '\x81\x01\x04\x3F\x02\x3F\xFF'
-						break
+				body = {
+					IRCutFilter: String(opt.value),
 				}
-				this.sendVISCACommand(cmd)
+				this.sendCommand('birddogpicsetup', 'POST', body)
 				break
 
 			case 'hrMode':
@@ -630,27 +450,17 @@ class instance extends instance_skel {
 				break
 
 			case 'highSensitivity':
-				switch (opt.val) {
-					case 'On':
-						cmd = '\x81\x01\x04\x5E\x02\xFF'
-						break
-					case 'Off':
-						cmd = '\x81\x01\x04\x5E\x03\xFF'
-						break
+				body = {
+					HighSensitivity: String(opt.value),
 				}
-				this.sendVISCACommand(cmd)
+				this.sendCommand('birddogexpsetup', 'POST', body)
 				break
 
 			case 'tally':
-				switch (opt.val) {
-					case 'TallyOn':
-						cmd = '\x81\x01\x7E\x01\x0A\x00\x02\xFF'
-						break
-					case 'TallyOff':
-						cmd = '\x81\x01\x7E\x01\x0A\x00\x03\xFF'
-						break
+				body = {
+					TallyMode: String(opt.value),
 				}
-				this.sendVISCACommand(cmd)
+				this.sendCommand('encodesetup', 'POST', body)
 				break
 
 			case 'freeze':
@@ -666,27 +476,17 @@ class instance extends instance_skel {
 				break
 
 			case 'picFlip':
-				switch (opt.val) {
-					case 'On':
-						cmd = '\x81\x01\x04\x66\x02\xFF'
-						break
-					case 'Off':
-						cmd = '\x81\x01\x04\x66\x03\xFF'
-						break
+				body = {
+					Flip: String(opt.value),
 				}
-				this.sendVISCACommand(cmd)
+				this.sendCommand('birddogpicsetup', 'POST', body)
 				break
 
 			case 'picMirror':
-				switch (opt.val) {
-					case 'On':
-						cmd = '\x81\x01\x04\x61\x02\xFF'
-						break
-					case 'Off':
-						cmd = '\x81\x01\x04\x61\x03\xFF'
-						break
+				body = {
+					Mirror: String(opt.value),
 				}
-				this.sendVISCACommand(cmd)
+				this.sendCommand('birddogpicsetup', 'POST', body)
 				break
 
 			case 'custom':
@@ -764,6 +564,8 @@ class instance extends instance_skel {
 				if (!this.camera.model || this.camera.model != model) {
 					this.camera.model = model
 					this.initVariables()
+					this.actions()
+					this.updateVariables()
 				}
 				this.camera.firmware = data.FirmwareVersion.substring(
 					data.FirmwareVersion.lastIndexOf(' ') + 1,
@@ -906,7 +708,7 @@ class instance extends instance_skel {
 	}
 
 	poll() {
-		this.debug('----Polling Camera----')
+		this.debug('----Polling for Camera Info')
 		this.sendCommand('about', 'GET')
 		this.sendCommand('analogaudiosetup', 'GET')
 		this.sendCommand('encodetransport', 'GET')
@@ -919,10 +721,12 @@ class instance extends instance_skel {
 		this.sendCommand('birddogcmsetup', 'GET')
 		this.sendCommand('birddogadvancesetup', 'GET')
 		// Query Standby status
-		this.sendVISCACommand(VISCA.QRY_STANDBY, '\x4a')
+		this.sendVISCACommand(VISCA.MSG_QRY + VISCA.CAM_POWER + VISCA.END_MSG, '\x4a')
 		// Query Auto Focus Mode
-		this.sendVISCACommand(VISCA.QRY_FOCUS_MODE, '\x5a')
-		// this.debug('----Camera Setup----', this.camera)
+		this.sendVISCACommand(VISCA.MSG_QRY + VISCA.CAM_FOCUS_AUTO + VISCA.END_MSG, '\x5a')
+		this.debug('----Camera Setup----', this.camera)
+		
+		this.updateVariables()
 	}
 }
 exports = module.exports = instance
