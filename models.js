@@ -90,7 +90,7 @@ const COMMON = [
 ]
 
 module.exports = {
-	// Includes all Actions / API Calls / Variables / Feedbacks
+	// Model Specific
 	MODELS: [
 		{
 			id: 'P100',
@@ -126,8 +126,8 @@ module.exports = {
 				expM: { choices: CHOICES.EXP_MODE_1, default: 'FULL-AUTO' },
 				wb: { choices: CHOICES.WB_MODE_1, default: 'AUTO' },
 				gain: { choices: CHOICES.GAIN_1, default: 0 },
-				iris: { choices: CHOICES.IRIS_1, default: 1 },
-				shut: {},
+				iris: { choices: CHOICES.IRIS_1, default: 1, range: {min: 0,max: 13} },
+				shut: {shutter_50: CHOICES.SHUTTER_50 , shutter_60:CHOICES.SHUTTER_60 },
 				pictureEffect: { choices: CHOICES.PICTURE_EFFECT, default: 'BW' },
 			},
 			feedback: {
@@ -166,7 +166,7 @@ module.exports = {
 				wb: { choices: CHOICES.WB_MODE_1, default: 'AUTO' },
 				gain: { choices: CHOICES.GAIN_1, default: 0 },
 				iris: { choices: CHOICES.IRIS_1, default: 1 },
-				shut: {},
+				shut: {shutter_50: CHOICES.SHUTTER_50 , shutter_60:CHOICES.SHUTTER_60 },
 				pictureEffect: { choices: CHOICES.PICTURE_EFFECT, default: 'BW' },
 			},
 			feedback: {
@@ -213,7 +213,7 @@ module.exports = {
 				wb: { choices: CHOICES.WB_MODE_2, default: 'AUTO' },
 				gain: { choices: CHOICES.GAIN_2, default: 0 },
 				iris: { choices: CHOICES.IRIS_2, default: 1 },
-				shut: {},
+				shut: {shutter_50: CHOICES.SHUTTER_50 , shutter_60:CHOICES.SHUTTER_60 },
 				highSensitivity: { choices: CHOICES.ON_OFF, default: 'On' },
 				pictureEffect: { choices: CHOICES.PICTURE_EFFECT, default: 'BW' },
 				irMode: { choices: CHOICES.IR_CUT_FILTER_3, default: 'NoiseReduction' },
@@ -263,7 +263,7 @@ module.exports = {
 				wb: { choices: CHOICES.WB_MODE_2, default: 'AUTO' },
 				gain: { choices: CHOICES.GAIN_2, default: 0 },
 				iris: { choices: CHOICES.IRIS_2, default: 1 },
-				shut: {},
+				shut: {shutter_50: CHOICES.SHUTTER_50 , shutter_60:CHOICES.SHUTTER_60 },
 				highSensitivity: { choices: CHOICES.ON_OFF, default: 'On' },
 				pictureEffect: { choices: CHOICES.PICTURE_EFFECT, default: 'BW' },
 				irMode: { choices: CHOICES.IR_CUT_FILTER_1, default: 'Auto' },
@@ -311,7 +311,7 @@ module.exports = {
 				wb: { choices: CHOICES.WB_MODE_2, default: 'AUTO' },
 				gain: { choices: CHOICES.GAIN_2, default: 0 },
 				iris: { choices: CHOICES.IRIS_2, default: 1 },
-				shut: {},
+				shut: {shutter_50: CHOICES.SHUTTER_50 , shutter_60:CHOICES.SHUTTER_60 },
 				highSensitivity: { choices: CHOICES.ON_OFF, default: 'On' },
 				pictureEffect: { choices: CHOICES.PICTURE_EFFECT, default: 'BW' },
 				irMode: { choices: CHOICES.IR_CUT_FILTER_1, default: 'Auto' },
@@ -359,7 +359,7 @@ module.exports = {
 				wb: { choices: CHOICES.WB_MODE_2, default: 'AUTO' },
 				gain: { choices: CHOICES.GAIN_2, default: 0 },
 				iris: { choices: CHOICES.IRIS_2, default: 1 },
-				shut: {},
+				shut: {shutter_50: CHOICES.SHUTTER_50 , shutter_60:CHOICES.SHUTTER_60 },
 				highSensitivity: { choices: CHOICES.ON_OFF, default: 'On' },
 				pictureEffect: { choices: CHOICES.PICTURE_EFFECT, default: 'BW' },
 				irMode: { choices: CHOICES.IR_CUT_FILTER_1, default: 'Auto' },
@@ -407,7 +407,7 @@ module.exports = {
 				wb: { choices: CHOICES.WB_MODE_2, default: 'AUTO' },
 				gain: { choices: CHOICES.GAIN_2, default: 0 },
 				iris: { choices: CHOICES.IRIS_2, default: 1 },
-				shut: {},
+				shut: {shutter_50: CHOICES.SHUTTER_50 , shutter_60:CHOICES.SHUTTER_60 },
 				highSensitivity: { choices: CHOICES.ON_OFF, default: 'On' },
 				pictureEffect: { choices: CHOICES.PICTURE_EFFECT, default: 'BW' },
 				irMode: { choices: CHOICES.IR_CUT_FILTER_1, default: 'Auto' },
@@ -455,7 +455,7 @@ module.exports = {
 				wb: { choices: CHOICES.WB_MODE_2, default: 'AUTO' },
 				gain: { choices: CHOICES.GAIN_2, default: 0 },
 				iris: { choices: CHOICES.IRIS_2, default: 1 },
-				shut: {},
+				shut: {shutter_50: CHOICES.SHUTTER_50 , shutter_60:CHOICES.SHUTTER_60 },
 				highSensitivity: { choices: CHOICES.ON_OFF, default: 'On' },
 				pictureEffect: { choices: CHOICES.PICTURE_EFFECT, default: 'BW' },
 				irMode: { choices: CHOICES.IR_CUT_FILTER_1, default: 'Auto' },
@@ -511,7 +511,7 @@ module.exports = {
 				wb: { choices: CHOICES.WB_MODE_2, default: 'AUTO' },
 				gain: { choices: CHOICES.GAIN_2, default: 0 },
 				iris: { choices: CHOICES.IRIS_3, default: 1 },
-				shut: {},
+				shut: {shutter_24:CHOICES.SHUTTER_4K_24, shutter_50: CHOICES.SHUTTER_4K_50 , shutter_60:CHOICES.SHUTTER_4K_60 },
 				highSensitivity: { choices: CHOICES.ON_OFF, default: 'On' },
 				irMode: { choices: CHOICES.IR_CUT_FILTER_2, default: 'On' },
 			},
@@ -566,7 +566,7 @@ module.exports = {
 				wb: { choices: CHOICES.WB_MODE_2, default: 'AUTO' },
 				gain: { choices: CHOICES.GAIN_2, default: 0 },
 				iris: { choices: CHOICES.IRIS_3, default: 1 },
-				shut: {},
+				shut: {shutter_24:CHOICES.SHUTTER_4K_24, shutter_50: CHOICES.SHUTTER_4K_50 , shutter_60:CHOICES.SHUTTER_4K_60 },
 				highSensitivity: { choices: CHOICES.ON_OFF, default: 'On' },
 				irMode: { choices: CHOICES.IR_CUT_FILTER_2, default: 'On' },
 			},

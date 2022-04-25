@@ -648,13 +648,15 @@ class instance extends instance_skel {
 			this.camera.transport = data
 		} else if (cmd.match('/encodesetup')) {
 			if (!this.camera?.encode || this.camera?.encode?.VideoFormat !== data.VideoFormat) {
-				if (data.VideoFormat.match('25') || data.VideoFormat.match('50')) {
-					this.SHUTTER = this.SHUTTER_PAL
-					this.actions()
-				} else {
-					this.SHUTTER = this.SHUTTER_NTSC
-					this.actions()
+				if (data.VideoFormat.match('24')) {
+					this.camera.framerate = 24
 				}
+				else if (data.VideoFormat.match('25') || data.VideoFormat.match('50')) {
+					this.camera.framerate = 50
+				} else {
+					this.camera.framerate = 60
+				}
+				this.actions()
 			}
 			this.camera.encode = data
 		} else if (cmd.match('/NDIDisServer')) {
