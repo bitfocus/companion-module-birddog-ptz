@@ -7,7 +7,7 @@ const CHOICES = require('./choices.js')
 exports.updateVariableDefinitions = function () {
 	const variables = []
 
-	MODEL_SPEC = (MODELS.find((MODELS) => MODELS.id == this.camera.model).variables)
+	MODEL_SPEC = MODELS.find((MODELS) => MODELS.id == this.camera.model).variables
 
 	for (i in MODEL_SPEC) {
 		variables.push({
@@ -23,9 +23,8 @@ exports.updateVariableDefinitions = function () {
 // #### Update Variables ####
 // #########################
 exports.updateVariables = function () {
-
-	MODEL_SPEC = (MODELS.find((MODELS) => MODELS.id == this.camera.model).variables)
-	MODEL_VALUES = (MODELS.find((MODELS) => MODELS.id == this.camera.model).actions)
+	MODEL_SPEC = MODELS.find((MODELS) => MODELS.id == this.camera.model).variables
+	MODEL_VALUES = MODELS.find((MODELS) => MODELS.id == this.camera.model).actions
 
 	// /about
 	if (this.camera.about) {
@@ -165,7 +164,10 @@ exports.updateVariables = function () {
 		}
 
 		if (MODEL_SPEC?.gain_limit) {
-			this.setVariable('gain_limit', MODEL_VALUES.gain.choices.find((o) => o.id == this.camera.expsetup.GainLimit)?.label)
+			this.setVariable(
+				'gain_limit',
+				MODEL_VALUES.gain.choices.find((o) => o.id == this.camera.expsetup.GainLimit)?.label
+			)
 		}
 
 		if (MODEL_SPEC?.gain_point) {
@@ -181,7 +183,7 @@ exports.updateVariables = function () {
 		}
 
 		if (MODEL_SPEC?.iris) {
-			this.setVariable('iris',MODEL_VALUES.iris.choices.find((o) => o.id == this.camera.expsetup.IrisLevel)?.label)
+			this.setVariable('iris', MODEL_VALUES.iris.choices.find((o) => o.id == this.camera.expsetup.IrisLevel)?.label)
 		}
 
 		if (MODEL_SPEC?.shutter_control_overwrite) {
@@ -316,7 +318,7 @@ exports.updateVariables = function () {
 	// /birddogexternalsetup
 	// /birddogdetsetup
 	if (MODEL_SPEC?.bandwidth) {
-			this.setVariable('bandwidth',this.camera.detail.Bandwidth)
-		}
+		this.setVariable('bandwidth', this.camera.detail.Bandwidth)
+	}
 	// /birddoggammasetup
 }

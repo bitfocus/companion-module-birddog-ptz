@@ -145,31 +145,94 @@ class instance extends instance_skel {
 			case 'pt':
 				switch (opt.val) {
 					case 'left':
-						cmd = VISCA.MSG_OPERATION + VISCA.OP_PAN_DRIVE + String.fromCharCode(panSpeed) + String.fromCharCode(tiltSpeed) + VISCA.DATA_PANLEFT + VISCA.DATA_NOTILT + VISCA.END_MSG
+						cmd =
+							VISCA.MSG_OPERATION +
+							VISCA.OP_PAN_DRIVE +
+							String.fromCharCode(panSpeed) +
+							String.fromCharCode(tiltSpeed) +
+							VISCA.DATA_PANLEFT +
+							VISCA.DATA_NOTILT +
+							VISCA.END_MSG
 						break
 					case 'right':
-						cmd = VISCA.MSG_OPERATION + VISCA.OP_PAN_DRIVE + String.fromCharCode(panSpeed) + String.fromCharCode(tiltSpeed) + VISCA.DATA_PANRIGHT + VISCA.DATA_NOTILT + VISCA.END_MSG
+						cmd =
+							VISCA.MSG_OPERATION +
+							VISCA.OP_PAN_DRIVE +
+							String.fromCharCode(panSpeed) +
+							String.fromCharCode(tiltSpeed) +
+							VISCA.DATA_PANRIGHT +
+							VISCA.DATA_NOTILT +
+							VISCA.END_MSG
 						break
 					case 'up':
-						cmd = VISCA.MSG_OPERATION + VISCA.OP_PAN_DRIVE + String.fromCharCode(panSpeed) + String.fromCharCode(tiltSpeed) + VISCA.DATA_NOPAN + VISCA.DATA_TILTUP + VISCA.END_MSG
+						cmd =
+							VISCA.MSG_OPERATION +
+							VISCA.OP_PAN_DRIVE +
+							String.fromCharCode(panSpeed) +
+							String.fromCharCode(tiltSpeed) +
+							VISCA.DATA_NOPAN +
+							VISCA.DATA_TILTUP +
+							VISCA.END_MSG
 						break
 					case 'down':
-						cmd = VISCA.MSG_OPERATION + VISCA.OP_PAN_DRIVE + String.fromCharCode(panSpeed) + String.fromCharCode(tiltSpeed) + VISCA.DATA_NOPAN + VISCA.DATA_TILTDOWN + VISCA.END_MSG
+						cmd =
+							VISCA.MSG_OPERATION +
+							VISCA.OP_PAN_DRIVE +
+							String.fromCharCode(panSpeed) +
+							String.fromCharCode(tiltSpeed) +
+							VISCA.DATA_NOPAN +
+							VISCA.DATA_TILTDOWN +
+							VISCA.END_MSG
 						break
 					case 'up_left':
-						cmd = VISCA.MSG_OPERATION + VISCA.OP_PAN_DRIVE + String.fromCharCode(panSpeed) + String.fromCharCode(tiltSpeed) + VISCA.DATA_PANLEFT + VISCA.DATA_TILTUP + VISCA.END_MSG
+						cmd =
+							VISCA.MSG_OPERATION +
+							VISCA.OP_PAN_DRIVE +
+							String.fromCharCode(panSpeed) +
+							String.fromCharCode(tiltSpeed) +
+							VISCA.DATA_PANLEFT +
+							VISCA.DATA_TILTUP +
+							VISCA.END_MSG
 						break
 					case 'up_right':
-						cmd = VISCA.MSG_OPERATION + VISCA.OP_PAN_DRIVE + String.fromCharCode(panSpeed) + String.fromCharCode(tiltSpeed) + VISCA.DATA_PANRIGHT + VISCA.DATA_TILTUP + VISCA.END_MSG
+						cmd =
+							VISCA.MSG_OPERATION +
+							VISCA.OP_PAN_DRIVE +
+							String.fromCharCode(panSpeed) +
+							String.fromCharCode(tiltSpeed) +
+							VISCA.DATA_PANRIGHT +
+							VISCA.DATA_TILTUP +
+							VISCA.END_MSG
 						break
 					case 'down_left':
-						cmd = VISCA.MSG_OPERATION + VISCA.OP_PAN_DRIVE + String.fromCharCode(panSpeed) + String.fromCharCode(tiltSpeed) + VISCA.DATA_PANLEFT + VISCA.DATA_TILTDOWN + VISCA.END_MSG
+						cmd =
+							VISCA.MSG_OPERATION +
+							VISCA.OP_PAN_DRIVE +
+							String.fromCharCode(panSpeed) +
+							String.fromCharCode(tiltSpeed) +
+							VISCA.DATA_PANLEFT +
+							VISCA.DATA_TILTDOWN +
+							VISCA.END_MSG
 						break
 					case 'down_right':
-						cmd = VISCA.MSG_OPERATION + VISCA.OP_PAN_DRIVE + String.fromCharCode(panSpeed) + String.fromCharCode(tiltSpeed) + VISCA.DATA_PANRIGHT + VISCA.DATA_TILTDOWN + VISCA.END_MSG
+						cmd =
+							VISCA.MSG_OPERATION +
+							VISCA.OP_PAN_DRIVE +
+							String.fromCharCode(panSpeed) +
+							String.fromCharCode(tiltSpeed) +
+							VISCA.DATA_PANRIGHT +
+							VISCA.DATA_TILTDOWN +
+							VISCA.END_MSG
 						break
 					case 'stop':
-						cmd = VISCA.MSG_OPERATION + VISCA.OP_PAN_DRIVE + String.fromCharCode(panSpeed) + String.fromCharCode(tiltSpeed) + VISCA.DATA_NOPAN + VISCA.DATA_NOTILT + VISCA.END_MSG
+						cmd =
+							VISCA.MSG_OPERATION +
+							VISCA.OP_PAN_DRIVE +
+							String.fromCharCode(panSpeed) +
+							String.fromCharCode(tiltSpeed) +
+							VISCA.DATA_NOPAN +
+							VISCA.DATA_NOTILT +
+							VISCA.END_MSG
 						break
 					case 'home':
 						cmd = VISCA.MSG_OPERATION + VISCA.OP_PAN_HOME + VISCA.END_MSG
@@ -199,7 +262,6 @@ class instance extends instance_skel {
 			case 'tiltSpeed':
 				switch (opt.type) {
 					case 'up':
-						
 						break
 					case 'down':
 						newSpeed = tiltSpeed > 1 ? --tiltSpeed : tiltSpeed
@@ -235,10 +297,18 @@ class instance extends instance_skel {
 			case 'zoom':
 				switch (opt.val) {
 					case 'in':
-						cmd = VISCA.MSG_CAM + VISCA.CAM_ZOOM + this.addStringToBinary(VISCA.CMD_CAM_ZOOM_TELE_WITH_SPEED, zoomSpeed) + VISCA.END_MSG
+						cmd =
+							VISCA.MSG_CAM +
+							VISCA.CAM_ZOOM +
+							this.addStringToBinary(VISCA.CMD_CAM_ZOOM_TELE_WITH_SPEED, zoomSpeed) +
+							VISCA.END_MSG
 						break
 					case 'out':
-						cmd = VISCA.MSG_CAM + VISCA.CAM_ZOOM + this.addStringToBinary(VISCA.CMD_CAM_ZOOM_WIDE_WITH_SPEED, zoomSpeed) + VISCA.END_MSG
+						cmd =
+							VISCA.MSG_CAM +
+							VISCA.CAM_ZOOM +
+							this.addStringToBinary(VISCA.CMD_CAM_ZOOM_WIDE_WITH_SPEED, zoomSpeed) +
+							VISCA.END_MSG
 						break
 					case 'stop':
 						cmd = VISCA.MSG_CAM + VISCA.CAM_ZOOM + VISCA.CMD_CAM_ZOOM_STOP + VISCA.END_MSG
@@ -306,7 +376,7 @@ class instance extends instance_skel {
 						newValue = gain > 0 ? --gain : gain
 						break
 					case 'value':
-						newValue = opt.value		
+						newValue = opt.value
 						break
 				}
 				body = {
@@ -393,14 +463,14 @@ class instance extends instance_skel {
 
 			case 'savePset':
 				body = {
-					Preset: String('Preset-'+ opt.value),
+					Preset: String('Preset-' + opt.value),
 				}
 				this.sendCommand('save', 'POST', body)
 				break
 
 			case 'recallPset':
 				body = {
-					Preset: String('Preset-'+ opt.value),
+					Preset: String('Preset-' + opt.value),
 				}
 				this.sendCommand('recall', 'POST', body)
 				break
@@ -725,7 +795,7 @@ class instance extends instance_skel {
 		// Query Auto Focus Mode
 		this.sendVISCACommand(VISCA.MSG_QRY + VISCA.CAM_FOCUS_AUTO + VISCA.END_MSG, '\x5a')
 		this.debug('----Camera Setup----', this.camera)
-		
+
 		this.updateVariables()
 	}
 }

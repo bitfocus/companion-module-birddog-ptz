@@ -5,7 +5,7 @@ const VISCA = require('./constants')
 // #### Get Camera Info ####
 // #########################
 exports.getCameraInfo = function () {
-	MODEL_SPEC = (MODELS.find((MODELS) => MODELS.id == this.camera.model).apicalls)
+	MODEL_SPEC = MODELS.find((MODELS) => MODELS.id == this.camera.model).apicalls
 	// Common API Calls
 	this.debug('----Getting Camera Info----')
 	this.sendCommand('about', 'GET')
@@ -39,13 +39,12 @@ exports.getCameraInfo = function () {
 	this.debug('----Camera Setup----', this.camera)
 }
 
-
 // #################
 // #### Utils	####
 // #################
 
-exports.addStringToBinary = function (binaryStr,string) {
-    var data = (Buffer.from(binaryStr,'binary').toString('hex'))
-    var sum = parseInt(data,16) + parseInt(string,16)
-    return String.fromCharCode(sum.toString())
+exports.addStringToBinary = function (binaryStr, string) {
+	var data = Buffer.from(binaryStr, 'binary').toString('hex')
+	var sum = parseInt(data, 16) + parseInt(string, 16)
+	return String.fromCharCode(sum.toString())
 }

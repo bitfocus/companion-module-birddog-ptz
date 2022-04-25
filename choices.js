@@ -515,9 +515,7 @@ module.exports = {
 		{ id: 'Off', label: 'Off' },
 	],
 
-	IR_CUT_FILTER_3: [
-		{ id: 'NoiseReduction', label: 'Noise Reduction' },
-	],
+	IR_CUT_FILTER_3: [{ id: 'NoiseReduction', label: 'Noise Reduction' }],
 
 	// ############
 	// Advanced Settings Look Ups
