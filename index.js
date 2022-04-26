@@ -29,8 +29,6 @@ class instance extends instance_skel {
 		this.addStringToBinary = addStringToBinary
 
 		this.camera = {}
-
-		this.SHUTTER = CHOICES.SHUTTER_50
 	}
 
 	static GetUpgradeScripts() {
@@ -82,7 +80,7 @@ class instance extends instance_skel {
 
 		this.status(this.STATUS_WARNING, 'Connecting')
 
-		//this.actions()
+		this.actions()
 		this.initFeedbacks()
 		this.initPresets()
 
@@ -96,6 +94,8 @@ class instance extends instance_skel {
 		this.sendCommand('birddogexpsetup', 'GET')
 		this.sendCommand('birddogwbsetup', 'GET')
 		this.sendCommand('birddogpicsetup', 'GET')
+
+		this.init_udp()
 
 		this.updateVariables()
 	}
@@ -633,8 +633,11 @@ class instance extends instance_skel {
 				model = model.replace(/ /g, '_')
 				if (!this.camera.model || this.camera.model != model) {
 					this.camera.model = model
-					this.initVariables()
+					this.log('info', 'New model detected, reloading module: ' + this.camera.model)
 					this.actions()
+					this.initPresets()
+					this.initVariables()
+					this.initFeedbacks()
 					this.updateVariables()
 				}
 				this.camera.firmware = data.FirmwareVersion.substring(
@@ -650,8 +653,7 @@ class instance extends instance_skel {
 			if (!this.camera?.encode || this.camera?.encode?.VideoFormat !== data.VideoFormat) {
 				if (data.VideoFormat.match('24')) {
 					this.camera.framerate = 24
-				}
-				else if (data.VideoFormat.match('25') || data.VideoFormat.match('50')) {
+				} else if (data.VideoFormat.match('25') || data.VideoFormat.match('50')) {
 					this.camera.framerate = 50
 				} else {
 					this.camera.framerate = 60

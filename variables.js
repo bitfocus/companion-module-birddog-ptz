@@ -199,7 +199,11 @@ exports.updateVariables = function () {
 		}
 
 		if (MODEL_SPEC?.shutter_speed) {
-			this.setVariable('shutter_speed', MODEL_VALUES.shut?.['shutter_' + [this.camera.framerate]].find((o) => o.id == this.camera.expsetup.ShutterSpeed)?.label)
+			this.setVariable(
+				'shutter_speed',
+				MODEL_VALUES.shut?.['shutter_' + [this.camera.framerate]].find((o) => o.id == this.camera.expsetup.ShutterSpeed)
+					?.label
+			)
 		}
 
 		if (MODEL_SPEC?.shutter_speed_overwrite) {

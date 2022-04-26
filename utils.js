@@ -44,7 +44,7 @@ exports.getCameraInfo = function () {
 // #################
 
 exports.addStringToBinary = function (binaryStr, string) {
-	var data = Buffer.from(binaryStr, 'binary').toString('hex')
-	var sum = parseInt(data, 16) + parseInt(string, 16)
+	let data = Buffer.from(binaryStr, 'binary').toString('hex')
+	let sum = parseInt(data, 16) + parseInt(string, 10)
 	return String.fromCharCode(sum.toString())
 }
