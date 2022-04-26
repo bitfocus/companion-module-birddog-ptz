@@ -25,10 +25,12 @@ class instance extends instance_skel {
 
 		this.updateVariableDefinitions = updateVariableDefinitions
 		this.updateVariables = updateVariables
-		this.getCameraInfo = getCameraInfo
+		//		this.getCameraInfo = getCameraInfo
 		this.addStringToBinary = addStringToBinary
 
 		this.camera = {}
+
+		this.camera.framerate = 50
 	}
 
 	static GetUpgradeScripts() {
@@ -80,7 +82,7 @@ class instance extends instance_skel {
 
 		this.status(this.STATUS_WARNING, 'Connecting')
 
-		this.actions()
+		//this.actions()
 		this.initFeedbacks()
 		this.initPresets()
 
@@ -88,7 +90,7 @@ class instance extends instance_skel {
 		this.sendCommand('about', 'GET')
 		this.sendCommand('analogaudiosetup', 'GET')
 		this.sendCommand('encodetransport', 'GET')
-		// this.sendCommand('encodesetup', 'GET') Temporary skip to avoid BirdDog API bug
+		this.sendCommand('encodesetup', 'GET')
 		this.sendCommand('NDIDisServer', 'GET')
 		this.sendCommand('birddogptzsetup', 'GET')
 		this.sendCommand('birddogexpsetup', 'GET')
@@ -634,6 +636,7 @@ class instance extends instance_skel {
 				if (!this.camera.model || this.camera.model != model) {
 					this.camera.model = model
 					this.log('info', 'New model detected, reloading module: ' + this.camera.model)
+					this.debug('----New model detected:- ' + this.camera.model)
 					this.actions()
 					this.initPresets()
 					this.initVariables()
@@ -710,6 +713,7 @@ class instance extends instance_skel {
 	}
 
 	incomingData(data) {
+		this.debug('-----Incoming VISCA message -' + data)
 		switch (data[7].toString(16)) {
 			case '4a': // Query Standby status
 				if (data[8] == 0x90 && data[9] == 0x50 && data[10] == 0x02 && data[11] == 0xff) {
@@ -754,6 +758,7 @@ class instance extends instance_skel {
 	}
 
 	init_udp() {
+		this.debug('----init udp')
 		if (this.udp !== undefined) {
 			this.udp.destroy()
 			delete this.udp
@@ -798,7 +803,8 @@ class instance extends instance_skel {
 		this.sendVISCACommand(VISCA.MSG_QRY + VISCA.CAM_POWER + VISCA.END_MSG, '\x4a')
 		// Query Auto Focus Mode
 		this.sendVISCACommand(VISCA.MSG_QRY + VISCA.CAM_FOCUS_AUTO + VISCA.END_MSG, '\x5a')
-		this.debug('----Camera Setup----', this.camera)
+		this.debug('----Camera Setup----')
+		this.debug(this.camera)
 
 		this.updateVariables()
 	}

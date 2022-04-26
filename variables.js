@@ -236,7 +236,7 @@ exports.updateVariables = function () {
 		}
 
 		if (MODEL_SPEC?.wb_mode) {
-			this.setVariable('wb_mode', this.camera.expsetup.WbMode)
+			this.setVariable('wb_mode', this.camera.wbsetup.WbMode)
 		}
 	}
 	// /birddogpicsetup
