@@ -90,7 +90,7 @@ class instance extends instance_skel {
 		this.sendCommand('about', 'GET')
 		this.sendCommand('analogaudiosetup', 'GET')
 		this.sendCommand('encodetransport', 'GET')
-		this.sendCommand('encodesetup', 'GET')   // allow an initial query to this API to collect camera info
+		this.sendCommand('encodesetup', 'GET') // allow an initial query to this API to collect camera info
 		this.sendCommand('NDIDisServer', 'GET')
 		this.sendCommand('birddogptzsetup', 'GET')
 		this.sendCommand('birddogexpsetup', 'GET')
@@ -431,10 +431,20 @@ class instance extends instance_skel {
 				let iris = this.camera?.expsetup?.IrisLevel ? this.camera.expsetup.IrisLevel : MODEL_VALUES.iris.default
 				switch (opt.val) {
 					case 'up':
-						newValue = iris === MODEL_VALUES.iris.range.closed ? MODEL_VALUES.iris.range.min : (iris < MODEL_VALUES.iris.range.max ? --iris : MODEL_VALUES.iris.range.max)
+						newValue =
+							iris === MODEL_VALUES.iris.range.closed
+								? MODEL_VALUES.iris.range.min
+								: iris < MODEL_VALUES.iris.range.max
+								? --iris
+								: MODEL_VALUES.iris.range.max
 						break
 					case 'down':
-						newValue = iris === MODEL_VALUES.iris.range.min ? MODEL_VALUES.iris.range.closed : (iris > MODEL_VALUES.iris.range.min ? --iris : MODEL_VALUES.iris.range.closed)
+						newValue =
+							iris === MODEL_VALUES.iris.range.min
+								? MODEL_VALUES.iris.range.closed
+								: iris > MODEL_VALUES.iris.range.min
+								? --iris
+								: MODEL_VALUES.iris.range.closed
 						break
 					case 'value':
 						newValue = opt.value
