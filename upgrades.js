@@ -226,6 +226,90 @@ module.exports = {
 				action.options.value = val
 				changed = true
 			}
+			if (action.action === 'pt') {
+				let val
+				if (!isNaN(action.options.val)) {
+					switch (action.options.val) {
+						case '0':
+							val = 'left'
+							break
+						case '1':
+							val = 'right'
+							break
+						case '2':
+							val = 'up'
+							break
+						case '3':
+							val = 'down'
+							break
+						case '4':
+							val = 'up_left'
+							break
+						case '5':
+							val = 'up_right'
+							break
+						case '6':
+							val = 'down_left'
+							break
+						case '7':
+							val = 'down_right'
+							break
+						case '8':
+							val = 'stop'
+							break
+						case '9':
+							val = 'home'
+							break
+					}
+				} else {
+					val = action.options.val
+				}
+				action.options.val = val
+				changed = true
+			}
+			if (action.action === 'zoom') {
+				let val
+				if (!isNaN(action.options.val)) {
+					switch (action.options.val) {
+						case '0':
+							val = 'in'
+							break
+						case '1':
+							val = 'out'
+							break
+						case '2':
+							val = 'stop'
+							break
+					}
+				} else {
+					val = action.options.val
+				}
+				action.options.val = val
+				changed = true
+			}
+			if (action.action === 'focus') {
+				let val
+				if (!isNaN(action.options.val)) {
+					switch (action.options.val) {
+						case '0':
+							val = 'near'
+							break
+						case '1':
+							val = 'far'
+							break
+						case '2':
+							val = 'stop'
+							break
+						case '3':
+							val = 'trigger'
+							break
+					}
+				} else {
+					val = action.options.val
+				}
+				action.options.val = val
+				changed = true
+			}
 		})
 		return changed
 	},
