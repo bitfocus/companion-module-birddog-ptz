@@ -4,9 +4,9 @@ const presets = require('./presets')
 const { updateVariableDefinitions, updateVariables } = require('./variables')
 const { initFeedbacks } = require('./feedbacks')
 const upgradeScripts = require('./upgrades')
-const CHOICES = require('./choices')
 const { getCameraInfo, addStringToBinary } = require('./utils')
 const VISCA = require('./constants')
+var { MODELS } = require('./models.js')
 
 const udp = require('../../udp')
 const fetch = require('node-fetch')
@@ -123,6 +123,8 @@ class instance extends instance_skel {
 		let opt = action.options
 		let cmd = ''
 		let fb = ''
+
+		let MODEL_VALUES = MODELS.find((MODELS) => MODELS.id == this.camera.model).actions
 
 		let panSpeed = this.camera?.ptz?.PanSpeed ? this.camera.ptz.PanSpeed : 11
 		let tiltSpeed = this.camera?.ptz?.PanSpeed ? this.camera.ptz.TiltSpeed : 9
@@ -426,13 +428,13 @@ class instance extends instance_skel {
 				break
 
 			case 'iris':
-				let iris = this.camera?.expsetup?.IrisLevel ? this.camera.expsetup.IrisLevel : 0
+				let iris = this.camera?.expsetup?.IrisLevel ? this.camera.expsetup.IrisLevel : MODEL_VALUES.iris.default
 				switch (opt.val) {
 					case 'up':
-						newValue = iris < 13 ? ++iris : iris
+						newValue = iris === MODEL_VALUES.iris.range.closed ? MODEL_VALUES.iris.range.min : (iris < MODEL_VALUES.iris.range.max ? --iris : MODEL_VALUES.iris.range.max)
 						break
 					case 'down':
-						newValue = iris > 0 ? ++iris : iris
+						newValue = iris === MODEL_VALUES.iris.range.min ? MODEL_VALUES.iris.range.closed : (iris > MODEL_VALUES.iris.range.min ? --iris : MODEL_VALUES.iris.range.closed)
 						break
 					case 'value':
 						newValue = opt.value
@@ -781,6 +783,9 @@ class instance extends instance_skel {
 			})
 			this.udp.on('data', (data) => {
 				this.incomingData(data)
+			})
+			this.udp.on('error', (error) => {
+				console.log('----UDP Error: ' + error)
 			})
 			debug(this.udp.host, ':', this.port)
 		}

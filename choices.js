@@ -78,7 +78,7 @@ module.exports = {
 	],
 
 	IRIS_3: [
-		{ id: '5', label: 'F14.0' },
+		{ id: '5', label: 'CLOSED' },
 		{ id: '6', label: 'F11.0' },
 		{ id: '7', label: 'F9.6' },
 		{ id: '8', label: 'F8.0' },

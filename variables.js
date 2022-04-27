@@ -9,9 +9,11 @@ exports.updateVariableDefinitions = function () {
 
 	MODEL_SPEC = MODELS.find((MODELS) => MODELS.id == this.camera.model).variables
 
-	for (i in MODEL_SPEC) {
+	sortedlist = Object.fromEntries(Object.entries(MODEL_SPEC).sort())
+
+	for (i in sortedlist) {
 		variables.push({
-			label: MODEL_SPEC[i].label,
+			label: sortedlist[i].label,
 			name: i,
 		})
 	}
