@@ -654,8 +654,6 @@ class instance extends instance_skel {
 					this.actions()
 					this.initPresets()
 					this.initVariables()
-					this.initFeedbacks()
-					this.updateVariables()
 				}
 				this.camera.firmware = data.FirmwareVersion.substring(
 					data.FirmwareVersion.lastIndexOf(' ') + 1,
