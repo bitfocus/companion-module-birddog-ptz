@@ -646,8 +646,10 @@ class instance extends instance_skel {
 				)
 				model = model.replace(/ /g, '_')
 				if (!this.camera.model || this.camera.model != model) {
+					if (this.camera.model) {
+						this.log('info', 'New model detected, reloading module: ' + this.camera.model)
+					}
 					this.camera.model = model
-					this.log('info', 'New model detected, reloading module: ' + this.camera.model)
 					this.debug('----New model detected:- ' + this.camera.model)
 					this.actions()
 					this.initPresets()
