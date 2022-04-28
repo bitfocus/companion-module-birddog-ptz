@@ -797,9 +797,9 @@ class instance extends instance_skel {
 				this.incomingData(data)
 			})
 			this.udp.on('error', (error) => {
-				console.log('----UDP Error: ' + error)
+				this.debug('----UDP Error: ' + error)
 			})
-			debug(this.udp.host, ':', this.port)
+			this.debug(this.udp.host, ':', this.port)
 		}
 	}
 
