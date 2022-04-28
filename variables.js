@@ -39,11 +39,11 @@ exports.updateVariables = function () {
 		}
 
 		if (MODEL_SPEC?.standby) {
-			this.setVariable('standby', this.camera.status === 'on' ? 'Cam On' : 'Standby')
+			this.setVariable('standby', this.camera.standby === 'on' ? 'Cam On' : 'Standby')
 		}
 
 		if (MODEL_SPEC?.status) {
-			this.setVariable('status', this.camera.about.Status)
+			this.setVariable('status', this.camera.status)
 		}
 	}
 	// /analogaudiosetup

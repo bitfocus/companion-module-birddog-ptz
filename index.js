@@ -724,7 +724,7 @@ class instance extends instance_skel {
 	}
 
 	incomingData(data) {
-		this.debug('-----Incoming VISCA message -' + data)
+		this.debug('-----Incoming VISCA message: ' + Buffer.from(data,'binary').toString('hex'))
 		switch (data[7].toString(16)) {
 			case '4a': // Query Standby status
 				if (data[8] == 0x90 && data[9] == 0x50 && data[10] == 0x02 && data[11] == 0xff) {
@@ -736,13 +736,13 @@ class instance extends instance_skel {
 			case '5a': // Query Auto Focus mode
 				if (data[8] == 0x90 && data[9] == 0x50 && data[10] == 0x02 && data[11] == 0xff) {
 					this.camera.focus = JSON.parse('{"mode":"Auto"}')
-					this.updateVariables()
 				} else if (data[8] == 0x90 && data[9] == 0x50 && data[10] == 0x03 && data[11] == 0xff) {
 					this.camera.focus = JSON.parse('{"mode":"Manual"}')
 				}
-				this.updateVariables()
-				this.checkFeedbacks()
-		}
+				break
+		}	
+		this.updateVariables()
+		this.checkFeedbacks()
 	}
 
 	sendControlCommand(payload) {
