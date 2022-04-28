@@ -26,18 +26,24 @@ module.exports = {
 		{ id: 'HIGH', label: 'High' },
 	],
 
+	UP_DOWN_VALUE: [
+		{ id: 'up', label: 'Up' },
+		{ id: 'down', label: 'Down' },
+		{ id: 'value', label: 'Value' },
+	],
+
 	UP_DOWN_RESET_VALUE: [
-		{ id: 'up', label: 'UP' },
-		{ id: 'down', label: 'DOWN' },
-		{ id: 'reset', label: 'RESET' },
-		{ id: 'value', label: 'VALUE' },
+		{ id: 'up', label: 'Up' },
+		{ id: 'down', label: 'Down' },
+		{ id: 'reset', label: 'Reset' },
+		{ id: 'value', label: 'Value' },
 	],
 
 	// ############
 	// IRIS Look Ups
 	// ############
 
-	IRIS_P100: [
+	IRIS_1: [
 		{ id: '0', label: 'CLOSED' },
 		{ id: '1', label: 'F14.0' },
 		{ id: '2', label: 'F11.0' },
@@ -54,7 +60,7 @@ module.exports = {
 		{ id: '13', label: 'F1.8' },
 	],
 
-	IRIS_P200: [
+	IRIS_2: [
 		{ id: '0', label: 'CLOSED' },
 		{ id: '5', label: 'F14.0' },
 		{ id: '6', label: 'F11.0' },
@@ -71,11 +77,50 @@ module.exports = {
 		{ id: '17', label: 'F1.6' },
 	],
 
+	IRIS_3: [
+		{ id: '5', label: 'CLOSED' },
+		{ id: '6', label: 'F11.0' },
+		{ id: '7', label: 'F9.6' },
+		{ id: '8', label: 'F8.0' },
+		{ id: '9', label: 'F6.8' },
+		{ id: '10', label: 'F5.6' },
+		{ id: '11', label: 'F4.8' },
+		{ id: '12', label: 'F4.0' },
+		{ id: '13', label: 'F3.4' },
+		{ id: '14', label: 'F2.8' },
+		{ id: '15', label: 'F2.4' },
+		{ id: '16', label: 'F2.0' },
+		{ id: '17', label: 'F1.6' },
+		{ id: '18', label: 'F1.6' },
+		{ id: '19', label: 'F1.6' },
+		{ id: '20', label: 'F1.6' },
+		{ id: '21', label: 'F1.6' },
+	],
+
 	// ############
 	// GAIN Look Ups
 	// ############
+	//P100, PF120
+	GAIN_1: [
+		{ id: '0', label: '0 dB' },
+		{ id: '1', label: '2 dB' },
+		{ id: '2', label: '4 dB' },
+		{ id: '3', label: '6 dB' },
+		{ id: '4', label: '8 dB' },
+		{ id: '5', label: '10 dB' },
+		{ id: '6', label: '12 dB' },
+		{ id: '7', label: '14 dB' },
+		{ id: '8', label: '16 dB' },
+		{ id: '9', label: '18 dB' },
+		{ id: '10', label: '20 dB' },
+		{ id: '11', label: '22 dB' },
+		{ id: '12', label: '24 dB' },
+		{ id: '13', label: '26 dB' },
+		{ id: '14', label: '28 dB' },
+		{ id: '15', label: '30 dB' },
+	],
 
-	GAIN_P100: [
+	GAIN_2: [
 		{ id: '0', label: '0 dB' },
 		{ id: '1', label: '2 dB' },
 		{ id: '2', label: '4 dB' },
@@ -310,22 +355,22 @@ module.exports = {
 	],
 
 	PTZ_DIRECTION: [
-		{ id: '0', label: 'Left' },
-		{ id: '1', label: 'Right' },
-		{ id: '2', label: 'Up' },
-		{ id: '3', label: 'Down' },
-		{ id: '4', label: 'Up Left' },
-		{ id: '5', label: 'Up Right' },
-		{ id: '6', label: 'Down Left' },
-		{ id: '7', label: 'Down Right' },
-		{ id: '8', label: 'P/T Stop' },
-		{ id: '9', label: 'P/T Home' },
+		{ id: 'left', label: 'Left' },
+		{ id: 'right', label: 'Right' },
+		{ id: 'up', label: 'Up' },
+		{ id: 'down', label: 'Down' },
+		{ id: 'up_left', label: 'Up Left' },
+		{ id: 'up_right', label: 'Up Right' },
+		{ id: 'down_left', label: 'Down Left' },
+		{ id: 'down_right', label: 'Down Right' },
+		{ id: 'stop', label: 'P/T Stop' },
+		{ id: 'home', label: 'P/T Home' },
 	],
 
 	PTZ_ZOOM: [
-		{ id: '0', label: 'Zoom In' },
-		{ id: '1', label: 'Zoom Out' },
-		{ id: '2', label: 'Zoom Stop' },
+		{ id: 'in', label: 'Zoom In' },
+		{ id: 'out', label: 'Zoom Out' },
+		{ id: 'stop', label: 'Zoom Stop' },
 	],
 
 	// ############
@@ -338,10 +383,10 @@ module.exports = {
 	],
 
 	FOCUS_CONTROL: [
-		{ id: '0', label: 'Focus Near' },
-		{ id: '1', label: 'Focus Far' },
-		{ id: '2', label: 'Focus Stop' },
-		{ id: '3', label: 'Focus One Push Auto' },
+		{ id: 'near', label: 'Focus Near' },
+		{ id: 'far', label: 'Focus Far' },
+		{ id: 'stop', label: 'Focus Stop' },
+		{ id: 'trigger', label: 'Focus One Push Auto' },
 	],
 
 	// ############
@@ -352,11 +397,6 @@ module.exports = {
 		{ id: 'DecodeMain', label: 'DecodeMain' },
 		{ id: 'DecodeComms', label: 'DecodeComms' },
 		{ id: 'DecodeLoop', label: 'DecodeLoop' },
-	],
-
-	TALLY_MODE: [
-		{ id: 'TallyOn', label: 'Tally On' },
-		{ id: 'TallyOff', label: 'Tally Off' },
 	],
 
 	// ############
@@ -386,23 +426,28 @@ module.exports = {
 		{ id: 'NDIGroupDis', label: 'NDI Group Disabled' },
 	],
 
+	TALLY_MODE: [
+		{ id: 'TallyOn', label: 'Tally On' },
+		{ id: 'TallyOff', label: 'Tally Off' },
+	],
+
 	// ############
 	// Exposure Mode Look Ups
 	// ############
-	//P100, PF120
+	//P100, PF120, P200_A4_A5, A200_GEN1, A200_GEN2, A300_GEN1, A300_GEN2
 	EXP_MODE_1: [
 		{ id: 'FULL-AUTO', label: 'FULL-AUTO' },
 		{ id: 'MANUAL', label: 'MANUAL' },
 		{ id: 'SHUTTER-PRI', label: 'SHUTTER-PRI' },
 		{ id: 'IRIS-PRI', label: 'IRIS-PRI' },
+		{ id: 'BRIGHT', label: 'BRIGHT' },
 	],
-	//P200, A200
+	//P200_A2_A3
 	EXP_MODE_2: [
 		{ id: 'FULL-AUTO', label: 'FULL-AUTO' },
 		{ id: 'MANUAL', label: 'MANUAL' },
 		{ id: 'SHUTTER-PRI', label: 'SHUTTER-PRI' },
 		{ id: 'IRIS-PRI', label: 'IRIS-PRI' },
-		{ id: 'BRIGHT', label: 'BRIGHT' },
 	],
 	//P400, P4K
 	EXP_MODE_3: [
@@ -459,11 +504,18 @@ module.exports = {
 		{ id: 'Off', label: 'Off' },
 	],
 
-	IR_CUT_FILTER: [
+	IR_CUT_FILTER_1: [
 		{ id: 'Auto', label: 'Auto' },
 		{ id: 'On', label: 'On' },
 		{ id: 'Off', label: 'Off' },
 	],
+
+	IR_CUT_FILTER_2: [
+		{ id: 'On', label: 'On' },
+		{ id: 'Off', label: 'Off' },
+	],
+
+	IR_CUT_FILTER_3: [{ id: 'NoiseReduction', label: 'Noise Reduction' }],
 
 	// ############
 	// Advanced Settings Look Ups

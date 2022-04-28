@@ -34,7 +34,7 @@ exports.getPresets = function () {
 			{
 				action: 'pt',
 				options: {
-					val: '2',
+					val: 'up',
 				},
 			},
 		],
@@ -42,7 +42,7 @@ exports.getPresets = function () {
 			{
 				action: 'pt',
 				options: {
-					val: '8',
+					val: 'stop',
 				},
 			},
 		],
@@ -63,7 +63,7 @@ exports.getPresets = function () {
 			{
 				action: 'pt',
 				options: {
-					val: '3',
+					val: 'down',
 				},
 			},
 		],
@@ -71,7 +71,7 @@ exports.getPresets = function () {
 			{
 				action: 'pt',
 				options: {
-					val: '8',
+					val: 'stop',
 				},
 			},
 		],
@@ -92,7 +92,7 @@ exports.getPresets = function () {
 			{
 				action: 'pt',
 				options: {
-					val: '0',
+					val: 'left',
 				},
 			},
 		],
@@ -100,7 +100,7 @@ exports.getPresets = function () {
 			{
 				action: 'pt',
 				options: {
-					val: '8',
+					val: 'stop',
 				},
 			},
 		],
@@ -121,7 +121,7 @@ exports.getPresets = function () {
 			{
 				action: 'pt',
 				options: {
-					val: '1',
+					val: 'right',
 				},
 			},
 		],
@@ -129,7 +129,7 @@ exports.getPresets = function () {
 			{
 				action: 'pt',
 				options: {
-					val: '8',
+					val: 'stop',
 				},
 			},
 		],
@@ -150,7 +150,7 @@ exports.getPresets = function () {
 			{
 				action: 'pt',
 				options: {
-					val: '5',
+					val: 'up_right',
 				},
 			},
 		],
@@ -158,7 +158,7 @@ exports.getPresets = function () {
 			{
 				action: 'pt',
 				options: {
-					val: '8',
+					val: 'stop',
 				},
 			},
 		],
@@ -179,7 +179,7 @@ exports.getPresets = function () {
 			{
 				action: 'pt',
 				options: {
-					val: '4',
+					val: 'up_left',
 				},
 			},
 		],
@@ -187,7 +187,7 @@ exports.getPresets = function () {
 			{
 				action: 'pt',
 				options: {
-					val: '8',
+					val: 'stop',
 				},
 			},
 		],
@@ -208,7 +208,7 @@ exports.getPresets = function () {
 			{
 				action: 'pt',
 				options: {
-					val: '6',
+					val: 'down_left',
 				},
 			},
 		],
@@ -216,7 +216,7 @@ exports.getPresets = function () {
 			{
 				action: 'pt',
 				options: {
-					val: '8',
+					val: 'stop',
 				},
 			},
 		],
@@ -237,7 +237,7 @@ exports.getPresets = function () {
 			{
 				action: 'pt',
 				options: {
-					val: '7',
+					val: 'down_right',
 				},
 			},
 		],
@@ -245,7 +245,7 @@ exports.getPresets = function () {
 			{
 				action: 'pt',
 				options: {
-					val: '8',
+					val: 'stop',
 				},
 			},
 		],
@@ -264,7 +264,7 @@ exports.getPresets = function () {
 			{
 				action: 'pt',
 				options: {
-					val: '9',
+					val: 'home',
 				},
 			},
 		],
@@ -359,7 +359,7 @@ exports.getPresets = function () {
 			{
 				action: 'zoom',
 				options: {
-					val: '0',
+					val: 'in',
 				},
 			},
 		],
@@ -367,7 +367,7 @@ exports.getPresets = function () {
 			{
 				action: 'zoom',
 				options: {
-					val: '2',
+					val: 'stop',
 				},
 			},
 		],
@@ -386,7 +386,7 @@ exports.getPresets = function () {
 			{
 				action: 'zoom',
 				options: {
-					val: '1',
+					val: 'out',
 				},
 			},
 		],
@@ -394,7 +394,7 @@ exports.getPresets = function () {
 			{
 				action: 'zoom',
 				options: {
-					val: '2',
+					val: 'stop',
 				},
 			},
 		],
@@ -413,7 +413,7 @@ exports.getPresets = function () {
 			{
 				action: 'focus',
 				options: {
-					val: '0',
+					val: 'near',
 				},
 			},
 		],
@@ -421,7 +421,7 @@ exports.getPresets = function () {
 			{
 				action: 'focus',
 				options: {
-					val: '2',
+					val: 'stop',
 				},
 			},
 		],
@@ -440,7 +440,7 @@ exports.getPresets = function () {
 			{
 				action: 'focus',
 				options: {
-					val: '1',
+					val: 'far',
 				},
 			},
 		],
@@ -448,7 +448,7 @@ exports.getPresets = function () {
 			{
 				action: 'focus',
 				options: {
-					val: '2',
+					val: 'stop',
 				},
 			},
 		],
@@ -495,7 +495,7 @@ exports.getPresets = function () {
 			{
 				action: 'focus',
 				options: {
-					val: '3',
+					val: 'trigger',
 				},
 			},
 		],
@@ -600,7 +600,7 @@ exports.getPresets = function () {
 		label: 'Shutter Up',
 		bank: {
 			style: 'text',
-			text: 'Shut\\nUP',
+			text: 'Shutter\\nUP',
 			size: '18',
 			color: '16777215',
 			bgcolor: this.rgb(0, 0, 0),
@@ -619,7 +619,7 @@ exports.getPresets = function () {
 		label: 'Shutter Down',
 		bank: {
 			style: 'text',
-			text: 'Shut\\nDOWN',
+			text: 'Shutter\\nDOWN',
 			size: '18',
 			color: '16777215',
 			bgcolor: this.rgb(0, 0, 0),
