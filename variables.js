@@ -7,7 +7,7 @@ const CHOICES = require('./choices.js')
 exports.updateVariableDefinitions = function () {
 	const variables = []
 
-	MODEL_SPEC = MODELS.find((MODELS) => MODELS.id == this.camera.model).variables
+	MODEL_SPEC = MODELS.find((MODELS) => MODELS.id == this.camera.model)?.variables
 
 	sortedlist = Object.fromEntries(Object.entries(MODEL_SPEC).sort())
 
@@ -25,8 +25,8 @@ exports.updateVariableDefinitions = function () {
 // #### Update Variables ####
 // #########################
 exports.updateVariables = function () {
-	MODEL_SPEC = MODELS.find((MODELS) => MODELS.id == this.camera.model).variables
-	MODEL_VALUES = MODELS.find((MODELS) => MODELS.id == this.camera.model).actions
+	MODEL_SPEC = MODELS.find((MODELS) => MODELS.id == this.camera.model)?.variables
+	MODEL_VALUES = MODELS.find((MODELS) => MODELS.id == this.camera.model)?.actions
 
 	// /about
 	if (this.camera.about) {
