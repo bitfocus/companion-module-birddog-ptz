@@ -4,7 +4,7 @@ const presets = require('./presets')
 const { updateVariableDefinitions, updateVariables } = require('./variables')
 const { initFeedbacks } = require('./feedbacks')
 const upgradeScripts = require('./upgrades')
-const { getCameraInfo, addStringToBinary } = require('./utils')
+const { addStringToBinary } = require('./utils')
 const VISCA = require('./constants')
 var { MODELS } = require('./models.js')
 
@@ -25,7 +25,6 @@ class instance extends instance_skel {
 
 		this.updateVariableDefinitions = updateVariableDefinitions
 		this.updateVariables = updateVariables
-		//		this.getCameraInfo = getCameraInfo
 		this.addStringToBinary = addStringToBinary
 
 		this.camera = {}
