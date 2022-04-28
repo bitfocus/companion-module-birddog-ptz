@@ -39,7 +39,7 @@ module.exports = {
 					id: 'value',
 					choices: CHOICES.ZOOM_SPEED,
 					default: 4,
-					isVisible: (action) => action.options.speed === 'value',
+					isVisible: (action) => action.options.type === 'value',
 				},
 			],
 		}
@@ -242,7 +242,7 @@ module.exports = {
 						id: 'value',
 						choices: CHOICES.TILT_SPEED,
 						default: 9,
-						isVisible: (action) => action.options.speed === 'value',
+						isVisible: (action) => action.options.type === 'value',
 					},
 				],
 			}
