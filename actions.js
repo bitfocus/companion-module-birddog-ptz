@@ -12,11 +12,11 @@ module.exports = {
 
 		// Common Actions
 		actions['standby'] = {
-			label: 'Power On/Off',
+			label: 'Standby On/Off',
 			options: [
 				{
 					type: 'dropdown',
-					label: 'On/Off',
+					label: 'On/Standby',
 					id: 'val',
 					choices: CHOICES.STANDBY,
 					default: 'On',
@@ -52,6 +52,20 @@ module.exports = {
 					id: 'val',
 					choices: CHOICES.PTZ_ZOOM,
 					default: '0',
+				},
+				{
+					type: 'checkbox',
+					label: 'Speed Overide',
+					id: 'override',
+					default: false,
+				},
+				{
+					type: 'number',
+					label: 'Speed',
+					id: 'speed',
+					choices: CHOICES.ZOOM_SPEED,
+					default: 4,
+					isVisible: (action) => action.options.override === true,
 				},
 			],
 		}
@@ -200,9 +214,32 @@ module.exports = {
 						choices: MODEL_VALUES.pt.choices,
 						default: MODEL_VALUES.pt.default,
 					},
+					{
+						type: 'checkbox',
+						label: 'Speed Overide',
+						id: 'override',
+						default: false,
+					},
+					{
+						type: 'number',
+						label: 'Pan Speed',
+						id: 'panSpeed',
+						choices: CHOICES.PAN_SPEED,
+						default: 11,
+						isVisible: (action) => action.options.override === true,
+					},
+					{
+						type: 'number',
+						label: 'Tilt Speed',
+						id: 'tiltSpeed',
+						choices: CHOICES.TILT_SPEED,
+						default: 9,
+						isVisible: (action) => action.options.override === true,
+					},
 				],
 			}
 		}
+		
 		if (MODEL_VALUES?.panSpeed) {
 			actions['panSpeed'] = {
 				label: 'Pan Speed',

@@ -24,13 +24,13 @@ exports.initFeedbacks = function () {
 			{
 				type: 'dropdown',
 				label: 'Status',
-				id: 'status',
+				id: 'standby',
 				choices: CHOICES.STANDBY,
 				default: 'on',
 			},
 		],
 		callback: (feedback) => {
-			return this.camera.status == feedback.options.status
+			return this.camera.standby == feedback.options.standby
 		},
 	}
 

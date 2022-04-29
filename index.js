@@ -141,6 +141,8 @@ class instance extends instance_skel {
 				break
 
 			case 'pt':
+				panSpeed = opt.override === true ? opt.panSpeed : panSpeed
+				tiltSpeed = opt.override === true ? opt.tiltSpeed : tiltSpeed
 				switch (opt.val) {
 					case 'left':
 						cmd =
@@ -294,6 +296,7 @@ class instance extends instance_skel {
 				break
 
 			case 'zoom':
+				zoomSpeed = opt.override === true ? opt.speed : zoomSpeed
 				switch (opt.val) {
 					case 'in':
 						cmd =
