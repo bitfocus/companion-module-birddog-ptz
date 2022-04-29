@@ -211,8 +211,8 @@ module.exports = {
 						type: 'dropdown',
 						label: 'Action',
 						id: 'type',
-						choices: MODEL_VALUES.panSpeed.choices,
-						default: MODEL_VALUES.panSpeed.default,
+						choices: CHOICES.SPEED_CHANGES,
+						default: 'up',
 					},
 					{
 						type: 'dropdown',

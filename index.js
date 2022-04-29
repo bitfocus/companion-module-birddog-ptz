@@ -124,7 +124,6 @@ class instance extends instance_skel {
 		let panSpeed = this.camera?.ptz?.PanSpeed ? this.camera.ptz.PanSpeed : 11
 		let tiltSpeed = this.camera?.ptz?.PanSpeed ? this.camera.ptz.TiltSpeed : 9
 		let zoomSpeed = this.camera?.ptz?.ZoomSpeed ? this.camera.ptz.ZoomSpeed : 4
-		let newSpeed
 		let newValue
 		let body = {}
 
@@ -243,17 +242,17 @@ class instance extends instance_skel {
 			case 'panSpeed':
 				switch (opt.type) {
 					case 'up':
-						newSpeed = panSpeed < 21 ? ++panSpeed : panSpeed
+						newValue = panSpeed < 21 ? ++panSpeed : 21
 						break
 					case 'down':
-						newSpeed = panSpeed > 1 ? --panSpeed : panSpeed
+						newValue = panSpeed > 1 ? --panSpeed : 1
 						break
 					case 'value':
-						newSpeed = opt.value
+						newValue = opt.value
 						break
 				}
 				body = {
-					PanSpeed: String(newSpeed),
+					PanSpeed: String(newValue),
 				}
 				this.sendCommand('birddogptzsetup', 'POST', body)
 				break
@@ -261,16 +260,17 @@ class instance extends instance_skel {
 			case 'tiltSpeed':
 				switch (opt.type) {
 					case 'up':
+						newValue = tiltSpeed < 18 ? ++tiltSpeed : 18
 						break
 					case 'down':
-						newSpeed = tiltSpeed > 1 ? --tiltSpeed : tiltSpeed
+						newValue = tiltSpeed > 1 ? --tiltSpeed : 1
 						break
 					case 'value':
-						newSpeed = opt.value
+						newValue = opt.value
 						break
 				}
 				body = {
-					TiltSpeed: String(newSpeed),
+					TiltSpeed: String(newValue),
 				}
 				this.sendCommand('birddogptzsetup', 'POST', body)
 				break
@@ -278,17 +278,17 @@ class instance extends instance_skel {
 			case 'zoomSpeed':
 				switch (opt.type) {
 					case 'up':
-						newSpeed = zoomSpeed < 7 ? ++zoomSpeed : zoomSpeed
+						newValue = zoomSpeed < 7 ? ++zoomSpeed : 7
 						break
 					case 'down':
-						newSpeed = zoomSpeed > 1 ? --zoomSpeed : zoomSpeed
+						newValue = zoomSpeed > 1 ? --zoomSpeed : 1
 						break
 					case 'value':
-						newSpeed = opt.value
+						newValue = opt.value
 						break
 				}
 				body = {
-					ZoomSpeed: String(newSpeed),
+					ZoomSpeed: String(newValue),
 				}
 				this.sendCommand('birddogptzsetup', 'POST', body)
 				break
@@ -366,7 +366,7 @@ class instance extends instance_skel {
 				break
 
 			case 'gain':
-				let gain = this.camera?.expsetup?.GainLevel ? this.camera.expsetup.GainLevel : 4
+				let gain = this.camera?.expsetup?.GainLevel ? this.camera.expsetup.GainLevel : MODEL_VALUES.gain.default
 				switch (opt.val) {
 					case 'up':
 						newValue = gain < 15 ? ++gain : gain
@@ -452,13 +452,13 @@ class instance extends instance_skel {
 				break
 
 			case 'shut':
-				let shutter_speed = this.camera?.expsetup?.shutter_speed ? this.camera.expsetup.shutter_speed : 0
+				let shutter_speed = this.camera?.expsetup?.shutter_speed ? this.camera.expsetup.shutter_speed : MODEL_VALUES.shut.default
 				switch (opt.val) {
 					case 'up':
-						newValue = shutter_speed < 21 ? ++shutter_speed : shutter_speed
+						newValue = shutter_speed < MODEL_VALUES.shut.range.max ? ++shutter_speed : MODEL_VALUES.shut.range.max
 						break
 					case 'down':
-						newValue = shutter_speed > 0 ? ++shutter_speed : shutter_speed
+						newValue = shutter_speed > MODEL_VALUES.shut.range.min ? ++shutter_speed : MODEL_VALUES.shut.range.min
 						break
 					case 'value':
 						newValue = opt.value
@@ -491,7 +491,7 @@ class instance extends instance_skel {
 						newValue = contrast < 15 ? ++contrast : contrast
 						break
 					case 'down':
-						newValue = contrast > 0 ? ++contrast : contrast
+						newValue = contrast > 0 ? --contrast : contrast
 						break
 					case 'value':
 						newValue = opt.value
@@ -513,16 +513,16 @@ class instance extends instance_skel {
 			case 'defog':
 				switch (opt.val) {
 					case '0':
-						cmd = '\x81\x01\x04\x37\x03\xFF'
+						cmd = VISCA.MSG_CAM + '\x37\x03\xFF'
 						break
 					case '1':
-						cmd = '\x81\x01\x04\x37\x01\xFF'
+						cmd = VISCA.MSG_CAM  + '\x37\x01\xFF'
 						break
 					case '2':
-						cmd = '\x81\x01\x04\x37\x02\xFF'
+						cmd = VISCA.MSG_CAM + '\x37\x02\xFF'
 						break
 					case '3':
-						cmd = '\x81\x01\x04\x37\x03\xFF'
+						cmd = VISCA.MSG_CAM + '\x37\x03\xFF'
 						break
 				}
 				this.sendVISCACommand(cmd)
@@ -538,10 +538,10 @@ class instance extends instance_skel {
 			case 'hrMode':
 				switch (opt.val) {
 					case 'On':
-						cmd = '\x81\x01\x04\x52\x02\xFF'
+						cmd = VISCA.MSG_CAM + '\x52\x02\xFF'
 						break
 					case 'Off':
-						cmd = '\x81\x01\x04\x52\x03\xFF'
+						cmd = VISCA.MSG_CAM  + '\x52\x03\xFF'
 						break
 				}
 				this.sendVISCACommand(cmd)
@@ -564,10 +564,10 @@ class instance extends instance_skel {
 			case 'freeze':
 				switch (opt.val) {
 					case 'On':
-						cmd = '\x81\x01\x04\x62\x02\xFF'
+						cmd = VISCA.MSG_CAM + VISCA.CAM_FREEZE + VISCA.DATA_ONVAL + VISCA.END_MSG
 						break
 					case 'Off':
-						cmd = '\x81\x01\x04\x62\x03\xFF'
+						cmd = VISCA.MSG_CAM + VISCA.CAM_FREEZE + VISCA.DATA_OFFVAL + VISCA.END_MSG
 						break
 				}
 				this.sendVISCACommand(cmd)

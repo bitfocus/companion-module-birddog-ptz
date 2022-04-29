@@ -67,6 +67,7 @@ module.exports = {
 	CAM_FOCUS_AUTO: '\x38', // (can inquire) 0x02, 0x03, 0x10 | AUTO / MANUAL / AUTO+MANUAL (TOGGLE?)
 	CAM_FOCUS_DIRECT: '\x48', // (can inquire) pqrs
 	CAM_WB_TRIGGER: '\x10', // when followed by 0x05
+	CAM_FREEZE: '\x62',
 
 	// ############
 	// OPERATIONAL SETTINGS
