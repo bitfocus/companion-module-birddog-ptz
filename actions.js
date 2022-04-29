@@ -341,6 +341,29 @@ module.exports = {
 				],
 			}
 		}
+		if (MODEL_VALUES?.contrast) {
+			actions['contrast'] = {
+				label: 'Contrast',
+				options: [
+					{
+						type: 'dropdown',
+						label: 'Contrast',
+						id: 'val',
+						choices: MODEL_VALUES.contrast.choices,
+						default: MODEL_VALUES.contrast.default,
+					},
+					{
+						type: 'number',
+						label: 'Value (0 to 15)',
+						id: 'value',
+						min: 0,
+						max: 15,
+						default: 7,
+						isVisible: (action) => action.options.val === 'value',
+					},
+				],
+			}
+		}
 		if (MODEL_VALUES?.pictureEffect) {
 			actions['pictureEffect'] = {
 				label: 'Picture Effect',
