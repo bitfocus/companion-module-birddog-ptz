@@ -484,6 +484,25 @@ class instance extends instance_skel {
 				this.sendCommand('recall', 'POST', body)
 				break
 
+			case 'contrast':
+				let contrast = this.camera?.picsetup?.Contrast ? this.camera.picsetup.Contrast : 7
+				switch (opt.val) {
+					case 'up':
+						newValue = contrast < 21 ? ++contrast : contrast
+						break
+					case 'down':
+						newValue = contrast > 0 ? ++contrast : contrast
+						break
+					case 'value':
+						newValue = opt.value
+						break
+				}
+				body = {
+					Contrast: String(newValue),
+				}
+				this.sendCommand('birddogpicsetup', 'POST', body)
+				break
+
 			case 'pictureEffect':
 				body = {
 					Effect: String(opt.val),

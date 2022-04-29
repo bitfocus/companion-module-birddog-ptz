@@ -128,6 +128,7 @@ module.exports = {
 				gain: { choices: CHOICES.GAIN_1, default: 0 },
 				iris: { choices: CHOICES.IRIS_1, default: 1, range: { closed: 0, min: 1, max: 13 } },
 				shut: { shutter_50: CHOICES.SHUTTER_50, shutter_60: CHOICES.SHUTTER_60, default: 6 },
+				contrast: { choices: CHOICES.UP_DOWN_VALUE, default: 'up' },
 				pictureEffect: { choices: CHOICES.PICTURE_EFFECT, default: 'BW' },
 			},
 			feedback: {
@@ -167,6 +168,7 @@ module.exports = {
 				gain: { choices: CHOICES.GAIN_1, default: 0 },
 				iris: { choices: CHOICES.IRIS_1, default: 1, range: { closed: 0, min: 1, max: 13 } },
 				shut: { shutter_50: CHOICES.SHUTTER_50, shutter_60: CHOICES.SHUTTER_60, default: 6 },
+				contrast: { choices: CHOICES.UP_DOWN_VALUE, default: 'up' },
 				pictureEffect: { choices: CHOICES.PICTURE_EFFECT, default: 'BW' },
 			},
 			feedback: {
