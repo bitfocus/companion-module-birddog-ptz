@@ -27,8 +27,11 @@ const COMMON = [
 		// /about
 		firmware: { label: 'Firmware' },
 		model: { label: 'Model' },
-		standby: { label: 'Standby' },
 		status: { label: 'Status' },
+		// VISCA Variables
+		standby: { label: 'Standby' },
+		freeze: { label: 'Freeze' },
+		// API Variables
 		// /analogaudiosetup
 		audio_in_gain: { label: 'Audio In Gain' },
 		audio_out_gain: { label: 'Audio Out Gain' },

@@ -11,14 +11,14 @@ module.exports = {
 		let actions = {}
 
 		// Common Actions
-		actions['power'] = {
+		actions['standby'] = {
 			label: 'Power On/Off',
 			options: [
 				{
 					type: 'dropdown',
 					label: 'On/Off',
 					id: 'val',
-					choices: CHOICES.ON_OFF,
+					choices: CHOICES.STANDBY,
 					default: 'On',
 				},
 			],

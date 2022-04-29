@@ -128,12 +128,12 @@ class instance extends instance_skel {
 		let body = {}
 
 		switch (action.action) {
-			case 'power':
+			case 'standby':
 				switch (opt.val) {
-					case 'On':
+					case 'on':
 						cmd = VISCA.MSG_CAM + VISCA.CAM_POWER + VISCA.DATA_ONVAL + VISCA.END_MSG
 						break
-					case 'Off':
+					case 'standby':
 						cmd = VISCA.MSG_CAM + VISCA.CAM_POWER + VISCA.DATA_OFFVAL + VISCA.END_MSG
 						break
 				}
@@ -744,9 +744,9 @@ class instance extends instance_skel {
 		switch (data[7].toString(16)) {
 			case '4a': // Query Standby status
 				if (data[8] == 0x90 && data[9] == 0x50 && data[10] == 0x02 && data[11] == 0xff) {
-					this.camera.status = 'on'
+					this.camera.standby = 'on'
 				} else if (data[8] == 0x90 && data[9] == 0x50 && data[10] == 0x03 && data[11] == 0xff) {
-					this.camera.status = 'standby'
+					this.camera.standby = 'standby'
 				}
 				break
 			case '5a': // Query Auto Focus mode
@@ -829,10 +829,9 @@ class instance extends instance_skel {
 		this.sendCommand('birddogpicsetup', 'GET')
 		this.sendCommand('birddogcmsetup', 'GET')
 		this.sendCommand('birddogadvancesetup', 'GET')
-		// Query Standby status
-		this.sendVISCACommand(VISCA.MSG_QRY + VISCA.CAM_POWER + VISCA.END_MSG, '\x4a')
-		// Query Auto Focus Mode
-		this.sendVISCACommand(VISCA.MSG_QRY + VISCA.CAM_FOCUS_AUTO + VISCA.END_MSG, '\x5a')
+		this.sendVISCACommand(VISCA.MSG_QRY + VISCA.CAM_POWER + VISCA.END_MSG, '\x4a') 		// Query Standby status
+		this.sendVISCACommand(VISCA.MSG_QRY + VISCA.CAM_FOCUS_AUTO + VISCA.END_MSG, '\x5a') // Query Auto Focus Mode
+		this.sendVISCACommand(VISCA.MSG_QRY + VISCA.CAM_FOCUS_AUTO + VISCA.END_MSG, '\x5a') // Query Freeze
 		this.debug('----Camera Setup----')
 		this.debug(this.camera)
 

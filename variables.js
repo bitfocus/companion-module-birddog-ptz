@@ -38,14 +38,20 @@ exports.updateVariables = function () {
 			this.setVariable('model', this.camera.model)
 		}
 
-		if (MODEL_SPEC?.standby) {
-			this.setVariable('standby', this.camera.standby === 'on' ? 'Cam On' : 'Standby')
-		}
-
 		if (MODEL_SPEC?.status) {
 			this.setVariable('status', this.camera.status)
 		}
 	}
+	// VISCA Variables
+	if (MODEL_SPEC?.standby) {
+		this.setVariable('standby', this.camera.standby)
+	}
+
+	if (MODEL_SPEC?.freeze) {
+		this.setVariable('freeze', this.camera.freeze)
+	}
+
+	// API Variables
 	// /analogaudiosetup
 	if (this.camera.audio) {
 		if (MODEL_SPEC?.audio_in_gain) {
