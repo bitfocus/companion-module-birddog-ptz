@@ -488,7 +488,7 @@ class instance extends instance_skel {
 				let contrast = this.camera?.picsetup?.Contrast ? this.camera.picsetup.Contrast : 7
 				switch (opt.val) {
 					case 'up':
-						newValue = contrast < 21 ? ++contrast : contrast
+						newValue = contrast < 15 ? ++contrast : contrast
 						break
 					case 'down':
 						newValue = contrast > 0 ? ++contrast : contrast
