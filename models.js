@@ -79,6 +79,7 @@ const COMMON = [
 		wbOnePush: true,
 		gainBlue: { choices: CHOICES.UP_DOWN_VALUE, default: 'up' },
 		gainRed: { choices: CHOICES.UP_DOWN_VALUE, default: 'up' },
+		freeze: true,
 		savePset: true,
 		recallPset: true,
 		picFlip: { choices: CHOICES.ON_OFF, default: 'On' },

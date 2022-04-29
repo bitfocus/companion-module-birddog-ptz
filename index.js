@@ -756,6 +756,13 @@ class instance extends instance_skel {
 					this.camera.focus = JSON.parse('{"mode":"Manual"}')
 				}
 				break
+			case '5b': // Query Freeze Status
+				if (data[8] == 0x90 && data[9] == 0x50 && data[10] == 0x02 && data[11] == 0xff) {
+					this.camera.freeze = 'On'
+				} else if (data[8] == 0x90 && data[9] == 0x50 && data[10] == 0x03 && data[11] == 0xff) {
+					this.camera.freeze = 'Off'
+				}
+				break	
 		}
 		this.updateVariables()
 		this.checkFeedbacks()
@@ -831,7 +838,7 @@ class instance extends instance_skel {
 		this.sendCommand('birddogadvancesetup', 'GET')
 		this.sendVISCACommand(VISCA.MSG_QRY + VISCA.CAM_POWER + VISCA.END_MSG, '\x4a') 		// Query Standby status
 		this.sendVISCACommand(VISCA.MSG_QRY + VISCA.CAM_FOCUS_AUTO + VISCA.END_MSG, '\x5a') // Query Auto Focus Mode
-		this.sendVISCACommand(VISCA.MSG_QRY + VISCA.CAM_FOCUS_AUTO + VISCA.END_MSG, '\x5a') // Query Freeze
+		this.sendVISCACommand(VISCA.MSG_QRY + VISCA.CAM_FREEZE + VISCA.END_MSG, '\x5b') // Query Freeze
 		this.debug('----Camera Setup----')
 		this.debug(this.camera)
 

@@ -56,6 +56,28 @@ exports.initFeedbacks = function () {
 		},
 	}
 
+	feedbacks.freeze_status = {
+		type: 'boolean',
+		label: 'Camera Freeze Status',
+		description: 'If the camera matches the selected freeze status, change the style of the button',
+		style: {
+			color: ColorBlack,
+			bgcolor: ColorGreen,
+		},
+		options: [
+			{
+				type: 'dropdown',
+				label: 'Freeze',
+				id: 'freeze',
+				choices: CHOICES.ON_OFF,
+				default: 'on',
+			},
+		],
+		callback: (feedback) => {
+			return this.camera.freeze == feedback.options.freeze
+		},
+	}
+
 	if (MODEL_VALUES?.wb) {
 		feedbacks.wb_mode = {
 			type: 'boolean',
