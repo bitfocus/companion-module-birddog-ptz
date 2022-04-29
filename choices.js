@@ -378,7 +378,7 @@ module.exports = {
 	// ############
 
 	AUTO_FOCUS: [
-		{ id: 'AutoFocus', label: 'Auto Focus' },
+		{ id: 'Auto', label: 'Auto Focus' },
 		{ id: 'Manual', label: 'Manual' },
 	],
 

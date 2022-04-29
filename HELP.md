@@ -112,5 +112,8 @@ This module allows you to control any [BirdDog](https://birddog.tv/ptz-range/) P
 
 ## Available Feedback
 
-- wb_mode
-- standby_mode
+- Standby Mode
+- White Balance Mode
+- Exposure Mode
+- Focus Mode
+- Tally Mode

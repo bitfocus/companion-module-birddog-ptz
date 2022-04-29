@@ -81,10 +81,6 @@ class instance extends instance_skel {
 
 		this.status(this.STATUS_WARNING, 'Connecting')
 
-		//this.actions()
-		this.initFeedbacks()
-		this.initPresets()
-
 		this.port = 52381 // Visca port
 		this.sendCommand('about', 'GET')
 		this.sendCommand('analogaudiosetup', 'GET')
@@ -340,7 +336,7 @@ class instance extends instance_skel {
 
 			case 'focusM':
 				switch (opt.val) {
-					case 'AutoFocus':
+					case 'Auto':
 						cmd = VISCA.MSG_CAM + VISCA.CAM_FOCUS_AUTO + VISCA.DATA_ONVAL + VISCA.END_MSG
 						break
 					case 'Manual':
@@ -352,14 +348,14 @@ class instance extends instance_skel {
 
 			case 'expM':
 				body = {
-					ExpMode: String(opt.value),
+					ExpMode: String(opt.val),
 				}
 				this.sendCommand('birddogexpsetup', 'POST', body)
 				break
 
 			case 'wb':
 				body = {
-					WbMode: String(opt.value),
+					WbMode: String(opt.val),
 				}
 				this.sendCommand('birddogwbsetup', 'POST', body)
 				break
@@ -476,21 +472,21 @@ class instance extends instance_skel {
 
 			case 'savePset':
 				body = {
-					Preset: String('Preset-' + opt.value),
+					Preset: String('Preset-' + opt.val),
 				}
 				this.sendCommand('save', 'POST', body)
 				break
 
 			case 'recallPset':
 				body = {
-					Preset: String('Preset-' + opt.value),
+					Preset: String('Preset-' + opt.val),
 				}
 				this.sendCommand('recall', 'POST', body)
 				break
 
 			case 'pictureEffect':
 				body = {
-					Effect: String(opt.value),
+					Effect: String(opt.val),
 				}
 				this.sendCommand('birddogpicsetup', 'POST', body)
 				break
@@ -515,7 +511,7 @@ class instance extends instance_skel {
 
 			case 'irMode':
 				body = {
-					IRCutFilter: String(opt.value),
+					IRCutFilter: String(opt.val),
 				}
 				this.sendCommand('birddogpicsetup', 'POST', body)
 				break
@@ -534,14 +530,14 @@ class instance extends instance_skel {
 
 			case 'highSensitivity':
 				body = {
-					HighSensitivity: String(opt.value),
+					HighSensitivity: String(opt.val),
 				}
 				this.sendCommand('birddogexpsetup', 'POST', body)
 				break
 
 			case 'tally':
 				body = {
-					TallyMode: String(opt.value),
+					TallyMode: String(opt.val),
 				}
 				this.sendCommand('encodesetup', 'POST', body)
 				break
@@ -560,14 +556,14 @@ class instance extends instance_skel {
 
 			case 'picFlip':
 				body = {
-					Flip: String(opt.value),
+					Flip: String(opt.val),
 				}
 				this.sendCommand('birddogpicsetup', 'POST', body)
 				break
 
 			case 'picMirror':
 				body = {
-					Mirror: String(opt.value),
+					Mirror: String(opt.val),
 				}
 				this.sendCommand('birddogpicsetup', 'POST', body)
 				break
@@ -653,6 +649,7 @@ class instance extends instance_skel {
 					this.actions()
 					this.initPresets()
 					this.initVariables()
+					this.initFeedbacks()
 				}
 				this.camera.firmware = data.FirmwareVersion.substring(
 					data.FirmwareVersion.lastIndexOf(' ') + 1,
