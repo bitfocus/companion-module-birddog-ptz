@@ -70,11 +70,11 @@ exports.initFeedbacks = function () {
 				label: 'Freeze',
 				id: 'freeze',
 				choices: CHOICES.ON_OFF,
-				default: 'on',
+				default: 'On',
 			},
 		],
 		callback: (feedback) => {
-			return this.camera.freeze == feedback.options.freeze
+			return this.camera?.freeze == feedback.options.freeze
 		},
 	}
 
