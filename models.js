@@ -579,7 +579,7 @@ module.exports = {
 				expM: { choices: CHOICES.EXP_MODE_3, default: 'FULL-AUTO' },
 				wb: { choices: CHOICES.WB_MODE_2, default: 'AUTO' },
 				gain: { choices: CHOICES.GAIN_2, default: 0 },
-				iris: { choices: CHOICES.IRIS_3, default: 1, range: { closed: 0, min: 5, max: 21 } },
+				iris: { choices: CHOICES.IRIS_4, default: 1, range: { closed: 5, min: 6, max: 21 } },
 				shut: {
 					shutter_24: CHOICES.SHUTTER_4K_24,
 					shutter_50: CHOICES.SHUTTER_4K_50,
