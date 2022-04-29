@@ -75,7 +75,7 @@ module.exports = {
 					label: 'Mode',
 					id: 'val',
 					choices: CHOICES.AUTO_FOCUS,
-					default: 'AutoFocus',
+					default: 'Auto',
 				},
 			],
 		}
@@ -416,7 +416,7 @@ module.exports = {
 				],
 			}
 		}
-		if (MODEL_VALUES?.tally_mode) {
+		if (MODEL_VALUES?.tally) {
 			actions['tally'] = {
 				label: 'Tally',
 				options: [
@@ -424,8 +424,8 @@ module.exports = {
 						type: 'dropdown',
 						label: 'On / Off',
 						id: 'val',
-						choices: MODEL_VALUES.tally_mode.choices,
-						default: MODEL_VALUES.tally_mode.default,
+						choices: MODEL_VALUES.tally.choices,
+						default: MODEL_VALUES.tally.default,
 					},
 				],
 			}

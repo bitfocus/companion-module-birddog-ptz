@@ -108,7 +108,7 @@ module.exports = {
 			}
 			if (action.action === 'focusM') {
 				if (action.options.bol == '0') {
-					action.options.val = 'AutoFocus'
+					action.options.val = 'Auto'
 					changed = true
 				} else if (action.options.bol == '1') {
 					action.options.val = 'Manual'
