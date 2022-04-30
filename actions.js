@@ -3,7 +3,6 @@ const CHOICES = require('./choices.js')
 
 module.exports = {
 	getActions() {
-		this.debug('---- in actions.js')
 		this.debug(this?.camera?.model)
 
 		MODEL_VALUES = MODELS.find((MODELS) => MODELS.id == this.camera.model).actions
@@ -504,6 +503,6 @@ module.exports = {
 				],
 			}
 		}
-		return actions
+		return Object.fromEntries(Object.entries(actions).sort())
 	},
 }
