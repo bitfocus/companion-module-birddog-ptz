@@ -78,6 +78,50 @@ exports.initFeedbacks = function () {
 		},
 	}
 
+	feedbacks.encodeBandwidth = {
+		type: 'boolean',
+		label: 'Camera Encode Bandwidth Mode',
+		description: 'If the camera matches the selected encode bandwidth mode, change the style of the button',
+		style: {
+			color: ColorBlack,
+			bgcolor: ColorGreen,
+		},
+		options: [
+			{
+				type: 'dropdown',
+				label: 'Manual / NDI Managed',
+				id: 'val',
+				choices: CHOICES.ENCODE_BANDWIDTH_MODE,
+				default: 'NDIManaged',
+			},
+		],
+		callback: (feedback) => {
+			return this.camera.audio?.AnalogAudioInGain == feedback.options.val
+		},
+	}
+
+	feedbacks.analogAudioOutput = {
+		type: 'boolean',
+		label: 'Analog Audio Output Select',
+		description: 'If the camera matches the selected audio ouptut selector, change the style of the button',
+		style: {
+			color: ColorBlack,
+			bgcolor: ColorGreen,
+		},
+		options: [
+			{
+				type: 'dropdown',
+				label: 'Decode Comms / Decode Loop ',
+				id: 'val',
+				choices: CHOICES.ANALOG_AUDIO_OUTPUT,
+				default: 'DecodeComms',
+			},
+		],
+		callback: (feedback) => {
+			return this.camera.audio?.AnalogAudiooutputselect == feedback.options.val
+		},
+	}
+
 	if (MODEL_VALUES?.wb) {
 		feedbacks.wb_mode = {
 			type: 'boolean',
@@ -150,7 +194,32 @@ exports.initFeedbacks = function () {
 		}
 	}
 
+	if (MODEL_VALUES?.color_temp) {
+		feedbacks.color_temp = {
+			type: 'boolean',
+			label: 'Color Temp',
+			description: 'If the camera color temperature matches the selected color temperature, change the style of the button',
+			style: {
+				color: ColorBlack,
+				bgcolor: ColorGreen,
+			},
+			options: [
+				{
+					type: 'dropdown',
+					label: 'Color Temperature (k)',
+					id: 'val',
+					choices: MODEL_VALUES.color_temp.choices,
+					default: MODEL_VALUES.color_temp.default,
+				},
+			],
+			callback: (feedback) => {
+				return this.camera?.wbsetup?.ColorTemp == feedback.options.val
+			},
+		}
+	}
+
 	this.setFeedbackDefinitions(feedbacks)
 
-	return feedbacks
+	return Object.fromEntries(Object.entries(feedbacks).sort())
+
 }

@@ -82,15 +82,9 @@ class instance extends instance_skel {
 		this.status(this.STATUS_WARNING, 'Connecting')
 
 		this.port = 52381 // Visca port
+		// Get Initial Camera Info
 		this.sendCommand('about', 'GET')
-		this.sendCommand('analogaudiosetup', 'GET')
-		this.sendCommand('encodetransport', 'GET')
 		this.sendCommand('encodesetup', 'GET') // allow an initial query to this API to collect camera info
-		this.sendCommand('NDIDisServer', 'GET')
-		this.sendCommand('birddogptzsetup', 'GET')
-		this.sendCommand('birddogexpsetup', 'GET')
-		this.sendCommand('birddogwbsetup', 'GET')
-		this.sendCommand('birddogpicsetup', 'GET')
 
 		this.init_udp()
 
@@ -600,6 +594,51 @@ class instance extends instance_skel {
 					this.log('error', 'Error, command "' + opt.custom + '" does not start with 8')
 				}
 				break
+
+			case 'encodeBandwidth':
+				switch (opt.val) {
+					case 'NDIManaged': 
+					body = {
+						BandwidthMode: String(opt.val),
+					}
+						break
+					case 'Manual':
+						body = {
+							BandwidthMode: String(opt.val),
+							BandwidthSelect: String(opt.bandwidth)
+						}
+						break
+				}
+				this.sendCommand('encodesetup', 'POST', body)
+				break
+			
+			case 'analogAudioInGain':
+				body = {
+					AnalogAudioInGain: String(opt.val + 50), //Convert action range to API range
+				}
+				this.sendCommand('analogaudiosetup', 'POST', body)
+				break
+
+			case 'analogAudioOutGain':
+				body = {
+					AnalogAudioOutGain: String(opt.val + 50), //Convert action range to API range
+				}
+				this.sendCommand('analogaudiosetup', 'POST', body)
+				break
+				
+			case 'analogAudioOutput':
+				body = {
+					AnalogAudiooutputselect: String(opt.val),
+				}
+				this.sendCommand('analogaudiosetup', 'POST', body)
+				break
+								
+			case 'colr_temp':
+				body = {
+					ColorTemp: String(opt.val),
+				}
+				this.sendCommand('birddogwbsetup', 'POST', body)
+				break
 		}
 	}
 
@@ -698,7 +737,6 @@ class instance extends instance_skel {
 			this.camera.ndiserver = data
 		} else if (cmd.match('/birddogptzsetup')) {
 			this.camera.ptz = data
-			this.ptSpeed = data.PanSpeed ? data.PanSpeed : '0C'
 		} else if (cmd.match('/birddogexpsetup')) {
 			this.camera.expsetup = data
 		} else if (cmd.match('/birddogwbsetup')) {
@@ -709,6 +747,12 @@ class instance extends instance_skel {
 			this.camera.cmsetup = data
 		} else if (cmd.match('/birddogadvancesetup')) {
 			this.camera.advancesetup = data
+		} else if (cmd.match('/birddogexternalsetup')) {
+			this.camera.externalsetup = data
+		} else if (cmd.match('/birddogdetsetup')) {
+			this.camera.detsetup = data
+		} else if (cmd.match('//birddoggammasetup')) {
+			this.camera.gammasetup = data
 		}
 		this.updateVariables()
 		this.checkFeedbacks()
@@ -827,7 +871,8 @@ class instance extends instance_skel {
 	}
 
 	poll() {
-		this.debug('----Polling for Camera Info')
+		MODEL_API = MODELS.find((MODELS) => MODELS.id == this.camera.model)?.apicalls
+		// Common Device Info
 		this.sendCommand('about', 'GET')
 		this.sendCommand('analogaudiosetup', 'GET')
 		this.sendCommand('encodetransport', 'GET')
@@ -837,15 +882,28 @@ class instance extends instance_skel {
 		this.sendCommand('birddogexpsetup', 'GET')
 		this.sendCommand('birddogwbsetup', 'GET')
 		this.sendCommand('birddogpicsetup', 'GET')
-		this.sendCommand('birddogcmsetup', 'GET')
-		this.sendCommand('birddogadvancesetup', 'GET')
 		this.sendVISCACommand(VISCA.MSG_QRY + VISCA.CAM_POWER + VISCA.END_MSG, '\x4a') 		// Query Standby status
 		this.sendVISCACommand(VISCA.MSG_QRY + VISCA.CAM_FOCUS_AUTO + VISCA.END_MSG, '\x5a') // Query Auto Focus Mode
 		this.sendVISCACommand(VISCA.MSG_QRY + VISCA.CAM_FREEZE + VISCA.END_MSG, '\x5b') // Query Freeze
+		// Specific Model Info
+		if (MODEL_API?.birddogcmsetup) {
+			this.sendCommand('birddogcmsetup', 'GET')
+		}
+		if (MODEL_API?.birddogadvancesetup) {
+			this.sendCommand('birddogadvancesetup', 'GET')
+		}
+		if (MODEL_API?.birddogexternalsetup) {
+			this.sendCommand('birddogexternalsetup', 'GET')
+		}
+		if (MODEL_API?.birddogdetsetup) {
+			this.sendCommand('birddogdetsetup', 'GET')
+		}
+		if (MODEL_API?.birddoggammasetup) {
+			this.sendCommand('birddoggammasetup', 'GET')
+		}
+
 		this.debug('----Camera Setup----')
 		this.debug(this.camera)
-
-		this.updateVariables()
 	}
 }
 exports = module.exports = instance

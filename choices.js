@@ -1,3 +1,9 @@
+var COLOR_TEMP = []
+
+for (let i =28; i <= 65; i++ ) {
+	COLOR_TEMP.push( {id: i +'00', label: i + '00k'})
+}
+
 module.exports = {
 	// ############
 	// Basic Look Ups
@@ -414,7 +420,6 @@ module.exports = {
 	// ############
 
 	ANALOG_AUDIO_OUTPUT: [
-		{ id: 'DecodeMain', label: 'DecodeMain' },
 		{ id: 'DecodeComms', label: 'DecodeComms' },
 		{ id: 'DecodeLoop', label: 'DecodeLoop' },
 	],
@@ -515,6 +520,8 @@ module.exports = {
 		{ id: 'HIGH SAT', label: 'HIGH SAT' },
 	],
 
+	COLOR_TEMP,
+	
 	// ############
 	// Picture Setup Look Ups
 	// ############

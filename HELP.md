@@ -9,34 +9,41 @@ This module allows you to control any [BirdDog](https://birddog.tv/ptz-range/) P
 
 ## Available Actions
 
-- Pan/Tilt
-- Zoom
-- Pan Speed
-- Tilt Speed
-- Zoom Speed
+- Analog Audio In Gain
+- Analog Audio In Gain
+- Analog Audio Output
+- Color Temperature
+- Contrast
+- Custom Command (81 01 04 07 02 FF)
+- Defog
+- Encode Bandwidth
+- Exposure Mode
 - Focus (Near / Far / One Push)
 - Focus Mode (Auto or Manual)
-- Exposure Mode
-- White Balance Mode
-- White Balance One Push Trigger
+- Freeze
 - Gain
 - Gain Red
 - Gain Blue
+- High Resolution Mode
+- High Sensitivity Mode
+- IR Cut Filter
 - Iris
-- Shutter
-- Save Preset
-- Recall Preset
-- Preset Drive Speed
-- Tally
-- Freeze
+- Pan/Tilt (with speed override)
+- Pan Speed
 - Picture Effect
 - Picture Flip
 - Picture Mirror
-- Defog
-- IR Cut Filter
-- High Resolution Mode
-- High Sensitivity Mode
-- Custom Command (81 01 04 07 02 FF)
+- Recall Preset
+- Save Preset
+- Shutter
+- Standby
+- Tally
+- Tilt Speed
+- White Balance Mode
+- White Balance One Push Trigger
+- Zoom (with speed override)
+- Zoom Speed
+
 
 ## Available Variables
 
@@ -56,8 +63,12 @@ This module allows you to control any [BirdDog](https://birddog.tv/ptz-range/) P
 | **Bandwidth Select**            |       Y        |         Y          |      Y       |
 | **Blue Gain**                   |       Y        |         Y          |      Y       |
 | **Bright Level**                |       Y        |         Y          |      Y       |
+| **Brightness**                  |                |         Y          |              |
+| **Brightness Comp**             |                |         Y          |              |
 | **Chroma Suppress**             |                |         Y          |      Y       |
+| **Color Matrix**                |       Y        |         Y          |              |
 | **Color Temp**                  |       Y        |                    |              |
+| **Comp Level**                  |                |         Y          |              |
 | **Contrast**                    |       Y        |                    |              |
 | **Effect**                      |       Y        |         Y          |              |
 | **Exposure Mode**               |       Y        |         Y          |      Y       |
@@ -70,6 +81,8 @@ This module allows you to control any [BirdDog](https://birddog.tv/ptz-range/) P
 | **Gain Point**                  |                |                    |      Y       |
 | **Gain Point Position**         |                |                    |      Y       |
 | **Gamma**                       |       Y        |         Y          |              |
+| **Gamma Offset**                |                |         Y          |              |
+| **High Resolution**             |                |         Y          |              |
 | **High Sensitivity**            |                |         Y          |      Y       |
 | **HLC Mode**                    |                |         Y          |      Y       |
 | **Hue**                         |       Y        |                    |              |
@@ -104,6 +117,7 @@ This module allows you to control any [BirdDog](https://birddog.tv/ptz-range/) P
 | **Tally Mode**                  |       Y        |         Y          |      Y       |
 | **Tilt Speed**                  |       Y        |         Y          |      Y       |
 | **Transmit Method**             |       Y        |         Y          |      Y       |
+| **Video Enhancement**           |                |         Y          |              |
 | **Video Format**                |       Y        |         Y          |      Y       |
 | **Video Output**                |                |                    |      Y       |
 | **White Balance Mode**          |       Y        |         Y          |      Y       |
@@ -112,8 +126,12 @@ This module allows you to control any [BirdDog](https://birddog.tv/ptz-range/) P
 
 ## Available Feedback
 
-- Standby Mode
-- White Balance Mode
+- Analog Audio Output Select
+- Color Temp
+- Encode Bandwidth Mode
 - Exposure Mode
 - Focus Mode
+- Freeze Status
+- Standby Mode
 - Tally Mode
+- White Balance Mode

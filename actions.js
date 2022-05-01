@@ -200,6 +200,65 @@ module.exports = {
 				},
 			],
 		}
+		actions['encodeBandwidth'] = {
+			label: 'Encode Bandwidth',
+			options: [
+				{
+					type: 'dropdown',
+					label: 'Manual / NDI Managed',
+					id: 'val',
+					choices: CHOICES.ENCODE_BANDWIDTH_MODE,
+					default: 'NDIManaged',
+				},
+				{
+					type: 'number',
+					label: 'Bandwidth Select',
+					id: 'bandwidth',
+					default: 120,
+					min: 80,
+					max: 180,
+					isVisible: (action) => action.options.val === 'Manual',
+				},
+			],
+		}
+		actions['analogAudioInGain'] = {
+			label: 'Analog Audio In Gain',
+			options: [
+				{
+					type: 'number',
+					label: 'Analog Audio In Gain (db)',
+					id: 'val',
+					default: 0,
+					min: -50,
+					max: 50,
+				},
+			],
+		}
+		actions['analogAudioOutGain'] = {
+			label: 'Analog Audio Out Gain',
+			options: [
+				{
+					type: 'number',
+					label: 'Analog Audio Out Gain (db)',
+					id: 'val',
+					default: 0,
+					min: -50,
+					max: 50,
+				},
+			],
+		}
+		actions['analogAudioOutput'] = {
+			label: 'Analog Audio Output Select',
+			options: [
+				{
+					type: 'dropdown',
+					label: 'Decode Comms / Decode Loop ',
+					id: 'val',
+					choices: CHOICES.ANALOG_AUDIO_OUTPUT,
+					default: 'DecodeComms',
+				},
+			],
+		}
 
 		// Model Specifc Actions
 		if (MODEL_VALUES?.pt) {
@@ -499,6 +558,20 @@ module.exports = {
 						id: 'val',
 						choices: CHOICES.ON_OFF,
 						default: 'On',
+					},
+				],
+			}
+		}
+		if (MODEL_VALUES?.color_temp) {
+			actions['colr_temp'] = {
+				label: 'Color Temperature',
+				options: [
+					{
+						type: 'dropdown',
+						label: 'Color Temperature (k)',
+						id: 'val',
+						choices: MODEL_VALUES.color_temp.choices,
+						default: MODEL_VALUES.color_temp.default,
 					},
 				],
 			}

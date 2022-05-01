@@ -8,6 +8,52 @@ See [HELP.md](https://github.com/bitfocus/companion-module-birddog-ptz/blob/main
 
 ## Changes
 
+### v2.0.2
+- Make API calls depending on model
+- Added Speed override on PTZ movement actions
+- Show values depending on model
+    - Gain
+    - Iris
+    - Shutter
+
+- New Actions
+    - Analog Audio In Gain
+    - Analog Audio In Gain
+    - Analog Audio Output
+    - Color Temperature
+    - Contrast
+    - Encode Bandwidth
+    - Freeze
+    - Tally
+- New Variables
+    - Analog Audio In Gain
+    - Analog Audio In Gain
+    - Analog Audio Output- Bandwidth Mode
+    - Bandwidth Select
+    - Brightness
+    - Brightness Comp
+    - Color Matrix
+    - Colot Temperature
+    - Comp Level
+    - Gamma Offset
+    - High Resolution
+    - Hostname
+    - IP Address
+    - Netmask
+    - Network Config
+    - Serial Number
+    - Transmit Netmask
+    - Transmit Netprefix
+    - Video Enhancement
+- New Feedbacks
+    - Analog Audio Output Select
+    - Color Temperature
+    - Encode Bandwidth Mode
+    - Exposure Mode
+    - Focus Mode
+    - Freeze Status
+    - Tally Mode
+    
 ### v2.0.1
 
 - Rename module to companion-module-birddog-ptz to better reflect module
