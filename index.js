@@ -82,15 +82,9 @@ class instance extends instance_skel {
 		this.status(this.STATUS_WARNING, 'Connecting')
 
 		this.port = 52381 // Visca port
+		// Get Initial Camera Info
 		this.sendCommand('about', 'GET')
-		this.sendCommand('analogaudiosetup', 'GET')
-		this.sendCommand('encodetransport', 'GET')
 		this.sendCommand('encodesetup', 'GET') // allow an initial query to this API to collect camera info
-		this.sendCommand('NDIDisServer', 'GET')
-		this.sendCommand('birddogptzsetup', 'GET')
-		this.sendCommand('birddogexpsetup', 'GET')
-		this.sendCommand('birddogwbsetup', 'GET')
-		this.sendCommand('birddogpicsetup', 'GET')
 
 		this.init_udp()
 
@@ -124,17 +118,16 @@ class instance extends instance_skel {
 		let panSpeed = this.camera?.ptz?.PanSpeed ? this.camera.ptz.PanSpeed : 11
 		let tiltSpeed = this.camera?.ptz?.PanSpeed ? this.camera.ptz.TiltSpeed : 9
 		let zoomSpeed = this.camera?.ptz?.ZoomSpeed ? this.camera.ptz.ZoomSpeed : 4
-		let newSpeed
 		let newValue
 		let body = {}
 
 		switch (action.action) {
-			case 'power':
+			case 'standby':
 				switch (opt.val) {
-					case 'On':
+					case 'on':
 						cmd = VISCA.MSG_CAM + VISCA.CAM_POWER + VISCA.DATA_ONVAL + VISCA.END_MSG
 						break
-					case 'Off':
+					case 'standby':
 						cmd = VISCA.MSG_CAM + VISCA.CAM_POWER + VISCA.DATA_OFFVAL + VISCA.END_MSG
 						break
 				}
@@ -142,6 +135,8 @@ class instance extends instance_skel {
 				break
 
 			case 'pt':
+				panSpeed = opt.override === true ? opt.panSpeed : panSpeed
+				tiltSpeed = opt.override === true ? opt.tiltSpeed : tiltSpeed
 				switch (opt.val) {
 					case 'left':
 						cmd =
@@ -243,17 +238,17 @@ class instance extends instance_skel {
 			case 'panSpeed':
 				switch (opt.type) {
 					case 'up':
-						newSpeed = panSpeed < 21 ? ++panSpeed : panSpeed
+						newValue = panSpeed < 21 ? ++panSpeed : 21
 						break
 					case 'down':
-						newSpeed = panSpeed > 1 ? --panSpeed : panSpeed
+						newValue = panSpeed > 1 ? --panSpeed : 1
 						break
 					case 'value':
-						newSpeed = opt.value
+						newValue = opt.value
 						break
 				}
 				body = {
-					PanSpeed: String(newSpeed),
+					PanSpeed: String(newValue),
 				}
 				this.sendCommand('birddogptzsetup', 'POST', body)
 				break
@@ -261,16 +256,17 @@ class instance extends instance_skel {
 			case 'tiltSpeed':
 				switch (opt.type) {
 					case 'up':
+						newValue = tiltSpeed < 18 ? ++tiltSpeed : 18
 						break
 					case 'down':
-						newSpeed = tiltSpeed > 1 ? --tiltSpeed : tiltSpeed
+						newValue = tiltSpeed > 1 ? --tiltSpeed : 1
 						break
 					case 'value':
-						newSpeed = opt.value
+						newValue = opt.value
 						break
 				}
 				body = {
-					TiltSpeed: String(newSpeed),
+					TiltSpeed: String(newValue),
 				}
 				this.sendCommand('birddogptzsetup', 'POST', body)
 				break
@@ -278,22 +274,23 @@ class instance extends instance_skel {
 			case 'zoomSpeed':
 				switch (opt.type) {
 					case 'up':
-						newSpeed = zoomSpeed < 7 ? ++zoomSpeed : zoomSpeed
+						newValue = zoomSpeed < 7 ? ++zoomSpeed : 7
 						break
 					case 'down':
-						newSpeed = zoomSpeed > 1 ? --zoomSpeed : zoomSpeed
+						newValue = zoomSpeed > 1 ? --zoomSpeed : 1
 						break
 					case 'value':
-						newSpeed = opt.value
+						newValue = opt.value
 						break
 				}
 				body = {
-					ZoomSpeed: String(newSpeed),
+					ZoomSpeed: String(newValue),
 				}
 				this.sendCommand('birddogptzsetup', 'POST', body)
 				break
 
 			case 'zoom':
+				zoomSpeed = opt.override === true ? opt.speed : zoomSpeed
 				switch (opt.val) {
 					case 'in':
 						cmd =
@@ -366,7 +363,7 @@ class instance extends instance_skel {
 				break
 
 			case 'gain':
-				let gain = this.camera?.expsetup?.GainLevel ? this.camera.expsetup.GainLevel : 4
+				let gain = this.camera?.expsetup?.GainLevel ? this.camera.expsetup.GainLevel : MODEL_VALUES.gain.default
 				switch (opt.val) {
 					case 'up':
 						newValue = gain < 15 ? ++gain : gain
@@ -452,13 +449,15 @@ class instance extends instance_skel {
 				break
 
 			case 'shut':
-				let shutter_speed = this.camera?.expsetup?.shutter_speed ? this.camera.expsetup.shutter_speed : 0
+				let shutter_speed = this.camera?.expsetup?.shutter_speed
+					? this.camera.expsetup.shutter_speed
+					: MODEL_VALUES.shut.default
 				switch (opt.val) {
 					case 'up':
-						newValue = shutter_speed < 21 ? ++shutter_speed : shutter_speed
+						newValue = shutter_speed < MODEL_VALUES.shut.range.max ? ++shutter_speed : MODEL_VALUES.shut.range.max
 						break
 					case 'down':
-						newValue = shutter_speed > 0 ? ++shutter_speed : shutter_speed
+						newValue = shutter_speed > MODEL_VALUES.shut.range.min ? ++shutter_speed : MODEL_VALUES.shut.range.min
 						break
 					case 'value':
 						newValue = opt.value
@@ -491,7 +490,7 @@ class instance extends instance_skel {
 						newValue = contrast < 15 ? ++contrast : contrast
 						break
 					case 'down':
-						newValue = contrast > 0 ? ++contrast : contrast
+						newValue = contrast > 0 ? --contrast : contrast
 						break
 					case 'value':
 						newValue = opt.value
@@ -513,16 +512,16 @@ class instance extends instance_skel {
 			case 'defog':
 				switch (opt.val) {
 					case '0':
-						cmd = '\x81\x01\x04\x37\x03\xFF'
+						cmd = VISCA.MSG_CAM + '\x37\x03\xFF'
 						break
 					case '1':
-						cmd = '\x81\x01\x04\x37\x01\xFF'
+						cmd = VISCA.MSG_CAM + '\x37\x01\xFF'
 						break
 					case '2':
-						cmd = '\x81\x01\x04\x37\x02\xFF'
+						cmd = VISCA.MSG_CAM + '\x37\x02\xFF'
 						break
 					case '3':
-						cmd = '\x81\x01\x04\x37\x03\xFF'
+						cmd = VISCA.MSG_CAM + '\x37\x03\xFF'
 						break
 				}
 				this.sendVISCACommand(cmd)
@@ -538,10 +537,10 @@ class instance extends instance_skel {
 			case 'hrMode':
 				switch (opt.val) {
 					case 'On':
-						cmd = '\x81\x01\x04\x52\x02\xFF'
+						cmd = VISCA.MSG_CAM + '\x52\x02\xFF'
 						break
 					case 'Off':
-						cmd = '\x81\x01\x04\x52\x03\xFF'
+						cmd = VISCA.MSG_CAM + '\x52\x03\xFF'
 						break
 				}
 				this.sendVISCACommand(cmd)
@@ -564,10 +563,10 @@ class instance extends instance_skel {
 			case 'freeze':
 				switch (opt.val) {
 					case 'On':
-						cmd = '\x81\x01\x04\x62\x02\xFF'
+						cmd = VISCA.MSG_CAM + VISCA.CAM_FREEZE + VISCA.DATA_ONVAL + VISCA.END_MSG
 						break
 					case 'Off':
-						cmd = '\x81\x01\x04\x62\x03\xFF'
+						cmd = VISCA.MSG_CAM + VISCA.CAM_FREEZE + VISCA.DATA_OFFVAL + VISCA.END_MSG
 						break
 				}
 				this.sendVISCACommand(cmd)
@@ -596,6 +595,51 @@ class instance extends instance_skel {
 				} else {
 					this.log('error', 'Error, command "' + opt.custom + '" does not start with 8')
 				}
+				break
+
+			case 'encodeBandwidth':
+				switch (opt.val) {
+					case 'NDIManaged':
+						body = {
+							BandwidthMode: String(opt.val),
+						}
+						break
+					case 'Manual':
+						body = {
+							BandwidthMode: String(opt.val),
+							BandwidthSelect: String(opt.bandwidth),
+						}
+						break
+				}
+				this.sendCommand('encodesetup', 'POST', body)
+				break
+
+			case 'analogAudioInGain':
+				body = {
+					AnalogAudioInGain: String(opt.val + 50), //Convert action range to API range
+				}
+				this.sendCommand('analogaudiosetup', 'POST', body)
+				break
+
+			case 'analogAudioOutGain':
+				body = {
+					AnalogAudioOutGain: String(opt.val + 50), //Convert action range to API range
+				}
+				this.sendCommand('analogaudiosetup', 'POST', body)
+				break
+
+			case 'analogAudioOutput':
+				body = {
+					AnalogAudiooutputselect: String(opt.val),
+				}
+				this.sendCommand('analogaudiosetup', 'POST', body)
+				break
+
+			case 'color_temp':
+				body = {
+					ColorTemp: String(opt.val),
+				}
+				this.sendCommand('birddogwbsetup', 'POST', body)
 				break
 		}
 	}
@@ -695,7 +739,6 @@ class instance extends instance_skel {
 			this.camera.ndiserver = data
 		} else if (cmd.match('/birddogptzsetup')) {
 			this.camera.ptz = data
-			this.ptSpeed = data.PanSpeed ? data.PanSpeed : '0C'
 		} else if (cmd.match('/birddogexpsetup')) {
 			this.camera.expsetup = data
 		} else if (cmd.match('/birddogwbsetup')) {
@@ -706,6 +749,12 @@ class instance extends instance_skel {
 			this.camera.cmsetup = data
 		} else if (cmd.match('/birddogadvancesetup')) {
 			this.camera.advancesetup = data
+		} else if (cmd.match('/birddogexternalsetup')) {
+			this.camera.externalsetup = data
+		} else if (cmd.match('/birddogdetsetup')) {
+			this.camera.detsetup = data
+		} else if (cmd.match('/birddoggammasetup')) {
+			this.camera.gammasetup = data
 		}
 		this.updateVariables()
 		this.checkFeedbacks()
@@ -744,9 +793,9 @@ class instance extends instance_skel {
 		switch (data[7].toString(16)) {
 			case '4a': // Query Standby status
 				if (data[8] == 0x90 && data[9] == 0x50 && data[10] == 0x02 && data[11] == 0xff) {
-					this.camera.status = 'on'
+					this.camera.standby = 'on'
 				} else if (data[8] == 0x90 && data[9] == 0x50 && data[10] == 0x03 && data[11] == 0xff) {
-					this.camera.status = 'standby'
+					this.camera.standby = 'standby'
 				}
 				break
 			case '5a': // Query Auto Focus mode
@@ -754,6 +803,13 @@ class instance extends instance_skel {
 					this.camera.focus = JSON.parse('{"mode":"Auto"}')
 				} else if (data[8] == 0x90 && data[9] == 0x50 && data[10] == 0x03 && data[11] == 0xff) {
 					this.camera.focus = JSON.parse('{"mode":"Manual"}')
+				}
+				break
+			case '5b': // Query Freeze Status
+				if (data[8] == 0x90 && data[9] == 0x50 && data[10] == 0x02 && data[11] == 0xff) {
+					this.camera.freeze = 'On'
+				} else if (data[8] == 0x90 && data[9] == 0x50 && data[10] == 0x03 && data[11] == 0xff) {
+					this.camera.freeze = 'Off'
 				}
 				break
 		}
@@ -817,7 +873,8 @@ class instance extends instance_skel {
 	}
 
 	poll() {
-		this.debug('----Polling for Camera Info')
+		let MODEL_API = MODELS.find((MODELS) => MODELS.id == this.camera.model)?.apicalls
+		// Common Device Info
 		this.sendCommand('about', 'GET')
 		this.sendCommand('analogaudiosetup', 'GET')
 		this.sendCommand('encodetransport', 'GET')
@@ -827,16 +884,28 @@ class instance extends instance_skel {
 		this.sendCommand('birddogexpsetup', 'GET')
 		this.sendCommand('birddogwbsetup', 'GET')
 		this.sendCommand('birddogpicsetup', 'GET')
-		this.sendCommand('birddogcmsetup', 'GET')
-		this.sendCommand('birddogadvancesetup', 'GET')
-		// Query Standby status
-		this.sendVISCACommand(VISCA.MSG_QRY + VISCA.CAM_POWER + VISCA.END_MSG, '\x4a')
-		// Query Auto Focus Mode
-		this.sendVISCACommand(VISCA.MSG_QRY + VISCA.CAM_FOCUS_AUTO + VISCA.END_MSG, '\x5a')
+		this.sendVISCACommand(VISCA.MSG_QRY + VISCA.CAM_POWER + VISCA.END_MSG, '\x4a') // Query Standby status
+		this.sendVISCACommand(VISCA.MSG_QRY + VISCA.CAM_FOCUS_AUTO + VISCA.END_MSG, '\x5a') // Query Auto Focus Mode
+		this.sendVISCACommand(VISCA.MSG_QRY + VISCA.CAM_FREEZE + VISCA.END_MSG, '\x5b') // Query Freeze
+		// Specific Model Info
+		if (MODEL_API?.birddogcmsetup) {
+			this.sendCommand('birddogcmsetup', 'GET')
+		}
+		if (MODEL_API?.birddogadvancesetup) {
+			this.sendCommand('birddogadvancesetup', 'GET')
+		}
+		if (MODEL_API?.birddogexternalsetup) {
+			this.sendCommand('birddogexternalsetup', 'GET')
+		}
+		if (MODEL_API?.birddogdetsetup) {
+			this.sendCommand('birddogdetsetup', 'GET')
+		}
+		if (MODEL_API?.birddoggammasetup) {
+			this.sendCommand('birddoggammasetup', 'GET')
+		}
+
 		this.debug('----Camera Setup----')
 		this.debug(this.camera)
-
-		this.updateVariables()
 	}
 }
 exports = module.exports = instance

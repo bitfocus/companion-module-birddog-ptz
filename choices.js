@@ -1,3 +1,9 @@
+var COLOR_TEMP = []
+
+for (let i = 28; i <= 65; i++) {
+	COLOR_TEMP.push({ id: i + '00', label: i + '00k' })
+}
+
 module.exports = {
 	// ############
 	// Basic Look Ups
@@ -78,23 +84,44 @@ module.exports = {
 	],
 
 	IRIS_3: [
-		{ id: '5', label: 'CLOSED' },
-		{ id: '6', label: 'F11.0' },
+		{ id: '0', label: 'CLOSED' },
+		{ id: '5', label: 'F11.0' },
+		{ id: '6', label: 'F10.0' },
 		{ id: '7', label: 'F9.6' },
-		{ id: '8', label: 'F8.0' },
-		{ id: '9', label: 'F6.8' },
-		{ id: '10', label: 'F5.6' },
-		{ id: '11', label: 'F4.8' },
-		{ id: '12', label: 'F4.0' },
-		{ id: '13', label: 'F3.4' },
-		{ id: '14', label: 'F2.8' },
-		{ id: '15', label: 'F2.4' },
-		{ id: '16', label: 'F2.0' },
-		{ id: '17', label: 'F1.6' },
-		{ id: '18', label: 'F1.6' },
-		{ id: '19', label: 'F1.6' },
-		{ id: '20', label: 'F1.6' },
-		{ id: '21', label: 'F1.6' },
+		{ id: '8', label: 'F8.7' },
+		{ id: '9', label: 'F8.0' },
+		{ id: '10', label: 'F7.3' },
+		{ id: '11', label: 'F6.8' },
+		{ id: '12', label: 'F6.2' },
+		{ id: '13', label: 'F5.6' },
+		{ id: '14', label: 'F5.2' },
+		{ id: '15', label: 'F4.8' },
+		{ id: '16', label: 'F4.4' },
+		{ id: '17', label: 'F4.0' },
+		{ id: '18', label: 'F3.7' },
+		{ id: '19', label: 'F3.4' },
+		{ id: '20', label: 'F3.1' },
+		{ id: '21', label: 'F2.8' },
+	],
+
+	IRIS_4: [
+		{ id: '5', label: 'F11.0' },
+		{ id: '6', label: 'F10.0' },
+		{ id: '7', label: 'F9.6' },
+		{ id: '8', label: 'F8.7' },
+		{ id: '9', label: 'F8.0' },
+		{ id: '10', label: 'F7.3' },
+		{ id: '11', label: 'F6.8' },
+		{ id: '12', label: 'F6.2' },
+		{ id: '13', label: 'F5.6' },
+		{ id: '14', label: 'F5.2' },
+		{ id: '15', label: 'F4.8' },
+		{ id: '16', label: 'F4.4' },
+		{ id: '17', label: 'F4.0' },
+		{ id: '18', label: 'F3.7' },
+		{ id: '19', label: 'F3.4' },
+		{ id: '20', label: 'F3.1' },
+		{ id: '21', label: 'F2.8' },
 	],
 
 	// ############
@@ -121,22 +148,21 @@ module.exports = {
 	],
 
 	GAIN_2: [
-		{ id: '0', label: '0 dB' },
-		{ id: '1', label: '2 dB' },
-		{ id: '2', label: '4 dB' },
+		{ id: '1', label: '0 dB' },
+		{ id: '2', label: '3 dB' },
 		{ id: '3', label: '6 dB' },
-		{ id: '4', label: '8 dB' },
-		{ id: '5', label: '10 dB' },
-		{ id: '6', label: '12 dB' },
-		{ id: '7', label: '14 dB' },
-		{ id: '8', label: '16 dB' },
-		{ id: '9', label: '18 dB' },
-		{ id: '10', label: '20 dB' },
-		{ id: '11', label: '22 dB' },
-		{ id: '12', label: '24 dB' },
-		{ id: '13', label: '26 dB' },
-		{ id: '14', label: '28 dB' },
-		{ id: '15', label: '30 dB' },
+		{ id: '4', label: '9 dB' },
+		{ id: '5', label: '12 dB' },
+		{ id: '6', label: '15 dB' },
+		{ id: '7', label: '18 dB' },
+		{ id: '8', label: '21 dB' },
+		{ id: '9', label: '24 dB' },
+		{ id: '10', label: '27 dB' },
+		{ id: '11', label: '30 dB' },
+		{ id: '12', label: '33 dB' },
+		{ id: '13', label: '36 dB' },
+		{ id: '14', label: '39 dB' },
+		{ id: '15', label: '42 dB' },
 	],
 
 	// ############
@@ -394,9 +420,8 @@ module.exports = {
 	// ############
 
 	ANALOG_AUDIO_OUTPUT: [
-		{ id: 'DecodeMain', label: 'DecodeMain' },
-		{ id: 'DecodeComms', label: 'DecodeComms' },
-		{ id: 'DecodeLoop', label: 'DecodeLoop' },
+		{ id: 'DecodeComms', label: 'Comms' },
+		{ id: 'DecodeLoop', label: 'Loop' },
 	],
 
 	// ############
@@ -494,6 +519,8 @@ module.exports = {
 		{ id: 'OFF', label: 'OFF' },
 		{ id: 'HIGH SAT', label: 'HIGH SAT' },
 	],
+
+	COLOR_TEMP,
 
 	// ############
 	// Picture Setup Look Ups

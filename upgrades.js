@@ -3,12 +3,22 @@ module.exports = {
 		let changed = false
 
 		actions.forEach((action) => {
-			if (action.action === 'power' || action.action === 'freeze') {
+			if (action.action === 'freeze') {
 				if (action.options.val == '0') {
 					action.options.val = 'On'
 					changed = true
 				} else if (action.options.val == '1') {
 					action.options.val = 'Off'
+					changed = true
+				}
+			}
+			if (action.action === 'power') {
+				action.action = 'standby'
+				if (action.options.val == 'On') {
+					action.options.val = 'Cam On'
+					changed = true
+				} else if (action.options.val == 'Off') {
+					action.options.val = 'Standby'
 					changed = true
 				}
 			}

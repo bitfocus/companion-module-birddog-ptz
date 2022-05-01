@@ -3,7 +3,6 @@ const CHOICES = require('./choices.js')
 
 module.exports = {
 	getActions() {
-		this.debug('---- in actions.js')
 		this.debug(this?.camera?.model)
 
 		MODEL_VALUES = MODELS.find((MODELS) => MODELS.id == this.camera.model).actions
@@ -11,14 +10,14 @@ module.exports = {
 		let actions = {}
 
 		// Common Actions
-		actions['power'] = {
-			label: 'Power On/Off',
+		actions['standby'] = {
+			label: 'Standby On/Off',
 			options: [
 				{
 					type: 'dropdown',
-					label: 'On/Off',
+					label: 'On/Standby',
 					id: 'val',
-					choices: CHOICES.ON_OFF,
+					choices: CHOICES.STANDBY,
 					default: 'On',
 				},
 			],
@@ -52,6 +51,20 @@ module.exports = {
 					id: 'val',
 					choices: CHOICES.PTZ_ZOOM,
 					default: '0',
+				},
+				{
+					type: 'checkbox',
+					label: 'Speed Overide',
+					id: 'override',
+					default: false,
+				},
+				{
+					type: 'number',
+					label: 'Speed',
+					id: 'speed',
+					choices: CHOICES.ZOOM_SPEED,
+					default: 4,
+					isVisible: (action) => action.options.override === true,
 				},
 			],
 		}
@@ -187,6 +200,65 @@ module.exports = {
 				},
 			],
 		}
+		actions['encodeBandwidth'] = {
+			label: 'Encode Bandwidth',
+			options: [
+				{
+					type: 'dropdown',
+					label: 'Manual / NDI Managed',
+					id: 'val',
+					choices: CHOICES.ENCODE_BANDWIDTH_MODE,
+					default: 'NDIManaged',
+				},
+				{
+					type: 'number',
+					label: 'Bandwidth Select',
+					id: 'bandwidth',
+					default: 120,
+					min: 80,
+					max: 180,
+					isVisible: (action) => action.options.val === 'Manual',
+				},
+			],
+		}
+		actions['analogAudioInGain'] = {
+			label: 'Analog Audio In Gain',
+			options: [
+				{
+					type: 'number',
+					label: 'Analog Audio In Gain (dB)',
+					id: 'val',
+					default: 0,
+					min: -50,
+					max: 50,
+				},
+			],
+		}
+		actions['analogAudioOutGain'] = {
+			label: 'Analog Audio Out Gain',
+			options: [
+				{
+					type: 'number',
+					label: 'Analog Audio Out Gain (dB)',
+					id: 'val',
+					default: 0,
+					min: -50,
+					max: 50,
+				},
+			],
+		}
+		actions['analogAudioOutput'] = {
+			label: 'Analog Audio Output Select',
+			options: [
+				{
+					type: 'dropdown',
+					label: 'Decode Comms / Decode Loop ',
+					id: 'val',
+					choices: CHOICES.ANALOG_AUDIO_OUTPUT,
+					default: 'DecodeComms',
+				},
+			],
+		}
 
 		// Model Specifc Actions
 		if (MODEL_VALUES?.pt) {
@@ -200,9 +272,32 @@ module.exports = {
 						choices: MODEL_VALUES.pt.choices,
 						default: MODEL_VALUES.pt.default,
 					},
+					{
+						type: 'checkbox',
+						label: 'Speed Overide',
+						id: 'override',
+						default: false,
+					},
+					{
+						type: 'number',
+						label: 'Pan Speed',
+						id: 'panSpeed',
+						choices: CHOICES.PAN_SPEED,
+						default: 11,
+						isVisible: (action) => action.options.override === true,
+					},
+					{
+						type: 'number',
+						label: 'Tilt Speed',
+						id: 'tiltSpeed',
+						choices: CHOICES.TILT_SPEED,
+						default: 9,
+						isVisible: (action) => action.options.override === true,
+					},
 				],
 			}
 		}
+
 		if (MODEL_VALUES?.panSpeed) {
 			actions['panSpeed'] = {
 				label: 'Pan Speed',
@@ -211,8 +306,8 @@ module.exports = {
 						type: 'dropdown',
 						label: 'Action',
 						id: 'type',
-						choices: MODEL_VALUES.panSpeed.choices,
-						default: MODEL_VALUES.panSpeed.default,
+						choices: CHOICES.SPEED_CHANGES,
+						default: 'up',
 					},
 					{
 						type: 'dropdown',
@@ -467,6 +562,20 @@ module.exports = {
 				],
 			}
 		}
-		return actions
+		if (MODEL_VALUES?.color_temp) {
+			actions['color_temp'] = {
+				label: 'Color Temperature',
+				options: [
+					{
+						type: 'dropdown',
+						label: 'Color Temperature (k)',
+						id: 'val',
+						choices: MODEL_VALUES.color_temp.choices,
+						default: MODEL_VALUES.color_temp.default,
+					},
+				],
+			}
+		}
+		return Object.fromEntries(Object.entries(actions).sort())
 	},
 }

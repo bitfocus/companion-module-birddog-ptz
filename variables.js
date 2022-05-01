@@ -38,22 +38,48 @@ exports.updateVariables = function () {
 			this.setVariable('model', this.camera.model)
 		}
 
-		if (MODEL_SPEC?.standby) {
-			this.setVariable('standby', this.camera.standby === 'on' ? 'Cam On' : 'Standby')
+		if (MODEL_SPEC?.hostname) {
+			this.setVariable('hostname', this.camera.about.HostName)
+		}
+
+		if (MODEL_SPEC?.ipaddress) {
+			this.setVariable('ipaddress', this.camera.about.IPAddress)
+		}
+
+		if (MODEL_SPEC?.netmask) {
+			this.setVariable('netmask', this.camera.about.NetworkMask)
+		}
+
+		if (MODEL_SPEC?.network_config) {
+			this.setVariable('network_config', this.camera.about.NetworkConfigMethod)
+		}
+
+		if (MODEL_SPEC?.serial_number) {
+			this.setVariable('serial_number', this.camera.about.SerialNumber)
 		}
 
 		if (MODEL_SPEC?.status) {
-			this.setVariable('status', this.camera.status)
+			this.setVariable('status', this.camera.about.Status)
 		}
 	}
+	// VISCA Variables
+	if (MODEL_SPEC?.standby) {
+		this.setVariable('standby', this.camera.standby)
+	}
+
+	if (MODEL_SPEC?.freeze) {
+		this.setVariable('freeze', this.camera.freeze)
+	}
+
+	// API Variables
 	// /analogaudiosetup
 	if (this.camera.audio) {
 		if (MODEL_SPEC?.audio_in_gain) {
-			this.setVariable('audio_in_gain', this.camera.audio.AnalogAudioInGain)
+			this.setVariable('audio_in_gain', this.camera.audio.AnalogAudioInGain - 50 + 'DB') //Convert API range to action range
 		}
 
 		if (MODEL_SPEC?.audio_out_gain) {
-			this.setVariable('audio_out_gain', this.camera.audio.AnalogAudioOutGain)
+			this.setVariable('audio_out_gain', this.camera.audio.AnalogAudioOutGain - 50 + 'DB') //Convert API range to action range
 		}
 
 		if (MODEL_SPEC?.audio_output) {
@@ -62,7 +88,7 @@ exports.updateVariables = function () {
 	}
 	// /videooutputinterface
 	//	if (MODEL_SPEC?.video_output) {
-	//		this.setVariable('video_output',this.camera.xx.videooutput)
+	//		this.setVariable('video_output',this.camera.video.videooutput)
 	//	}
 
 	// /encodesetup
@@ -103,6 +129,14 @@ exports.updateVariables = function () {
 	if (this.camera.transport) {
 		if (MODEL_SPEC?.transmit_method) {
 			this.setVariable('transmit_method', this.camera.transport.txpm)
+		}
+
+		if (MODEL_SPEC?.transmit_netprefix) {
+			this.setVariable('transmit_netprefix', this.camera.transport.txnetprefix)
+		}
+
+		if (MODEL_SPEC?.transmit_netmask) {
+			this.setVariable('transmit_netmask', this.camera.transport.txnetmask)
 		}
 	}
 	// /NDIDisServer
@@ -320,11 +354,95 @@ exports.updateVariables = function () {
 		}
 	}
 	// /birddogcmsetup
+	if (this.camera.cmsetup) {
+		if (MODEL_SPEC?.cm_blue_gain) {
+			this.setVariable('cm_blue_gain', this.camera.cmsetup.BlueGain)
+		}
+
+		if (MODEL_SPEC?.cm_blue_hue) {
+			this.setVariable('cm_blue_hue', this.camera.cmsetup.BlueHue)
+		}
+
+		if (MODEL_SPEC?.cm_color_gain) {
+			this.setVariable('cm_color_gain', this.camera.cmsetup.ColourGain)
+		}
+
+		if (MODEL_SPEC?.cm_cyan_gain) {
+			this.setVariable('cm_cyan_gain', this.camera.cmsetup.CyanGain)
+		}
+
+		if (MODEL_SPEC?.cm_cyan_hue) {
+			this.setVariable('cm_cyan_hue', this.camera.cmsetup.CyanHue)
+		}
+
+		if (MODEL_SPEC?.cm_green_gain) {
+			this.setVariable('cm_green_gain', this.camera.cmsetup.GreenGain)
+		}
+
+		if (MODEL_SPEC?.cm_green_hue) {
+			this.setVariable('cm_green_hue', this.camera.cmsetup.GreenHue)
+		}
+
+		if (MODEL_SPEC?.cm_hue_phase) {
+			this.setVariable('cm_hue_phase', this.camera.cmsetup.HuePhase)
+		}
+
+		if (MODEL_SPEC?.cm_mag_gain) {
+			this.setVariable('cm_mag_gain', this.camera.cmsetup.MagGain)
+		}
+
+		if (MODEL_SPEC?.cm_mag_hue) {
+			this.setVariable('cm_mag_hue', this.camera.cmsetup.MagHue)
+		}
+
+		if (MODEL_SPEC?.cm_red_gain) {
+			this.setVariable('cm_red_gain', this.camera.cmsetup.RedGain)
+		}
+
+		if (MODEL_SPEC?.cm_red_hue) {
+			this.setVariable('cm_red_hue', this.camera.cmsetup.RedHue)
+		}
+
+		if (MODEL_SPEC?.cm_yellow_gain) {
+			this.setVariable('cm_yellow_gain', this.camera.cmsetup.YellowGain)
+		}
+
+		if (MODEL_SPEC?.cm_yellow_hue) {
+			this.setVariable('cm_yellow_hue', this.camera.cmsetup.YellowHue)
+		}
+	}
 	// /birddogadvancesetup
+	if (this.camera.advancesetup) {
+		if (MODEL_SPEC?.brightness) {
+			this.setVariable('brightness', this.camera.advancesetup.Brightness)
+		}
+
+		if (MODEL_SPEC?.brightness_comp) {
+			this.setVariable('brightness_comp', this.camera.advancesetup.BrightnessComp)
+		}
+
+		if (MODEL_SPEC?.comp_level) {
+			this.setVariable('comp_level', this.camera.advancesetup.CompLevel)
+		}
+
+		if (MODEL_SPEC?.gamma_offset) {
+			this.setVariable('gamma_offset', this.camera.advancesetup.GammaOffset)
+		}
+
+		if (MODEL_SPEC?.high_resolution) {
+			this.setVariable('high_resolution', this.camera.advancesetup.HighResolution)
+		}
+
+		if (MODEL_SPEC?.video_enhancement) {
+			this.setVariable('video_enhancement', this.camera.advancesetup.VideoEnhancement)
+		}
+	}
 	// /birddogexternalsetup
 	// /birddogdetsetup
-	if (MODEL_SPEC?.bandwidth) {
-		this.setVariable('bandwidth', this.camera.detail.Bandwidth)
+	if (this.camera.detail) {
+		if (MODEL_SPEC?.bandwidth) {
+			this.setVariable('bandwidth', this.camera.detail.Bandwidth)
+		}
 	}
 	// /birddoggammasetup
 }
