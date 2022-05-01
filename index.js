@@ -449,7 +449,9 @@ class instance extends instance_skel {
 				break
 
 			case 'shut':
-				let shutter_speed = this.camera?.expsetup?.shutter_speed ? this.camera.expsetup.shutter_speed : MODEL_VALUES.shut.default
+				let shutter_speed = this.camera?.expsetup?.shutter_speed
+					? this.camera.expsetup.shutter_speed
+					: MODEL_VALUES.shut.default
 				switch (opt.val) {
 					case 'up':
 						newValue = shutter_speed < MODEL_VALUES.shut.range.max ? ++shutter_speed : MODEL_VALUES.shut.range.max
@@ -513,7 +515,7 @@ class instance extends instance_skel {
 						cmd = VISCA.MSG_CAM + '\x37\x03\xFF'
 						break
 					case '1':
-						cmd = VISCA.MSG_CAM  + '\x37\x01\xFF'
+						cmd = VISCA.MSG_CAM + '\x37\x01\xFF'
 						break
 					case '2':
 						cmd = VISCA.MSG_CAM + '\x37\x02\xFF'
@@ -538,7 +540,7 @@ class instance extends instance_skel {
 						cmd = VISCA.MSG_CAM + '\x52\x02\xFF'
 						break
 					case 'Off':
-						cmd = VISCA.MSG_CAM  + '\x52\x03\xFF'
+						cmd = VISCA.MSG_CAM + '\x52\x03\xFF'
 						break
 				}
 				this.sendVISCACommand(cmd)
@@ -597,21 +599,21 @@ class instance extends instance_skel {
 
 			case 'encodeBandwidth':
 				switch (opt.val) {
-					case 'NDIManaged': 
-					body = {
-						BandwidthMode: String(opt.val),
-					}
+					case 'NDIManaged':
+						body = {
+							BandwidthMode: String(opt.val),
+						}
 						break
 					case 'Manual':
 						body = {
 							BandwidthMode: String(opt.val),
-							BandwidthSelect: String(opt.bandwidth)
+							BandwidthSelect: String(opt.bandwidth),
 						}
 						break
 				}
 				this.sendCommand('encodesetup', 'POST', body)
 				break
-			
+
 			case 'analogAudioInGain':
 				body = {
 					AnalogAudioInGain: String(opt.val + 50), //Convert action range to API range
@@ -625,15 +627,15 @@ class instance extends instance_skel {
 				}
 				this.sendCommand('analogaudiosetup', 'POST', body)
 				break
-				
+
 			case 'analogAudioOutput':
 				body = {
 					AnalogAudiooutputselect: String(opt.val),
 				}
 				this.sendCommand('analogaudiosetup', 'POST', body)
 				break
-								
-			case 'colr_temp':
+
+			case 'color_temp':
 				body = {
 					ColorTemp: String(opt.val),
 				}
@@ -751,7 +753,7 @@ class instance extends instance_skel {
 			this.camera.externalsetup = data
 		} else if (cmd.match('/birddogdetsetup')) {
 			this.camera.detsetup = data
-		} else if (cmd.match('//birddoggammasetup')) {
+		} else if (cmd.match('/birddoggammasetup')) {
 			this.camera.gammasetup = data
 		}
 		this.updateVariables()
@@ -809,7 +811,7 @@ class instance extends instance_skel {
 				} else if (data[8] == 0x90 && data[9] == 0x50 && data[10] == 0x03 && data[11] == 0xff) {
 					this.camera.freeze = 'Off'
 				}
-				break	
+				break
 		}
 		this.updateVariables()
 		this.checkFeedbacks()
@@ -871,7 +873,7 @@ class instance extends instance_skel {
 	}
 
 	poll() {
-		MODEL_API = MODELS.find((MODELS) => MODELS.id == this.camera.model)?.apicalls
+		let MODEL_API = MODELS.find((MODELS) => MODELS.id == this.camera.model)?.apicalls
 		// Common Device Info
 		this.sendCommand('about', 'GET')
 		this.sendCommand('analogaudiosetup', 'GET')
@@ -882,7 +884,7 @@ class instance extends instance_skel {
 		this.sendCommand('birddogexpsetup', 'GET')
 		this.sendCommand('birddogwbsetup', 'GET')
 		this.sendCommand('birddogpicsetup', 'GET')
-		this.sendVISCACommand(VISCA.MSG_QRY + VISCA.CAM_POWER + VISCA.END_MSG, '\x4a') 		// Query Standby status
+		this.sendVISCACommand(VISCA.MSG_QRY + VISCA.CAM_POWER + VISCA.END_MSG, '\x4a') // Query Standby status
 		this.sendVISCACommand(VISCA.MSG_QRY + VISCA.CAM_FOCUS_AUTO + VISCA.END_MSG, '\x5a') // Query Auto Focus Mode
 		this.sendVISCACommand(VISCA.MSG_QRY + VISCA.CAM_FREEZE + VISCA.END_MSG, '\x5b') // Query Freeze
 		// Specific Model Info

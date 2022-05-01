@@ -1,7 +1,7 @@
 var COLOR_TEMP = []
 
-for (let i =28; i <= 65; i++ ) {
-	COLOR_TEMP.push( {id: i +'00', label: i + '00k'})
+for (let i = 28; i <= 65; i++) {
+	COLOR_TEMP.push({ id: i + '00', label: i + '00k' })
 }
 
 module.exports = {
@@ -420,8 +420,8 @@ module.exports = {
 	// ############
 
 	ANALOG_AUDIO_OUTPUT: [
-		{ id: 'DecodeComms', label: 'DecodeComms' },
-		{ id: 'DecodeLoop', label: 'DecodeLoop' },
+		{ id: 'DecodeComms', label: 'Comms' },
+		{ id: 'DecodeLoop', label: 'Loop' },
 	],
 
 	// ############
@@ -521,7 +521,7 @@ module.exports = {
 	],
 
 	COLOR_TEMP,
-	
+
 	// ############
 	// Picture Setup Look Ups
 	// ############

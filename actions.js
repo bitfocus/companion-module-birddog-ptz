@@ -226,7 +226,7 @@ module.exports = {
 			options: [
 				{
 					type: 'number',
-					label: 'Analog Audio In Gain (db)',
+					label: 'Analog Audio In Gain (dB)',
 					id: 'val',
 					default: 0,
 					min: -50,
@@ -239,7 +239,7 @@ module.exports = {
 			options: [
 				{
 					type: 'number',
-					label: 'Analog Audio Out Gain (db)',
+					label: 'Analog Audio Out Gain (dB)',
 					id: 'val',
 					default: 0,
 					min: -50,
@@ -297,7 +297,7 @@ module.exports = {
 				],
 			}
 		}
-		
+
 		if (MODEL_VALUES?.panSpeed) {
 			actions['panSpeed'] = {
 				label: 'Pan Speed',
@@ -563,7 +563,7 @@ module.exports = {
 			}
 		}
 		if (MODEL_VALUES?.color_temp) {
-			actions['colr_temp'] = {
+			actions['color_temp'] = {
 				label: 'Color Temperature',
 				options: [
 					{

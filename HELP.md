@@ -10,7 +10,7 @@ This module allows you to control any [BirdDog](https://birddog.tv/ptz-range/) P
 ## Available Actions
 
 - Analog Audio In Gain
-- Analog Audio In Gain
+- Analog Audio Out Gain
 - Analog Audio Output
 - Color Temperature
 - Contrast
@@ -43,7 +43,6 @@ This module allows you to control any [BirdDog](https://birddog.tv/ptz-range/) P
 - White Balance One Push Trigger
 - Zoom (with speed override)
 - Zoom Speed
-
 
 ## Available Variables
 

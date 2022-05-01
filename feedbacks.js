@@ -30,7 +30,7 @@ exports.initFeedbacks = function () {
 			},
 		],
 		callback: (feedback) => {
-			return this.camera.standby == feedback.options.standby
+			return this.camera?.standby == feedback.options.standby
 		},
 	}
 
@@ -96,7 +96,7 @@ exports.initFeedbacks = function () {
 			},
 		],
 		callback: (feedback) => {
-			return this.camera.audio?.AnalogAudioInGain == feedback.options.val
+			return this.camera?.encode?.BandwidthMode == feedback.options.val
 		},
 	}
 
@@ -118,7 +118,7 @@ exports.initFeedbacks = function () {
 			},
 		],
 		callback: (feedback) => {
-			return this.camera.audio?.AnalogAudiooutputselect == feedback.options.val
+			return this.camera?.audio?.AnalogAudiooutputselect == feedback.options.val
 		},
 	}
 
@@ -198,7 +198,8 @@ exports.initFeedbacks = function () {
 		feedbacks.color_temp = {
 			type: 'boolean',
 			label: 'Color Temp',
-			description: 'If the camera color temperature matches the selected color temperature, change the style of the button',
+			description:
+				'If the camera color temperature matches the selected color temperature, change the style of the button',
 			style: {
 				color: ColorBlack,
 				bgcolor: ColorGreen,
@@ -221,5 +222,4 @@ exports.initFeedbacks = function () {
 	this.setFeedbackDefinitions(feedbacks)
 
 	return Object.fromEntries(Object.entries(feedbacks).sort())
-
 }
