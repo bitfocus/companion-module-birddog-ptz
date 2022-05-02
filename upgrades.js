@@ -14,11 +14,11 @@ module.exports = {
 			}
 			if (action.action === 'power') {
 				action.action = 'standby'
-				if (action.options.val == 'On') {
-					action.options.val = 'Cam On'
+				if (action.options.val == '0') {
+					action.options.val = 'on'
 					changed = true
-				} else if (action.options.val == 'Off') {
-					action.options.val = 'Standby'
+				} else if (action.options.val == '1') {
+					action.options.val = 'standby'
 					changed = true
 				}
 			}
