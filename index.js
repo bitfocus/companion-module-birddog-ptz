@@ -29,6 +29,9 @@ class instance extends instance_skel {
 
 		this.camera = {}
 
+		// Initialise Objects for VISCA queries
+		this.camera.position = {}
+
 		this.camera.framerate = 50
 	}
 
@@ -812,6 +815,20 @@ class instance extends instance_skel {
 					this.camera.freeze = 'Off'
 				}
 				break
+			case '5c': // Query Zoom Position
+				if (data[8] == 0x90 && data[9] == 0x50 && data[14] == 0xff) {
+					this.camera.position.zoom =
+						data[10].toString(16) + data[11].toString(16) + data[12].toString(16) + data[13].toString(16)
+				}
+				break
+			case '5d': // Query Pan/Tilt Position
+				if (data[8] == 0x90 && data[9] == 0x50 && data[18] == 0xff) {
+					this.camera.position.pan =
+						data[10].toString(16) + data[11].toString(16) + data[12].toString(16) + data[13].toString(16)
+					this.camera.position.tilt =
+						data[14].toString(16) + data[15].toString(16) + data[16].toString(16) + data[17].toString(16)
+				}
+				break
 		}
 		this.updateVariables()
 		this.checkFeedbacks()
@@ -887,6 +904,8 @@ class instance extends instance_skel {
 		this.sendVISCACommand(VISCA.MSG_QRY + VISCA.CAM_POWER + VISCA.END_MSG, '\x4a') // Query Standby status
 		this.sendVISCACommand(VISCA.MSG_QRY + VISCA.CAM_FOCUS_AUTO + VISCA.END_MSG, '\x5a') // Query Auto Focus Mode
 		this.sendVISCACommand(VISCA.MSG_QRY + VISCA.CAM_FREEZE + VISCA.END_MSG, '\x5b') // Query Freeze
+		this.sendVISCACommand(VISCA.MSG_QRY + VISCA.CAM_ZOOM_DIRECT + VISCA.END_MSG, '\x5c') // Query Zoom Position
+		this.sendVISCACommand(VISCA.MSG_QRY_OPERATION + VISCA.OP_PAN_POS + VISCA.END_MSG, '\x5d') // Query Pan/Tilt Position
 		// Specific Model Info
 		if (MODEL_API?.birddogcmsetup) {
 			this.sendCommand('birddogcmsetup', 'GET')

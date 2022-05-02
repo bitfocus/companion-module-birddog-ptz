@@ -58,6 +58,7 @@ const COMMON = [
 		ndi_discovery_server_ip: { label: `NDI Discovery Server IP` },
 		// /birddogptzsetup
 		zoom_speed: { label: `Zoom Speed` },
+		zoom_position: { label: `Zoom Position` },
 		// Focus Settings
 		focus_mode: { label: `Focus Mode` },
 		// /birddogexpsetup
@@ -114,6 +115,8 @@ module.exports = {
 				// /birddogptzsetup
 				pan_speed: { label: `Pan Speed` },
 				tilt_speed: { label: `Tilt Speed` },
+				pan_position: { label: `Pan Position` },
+				tilt_position: { label: `Tilt Position` },
 				// /birddogexpsetup
 				shutter_control_overwrite: { label: `Shutter Control Overwrite` },
 				shutter_speed_overwrite: { label: `Shutter Speed Overwrite` },
@@ -238,6 +241,8 @@ module.exports = {
 				// /birddogptzsetup
 				pan_speed: { label: `Pan Speed` },
 				tilt_speed: { label: `Tilt Speed` },
+				pan_position: { label: `Pan Position` },
+				tilt_position: { label: `Tilt Position` },
 				// /birddogexpsetup
 				ae_response: { label: `Ae Response` },
 				gain_limit: { label: `Gain Limit` },
@@ -315,6 +320,8 @@ module.exports = {
 				// /birddogptzsetup
 				pan_speed: { label: `Pan Speed` },
 				tilt_speed: { label: `Tilt Speed` },
+				pan_position: { label: `Pan Position` },
+				tilt_position: { label: `Tilt Position` },
 				// /birddogexpsetup
 				ae_response: { label: `Ae Response` },
 				gain_limit: { label: `Gain Limit` },
@@ -392,6 +399,8 @@ module.exports = {
 				// /birddogptzsetup
 				pan_speed: { label: `Pan Speed` },
 				tilt_speed: { label: `Tilt Speed` },
+				pan_position: { label: `Pan Position` },
+				tilt_position: { label: `Tilt Position` },
 				// /birddogexpsetup
 				ae_response: { label: `Ae Response` },
 				gain_limit: { label: `Gain Limit` },
@@ -467,6 +476,8 @@ module.exports = {
 				// /birddogptzsetup
 				pan_speed: { label: `Pan Speed` },
 				tilt_speed: { label: `Tilt Speed` },
+				pan_position: { label: `Pan Position` },
+				tilt_position: { label: `Tilt Position` },
 				// /birddogexpsetup
 				ae_response: { label: `Ae Response` },
 				gain_limit: { label: `Gain Limit` },
@@ -542,6 +553,8 @@ module.exports = {
 				// /birddogptzsetup
 				pan_speed: { label: `Pan Speed` },
 				tilt_speed: { label: `Tilt Speed` },
+				pan_position: { label: `Pan Position` },
+				tilt_position: { label: `Tilt Position` },
 				// /birddogexpsetup
 				ae_response: { label: `Ae Response` },
 				gain_limit: { label: `Gain Limit` },
@@ -617,6 +630,8 @@ module.exports = {
 				// /birddogptzsetup
 				pan_speed: { label: `Pan Speed` },
 				tilt_speed: { label: `Tilt Speed` },
+				pan_position: { label: `Pan Position` },
+				tilt_position: { label: `Tilt Position` },
 				// /birddogexpsetup
 				ae_response: { label: `Ae Response` },
 				gain_limit: { label: `Gain Limit` },
@@ -695,6 +710,8 @@ module.exports = {
 				// /birddogptzsetup
 				pan_speed: { label: `Pan Speed` },
 				tilt_speed: { label: `Tilt Speed` },
+				pan_position: { label: `Pan Position` },
+				tilt_position: { label: `Tilt Position` },
 				// /birddogexpsetup
 				ae_response: { label: `Ae Response` },
 				backlight: {},
@@ -756,6 +773,8 @@ module.exports = {
 				// /birddogptzsetup
 				pan_speed: { label: `Pan Speed` },
 				tilt_speed: { label: `Tilt Speed` },
+				pan_position: { label: `Pan Position` },
+				tilt_position: { label: `Tilt Position` },
 				// /birddogexpsetup
 				ae_response: { label: `Ae Response` },
 				backlight: {},
