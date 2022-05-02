@@ -356,11 +356,11 @@ exports.updateVariables = function () {
 	// /birddogcmsetup
 	if (this.camera.cmsetup) {
 		if (MODEL_SPEC?.cm_blue_gain) {
-			this.setVariable('cm_blue_gain', this.camera.cmsetup.BlueGain)
+			this.setVariable('cm_blue_gain', this.camera.cmsetup.cam_cm_blu_gain)
 		}
 
 		if (MODEL_SPEC?.cm_blue_hue) {
-			this.setVariable('cm_blue_hue', this.camera.cmsetup.BlueHue)
+			this.setVariable('cm_blue_hue', this.camera.cmsetup.cam_cm_blu_hue)
 		}
 
 		if (MODEL_SPEC?.cm_color_gain) {
@@ -368,19 +368,19 @@ exports.updateVariables = function () {
 		}
 
 		if (MODEL_SPEC?.cm_cyan_gain) {
-			this.setVariable('cm_cyan_gain', this.camera.cmsetup.CyanGain)
+			this.setVariable('cm_cyan_gain', this.camera.cmsetup.cam_cm_cya_gain)
 		}
 
 		if (MODEL_SPEC?.cm_cyan_hue) {
-			this.setVariable('cm_cyan_hue', this.camera.cmsetup.CyanHue)
+			this.setVariable('cm_cyan_hue', this.camera.cmsetup.cam_cm_cya_hue)
 		}
 
 		if (MODEL_SPEC?.cm_green_gain) {
-			this.setVariable('cm_green_gain', this.camera.cmsetup.GreenGain)
+			this.setVariable('cm_green_gain', this.camera.cmsetup.cam_cm_gre_gain)
 		}
 
 		if (MODEL_SPEC?.cm_green_hue) {
-			this.setVariable('cm_green_hue', this.camera.cmsetup.GreenHue)
+			this.setVariable('cm_green_hue', this.camera.cmsetup.cam_cm_gre_hue)
 		}
 
 		if (MODEL_SPEC?.cm_hue_phase) {
@@ -388,27 +388,27 @@ exports.updateVariables = function () {
 		}
 
 		if (MODEL_SPEC?.cm_mag_gain) {
-			this.setVariable('cm_mag_gain', this.camera.cmsetup.MagGain)
+			this.setVariable('cm_mag_gain', this.camera.cmsetup.cam_cm_mag_gain)
 		}
 
 		if (MODEL_SPEC?.cm_mag_hue) {
-			this.setVariable('cm_mag_hue', this.camera.cmsetup.MagHue)
+			this.setVariable('cm_mag_hue', this.camera.cmsetup.cam_cm_mag_hue)
 		}
 
 		if (MODEL_SPEC?.cm_red_gain) {
-			this.setVariable('cm_red_gain', this.camera.cmsetup.RedGain)
+			this.setVariable('cm_red_gain', this.camera.cmsetup.cam_cm_red_gain)
 		}
 
 		if (MODEL_SPEC?.cm_red_hue) {
-			this.setVariable('cm_red_hue', this.camera.cmsetup.RedHue)
+			this.setVariable('cm_red_hue', this.camera.cmsetup.cam_cm_red_hue)
 		}
 
 		if (MODEL_SPEC?.cm_yellow_gain) {
-			this.setVariable('cm_yellow_gain', this.camera.cmsetup.YellowGain)
+			this.setVariable('cm_yellow_gain', this.camera.cmsetup.cam_cm_yel_gain)
 		}
 
 		if (MODEL_SPEC?.cm_yellow_hue) {
-			this.setVariable('cm_yellow_hue', this.camera.cmsetup.YellowHue)
+			this.setVariable('cm_yellow_hue', this.camera.cmsetup.cam_cm_yel_hue)
 		}
 	}
 	// /birddogadvancesetup
