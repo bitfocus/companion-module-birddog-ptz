@@ -163,6 +163,20 @@ exports.updateVariables = function () {
 			this.setVariable('zoom_speed', this.camera.ptz.ZoomSpeed)
 		}
 	}
+	// PTZ Position
+	if (this.camera.position) {
+		if (MODEL_SPEC?.zoom_position) {
+			this.setVariable('zoom_position', this.camera.position.zoom)
+		}
+
+		if (MODEL_SPEC?.pan_position) {
+			this.setVariable('pan_position', this.camera.position.pan)
+		}
+
+		if (MODEL_SPEC?.tilt_position) {
+			this.setVariable('tilt_position', this.camera.position.tilt)
+		}
+	}
 	// Focus Settings
 	if (this.camera.focus) {
 		if (MODEL_SPEC?.focus_mode) {

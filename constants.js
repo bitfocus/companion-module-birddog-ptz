@@ -5,6 +5,7 @@ module.exports = {
 	MSG_CAM: '\x81\x01\x04',
 	MSG_OPERATION: '\x81\x01\x06',
 	MSG_QRY: '\x81\x09\x04',
+	MSG_QRY_OPERATION: '\x81\x09\x06',
 
 	// ############
 	// Basic VISCA Constants
