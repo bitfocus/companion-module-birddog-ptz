@@ -356,11 +356,21 @@ exports.updateVariables = function () {
 	// /birddogcmsetup
 	if (this.camera.cmsetup) {
 		if (MODEL_SPEC?.cm_blue_gain) {
-			this.setVariable('cm_blue_gain', this.camera.cmsetup.BlueGain)
+			this.setVariable(
+				'cm_blue_gain',
+				this.camera.model == 'P100' || this.camera.model == 'PF120'
+					? this.camera.cmsetup.cam_cm_blu_gain
+					: this.camera.cmsetup.cm_BlueGain
+			)
 		}
 
 		if (MODEL_SPEC?.cm_blue_hue) {
-			this.setVariable('cm_blue_hue', this.camera.cmsetup.BlueHue)
+			this.setVariable(
+				'cm_blue_hue',
+				this.camera.model == 'P100' || this.camera.model == 'PF120'
+					? this.camera.cmsetup.cam_cm_blu_hue
+					: this.camera.cmsetup.cm_BlueHue
+			)
 		}
 
 		if (MODEL_SPEC?.cm_color_gain) {
@@ -368,19 +378,39 @@ exports.updateVariables = function () {
 		}
 
 		if (MODEL_SPEC?.cm_cyan_gain) {
-			this.setVariable('cm_cyan_gain', this.camera.cmsetup.CyanGain)
+			this.setVariable(
+				'cm_cyan_gain',
+				this.camera.model == 'P100' || this.camera.model == 'PF120'
+					? this.camera.cmsetup.cam_cm_cya_gain
+					: this.camera.cmsetup.cm_CyanGain
+			)
 		}
 
 		if (MODEL_SPEC?.cm_cyan_hue) {
-			this.setVariable('cm_cyan_hue', this.camera.cmsetup.CyanHue)
+			this.setVariable(
+				'cm_cyan_hue',
+				this.camera.model == 'P100' || this.camera.model == 'PF120'
+					? this.camera.cmsetup.cam_cm_cya_hue
+					: this.camera.cmsetup.cm_CyanHue
+			)
 		}
 
 		if (MODEL_SPEC?.cm_green_gain) {
-			this.setVariable('cm_green_gain', this.camera.cmsetup.GreenGain)
+			this.setVariable(
+				'cm_green_gain',
+				this.camera.model == 'P100' || this.camera.model == 'PF120'
+					? this.camera.cmsetup.cam_cm_gre_gain
+					: this.camera.cmsetup.cm_GreenGain
+			)
 		}
 
 		if (MODEL_SPEC?.cm_green_hue) {
-			this.setVariable('cm_green_hue', this.camera.cmsetup.GreenHue)
+			this.setVariable(
+				'cm_green_hue',
+				this.camera.model == 'P100' || this.camera.model == 'PF120'
+					? this.camera.cmsetup.cam_cm_gre_hue
+					: this.camera.cmsetup.cm_GreenHue
+			)
 		}
 
 		if (MODEL_SPEC?.cm_hue_phase) {
@@ -388,27 +418,57 @@ exports.updateVariables = function () {
 		}
 
 		if (MODEL_SPEC?.cm_mag_gain) {
-			this.setVariable('cm_mag_gain', this.camera.cmsetup.MagGain)
+			this.setVariable(
+				'cm_mag_gain',
+				this.camera.model == 'P100' || this.camera.model == 'PF120'
+					? this.camera.cmsetup.cam_cm_mag_gain
+					: this.camera.cmsetup.cm_MagGain
+			)
 		}
 
 		if (MODEL_SPEC?.cm_mag_hue) {
-			this.setVariable('cm_mag_hue', this.camera.cmsetup.MagHue)
+			this.setVariable(
+				'cm_mag_hue',
+				this.camera.model == 'P100' || this.camera.model == 'PF120'
+					? this.camera.cmsetup.cam_cm_mag_hue
+					: this.camera.cmsetup.cm_MagHue
+			)
 		}
 
 		if (MODEL_SPEC?.cm_red_gain) {
-			this.setVariable('cm_red_gain', this.camera.cmsetup.RedGain)
+			this.setVariable(
+				'cm_red_gain',
+				this.camera.model == 'P100' || this.camera.model == 'PF120'
+					? this.camera.cmsetup.cam_cm_red_gain
+					: this.camera.cmsetup.cm_RedGain
+			)
 		}
 
 		if (MODEL_SPEC?.cm_red_hue) {
-			this.setVariable('cm_red_hue', this.camera.cmsetup.RedHue)
+			this.setVariable(
+				'cm_red_hue',
+				this.camera.model == 'P100' || this.camera.model == 'PF120'
+					? this.camera.cmsetup.cam_cm_red_hue
+					: this.camera.cmsetup.cm_RedHue
+			)
 		}
 
 		if (MODEL_SPEC?.cm_yellow_gain) {
-			this.setVariable('cm_yellow_gain', this.camera.cmsetup.YellowGain)
+			this.setVariable(
+				'cm_yellow_gain',
+				this.camera.model == 'P100' || this.camera.model == 'PF120'
+					? this.camera.cmsetup.cam_cm_yel_gain
+					: this.camera.cmsetup.cm_YellowGain
+			)
 		}
 
 		if (MODEL_SPEC?.cm_yellow_hue) {
-			this.setVariable('cm_yellow_hue', this.camera.cmsetup.YellowHue)
+			this.setVariable(
+				'cm_yellow_hue',
+				this.camera.model == 'P100' || this.camera.model == 'PF120'
+					? this.camera.cmsetup.cam_cm_yel_hue
+					: this.camera.cmsetup.cm_YellowHue
+			)
 		}
 	}
 	// /birddogadvancesetup
