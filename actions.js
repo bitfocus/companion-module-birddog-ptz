@@ -53,10 +53,19 @@ module.exports = {
 					default: '0',
 				},
 				{
+					type: 'dropdown',
+					label: 'Zoom Position',
+					id: 'posZoom',
+					choices: MODEL_VALUES.zoom.posZoomChoices,
+					default: MODEL_VALUES.zoom.posZoomDefault,
+					isVisible: (action) => action.options.val === 'direct',
+				},
+				{
 					type: 'checkbox',
 					label: 'Speed Overide',
 					id: 'override',
 					default: false,
+					isVisible: (action) => action.options.val !== 'direct'
 				},
 				{
 					type: 'number',

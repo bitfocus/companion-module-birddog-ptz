@@ -1,13 +1,15 @@
-const { createPositionArray } = require('./utils')
+const { createPositionArray, createZoomArray } = require('./utils')
 var COLOR_TEMP = []
 
 for (let i = 28; i <= 65; i++) {
 	COLOR_TEMP.push({ id: i + '00', label: i + '00k' })
-}
+};
 
-;(POS_PAN_175 = createPositionArray(175, -175, 0x08da / 175)),
-	(POS_TILT = createPositionArray(90, -30, 0x049d / 90)),
-	(module.exports = {
+POS_PAN_175 = createPositionArray(175, -175, 5, 0x08da);
+POS_TILT = createPositionArray(90, -30, 5, 0x049d);
+POS_ZOOM_10 = createZoomArray(10,1,1,0x4000)
+
+module.exports = {
 		// ############
 		// Basic Look Ups
 		// ############
@@ -400,6 +402,7 @@ for (let i = 28; i <= 65; i++) {
 		PTZ_ZOOM: [
 			{ id: 'in', label: 'Zoom In' },
 			{ id: 'out', label: 'Zoom Out' },
+			{ id: 'direct', label: 'Zoom Direct' },
 			{ id: 'stop', label: 'Zoom Stop' },
 		],
 
@@ -407,6 +410,7 @@ for (let i = 28; i <= 65; i++) {
 
 		POS_PAN_175,
 		POS_TILT,
+		POS_ZOOM_10,
 
 		// ############
 		// Focus Look Ups
@@ -593,4 +597,4 @@ for (let i = 28; i <= 65; i++) {
 			{ id: 'STANDARD', label: 'Standard' },
 			{ id: 'STRAIGHT', label: 'Straight' },
 		],
-	})
+}

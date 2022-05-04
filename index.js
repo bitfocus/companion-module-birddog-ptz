@@ -320,6 +320,9 @@ class instance extends instance_skel {
 							this.addStringToBinary(VISCA.CMD_CAM_ZOOM_WIDE_WITH_SPEED, zoomSpeed) +
 							VISCA.END_MSG
 						break
+					case 'direct':
+						cmd = VISCA.MSG_CAM + VISCA.CAM_ZOOM_DIRECT + this.strToPQRS(opt.posZoom)  + VISCA.END_MSG
+						break
 					case 'stop':
 						cmd = VISCA.MSG_CAM + VISCA.CAM_ZOOM + VISCA.CMD_CAM_ZOOM_STOP + VISCA.END_MSG
 						break

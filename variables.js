@@ -168,7 +168,7 @@ exports.updateVariables = function () {
 	// PTZ Position
 	if (this.camera.position) {
 		if (MODEL_SPEC?.zoom_position) {
-			this.setVariable('zoom_position', this.camera.position.zoom)
+			this.setVariable('zoom_position', getPositionLabel(MODEL_VALUES.zoom.posZoomChoices, this.camera.position.zoom))
 		}
 
 		if (MODEL_SPEC?.pan_position) {

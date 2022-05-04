@@ -81,7 +81,7 @@ const COMMON = [
 		//actions
 		power: { choices: CHOICES.ON_OFF, default: 'On' },
 		zoomSpeed: { choices: CHOICES.ZOOM_SPEED },
-		zoom: { choices: CHOICES.PTZ_ZOOM, default: 'in' },
+		zoom: { choices: CHOICES.PTZ_ZOOM, default: 'in', posZoomChoices: CHOICES.POS_ZOOM_10, posZoomDefault: '0000', },
 		focus: { choices: CHOICES.FOCUS_CONTROL, default: 'near' },
 		focusM: { choices: CHOICES.AUTO_FOCUS, default: 'AutoFocus' },
 		wbOnePush: true,
