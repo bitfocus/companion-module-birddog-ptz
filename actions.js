@@ -50,7 +50,7 @@ module.exports = {
 					label: 'Direction',
 					id: 'val',
 					choices: CHOICES.PTZ_ZOOM,
-					default: '0',
+					default: 'in',
 				},
 				{
 					type: 'dropdown',

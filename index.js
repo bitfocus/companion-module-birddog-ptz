@@ -239,8 +239,8 @@ class instance extends instance_skel {
 						cmd =
 							VISCA.MSG_OPERATION +
 							VISCA.OP_PAN_ABSOLUTE +
-							String.fromCharCode(panSpeed) +
-							String.fromCharCode(tiltSpeed) +
+							String.fromCharCode(opt.panSpeed) +
+							String.fromCharCode(opt.tiltSpeed) +
 							this.strToPQRS(opt.posPan) + 
 							this.strToPQRS(opt.posTilt) + 
 							VISCA.END_MSG
