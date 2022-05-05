@@ -1,8 +1,17 @@
+const { createPositionArray, createZoomArray } = require('./utils')
 var COLOR_TEMP = []
 
 for (let i = 28; i <= 65; i++) {
 	COLOR_TEMP.push({ id: i + '00', label: i + '00k' })
 }
+
+POS_PAN_P100 = createPositionArray(175, -175, 5, 0x08da)
+POS_PAN_P200 = createPositionArray(175, -175, 5, 0x067b)
+POS_TILT = createPositionArray(90, -30, 5, 0x049d)
+POS_ZOOM_10 = createZoomArray(10, 1, 1, 0x4000)
+POS_ZOOM_12 = createZoomArray(12, 1, 1, 0x4000)
+POS_ZOOM_20 = createZoomArray(20, 1, 1, 0x4000)
+POS_ZOOM_30 = createZoomArray(30, 1, 1, 0x4000)
 
 module.exports = {
 	// ############
@@ -391,13 +400,25 @@ module.exports = {
 		{ id: 'down_right', label: 'Down Right' },
 		{ id: 'stop', label: 'P/T Stop' },
 		{ id: 'home', label: 'P/T Home' },
+		{ id: 'direct', label: 'Direct' },
 	],
 
 	PTZ_ZOOM: [
 		{ id: 'in', label: 'Zoom In' },
 		{ id: 'out', label: 'Zoom Out' },
+		{ id: 'direct', label: 'Zoom Direct' },
 		{ id: 'stop', label: 'Zoom Stop' },
 	],
+
+	// PTZ Position Look Ups
+
+	POS_PAN_P100,
+	POS_PAN_P200,
+	POS_TILT,
+	POS_ZOOM_10,
+	POS_ZOOM_12,
+	POS_ZOOM_20,
+	POS_ZOOM_30,
 
 	// ############
 	// Focus Look Ups

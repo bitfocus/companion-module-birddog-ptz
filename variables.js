@@ -1,3 +1,5 @@
+const { getPositionLabel } = require('./utils')
+
 var { MODELS } = require('./models.js')
 const CHOICES = require('./choices.js')
 
@@ -166,15 +168,16 @@ exports.updateVariables = function () {
 	// PTZ Position
 	if (this.camera.position) {
 		if (MODEL_SPEC?.zoom_position) {
-			this.setVariable('zoom_position', this.camera.position.zoom)
+
+			this.setVariable('zoom_position', getPositionLabel(MODEL_VALUES.zoom.posZoomChoices, this.camera.position.zoom))
 		}
 
 		if (MODEL_SPEC?.pan_position) {
-			this.setVariable('pan_position', this.camera.position.pan)
+			this.setVariable('pan_position', getPositionLabel(MODEL_VALUES.pt.posPanChoices, this.camera.position.pan))
 		}
 
 		if (MODEL_SPEC?.tilt_position) {
-			this.setVariable('tilt_position', this.camera.position.tilt)
+			this.setVariable('tilt_position', getPositionLabel(MODEL_VALUES.pt.posTiltChoices, this.camera.position.tilt))
 		}
 	}
 	// Focus Settings

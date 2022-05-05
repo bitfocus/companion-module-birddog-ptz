@@ -4,7 +4,7 @@ const presets = require('./presets')
 const { updateVariableDefinitions, updateVariables } = require('./variables')
 const { initFeedbacks } = require('./feedbacks')
 const upgradeScripts = require('./upgrades')
-const { addStringToBinary } = require('./utils')
+const { addStringToBinary, strToPQRS } = require('./utils')
 const VISCA = require('./constants')
 var { MODELS } = require('./models.js')
 
@@ -26,11 +26,14 @@ class instance extends instance_skel {
 		this.updateVariableDefinitions = updateVariableDefinitions
 		this.updateVariables = updateVariables
 		this.addStringToBinary = addStringToBinary
+		this.strToPQRS = strToPQRS
 
 		this.camera = {}
 
 		// Initialise Objects for VISCA queries
-		this.camera.position = {}
+
+		this.camera.position = { pan: '0000', tilt: '0000', zoom: '0000' }
+
 
 		this.camera.framerate = 50
 	}
@@ -234,6 +237,16 @@ class instance extends instance_skel {
 					case 'home':
 						cmd = VISCA.MSG_OPERATION + VISCA.OP_PAN_HOME + VISCA.END_MSG
 						break
+					case 'direct':
+						cmd =
+							VISCA.MSG_OPERATION +
+							VISCA.OP_PAN_ABSOLUTE +
+							String.fromCharCode(opt.panSpeed) +
+							String.fromCharCode(opt.tiltSpeed) +
+							this.strToPQRS(opt.posPan) +
+							this.strToPQRS(opt.posTilt) +
+							VISCA.END_MSG
+						break
 				}
 				this.sendVISCACommand(cmd)
 				break
@@ -308,6 +321,9 @@ class instance extends instance_skel {
 							VISCA.CAM_ZOOM +
 							this.addStringToBinary(VISCA.CMD_CAM_ZOOM_WIDE_WITH_SPEED, zoomSpeed) +
 							VISCA.END_MSG
+						break
+					case 'direct':
+						cmd = VISCA.MSG_CAM + VISCA.CAM_ZOOM_DIRECT + this.strToPQRS(opt.posZoom) + VISCA.END_MSG
 						break
 					case 'stop':
 						cmd = VISCA.MSG_CAM + VISCA.CAM_ZOOM + VISCA.CMD_CAM_ZOOM_STOP + VISCA.END_MSG
@@ -787,7 +803,7 @@ class instance extends instance_skel {
 		}
 
 		let newbuf = buf.slice(0, 8 + payload.length)
-
+		this.debug('-----Sending VISCA message: ' + Buffer.from(newbuf, 'binary').toString('hex'))
 		this.udp.send(newbuf)
 	}
 
