@@ -150,7 +150,7 @@ module.exports = {
 				pt: {
 					choices: CHOICES.PTZ_DIRECTION,
 					default: 'up',
-					posPanChoices: CHOICES.POS_PAN_175,
+					posPanChoices: CHOICES.POS_PAN_P100,
 					posPanDefault: '0000',
 					posTiltChoices: CHOICES.POS_TILT,
 					posTiltDefault: '0000',
@@ -296,7 +296,7 @@ module.exports = {
 				pt: {
 					choices: CHOICES.PTZ_DIRECTION,
 					default: 'up',
-					posPanChoices: CHOICES.POS_PAN_175,
+					posPanChoices: CHOICES.POS_PAN_P200,
 					posPanDefault: '0000',
 					posTiltChoices: CHOICES.POS_TILT,
 					posTiltDefault: '0000',
@@ -384,7 +384,7 @@ module.exports = {
 				pt: {
 					choices: CHOICES.PTZ_DIRECTION,
 					default: 'up',
-					posPanChoices: CHOICES.POS_PAN_175,
+					posPanChoices: CHOICES.POS_PAN_P200,
 					posPanDefault: '0000',
 					posTiltChoices: CHOICES.POS_TILT,
 					posTiltDefault: '0000',
@@ -470,7 +470,7 @@ module.exports = {
 				pt: {
 					choices: CHOICES.PTZ_DIRECTION,
 					default: 'up',
-					posPanChoices: CHOICES.POS_PAN_175,
+					posPanChoices: CHOICES.POS_PAN_P200,
 					posPanDefault: '0000',
 					posTiltChoices: CHOICES.POS_TILT,
 					posTiltDefault: '0000',
@@ -555,7 +555,7 @@ module.exports = {
 				pt: {
 					choices: CHOICES.PTZ_DIRECTION,
 					default: 'up',
-					posPanChoices: CHOICES.POS_PAN_175,
+					posPanChoices: CHOICES.POS_PAN_P200,
 					posPanDefault: '0000',
 					posTiltChoices: CHOICES.POS_TILT,
 					posTiltDefault: '0000',
@@ -640,7 +640,7 @@ module.exports = {
 				pt: {
 					choices: CHOICES.PTZ_DIRECTION,
 					default: 'up',
-					posPanChoices: CHOICES.POS_PAN_175,
+					posPanChoices: CHOICES.POS_PAN_P200,
 					posPanDefault: '0000',
 					posTiltChoices: CHOICES.POS_TILT,
 					posTiltDefault: '0000',
@@ -725,7 +725,7 @@ module.exports = {
 				pt: {
 					choices: CHOICES.PTZ_DIRECTION,
 					default: 'up',
-					posPanChoices: CHOICES.POS_PAN_175,
+					posPanChoices: CHOICES.POS_PAN_P200,
 					posPanDefault: '0000',
 					posTiltChoices: CHOICES.POS_TILT,
 					posTiltDefault: '0000',
@@ -796,7 +796,7 @@ module.exports = {
 				pt: {
 					choices: CHOICES.PTZ_DIRECTION,
 					default: 'up',
-					posPanChoices: CHOICES.POS_PAN_175,
+					posPanChoices: CHOICES.POS_PAN_P200,
 					posPanDefault: '0000',
 					posTiltChoices: CHOICES.POS_TILT,
 					posTiltDefault: '0000',
@@ -867,7 +867,7 @@ module.exports = {
 				pt: {
 					choices: CHOICES.PTZ_DIRECTION,
 					default: 'up',
-					posPanChoices: CHOICES.POS_PAN_175,
+					posPanChoices: CHOICES.POS_PAN_P200,
 					posPanDefault: '0000',
 					posTiltChoices: CHOICES.POS_TILT,
 					posTiltDefault: '0000',

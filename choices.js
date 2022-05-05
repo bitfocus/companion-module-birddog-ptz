@@ -5,7 +5,8 @@ for (let i = 28; i <= 65; i++) {
 	COLOR_TEMP.push({ id: i + '00', label: i + '00k' })
 };
 
-POS_PAN_175 = createPositionArray(175, -175, 5, 0x08da);
+POS_PAN_P100 = createPositionArray(175, -175, 5, 0x08da);
+POS_PAN_P200 = createPositionArray(175, -175, 5, 0x067b);
 POS_TILT = createPositionArray(90, -30, 5, 0x049d);
 POS_ZOOM_10 = createZoomArray(10,1,1,0x4000)
 POS_ZOOM_12 = createZoomArray(12,1,1,0x4000)
@@ -411,7 +412,8 @@ module.exports = {
 
 		// PTZ Position Look Ups
 
-		POS_PAN_175,
+		POS_PAN_P100,
+		POS_PAN_P200,
 		POS_TILT,
 		POS_ZOOM_10,
 		POS_ZOOM_12,
