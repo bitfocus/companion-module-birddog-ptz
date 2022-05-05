@@ -241,8 +241,8 @@ class instance extends instance_skel {
 							VISCA.OP_PAN_ABSOLUTE +
 							String.fromCharCode(opt.panSpeed) +
 							String.fromCharCode(opt.tiltSpeed) +
-							this.strToPQRS(opt.posPan) + 
-							this.strToPQRS(opt.posTilt) + 
+							this.strToPQRS(opt.posPan) +
+							this.strToPQRS(opt.posTilt) +
 							VISCA.END_MSG
 						break
 				}
@@ -321,7 +321,7 @@ class instance extends instance_skel {
 							VISCA.END_MSG
 						break
 					case 'direct':
-						cmd = VISCA.MSG_CAM + VISCA.CAM_ZOOM_DIRECT + this.strToPQRS(opt.posZoom)  + VISCA.END_MSG
+						cmd = VISCA.MSG_CAM + VISCA.CAM_ZOOM_DIRECT + this.strToPQRS(opt.posZoom) + VISCA.END_MSG
 						break
 					case 'stop':
 						cmd = VISCA.MSG_CAM + VISCA.CAM_ZOOM + VISCA.CMD_CAM_ZOOM_STOP + VISCA.END_MSG

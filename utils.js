@@ -10,8 +10,8 @@ function addStringToBinary(binaryStr, string) {
 
 function createPositionArray(max, min, steps, maxhex) {
 	var array = []
-	ratio = maxhex/max
-	for (let i = max; i >= min; i = i- steps) {
+	ratio = maxhex / max
+	for (let i = max; i >= min; i = i - steps) {
 		id = i < 0 ? ((ratio * i) >>> 0).toString(16).slice(4) : ('0000' + Math.round(ratio * i).toString(16)).slice(-4)
 		array.push({ id: id, label: i + String.fromCharCode(176) })
 	}
@@ -20,9 +20,9 @@ function createPositionArray(max, min, steps, maxhex) {
 
 function createZoomArray(max, min, steps, maxhex) {
 	var array = []
-    ratio = maxhex/(max -1)
+	ratio = maxhex / (max - 1)
 	for (let i = max; i >= min; i = i - steps) {
-		id = ('0000' + Math.round(ratio * (i-1)).toString(16)).slice(-4)
+		id = ('0000' + Math.round(ratio * (i - 1)).toString(16)).slice(-4)
 		array.push({ id: id, label: i + 'X' })
 	}
 	return array

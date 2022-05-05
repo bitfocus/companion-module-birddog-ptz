@@ -65,7 +65,7 @@ module.exports = {
 					label: 'Speed Overide',
 					id: 'override',
 					default: false,
-					isVisible: (action) => action.options.val !== 'direct'
+					isVisible: (action) => action.options.val !== 'direct',
 				},
 				{
 					type: 'number',
