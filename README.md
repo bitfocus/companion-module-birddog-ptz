@@ -12,11 +12,10 @@ See [HELP.md](https://github.com/bitfocus/companion-module-birddog-ptz/blob/main
 
 - Make API calls depending on model
 - Added Speed override on PTZ movement actions
-- Show values depending on model
 - Added ability to Pan/Tilt drive to a location
 - Added ability Zoom direct
-
-  - Gain
+- Show values depending on model
+-  - Gain
   - Iris
   - Shutter
 
