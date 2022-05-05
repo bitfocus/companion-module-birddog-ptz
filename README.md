@@ -12,9 +12,10 @@ See [HELP.md](https://github.com/bitfocus/companion-module-birddog-ptz/blob/main
 
 - Make API calls depending on model
 - Added Speed override on PTZ movement actions
+- Added ability to Pan/Tilt drive to a location
+- Added ability Zoom direct
 - Show values depending on model
-
-  - Gain
+-  - Gain
   - Iris
   - Shutter
 
@@ -26,7 +27,10 @@ See [HELP.md](https://github.com/bitfocus/companion-module-birddog-ptz/blob/main
   - Contrast
   - Encode Bandwidth
   - Freeze
+  - Pan / Tilt Direct
+  - Pan / Tilt Speed Override
   - Tally Mode
+  - Zoom Direct
 - New Variables
   - Analog Audio In Gain
   - Analog Audio In Gain
@@ -44,10 +48,13 @@ See [HELP.md](https://github.com/bitfocus/companion-module-birddog-ptz/blob/main
   - IP Address
   - Netmask
   - Network Config
+  - Pan Position
   - Serial Number
+  - Tilt Position
   - Transmit Netmask
   - Transmit Netprefix
   - Video Enhancement
+  - Zoom Position
 - New Feedbacks
   - Analog Audio Output Select
   - Color Temperature
