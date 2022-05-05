@@ -31,7 +31,9 @@ class instance extends instance_skel {
 		this.camera = {}
 
 		// Initialise Objects for VISCA queries
+
 		this.camera.position = { pan: '0000', tilt: '0000', zoom: '0000' }
+
 
 		this.camera.framerate = 50
 	}
