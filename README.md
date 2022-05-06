@@ -15,7 +15,7 @@ See [HELP.md](https://github.com/bitfocus/companion-module-birddog-ptz/blob/main
 - Added ability to Pan/Tilt drive to a location
 - Added ability Zoom direct
 - Show values depending on model
--  - Gain
+  - Gain
   - Iris
   - Shutter
 
@@ -27,8 +27,8 @@ See [HELP.md](https://github.com/bitfocus/companion-module-birddog-ptz/blob/main
   - Contrast
   - Encode Bandwidth
   - Freeze
-  - Pan / Tilt Direct
-  - Pan / Tilt Speed Override
+  - Pan/Tilt Direct
+  - Pan/Tilt Speed Override
   - Tally Mode
   - Zoom Direct
 - New Variables
