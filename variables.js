@@ -377,7 +377,7 @@ exports.updateVariables = function () {
 				'cm_blue_gain',
 				this.camera.model == 'P100' || this.camera.model == 'PF120'
 					? this.camera.cmsetup.cam_cm_blu_gain
-					: this.camera.cmsetup.cm_BlueGain
+					: this.camera.cmsetup.BlueGain
 			)
 		}
 
@@ -386,7 +386,7 @@ exports.updateVariables = function () {
 				'cm_blue_hue',
 				this.camera.model == 'P100' || this.camera.model == 'PF120'
 					? this.camera.cmsetup.cam_cm_blu_hue
-					: this.camera.cmsetup.cm_BlueHue
+					: this.camera.cmsetup.BlueHue
 			)
 		}
 
@@ -399,7 +399,7 @@ exports.updateVariables = function () {
 				'cm_cyan_gain',
 				this.camera.model == 'P100' || this.camera.model == 'PF120'
 					? this.camera.cmsetup.cam_cm_cya_gain
-					: this.camera.cmsetup.cm_CyanGain
+					: this.camera.cmsetup.CyanGain
 			)
 		}
 
@@ -408,7 +408,7 @@ exports.updateVariables = function () {
 				'cm_cyan_hue',
 				this.camera.model == 'P100' || this.camera.model == 'PF120'
 					? this.camera.cmsetup.cam_cm_cya_hue
-					: this.camera.cmsetup.cm_CyanHue
+					: this.camera.cmsetup.CyanHue
 			)
 		}
 
@@ -417,7 +417,7 @@ exports.updateVariables = function () {
 				'cm_green_gain',
 				this.camera.model == 'P100' || this.camera.model == 'PF120'
 					? this.camera.cmsetup.cam_cm_gre_gain
-					: this.camera.cmsetup.cm_GreenGain
+					: this.camera.cmsetup.GreenGain
 			)
 		}
 
@@ -426,7 +426,7 @@ exports.updateVariables = function () {
 				'cm_green_hue',
 				this.camera.model == 'P100' || this.camera.model == 'PF120'
 					? this.camera.cmsetup.cam_cm_gre_hue
-					: this.camera.cmsetup.cm_GreenHue
+					: this.camera.cmsetup.GreenHue
 			)
 		}
 
@@ -439,7 +439,7 @@ exports.updateVariables = function () {
 				'cm_mag_gain',
 				this.camera.model == 'P100' || this.camera.model == 'PF120'
 					? this.camera.cmsetup.cam_cm_mag_gain
-					: this.camera.cmsetup.cm_MagGain
+					: this.camera.cmsetup.MagGain
 			)
 		}
 
@@ -448,7 +448,7 @@ exports.updateVariables = function () {
 				'cm_mag_hue',
 				this.camera.model == 'P100' || this.camera.model == 'PF120'
 					? this.camera.cmsetup.cam_cm_mag_hue
-					: this.camera.cmsetup.cm_MagHue
+					: this.camera.cmsetup.MagHue
 			)
 		}
 
@@ -457,7 +457,7 @@ exports.updateVariables = function () {
 				'cm_red_gain',
 				this.camera.model == 'P100' || this.camera.model == 'PF120'
 					? this.camera.cmsetup.cam_cm_red_gain
-					: this.camera.cmsetup.cm_RedGain
+					: this.camera.cmsetup.RedGain
 			)
 		}
 
@@ -466,7 +466,7 @@ exports.updateVariables = function () {
 				'cm_red_hue',
 				this.camera.model == 'P100' || this.camera.model == 'PF120'
 					? this.camera.cmsetup.cam_cm_red_hue
-					: this.camera.cmsetup.cm_RedHue
+					: this.camera.cmsetup.RedHue
 			)
 		}
 
@@ -475,7 +475,7 @@ exports.updateVariables = function () {
 				'cm_yellow_gain',
 				this.camera.model == 'P100' || this.camera.model == 'PF120'
 					? this.camera.cmsetup.cam_cm_yel_gain
-					: this.camera.cmsetup.cm_YellowGain
+					: this.camera.cmsetup.YellowGain
 			)
 		}
 
@@ -484,7 +484,7 @@ exports.updateVariables = function () {
 				'cm_yellow_hue',
 				this.camera.model == 'P100' || this.camera.model == 'PF120'
 					? this.camera.cmsetup.cam_cm_yel_hue
-					: this.camera.cmsetup.cm_YellowHue
+					: this.camera.cmsetup.YellowHue
 			)
 		}
 	}
