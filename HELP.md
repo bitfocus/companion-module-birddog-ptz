@@ -29,6 +29,7 @@ This module allows you to control any [BirdDog](https://birddog.tv/ptz-range/) P
 - IR Cut Filter
 - Iris
 - Pan/Tilt (with speed override)
+- Pan/Tilt Direct
 - Pan Speed
 - Picture Effect
 - Picture Flip
@@ -42,6 +43,7 @@ This module allows you to control any [BirdDog](https://birddog.tv/ptz-range/) P
 - White Balance Mode
 - White Balance One Push Trigger
 - Zoom (with speed override)
+- Zoom Direct
 - Zoom Speed
 
 ## Available Variables
@@ -97,6 +99,7 @@ This module allows you to control any [BirdDog](https://birddog.tv/ptz-range/) P
 | **NDI Group**                   |       Y        |         Y          |      Y       |
 | **NDI Group Name**              |       Y        |         Y          |      Y       |
 | **Noise Reduction**             |       Y        |         Y          |              |
+| **Pan Position**                |       Y        |         Y          |      Y       |
 | **Pan Speed**                   |       Y        |         Y          |      Y       |
 | **Red Gain**                    |       Y        |         Y          |      Y       |
 | **Saturation**                  |       Y        |                    |              |
@@ -114,6 +117,7 @@ This module allows you to control any [BirdDog](https://birddog.tv/ptz-range/) P
 | **Status**                      |       Y        |         Y          |      Y       |
 | **Stream Name**                 |       Y        |         Y          |      Y       |
 | **Tally Mode**                  |       Y        |         Y          |      Y       |
+| **Tilt Position**               |       Y        |         Y          |      Y       |
 | **Tilt Speed**                  |       Y        |         Y          |      Y       |
 | **Transmit Method**             |       Y        |         Y          |      Y       |
 | **Video Enhancement**           |                |         Y          |              |
@@ -121,6 +125,7 @@ This module allows you to control any [BirdDog](https://birddog.tv/ptz-range/) P
 | **Video Output**                |                |                    |      Y       |
 | **White Balance Mode**          |       Y        |         Y          |      Y       |
 | **Wide Dynamic Range**          |       Y        |                    |              |
+| **Zoom Position**               |       Y        |         Y          |      Y       |
 | **Zoom Speed**                  |       Y        |         Y          |      Y       |
 
 ## Available Feedback
