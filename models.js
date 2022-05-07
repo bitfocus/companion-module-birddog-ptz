@@ -80,30 +80,31 @@ const COMMON = [
 	{
 		//actions
 		/////////
-		// /about
+		// General Camera Actions
 		standby: { choices: CHOICES.STANDBY, default: 'On' },
 		freeze: true,
-		// /analogaudiosetup
-		// /encodesetup
-		// /encodeTransport
-		// /NDIDisServer
-		// /birddogptzsetup
+		// Analog Audio Actions
+		// Video Output Interface Actions
+		// Encode Setup Actions
+		// Encode Transport Actions
+		// NDI Discovery Server Actions
+		// PTZ Actions
 		zoomSpeed: { choices: CHOICES.ZOOM_SPEED },
 		zoom: { choices: CHOICES.PTZ_ZOOM, default: 'in' },
 		savePset: true,
 		recallPset: true,
-		// PTZ Position
-		// Focus Settings
+		// Focus Actions
 		focus: { choices: CHOICES.FOCUS_CONTROL, default: 'near' },
 		focusM: { choices: CHOICES.AUTO_FOCUS, default: 'AutoFocus' },
-		// /birddogexpsetup
-		// /birddogwbsetup
+		// Exposure Actions
+		// White Balance Actions
 		wbOnePush: true,
 		gainBlue: { choices: CHOICES.UP_DOWN_VALUE, default: 'up' },
 		gainRed: { choices: CHOICES.UP_DOWN_VALUE, default: 'up' },
-		// /birddogpicsetup
+		// Picture Setup Actions
 		picFlip: { choices: CHOICES.ON_OFF, default: 'On' },
 		picMirror: { choices: CHOICES.ON_OFF, default: 'On' },
+		// Other Actions
 		custom: true,
 	},
 	{
@@ -228,10 +229,18 @@ module.exports = {
 			},
 			actions: {
 				...COMMON[2],
-				zoom: { ...COMMON[2].zoom, posZoomChoices: CHOICES.POS_ZOOM_20, posZoomDefault: '0000' },
+				// General Camera Actions
+				// Analog Audio Actions
+				// Video Output Interface Actions
+				// Encode Setup Actions
 				tally: { choices: CHOICES.TALLY_MODE, default: 'TallyOn' },
+				// Encode Transport Actions
+				// NDI Discovery Server Actions
+				// PTZ Actions
+				zoom: { ...COMMON[2].zoom, posZoomChoices: CHOICES.POS_ZOOM_20, posZoomDefault: '0000' },
+				// Focus Actions
+				// Exposure Actions
 				expM: { choices: CHOICES.EXP_MODE_1, default: 'FULL-AUTO' },
-				wb: { choices: CHOICES.WB_MODE_1, default: 'AUTO' },
 				gain: { choices: CHOICES.GAIN_1, default: 0 },
 				iris: { choices: CHOICES.IRIS_1, default: 1, range: { closed: 0, min: 1, max: 13 } },
 				shut: {
@@ -240,9 +249,18 @@ module.exports = {
 					default: 6,
 					range: { min: 0, max: 21 },
 				},
+				// White Balance Actions
+				wb: { choices: CHOICES.WB_MODE_1, default: 'AUTO' },
+				color_temp: { choices: CHOICES.COLOR_TEMP, default: '6400' },
+				// Picture Setup Actions
 				contrast: { choices: CHOICES.UP_DOWN_VALUE, default: 'up' },
 				pictureEffect: { choices: CHOICES.PICTURE_EFFECT, default: 'BW' },
-				color_temp: { choices: CHOICES.COLOR_TEMP, default: '6400' },
+				// Color Matrix Actions
+				// Advanced Setup Actions
+				// External Setup Actions
+				// Detail Setup Actions
+				// Gamma Setup Actions
+				// Other Actions
 			},
 			feedback: {
 				...COMMON[3],
@@ -305,6 +323,14 @@ module.exports = {
 			},
 			actions: {
 				...COMMON[2],
+				// General Camera Actions
+				// Analog Audio Actions
+				// Video Output Interface Actions
+				// Encode Setup Actions
+				tally: { choices: CHOICES.TALLY_MODE, default: 'TallyOn' },
+				// Encode Transport Actions
+				// NDI Discovery Server Actions
+				// PTZ Actions
 				pt: {
 					choices: CHOICES.PTZ_DIRECTION,
 					default: 'up',
@@ -316,9 +342,9 @@ module.exports = {
 				zoom: { ...COMMON[2].zoom, posZoomChoices: CHOICES.POS_ZOOM_30, posZoomDefault: '0000' },
 				panSpeed: { choices: CHOICES.SPEED_CHANGES, default: 'up' },
 				tiltSpeed: { choices: CHOICES.SPEED_CHANGES, default: 'up' },
-				tally: { choices: CHOICES.TALLY_MODE, default: 'TallyOn' },
+				// Focus Actions
+				// Exposure Actions
 				expM: { choices: CHOICES.EXP_MODE_2, default: 'FULL-AUTO' },
-				wb: { choices: CHOICES.WB_MODE_2, default: 'AUTO' },
 				gain: { choices: CHOICES.GAIN_2, default: 0 },
 				iris: { choices: CHOICES.IRIS_2, default: 1, range: { closed: 0, min: 5, max: 17 } },
 				shut: {
@@ -328,8 +354,17 @@ module.exports = {
 					range: { min: 0, max: 21 },
 				},
 				highSensitivity: { choices: CHOICES.ON_OFF, default: 'On' },
+				// White Balance Actions
+				wb: { choices: CHOICES.WB_MODE_2, default: 'AUTO' },
+				// Picture Setup Actions
 				pictureEffect: { choices: CHOICES.PICTURE_EFFECT, default: 'BW' },
 				irMode: { choices: CHOICES.IR_CUT_FILTER_3, default: 'NoiseReduction' },
+				// Color Matrix Actions
+				// Advanced Setup Actions
+				// External Setup Actions
+				// Detail Setup Actions
+				// Gamma Setup Actions
+				// Other Actions
 			},
 			feedback: {
 				...COMMON[3],
@@ -393,6 +428,14 @@ module.exports = {
 			},
 			actions: {
 				...COMMON[2],
+				// General Camera Actions
+				// Analog Audio Actions
+				// Video Output Interface Actions
+				// Encode Setup Actions
+				tally: { choices: CHOICES.TALLY_MODE, default: 'TallyOn' },
+				// Encode Transport Actions
+				// NDI Discovery Server Actions
+				// PTZ Actions
 				pt: {
 					choices: CHOICES.PTZ_DIRECTION,
 					default: 'up',
@@ -404,20 +447,21 @@ module.exports = {
 				zoom: { ...COMMON[2].zoom, posZoomChoices: CHOICES.POS_ZOOM_30, posZoomDefault: '0000' },
 				panSpeed: { choices: CHOICES.SPEED_CHANGES, default: 'up' },
 				tiltSpeed: { choices: CHOICES.SPEED_CHANGES, default: 'up' },
-				tally: { choices: CHOICES.TALLY_MODE, default: 'TallyOn' },
+				// Focus Actions
+				// Exposure Actions
 				expM: { choices: CHOICES.EXP_MODE_1, default: 'FULL-AUTO' },
-				wb: { choices: CHOICES.WB_MODE_2, default: 'AUTO' },
-				gain: { choices: CHOICES.GAIN_2, default: 0 },
-				iris: { choices: CHOICES.IRIS_2, default: 1, range: { closed: 0, min: 5, max: 17 } },
-				shut: {
-					shutter_50: CHOICES.SHUTTER_50,
-					shutter_60: CHOICES.SHUTTER_60,
-					default: 6,
-					range: { min: 0, max: 21 },
-				},
 				highSensitivity: { choices: CHOICES.ON_OFF, default: 'On' },
+				// White Balance Actions
+				wb: { choices: CHOICES.WB_MODE_2, default: 'AUTO' },
+				// Picture Setup Actions
 				pictureEffect: { choices: CHOICES.PICTURE_EFFECT, default: 'BW' },
 				irMode: { choices: CHOICES.IR_CUT_FILTER_1, default: 'Auto' },
+				// Color Matrix Actions
+				// Advanced Setup Actions
+				// External Setup Actions
+				// Detail Setup Actions
+				// Gamma Setup Actions
+				// Other Actions
 			},
 			feedback: {
 				...COMMON[3],
@@ -479,6 +523,13 @@ module.exports = {
 			},
 			actions: {
 				...COMMON[2],
+				// General Camera Actions
+				// Analog Audio Actions
+				// Video Output Interface Actions
+				// Encode Setup Actions
+				// Encode Transport Actions
+				// NDI Discovery Server Actions
+				// PTZ Actions
 				pt: {
 					choices: CHOICES.PTZ_DIRECTION,
 					default: 'up',
@@ -490,8 +541,9 @@ module.exports = {
 				zoom: { ...COMMON[2].zoom, posZoomChoices: CHOICES.POS_ZOOM_30, posZoomDefault: '0000' },
 				panSpeed: { choices: CHOICES.SPEED_CHANGES, default: 'up' },
 				tiltSpeed: { choices: CHOICES.SPEED_CHANGES, default: 'up' },
+				// Focus Actions
+				// Exposure Actions
 				expM: { choices: CHOICES.EXP_MODE_1, default: 'FULL-AUTO' },
-				wb: { choices: CHOICES.WB_MODE_2, default: 'AUTO' },
 				gain: { choices: CHOICES.GAIN_2, default: 0 },
 				iris: { choices: CHOICES.IRIS_2, default: 1, range: { closed: 0, min: 5, max: 17 } },
 				shut: {
@@ -501,8 +553,17 @@ module.exports = {
 					range: { min: 0, max: 21 },
 				},
 				highSensitivity: { choices: CHOICES.ON_OFF, default: 'On' },
+				// White Balance Actions
+				wb: { choices: CHOICES.WB_MODE_2, default: 'AUTO' },
+				// Picture Setup Actions
 				pictureEffect: { choices: CHOICES.PICTURE_EFFECT, default: 'BW' },
 				irMode: { choices: CHOICES.IR_CUT_FILTER_1, default: 'Auto' },
+				// Color Matrix Actions
+				// Advanced Setup Actions
+				// External Setup Actions
+				// Detail Setup Actions
+				// Gamma Setup Actions
+				// Other Actions
 			},
 			feedback: {
 				...COMMON[3],
@@ -564,6 +625,13 @@ module.exports = {
 			},
 			actions: {
 				...COMMON[2],
+				// General Camera Actions
+				// Analog Audio Actions
+				// Video Output Interface Actions
+				// Encode Setup Actions
+				// Encode Transport Actions
+				// NDI Discovery Server Actions
+				// PTZ Actions
 				pt: {
 					choices: CHOICES.PTZ_DIRECTION,
 					default: 'up',
@@ -575,8 +643,9 @@ module.exports = {
 				zoom: { ...COMMON[2].zoom, posZoomChoices: CHOICES.POS_ZOOM_30, posZoomDefault: '0000' },
 				panSpeed: { choices: CHOICES.SPEED_CHANGES, default: 'up' },
 				tiltSpeed: { choices: CHOICES.SPEED_CHANGES, default: 'up' },
+				// Focus Actions
+				// Exposure Actions
 				expM: { choices: CHOICES.EXP_MODE_1, default: 'FULL-AUTO' },
-				wb: { choices: CHOICES.WB_MODE_2, default: 'AUTO' },
 				gain: { choices: CHOICES.GAIN_2, default: 0 },
 				iris: { choices: CHOICES.IRIS_2, default: 1, range: { closed: 0, min: 5, max: 17 } },
 				shut: {
@@ -586,8 +655,17 @@ module.exports = {
 					range: { min: 0, max: 21 },
 				},
 				highSensitivity: { choices: CHOICES.ON_OFF, default: 'On' },
+				// White Balance Actions
+				wb: { choices: CHOICES.WB_MODE_2, default: 'AUTO' },
+				// Picture Setup Actions
 				pictureEffect: { choices: CHOICES.PICTURE_EFFECT, default: 'BW' },
 				irMode: { choices: CHOICES.IR_CUT_FILTER_1, default: 'Auto' },
+				// Color Matrix Actions
+				// Advanced Setup Actions
+				// External Setup Actions
+				// Detail Setup Actions
+				// Gamma Setup Actions
+				// Other Actions
 			},
 			feedback: {
 				...COMMON[3],
@@ -649,6 +727,13 @@ module.exports = {
 			},
 			actions: {
 				...COMMON[2],
+				// General Camera Actions
+				// Analog Audio Actions
+				// Video Output Interface Actions
+				// Encode Setup Actions
+				// Encode Transport Actions
+				// NDI Discovery Server Actions
+				// PTZ Actions
 				pt: {
 					choices: CHOICES.PTZ_DIRECTION,
 					default: 'up',
@@ -660,8 +745,9 @@ module.exports = {
 				zoom: { ...COMMON[2].zoom, posZoomChoices: CHOICES.POS_ZOOM_30, posZoomDefault: '0000' },
 				panSpeed: { choices: CHOICES.SPEED_CHANGES, default: 'up' },
 				tiltSpeed: { choices: CHOICES.SPEED_CHANGES, default: 'up' },
+				// Focus Actions
+				// Exposure Actions
 				expM: { choices: CHOICES.EXP_MODE_1, default: 'FULL-AUTO' },
-				wb: { choices: CHOICES.WB_MODE_2, default: 'AUTO' },
 				gain: { choices: CHOICES.GAIN_2, default: 0 },
 				iris: { choices: CHOICES.IRIS_2, default: 1, range: { closed: 0, min: 5, max: 17 } },
 				shut: {
@@ -671,8 +757,17 @@ module.exports = {
 					range: { min: 0, max: 21 },
 				},
 				highSensitivity: { choices: CHOICES.ON_OFF, default: 'On' },
+				// White Balance Actions
+				wb: { choices: CHOICES.WB_MODE_2, default: 'AUTO' },
+				// Picture Setup Actions
 				pictureEffect: { choices: CHOICES.PICTURE_EFFECT, default: 'BW' },
 				irMode: { choices: CHOICES.IR_CUT_FILTER_1, default: 'Auto' },
+				// Color Matrix Actions
+				// Advanced Setup Actions
+				// External Setup Actions
+				// Detail Setup Actions
+				// Gamma Setup Actions
+				// Other Actions
 			},
 			feedback: {
 				...COMMON[3],
@@ -734,6 +829,13 @@ module.exports = {
 			},
 			actions: {
 				...COMMON[2],
+				// General Camera Actions
+				// Analog Audio Actions
+				// Video Output Interface Actions
+				// Encode Setup Actions
+				// Encode Transport Actions
+				// NDI Discovery Server Actions
+				// PTZ Actions
 				pt: {
 					choices: CHOICES.PTZ_DIRECTION,
 					default: 'up',
@@ -745,8 +847,9 @@ module.exports = {
 				zoom: { ...COMMON[2].zoom, posZoomChoices: CHOICES.POS_ZOOM_30, posZoomDefault: '0000' },
 				panSpeed: { choices: CHOICES.SPEED_CHANGES, default: 'up' },
 				tiltSpeed: { choices: CHOICES.SPEED_CHANGES, default: 'up' },
+				// Focus Actions
+				// Exposure Actions
 				expM: { choices: CHOICES.EXP_MODE_1, default: 'FULL-AUTO' },
-				wb: { choices: CHOICES.WB_MODE_2, default: 'AUTO' },
 				gain: { choices: CHOICES.GAIN_2, default: 0 },
 				iris: { choices: CHOICES.IRIS_2, default: 1, range: { closed: 0, min: 5, max: 17 } },
 				shut: {
@@ -756,8 +859,17 @@ module.exports = {
 					range: { min: 0, max: 21 },
 				},
 				highSensitivity: { choices: CHOICES.ON_OFF, default: 'On' },
+				// White Balance Actions
+				wb: { choices: CHOICES.WB_MODE_2, default: 'AUTO' },
+				// Picture Setup Actions
 				pictureEffect: { choices: CHOICES.PICTURE_EFFECT, default: 'BW' },
 				irMode: { choices: CHOICES.IR_CUT_FILTER_1, default: 'Auto' },
+				// Color Matrix Actions
+				// Advanced Setup Actions
+				// External Setup Actions
+				// Detail Setup Actions
+				// Gamma Setup Actions
+				// Other Actions
 			},
 			feedback: {
 				...COMMON[3],
@@ -805,6 +917,13 @@ module.exports = {
 			},
 			actions: {
 				...COMMON[2],
+				// General Camera Actions
+				// Analog Audio Actions
+				// Video Output Interface Actions
+				// Encode Setup Actions
+				// Encode Transport Actions
+				// NDI Discovery Server Actions
+				// PTZ Actions
 				pt: {
 					choices: CHOICES.PTZ_DIRECTION,
 					default: 'up',
@@ -816,8 +935,9 @@ module.exports = {
 				zoom: { ...COMMON[2].zoom, posZoomChoices: CHOICES.POS_ZOOM_20, posZoomDefault: '0000' },
 				panSpeed: { choices: CHOICES.SPEED_CHANGES, default: 'up' },
 				tiltSpeed: { choices: CHOICES.SPEED_CHANGES, default: 'up' },
+				// Focus Actions
+				// Exposure Actions
 				expM: { choices: CHOICES.EXP_MODE_3, default: 'FULL-AUTO' },
-				wb: { choices: CHOICES.WB_MODE_2, default: 'AUTO' },
 				gain: { choices: CHOICES.GAIN_2, default: 0 },
 				iris: { choices: CHOICES.IRIS_3, default: 1, range: { closed: 0, min: 5, max: 21 } },
 				shut: {
@@ -828,7 +948,16 @@ module.exports = {
 					range: { min: 6, max: 33 },
 				},
 				highSensitivity: { choices: CHOICES.ON_OFF, default: 'On' },
+				// White Balance Actions
+				wb: { choices: CHOICES.WB_MODE_2, default: 'AUTO' },
+				// Picture Setup Actions
 				irMode: { choices: CHOICES.IR_CUT_FILTER_2, default: 'On' },
+				// Color Matrix Actions
+				// Advanced Setup Actions
+				// External Setup Actions
+				// Detail Setup Actions
+				// Gamma Setup Actions
+				// Other Actions
 			},
 			feedback: {
 				...COMMON[3],
@@ -876,6 +1005,13 @@ module.exports = {
 			},
 			actions: {
 				...COMMON[2],
+				// General Camera Actions
+				// Analog Audio Actions
+				// Video Output Interface Actions
+				// Encode Setup Actions
+				// Encode Transport Actions
+				// NDI Discovery Server Actions
+				// PTZ Actions
 				pt: {
 					choices: CHOICES.PTZ_DIRECTION,
 					default: 'up',
@@ -887,8 +1023,9 @@ module.exports = {
 				zoom: { ...COMMON[2].zoom, posZoomChoices: CHOICES.POS_ZOOM_12, posZoomDefault: '0000' },
 				panSpeed: { choices: CHOICES.SPEED_CHANGES, default: 'up' },
 				tiltSpeed: { choices: CHOICES.SPEED_CHANGES, default: 'up' },
+				// Focus Actions
+				// Exposure Actions
 				expM: { choices: CHOICES.EXP_MODE_3, default: 'FULL-AUTO' },
-				wb: { choices: CHOICES.WB_MODE_2, default: 'AUTO' },
 				gain: { choices: CHOICES.GAIN_2, default: 0 },
 				iris: { choices: CHOICES.IRIS_4, default: 1, range: { closed: 5, min: 6, max: 21 } },
 				shut: {
@@ -899,7 +1036,16 @@ module.exports = {
 					range: { min: 6, max: 33 },
 				},
 				highSensitivity: { choices: CHOICES.ON_OFF, default: 'On' },
+				// White Balance Actions
+				wb: { choices: CHOICES.WB_MODE_2, default: 'AUTO' },
+				// Picture Setup Actions
 				irMode: { choices: CHOICES.IR_CUT_FILTER_2, default: 'On' },
+				// Color Matrix Actions
+				// Advanced Setup Actions
+				// External Setup Actions
+				// Detail Setup Actions
+				// Gamma Setup Actions
+				// Other Actions
 			},
 			feedback: {
 				...COMMON[3],

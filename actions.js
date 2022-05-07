@@ -25,6 +25,7 @@ module.exports = {
 		}
 
 		// Analog Audio Actions
+		
 		actions['analogAudioInGain'] = {
 			label: 'Analog Audio In Gain',
 			options: [
