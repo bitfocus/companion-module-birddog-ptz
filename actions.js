@@ -9,7 +9,8 @@ module.exports = {
 
 		let actions = {}
 
-		// Common Actions
+		// General Camera Actions
+
 		actions['standby'] = {
 			label: 'Standby On/Off',
 			options: [
@@ -22,214 +23,8 @@ module.exports = {
 				},
 			],
 		}
-		actions['zoomSpeed'] = {
-			label: 'Zoom Speed',
-			options: [
-				{
-					type: 'dropdown',
-					label: 'Action',
-					id: 'type',
-					choices: CHOICES.SPEED_CHANGES,
-					default: 'up',
-				},
-				{
-					type: 'dropdown',
-					label: 'Value',
-					id: 'value',
-					choices: CHOICES.ZOOM_SPEED,
-					default: 4,
-					isVisible: (action) => action.options.type === 'value',
-				},
-			],
-		}
-		actions['zoom'] = {
-			label: 'Zoom',
-			options: [
-				{
-					type: 'dropdown',
-					label: 'Direction',
-					id: 'val',
-					choices: CHOICES.PTZ_ZOOM,
-					default: 'in',
-				},
-				{
-					type: 'dropdown',
-					label: 'Zoom Position',
-					id: 'posZoom',
-					choices: MODEL_VALUES.zoom.posZoomChoices,
-					default: MODEL_VALUES.zoom.posZoomDefault,
-					isVisible: (action) => action.options.val === 'direct',
-				},
-				{
-					type: 'checkbox',
-					label: 'Speed Overide',
-					id: 'override',
-					default: false,
-					isVisible: (action) => action.options.val !== 'direct',
-				},
-				{
-					type: 'number',
-					label: 'Speed',
-					id: 'speed',
-					choices: CHOICES.ZOOM_SPEED,
-					default: 4,
-					isVisible: (action) => action.options.override === true,
-				},
-			],
-		}
-		actions['focus'] = {
-			label: 'Focus',
-			options: [
-				{
-					type: 'dropdown',
-					label: 'Direction',
-					id: 'val',
-					choices: CHOICES.FOCUS_CONTROL,
-					default: '0',
-				},
-			],
-		}
-		actions['focusM'] = {
-			label: 'Focus Mode',
-			options: [
-				{
-					type: 'dropdown',
-					label: 'Mode',
-					id: 'val',
-					choices: CHOICES.AUTO_FOCUS,
-					default: 'Auto',
-				},
-			],
-		}
-		actions['wbOnePush'] = {
-			label: 'White Balance One Push Trigger',
-			description: 'Camera must be in One Push mode in order to use this action',
-		}
-		actions['gainBlue'] = {
-			label: 'Gain Blue',
-			options: [
-				{
-					type: 'dropdown',
-					label: 'Gain Blue',
-					id: 'val',
-					choices: CHOICES.UP_DOWN_VALUE,
-					default: 'up',
-				},
-				{
-					type: 'number',
-					label: 'Value',
-					id: 'value',
-					default: 127,
-					min: 0,
-					max: 255,
-					isVisible: (action) => action.options.val === 'value',
-				},
-			],
-		}
-		actions['gainRed'] = {
-			label: 'Gain Red',
-			options: [
-				{
-					type: 'dropdown',
-					label: 'Gain Red',
-					id: 'val',
-					choices: CHOICES.UP_DOWN_VALUE,
-					default: 'up',
-				},
-				{
-					type: 'number',
-					label: 'Value',
-					id: 'value',
-					default: 127,
-					min: 0,
-					max: 255,
-					isVisible: (action) => action.options.val === 'value',
-				},
-			],
-		}
-		actions['savePset'] = {
-			label: 'Save Preset',
-			options: [
-				{
-					type: 'number',
-					label: 'Preset Number',
-					id: 'val',
-					default: 1,
-					min: 1,
-					max: 64,
-				},
-			],
-		}
-		actions['recallPset'] = {
-			label: 'Recall Preset',
-			options: [
-				{
-					type: 'number',
-					label: 'Preset Number',
-					id: 'val',
-					default: 1,
-					min: 1,
-					max: 64,
-				},
-			],
-		}
-		actions['picFlip'] = {
-			label: 'Picture Flip',
-			options: [
-				{
-					type: 'dropdown',
-					label: 'On / Off',
-					id: 'val',
-					choices: CHOICES.ON_OFF,
-					default: 'On',
-				},
-			],
-		}
-		actions['picMirror'] = {
-			label: 'Picture Mirror',
-			options: [
-				{
-					type: 'dropdown',
-					label: 'On / Off',
-					id: 'val',
-					choices: CHOICES.ON_OFF,
-					default: 'On',
-				},
-			],
-		}
-		actions['custom'] = {
-			label: 'Custom Visca Command',
-			options: [
-				{
-					type: 'textinput',
-					label: 'Custom command, must start with 8',
-					id: 'custom',
-					regex: '/^8[0-9a-fA-F]\\s*([0-9a-fA-F]\\s*)+$/',
-					width: 6,
-				},
-			],
-		}
-		actions['encodeBandwidth'] = {
-			label: 'Encode Bandwidth',
-			options: [
-				{
-					type: 'dropdown',
-					label: 'Manual / NDI Managed',
-					id: 'val',
-					choices: CHOICES.ENCODE_BANDWIDTH_MODE,
-					default: 'NDIManaged',
-				},
-				{
-					type: 'number',
-					label: 'Bandwidth Select',
-					id: 'bandwidth',
-					default: 120,
-					min: 80,
-					max: 180,
-					isVisible: (action) => action.options.val === 'Manual',
-				},
-			],
-		}
+
+		// Analog Audio Actions
 		actions['analogAudioInGain'] = {
 			label: 'Analog Audio In Gain',
 			options: [
@@ -261,7 +56,7 @@ module.exports = {
 			options: [
 				{
 					type: 'dropdown',
-					label: 'Decode Comms / Decode Loop ',
+					label: 'Decode Comms / Decode Loop',
 					id: 'val',
 					choices: CHOICES.ANALOG_AUDIO_OUTPUT,
 					default: 'DecodeComms',
@@ -269,7 +64,76 @@ module.exports = {
 			],
 		}
 
-		// Model Specifc Actions
+		// Video Output Interface Actions
+
+		// Encode Setup Actions
+
+		actions['encodeBandwidth'] = {
+			label: 'Encode Bandwidth',
+			options: [
+				{
+					type: 'dropdown',
+					label: 'Manual / NDI Managed',
+					id: 'val',
+					choices: CHOICES.ENCODE_BANDWIDTH_MODE,
+					default: 'NDIManaged',
+				},
+				{
+					type: 'number',
+					label: 'Bandwidth Select',
+					id: 'bandwidth',
+					default: 120,
+					min: 80,
+					max: 180,
+					isVisible: (action) => action.options.val === 'Manual',
+				},
+			],
+		}
+		actions['ndiAudio'] = {
+			label: 'NDI Audio',
+			options: [
+				{
+					type: 'dropdown',
+					label: 'Analog / Mute',
+					id: 'val',
+					choices: CHOICES.ENCODE_NDI_AUDIO,
+					default: 'NDIAudioMute',
+				},
+			],
+		}
+		actions['ndiGroupEnable'] = {
+			label: 'NDI Group Enable',
+			options: [
+				{
+					type: 'dropdown',
+					label: 'NDI Group Enable',
+					id: 'val',
+					choices: CHOICES.ENCODE_NDIGroup,
+					default: 'NDIGroupDis',
+				},
+			],
+		}
+		if (MODEL_VALUES?.tally) {
+			actions['tally'] = {
+				label: 'Tally',
+				options: [
+					{
+						type: 'dropdown',
+						label: 'On / Off',
+						id: 'val',
+						choices: MODEL_VALUES.tally.choices,
+						default: MODEL_VALUES.tally.default,
+					},
+				],
+			}
+		}
+
+		// Encode Transport Actions
+
+		// NDI Discovery Server Actions
+
+		// PTZ Actions
+
 		if (MODEL_VALUES?.pt) {
 			actions['pt'] = {
 				label: 'Pan/Tilt',
@@ -323,7 +187,41 @@ module.exports = {
 				],
 			}
 		}
-
+		actions['zoom'] = {
+			label: 'Zoom',
+			options: [
+				{
+					type: 'dropdown',
+					label: 'Direction',
+					id: 'val',
+					choices: CHOICES.PTZ_ZOOM,
+					default: 'in',
+				},
+				{
+					type: 'dropdown',
+					label: 'Zoom Position',
+					id: 'posZoom',
+					choices: MODEL_VALUES.zoom.posZoomChoices,
+					default: MODEL_VALUES.zoom.posZoomDefault,
+					isVisible: (action) => action.options.val === 'direct',
+				},
+				{
+					type: 'checkbox',
+					label: 'Speed Overide',
+					id: 'override',
+					default: false,
+					isVisible: (action) => action.options.val !== 'direct',
+				},
+				{
+					type: 'number',
+					label: 'Speed',
+					id: 'speed',
+					choices: CHOICES.ZOOM_SPEED,
+					default: 4,
+					isVisible: (action) => action.options.override === true,
+				},
+			],
+		}
 		if (MODEL_VALUES?.panSpeed) {
 			actions['panSpeed'] = {
 				label: 'Pan Speed',
@@ -368,6 +266,82 @@ module.exports = {
 				],
 			}
 		}
+		actions['zoomSpeed'] = {
+			label: 'Zoom Speed',
+			options: [
+				{
+					type: 'dropdown',
+					label: 'Action',
+					id: 'type',
+					choices: CHOICES.SPEED_CHANGES,
+					default: 'up',
+				},
+				{
+					type: 'dropdown',
+					label: 'Value',
+					id: 'value',
+					choices: CHOICES.ZOOM_SPEED,
+					default: 4,
+					isVisible: (action) => action.options.type === 'value',
+				},
+			],
+		}
+		actions['savePset'] = {
+			label: 'Save Preset',
+			options: [
+				{
+					type: 'number',
+					label: 'Preset Number',
+					id: 'val',
+					default: 1,
+					min: 1,
+					max: 64,
+				},
+			],
+		}
+		actions['recallPset'] = {
+			label: 'Recall Preset',
+			options: [
+				{
+					type: 'number',
+					label: 'Preset Number',
+					id: 'val',
+					default: 1,
+					min: 1,
+					max: 64,
+				},
+			],
+		}
+
+		// Focus Actions
+
+		actions['focus'] = {
+			label: 'Focus',
+			options: [
+				{
+					type: 'dropdown',
+					label: 'Direction',
+					id: 'val',
+					choices: CHOICES.FOCUS_CONTROL,
+					default: '0',
+				},
+			],
+		}
+		actions['focusM'] = {
+			label: 'Focus Mode',
+			options: [
+				{
+					type: 'dropdown',
+					label: 'Mode',
+					id: 'val',
+					choices: CHOICES.AUTO_FOCUS,
+					default: 'Auto',
+				},
+			],
+		}
+
+		// Exposure Actions
+
 		if (MODEL_VALUES?.expM) {
 			actions['expM'] = {
 				label: 'Exposure Mode',
@@ -382,20 +356,7 @@ module.exports = {
 				],
 			}
 		}
-		if (MODEL_VALUES?.wb) {
-			actions['wb'] = {
-				label: 'White Balance Mode',
-				options: [
-					{
-						type: 'dropdown',
-						label: 'Mode',
-						id: 'val',
-						choices: MODEL_VALUES.wb.choices,
-						default: MODEL_VALUES.wb.default,
-					},
-				],
-			}
-		}
+
 		if (MODEL_VALUES?.gain) {
 			actions['gain'] = {
 				label: 'Gain',
@@ -462,6 +423,125 @@ module.exports = {
 				],
 			}
 		}
+
+		if (MODEL_VALUES?.high_sensitivity) {
+			actions['highSensitivity'] = {
+				label: 'High Sensitivity Mode',
+				options: [
+					{
+						type: 'dropdown',
+						label: 'On / Off',
+						id: 'val',
+						choices: MODEL_VALUES.high_sensitivity.choices,
+						default: MODEL_VALUES.high_sensitivity.default,
+					},
+				],
+			}
+		}
+
+		// White Balance Actions
+
+		if (MODEL_VALUES?.wb) {
+			actions['wb'] = {
+				label: 'White Balance Mode',
+				options: [
+					{
+						type: 'dropdown',
+						label: 'Mode',
+						id: 'val',
+						choices: MODEL_VALUES.wb.choices,
+						default: MODEL_VALUES.wb.default,
+					},
+				],
+			}
+		}
+		actions['wbOnePush'] = {
+			label: 'White Balance One Push Trigger',
+			description: 'Camera must be in One Push mode in order to use this action',
+		}
+		actions['gainBlue'] = {
+			label: 'Gain Blue',
+			options: [
+				{
+					type: 'dropdown',
+					label: 'Gain Blue',
+					id: 'val',
+					choices: CHOICES.UP_DOWN_VALUE,
+					default: 'up',
+				},
+				{
+					type: 'number',
+					label: 'Value',
+					id: 'value',
+					default: 127,
+					min: 0,
+					max: 255,
+					isVisible: (action) => action.options.val === 'value',
+				},
+			],
+		}
+		actions['gainRed'] = {
+			label: 'Gain Red',
+			options: [
+				{
+					type: 'dropdown',
+					label: 'Gain Red',
+					id: 'val',
+					choices: CHOICES.UP_DOWN_VALUE,
+					default: 'up',
+				},
+				{
+					type: 'number',
+					label: 'Value',
+					id: 'value',
+					default: 127,
+					min: 0,
+					max: 255,
+					isVisible: (action) => action.options.val === 'value',
+				},
+			],
+		}
+		if (MODEL_VALUES?.color_temp) {
+			actions['color_temp'] = {
+				label: 'Color Temperature',
+				options: [
+					{
+						type: 'dropdown',
+						label: 'Color Temperature (k)',
+						id: 'val',
+						choices: MODEL_VALUES.color_temp.choices,
+						default: MODEL_VALUES.color_temp.default,
+					},
+				],
+			}
+		}
+
+		// Picture Setup Actions
+
+		actions['picFlip'] = {
+			label: 'Picture Flip',
+			options: [
+				{
+					type: 'dropdown',
+					label: 'On / Off',
+					id: 'val',
+					choices: CHOICES.ON_OFF,
+					default: 'On',
+				},
+			],
+		}
+		actions['picMirror'] = {
+			label: 'Picture Mirror',
+			options: [
+				{
+					type: 'dropdown',
+					label: 'On / Off',
+					id: 'val',
+					choices: CHOICES.ON_OFF,
+					default: 'On',
+				},
+			],
+		}
 		if (MODEL_VALUES?.contrast) {
 			actions['contrast'] = {
 				label: 'Contrast',
@@ -499,6 +579,46 @@ module.exports = {
 				],
 			}
 		}
+
+		if (MODEL_VALUES?.irMode) {
+			actions['irMode'] = {
+				label: 'IR Cut Filter',
+				options: [
+					{
+						type: 'dropdown',
+						label: 'On / Off',
+						id: 'val',
+						choices: MODEL_VALUES.irMode.choices,
+						default: MODEL_VALUES.irMode.default,
+					},
+				],
+			}
+		}
+
+		// Color Matrix Actions
+
+		// Advanced Setup Actions
+
+		// External Setup Actions
+
+		// Detail Setup Actions
+
+		// Gamma Setup Actions
+
+		// Other Actions
+
+		actions['custom'] = {
+			label: 'Custom Visca Command',
+			options: [
+				{
+					type: 'textinput',
+					label: 'Custom command, must start with 8',
+					id: 'custom',
+					regex: '/^8[0-9a-fA-F]\\s*([0-9a-fA-F]\\s*)+$/',
+					width: 6,
+				},
+			],
+		}
 		if (MODEL_VALUES?.defog) {
 			actions['defog'] = {
 				label: 'Defog',
@@ -518,20 +638,6 @@ module.exports = {
 				],
 			}
 		}
-		if (MODEL_VALUES?.irMode) {
-			actions['irMode'] = {
-				label: 'IR Cut Filter',
-				options: [
-					{
-						type: 'dropdown',
-						label: 'On / Off',
-						id: 'val',
-						choices: MODEL_VALUES.irMode.choices,
-						default: MODEL_VALUES.irMode.default,
-					},
-				],
-			}
-		}
 		if (MODEL_VALUES?.hrMode) {
 			actions['hrMode'] = {
 				label: 'High Resolution Mode',
@@ -546,34 +652,6 @@ module.exports = {
 				],
 			}
 		}
-		if (MODEL_VALUES?.high_sensitivity) {
-			actions['highSensitivity'] = {
-				label: 'High Sensitivity Mode',
-				options: [
-					{
-						type: 'dropdown',
-						label: 'On / Off',
-						id: 'val',
-						choices: MODEL_VALUES.high_sensitivity.choices,
-						default: MODEL_VALUES.high_sensitivity.default,
-					},
-				],
-			}
-		}
-		if (MODEL_VALUES?.tally) {
-			actions['tally'] = {
-				label: 'Tally',
-				options: [
-					{
-						type: 'dropdown',
-						label: 'On / Off',
-						id: 'val',
-						choices: MODEL_VALUES.tally.choices,
-						default: MODEL_VALUES.tally.default,
-					},
-				],
-			}
-		}
 		if (MODEL_VALUES?.freeze) {
 			actions['freeze'] = {
 				label: 'Freeze',
@@ -584,20 +662,6 @@ module.exports = {
 						id: 'val',
 						choices: CHOICES.ON_OFF,
 						default: 'On',
-					},
-				],
-			}
-		}
-		if (MODEL_VALUES?.color_temp) {
-			actions['color_temp'] = {
-				label: 'Color Temperature',
-				options: [
-					{
-						type: 'dropdown',
-						label: 'Color Temperature (k)',
-						id: 'val',
-						choices: MODEL_VALUES.color_temp.choices,
-						default: MODEL_VALUES.color_temp.default,
 					},
 				],
 			}

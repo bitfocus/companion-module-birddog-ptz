@@ -79,17 +79,29 @@ const COMMON = [
 	},
 	{
 		//actions
-		power: { choices: CHOICES.ON_OFF, default: 'On' },
+		/////////
+		// /about
+		standby: { choices: CHOICES.STANDBY, default: 'On' },
+		freeze: true,
+		// /analogaudiosetup
+		// /encodesetup
+		// /encodeTransport
+		// /NDIDisServer
+		// /birddogptzsetup
 		zoomSpeed: { choices: CHOICES.ZOOM_SPEED },
 		zoom: { choices: CHOICES.PTZ_ZOOM, default: 'in' },
+		savePset: true,
+		recallPset: true,
+		// PTZ Position
+		// Focus Settings
 		focus: { choices: CHOICES.FOCUS_CONTROL, default: 'near' },
 		focusM: { choices: CHOICES.AUTO_FOCUS, default: 'AutoFocus' },
+		// /birddogexpsetup
+		// /birddogwbsetup
 		wbOnePush: true,
 		gainBlue: { choices: CHOICES.UP_DOWN_VALUE, default: 'up' },
 		gainRed: { choices: CHOICES.UP_DOWN_VALUE, default: 'up' },
-		freeze: true,
-		savePset: true,
-		recallPset: true,
+		// /birddogpicsetup
 		picFlip: { choices: CHOICES.ON_OFF, default: 'On' },
 		picMirror: { choices: CHOICES.ON_OFF, default: 'On' },
 		custom: true,

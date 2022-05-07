@@ -34,7 +34,6 @@ class instance extends instance_skel {
 
 		this.camera.position = { pan: '0000', tilt: '0000', zoom: '0000' }
 
-
 		this.camera.framerate = 50
 	}
 
@@ -128,6 +127,8 @@ class instance extends instance_skel {
 		let body = {}
 
 		switch (action.action) {
+			// General Camera Actions
+
 			case 'standby':
 				switch (opt.val) {
 					case 'on':
@@ -139,6 +140,77 @@ class instance extends instance_skel {
 				}
 				this.sendVISCACommand(cmd)
 				break
+
+			// /Analog Audio Actions
+
+			case 'analogAudioInGain':
+				body = {
+					AnalogAudioInGain: String(opt.val + 50), //Convert action range to API range
+				}
+				this.sendCommand('analogaudiosetup', 'POST', body)
+				break
+
+			case 'analogAudioOutGain':
+				body = {
+					AnalogAudioOutGain: String(opt.val + 50), //Convert action range to API range
+				}
+				this.sendCommand('analogaudiosetup', 'POST', body)
+				break
+
+			case 'analogAudioOutput':
+				body = {
+					AnalogAudiooutputselect: String(opt.val),
+				}
+				this.sendCommand('analogaudiosetup', 'POST', body)
+				break
+
+			// Video Output Interface Actions
+
+			// Encode Setup Actions
+
+			case 'tally':
+				body = {
+					TallyMode: String(opt.val),
+				}
+				this.sendCommand('encodesetup', 'POST', body)
+				break
+
+			case 'encodeBandwidth':
+				switch (opt.val) {
+					case 'NDIManaged':
+						body = {
+							BandwidthMode: String(opt.val),
+						}
+						break
+					case 'Manual':
+						body = {
+							BandwidthMode: String(opt.val),
+							BandwidthSelect: String(opt.bandwidth),
+						}
+						break
+				}
+				this.sendCommand('encodesetup', 'POST', body)
+				break
+
+			case 'ndiAudio':
+				body = {
+					NDIAudio: String(opt.val),
+				}
+				this.sendCommand('encodesetup', 'POST', body)
+				break
+
+			case 'ndiGroupEnable':
+				body = {
+					NDIGroup: String(opt.val),
+				}
+				this.sendCommand('encodesetup', 'POST', body)
+				break
+
+			// Encode Transport Actions
+
+			// NDI Discovery Server Actions
+
+			// PTZ Actions
 
 			case 'pt':
 				panSpeed = opt.override === true ? opt.panSpeed : panSpeed
@@ -332,6 +404,22 @@ class instance extends instance_skel {
 				this.sendVISCACommand(cmd)
 				break
 
+			case 'savePset':
+				body = {
+					Preset: String('Preset-' + opt.val),
+				}
+				this.sendCommand('save', 'POST', body)
+				break
+
+			case 'recallPset':
+				body = {
+					Preset: String('Preset-' + opt.val),
+				}
+				this.sendCommand('recall', 'POST', body)
+				break
+
+			// Focus Actions
+
 			case 'focus':
 				switch (opt.val) {
 					case 'near':
@@ -362,25 +450,14 @@ class instance extends instance_skel {
 				this.sendVISCACommand(cmd)
 				break
 
+			// Exposure Actions
+
 			case 'expM':
 				body = {
 					ExpMode: String(opt.val),
 				}
 				this.sendCommand('birddogexpsetup', 'POST', body)
 				break
-
-			case 'wb':
-				body = {
-					WbMode: String(opt.val),
-				}
-				this.sendCommand('birddogwbsetup', 'POST', body)
-				break
-
-			case 'wbOnePush':
-				cmd = VISCA.MSG_CAM + VISCA.CAM_WB_TRIGGER + VISCA.CMD_CAM_WB_TRIGGER_NOW + VISCA.END_MSG
-				this.sendVISCACommand(cmd)
-				break
-
 			case 'gain':
 				let gain = this.camera?.expsetup?.GainLevel ? this.camera.expsetup.GainLevel : MODEL_VALUES.gain.default
 				switch (opt.val) {
@@ -398,44 +475,6 @@ class instance extends instance_skel {
 					GainLevel: String(newValue),
 				}
 				this.sendCommand('birddogexpsetup', 'POST', body)
-				break
-
-			case 'gainRed':
-				let gainRed = this.camera?.wbsetup?.RedGain ? this.camera.wbsetup.RedGain : 128
-				switch (opt.val) {
-					case 'up':
-						newValue = gainRed < 255 ? ++gainRed : gainRed
-						break
-					case 'down':
-						newValue = gainRed > 0 ? --gainRed : gainRed
-						break
-					case 'value':
-						newValue = opt.value
-						break
-				}
-				body = {
-					RedGain: String(newValue),
-				}
-				this.sendCommand('birddogwbsetup', 'POST', body)
-				break
-
-			case 'gainBlue':
-				let gainBlue = this.camera?.wbsetup?.RedGain ? this.camera.wbsetup.RedGain : 128
-				switch (opt.val) {
-					case 'up':
-						newValue = gainBlue < 255 ? ++gainBlue : gainBlue
-						break
-					case 'down':
-						newValue = gainBlue > 0 ? --gainBlue : gainBlue
-						break
-					case 'value':
-						newValue = opt.value
-						break
-				}
-				body = {
-					RedGain: String(newValue),
-				}
-				this.sendCommand('birddogwbsetup', 'POST', body)
 				break
 
 			case 'iris':
@@ -488,19 +527,73 @@ class instance extends instance_skel {
 				this.sendCommand('birddogexpsetup', 'POST', body)
 				break
 
-			case 'savePset':
+			case 'highSensitivity':
 				body = {
-					Preset: String('Preset-' + opt.val),
+					HighSensitivity: String(opt.val),
 				}
-				this.sendCommand('save', 'POST', body)
+				this.sendCommand('birddogexpsetup', 'POST', body)
 				break
 
-			case 'recallPset':
+			// White Balance Actions
+
+			case 'wb':
 				body = {
-					Preset: String('Preset-' + opt.val),
+					WbMode: String(opt.val),
 				}
-				this.sendCommand('recall', 'POST', body)
+				this.sendCommand('birddogwbsetup', 'POST', body)
 				break
+
+			case 'wbOnePush':
+				cmd = VISCA.MSG_CAM + VISCA.CAM_WB_TRIGGER + VISCA.CMD_CAM_WB_TRIGGER_NOW + VISCA.END_MSG
+				this.sendVISCACommand(cmd)
+				break
+
+			case 'gainRed':
+				let gainRed = this.camera?.wbsetup?.RedGain ? this.camera.wbsetup.RedGain : 128
+				switch (opt.val) {
+					case 'up':
+						newValue = gainRed < 255 ? ++gainRed : gainRed
+						break
+					case 'down':
+						newValue = gainRed > 0 ? --gainRed : gainRed
+						break
+					case 'value':
+						newValue = opt.value
+						break
+				}
+				body = {
+					RedGain: String(newValue),
+				}
+				this.sendCommand('birddogwbsetup', 'POST', body)
+				break
+
+			case 'gainBlue':
+				let gainBlue = this.camera?.wbsetup?.RedGain ? this.camera.wbsetup.RedGain : 128
+				switch (opt.val) {
+					case 'up':
+						newValue = gainBlue < 255 ? ++gainBlue : gainBlue
+						break
+					case 'down':
+						newValue = gainBlue > 0 ? --gainBlue : gainBlue
+						break
+					case 'value':
+						newValue = opt.value
+						break
+				}
+				body = {
+					RedGain: String(newValue),
+				}
+				this.sendCommand('birddogwbsetup', 'POST', body)
+				break
+
+			case 'color_temp':
+				body = {
+					ColorTemp: String(opt.val),
+				}
+				this.sendCommand('birddogwbsetup', 'POST', body)
+				break
+
+			// Picture Setup Actions
 
 			case 'contrast':
 				let contrast = this.camera?.picsetup?.Contrast ? this.camera.picsetup.Contrast : 7
@@ -520,13 +613,44 @@ class instance extends instance_skel {
 				}
 				this.sendCommand('birddogpicsetup', 'POST', body)
 				break
-
 			case 'pictureEffect':
 				body = {
 					Effect: String(opt.val),
 				}
 				this.sendCommand('birddogpicsetup', 'POST', body)
 				break
+			case 'irMode':
+				body = {
+					IRCutFilter: String(opt.val),
+				}
+				this.sendCommand('birddogpicsetup', 'POST', body)
+				break
+
+			case 'picFlip':
+				body = {
+					Flip: String(opt.val),
+				}
+				this.sendCommand('birddogpicsetup', 'POST', body)
+				break
+
+			case 'picMirror':
+				body = {
+					Mirror: String(opt.val),
+				}
+				this.sendCommand('birddogpicsetup', 'POST', body)
+				break
+
+			// Color Matrix Actions
+
+			// Advanced Setup Actions
+
+			// External Setup Actions
+
+			// Detail Setup Actions
+
+			// Gamma Setup Actions
+
+			// Other Actions
 
 			case 'defog':
 				switch (opt.val) {
@@ -546,13 +670,6 @@ class instance extends instance_skel {
 				this.sendVISCACommand(cmd)
 				break
 
-			case 'irMode':
-				body = {
-					IRCutFilter: String(opt.val),
-				}
-				this.sendCommand('birddogpicsetup', 'POST', body)
-				break
-
 			case 'hrMode':
 				switch (opt.val) {
 					case 'On':
@@ -563,20 +680,6 @@ class instance extends instance_skel {
 						break
 				}
 				this.sendVISCACommand(cmd)
-				break
-
-			case 'highSensitivity':
-				body = {
-					HighSensitivity: String(opt.val),
-				}
-				this.sendCommand('birddogexpsetup', 'POST', body)
-				break
-
-			case 'tally':
-				body = {
-					TallyMode: String(opt.val),
-				}
-				this.sendCommand('encodesetup', 'POST', body)
 				break
 
 			case 'freeze':
@@ -591,20 +694,6 @@ class instance extends instance_skel {
 				this.sendVISCACommand(cmd)
 				break
 
-			case 'picFlip':
-				body = {
-					Flip: String(opt.val),
-				}
-				this.sendCommand('birddogpicsetup', 'POST', body)
-				break
-
-			case 'picMirror':
-				body = {
-					Mirror: String(opt.val),
-				}
-				this.sendCommand('birddogpicsetup', 'POST', body)
-				break
-
 			case 'custom':
 				let hexData = opt.custom.replace(/\s+/g, '')
 				let tempBuffer = Buffer.from(hexData, 'hex')
@@ -614,51 +703,6 @@ class instance extends instance_skel {
 				} else {
 					this.log('error', 'Error, command "' + opt.custom + '" does not start with 8')
 				}
-				break
-
-			case 'encodeBandwidth':
-				switch (opt.val) {
-					case 'NDIManaged':
-						body = {
-							BandwidthMode: String(opt.val),
-						}
-						break
-					case 'Manual':
-						body = {
-							BandwidthMode: String(opt.val),
-							BandwidthSelect: String(opt.bandwidth),
-						}
-						break
-				}
-				this.sendCommand('encodesetup', 'POST', body)
-				break
-
-			case 'analogAudioInGain':
-				body = {
-					AnalogAudioInGain: String(opt.val + 50), //Convert action range to API range
-				}
-				this.sendCommand('analogaudiosetup', 'POST', body)
-				break
-
-			case 'analogAudioOutGain':
-				body = {
-					AnalogAudioOutGain: String(opt.val + 50), //Convert action range to API range
-				}
-				this.sendCommand('analogaudiosetup', 'POST', body)
-				break
-
-			case 'analogAudioOutput':
-				body = {
-					AnalogAudiooutputselect: String(opt.val),
-				}
-				this.sendCommand('analogaudiosetup', 'POST', body)
-				break
-
-			case 'color_temp':
-				body = {
-					ColorTemp: String(opt.val),
-				}
-				this.sendCommand('birddogwbsetup', 'POST', body)
 				break
 		}
 	}

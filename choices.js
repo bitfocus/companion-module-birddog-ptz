@@ -457,7 +457,6 @@ module.exports = {
 	],
 
 	ENCODE_NDI_AUDIO: [
-		{ id: 'NDIAudioMain', label: 'NDI Audio Main' },
 		{ id: 'NDIAudioAnalog', label: 'NDI Audio Analog' },
 		{ id: 'NDIAudioMute', label: 'NDI Audio Mute' },
 	],
@@ -468,8 +467,8 @@ module.exports = {
 	],
 
 	ENCODE_NDIGroup: [
-		{ id: 'NDIGroupEn', label: 'NDI Group Enabled' },
-		{ id: 'NDIGroupDis', label: 'NDI Group Disabled' },
+		{ id: 'NDIGroupEn', label: 'Enabled' },
+		{ id: 'NDIGroupDis', label: 'Disabled' },
 	],
 
 	TALLY_MODE: [

@@ -8,6 +8,17 @@ See [HELP.md](https://github.com/bitfocus/companion-module-birddog-ptz/blob/main
 
 ## Changes
 
+### v2.0.3
+
+- New Actions
+
+  - NDI Audio
+  - NDI Group Enable
+
+- New Feedbacks
+  - NDI Audio
+  - NDI Group Enable
+
 ### v2.0.2
 
 - Make API calls depending on model
@@ -15,6 +26,7 @@ See [HELP.md](https://github.com/bitfocus/companion-module-birddog-ptz/blob/main
 - Added ability to Pan/Tilt drive to a location
 - Added ability Zoom direct
 - Show values depending on model
+
   - Gain
   - Iris
   - Shutter

@@ -12,6 +12,8 @@ exports.initFeedbacks = function () {
 
 	const feedbacks = {}
 
+	// General Camera Feedback
+
 	feedbacks.standby_status = {
 		type: 'boolean',
 		label: 'Camera Standby Status',
@@ -34,71 +36,7 @@ exports.initFeedbacks = function () {
 		},
 	}
 
-	feedbacks.focusMode = {
-		type: 'boolean',
-		label: 'Focus Mode',
-		description: 'If the camera matches the selected focus mode, change the style of the button',
-		style: {
-			color: ColorBlack,
-			bgcolor: ColorGreen,
-		},
-		options: [
-			{
-				type: 'dropdown',
-				label: 'Mode',
-				id: 'mode',
-				choices: CHOICES.AUTO_FOCUS,
-				default: 'Auto',
-			},
-		],
-		callback: (feedback) => {
-			return this.camera?.focus?.mode == feedback.options.mode
-		},
-	}
-
-	feedbacks.freeze_status = {
-		type: 'boolean',
-		label: 'Camera Freeze Status',
-		description: 'If the camera matches the selected freeze status, change the style of the button',
-		style: {
-			color: ColorBlack,
-			bgcolor: ColorGreen,
-		},
-		options: [
-			{
-				type: 'dropdown',
-				label: 'Freeze',
-				id: 'freeze',
-				choices: CHOICES.ON_OFF,
-				default: 'On',
-			},
-		],
-		callback: (feedback) => {
-			return this.camera?.freeze == feedback.options.freeze
-		},
-	}
-
-	feedbacks.encodeBandwidth = {
-		type: 'boolean',
-		label: 'Camera Encode Bandwidth Mode',
-		description: 'If the camera matches the selected encode bandwidth mode, change the style of the button',
-		style: {
-			color: ColorBlack,
-			bgcolor: ColorGreen,
-		},
-		options: [
-			{
-				type: 'dropdown',
-				label: 'Manual / NDI Managed',
-				id: 'val',
-				choices: CHOICES.ENCODE_BANDWIDTH_MODE,
-				default: 'NDIManaged',
-			},
-		],
-		callback: (feedback) => {
-			return this.camera?.encode?.BandwidthMode == feedback.options.val
-		},
-	}
+	// Analog Audio Feedback
 
 	feedbacks.analogAudioOutput = {
 		type: 'boolean',
@@ -122,11 +60,81 @@ exports.initFeedbacks = function () {
 		},
 	}
 
-	if (MODEL_VALUES?.wb) {
-		feedbacks.wb_mode = {
+	// Video Output Interface Feedback
+
+	// Encode Setup Feedback
+
+	feedbacks.encodeBandwidth = {
+		type: 'boolean',
+		label: 'Camera Encode Bandwidth Mode',
+		description: 'If the camera matches the selected encode bandwidth mode, change the style of the button',
+		style: {
+			color: ColorBlack,
+			bgcolor: ColorGreen,
+		},
+		options: [
+			{
+				type: 'dropdown',
+				label: 'Manual / NDI Managed',
+				id: 'val',
+				choices: CHOICES.ENCODE_BANDWIDTH_MODE,
+				default: 'NDIManaged',
+			},
+		],
+		callback: (feedback) => {
+			return this.camera?.encode?.BandwidthMode == feedback.options.val
+		},
+	}
+
+	feedbacks.ndiAudio = {
+		type: 'boolean',
+		label: 'NDI Audio',
+		description: 'If the camera matches the selected NDI Audio selector, change the style of the button',
+		style: {
+			color: ColorBlack,
+			bgcolor: ColorGreen,
+		},
+		options: [
+			{
+				type: 'dropdown',
+				label: 'Analog / Mute',
+				id: 'val',
+				choices: CHOICES.ENCODE_NDI_AUDIO,
+				default: 'NDIAudioMute',
+			},
+		],
+		callback: (feedback) => {
+			return this.camera?.encode?.NDIAudio == feedback.options.val
+		},
+	}
+
+	feedbacks.ndiGroupEnable = {
+		type: 'boolean',
+		label: 'NDI Group Enable',
+		description: 'If the camera matches the selected NDI Group Enable  selector, change the style of the button',
+		style: {
+			color: ColorBlack,
+			bgcolor: ColorGreen,
+		},
+		options: [
+			{
+				type: 'dropdown',
+				label: 'NDI Group Enable',
+				id: 'val',
+				choices: CHOICES.ENCODE_NDIGroup,
+				default: 'NDIGroupDis',
+			},
+		],
+		callback: (feedback) => {
+			return this.camera?.encode?.NDIGroup == feedback.options.val
+		},
+	}
+
+	if (MODEL_VALUES?.tally) {
+		feedbacks.tally = {
 			type: 'boolean',
-			label: 'Camera White Balance Mode',
-			description: 'Change the style of the button based on the WB mode',
+			label: 'Tally',
+			description: 'If the camera tally matches the selected mode, change the style of the button',
 			style: {
 				color: ColorBlack,
 				bgcolor: ColorGreen,
@@ -134,17 +142,48 @@ exports.initFeedbacks = function () {
 			options: [
 				{
 					type: 'dropdown',
-					label: 'White Balance Mode',
-					id: 'white_balance',
-					choices: MODEL_VALUES.wb.choices,
-					default: MODEL_VALUES.wb.default,
+					label: 'Mode',
+					id: 'mode',
+					choices: MODEL_VALUES.tally.choices,
+					default: MODEL_VALUES.tally.default,
 				},
 			],
 			callback: (feedback) => {
-				return this.camera?.wb?.WbMode == feedback.options.white_balance
+				return this.camera?.encode?.TallyMode == feedback.options.mode
 			},
 		}
 	}
+	// Encode Transport Feedback
+
+	// NDI Discovery Server Feedback
+
+	// PTZ Feedback
+
+	// Focus Feedback
+
+	feedbacks.focusMode = {
+		type: 'boolean',
+		label: 'Focus Mode',
+		description: 'If the camera matches the selected focus mode, change the style of the button',
+		style: {
+			color: ColorBlack,
+			bgcolor: ColorGreen,
+		},
+		options: [
+			{
+				type: 'dropdown',
+				label: 'Mode',
+				id: 'mode',
+				choices: CHOICES.AUTO_FOCUS,
+				default: 'Auto',
+			},
+		],
+		callback: (feedback) => {
+			return this.camera?.focus?.mode == feedback.options.mode
+		},
+	}
+
+	// Exposure Feedback
 
 	if (MODEL_VALUES?.expM) {
 		feedbacks.exposureMode = {
@@ -170,11 +209,13 @@ exports.initFeedbacks = function () {
 		}
 	}
 
-	if (MODEL_VALUES?.tally) {
-		feedbacks.tally = {
+	// White Balance Feedback
+
+	if (MODEL_VALUES?.wb) {
+		feedbacks.wb_mode = {
 			type: 'boolean',
-			label: 'Tally',
-			description: 'If the camera tally matches the selected mode, change the style of the button',
+			label: 'Camera White Balance Mode',
+			description: 'Change the style of the button based on the WB mode',
 			style: {
 				color: ColorBlack,
 				bgcolor: ColorGreen,
@@ -182,14 +223,14 @@ exports.initFeedbacks = function () {
 			options: [
 				{
 					type: 'dropdown',
-					label: 'Mode',
-					id: 'mode',
-					choices: MODEL_VALUES.tally.choices,
-					default: MODEL_VALUES.tally.default,
+					label: 'White Balance Mode',
+					id: 'white_balance',
+					choices: MODEL_VALUES.wb.choices,
+					default: MODEL_VALUES.wb.default,
 				},
 			],
 			callback: (feedback) => {
-				return this.camera?.encode?.TallyMode == feedback.options.mode
+				return this.camera?.wb?.WbMode == feedback.options.white_balance
 			},
 		}
 	}
@@ -217,6 +258,41 @@ exports.initFeedbacks = function () {
 				return this.camera?.wbsetup?.ColorTemp == feedback.options.val
 			},
 		}
+	}
+	// Picture Setup Feedback
+
+	// Color Matrix Feedback
+
+	// Advanced Setup Feedback
+
+	// External Setup Feedback
+
+	// Detail Setup Feedback
+
+	// Gamma Setup Feedback
+
+	// Other Feedback
+
+	feedbacks.freeze_status = {
+		type: 'boolean',
+		label: 'Camera Freeze Status',
+		description: 'If the camera matches the selected freeze status, change the style of the button',
+		style: {
+			color: ColorBlack,
+			bgcolor: ColorGreen,
+		},
+		options: [
+			{
+				type: 'dropdown',
+				label: 'Freeze',
+				id: 'freeze',
+				choices: CHOICES.ON_OFF,
+				default: 'On',
+			},
+		],
+		callback: (feedback) => {
+			return this.camera?.freeze == feedback.options.freeze
+		},
 	}
 
 	this.setFeedbackDefinitions(feedbacks)
