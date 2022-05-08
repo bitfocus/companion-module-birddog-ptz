@@ -343,6 +343,30 @@ module.exports = {
 
 		// Exposure Actions
 
+		if (MODEL_VALUES?.expComp) {
+			actions['expComp'] = {
+				label: 'Exposure Compensation',
+				options: [
+					{
+						type: 'dropdown',
+						label: 'On / Off',
+						id: 'val',
+						choices: MODEL_VALUES.expComp.choices,
+						default: MODEL_VALUES.expComp.default,
+					},
+					{
+						type: 'number',
+						label: 'Exposure Compensation Level',
+						id: 'level',
+						default: MODEL_VALUES.expComp.rangeDefault,
+						min: MODEL_VALUES.expComp.range.min,
+						max: MODEL_VALUES.expComp.range.max,
+						isVisible: (action) => action.options.val === 'On',
+					},
+				],
+			}
+		}
+
 		if (MODEL_VALUES?.expM) {
 			actions['expM'] = {
 				label: 'Exposure Mode',

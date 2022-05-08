@@ -185,6 +185,30 @@ exports.initFeedbacks = function () {
 
 	// Exposure Feedback
 
+	if (MODEL_VALUES?.expComp) {
+		feedbacks.exposureCompEn = {
+			type: 'boolean',
+			label: 'Exposure Compensation',
+			description: 'If the camera matches the selected exposure compensation status, change the style of the button',
+			style: {
+				color: ColorBlack,
+				bgcolor: ColorGreen,
+			},
+			options: [
+				{
+					type: 'dropdown',
+					label: 'On / Off',
+					id: 'mode',
+					choices: MODEL_VALUES.expComp.choices,
+					default: MODEL_VALUES.expComp.default,
+				},
+			],
+			callback: (feedback) => {
+				return this.camera?.expsetup?.ExpCompEn == feedback.options.mode
+			},
+		}
+	}
+
 	if (MODEL_VALUES?.expM) {
 		feedbacks.exposureMode = {
 			type: 'boolean',

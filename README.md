@@ -12,10 +12,13 @@ See [HELP.md](https://github.com/bitfocus/companion-module-birddog-ptz/blob/main
 
 - New Actions
 
+  - Exposure Compensation
+  - Exposure Compensation Level
   - NDI Audio
   - NDI Group Enable
 
 - New Feedbacks
+  - Exposure Compensation
   - NDI Audio
   - NDI Group Enable
 

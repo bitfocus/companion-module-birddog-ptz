@@ -97,6 +97,7 @@ const COMMON = [
 		focus: { choices: CHOICES.FOCUS_CONTROL, default: 'near' },
 		focusM: { choices: CHOICES.AUTO_FOCUS, default: 'AutoFocus' },
 		// Exposure Actions
+		expComp: { choices: CHOICES.ON_OFF, default: 'Off', range: { min: 0, max: 14 }, rangeDefault: 0  },
 		// White Balance Actions
 		wbOnePush: true,
 		gainBlue: { choices: CHOICES.UP_DOWN_VALUE, default: 'up' },

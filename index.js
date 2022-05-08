@@ -141,7 +141,19 @@ class instance extends instance_skel {
 				this.sendVISCACommand(cmd)
 				break
 
-			// /Analog Audio Actions
+			case 'freeze':
+				switch (opt.val) {
+					case 'On':
+						cmd = VISCA.MSG_CAM + VISCA.CAM_FREEZE + VISCA.DATA_ONVAL + VISCA.END_MSG
+						break
+					case 'Off':
+						cmd = VISCA.MSG_CAM + VISCA.CAM_FREEZE + VISCA.DATA_OFFVAL + VISCA.END_MSG
+						break
+				}
+				this.sendVISCACommand(cmd)
+				break
+
+			// Analog Audio Actions
 
 			case 'analogAudioInGain':
 				body = {
@@ -452,12 +464,30 @@ class instance extends instance_skel {
 
 			// Exposure Actions
 
+			case 'expComp':
+				switch (opt.val) {
+					case 'Off':
+						body = {
+							ExpCompEn: String(opt.val),
+						}
+						break
+					case 'On':
+						body = {
+							ExpCompEn: String(opt.val),
+							ExpCompLvl: String(opt.level),
+						}
+						break
+				}
+				this.sendCommand('birddogexpsetup', 'POST', body)
+				break
+
 			case 'expM':
 				body = {
 					ExpMode: String(opt.val),
 				}
 				this.sendCommand('birddogexpsetup', 'POST', body)
 				break
+
 			case 'gain':
 				let gain = this.camera?.expsetup?.GainLevel ? this.camera.expsetup.GainLevel : MODEL_VALUES.gain.default
 				switch (opt.val) {
@@ -677,18 +707,6 @@ class instance extends instance_skel {
 						break
 					case 'Off':
 						cmd = VISCA.MSG_CAM + '\x52\x03\xFF'
-						break
-				}
-				this.sendVISCACommand(cmd)
-				break
-
-			case 'freeze':
-				switch (opt.val) {
-					case 'On':
-						cmd = VISCA.MSG_CAM + VISCA.CAM_FREEZE + VISCA.DATA_ONVAL + VISCA.END_MSG
-						break
-					case 'Off':
-						cmd = VISCA.MSG_CAM + VISCA.CAM_FREEZE + VISCA.DATA_OFFVAL + VISCA.END_MSG
 						break
 				}
 				this.sendVISCACommand(cmd)
