@@ -220,6 +220,13 @@ class instance extends instance_skel {
 
 			// Encode Transport Actions
 
+			case 'transmit_method':
+				body = {
+					txpm: String(opt.val),
+				}
+				this.sendCommand('encodeTransport', 'POST', body)
+				break
+
 			// NDI Discovery Server Actions
 
 			// PTZ Actions

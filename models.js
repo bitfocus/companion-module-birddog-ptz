@@ -87,6 +87,7 @@ const COMMON = [
 		// Video Output Interface Actions
 		// Encode Setup Actions
 		// Encode Transport Actions
+		transmit_method: {choices: CHOICES.ENCODE_TXPM, default: 'UDP'},
 		// NDI Discovery Server Actions
 		// PTZ Actions
 		zoomSpeed: { choices: CHOICES.ZOOM_SPEED },

@@ -130,7 +130,20 @@ module.exports = {
 		}
 
 		// Encode Transport Actions
-
+		if (MODEL_VALUES?.transmit_method) {
+			actions['transmit_method'] = {
+				label: 'Transmit Method',
+				options: [
+					{
+						type: 'dropdown',
+						label: 'Method',
+						id: 'val',
+						choices: MODEL_VALUES.transmit_method.choices,
+						default: MODEL_VALUES.transmit_method.default,
+					},
+				],
+			}
+		}
 		// NDI Discovery Server Actions
 
 		// PTZ Actions

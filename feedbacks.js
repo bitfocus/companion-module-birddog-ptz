@@ -155,6 +155,30 @@ exports.initFeedbacks = function () {
 	}
 	// Encode Transport Feedback
 
+	if (MODEL_VALUES?.transmit_method) {
+		feedbacks.transmit_method = {
+			type: 'boolean',
+			label: 'Transmit Method',
+			description: 'If the camera matches the selected transmit method, change the style of the button',
+			style: {
+				color: ColorBlack,
+				bgcolor: ColorGreen,
+			},
+			options: [
+				{
+					type: 'dropdown',
+					label: 'Method',
+					id: 'val',
+					choices: MODEL_VALUES.transmit_method.choices,
+					default: MODEL_VALUES.transmit_method.default
+				},
+			],
+			callback: (feedback) => {
+				return this.camera?.transport?.txpm == feedback.options.val
+			},
+		}
+	}
+
 	// NDI Discovery Server Feedback
 
 	// PTZ Feedback
