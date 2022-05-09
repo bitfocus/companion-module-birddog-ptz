@@ -16,11 +16,14 @@ See [HELP.md](https://github.com/bitfocus/companion-module-birddog-ptz/blob/main
   - Exposure Compensation Level
   - NDI Audio
   - NDI Group Enable
+  - Transmit Method
 
 - New Feedbacks
   - Exposure Compensation
+  - Exposure Compensation Level
   - NDI Audio
   - NDI Group Enable
+  - Transmit Method
 
 ### v2.0.2
 

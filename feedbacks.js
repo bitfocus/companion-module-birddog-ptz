@@ -233,6 +233,31 @@ exports.initFeedbacks = function () {
 		}
 	}
 
+	if (MODEL_VALUES?.expComp) {
+		feedbacks.exposureCompLvl = {
+			type: 'boolean',
+			label: 'Exposure Compensation Level',
+			description: 'If the camera matches the selected exposure compensation level, change the style of the button',
+			style: {
+				color: ColorBlack,
+				bgcolor: ColorGreen,
+			},
+			options: [
+				{
+					type: 'number',
+					label: 'On / Off',
+					id: 'level',
+					default: MODEL_VALUES.expComp.rangeDefault,
+					min: MODEL_VALUES.expComp.range.min,
+					max: MODEL_VALUES.expComp.range.max,
+				},
+			],
+			callback: (feedback) => {
+				return this.camera?.expsetup?.ExpCompLvl == feedback.options.level
+			},
+		}
+	}
+
 	if (MODEL_VALUES?.expM) {
 		feedbacks.exposureMode = {
 			type: 'boolean',
