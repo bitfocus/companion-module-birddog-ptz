@@ -629,9 +629,9 @@ module.exports = {
 			}
 		}
 
-		if (MODEL_VALUES?.shut) {
+		if (MODEL_VALUES?.shutter_speed) {
 			actions['shut'] = {
-				label: 'Shutter',
+				label: 'Shutter Speed',
 				options: [
 					{
 						type: 'dropdown',

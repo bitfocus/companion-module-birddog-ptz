@@ -44,6 +44,8 @@ See [HELP.md](https://github.com/bitfocus/companion-module-birddog-ptz/blob/main
   - Shutter Speed
   - Transmit Method
 
+- Fixes
+  - Fixed shutter values in shutter actions
 ### v2.0.2
 
 - Make API calls depending on model

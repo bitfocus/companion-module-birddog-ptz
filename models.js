@@ -197,7 +197,7 @@ module.exports = {
 				gain: { choices: CHOICES.GAIN_1, default: 0 },
 				iris: { choices: CHOICES.IRIS_1, default: 1, range: { closed: 0, min: 1, max: 13 } },
 				shutter_control_overwrite: { choices: CHOICES.ON_OFF, default: 'On' },
-				shut: {
+				shutter_speed: {
 					shutter_50: CHOICES.SHUTTER_50,
 					shutter_60: CHOICES.SHUTTER_60,
 					default: 6,
@@ -205,7 +205,7 @@ module.exports = {
 				},
 				// White Balance Actions
 				wb: { choices: CHOICES.WB_MODE_1, default: 'AUTO' },
-				color_temp: { choices: CHOICES.COLOR_TEMP, default: '6400' },
+				color_temp: { choices: CHOICES.COLOR_TEMP, default: '6500' },
 				// Picture Setup Actions
 				contrast: { choices: CHOICES.UP_DOWN_VALUE, default: 'up', range: { min: 0, max: 15, default: 7 } },
 				pictureEffect: { choices: CHOICES.PICTURE_EFFECT, default: 'BW' },
@@ -278,7 +278,7 @@ module.exports = {
 				gain: { choices: CHOICES.GAIN_1, default: 0 },
 				iris: { choices: CHOICES.IRIS_1, default: 1, range: { closed: 0, min: 1, max: 13 } },
 				shutter_control_overwrite: { choices: CHOICES.ON_OFF, default: 'On' },
-				shut: {
+				shutter_speed: {
 					shutter_50: CHOICES.SHUTTER_50,
 					shutter_60: CHOICES.SHUTTER_60,
 					default: 6,
@@ -286,7 +286,7 @@ module.exports = {
 				},
 				// White Balance Actions
 				wb: { choices: CHOICES.WB_MODE_1, default: 'AUTO' },
-				color_temp: { choices: CHOICES.COLOR_TEMP, default: '6400' },
+				color_temp: { choices: CHOICES.COLOR_TEMP, default: '6500' },
 				// Picture Setup Actions
 				contrast: { choices: CHOICES.UP_DOWN_VALUE, default: 'up', range: { min: 0, max: 15, default: 7 } },
 				pictureEffect: { choices: CHOICES.PICTURE_EFFECT, default: 'BW' },
@@ -385,7 +385,7 @@ module.exports = {
 				gain_limit: { range: { min: 4, max: 15, default: 15 } },
 				iris: { choices: CHOICES.IRIS_2, default: 1, range: { closed: 0, min: 5, max: 17 } },
 				highSensitivity: { choices: CHOICES.ON_OFF, default: 'On' },
-				shut: {
+				shutter_speed: {
 					shutter_50: CHOICES.SHUTTER_50,
 					shutter_60: CHOICES.SHUTTER_60,
 					default: 6,
@@ -492,7 +492,7 @@ module.exports = {
 				gain_limit: { range: { min: 4, max: 15, default: 15 } },
 				iris: { choices: CHOICES.IRIS_2, default: 1, range: { closed: 0, min: 5, max: 17 } },
 				highSensitivity: { choices: CHOICES.ON_OFF, default: 'On' },
-				shut: {
+				shutter_speed: {
 					shutter_50: CHOICES.SHUTTER_50,
 					shutter_60: CHOICES.SHUTTER_60,
 					default: 6,
@@ -596,7 +596,7 @@ module.exports = {
 				gain_limit: { range: { min: 4, max: 15, default: 15 } },
 				highSensitivity: { choices: CHOICES.ON_OFF, default: 'On' },
 				iris: { choices: CHOICES.IRIS_2, default: 1, range: { closed: 0, min: 5, max: 17 } },
-				shut: {
+				shutter_speed: {
 					shutter_50: CHOICES.SHUTTER_50,
 					shutter_60: CHOICES.SHUTTER_60,
 					default: 6,
@@ -700,7 +700,7 @@ module.exports = {
 				gain_limit: { range: { min: 4, max: 15, default: 15 } },
 				highSensitivity: { choices: CHOICES.ON_OFF, default: 'On' },
 				iris: { choices: CHOICES.IRIS_2, default: 1, range: { closed: 0, min: 5, max: 17 } },
-				shut: {
+				shutter_speed: {
 					shutter_50: CHOICES.SHUTTER_50,
 					shutter_60: CHOICES.SHUTTER_60,
 					default: 6,
@@ -804,7 +804,7 @@ module.exports = {
 				gain_limit: { range: { min: 4, max: 15, default: 15 } },
 				highSensitivity: { choices: CHOICES.ON_OFF, default: 'On' },
 				iris: { choices: CHOICES.IRIS_2, default: 1, range: { closed: 0, min: 5, max: 17 } },
-				shut: {
+				shutter_speed: {
 					shutter_50: CHOICES.SHUTTER_50,
 					shutter_60: CHOICES.SHUTTER_60,
 					default: 6,
@@ -908,7 +908,7 @@ module.exports = {
 				gain_limit: { range: { min: 4, max: 15, default: 15 } },
 				highSensitivity: { choices: CHOICES.ON_OFF, default: 'On' },
 				iris: { choices: CHOICES.IRIS_2, default: 1, range: { closed: 0, min: 5, max: 17 } },
-				shut: {
+				shutter_speed: {
 					shutter_50: CHOICES.SHUTTER_50,
 					shutter_60: CHOICES.SHUTTER_60,
 					default: 6,
@@ -1000,7 +1000,7 @@ module.exports = {
 				gain_point: { choices: CHOICES.ON_OFF, default: 'On' },
 				highSensitivity: { choices: CHOICES.ON_OFF, default: 'On' },
 				iris: { choices: CHOICES.IRIS_3, default: 1, range: { closed: 0, min: 5, max: 21 } },
-				shut: {
+				shutter_speed: {
 					shutter_24: CHOICES.SHUTTER_4K_24,
 					shutter_50: CHOICES.SHUTTER_4K_50,
 					shutter_60: CHOICES.SHUTTER_4K_60,
@@ -1093,7 +1093,7 @@ module.exports = {
 				gain_point: { choices: CHOICES.ON_OFF, default: 'On' },
 				highSensitivity: { choices: CHOICES.ON_OFF, default: 'On' },
 				iris: { choices: CHOICES.IRIS_4, default: 1, range: { closed: 5, min: 6, max: 21 } },
-				shut: {
+				shutter_speed: {
 					shutter_24: CHOICES.SHUTTER_4K_24,
 					shutter_50: CHOICES.SHUTTER_4K_50,
 					shutter_60: CHOICES.SHUTTER_4K_60,
