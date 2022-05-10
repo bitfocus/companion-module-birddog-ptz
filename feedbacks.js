@@ -546,8 +546,35 @@ exports.initFeedbacks = function () {
 					type: 'dropdown',
 					label: 'Shutter Speed',
 					id: 'val',
-					choices: MODEL_VALUES.shut?.['shutter_' + [this.camera.framerate]]?.label,
+					choices: MODEL_VALUES.shut?.['shutter_' + [this.camera.framerate]],
 					default: MODEL_VALUES.shut.default,
+				},
+			],
+			callback: (feedback) => {
+				return this.camera?.expsetup?.ShutterSpeed == feedback.options.val
+			},
+		}
+	}
+
+	if (MODEL_VALUES?.shutter_max_speed) {
+		feedbacks.shushutter_max_speedt = {
+			type: 'boolean',
+			label: 'Shutter Max Speed',
+			description: 'If the camera matches the selected shutter max speed, change the style of the button',
+			style: {
+				color: ColorBlack,
+				bgcolor: ColorGreen,
+			},
+			options: [
+				{
+					type: 'dropdown',
+					label: 'Shutter Speed',
+					id: 'val',
+					choices: MODEL_VALUES.shut?.['shutter_' + [this.camera.framerate]].slice(
+						MODEL_VALUES.shutter_max_speed.range.min,
+						MODEL_VALUES.shutter_max_speed.range.max + 1
+					),
+					default: MODEL_VALUES.shutter_max_speed.range.default,
 				},
 			],
 			callback: (feedback) => {

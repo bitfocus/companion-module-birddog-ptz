@@ -23,6 +23,7 @@ See [HELP.md](https://github.com/bitfocus/companion-module-birddog-ptz/blob/main
   - NDI Group Enable
   - Shutter Control Overwrite
   - Shutter Max Speed
+  - Shutter Min Speed
   - Transmit Method
 
 - New Feedbacks
@@ -39,6 +40,7 @@ See [HELP.md](https://github.com/bitfocus/companion-module-birddog-ptz/blob/main
   - NDI Group Enable
   - Shutter Control Overwrite
   - Shutter Max Speed
+  - Shutter Min Speed
   - Shutter Speed
   - Transmit Method
 

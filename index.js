@@ -616,34 +616,87 @@ class instance extends instance_skel {
 				this.sendCommand('birddogexpsetup', 'POST', body)
 				break
 
-				case 'shutter_control_overwrite':
-					body = {
-						ShutterControlOverwrite: String(opt.val),
-					}
-					this.sendCommand('birddogexpsetup', 'POST', body)
-					break
+			case 'shutter_control_overwrite':
+				body = {
+					ShutterControlOverwrite: String(opt.val),
+				}
+				this.sendCommand('birddogexpsetup', 'POST', body)
+				break
 
 			case 'shut':
-				let shutter_speed = this.camera?.expsetup?.shutter_speed
-					? this.camera.expsetup.shutter_speed
+				let shutter_speed = this.camera?.expsetup?.ShutterSpeed
+					? this.camera.expsetup.ShutterSpeed
 					: MODEL_VALUES.shut.default
 				switch (opt.val) {
 					case 'up':
 						newValue = shutter_speed < MODEL_VALUES.shut.range.max ? ++shutter_speed : MODEL_VALUES.shut.range.max
 						break
 					case 'down':
-						newValue = shutter_speed > MODEL_VALUES.shut.range.min ? ++shutter_speed : MODEL_VALUES.shut.range.min
+						newValue = shutter_speed > MODEL_VALUES.shut.range.min ? --shutter_speed : MODEL_VALUES.shut.range.min
 						break
 					case 'value':
 						newValue = opt.value
 						break
 				}
 				body = {
-					IrisLevel: String(newValue),
+					ShutterSpeed: String(newValue),
 				}
 				this.sendCommand('birddogexpsetup', 'POST', body)
 				break
 
+			case 'shutter_max_speed':
+				let shutter_max_speed = this.camera?.expsetup?.ShutterMaxSpeed
+					? this.camera.expsetup.ShutterMaxSpeed
+					: MODEL_VALUES.shutter_max_speed.range.default
+				switch (opt.val) {
+					case 'up':
+						newValue =
+							shutter_max_speed < MODEL_VALUES.shutter_max_speed.range.max
+								? ++shutter_max_speed
+								: MODEL_VALUES.shutter_max_speed.range.max
+						break
+					case 'down':
+						newValue =
+							shutter_max_speed > MODEL_VALUES.shutter_max_speed.range.min
+								? --shutter_max_speed
+								: MODEL_VALUES.shutter_max_speed.range.min
+						break
+					case 'value':
+						newValue = opt.value
+						break
+				}
+				body = {
+					ShutterMaxSpeed: String(newValue),
+				}
+				this.sendCommand('birddogexpsetup', 'POST', body)
+				break
+
+			case 'shutter_min_speed':
+				let shutter_min_speed = this.camera?.expsetup?.ShutterMinSpeed
+					? this.camera.expsetup.ShutterMinSpeed
+					: MODEL_VALUES.shutter_min_speed.range.default
+				switch (opt.val) {
+					case 'up':
+						newValue =
+							shutter_min_speed < this.camera.expsetup.ShutterMaxSpeed
+								? ++shutter_min_speed
+								: this.camera.expsetup.ShutterMaxSpeed
+						break
+					case 'down':
+						newValue =
+							shutter_min_speed > MODEL_VALUES.shutter_min_speed.range.min
+								? --shutter_min_speed
+								: MODEL_VALUES.shutter_min_speed.range.min
+						break
+					case 'value':
+						newValue = opt.value
+						break
+				}
+				body = {
+					ShutterMinSpeed: String(newValue),
+				}
+				this.sendCommand('birddogexpsetup', 'POST', body)
+				break
 			// White Balance Actions
 
 			case 'wb':

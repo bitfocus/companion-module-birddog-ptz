@@ -678,6 +678,32 @@ module.exports = {
 			}
 		}
 
+		if (MODEL_VALUES?.shutter_min_speed) {
+			actions['shutter_min_speed'] = {
+				label: 'Shutter Max Speed',
+				options: [
+					{
+						type: 'dropdown',
+						label: 'Shutter Min Speed',
+						id: 'val',
+						choices: CHOICES.UP_DOWN_VALUE,
+						default: 'up',
+					},
+					{
+						type: 'dropdown',
+						label: 'Value',
+						id: 'value',
+						choices: MODEL_VALUES.shut?.['shutter_' + [this.camera.framerate]].slice(
+							MODEL_VALUES.shutter_min_speed.range.min,
+							parseInt(this.camera.expsetup.ShutterMaxSpeed, 10) + 1
+						),
+						default: MODEL_VALUES.shutter_max_speed.range.default,
+						isVisible: (action) => action.options.val === 'value',
+					},
+				],
+			}
+		}
+
 		// White Balance Actions
 
 		if (MODEL_VALUES?.wb) {

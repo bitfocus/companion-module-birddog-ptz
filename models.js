@@ -196,7 +196,7 @@ module.exports = {
 				expM: { choices: CHOICES.EXP_MODE_1, default: 'FULL-AUTO' },
 				gain: { choices: CHOICES.GAIN_1, default: 0 },
 				iris: { choices: CHOICES.IRIS_1, default: 1, range: { closed: 0, min: 1, max: 13 } },
-				shutter_control_overwrite: { choices: CHOICES.ON_OFF, default: 'On'},
+				shutter_control_overwrite: { choices: CHOICES.ON_OFF, default: 'On' },
 				shut: {
 					shutter_50: CHOICES.SHUTTER_50,
 					shutter_60: CHOICES.SHUTTER_60,
@@ -277,7 +277,7 @@ module.exports = {
 				expM: { choices: CHOICES.EXP_MODE_1, default: 'FULL-AUTO' },
 				gain: { choices: CHOICES.GAIN_1, default: 0 },
 				iris: { choices: CHOICES.IRIS_1, default: 1, range: { closed: 0, min: 1, max: 13 } },
-				shutter_control_overwrite: { choices: CHOICES.ON_OFF, default: 'On'},
+				shutter_control_overwrite: { choices: CHOICES.ON_OFF, default: 'On' },
 				shut: {
 					shutter_50: CHOICES.SHUTTER_50,
 					shutter_60: CHOICES.SHUTTER_60,
@@ -1101,6 +1101,7 @@ module.exports = {
 					range: { min: 6, max: 33 },
 				},
 				shutter_max_speed: { range: { min: 20, max: 33, default: 20 } },
+				shutter_min_speed: { range: { min: 16, max: 33, default: 16 } },
 				// White Balance Actions
 				wb: { choices: CHOICES.WB_MODE_2, default: 'AUTO' },
 				// Picture Setup Actions
