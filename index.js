@@ -472,6 +472,20 @@ class instance extends instance_skel {
 
 			// Exposure Actions
 
+			case 'ae_response':
+				body = {
+					AeResponse: String(opt.val),
+				}
+				this.sendCommand('birddogexpsetup', 'POST', body)
+				break
+
+			case 'backlight':
+				body = {
+					Backlight: String(opt.val),
+				}
+				this.sendCommand('birddogexpsetup', 'POST', body)
+				break
+
 			case 'expComp':
 				switch (opt.val) {
 					case 'Off':
@@ -566,6 +580,13 @@ class instance extends instance_skel {
 				this.sendCommand('birddogexpsetup', 'POST', body)
 				break
 
+			case 'highSensitivity':
+				body = {
+					HighSensitivity: String(opt.val),
+				}
+				this.sendCommand('birddogexpsetup', 'POST', body)
+				break
+
 			case 'iris':
 				let iris = this.camera?.expsetup?.IrisLevel ? this.camera.expsetup.IrisLevel : MODEL_VALUES.iris.default
 				switch (opt.val) {
@@ -595,6 +616,13 @@ class instance extends instance_skel {
 				this.sendCommand('birddogexpsetup', 'POST', body)
 				break
 
+				case 'shutter_control_overwrite':
+					body = {
+						ShutterControlOverwrite: String(opt.val),
+					}
+					this.sendCommand('birddogexpsetup', 'POST', body)
+					break
+
 			case 'shut':
 				let shutter_speed = this.camera?.expsetup?.shutter_speed
 					? this.camera.expsetup.shutter_speed
@@ -612,13 +640,6 @@ class instance extends instance_skel {
 				}
 				body = {
 					IrisLevel: String(newValue),
-				}
-				this.sendCommand('birddogexpsetup', 'POST', body)
-				break
-
-			case 'highSensitivity':
-				body = {
-					HighSensitivity: String(opt.val),
 				}
 				this.sendCommand('birddogexpsetup', 'POST', body)
 				break

@@ -173,6 +173,13 @@ module.exports = {
 			},
 			actions: {
 				...COMMON[2],
+				// General Camera Actions
+				// Analog Audio Actions
+				// Video Output Interface Actions
+				// Encode Setup Actions
+				// Encode Transport Actions
+				// NDI Discovery Server Actions
+				// PTZ Actions
 				pt: {
 					choices: CHOICES.PTZ_DIRECTION,
 					default: 'up',
@@ -184,19 +191,30 @@ module.exports = {
 				zoom: { ...COMMON[2].zoom, posZoomChoices: CHOICES.POS_ZOOM_10, posZoomDefault: '0000' },
 				panSpeed: { choices: CHOICES.SPEED_CHANGES, default: 'up' },
 				tiltSpeed: { choices: CHOICES.SPEED_CHANGES, default: 'up' },
+				// Focus Actions
+				// Exposure Actions
 				expM: { choices: CHOICES.EXP_MODE_1, default: 'FULL-AUTO' },
-				wb: { choices: CHOICES.WB_MODE_1, default: 'AUTO' },
 				gain: { choices: CHOICES.GAIN_1, default: 0 },
 				iris: { choices: CHOICES.IRIS_1, default: 1, range: { closed: 0, min: 1, max: 13 } },
+				shutter_control_overwrite: { choices: CHOICES.ON_OFF, default: 'On'},
 				shut: {
 					shutter_50: CHOICES.SHUTTER_50,
 					shutter_60: CHOICES.SHUTTER_60,
 					default: 6,
 					range: { min: 0, max: 21 },
 				},
+				// White Balance Actions
+				wb: { choices: CHOICES.WB_MODE_1, default: 'AUTO' },
+				color_temp: { choices: CHOICES.COLOR_TEMP, default: '6400' },
+				// Picture Setup Actions
 				contrast: { choices: CHOICES.UP_DOWN_VALUE, default: 'up', range: { min: 0, max: 15, default: 7 } },
 				pictureEffect: { choices: CHOICES.PICTURE_EFFECT, default: 'BW' },
-				color_temp: { choices: CHOICES.COLOR_TEMP, default: '6400' },
+				// Color Matrix Actions
+				// Advanced Setup Actions
+				// External Setup Actions
+				// Detail Setup Actions
+				// Gamma Setup Actions
+				// Other Actions
 			},
 			feedback: {
 				...COMMON[3],
@@ -210,7 +228,10 @@ module.exports = {
 			},
 			variables: {
 				...COMMON[1],
-				// /encodesetup
+				// General Camera Actions
+				// Analog Audio Actions
+				// Video Output Interface Actions
+				// Encode Setup Actions
 				tally_mode: { label: `Tally Mode` },
 				// /birddogexpsetup
 				shutter_control_overwrite: { label: `Shutter Control Overwrite` },
@@ -256,6 +277,7 @@ module.exports = {
 				expM: { choices: CHOICES.EXP_MODE_1, default: 'FULL-AUTO' },
 				gain: { choices: CHOICES.GAIN_1, default: 0 },
 				iris: { choices: CHOICES.IRIS_1, default: 1, range: { closed: 0, min: 1, max: 13 } },
+				shutter_control_overwrite: { choices: CHOICES.ON_OFF, default: 'On'},
 				shut: {
 					shutter_50: CHOICES.SHUTTER_50,
 					shutter_60: CHOICES.SHUTTER_60,
@@ -362,13 +384,13 @@ module.exports = {
 				gain: { choices: CHOICES.GAIN_2, default: 1 },
 				gain_limit: { range: { min: 4, max: 15, default: 15 } },
 				iris: { choices: CHOICES.IRIS_2, default: 1, range: { closed: 0, min: 5, max: 17 } },
+				highSensitivity: { choices: CHOICES.ON_OFF, default: 'On' },
 				shut: {
 					shutter_50: CHOICES.SHUTTER_50,
 					shutter_60: CHOICES.SHUTTER_60,
 					default: 6,
 					range: { min: 0, max: 21 },
 				},
-				highSensitivity: { choices: CHOICES.ON_OFF, default: 'On' },
 				// White Balance Actions
 				wb: { choices: CHOICES.WB_MODE_2, default: 'AUTO' },
 				// Picture Setup Actions
@@ -469,13 +491,13 @@ module.exports = {
 				gain: { choices: CHOICES.GAIN_2, default: 1 },
 				gain_limit: { range: { min: 4, max: 15, default: 15 } },
 				iris: { choices: CHOICES.IRIS_2, default: 1, range: { closed: 0, min: 5, max: 17 } },
+				highSensitivity: { choices: CHOICES.ON_OFF, default: 'On' },
 				shut: {
 					shutter_50: CHOICES.SHUTTER_50,
 					shutter_60: CHOICES.SHUTTER_60,
 					default: 6,
 					range: { min: 0, max: 21 },
 				},
-				highSensitivity: { choices: CHOICES.ON_OFF, default: 'On' },
 				// White Balance Actions
 				wb: { choices: CHOICES.WB_MODE_2, default: 'AUTO' },
 				// Picture Setup Actions
@@ -572,6 +594,7 @@ module.exports = {
 				expM: { choices: CHOICES.EXP_MODE_1, default: 'FULL-AUTO' },
 				gain: { choices: CHOICES.GAIN_2, default: 1 },
 				gain_limit: { range: { min: 4, max: 15, default: 15 } },
+				highSensitivity: { choices: CHOICES.ON_OFF, default: 'On' },
 				iris: { choices: CHOICES.IRIS_2, default: 1, range: { closed: 0, min: 5, max: 17 } },
 				shut: {
 					shutter_50: CHOICES.SHUTTER_50,
@@ -579,7 +602,6 @@ module.exports = {
 					default: 6,
 					range: { min: 0, max: 21 },
 				},
-				highSensitivity: { choices: CHOICES.ON_OFF, default: 'On' },
 				// White Balance Actions
 				wb: { choices: CHOICES.WB_MODE_2, default: 'AUTO' },
 				// Picture Setup Actions
@@ -676,6 +698,7 @@ module.exports = {
 				expM: { choices: CHOICES.EXP_MODE_1, default: 'FULL-AUTO' },
 				gain: { choices: CHOICES.GAIN_2, default: 1 },
 				gain_limit: { range: { min: 4, max: 15, default: 15 } },
+				highSensitivity: { choices: CHOICES.ON_OFF, default: 'On' },
 				iris: { choices: CHOICES.IRIS_2, default: 1, range: { closed: 0, min: 5, max: 17 } },
 				shut: {
 					shutter_50: CHOICES.SHUTTER_50,
@@ -683,7 +706,6 @@ module.exports = {
 					default: 6,
 					range: { min: 0, max: 21 },
 				},
-				highSensitivity: { choices: CHOICES.ON_OFF, default: 'On' },
 				// White Balance Actions
 				wb: { choices: CHOICES.WB_MODE_2, default: 'AUTO' },
 				// Picture Setup Actions
@@ -780,6 +802,7 @@ module.exports = {
 				expM: { choices: CHOICES.EXP_MODE_1, default: 'FULL-AUTO' },
 				gain: { choices: CHOICES.GAIN_2, default: 1 },
 				gain_limit: { range: { min: 4, max: 15, default: 15 } },
+				highSensitivity: { choices: CHOICES.ON_OFF, default: 'On' },
 				iris: { choices: CHOICES.IRIS_2, default: 1, range: { closed: 0, min: 5, max: 17 } },
 				shut: {
 					shutter_50: CHOICES.SHUTTER_50,
@@ -787,7 +810,6 @@ module.exports = {
 					default: 6,
 					range: { min: 0, max: 21 },
 				},
-				highSensitivity: { choices: CHOICES.ON_OFF, default: 'On' },
 				// White Balance Actions
 				wb: { choices: CHOICES.WB_MODE_2, default: 'AUTO' },
 				// Picture Setup Actions
@@ -884,6 +906,7 @@ module.exports = {
 				expM: { choices: CHOICES.EXP_MODE_1, default: 'FULL-AUTO' },
 				gain: { choices: CHOICES.GAIN_2, default: 1 },
 				gain_limit: { range: { min: 4, max: 15, default: 15 } },
+				highSensitivity: { choices: CHOICES.ON_OFF, default: 'On' },
 				iris: { choices: CHOICES.IRIS_2, default: 1, range: { closed: 0, min: 5, max: 17 } },
 				shut: {
 					shutter_50: CHOICES.SHUTTER_50,
@@ -891,7 +914,6 @@ module.exports = {
 					default: 6,
 					range: { min: 0, max: 21 },
 				},
-				highSensitivity: { choices: CHOICES.ON_OFF, default: 'On' },
 				// White Balance Actions
 				wb: { choices: CHOICES.WB_MODE_2, default: 'AUTO' },
 				// Picture Setup Actions
@@ -971,10 +993,12 @@ module.exports = {
 				// Focus Actions
 				// Exposure Actions
 				ae_response: { range: { min: 4, max: 48, default: 1 } },
+				backlight: { choices: CHOICES.ON_OFF, default: 'On' },
 				expM: { choices: CHOICES.EXP_MODE_3, default: 'FULL-AUTO' },
 				gain: { choices: CHOICES.GAIN_3, default: 1 },
 				gain_limit: { range: { min: 4, max: 13, default: 13 } },
-				gain_point: { choices: CHOICES.ON_OFF, default: 'On'},
+				gain_point: { choices: CHOICES.ON_OFF, default: 'On' },
+				highSensitivity: { choices: CHOICES.ON_OFF, default: 'On' },
 				iris: { choices: CHOICES.IRIS_3, default: 1, range: { closed: 0, min: 5, max: 21 } },
 				shut: {
 					shutter_24: CHOICES.SHUTTER_4K_24,
@@ -983,7 +1007,7 @@ module.exports = {
 					default: 18,
 					range: { min: 6, max: 33 },
 				},
-				highSensitivity: { choices: CHOICES.ON_OFF, default: 'On' },
+				shutter_max_speed: { range: { min: 20, max: 33, default: 20 } },
 				// White Balance Actions
 				wb: { choices: CHOICES.WB_MODE_2, default: 'AUTO' },
 				// Picture Setup Actions
@@ -1000,7 +1024,7 @@ module.exports = {
 			},
 		},
 		{
-			id: 'P400',
+			id: 'P4K',
 			apicalls: {
 				...COMMON[0],
 				birddogdetsetup: true,
@@ -1062,10 +1086,12 @@ module.exports = {
 				// Focus Actions
 				// Exposure Actions
 				ae_response: { range: { min: 1, max: 48, default: 1 } },
+				backlight: { choices: CHOICES.ON_OFF, default: 'On' },
 				expM: { choices: CHOICES.EXP_MODE_3, default: 'FULL-AUTO' },
 				gain: { choices: CHOICES.GAIN_3, default: 1 },
 				gain_limit: { range: { min: 4, max: 13, default: 13 } },
-				gain_point: { choices: CHOICES.ON_OFF, default: 'On'},
+				gain_point: { choices: CHOICES.ON_OFF, default: 'On' },
+				highSensitivity: { choices: CHOICES.ON_OFF, default: 'On' },
 				iris: { choices: CHOICES.IRIS_4, default: 1, range: { closed: 5, min: 6, max: 21 } },
 				shut: {
 					shutter_24: CHOICES.SHUTTER_4K_24,
@@ -1074,7 +1100,7 @@ module.exports = {
 					default: 18,
 					range: { min: 6, max: 33 },
 				},
-				highSensitivity: { choices: CHOICES.ON_OFF, default: 'On' },
+				shutter_max_speed: { range: { min: 20, max: 33, default: 20 } },
 				// White Balance Actions
 				wb: { choices: CHOICES.WB_MODE_2, default: 'AUTO' },
 				// Picture Setup Actions

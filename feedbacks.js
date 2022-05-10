@@ -36,6 +36,28 @@ exports.initFeedbacks = function () {
 		},
 	}
 
+	feedbacks.freeze_status = {
+		type: 'boolean',
+		label: 'Camera Freeze Status',
+		description: 'If the camera matches the selected freeze status, change the style of the button',
+		style: {
+			color: ColorBlack,
+			bgcolor: ColorGreen,
+		},
+		options: [
+			{
+				type: 'dropdown',
+				label: 'Freeze',
+				id: 'freeze',
+				choices: CHOICES.ON_OFF,
+				default: 'On',
+			},
+		],
+		callback: (feedback) => {
+			return this.camera?.freeze == feedback.options.freeze
+		},
+	}
+
 	// Analog Audio Feedback
 
 	feedbacks.analogAudioOutput = {
@@ -235,6 +257,30 @@ exports.initFeedbacks = function () {
 		}
 	}
 
+	if (MODEL_VALUES?.backlight) {
+		feedbacks.backlight = {
+			type: 'boolean',
+			label: 'Backlight',
+			description: 'If the camera has Backlight on, change the style of the button',
+			style: {
+				color: ColorBlack,
+				bgcolor: ColorGreen,
+			},
+			options: [
+				{
+					type: 'dropdown',
+					label: 'On / Off',
+					id: 'mode',
+					choices: MODEL_VALUES.backlight.choices,
+					default: MODEL_VALUES.backlight.default,
+				},
+			],
+			callback: (feedback) => {
+				return this.camera?.expsetup?.BackLight == feedback.options.mode
+			},
+		}
+	}
+
 	if (MODEL_VALUES?.expComp) {
 		feedbacks.exposureCompEn = {
 			type: 'boolean',
@@ -370,6 +416,30 @@ exports.initFeedbacks = function () {
 		feedbacks.gain_point = {
 			type: 'boolean',
 			label: 'Gain Point',
+			description: 'If the camera has gain point on, change the style of the button',
+			style: {
+				color: ColorBlack,
+				bgcolor: ColorGreen,
+			},
+			options: [
+				{
+					type: 'dropdown',
+					label: 'Gain Point',
+					id: 'val',
+					choices: CHOICES.ON_OFF,
+					default: 'On',
+				},
+			],
+			callback: (feedback) => {
+				return this.camera?.expsetup?.GainPoint == feedback.options.val
+			},
+		}
+	}
+
+	if (MODEL_VALUES?.gain_point) {
+		feedbacks.gain_point_position = {
+			type: 'boolean',
+			label: 'Gain Point Position',
 			description: 'If the camera matches the selected gain point, change the style of the button',
 			style: {
 				color: ColorBlack,
@@ -385,7 +455,103 @@ exports.initFeedbacks = function () {
 				},
 			],
 			callback: (feedback) => {
-				return this.camera?.expsetup?.GainPoint == feedback.options.gain
+				return this.camera?.expsetup?.GainPointPosition == feedback.options.gain
+			},
+		}
+	}
+
+	if (MODEL_VALUES?.high_sensitivity) {
+		feedbacks.high_sensitivity = {
+			type: 'boolean',
+			label: 'High Sensitivity Mode',
+			description: 'If the camera has high sensitivity turned on, change the style of the button',
+			style: {
+				color: ColorBlack,
+				bgcolor: ColorGreen,
+			},
+			options: [
+				{
+					type: 'dropdown',
+					label: 'On / Off',
+					id: 'val',
+					choices: MODEL_VALUES.high_sensitivity.choices,
+					default: MODEL_VALUES.high_sensitivity.default,
+				},
+			],
+			callback: (feedback) => {
+				return this.camera?.expsetup?.high_sensitivity == feedback.options.val
+			},
+		}
+	}
+
+	if (MODEL_VALUES?.iris) {
+		feedbacks.iris = {
+			type: 'boolean',
+			label: 'Iris',
+			description: 'If the camera matches the selected Iris value, change the style of the button',
+			style: {
+				color: ColorBlack,
+				bgcolor: ColorGreen,
+			},
+			options: [
+				{
+					type: 'dropdown',
+					label: 'Iris',
+					id: 'val',
+					choices: MODEL_VALUES.iris.choices,
+					default: MODEL_VALUES.iris.default,
+				},
+			],
+			callback: (feedback) => {
+				return this.camera?.expsetup?.IrisLevel == feedback.options.val
+			},
+		}
+	}
+
+	if (MODEL_VALUES?.shutter_control_overwrite) {
+		feedbacks.shutter_control_overwrite = {
+			type: 'boolean',
+			label: 'Shutter Control Overwrite',
+			description: 'If the camera has Shutter Control Overwrite turned on, change the style of the button',
+			style: {
+				color: ColorBlack,
+				bgcolor: ColorGreen,
+			},
+			options: [
+				{
+					type: 'dropdown',
+					label: 'On/Off',
+					id: 'val',
+					choices: MODEL_VALUES.shutter_control_overwrite.choices,
+					default: MODEL_VALUES.shutter_control_overwrite.default,
+				},
+			],
+			callback: (feedback) => {
+				return this.camera?.expsetup?.ShutterControlOverwrite == feedback.options.val
+			},
+		}
+	}
+
+	if (MODEL_VALUES?.shut) {
+		feedbacks.shut = {
+			type: 'boolean',
+			label: 'Shutter Speed',
+			description: 'If the camera matches the selected shutter speed, change the style of the button',
+			style: {
+				color: ColorBlack,
+				bgcolor: ColorGreen,
+			},
+			options: [
+				{
+					type: 'dropdown',
+					label: 'Shutter Speed',
+					id: 'val',
+					choices: MODEL_VALUES.shut?.['shutter_' + [this.camera.framerate]]?.label,
+					default: MODEL_VALUES.shut.default,
+				},
+			],
+			callback: (feedback) => {
+				return this.camera?.expsetup?.ShutterSpeed == feedback.options.val
 			},
 		}
 	}
@@ -453,28 +619,6 @@ exports.initFeedbacks = function () {
 	// Gamma Setup Feedback
 
 	// Other Feedback
-
-	feedbacks.freeze_status = {
-		type: 'boolean',
-		label: 'Camera Freeze Status',
-		description: 'If the camera matches the selected freeze status, change the style of the button',
-		style: {
-			color: ColorBlack,
-			bgcolor: ColorGreen,
-		},
-		options: [
-			{
-				type: 'dropdown',
-				label: 'Freeze',
-				id: 'freeze',
-				choices: CHOICES.ON_OFF,
-				default: 'On',
-			},
-		],
-		callback: (feedback) => {
-			return this.camera?.freeze == feedback.options.freeze
-		},
-	}
 
 	this.setFeedbackDefinitions(feedbacks)
 

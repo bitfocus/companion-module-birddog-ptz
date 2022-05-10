@@ -13,6 +13,7 @@ See [HELP.md](https://github.com/bitfocus/companion-module-birddog-ptz/blob/main
 - New Actions
 
   - Ae Response
+  - Backlight
   - Exposure Compensation
   - Exposure Compensation Level
   - Gain Limit
@@ -20,18 +21,25 @@ See [HELP.md](https://github.com/bitfocus/companion-module-birddog-ptz/blob/main
   - Gain Point Position
   - NDI Audio
   - NDI Group Enable
+  - Shutter Control Overwrite
+  - Shutter Max Speed
   - Transmit Method
 
 - New Feedbacks
   - Ae Response
+  - Backlight
   - Exposure Compensation
   - Exposure Compensation Level
   - Gain
   - Gain Limit
   - Gain Point
   - Gain Point Position
+  - Iris
   - NDI Audio
   - NDI Group Enable
+  - Shutter Control Overwrite
+  - Shutter Max Speed
+  - Shutter Speed
   - Transmit Method
 
 ### v2.0.2

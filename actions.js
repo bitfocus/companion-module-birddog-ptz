@@ -428,6 +428,21 @@ module.exports = {
 			}
 		}
 
+		if (MODEL_VALUES?.backlight) {
+			actions['backlight'] = {
+				label: 'Backlight',
+				options: [
+					{
+						type: 'dropdown',
+						label: 'On / Off',
+						id: 'mode',
+						choices: MODEL_VALUES.backlight.choices,
+						default: MODEL_VALUES.backlight.default,
+					},
+				],
+			}
+		}
+
 		if (MODEL_VALUES?.expComp) {
 			actions['expComp'] = {
 				label: 'Exposure Compensation',
@@ -561,6 +576,21 @@ module.exports = {
 			}
 		}
 
+		if (MODEL_VALUES?.high_sensitivity) {
+			actions['highSensitivity'] = {
+				label: 'High Sensitivity Mode',
+				options: [
+					{
+						type: 'dropdown',
+						label: 'On / Off',
+						id: 'val',
+						choices: MODEL_VALUES.high_sensitivity.choices,
+						default: MODEL_VALUES.high_sensitivity.default,
+					},
+				],
+			}
+		}
+
 		if (MODEL_VALUES?.iris) {
 			actions['iris'] = {
 				label: 'Iris',
@@ -584,6 +614,21 @@ module.exports = {
 			}
 		}
 
+		if (MODEL_VALUES?.shutter_control_overwrite) {
+			actions['shutter_control_overwrite'] = {
+				label: 'Shutter Control Overwrite',
+				options: [
+					{
+						type: 'dropdown',
+						label: 'On/Off',
+						id: 'val',
+						choices: MODEL_VALUES.shutter_control_overwrite.choices,
+						default: MODEL_VALUES.shutter_control_overwrite.default,
+					},
+				],
+			}
+		}
+
 		if (MODEL_VALUES?.shut) {
 			actions['shut'] = {
 				label: 'Shutter',
@@ -599,7 +644,7 @@ module.exports = {
 						type: 'dropdown',
 						label: 'Value',
 						id: 'value',
-						choices: MODEL_VALUES.shut?.['shutter_' + [this.camera.framerate]]?.label,
+						choices: MODEL_VALUES.shut?.['shutter_' + [this.camera.framerate]],
 						default: MODEL_VALUES.shut.default,
 						isVisible: (action) => action.options.val === 'value',
 					},
@@ -607,16 +652,27 @@ module.exports = {
 			}
 		}
 
-		if (MODEL_VALUES?.high_sensitivity) {
-			actions['highSensitivity'] = {
-				label: 'High Sensitivity Mode',
+		if (MODEL_VALUES?.shutter_max_speed) {
+			actions['shutter_max_speed'] = {
+				label: 'Shutter Max Speed',
 				options: [
 					{
 						type: 'dropdown',
-						label: 'On / Off',
+						label: 'Shutter Max Speed',
 						id: 'val',
-						choices: MODEL_VALUES.high_sensitivity.choices,
-						default: MODEL_VALUES.high_sensitivity.default,
+						choices: CHOICES.UP_DOWN_VALUE,
+						default: 'up',
+					},
+					{
+						type: 'dropdown',
+						label: 'Value',
+						id: 'value',
+						choices: MODEL_VALUES.shut?.['shutter_' + [this.camera.framerate]].slice(
+							MODEL_VALUES.shutter_max_speed.range.min,
+							MODEL_VALUES.shutter_max_speed.range.max + 1
+						),
+						default: MODEL_VALUES.shutter_max_speed.range.default,
+						isVisible: (action) => action.options.val === 'value',
 					},
 				],
 			}
