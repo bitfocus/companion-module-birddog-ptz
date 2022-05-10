@@ -418,11 +418,7 @@ module.exports = {
 					{
 						type: 'number',
 						label:
-							'Ae Response (' +
-							MODEL_VALUES.ae_response.range.min +
-							' to ' +
-							MODEL_VALUES.ae_response.range.max +
-							')',
+							'Ae Response (' + MODEL_VALUES.ae_response.range.min + ' to ' + MODEL_VALUES.ae_response.range.max + ')',
 						id: 'level',
 						default: MODEL_VALUES.ae_response.range.default,
 						min: MODEL_VALUES.ae_response.range.min,
@@ -489,10 +485,38 @@ module.exports = {
 					},
 					{
 						type: 'dropdown',
+						label: this.camera.expsetup?.GainLimit ? 'Value (to Gain Limit)' : 'Value',
+						id: 'value',
+						choices: this.camera.expsetup?.GainLimit
+							? MODEL_VALUES.gain.choices.slice(0, parseInt(this.camera.expsetup.GainLimit, 10) + 1)
+							: MODEL_VALUES.gain.choices,
+						default: MODEL_VALUES.gain.default,
+						isVisible: (action) => action.options.val === 'value',
+					},
+				],
+			}
+		}
+
+		if (MODEL_VALUES?.gainLimit) {
+			actions['gainLimit'] = {
+				label: 'Gain Limit',
+				options: [
+					{
+						type: 'dropdown',
+						label: 'Gain Limit',
+						id: 'val',
+						choices: CHOICES.UP_DOWN_VALUE,
+						default: 'up',
+					},
+					{
+						type: 'dropdown',
 						label: 'Value',
 						id: 'value',
-						choices: MODEL_VALUES.gain.choices,
-						default: MODEL_VALUES.gain.default,
+						choices: MODEL_VALUES.gain.choices.slice(
+							MODEL_VALUES.gainLimit.range.min,
+							MODEL_VALUES.gainLimit.range.max + 1
+						),
+						default: MODEL_VALUES.gainLimit.range.default,
 						isVisible: (action) => action.options.val === 'value',
 					},
 				],

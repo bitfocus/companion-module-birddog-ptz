@@ -155,7 +155,7 @@ module.exports = {
 		{ id: '14', label: '28 dB' },
 		{ id: '15', label: '30 dB' },
 	],
-
+	//P200, A200, A300
 	GAIN_2: [
 		{ id: '1', label: '0 dB' },
 		{ id: '2', label: '3 dB' },

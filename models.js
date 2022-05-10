@@ -108,7 +108,7 @@ const COMMON = [
 		focus: { choices: CHOICES.FOCUS_CONTROL, default: 'near' },
 		focusM: { choices: CHOICES.AUTO_FOCUS, default: 'Auto' },
 		// Exposure Actions
-		expComp: { choices: CHOICES.ON_OFF, default: 'Off'},
+		expComp: { choices: CHOICES.ON_OFF, default: 'Off' },
 		expCompLvl: { choices: CHOICES.UP_DOWN_VALUE, default: 'up', range: { min: -7, max: 7, default: 0 } },
 		// White Balance Actions
 		wbOnePush: true,
@@ -561,6 +561,7 @@ module.exports = {
 				ae_response: { range: { min: 1, max: 48, default: 1 } },
 				expM: { choices: CHOICES.EXP_MODE_1, default: 'FULL-AUTO' },
 				gain: { choices: CHOICES.GAIN_2, default: 0 },
+				gainLimit: { range: { min: 4, max: 15, default: 15 } },
 				iris: { choices: CHOICES.IRIS_2, default: 1, range: { closed: 0, min: 5, max: 17 } },
 				shut: {
 					shutter_50: CHOICES.SHUTTER_50,
@@ -664,6 +665,7 @@ module.exports = {
 				ae_response: { range: { min: 1, max: 48, default: 1 } },
 				expM: { choices: CHOICES.EXP_MODE_1, default: 'FULL-AUTO' },
 				gain: { choices: CHOICES.GAIN_2, default: 0 },
+				gainLimit: { range: { min: 4, max: 15, default: 15 } },
 				iris: { choices: CHOICES.IRIS_2, default: 1, range: { closed: 0, min: 5, max: 17 } },
 				shut: {
 					shutter_50: CHOICES.SHUTTER_50,
@@ -767,6 +769,7 @@ module.exports = {
 				ae_response: { range: { min: 1, max: 48, default: 1 } },
 				expM: { choices: CHOICES.EXP_MODE_1, default: 'FULL-AUTO' },
 				gain: { choices: CHOICES.GAIN_2, default: 0 },
+				gainLimit: { range: { min: 4, max: 15, default: 15 } },
 				iris: { choices: CHOICES.IRIS_2, default: 1, range: { closed: 0, min: 5, max: 17 } },
 				shut: {
 					shutter_50: CHOICES.SHUTTER_50,
@@ -870,6 +873,7 @@ module.exports = {
 				ae_response: { range: { min: 1, max: 48, default: 1 } },
 				expM: { choices: CHOICES.EXP_MODE_1, default: 'FULL-AUTO' },
 				gain: { choices: CHOICES.GAIN_2, default: 0 },
+				gainLimit: { range: { min: 4, max: 15, default: 15 } },
 				iris: { choices: CHOICES.IRIS_2, default: 1, range: { closed: 0, min: 5, max: 17 } },
 				shut: {
 					shutter_50: CHOICES.SHUTTER_50,
@@ -956,9 +960,10 @@ module.exports = {
 				tiltSpeed: { choices: CHOICES.SPEED_CHANGES, default: 'up' },
 				// Focus Actions
 				// Exposure Actions
-				ae_response: { range: { min: 1, max: 48, default: 1 } },
+				ae_response: { range: { min: 4, max: 48, default: 1 } },
 				expM: { choices: CHOICES.EXP_MODE_3, default: 'FULL-AUTO' },
 				gain: { choices: CHOICES.GAIN_2, default: 0 },
+				gainLimit: { range: { min: 4, max: 13, default: 13 } },
 				iris: { choices: CHOICES.IRIS_3, default: 1, range: { closed: 0, min: 5, max: 21 } },
 				shut: {
 					shutter_24: CHOICES.SHUTTER_4K_24,
@@ -1048,6 +1053,7 @@ module.exports = {
 				ae_response: { range: { min: 1, max: 48, default: 1 } },
 				expM: { choices: CHOICES.EXP_MODE_3, default: 'FULL-AUTO' },
 				gain: { choices: CHOICES.GAIN_2, default: 0 },
+				gainLimit: { range: { min: 4, max: 13, default: 13 } },
 				iris: { choices: CHOICES.IRIS_4, default: 1, range: { closed: 5, min: 6, max: 21 } },
 				shut: {
 					shutter_24: CHOICES.SHUTTER_4K_24,

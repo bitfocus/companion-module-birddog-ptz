@@ -313,6 +313,59 @@ exports.initFeedbacks = function () {
 		}
 	}
 
+	if (MODEL_VALUES?.gain) {
+		feedbacks.gain = {
+			type: 'boolean',
+			label: 'Gain',
+			description: 'If the camera matches the selected gain, change the style of the button',
+			style: {
+				color: ColorBlack,
+				bgcolor: ColorGreen,
+			},
+			options: [
+				{
+					type: 'dropdown',
+					label: 'Gain (dB)',
+					id: 'gain',
+					choices: this.camera.expsetup?.GainLimit
+						? MODEL_VALUES.gain.choices.slice(0, parseInt(this.camera.expsetup.GainLimit, 10) + 1)
+						: MODEL_VALUES.gain.choices,
+					default: MODEL_VALUES.gain.default,
+				},
+			],
+			callback: (feedback) => {
+				return this.camera?.expsetup?.GainLevel == feedback.options.gain
+			},
+		}
+	}
+
+	if (MODEL_VALUES?.gain_limit) {
+		feedbacks.gain_limit = {
+			type: 'boolean',
+			label: 'Gain Limit',
+			description: 'If the camera matches the selected gain limit, change the style of the button',
+			style: {
+				color: ColorBlack,
+				bgcolor: ColorGreen,
+			},
+			options: [
+				{
+					type: 'dropdown',
+					label: 'Gain Limit (dB)',
+					id: 'gain',
+					choices: MODEL_VALUES.gain.choices.slice(
+						MODEL_VALUES.gainLimit.range.min,
+						MODEL_VALUES.gainLimit.range.max + 1
+					),
+					default: MODEL_VALUES.gainLimit.range.default,
+				},
+			],
+			callback: (feedback) => {
+				return this.camera?.expsetup?.GainLimit == feedback.options.gain
+			},
+		}
+	}
+
 	// White Balance Feedback
 
 	if (MODEL_VALUES?.wb) {

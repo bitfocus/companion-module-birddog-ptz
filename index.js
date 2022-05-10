@@ -123,6 +123,7 @@ class instance extends instance_skel {
 		let panSpeed = this.camera?.ptz?.PanSpeed ? this.camera.ptz.PanSpeed : 11
 		let tiltSpeed = this.camera?.ptz?.PanSpeed ? this.camera.ptz.TiltSpeed : 9
 		let zoomSpeed = this.camera?.ptz?.ZoomSpeed ? this.camera.ptz.ZoomSpeed : 4
+		let gainLimit
 		let newValue
 		let body = {}
 
@@ -497,12 +498,13 @@ class instance extends instance_skel {
 
 			case 'gain':
 				let gain = this.camera?.expsetup?.GainLevel ? this.camera.expsetup.GainLevel : MODEL_VALUES.gain.default
+				gainLimit = this.camera?.expsetup?.GainLimit ? this.camera.expsetup.GainLimit : MODEL_VALUES.gain.choices.length
 				switch (opt.val) {
 					case 'up':
-						newValue = gain < 15 ? ++gain : gain
+						newValue = gain < gainLimit ? ++gain : gain
 						break
 					case 'down':
-						newValue = gain > 0 ? --gain : gain
+						newValue = gain > MODEL_VALUES.gain.choices[0] ? --gain : gain
 						break
 					case 'value':
 						newValue = opt.value
@@ -510,6 +512,27 @@ class instance extends instance_skel {
 				}
 				body = {
 					GainLevel: String(newValue),
+				}
+				this.sendCommand('birddogexpsetup', 'POST', body)
+				break
+
+			case 'gainLimit':
+				gainLimit = this.camera?.expsetup?.GainLimit
+					? this.camera.expsetup.GainLimit
+					: MODEL_VALUES.gainLimit.range.default
+				switch (opt.val) {
+					case 'up':
+						newValue = gainLimit < MODEL_VALUES.gainLimit.range.max ? ++gainLimit : gainLimit
+						break
+					case 'down':
+						newValue = gainLimit > MODEL_VALUES.gainLimit.range.min ? --gainLimit : gainLimit
+						break
+					case 'value':
+						newValue = opt.value
+						break
+				}
+				body = {
+					GainLimit: String(newValue),
 				}
 				this.sendCommand('birddogexpsetup', 'POST', body)
 				break
