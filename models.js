@@ -81,28 +81,39 @@ const COMMON = [
 		//actions
 		/////////
 		// General Camera Actions
-		standby: { choices: CHOICES.STANDBY, default: 'On' },
-		freeze: true,
+		standby: { choices: CHOICES.STANDBY, default: 'on' },
+		freeze: { choices: CHOICES.ON_OFF, default: 'On' },
 		// Analog Audio Actions
+		analogAudioInGain: { range: { min: -50, max: 50, default: 0 } },
+		analogAudioOutGain: { range: { min: -50, max: 50, default: 0 } },
+		analogAudioOutput: { choices: CHOICES.ANALOG_AUDIO_OUTPUT, default: 'DecodeComms' },
 		// Video Output Interface Actions
 		// Encode Setup Actions
+		encodeBandwidth: {
+			choices: CHOICES.ENCODE_BANDWIDTH_MODE,
+			default: 'NDIManaged',
+			range: { min: 80, max: 120, default: 80 },
+		},
+		ndiAudio: { choices: CHOICES.ENCODE_NDI_AUDIO, default: 'NDIAudioMute' },
+		ndiGroupEnable: { choices: CHOICES.ENCODE_NDIGroup, default: 'NDIGroupDis' },
 		// Encode Transport Actions
-		transmit_method: {choices: CHOICES.ENCODE_TXPM, default: 'UDP'},
+		transmit_method: { choices: CHOICES.ENCODE_TXPM, default: 'UDP' },
 		// NDI Discovery Server Actions
 		// PTZ Actions
-		zoomSpeed: { choices: CHOICES.ZOOM_SPEED },
+		zoomSpeed: { choices: CHOICES.ZOOM_SPEED, default: 4 },
 		zoom: { choices: CHOICES.PTZ_ZOOM, default: 'in' },
-		savePset: true,
-		recallPset: true,
+		savePset: { range: { min: 1, max: 64, default: 1 } },
+		recallPset: { range: { min: 1, max: 64, default: 1 } },
 		// Focus Actions
 		focus: { choices: CHOICES.FOCUS_CONTROL, default: 'near' },
-		focusM: { choices: CHOICES.AUTO_FOCUS, default: 'AutoFocus' },
+		focusM: { choices: CHOICES.AUTO_FOCUS, default: 'Auto' },
 		// Exposure Actions
-		expComp: { choices: CHOICES.ON_OFF, default: 'Off', range: { min: 0, max: 14 }, rangeDefault: 0  },
+		expComp: { choices: CHOICES.ON_OFF, default: 'Off'},
+		expCompLvl: { choices: CHOICES.UP_DOWN_VALUE, default: 'up', range: { min: -7, max: 7, default: 0 } },
 		// White Balance Actions
 		wbOnePush: true,
-		gainBlue: { choices: CHOICES.UP_DOWN_VALUE, default: 'up' },
-		gainRed: { choices: CHOICES.UP_DOWN_VALUE, default: 'up' },
+		gainBlue: { choices: CHOICES.UP_DOWN_VALUE, default: 'up', range: { min: 0, max: 255, default: 127 } },
+		gainRed: { choices: CHOICES.UP_DOWN_VALUE, default: 'up', range: { min: 0, max: 255, default: 127 } },
 		// Picture Setup Actions
 		picFlip: { choices: CHOICES.ON_OFF, default: 'On' },
 		picMirror: { choices: CHOICES.ON_OFF, default: 'On' },
@@ -183,7 +194,7 @@ module.exports = {
 					default: 6,
 					range: { min: 0, max: 21 },
 				},
-				contrast: { choices: CHOICES.UP_DOWN_VALUE, default: 'up' },
+				contrast: { choices: CHOICES.UP_DOWN_VALUE, default: 'up', range: { min: 0, max: 15, default: 7 } },
 				pictureEffect: { choices: CHOICES.PICTURE_EFFECT, default: 'BW' },
 				color_temp: { choices: CHOICES.COLOR_TEMP, default: '6400' },
 			},
@@ -255,7 +266,7 @@ module.exports = {
 				wb: { choices: CHOICES.WB_MODE_1, default: 'AUTO' },
 				color_temp: { choices: CHOICES.COLOR_TEMP, default: '6400' },
 				// Picture Setup Actions
-				contrast: { choices: CHOICES.UP_DOWN_VALUE, default: 'up' },
+				contrast: { choices: CHOICES.UP_DOWN_VALUE, default: 'up', range: { min: 0, max: 15, default: 7 } },
 				pictureEffect: { choices: CHOICES.PICTURE_EFFECT, default: 'BW' },
 				// Color Matrix Actions
 				// Advanced Setup Actions
@@ -346,6 +357,7 @@ module.exports = {
 				tiltSpeed: { choices: CHOICES.SPEED_CHANGES, default: 'up' },
 				// Focus Actions
 				// Exposure Actions
+				ae_response: { range: { min: 1, max: 48, default: 1 } },
 				expM: { choices: CHOICES.EXP_MODE_2, default: 'FULL-AUTO' },
 				gain: { choices: CHOICES.GAIN_2, default: 0 },
 				iris: { choices: CHOICES.IRIS_2, default: 1, range: { closed: 0, min: 5, max: 17 } },
@@ -451,6 +463,7 @@ module.exports = {
 				tiltSpeed: { choices: CHOICES.SPEED_CHANGES, default: 'up' },
 				// Focus Actions
 				// Exposure Actions
+				ae_response: { range: { min: 1, max: 48, default: 1 } },
 				expM: { choices: CHOICES.EXP_MODE_1, default: 'FULL-AUTO' },
 				highSensitivity: { choices: CHOICES.ON_OFF, default: 'On' },
 				// White Balance Actions
@@ -545,6 +558,7 @@ module.exports = {
 				tiltSpeed: { choices: CHOICES.SPEED_CHANGES, default: 'up' },
 				// Focus Actions
 				// Exposure Actions
+				ae_response: { range: { min: 1, max: 48, default: 1 } },
 				expM: { choices: CHOICES.EXP_MODE_1, default: 'FULL-AUTO' },
 				gain: { choices: CHOICES.GAIN_2, default: 0 },
 				iris: { choices: CHOICES.IRIS_2, default: 1, range: { closed: 0, min: 5, max: 17 } },
@@ -647,6 +661,7 @@ module.exports = {
 				tiltSpeed: { choices: CHOICES.SPEED_CHANGES, default: 'up' },
 				// Focus Actions
 				// Exposure Actions
+				ae_response: { range: { min: 1, max: 48, default: 1 } },
 				expM: { choices: CHOICES.EXP_MODE_1, default: 'FULL-AUTO' },
 				gain: { choices: CHOICES.GAIN_2, default: 0 },
 				iris: { choices: CHOICES.IRIS_2, default: 1, range: { closed: 0, min: 5, max: 17 } },
@@ -749,6 +764,7 @@ module.exports = {
 				tiltSpeed: { choices: CHOICES.SPEED_CHANGES, default: 'up' },
 				// Focus Actions
 				// Exposure Actions
+				ae_response: { range: { min: 1, max: 48, default: 1 } },
 				expM: { choices: CHOICES.EXP_MODE_1, default: 'FULL-AUTO' },
 				gain: { choices: CHOICES.GAIN_2, default: 0 },
 				iris: { choices: CHOICES.IRIS_2, default: 1, range: { closed: 0, min: 5, max: 17 } },
@@ -851,6 +867,7 @@ module.exports = {
 				tiltSpeed: { choices: CHOICES.SPEED_CHANGES, default: 'up' },
 				// Focus Actions
 				// Exposure Actions
+				ae_response: { range: { min: 1, max: 48, default: 1 } },
 				expM: { choices: CHOICES.EXP_MODE_1, default: 'FULL-AUTO' },
 				gain: { choices: CHOICES.GAIN_2, default: 0 },
 				iris: { choices: CHOICES.IRIS_2, default: 1, range: { closed: 0, min: 5, max: 17 } },
@@ -939,6 +956,7 @@ module.exports = {
 				tiltSpeed: { choices: CHOICES.SPEED_CHANGES, default: 'up' },
 				// Focus Actions
 				// Exposure Actions
+				ae_response: { range: { min: 1, max: 48, default: 1 } },
 				expM: { choices: CHOICES.EXP_MODE_3, default: 'FULL-AUTO' },
 				gain: { choices: CHOICES.GAIN_2, default: 0 },
 				iris: { choices: CHOICES.IRIS_3, default: 1, range: { closed: 0, min: 5, max: 21 } },
@@ -1027,6 +1045,7 @@ module.exports = {
 				tiltSpeed: { choices: CHOICES.SPEED_CHANGES, default: 'up' },
 				// Focus Actions
 				// Exposure Actions
+				ae_response: { range: { min: 1, max: 48, default: 1 } },
 				expM: { choices: CHOICES.EXP_MODE_3, default: 'FULL-AUTO' },
 				gain: { choices: CHOICES.GAIN_2, default: 0 },
 				iris: { choices: CHOICES.IRIS_4, default: 1, range: { closed: 5, min: 6, max: 21 } },

@@ -481,7 +481,7 @@ class instance extends instance_skel {
 					case 'On':
 						body = {
 							ExpCompEn: String(opt.val),
-							ExpCompLvl: String(opt.level),
+							ExpCompLvl: String(opt.level + 7), //Convert action range to API range
 						}
 						break
 				}

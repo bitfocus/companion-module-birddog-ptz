@@ -12,6 +12,7 @@ See [HELP.md](https://github.com/bitfocus/companion-module-birddog-ptz/blob/main
 
 - New Actions
 
+  - Ae Response
   - Exposure Compensation
   - Exposure Compensation Level
   - NDI Audio
@@ -19,6 +20,7 @@ See [HELP.md](https://github.com/bitfocus/companion-module-birddog-ptz/blob/main
   - Transmit Method
 
 - New Feedbacks
+  - Ae Response
   - Exposure Compensation
   - Exposure Compensation Level
   - NDI Audio

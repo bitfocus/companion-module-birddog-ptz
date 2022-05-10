@@ -1,5 +1,6 @@
 var { MODELS } = require('./models.js')
 const CHOICES = require('./choices.js')
+const { min } = require('lodash')
 
 module.exports = {
 	getActions() {
@@ -11,108 +12,151 @@ module.exports = {
 
 		// General Camera Actions
 
-		actions['standby'] = {
-			label: 'Standby On/Off',
-			options: [
-				{
-					type: 'dropdown',
-					label: 'On/Standby',
-					id: 'val',
-					choices: CHOICES.STANDBY,
-					default: 'On',
-				},
-			],
+		if (MODEL_VALUES?.standby) {
+			actions['standby'] = {
+				label: 'Standby On/Off',
+				options: [
+					{
+						type: 'dropdown',
+						label: 'On/Standby',
+						id: 'val',
+						choices: MODEL_VALUES.standby.choices,
+						default: MODEL_VALUES.standby.default,
+					},
+				],
+			}
+		}
+		if (MODEL_VALUES?.freeze) {
+			actions['freeze'] = {
+				label: 'Freeze',
+				options: [
+					{
+						type: 'dropdown',
+						label: 'On / Off',
+						id: 'val',
+						choices: MODEL_VALUES.freeze.choices,
+						default: MODEL_VALUES.freeze.default,
+					},
+				],
+			}
 		}
 
 		// Analog Audio Actions
-		
-		actions['analogAudioInGain'] = {
-			label: 'Analog Audio In Gain',
-			options: [
-				{
-					type: 'number',
-					label: 'Analog Audio In Gain (dB)',
-					id: 'val',
-					default: 0,
-					min: -50,
-					max: 50,
-				},
-			],
+
+		if (MODEL_VALUES?.analogAudioInGain) {
+			actions['analogAudioInGain'] = {
+				label: 'Analog Audio In Gain',
+				options: [
+					{
+						type: 'number',
+						label:
+							'Analog Audio In Gain (dB) (' +
+							MODEL_VALUES.analogAudioInGain.range.min +
+							' to ' +
+							MODEL_VALUES.analogAudioInGain.range.max +
+							')',
+						id: 'val',
+						default: MODEL_VALUES.analogAudioInGain.range.default,
+						min: MODEL_VALUES.analogAudioInGain.range.min,
+						max: MODEL_VALUES.analogAudioInGain.range.max,
+					},
+				],
+			}
 		}
-		actions['analogAudioOutGain'] = {
-			label: 'Analog Audio Out Gain',
-			options: [
-				{
-					type: 'number',
-					label: 'Analog Audio Out Gain (dB)',
-					id: 'val',
-					default: 0,
-					min: -50,
-					max: 50,
-				},
-			],
+		if (MODEL_VALUES?.analogAudioOutGain) {
+			actions['analogAudioOutGain'] = {
+				label: 'Analog Audio Out Gain',
+				options: [
+					{
+						type: 'number',
+						label:
+							'Analog Audio Out Gain (dB) (' +
+							MODEL_VALUES.analogAudioOutGain.range.min +
+							' to ' +
+							MODEL_VALUES.analogAudioOutGain.range.max +
+							')',
+						id: 'val',
+						default: MODEL_VALUES.analogAudioOutGain.range.default,
+						min: MODEL_VALUES.analogAudioOutGain.range.min,
+						max: MODEL_VALUES.analogAudioOutGain.range.max,
+					},
+				],
+			}
 		}
-		actions['analogAudioOutput'] = {
-			label: 'Analog Audio Output Select',
-			options: [
-				{
-					type: 'dropdown',
-					label: 'Decode Comms / Decode Loop',
-					id: 'val',
-					choices: CHOICES.ANALOG_AUDIO_OUTPUT,
-					default: 'DecodeComms',
-				},
-			],
+		if (MODEL_VALUES?.analogAudioOutput) {
+			actions['analogAudioOutput'] = {
+				label: 'Analog Audio Output Select',
+				options: [
+					{
+						type: 'dropdown',
+						label: 'Decode Comms / Decode Loop',
+						id: 'val',
+						choices: MODEL_VALUES.analogAudioOutput.choices,
+						default: MODEL_VALUES.analogAudioOutput.default,
+					},
+				],
+			}
 		}
 
 		// Video Output Interface Actions
 
 		// Encode Setup Actions
 
-		actions['encodeBandwidth'] = {
-			label: 'Encode Bandwidth',
-			options: [
-				{
-					type: 'dropdown',
-					label: 'Manual / NDI Managed',
-					id: 'val',
-					choices: CHOICES.ENCODE_BANDWIDTH_MODE,
-					default: 'NDIManaged',
-				},
-				{
-					type: 'number',
-					label: 'Bandwidth Select',
-					id: 'bandwidth',
-					default: 120,
-					min: 80,
-					max: 180,
-					isVisible: (action) => action.options.val === 'Manual',
-				},
-			],
+		if (MODEL_VALUES?.encodeBandwidth) {
+			actions['encodeBandwidth'] = {
+				label: 'Encode Bandwidth',
+				options: [
+					{
+						type: 'dropdown',
+						label: 'Manual / NDI Managed',
+						id: 'val',
+						choices: MODEL_VALUES.encodeBandwidth.choices,
+						default: MODEL_VALUES.encodeBandwidth.default,
+					},
+					{
+						type: 'number',
+						label:
+							'Bandwidth Select (' +
+							MODEL_VALUES.encodeBandwidth.range.min +
+							' to ' +
+							MODEL_VALUES.encodeBandwidth.range.max +
+							')',
+						id: 'bandwidth',
+						default: MODEL_VALUES.encodeBandwidth.range.default,
+						min: MODEL_VALUES.encodeBandwidth.range.min,
+						max: MODEL_VALUES.encodeBandwidth.range.max,
+						isVisible: (action) => action.options.val === 'Manual',
+					},
+				],
+			}
 		}
-		actions['ndiAudio'] = {
-			label: 'NDI Audio',
-			options: [
-				{
-					type: 'dropdown',
-					label: 'Analog / Mute',
-					id: 'val',
-					choices: CHOICES.ENCODE_NDI_AUDIO,
-					default: 'NDIAudioMute',
-				},
-			],
+		if (MODEL_VALUES?.ndiAudio) {
+			actions['ndiAudio'] = {
+				label: 'NDI Audio',
+				options: [
+					{
+						type: 'dropdown',
+						label: 'Analog / Mute',
+						id: 'val',
+						choices: MODEL_VALUES.ndiAudio.choices,
+						default: MODEL_VALUES.ndiAudio.default,
+					},
+				],
+			}
 		}
-		actions['ndiGroupEnable'] = {
-			label: 'NDI Group Enable',
-			options: [
-				{
-					type: 'dropdown',
-					label: 'NDI Group Enable',
-					id: 'val',
-					choices: CHOICES.ENCODE_NDIGroup,
-					default: 'NDIGroupDis',
-				},
-			],
+		if (MODEL_VALUES?.ndiGroupEnable) {
+			actions['ndiGroupEnable'] = {
+				label: 'NDI Group Enable',
+				options: [
+					{
+						type: 'dropdown',
+						label: 'NDI Group Enable',
+						id: 'val',
+						choices: MODEL_VALUES.ndiGroupEnable.choices,
+						default: MODEL_VALUES.ndiGroupEnable.default,
+					},
+				],
+			}
 		}
 		if (MODEL_VALUES?.tally) {
 			actions['tally'] = {
@@ -201,40 +245,42 @@ module.exports = {
 				],
 			}
 		}
-		actions['zoom'] = {
-			label: 'Zoom',
-			options: [
-				{
-					type: 'dropdown',
-					label: 'Direction',
-					id: 'val',
-					choices: CHOICES.PTZ_ZOOM,
-					default: 'in',
-				},
-				{
-					type: 'dropdown',
-					label: 'Zoom Position',
-					id: 'posZoom',
-					choices: MODEL_VALUES.zoom.posZoomChoices,
-					default: MODEL_VALUES.zoom.posZoomDefault,
-					isVisible: (action) => action.options.val === 'direct',
-				},
-				{
-					type: 'checkbox',
-					label: 'Speed Overide',
-					id: 'override',
-					default: false,
-					isVisible: (action) => action.options.val !== 'direct',
-				},
-				{
-					type: 'number',
-					label: 'Speed',
-					id: 'speed',
-					choices: CHOICES.ZOOM_SPEED,
-					default: 4,
-					isVisible: (action) => action.options.override === true,
-				},
-			],
+		if (MODEL_VALUES?.zoom) {
+			actions['zoom'] = {
+				label: 'Zoom',
+				options: [
+					{
+						type: 'dropdown',
+						label: 'Direction',
+						id: 'val',
+						choices: CHOICES.PTZ_ZOOM,
+						default: 'in',
+					},
+					{
+						type: 'dropdown',
+						label: 'Zoom Position',
+						id: 'posZoom',
+						choices: MODEL_VALUES.zoom.posZoomChoices,
+						default: MODEL_VALUES.zoom.posZoomDefault,
+						isVisible: (action) => action.options.val === 'direct',
+					},
+					{
+						type: 'checkbox',
+						label: 'Speed Overide',
+						id: 'override',
+						default: false,
+						isVisible: (action) => action.options.val !== 'direct',
+					},
+					{
+						type: 'number',
+						label: 'Speed',
+						id: 'speed',
+						choices: CHOICES.ZOOM_SPEED,
+						default: 4,
+						isVisible: (action) => action.options.override === true,
+					},
+				],
+			}
 		}
 		if (MODEL_VALUES?.panSpeed) {
 			actions['panSpeed'] = {
@@ -280,81 +326,111 @@ module.exports = {
 				],
 			}
 		}
-		actions['zoomSpeed'] = {
-			label: 'Zoom Speed',
-			options: [
-				{
-					type: 'dropdown',
-					label: 'Action',
-					id: 'type',
-					choices: CHOICES.SPEED_CHANGES,
-					default: 'up',
-				},
-				{
-					type: 'dropdown',
-					label: 'Value',
-					id: 'value',
-					choices: CHOICES.ZOOM_SPEED,
-					default: 4,
-					isVisible: (action) => action.options.type === 'value',
-				},
-			],
+		if (MODEL_VALUES?.zoomSpeed) {
+			actions['zoomSpeed'] = {
+				label: 'Zoom Speed',
+				options: [
+					{
+						type: 'dropdown',
+						label: 'Action',
+						id: 'type',
+						choices: CHOICES.SPEED_CHANGES,
+						default: 'up',
+					},
+					{
+						type: 'dropdown',
+						label: 'Value',
+						id: 'value',
+						choices: CHOICES.ZOOM_SPEED,
+						default: 4,
+						isVisible: (action) => action.options.type === 'value',
+					},
+				],
+			}
 		}
-		actions['savePset'] = {
-			label: 'Save Preset',
-			options: [
-				{
-					type: 'number',
-					label: 'Preset Number',
-					id: 'val',
-					default: 1,
-					min: 1,
-					max: 64,
-				},
-			],
+		if (MODEL_VALUES?.savePset) {
+			actions['savePset'] = {
+				label: 'Save Preset',
+				options: [
+					{
+						type: 'number',
+						label: 'Preset Number (' + MODEL_VALUES.savePset.range.min + ' to ' + MODEL_VALUES.savePset.range.max + ')',
+						id: 'val',
+						default: MODEL_VALUES.savePset.range.default,
+						min: MODEL_VALUES.savePset.range.min,
+						max: MODEL_VALUES.savePset.range.max,
+					},
+				],
+			}
 		}
-		actions['recallPset'] = {
-			label: 'Recall Preset',
-			options: [
-				{
-					type: 'number',
-					label: 'Preset Number',
-					id: 'val',
-					default: 1,
-					min: 1,
-					max: 64,
-				},
-			],
+		if (MODEL_VALUES?.recallPset) {
+			actions['recallPset'] = {
+				label: 'Recall Preset',
+				options: [
+					{
+						type: 'number',
+						label: 'Preset Number (' + MODEL_VALUES.savePset.range.min + ' to ' + MODEL_VALUES.savePset.range.max + ')',
+						id: 'val',
+						default: MODEL_VALUES.savePset.range.default,
+						min: MODEL_VALUES.savePset.range.min,
+						max: MODEL_VALUES.savePset.range.max,
+					},
+				],
+			}
 		}
-
 		// Focus Actions
 
-		actions['focus'] = {
-			label: 'Focus',
-			options: [
-				{
-					type: 'dropdown',
-					label: 'Direction',
-					id: 'val',
-					choices: CHOICES.FOCUS_CONTROL,
-					default: '0',
-				},
-			],
+		if (MODEL_VALUES?.focus) {
+			actions['focus'] = {
+				label: 'Focus',
+				options: [
+					{
+						type: 'dropdown',
+						label: 'Direction',
+						id: 'val',
+						choices: MODEL_VALUES.focus.choices,
+						default: MODEL_VALUES.focus.default,
+					},
+				],
+			}
 		}
-		actions['focusM'] = {
-			label: 'Focus Mode',
-			options: [
-				{
-					type: 'dropdown',
-					label: 'Mode',
-					id: 'val',
-					choices: CHOICES.AUTO_FOCUS,
-					default: 'Auto',
-				},
-			],
+		if (MODEL_VALUES?.focusM) {
+			actions['focusM'] = {
+				label: 'Focus Mode',
+				options: [
+					{
+						type: 'dropdown',
+						label: 'Mode',
+						id: 'val',
+						choices: MODEL_VALUES.focusM.choices,
+						default: MODEL_VALUES.focusM.default,
+					},
+				],
+			}
 		}
 
 		// Exposure Actions
+
+		if (MODEL_VALUES?.ae_response) {
+			actions['ae_response'] = {
+				label: 'Ae Repsonse',
+				options: [
+					{
+						type: 'number',
+						label:
+							'Ae Response (' +
+							MODEL_VALUES.ae_response.range.min +
+							' to ' +
+							MODEL_VALUES.ae_response.range.max +
+							')',
+						id: 'level',
+						default: MODEL_VALUES.ae_response.range.default,
+						min: MODEL_VALUES.ae_response.range.min,
+						max: MODEL_VALUES.ae_response.range.max,
+					},
+				],
+			}
+		}
 
 		if (MODEL_VALUES?.expComp) {
 			actions['expComp'] = {
@@ -369,11 +445,16 @@ module.exports = {
 					},
 					{
 						type: 'number',
-						label: 'Exposure Compensation Level',
+						label:
+							'Exposure Compensation Level (' +
+							MODEL_VALUES.expCompLvl.range.min +
+							' to ' +
+							MODEL_VALUES.expCompLvl.range.max +
+							')',
 						id: 'level',
-						default: MODEL_VALUES.expComp.rangeDefault,
-						min: MODEL_VALUES.expComp.range.min,
-						max: MODEL_VALUES.expComp.range.max,
+						default: MODEL_VALUES.expCompLvl.range.default,
+						min: MODEL_VALUES.expCompLvl.range.min,
+						max: MODEL_VALUES.expCompLvl.range.max,
 						isVisible: (action) => action.options.val === 'On',
 					},
 				],
@@ -493,51 +574,57 @@ module.exports = {
 				],
 			}
 		}
-		actions['wbOnePush'] = {
-			label: 'White Balance One Push Trigger',
-			description: 'Camera must be in One Push mode in order to use this action',
+		if (MODEL_VALUES?.wbOnePush) {
+			actions['wbOnePush'] = {
+				label: 'White Balance One Push Trigger',
+				description: 'Camera must be in One Push mode in order to use this action',
+			}
 		}
-		actions['gainBlue'] = {
-			label: 'Gain Blue',
-			options: [
-				{
-					type: 'dropdown',
-					label: 'Gain Blue',
-					id: 'val',
-					choices: CHOICES.UP_DOWN_VALUE,
-					default: 'up',
-				},
-				{
-					type: 'number',
-					label: 'Value',
-					id: 'value',
-					default: 127,
-					min: 0,
-					max: 255,
-					isVisible: (action) => action.options.val === 'value',
-				},
-			],
+		if (MODEL_VALUES?.gainBlue) {
+			actions['gainBlue'] = {
+				label: 'Gain Blue',
+				options: [
+					{
+						type: 'dropdown',
+						label: 'Gain Blue',
+						id: 'val',
+						choices: MODEL_VALUES.gainBlue.choices,
+						default: MODEL_VALUES.gainBlue.default,
+					},
+					{
+						type: 'number',
+						label: 'Value (' + MODEL_VALUES.gainBlue.range.min + ' to ' + MODEL_VALUES.gainBlue.range.max + ')',
+						id: 'value',
+						default: MODEL_VALUES.gainBlue.range.default,
+						min: MODEL_VALUES.gainBlue.range.min,
+						max: MODEL_VALUES.gainBlue.range.max,
+						isVisible: (action) => action.options.val === 'value',
+					},
+				],
+			}
 		}
-		actions['gainRed'] = {
-			label: 'Gain Red',
-			options: [
-				{
-					type: 'dropdown',
-					label: 'Gain Red',
-					id: 'val',
-					choices: CHOICES.UP_DOWN_VALUE,
-					default: 'up',
-				},
-				{
-					type: 'number',
-					label: 'Value',
-					id: 'value',
-					default: 127,
-					min: 0,
-					max: 255,
-					isVisible: (action) => action.options.val === 'value',
-				},
-			],
+		if (MODEL_VALUES?.gainRed) {
+			actions['gainRed'] = {
+				label: 'Gain Red',
+				options: [
+					{
+						type: 'dropdown',
+						label: 'Gain Red',
+						id: 'val',
+						choices: MODEL_VALUES.gainRed.choices,
+						default: MODEL_VALUES.gainRed.default,
+					},
+					{
+						type: 'number',
+						label: 'Value (' + MODEL_VALUES.gainRed.range.min + ' to ' + MODEL_VALUES.gainRed.range.max + ')',
+						id: 'value',
+						default: MODEL_VALUES.gainRed.range.default,
+						min: MODEL_VALUES.gainRed.range.min,
+						max: MODEL_VALUES.gainRed.range.max,
+						isVisible: (action) => action.options.val === 'value',
+					},
+				],
+			}
 		}
 		if (MODEL_VALUES?.color_temp) {
 			actions['color_temp'] = {
@@ -556,29 +643,33 @@ module.exports = {
 
 		// Picture Setup Actions
 
-		actions['picFlip'] = {
-			label: 'Picture Flip',
-			options: [
-				{
-					type: 'dropdown',
-					label: 'On / Off',
-					id: 'val',
-					choices: CHOICES.ON_OFF,
-					default: 'On',
-				},
-			],
+		if (MODEL_VALUES?.picFlip) {
+			actions['picFlip'] = {
+				label: 'Picture Flip',
+				options: [
+					{
+						type: 'dropdown',
+						label: 'On / Off',
+						id: 'val',
+						choices: MODEL_VALUES.picFlip.choices,
+						default: MODEL_VALUES.picFlip.default,
+					},
+				],
+			}
 		}
-		actions['picMirror'] = {
-			label: 'Picture Mirror',
-			options: [
-				{
-					type: 'dropdown',
-					label: 'On / Off',
-					id: 'val',
-					choices: CHOICES.ON_OFF,
-					default: 'On',
-				},
-			],
+		if (MODEL_VALUES?.picMirror) {
+			actions['picMirror'] = {
+				label: 'Picture Mirror',
+				options: [
+					{
+						type: 'dropdown',
+						label: 'On / Off',
+						id: 'val',
+						choices: MODEL_VALUES.picFlip.choices,
+						default: MODEL_VALUES.picFlip.default,
+					},
+				],
+			}
 		}
 		if (MODEL_VALUES?.contrast) {
 			actions['contrast'] = {
@@ -593,11 +684,11 @@ module.exports = {
 					},
 					{
 						type: 'number',
-						label: 'Value (0 to 15)',
+						label: 'Value (' + MODEL_VALUES.contrast.range.min + ' to ' + MODEL_VALUES.contrast.range.max + ')',
 						id: 'value',
-						min: 0,
-						max: 15,
-						default: 7,
+						min: MODEL_VALUES.contrast.range.min,
+						max: MODEL_VALUES.contrast.range.max,
+						default: MODEL_VALUES.contrast.range.default,
 						isVisible: (action) => action.options.val === 'value',
 					},
 				],
@@ -679,20 +770,6 @@ module.exports = {
 		if (MODEL_VALUES?.hrMode) {
 			actions['hrMode'] = {
 				label: 'High Resolution Mode',
-				options: [
-					{
-						type: 'dropdown',
-						label: 'On / Off',
-						id: 'val',
-						choices: CHOICES.ON_OFF,
-						default: 'On',
-					},
-				],
-			}
-		}
-		if (MODEL_VALUES?.freeze) {
-			actions['freeze'] = {
-				label: 'Freeze',
 				options: [
 					{
 						type: 'dropdown',

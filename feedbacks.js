@@ -170,7 +170,7 @@ exports.initFeedbacks = function () {
 					label: 'Method',
 					id: 'val',
 					choices: MODEL_VALUES.transmit_method.choices,
-					default: MODEL_VALUES.transmit_method.default
+					default: MODEL_VALUES.transmit_method.default,
 				},
 			],
 			callback: (feedback) => {
@@ -209,6 +209,32 @@ exports.initFeedbacks = function () {
 
 	// Exposure Feedback
 
+	if (MODEL_VALUES?.ae_response) {
+		feedbacks.ae_response = {
+			type: 'boolean',
+			label: 'Ae Response Level',
+			description: 'If the camera matches the selected Ae Response level, change the style of the button',
+			style: {
+				color: ColorBlack,
+				bgcolor: ColorGreen,
+			},
+			options: [
+				{
+					type: 'number',
+					label:
+						'Ae Response (' + MODEL_VALUES.ae_response.range.min + ' to ' + MODEL_VALUES.ae_response.range.max + ')',
+					id: 'level',
+					default: MODEL_VALUES.ae_response.range.default,
+					min: MODEL_VALUES.ae_response.range.min,
+					max: MODEL_VALUES.ae_response.range.max,
+				},
+			],
+			callback: (feedback) => {
+				return this.camera?.expsetup?.AeResponse == feedback.options.level
+			},
+		}
+	}
+
 	if (MODEL_VALUES?.expComp) {
 		feedbacks.exposureCompEn = {
 			type: 'boolean',
@@ -233,7 +259,7 @@ exports.initFeedbacks = function () {
 		}
 	}
 
-	if (MODEL_VALUES?.expComp) {
+	if (MODEL_VALUES?.expCompLvl) {
 		feedbacks.exposureCompLvl = {
 			type: 'boolean',
 			label: 'Exposure Compensation Level',
@@ -245,11 +271,16 @@ exports.initFeedbacks = function () {
 			options: [
 				{
 					type: 'number',
-					label: 'On / Off',
+					label:
+						'Exposure Compensation Level (' +
+						MODEL_VALUES.expCompLvl.range.min +
+						' to ' +
+						MODEL_VALUES.expCompLvl.range.max +
+						')',
 					id: 'level',
-					default: MODEL_VALUES.expComp.rangeDefault,
-					min: MODEL_VALUES.expComp.range.min,
-					max: MODEL_VALUES.expComp.range.max,
+					default: MODEL_VALUES.expCompLvl.range.default,
+					min: MODEL_VALUES.expCompLvl.range.min,
+					max: MODEL_VALUES.expCompLvl.range.max,
 				},
 			],
 			callback: (feedback) => {
