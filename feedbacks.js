@@ -366,6 +366,30 @@ exports.initFeedbacks = function () {
 		}
 	}
 
+	if (MODEL_VALUES?.gain_point) {
+		feedbacks.gain_point = {
+			type: 'boolean',
+			label: 'Gain Point',
+			description: 'If the camera matches the selected gain point, change the style of the button',
+			style: {
+				color: ColorBlack,
+				bgcolor: ColorGreen,
+			},
+			options: [
+				{
+					type: 'dropdown',
+					label: 'Gain Point (dB)',
+					id: 'gain',
+					choices: MODEL_VALUES.gain.choices,
+					default: MODEL_VALUES.gain.default,
+				},
+			],
+			callback: (feedback) => {
+				return this.camera?.expsetup?.GainPoint == feedback.options.gain
+			},
+		}
+	}
+
 	// White Balance Feedback
 
 	if (MODEL_VALUES?.wb) {

@@ -173,6 +173,22 @@ module.exports = {
 		{ id: '14', label: '39 dB' },
 		{ id: '15', label: '42 dB' },
 	],
+		//P400, P4K
+		GAIN_3: [
+			{ id: '1', label: '0 dB' },
+			{ id: '2', label: '3 dB' },
+			{ id: '3', label: '6 dB' },
+			{ id: '4', label: '9 dB' },
+			{ id: '5', label: '12 dB' },
+			{ id: '6', label: '15 dB' },
+			{ id: '7', label: '18 dB' },
+			{ id: '8', label: '21 dB' },
+			{ id: '9', label: '24 dB' },
+			{ id: '10', label: '27 dB' },
+			{ id: '11', label: '30 dB' },
+			{ id: '12', label: '33 dB' },
+			{ id: '13', label: '36 dB' },
+		],
 
 	// ############
 	// Shutter Look Ups

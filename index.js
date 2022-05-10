@@ -537,6 +537,35 @@ class instance extends instance_skel {
 				this.sendCommand('birddogexpsetup', 'POST', body)
 				break
 
+			case 'gainPoint':
+				body = {
+					GainPoint: String(opt.val),
+				}
+				this.sendCommand('birddogexpsetup', 'POST', body)
+				break
+
+			case 'gainPointPosition':
+				let gainPointPosition = this.camera?.expsetup?.GainPointPosition
+					? this.camera.expsetup.GainPointPosition
+					: MODEL_VALUES.gain.default
+				switch (opt.val) {
+					case 'up':
+						newValue =
+							gainPointPosition < this.camera.expsetup.GainLimit ? ++gainPointPosition : this.camera.expsetup.GainLimit
+						break
+					case 'down':
+						newValue = gainPointPosition > MODEL_VALUES.gain[0] ? --gainPointPosition : gainPointPosition
+						break
+					case 'value':
+						newValue = opt.value
+						break
+				}
+				body = {
+					GainPointPosition: String(newValue),
+				}
+				this.sendCommand('birddogexpsetup', 'POST', body)
+				break
+
 			case 'iris':
 				let iris = this.camera?.expsetup?.IrisLevel ? this.camera.expsetup.IrisLevel : MODEL_VALUES.iris.default
 				switch (opt.val) {

@@ -497,7 +497,7 @@ module.exports = {
 			}
 		}
 
-		if (MODEL_VALUES?.gainLimit) {
+		if (MODEL_VALUES?.gain_limit) {
 			actions['gainLimit'] = {
 				label: 'Gain Limit',
 				options: [
@@ -522,6 +522,45 @@ module.exports = {
 				],
 			}
 		}
+
+		if (MODEL_VALUES?.gain_point) {
+			actions['gainPoint'] = {
+				label: 'Gain Point',
+				options: [
+					{
+						type: 'dropdown',
+						label: 'Gain Point',
+						id: 'val',
+						choices: CHOICES.ON_OFF,
+						default: 'On',
+					},
+				],
+			}
+		}
+
+		if (MODEL_VALUES?.gain_point) {
+			actions['gainPointPosition'] = {
+				label: 'Gain Point Position',
+				options: [
+					{
+						type: 'dropdown',
+						label: 'Gain Point',
+						id: 'val',
+						choices: CHOICES.UP_DOWN_VALUE,
+						default: 'up',
+					},
+					{
+						type: 'dropdown',
+						label: 'Value',
+						id: 'value',
+						choices: MODEL_VALUES.gain.choices.slice(0, parseInt(this.camera.expsetup.GainLimit, 10) + 1),
+						default: MODEL_VALUES.gain.default,
+						isVisible: (action) => action.options.val === 'value',
+					},
+				],
+			}
+		}
+
 		if (MODEL_VALUES?.iris) {
 			actions['iris'] = {
 				label: 'Iris',
@@ -544,6 +583,7 @@ module.exports = {
 				],
 			}
 		}
+
 		if (MODEL_VALUES?.shut) {
 			actions['shut'] = {
 				label: 'Shutter',

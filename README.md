@@ -16,6 +16,8 @@ See [HELP.md](https://github.com/bitfocus/companion-module-birddog-ptz/blob/main
   - Exposure Compensation
   - Exposure Compensation Level
   - Gain Limit
+  - Gain Point
+  - Gain Point Position
   - NDI Audio
   - NDI Group Enable
   - Transmit Method
@@ -26,6 +28,8 @@ See [HELP.md](https://github.com/bitfocus/companion-module-birddog-ptz/blob/main
   - Exposure Compensation Level
   - Gain
   - Gain Limit
+  - Gain Point
+  - Gain Point Position
   - NDI Audio
   - NDI Group Enable
   - Transmit Method

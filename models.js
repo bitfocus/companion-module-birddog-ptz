@@ -359,7 +359,8 @@ module.exports = {
 				// Exposure Actions
 				ae_response: { range: { min: 1, max: 48, default: 1 } },
 				expM: { choices: CHOICES.EXP_MODE_2, default: 'FULL-AUTO' },
-				gain: { choices: CHOICES.GAIN_2, default: 0 },
+				gain: { choices: CHOICES.GAIN_2, default: 1 },
+				gain_limit: { range: { min: 4, max: 15, default: 15 } },
 				iris: { choices: CHOICES.IRIS_2, default: 1, range: { closed: 0, min: 5, max: 17 } },
 				shut: {
 					shutter_50: CHOICES.SHUTTER_50,
@@ -465,6 +466,15 @@ module.exports = {
 				// Exposure Actions
 				ae_response: { range: { min: 1, max: 48, default: 1 } },
 				expM: { choices: CHOICES.EXP_MODE_1, default: 'FULL-AUTO' },
+				gain: { choices: CHOICES.GAIN_2, default: 1 },
+				gain_limit: { range: { min: 4, max: 15, default: 15 } },
+				iris: { choices: CHOICES.IRIS_2, default: 1, range: { closed: 0, min: 5, max: 17 } },
+				shut: {
+					shutter_50: CHOICES.SHUTTER_50,
+					shutter_60: CHOICES.SHUTTER_60,
+					default: 6,
+					range: { min: 0, max: 21 },
+				},
 				highSensitivity: { choices: CHOICES.ON_OFF, default: 'On' },
 				// White Balance Actions
 				wb: { choices: CHOICES.WB_MODE_2, default: 'AUTO' },
@@ -560,8 +570,8 @@ module.exports = {
 				// Exposure Actions
 				ae_response: { range: { min: 1, max: 48, default: 1 } },
 				expM: { choices: CHOICES.EXP_MODE_1, default: 'FULL-AUTO' },
-				gain: { choices: CHOICES.GAIN_2, default: 0 },
-				gainLimit: { range: { min: 4, max: 15, default: 15 } },
+				gain: { choices: CHOICES.GAIN_2, default: 1 },
+				gain_limit: { range: { min: 4, max: 15, default: 15 } },
 				iris: { choices: CHOICES.IRIS_2, default: 1, range: { closed: 0, min: 5, max: 17 } },
 				shut: {
 					shutter_50: CHOICES.SHUTTER_50,
@@ -664,8 +674,8 @@ module.exports = {
 				// Exposure Actions
 				ae_response: { range: { min: 1, max: 48, default: 1 } },
 				expM: { choices: CHOICES.EXP_MODE_1, default: 'FULL-AUTO' },
-				gain: { choices: CHOICES.GAIN_2, default: 0 },
-				gainLimit: { range: { min: 4, max: 15, default: 15 } },
+				gain: { choices: CHOICES.GAIN_2, default: 1 },
+				gain_limit: { range: { min: 4, max: 15, default: 15 } },
 				iris: { choices: CHOICES.IRIS_2, default: 1, range: { closed: 0, min: 5, max: 17 } },
 				shut: {
 					shutter_50: CHOICES.SHUTTER_50,
@@ -768,8 +778,8 @@ module.exports = {
 				// Exposure Actions
 				ae_response: { range: { min: 1, max: 48, default: 1 } },
 				expM: { choices: CHOICES.EXP_MODE_1, default: 'FULL-AUTO' },
-				gain: { choices: CHOICES.GAIN_2, default: 0 },
-				gainLimit: { range: { min: 4, max: 15, default: 15 } },
+				gain: { choices: CHOICES.GAIN_2, default: 1 },
+				gain_limit: { range: { min: 4, max: 15, default: 15 } },
 				iris: { choices: CHOICES.IRIS_2, default: 1, range: { closed: 0, min: 5, max: 17 } },
 				shut: {
 					shutter_50: CHOICES.SHUTTER_50,
@@ -872,8 +882,8 @@ module.exports = {
 				// Exposure Actions
 				ae_response: { range: { min: 1, max: 48, default: 1 } },
 				expM: { choices: CHOICES.EXP_MODE_1, default: 'FULL-AUTO' },
-				gain: { choices: CHOICES.GAIN_2, default: 0 },
-				gainLimit: { range: { min: 4, max: 15, default: 15 } },
+				gain: { choices: CHOICES.GAIN_2, default: 1 },
+				gain_limit: { range: { min: 4, max: 15, default: 15 } },
 				iris: { choices: CHOICES.IRIS_2, default: 1, range: { closed: 0, min: 5, max: 17 } },
 				shut: {
 					shutter_50: CHOICES.SHUTTER_50,
@@ -962,8 +972,9 @@ module.exports = {
 				// Exposure Actions
 				ae_response: { range: { min: 4, max: 48, default: 1 } },
 				expM: { choices: CHOICES.EXP_MODE_3, default: 'FULL-AUTO' },
-				gain: { choices: CHOICES.GAIN_2, default: 0 },
-				gainLimit: { range: { min: 4, max: 13, default: 13 } },
+				gain: { choices: CHOICES.GAIN_3, default: 1 },
+				gain_limit: { range: { min: 4, max: 13, default: 13 } },
+				gain_point: { choices: CHOICES.ON_OFF, default: 'On'},
 				iris: { choices: CHOICES.IRIS_3, default: 1, range: { closed: 0, min: 5, max: 21 } },
 				shut: {
 					shutter_24: CHOICES.SHUTTER_4K_24,
@@ -1052,8 +1063,9 @@ module.exports = {
 				// Exposure Actions
 				ae_response: { range: { min: 1, max: 48, default: 1 } },
 				expM: { choices: CHOICES.EXP_MODE_3, default: 'FULL-AUTO' },
-				gain: { choices: CHOICES.GAIN_2, default: 0 },
-				gainLimit: { range: { min: 4, max: 13, default: 13 } },
+				gain: { choices: CHOICES.GAIN_3, default: 1 },
+				gain_limit: { range: { min: 4, max: 13, default: 13 } },
+				gain_point: { choices: CHOICES.ON_OFF, default: 'On'},
 				iris: { choices: CHOICES.IRIS_4, default: 1, range: { closed: 5, min: 6, max: 21 } },
 				shut: {
 					shutter_24: CHOICES.SHUTTER_4K_24,
