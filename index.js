@@ -485,6 +485,13 @@ class instance extends instance_skel {
 				this.sendCommand('birddogexpsetup', 'POST', body)
 				break
 
+			case 'bright_level':
+				body = {
+					BrightLevel: String(opt.val),
+				}
+				this.sendCommand('birddogexpsetup', 'POST', body)
+				break
+
 			case 'expComp':
 				switch (opt.val) {
 					case 'Off':

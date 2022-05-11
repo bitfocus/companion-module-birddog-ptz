@@ -18,6 +18,7 @@ See [HELP.md](https://github.com/bitfocus/companion-module-birddog-ptz/blob/main
 
   - Ae Response
   - Backlight
+  - Bright Level
   - Exposure Compensation
   - Exposure Compensation Level
   - Gain Limit
@@ -38,6 +39,7 @@ See [HELP.md](https://github.com/bitfocus/companion-module-birddog-ptz/blob/main
 
   - Ae Response
   - Backlight
+  - Bright Level
   - Exposure Compensation
   - Exposure Compensation Level
   - Gain

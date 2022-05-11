@@ -193,6 +193,7 @@ module.exports = {
 				tiltSpeed: { choices: CHOICES.SPEED_CHANGES, default: 'up', range: { min: 0, max: 18, default: 9 } },
 				// Focus Actions
 				// Exposure Actions
+				bright_level: { range: { min: 0, max: 27, default: 14 } },
 				expM: { choices: CHOICES.EXP_MODE_1, default: 'FULL-AUTO' },
 				gain: { choices: CHOICES.GAIN_1, default: 0 },
 				iris: { choices: CHOICES.IRIS_1, default: 1, range: { closed: 0, min: 1, max: 13 } },
@@ -275,6 +276,7 @@ module.exports = {
 				zoom: { ...COMMON[2].zoom, posZoomChoices: CHOICES.POS_ZOOM_20, posZoomDefault: '0000' },
 				// Focus Actions
 				// Exposure Actions
+				bright_level: { range: { min: 0, max: 27, default: 14 } },
 				expM: { choices: CHOICES.EXP_MODE_1, default: 'FULL-AUTO' },
 				gain: { choices: CHOICES.GAIN_1, default: 0 },
 				iris: { choices: CHOICES.IRIS_1, default: 1, range: { closed: 0, min: 1, max: 13 } },
@@ -382,6 +384,7 @@ module.exports = {
 				// Focus Actions
 				// Exposure Actions
 				ae_response: { range: { min: 1, max: 48, default: 1 } },
+				bright_level: { range: { min: 0, max: 31, default: 16 } },
 				expM: { choices: CHOICES.EXP_MODE_2, default: 'FULL-AUTO' },
 				gain: { choices: CHOICES.GAIN_2, default: 1 },
 				gain_limit: { range: { min: 4, max: 15, default: 15 } },
@@ -491,6 +494,7 @@ module.exports = {
 				// Focus Actions
 				// Exposure Actions
 				ae_response: { range: { min: 1, max: 48, default: 1 } },
+				bright_level: { range: { min: 0, max: 31, default: 16 } },
 				expM: { choices: CHOICES.EXP_MODE_1, default: 'FULL-AUTO' },
 				gain: { choices: CHOICES.GAIN_2, default: 1 },
 				gain_limit: { range: { min: 4, max: 15, default: 15 } },
@@ -597,6 +601,7 @@ module.exports = {
 				// Focus Actions
 				// Exposure Actions
 				ae_response: { range: { min: 1, max: 48, default: 1 } },
+				bright_level: { range: { min: 0, max: 31, default: 16 } },
 				expM: { choices: CHOICES.EXP_MODE_1, default: 'FULL-AUTO' },
 				gain: { choices: CHOICES.GAIN_2, default: 1 },
 				gain_limit: { range: { min: 4, max: 15, default: 15 } },
@@ -703,6 +708,7 @@ module.exports = {
 				// Focus Actions
 				// Exposure Actions
 				ae_response: { range: { min: 1, max: 48, default: 1 } },
+				bright_level: { range: { min: 0, max: 31, default: 16 } },
 				expM: { choices: CHOICES.EXP_MODE_1, default: 'FULL-AUTO' },
 				gain: { choices: CHOICES.GAIN_2, default: 1 },
 				gain_limit: { range: { min: 4, max: 15, default: 15 } },
@@ -809,6 +815,7 @@ module.exports = {
 				// Focus Actions
 				// Exposure Actions
 				ae_response: { range: { min: 1, max: 48, default: 1 } },
+				bright_level: { range: { min: 0, max: 31, default: 16 } },
 				expM: { choices: CHOICES.EXP_MODE_1, default: 'FULL-AUTO' },
 				gain: { choices: CHOICES.GAIN_2, default: 1 },
 				gain_limit: { range: { min: 4, max: 15, default: 15 } },
@@ -915,6 +922,7 @@ module.exports = {
 				// Focus Actions
 				// Exposure Actions
 				ae_response: { range: { min: 1, max: 48, default: 1 } },
+				bright_level: { range: { min: 0, max: 31, default: 16 } },
 				expM: { choices: CHOICES.EXP_MODE_1, default: 'FULL-AUTO' },
 				gain: { choices: CHOICES.GAIN_2, default: 1 },
 				gain_limit: { range: { min: 4, max: 15, default: 15 } },
@@ -1007,6 +1015,7 @@ module.exports = {
 				// Focus Actions
 				// Exposure Actions
 				ae_response: { range: { min: 4, max: 48, default: 1 } },
+				bright_level: { range: { min: 0, max: 41, default: 21 } },
 				backlight: { choices: CHOICES.ON_OFF, default: 'On' },
 				expM: { choices: CHOICES.EXP_MODE_3, default: 'FULL-AUTO' },
 				gain: { choices: CHOICES.GAIN_3, default: 1 },
@@ -1104,6 +1113,7 @@ module.exports = {
 				// Focus Actions
 				// Exposure Actions
 				ae_response: { range: { min: 1, max: 48, default: 1 } },
+				bright_level: { range: { min: 5, max: 37, default: 21 } },
 				backlight: { choices: CHOICES.ON_OFF, default: 'On' },
 				expM: { choices: CHOICES.EXP_MODE_3, default: 'FULL-AUTO' },
 				gain: { choices: CHOICES.GAIN_3, default: 1 },

@@ -281,6 +281,31 @@ exports.initFeedbacks = function () {
 		}
 	}
 
+	if (MODEL_VALUES?.bright_level) {
+		feedbacks.bright_level = {
+			type: 'boolean',
+			label: 'Bright Level',
+			description: 'If the camera matches the selected Bright Level, change the style of the button',
+			style: {
+				color: ColorBlack,
+				bgcolor: ColorGreen,
+			},
+			options: [
+				{
+					type: 'number',
+					label: 'Level (' + MODEL_VALUES.bright_level.range.min + ' to ' + MODEL_VALUES.bright_level.range.max + ')',
+					id: 'level',
+					default: MODEL_VALUES.bright_level.range.default,
+					min: MODEL_VALUES.bright_level.range.min,
+					max: MODEL_VALUES.bright_level.range.max,
+				},
+			],
+			callback: (feedback) => {
+				return this.camera?.expsetup?.BrightLevel == feedback.options.level
+			},
+		}
+	}
+
 	if (MODEL_VALUES?.expComp) {
 		feedbacks.exposureCompEn = {
 			type: 'boolean',

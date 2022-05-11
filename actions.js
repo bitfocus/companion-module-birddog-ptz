@@ -1,6 +1,5 @@
 var { MODELS } = require('./models.js')
 const CHOICES = require('./choices.js')
-const { min } = require('lodash')
 
 module.exports = {
 	getActions() {
@@ -444,6 +443,22 @@ module.exports = {
 						id: 'mode',
 						choices: MODEL_VALUES.backlight.choices,
 						default: MODEL_VALUES.backlight.default,
+					},
+				],
+			}
+		}
+
+		if (MODEL_VALUES?.bright_level) {
+			actions['bright_level'] = {
+				label: 'Bright Level',
+				options: [
+					{
+						type: 'number',
+						label: 'Level (' + MODEL_VALUES.bright_level.range.min + ' to ' + MODEL_VALUES.bright_level.range.max + ')',
+						id: 'level',
+						default: MODEL_VALUES.bright_level.range.default,
+						min: MODEL_VALUES.bright_level.range.min,
+						max: MODEL_VALUES.bright_level.range.max,
 					},
 				],
 			}
