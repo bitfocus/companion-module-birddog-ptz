@@ -227,19 +227,29 @@ module.exports = {
 						isVisible: (action) => action.options.val !== 'direct',
 					},
 					{
-						type: 'dropdown',
-						label: 'Pan Speed',
+						type: 'number',
+						label: 'Pan Speed(' +
+						MODEL_VALUES.panSpeed.range.min +
+						' to ' +
+						MODEL_VALUES.panSpeed.range.max +
+						')',
 						id: 'panSpeed',
-						choices: CHOICES.PAN_SPEED,
-						default: 11,
+						default: MODEL_VALUES.panSpeed.range.default,
+						min: MODEL_VALUES.panSpeed.range.min,
+						max: MODEL_VALUES.panSpeed.range.max,
 						isVisible: (action) => action.options.override === true || action.options.val === 'direct',
 					},
 					{
-						type: 'dropdown',
-						label: 'Tilt Speed',
+						type: 'number',
+						label: 'Tilt Speed (' +
+						MODEL_VALUES.tiltSpeed.range.min +
+						' to ' +
+						MODEL_VALUES.tiltSpeed.range.max +
+						')',
 						id: 'tiltSpeed',
-						choices: CHOICES.TILT_SPEED,
-						default: 9,
+						default: MODEL_VALUES.tiltSpeed.range.default,
+						min: MODEL_VALUES.tiltSpeed.range.min,
+						max: MODEL_VALUES.tiltSpeed.range.max,
 						isVisible: (action) => action.options.override === true || action.options.val === 'direct',
 					},
 				],
@@ -273,10 +283,15 @@ module.exports = {
 					},
 					{
 						type: 'number',
-						label: 'Speed',
+						label: 'Speed (' +
+						MODEL_VALUES.zoomSpeed.range.min +
+						' to ' +
+						MODEL_VALUES.zoomSpeed.range.max +
+						')',
 						id: 'speed',
-						choices: CHOICES.ZOOM_SPEED,
-						default: 4,
+						default: MODEL_VALUES.zoomSpeed.range.default,
+						min: MODEL_VALUES.zoomSpeed.range.min,
+						max: MODEL_VALUES.zoomSpeed.range.max,
 						isVisible: (action) => action.options.override === true,
 					},
 				],
@@ -290,15 +305,20 @@ module.exports = {
 						type: 'dropdown',
 						label: 'Action',
 						id: 'type',
-						choices: CHOICES.SPEED_CHANGES,
-						default: 'up',
+						choices: MODEL_VALUES.panSpeed.choices,
+						default: MODEL_VALUES.panSpeed.default,
 					},
 					{
-						type: 'dropdown',
-						label: 'Value',
+						type: 'number',
+						label: 'Speed (' +
+						MODEL_VALUES.panSpeed.range.min +
+						' to ' +
+						MODEL_VALUES.panSpeed.range.max +
+						')',
 						id: 'value',
-						choices: CHOICES.PAN_SPEED,
-						default: 11,
+						default: MODEL_VALUES.panSpeed.range.default,
+						min: MODEL_VALUES.panSpeed.range.min,
+						max: MODEL_VALUES.panSpeed.range.max,
 						isVisible: (action) => action.options.type === 'value',
 					},
 				],
@@ -312,15 +332,20 @@ module.exports = {
 						type: 'dropdown',
 						label: 'Action',
 						id: 'type',
-						choices: CHOICES.SPEED_CHANGES,
-						default: 'up',
+						choices: MODEL_VALUES.tiltSpeed.choices,
+						default: MODEL_VALUES.tiltSpeed.default,
 					},
 					{
-						type: 'dropdown',
-						label: 'Value',
+						type: 'number',
+						label: 'Speed (' +
+						MODEL_VALUES.tiltSpeed.range.min +
+						' to ' +
+						MODEL_VALUES.tiltSpeed.range.max +
+						')',
 						id: 'value',
-						choices: CHOICES.TILT_SPEED,
-						default: 9,
+						default: MODEL_VALUES.tiltSpeed.range.default,
+						min: MODEL_VALUES.tiltSpeed.range.min,
+						max: MODEL_VALUES.tiltSpeed.range.max,
 						isVisible: (action) => action.options.type === 'value',
 					},
 				],
@@ -334,15 +359,20 @@ module.exports = {
 						type: 'dropdown',
 						label: 'Action',
 						id: 'type',
-						choices: CHOICES.SPEED_CHANGES,
-						default: 'up',
+						choices: MODEL_VALUES.zoomSpeed.choices,
+						default: MODEL_VALUES.zoomSpeed.default,
 					},
 					{
-						type: 'dropdown',
-						label: 'Value',
+						type: 'number',
+						label: 'Speed (' +
+						MODEL_VALUES.zoomSpeed.range.min +
+						' to ' +
+						MODEL_VALUES.zoomSpeed.range.max +
+						')',
 						id: 'value',
-						choices: CHOICES.ZOOM_SPEED,
-						default: 4,
+						default: MODEL_VALUES.zoomSpeed.range.default,
+						min: MODEL_VALUES.zoomSpeed.range.min,
+						max: MODEL_VALUES.zoomSpeed.range.max,
 						isVisible: (action) => action.options.type === 'value',
 					},
 				],

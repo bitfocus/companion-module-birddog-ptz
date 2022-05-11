@@ -346,10 +346,10 @@ class instance extends instance_skel {
 			case 'panSpeed':
 				switch (opt.type) {
 					case 'up':
-						newValue = panSpeed < 21 ? ++panSpeed : 21
+						newValue = panSpeed < MODEL_VALUES.panSpeed.range.max ? ++panSpeed : MODEL_VALUES.panSpeed.range.max
 						break
 					case 'down':
-						newValue = panSpeed > 1 ? --panSpeed : 1
+						newValue = panSpeed > MODEL_VALUES.panSpeed.range.min ? --panSpeed : MODEL_VALUES.panSpeed.range.min
 						break
 					case 'value':
 						newValue = opt.value
@@ -364,11 +364,10 @@ class instance extends instance_skel {
 			case 'tiltSpeed':
 				switch (opt.type) {
 					case 'up':
-						newValue = tiltSpeed < 18 ? ++tiltSpeed : 18
+						newValue = tiltSpeed <  MODEL_VALUES.tiltSpeed.range.max ? ++tiltSpeed :  MODEL_VALUES.tiltSpeed.range.max
 						break
 					case 'down':
-						newValue = tiltSpeed > 1 ? --tiltSpeed : 1
-						break
+						newValue = tiltSpeed >  MODEL_VALUES.tiltSpeed.range.min ? --tiltSpeed :  MODEL_VALUES.tiltSpeed.range.min
 					case 'value':
 						newValue = opt.value
 						break
@@ -382,10 +381,10 @@ class instance extends instance_skel {
 			case 'zoomSpeed':
 				switch (opt.type) {
 					case 'up':
-						newValue = zoomSpeed < 7 ? ++zoomSpeed : 7
+						newValue = zoomSpeed < MODEL_VALUES.zoomSpeed.range.max ? ++zoomSpeed : MODEL_VALUES.zoomSpeed.range.max
 						break
 					case 'down':
-						newValue = zoomSpeed > 1 ? --zoomSpeed : 1
+						newValue = zoomSpeed > MODEL_VALUES.zoomSpeed.range.min ? --zoomSpeed : MODEL_VALUES.zoomSpeed.range.min
 						break
 					case 'value':
 						newValue = opt.value
