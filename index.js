@@ -1010,8 +1010,11 @@ class instance extends instance_skel {
 		} else if (cmd.match('/birddogptzsetup')) {
 			this.camera.ptz = data
 		} else if (cmd.match('/birddogexpsetup')) {
+			if ( this.camera.expsetup?.GainLimit !== data.GainLimit) {  // rebuild actions if GainLimit has changed
+				this.camera.expsetup.GainLimit = data.GainLimit
+				this.actions()
+			}
 			this.camera.expsetup = data
-			this.actions()
 		} else if (cmd.match('/birddogwbsetup')) {
 			this.camera.wbsetup = data
 		} else if (cmd.match('/birddogpicsetup')) {
