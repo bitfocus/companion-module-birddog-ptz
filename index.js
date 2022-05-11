@@ -473,7 +473,7 @@ class instance extends instance_skel {
 
 			case 'ae_response':
 				body = {
-					AeResponse: String(opt.val),
+					AeResponse: String(opt.level),
 				}
 				this.sendCommand('birddogexpsetup', 'POST', body)
 				break
@@ -502,7 +502,7 @@ class instance extends instance_skel {
 					case 'On':
 						body = {
 							ExpCompEn: String(opt.val),
-							ExpCompLvl: String(opt.level + 7), //Convert action range to API range
+							ExpCompLvl: String(opt.level), //Convert action range to API range
 						}
 						break
 				}
@@ -527,9 +527,10 @@ class instance extends instance_skel {
 						newValue = gain > MODEL_VALUES.gain.choices[0] ? --gain : gain
 						break
 					case 'value':
-						newValue = opt.value
+						newValue = parseFloat(opt.value) <= gainLimit ? opt.value : gain
 						break
 				}
+				this.debug(gainLimit)
 				body = {
 					GainLevel: String(newValue),
 				}
@@ -539,13 +540,13 @@ class instance extends instance_skel {
 			case 'gainLimit':
 				gainLimit = this.camera?.expsetup?.GainLimit
 					? this.camera.expsetup.GainLimit
-					: MODEL_VALUES.gainLimit.range.default
+					: MODEL_VALUES.gain_limit.range.default
 				switch (opt.val) {
 					case 'up':
-						newValue = gainLimit < MODEL_VALUES.gainLimit.range.max ? ++gainLimit : gainLimit
+						newValue = gainLimit < MODEL_VALUES.gain_limit.range.max ? ++gainLimit : gainLimit
 						break
 					case 'down':
-						newValue = gainLimit > MODEL_VALUES.gainLimit.range.min ? --gainLimit : gainLimit
+						newValue = gainLimit > MODEL_VALUES.gain_limit.range.min ? --gainLimit : gainLimit
 						break
 					case 'value':
 						newValue = opt.value

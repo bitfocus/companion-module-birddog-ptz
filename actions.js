@@ -549,10 +549,10 @@ module.exports = {
 						label: 'Value',
 						id: 'value',
 						choices: MODEL_VALUES.gain.choices.slice(
-							MODEL_VALUES.gainLimit.range.min,
-							MODEL_VALUES.gainLimit.range.max + 1
+							MODEL_VALUES.gain_limit.range.min - 1,
+							MODEL_VALUES.gain_limit.range.max + 1
 						),
-						default: MODEL_VALUES.gainLimit.range.default,
+						default: MODEL_VALUES.gain_limit.range.default,
 						isVisible: (action) => action.options.val === 'value',
 					},
 				],
@@ -717,8 +717,8 @@ module.exports = {
 						type: 'dropdown',
 						label: 'Value',
 						id: 'value',
-						choices: MODEL_VALUES.shut?.['shutter_' + [this.camera.framerate]],
-						default: MODEL_VALUES.shut.default,
+						choices: MODEL_VALUES.shutter_speed?.['shutter_' + [this.camera.framerate]],
+						default: MODEL_VALUES.shutter_speed.default,
 						isVisible: (action) => action.options.val === 'value',
 					},
 				],
@@ -776,7 +776,7 @@ module.exports = {
 						type: 'dropdown',
 						label: 'Value',
 						id: 'value',
-						choices: MODEL_VALUES.shut?.['shutter_' + [this.camera.framerate]].slice(
+						choices: MODEL_VALUES.shutter_speed?.['shutter_' + [this.camera.framerate]].slice(
 							MODEL_VALUES.slow_shutter_limit.range.min,
 							MODEL_VALUES.slow_shutter_limit.range.max + 1
 						),
