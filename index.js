@@ -1010,6 +1010,7 @@ class instance extends instance_skel {
 			this.camera.ptz = data
 		} else if (cmd.match('/birddogexpsetup')) {
 			this.camera.expsetup = data
+			this.actions()
 		} else if (cmd.match('/birddogwbsetup')) {
 			this.camera.wbsetup = data
 		} else if (cmd.match('/birddogpicsetup')) {
