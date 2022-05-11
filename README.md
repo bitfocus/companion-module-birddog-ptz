@@ -27,6 +27,7 @@ See [HELP.md](https://github.com/bitfocus/companion-module-birddog-ptz/blob/main
   - Transmit Method
 
 - New Feedbacks
+
   - Ae Response
   - Backlight
   - Exposure Compensation
@@ -46,6 +47,7 @@ See [HELP.md](https://github.com/bitfocus/companion-module-birddog-ptz/blob/main
 
 - Fixes
   - Fixed shutter values in shutter actions
+
 ### v2.0.2
 
 - Make API calls depending on model

@@ -228,11 +228,7 @@ module.exports = {
 					},
 					{
 						type: 'number',
-						label: 'Pan Speed(' +
-						MODEL_VALUES.panSpeed.range.min +
-						' to ' +
-						MODEL_VALUES.panSpeed.range.max +
-						')',
+						label: 'Pan Speed(' + MODEL_VALUES.panSpeed.range.min + ' to ' + MODEL_VALUES.panSpeed.range.max + ')',
 						id: 'panSpeed',
 						default: MODEL_VALUES.panSpeed.range.default,
 						min: MODEL_VALUES.panSpeed.range.min,
@@ -241,11 +237,7 @@ module.exports = {
 					},
 					{
 						type: 'number',
-						label: 'Tilt Speed (' +
-						MODEL_VALUES.tiltSpeed.range.min +
-						' to ' +
-						MODEL_VALUES.tiltSpeed.range.max +
-						')',
+						label: 'Tilt Speed (' + MODEL_VALUES.tiltSpeed.range.min + ' to ' + MODEL_VALUES.tiltSpeed.range.max + ')',
 						id: 'tiltSpeed',
 						default: MODEL_VALUES.tiltSpeed.range.default,
 						min: MODEL_VALUES.tiltSpeed.range.min,
@@ -283,11 +275,7 @@ module.exports = {
 					},
 					{
 						type: 'number',
-						label: 'Speed (' +
-						MODEL_VALUES.zoomSpeed.range.min +
-						' to ' +
-						MODEL_VALUES.zoomSpeed.range.max +
-						')',
+						label: 'Speed (' + MODEL_VALUES.zoomSpeed.range.min + ' to ' + MODEL_VALUES.zoomSpeed.range.max + ')',
 						id: 'speed',
 						default: MODEL_VALUES.zoomSpeed.range.default,
 						min: MODEL_VALUES.zoomSpeed.range.min,
@@ -310,11 +298,7 @@ module.exports = {
 					},
 					{
 						type: 'number',
-						label: 'Speed (' +
-						MODEL_VALUES.panSpeed.range.min +
-						' to ' +
-						MODEL_VALUES.panSpeed.range.max +
-						')',
+						label: 'Speed (' + MODEL_VALUES.panSpeed.range.min + ' to ' + MODEL_VALUES.panSpeed.range.max + ')',
 						id: 'value',
 						default: MODEL_VALUES.panSpeed.range.default,
 						min: MODEL_VALUES.panSpeed.range.min,
@@ -337,11 +321,7 @@ module.exports = {
 					},
 					{
 						type: 'number',
-						label: 'Speed (' +
-						MODEL_VALUES.tiltSpeed.range.min +
-						' to ' +
-						MODEL_VALUES.tiltSpeed.range.max +
-						')',
+						label: 'Speed (' + MODEL_VALUES.tiltSpeed.range.min + ' to ' + MODEL_VALUES.tiltSpeed.range.max + ')',
 						id: 'value',
 						default: MODEL_VALUES.tiltSpeed.range.default,
 						min: MODEL_VALUES.tiltSpeed.range.min,
@@ -364,11 +344,7 @@ module.exports = {
 					},
 					{
 						type: 'number',
-						label: 'Speed (' +
-						MODEL_VALUES.zoomSpeed.range.min +
-						' to ' +
-						MODEL_VALUES.zoomSpeed.range.max +
-						')',
+						label: 'Speed (' + MODEL_VALUES.zoomSpeed.range.min + ' to ' + MODEL_VALUES.zoomSpeed.range.max + ')',
 						id: 'value',
 						default: MODEL_VALUES.zoomSpeed.range.default,
 						min: MODEL_VALUES.zoomSpeed.range.min,

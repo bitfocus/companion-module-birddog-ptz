@@ -364,10 +364,10 @@ class instance extends instance_skel {
 			case 'tiltSpeed':
 				switch (opt.type) {
 					case 'up':
-						newValue = tiltSpeed <  MODEL_VALUES.tiltSpeed.range.max ? ++tiltSpeed :  MODEL_VALUES.tiltSpeed.range.max
+						newValue = tiltSpeed < MODEL_VALUES.tiltSpeed.range.max ? ++tiltSpeed : MODEL_VALUES.tiltSpeed.range.max
 						break
 					case 'down':
-						newValue = tiltSpeed >  MODEL_VALUES.tiltSpeed.range.min ? --tiltSpeed :  MODEL_VALUES.tiltSpeed.range.min
+						newValue = tiltSpeed > MODEL_VALUES.tiltSpeed.range.min ? --tiltSpeed : MODEL_VALUES.tiltSpeed.range.min
 					case 'value':
 						newValue = opt.value
 						break

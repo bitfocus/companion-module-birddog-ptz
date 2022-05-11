@@ -100,7 +100,7 @@ const COMMON = [
 		transmit_method: { choices: CHOICES.ENCODE_TXPM, default: 'UDP' },
 		// NDI Discovery Server Actions
 		// PTZ Actions
-		zoomSpeed: {choices: CHOICES.SPEED_CHANGES, default: 'up',range: { min: 0, max: 7, default: 4 } },
+		zoomSpeed: { choices: CHOICES.SPEED_CHANGES, default: 'up', range: { min: 0, max: 7, default: 4 } },
 		zoom: { choices: CHOICES.PTZ_ZOOM, default: 'in' },
 		savePset: { range: { min: 1, max: 64, default: 1 } },
 		recallPset: { range: { min: 1, max: 64, default: 1 } },
@@ -189,8 +189,8 @@ module.exports = {
 					posTiltDefault: '0000',
 				},
 				zoom: { ...COMMON[2].zoom, posZoomChoices: CHOICES.POS_ZOOM_10, posZoomDefault: '0000' },
-				panSpeed: { choices: CHOICES.SPEED_CHANGES, default: 'up',range: { min: 0, max: 21, default: 11 } },
-				tiltSpeed: { choices: CHOICES.SPEED_CHANGES, default: 'up',range: { min: 0, max: 18, default: 9 } },
+				panSpeed: { choices: CHOICES.SPEED_CHANGES, default: 'up', range: { min: 0, max: 21, default: 11 } },
+				tiltSpeed: { choices: CHOICES.SPEED_CHANGES, default: 'up', range: { min: 0, max: 18, default: 9 } },
 				// Focus Actions
 				// Exposure Actions
 				expM: { choices: CHOICES.EXP_MODE_1, default: 'FULL-AUTO' },
@@ -375,8 +375,8 @@ module.exports = {
 					posTiltDefault: '0000',
 				},
 				zoom: { ...COMMON[2].zoom, posZoomChoices: CHOICES.POS_ZOOM_30, posZoomDefault: '0000' },
-				panSpeed: { choices: CHOICES.SPEED_CHANGES, default: 'up',range: { min: 0, max: 21, default: 11 } },
-				tiltSpeed: { choices: CHOICES.SPEED_CHANGES, default: 'up',range: { min: 0, max: 18, default: 9 }},
+				panSpeed: { choices: CHOICES.SPEED_CHANGES, default: 'up', range: { min: 0, max: 21, default: 11 } },
+				tiltSpeed: { choices: CHOICES.SPEED_CHANGES, default: 'up', range: { min: 0, max: 18, default: 9 } },
 				// Focus Actions
 				// Exposure Actions
 				ae_response: { range: { min: 1, max: 48, default: 1 } },
@@ -482,8 +482,8 @@ module.exports = {
 					posTiltDefault: '0000',
 				},
 				zoom: { ...COMMON[2].zoom, posZoomChoices: CHOICES.POS_ZOOM_30, posZoomDefault: '0000' },
-				panSpeed: { choices: CHOICES.SPEED_CHANGES, default: 'up',range: { min: 0, max: 21, default: 11 } },
-				tiltSpeed: { choices: CHOICES.SPEED_CHANGES, default: 'up',range: { min: 0, max: 18, default: 9 }},
+				panSpeed: { choices: CHOICES.SPEED_CHANGES, default: 'up', range: { min: 0, max: 21, default: 11 } },
+				tiltSpeed: { choices: CHOICES.SPEED_CHANGES, default: 'up', range: { min: 0, max: 18, default: 9 } },
 				// Focus Actions
 				// Exposure Actions
 				ae_response: { range: { min: 1, max: 48, default: 1 } },
@@ -586,8 +586,8 @@ module.exports = {
 					posTiltDefault: '0000',
 				},
 				zoom: { ...COMMON[2].zoom, posZoomChoices: CHOICES.POS_ZOOM_30, posZoomDefault: '0000' },
-				panSpeed: { choices: CHOICES.SPEED_CHANGES, default: 'up',range: { min: 0, max: 21, default: 11 } },
-				tiltSpeed: { choices: CHOICES.SPEED_CHANGES, default: 'up',range: { min: 0, max: 18, default: 9 }},
+				panSpeed: { choices: CHOICES.SPEED_CHANGES, default: 'up', range: { min: 0, max: 21, default: 11 } },
+				tiltSpeed: { choices: CHOICES.SPEED_CHANGES, default: 'up', range: { min: 0, max: 18, default: 9 } },
 				// Focus Actions
 				// Exposure Actions
 				ae_response: { range: { min: 1, max: 48, default: 1 } },
@@ -690,8 +690,8 @@ module.exports = {
 					posTiltDefault: '0000',
 				},
 				zoom: { ...COMMON[2].zoom, posZoomChoices: CHOICES.POS_ZOOM_30, posZoomDefault: '0000' },
-				panSpeed: { choices: CHOICES.SPEED_CHANGES, default: 'up',range: { min: 0, max: 21, default: 11 } },
-				tiltSpeed: { choices: CHOICES.SPEED_CHANGES, default: 'up',range: { min: 0, max: 18, default: 9 }},
+				panSpeed: { choices: CHOICES.SPEED_CHANGES, default: 'up', range: { min: 0, max: 21, default: 11 } },
+				tiltSpeed: { choices: CHOICES.SPEED_CHANGES, default: 'up', range: { min: 0, max: 18, default: 9 } },
 				// Focus Actions
 				// Exposure Actions
 				ae_response: { range: { min: 1, max: 48, default: 1 } },
@@ -794,8 +794,8 @@ module.exports = {
 					posTiltDefault: '0000',
 				},
 				zoom: { ...COMMON[2].zoom, posZoomChoices: CHOICES.POS_ZOOM_30, posZoomDefault: '0000' },
-				panSpeed: { choices: CHOICES.SPEED_CHANGES, default: 'up',range: { min: 0, max: 21, default: 11 } },
-				tiltSpeed: { choices: CHOICES.SPEED_CHANGES, default: 'up',range: { min: 0, max: 18, default: 9 }},
+				panSpeed: { choices: CHOICES.SPEED_CHANGES, default: 'up', range: { min: 0, max: 21, default: 11 } },
+				tiltSpeed: { choices: CHOICES.SPEED_CHANGES, default: 'up', range: { min: 0, max: 18, default: 9 } },
 				// Focus Actions
 				// Exposure Actions
 				ae_response: { range: { min: 1, max: 48, default: 1 } },
@@ -898,8 +898,8 @@ module.exports = {
 					posTiltDefault: '0000',
 				},
 				zoom: { ...COMMON[2].zoom, posZoomChoices: CHOICES.POS_ZOOM_30, posZoomDefault: '0000' },
-				panSpeed: { choices: CHOICES.SPEED_CHANGES, default: 'up',range: { min: 0, max: 21, default: 11 } },
-				tiltSpeed: { choices: CHOICES.SPEED_CHANGES, default: 'up',range: { min: 0, max: 18, default: 9 }},
+				panSpeed: { choices: CHOICES.SPEED_CHANGES, default: 'up', range: { min: 0, max: 21, default: 11 } },
+				tiltSpeed: { choices: CHOICES.SPEED_CHANGES, default: 'up', range: { min: 0, max: 18, default: 9 } },
 				// Focus Actions
 				// Exposure Actions
 				ae_response: { range: { min: 1, max: 48, default: 1 } },
@@ -988,8 +988,8 @@ module.exports = {
 					posTiltDefault: '0000',
 				},
 				zoom: { ...COMMON[2].zoom, posZoomChoices: CHOICES.POS_ZOOM_20, posZoomDefault: '0000' },
-				panSpeed: { choices: CHOICES.SPEED_CHANGES, default: 'up',range: { min: 0, max: 21, default: 11 } },
-				tiltSpeed: { choices: CHOICES.SPEED_CHANGES, default: 'up',range: { min: 0, max: 18, default: 9 }},
+				panSpeed: { choices: CHOICES.SPEED_CHANGES, default: 'up', range: { min: 0, max: 21, default: 11 } },
+				tiltSpeed: { choices: CHOICES.SPEED_CHANGES, default: 'up', range: { min: 0, max: 18, default: 9 } },
 				// Focus Actions
 				// Exposure Actions
 				ae_response: { range: { min: 4, max: 48, default: 1 } },
@@ -1081,8 +1081,8 @@ module.exports = {
 					posTiltDefault: '0000',
 				},
 				zoom: { ...COMMON[2].zoom, posZoomChoices: CHOICES.POS_ZOOM_12, posZoomDefault: '0000' },
-				panSpeed: { choices: CHOICES.SPEED_CHANGES, default: 'up',range: { min: 0, max: 21, default: 11 } },
-				tiltSpeed: { choices: CHOICES.SPEED_CHANGES, default: 'up',range: { min: 0, max: 18, default: 9 }},
+				panSpeed: { choices: CHOICES.SPEED_CHANGES, default: 'up', range: { min: 0, max: 21, default: 11 } },
+				tiltSpeed: { choices: CHOICES.SPEED_CHANGES, default: 'up', range: { min: 0, max: 18, default: 9 } },
 				// Focus Actions
 				// Exposure Actions
 				ae_response: { range: { min: 1, max: 48, default: 1 } },

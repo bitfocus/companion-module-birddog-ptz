@@ -253,8 +253,9 @@ exports.updateVariables = function () {
 		if (MODEL_SPEC?.shutter_speed) {
 			this.setVariable(
 				'shutter_speed',
-				MODEL_VALUES.shutter_speed?.['shutter_' + [this.camera.framerate]].find((o) => o.id == this.camera.expsetup.ShutterSpeed)
-					?.label
+				MODEL_VALUES.shutter_speed?.['shutter_' + [this.camera.framerate]].find(
+					(o) => o.id == this.camera.expsetup.ShutterSpeed
+				)?.label
 			)
 		}
 
