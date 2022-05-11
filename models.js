@@ -203,6 +203,7 @@ module.exports = {
 					default: 6,
 					range: { min: 0, max: 21 },
 				},
+				shutter_speed_overwrite: { range: { min: 30, max: 110, default: 60 } },
 				// White Balance Actions
 				wb: { choices: CHOICES.WB_MODE_1, default: 'AUTO' },
 				color_temp: { choices: CHOICES.COLOR_TEMP, default: '6500' },
@@ -284,6 +285,7 @@ module.exports = {
 					default: 6,
 					range: { min: 0, max: 21 },
 				},
+				shutter_speed_overwrite: { range: { min: 30, max: 110, default: 60 } },
 				// White Balance Actions
 				wb: { choices: CHOICES.WB_MODE_1, default: 'AUTO' },
 				color_temp: { choices: CHOICES.COLOR_TEMP, default: '6500' },
@@ -391,6 +393,8 @@ module.exports = {
 					default: 6,
 					range: { min: 0, max: 21 },
 				},
+				slow_shutter_en: { choices: CHOICES.ON_OFF, default: 'Off' },
+				slow_shutter_limit: { range: { min: 1, max: 6, default: 3 } },
 				// White Balance Actions
 				wb: { choices: CHOICES.WB_MODE_2, default: 'AUTO' },
 				// Picture Setup Actions
@@ -498,6 +502,8 @@ module.exports = {
 					default: 6,
 					range: { min: 0, max: 21 },
 				},
+				slow_shutter_en: { choices: CHOICES.ON_OFF, default: 'Off' },
+				slow_shutter_limit: { range: { min: 1, max: 6, default: 3 } },
 				// White Balance Actions
 				wb: { choices: CHOICES.WB_MODE_2, default: 'AUTO' },
 				// Picture Setup Actions
@@ -602,6 +608,8 @@ module.exports = {
 					default: 6,
 					range: { min: 0, max: 21 },
 				},
+				slow_shutter_en: { choices: CHOICES.ON_OFF, default: 'Off' },
+				slow_shutter_limit: { range: { min: 1, max: 6, default: 3 } },
 				// White Balance Actions
 				wb: { choices: CHOICES.WB_MODE_2, default: 'AUTO' },
 				// Picture Setup Actions
@@ -706,6 +714,8 @@ module.exports = {
 					default: 6,
 					range: { min: 0, max: 21 },
 				},
+				slow_shutter_en: { choices: CHOICES.ON_OFF, default: 'Off' },
+				slow_shutter_limit: { range: { min: 1, max: 6, default: 3 } },
 				// White Balance Actions
 				wb: { choices: CHOICES.WB_MODE_2, default: 'AUTO' },
 				// Picture Setup Actions
@@ -810,6 +820,8 @@ module.exports = {
 					default: 6,
 					range: { min: 0, max: 21 },
 				},
+				slow_shutter_en: { choices: CHOICES.ON_OFF, default: 'Off' },
+				slow_shutter_limit: { range: { min: 1, max: 6, default: 3 } },
 				// White Balance Actions
 				wb: { choices: CHOICES.WB_MODE_2, default: 'AUTO' },
 				// Picture Setup Actions
@@ -914,6 +926,8 @@ module.exports = {
 					default: 6,
 					range: { min: 0, max: 21 },
 				},
+				slow_shutter_en: { choices: CHOICES.ON_OFF, default: 'Off' },
+				slow_shutter_limit: { range: { min: 1, max: 6, default: 3 } },
 				// White Balance Actions
 				wb: { choices: CHOICES.WB_MODE_2, default: 'AUTO' },
 				// Picture Setup Actions
@@ -1008,6 +1022,10 @@ module.exports = {
 					range: { min: 6, max: 33 },
 				},
 				shutter_max_speed: { range: { min: 20, max: 33, default: 20 } },
+				shutter_min_speed: { range: { min: 16, max: 33, default: 16 } },
+				slow_shutter_en: { choices: CHOICES.ON_OFF, default: 'Off' },
+				slow_shutter_limit: { range: { min: 6, max: 17, default: 12 } },
+				spotlight: { choices: CHOICES.ON_OFF, default: 'Off' },
 				// White Balance Actions
 				wb: { choices: CHOICES.WB_MODE_2, default: 'AUTO' },
 				// Picture Setup Actions
@@ -1102,6 +1120,9 @@ module.exports = {
 				},
 				shutter_max_speed: { range: { min: 20, max: 33, default: 20 } },
 				shutter_min_speed: { range: { min: 16, max: 33, default: 16 } },
+				slow_shutter_en: { choices: CHOICES.ON_OFF, default: 'Off' },
+				slow_shutter_limit: { range: { min: 6, max: 17, default: 12 } },
+				spotlight: { choices: CHOICES.ON_OFF, default: 'Off' },
 				// White Balance Actions
 				wb: { choices: CHOICES.WB_MODE_2, default: 'AUTO' },
 				// Picture Setup Actions

@@ -696,6 +696,55 @@ class instance extends instance_skel {
 				}
 				this.sendCommand('birddogexpsetup', 'POST', body)
 				break
+
+			case 'shutter_speed_overwrite':
+				body = {
+					ShutterSpeedOverwrite: String(opt.val),
+				}
+				this.sendCommand('birddogexpsetup', 'POST', body)
+				break
+
+			case 'slow_shutter_en':
+				body = {
+					SlowShutterEn: String(opt.val),
+				}
+				this.sendCommand('birddogexpsetup', 'POST', body)
+				break
+
+			case 'slow_shutter_limit':
+				let slow_shutter_limit = this.camera?.expsetup?.SlowShutterLimit
+					? this.camera.expsetup.SlowShutterLimit
+					: MODEL_VALUES.slow_shutter_limit.range.default
+				switch (opt.val) {
+					case 'up':
+						newValue =
+							slow_shutter_limit < MODEL_VALUES.slow_shutter_limit.range.max
+								? ++slow_shutter_limit
+								: MODEL_VALUES.slow_shutter_limit.range.max
+						break
+					case 'down':
+						newValue =
+							slow_shutter_limit > MODEL_VALUES.slow_shutter_limit.range.min
+								? --slow_shutter_limit
+								: MODEL_VALUES.slow_shutter_limit.range.min
+						break
+					case 'value':
+						newValue = opt.value
+						break
+				}
+				body = {
+					SlowShutterLimit: String(newValue),
+				}
+				this.sendCommand('birddogexpsetup', 'POST', body)
+				break
+
+			case 'spotlight':
+				body = {
+					Spotlight: String(opt.val),
+				}
+				this.sendCommand('birddogexpsetup', 'POST', body)
+				break
+
 			// White Balance Actions
 
 			case 'wb':

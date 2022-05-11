@@ -10,6 +10,10 @@ See [HELP.md](https://github.com/bitfocus/companion-module-birddog-ptz/blob/main
 
 ### v2.0.3
 
+- Changes
+
+  - Changed Pan/Tilt/Zoom Speed inputs to numbers
+
 - New Actions
 
   - Ae Response
@@ -24,6 +28,10 @@ See [HELP.md](https://github.com/bitfocus/companion-module-birddog-ptz/blob/main
   - Shutter Control Overwrite
   - Shutter Max Speed
   - Shutter Min Speed
+  - Shutter Speed Overwrite
+  - Slow Shutter Enable
+  - Slow Shutter Limit
+  - Spotlight
   - Transmit Method
 
 - New Feedbacks
@@ -43,6 +51,10 @@ See [HELP.md](https://github.com/bitfocus/companion-module-birddog-ptz/blob/main
   - Shutter Max Speed
   - Shutter Min Speed
   - Shutter Speed
+  - Shutter Speed Overwrite
+  - Slow Shutter Enable
+  - Slow Shutter Limit
+  - Spotlight
   - Transmit Method
 
 - Fixes

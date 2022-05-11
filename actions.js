@@ -635,29 +635,6 @@ module.exports = {
 			}
 		}
 
-		if (MODEL_VALUES?.shutter_speed) {
-			actions['shut'] = {
-				label: 'Shutter Speed',
-				options: [
-					{
-						type: 'dropdown',
-						label: 'Shutter',
-						id: 'val',
-						choices: CHOICES.UP_DOWN_VALUE,
-						default: 'up',
-					},
-					{
-						type: 'dropdown',
-						label: 'Value',
-						id: 'value',
-						choices: MODEL_VALUES.shut?.['shutter_' + [this.camera.framerate]],
-						default: MODEL_VALUES.shut.default,
-						isVisible: (action) => action.options.val === 'value',
-					},
-				],
-			}
-		}
-
 		if (MODEL_VALUES?.shutter_max_speed) {
 			actions['shutter_max_speed'] = {
 				label: 'Shutter Max Speed',
@@ -705,6 +682,106 @@ module.exports = {
 						),
 						default: MODEL_VALUES.shutter_max_speed.range.default,
 						isVisible: (action) => action.options.val === 'value',
+					},
+				],
+			}
+		}
+
+		if (MODEL_VALUES?.shutter_speed) {
+			actions['shut'] = {
+				label: 'Shutter Speed',
+				options: [
+					{
+						type: 'dropdown',
+						label: 'Shutter',
+						id: 'val',
+						choices: CHOICES.UP_DOWN_VALUE,
+						default: 'up',
+					},
+					{
+						type: 'dropdown',
+						label: 'Value',
+						id: 'value',
+						choices: MODEL_VALUES.shut?.['shutter_' + [this.camera.framerate]],
+						default: MODEL_VALUES.shut.default,
+						isVisible: (action) => action.options.val === 'value',
+					},
+				],
+			}
+		}
+
+		if (MODEL_VALUES?.shutter_speed_overwrite) {
+			actions['shutter_speed_overwrite'] = {
+				label: 'Shutter Speed Overwrite',
+				options: [
+					{
+						type: 'number',
+						label:
+							'Hz (' +
+							MODEL_VALUES.shutter_speed_overwrite.range.min +
+							' to ' +
+							MODEL_VALUES.shutter_speed_overwrite.range.max +
+							')',
+						id: 'level',
+						default: MODEL_VALUES.shutter_speed_overwrite.range.default,
+						min: MODEL_VALUES.shutter_speed_overwrite.range.min,
+						max: MODEL_VALUES.shutter_speed_overwrite.range.max,
+					},
+				],
+			}
+		}
+
+		if (MODEL_VALUES?.slow_shutter_en) {
+			actions['slow_shutter_en'] = {
+				label: 'Slow Shutter Enable',
+				options: [
+					{
+						type: 'dropdown',
+						label: 'On/Off',
+						id: 'val',
+						choices: MODEL_VALUES.slow_shutter_en.choices,
+						default: MODEL_VALUES.slow_shutter_en.default,
+					},
+				],
+			}
+		}
+
+		if (MODEL_VALUES?.slow_shutter_limit) {
+			actions['slow_shutter_limit'] = {
+				label: 'Slow Shutter Limit',
+				options: [
+					{
+						type: 'dropdown',
+						label: 'Slow Shutter Limit',
+						id: 'val',
+						choices: CHOICES.UP_DOWN_VALUE,
+						default: 'up',
+					},
+					{
+						type: 'dropdown',
+						label: 'Value',
+						id: 'value',
+						choices: MODEL_VALUES.shut?.['shutter_' + [this.camera.framerate]].slice(
+							MODEL_VALUES.slow_shutter_limit.range.min,
+							MODEL_VALUES.slow_shutter_limit.range.max + 1
+						),
+						default: MODEL_VALUES.slow_shutter_limit.range.default,
+						isVisible: (action) => action.options.val === 'value',
+					},
+				],
+			}
+		}
+
+		if (MODEL_VALUES?.spotlight) {
+			actions['spotlight'] = {
+				label: 'Spotlight',
+				options: [
+					{
+						type: 'dropdown',
+						label: 'On/Off',
+						id: 'val',
+						choices: MODEL_VALUES.spotlight.choices,
+						default: MODEL_VALUES.spotlight.default,
 					},
 				],
 			}

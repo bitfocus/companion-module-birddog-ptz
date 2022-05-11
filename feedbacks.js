@@ -532,7 +532,61 @@ exports.initFeedbacks = function () {
 		}
 	}
 
-	if (MODEL_VALUES?.shut) {
+	if (MODEL_VALUES?.shutter_max_speed) {
+		feedbacks.shushutter_max_speedt = {
+			type: 'boolean',
+			label: 'Shutter Max Speed',
+			description: 'If the camera matches the selected shutter max speed, change the style of the button',
+			style: {
+				color: ColorBlack,
+				bgcolor: ColorGreen,
+			},
+			options: [
+				{
+					type: 'dropdown',
+					label: 'Shutter Speed',
+					id: 'val',
+					choices: MODEL_VALUES.shut?.['shutter_' + [this.camera.framerate]].slice(
+						MODEL_VALUES.shutter_max_speed.range.min,
+						MODEL_VALUES.shutter_max_speed.range.max + 1
+					),
+					default: MODEL_VALUES.shutter_max_speed.range.default,
+				},
+			],
+			callback: (feedback) => {
+				return this.camera?.expsetup?.ShutterMaxSpeed == feedback.options.val
+			},
+		}
+	}
+
+	if (MODEL_VALUES?.shutter_min_speed) {
+		feedbacks.shushutter_min_speedt = {
+			type: 'boolean',
+			label: 'Shutter Min Speed',
+			description: 'If the camera matches the selected shutter max speed, change the style of the button',
+			style: {
+				color: ColorBlack,
+				bgcolor: ColorGreen,
+			},
+			options: [
+				{
+					type: 'dropdown',
+					label: 'Shutter Speed',
+					id: 'val',
+					choices: MODEL_VALUES.shut?.['shutter_' + [this.camera.framerate]].slice(
+						MODEL_VALUES.shutter_min_speed.range.min,
+						MODEL_VALUES.shutter_min_speed.range.max + 1
+					),
+					default: MODEL_VALUES.shutter_min_speed.range.default,
+				},
+			],
+			callback: (feedback) => {
+				return this.camera?.expsetup?.ShutterMinSpeed == feedback.options.val
+			},
+		}
+	}
+
+	if (MODEL_VALUES?.shutter_speed) {
 		feedbacks.shut = {
 			type: 'boolean',
 			label: 'Shutter Speed',
@@ -556,11 +610,65 @@ exports.initFeedbacks = function () {
 		}
 	}
 
-	if (MODEL_VALUES?.shutter_max_speed) {
-		feedbacks.shushutter_max_speedt = {
+	if (MODEL_VALUES?.shutter_speed_overwrite) {
+		feedbacks.shutter_speed_overwrite = {
 			type: 'boolean',
-			label: 'Shutter Max Speed',
-			description: 'If the camera matches the selected shutter max speed, change the style of the button',
+			label: 'Shutter Speed Overwrite',
+			description: 'If the camera matches the selected Shutter Speed Overwrite level, change the style of the button',
+			style: {
+				color: ColorBlack,
+				bgcolor: ColorGreen,
+			},
+			options: [
+				{
+					type: 'number',
+					label:
+						'Hz (' +
+						MODEL_VALUES.shutter_speed_overwrite.range.min +
+						' to ' +
+						MODEL_VALUES.shutter_speed_overwrite.range.max +
+						')',
+					id: 'level',
+					default: MODEL_VALUES.shutter_speed_overwrite.range.default,
+					min: MODEL_VALUES.shutter_speed_overwrite.range.min,
+					max: MODEL_VALUES.shutter_speed_overwrite.range.max,
+				},
+			],
+			callback: (feedback) => {
+				return this.camera?.expsetup?.ShutterSpeedOverwrite == feedback.options.level
+			},
+		}
+	}
+
+	if (MODEL_VALUES?.slow_shutter_en) {
+		feedbacks.slow_shutter_en = {
+			type: 'boolean',
+			label: 'Slow Shutter Enable',
+			description: 'If the camera matches the Slow Shutter state, change the style of the button',
+			style: {
+				color: ColorBlack,
+				bgcolor: ColorGreen,
+			},
+			options: [
+				{
+					type: 'dropdown',
+					label: 'On/Off',
+					id: 'val',
+					choices: MODEL_VALUES.slow_shutter_en.choices,
+					default: MODEL_VALUES.slow_shutter_en.default,
+				},
+			],
+			callback: (feedback) => {
+				return this.camera?.expsetup?.SlowShutterEn == feedback.options.val
+			},
+		}
+	}
+
+	if (MODEL_VALUES?.slow_shutter_limit) {
+		feedbacks.slow_shutter_limit = {
+			type: 'boolean',
+			label: 'Slow Shutter Limit',
+			description: 'If the camera matches the selected slow shutter limit, change the style of the button',
 			style: {
 				color: ColorBlack,
 				bgcolor: ColorGreen,
@@ -571,14 +679,38 @@ exports.initFeedbacks = function () {
 					label: 'Shutter Speed',
 					id: 'val',
 					choices: MODEL_VALUES.shut?.['shutter_' + [this.camera.framerate]].slice(
-						MODEL_VALUES.shutter_max_speed.range.min,
-						MODEL_VALUES.shutter_max_speed.range.max + 1
+						MODEL_VALUES.slow_shutter_limit.range.min,
+						MODEL_VALUES.slow_shutter_limit.range.max + 1
 					),
-					default: MODEL_VALUES.shutter_max_speed.range.default,
+					default: MODEL_VALUES.slow_shutter_limit.range.default,
 				},
 			],
 			callback: (feedback) => {
-				return this.camera?.expsetup?.ShutterSpeed == feedback.options.val
+				return this.camera?.expsetup?.SlowShutterLimit == feedback.options.val
+			},
+		}
+	}
+
+	if (MODEL_VALUES?.spotlight) {
+		feedbacks.spotlight = {
+			type: 'boolean',
+			label: 'Spotlight',
+			description: 'If the camera matches the Spotlight state, change the style of the button',
+			style: {
+				color: ColorBlack,
+				bgcolor: ColorGreen,
+			},
+			options: [
+				{
+					type: 'dropdown',
+					label: 'On/Off',
+					id: 'val',
+					choices: MODEL_VALUES.spotlight.choices,
+					default: MODEL_VALUES.spotlight.default,
+				},
+			],
+			callback: (feedback) => {
+				return this.camera?.expsetup?.Spotlight == feedback.options.val
 			},
 		}
 	}
