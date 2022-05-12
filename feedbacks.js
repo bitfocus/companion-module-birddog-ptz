@@ -1639,6 +1639,152 @@ exports.initFeedbacks = function () {
 
 	// Advanced Setup Feedback
 
+	if (MODEL_VALUES?.brightness) {
+		feedbacks.brightness = {
+			type: 'boolean',
+			label: 'Brightness',
+			description: 'If the camera matches the selected Brightness value, change the style of the button',
+			style: {
+				color: ColorBlack,
+				bgcolor: ColorGreen,
+			},
+			options: [
+				{
+					type: 'number',
+					label: 'Value (' + MODEL_VALUES.brightness.range.min + ' to ' + MODEL_VALUES.brightness.range.max + ')',
+					id: 'value',
+					min: MODEL_VALUES.brightness.range.min,
+					max: MODEL_VALUES.brightness.range.max,
+					default: MODEL_VALUES.brightness.range.default,
+				},
+			],
+			callback: (feedback) => {
+				return this.camera?.advancesetup?.Brightness == feedback.options.value
+			},
+		}
+	}
+
+	if (MODEL_VALUES?.brightness_comp) {
+		feedbacks.brightness_comp = {
+			type: 'boolean',
+			label: 'Brightness Compensation',
+			description: 'If the camera matches the selected Brightness Compensation mode, change the style of the button',
+			style: {
+				color: ColorBlack,
+				bgcolor: ColorGreen,
+			},
+			options: [
+				{
+					type: 'dropdown',
+					label: 'Mode',
+					id: 'val',
+					choices: MODEL_VALUES.brightness_comp.choices,
+					default: MODEL_VALUES.brightness_comp.default,
+				},
+			],
+			callback: (feedback) => {
+				return this.camera?.advancesetup?.BrightnessComp == feedback.options.val
+			},
+		}
+	}
+
+	if (MODEL_VALUES?.comp_level) {
+		feedbacks.comp_level = {
+			type: 'boolean',
+			label: 'Compensation Level',
+			description: 'If the camera matches the selected Compensation Level, change the style of the button',
+			style: {
+				color: ColorBlack,
+				bgcolor: ColorGreen,
+			},
+			options: [
+				{
+					type: 'dropdown',
+					label: 'Level',
+					id: 'val',
+					choices: MODEL_VALUES.comp_level.choices,
+					default: MODEL_VALUES.comp_level.default,
+				},
+			],
+			callback: (feedback) => {
+				return this.camera?.advancesetup?.CompLevel == feedback.options.val
+			},
+		}
+	}
+
+	if (MODEL_VALUES?.gamma_offset) {
+		feedbacks.gamma_offset = {
+			type: 'boolean',
+			label: 'Gamma Offset',
+			description: 'If the camera matches the selected Gamma Offset value, change the style of the button',
+			style: {
+				color: ColorBlack,
+				bgcolor: ColorGreen,
+			},
+			options: [
+				{
+					type: 'number',
+					label: 'Value (' + MODEL_VALUES.gamma_offset.range.min + ' to ' + MODEL_VALUES.gamma_offset.range.max + ')',
+					id: 'value',
+					min: MODEL_VALUES.gamma_offset.range.min,
+					max: MODEL_VALUES.gamma_offset.range.max,
+					default: MODEL_VALUES.gamma_offset.range.default,
+				},
+			],
+			callback: (feedback) => {
+				return this.camera?.advancesetup?.GammaOffset == feedback.options.value
+			},
+		}
+	}
+
+	if (MODEL_VALUES?.high_resolution) {
+		feedbacks.high_resolution = {
+			type: 'boolean',
+			label: 'High Resolution',
+			description: 'If the camera matches the selected High Resolution mode, change the style of the button',
+			style: {
+				color: ColorBlack,
+				bgcolor: ColorGreen,
+			},
+			options: [
+				{
+					type: 'dropdown',
+					label: 'On / Off',
+					id: 'val',
+					choices: MODEL_VALUES.high_resolution.choices,
+					default: MODEL_VALUES.high_resolution.default,
+				},
+			],
+			callback: (feedback) => {
+				return this.camera?.advancesetup?.HighResolution == feedback.options.val
+			},
+		}
+	}
+
+	if (MODEL_VALUES?.video_enhancement) {
+		feedbacks.video_enhancement = {
+			type: 'boolean',
+			label: 'Video Enhancement',
+			description: 'If the camera matches the selected Video Enhancement mode, change the style of the button',
+			style: {
+				color: ColorBlack,
+				bgcolor: ColorGreen,
+			},
+			options: [
+				{
+					type: 'dropdown',
+					label: 'On / Off',
+					id: 'val',
+					choices: MODEL_VALUES.video_enhancement.choices,
+					default: MODEL_VALUES.video_enhancement.default,
+				},
+			],
+			callback: (feedback) => {
+				return this.camera?.advancesetup?.VideoEnhancement == feedback.options.val
+			},
+		}
+	}
+
 	// External Setup Feedback
 
 	// Detail Setup Feedback

@@ -37,6 +37,19 @@ See [HELP.md](https://github.com/bitfocus/companion-module-birddog-ptz/blob/main
     - Slow Shutter Enable
     - Slow Shutter Limit
     - Spotlight
+  - White Balance
+    - BG
+    - BR
+    - GB
+    - GR
+    - Level
+    - Matrix
+    - Offset
+    - Phase
+    - RB
+    - RG
+    - Select
+    - Speed
   - Picture Settings
     - Backlight Compensation
     - Chroma Suppress
@@ -53,19 +66,13 @@ See [HELP.md](https://github.com/bitfocus/companion-module-birddog-ptz/blob/main
     - 3D Noise Reduction
     - 2D Noise Reduction
     - Wide Dynamic Range
-  - White Balance
-    - BG
-    - BR
-    - GB
-    - GR
-    - Level
-    - Matrix
-    - Offset
-    - Phase
-    - RB
-    - RG
-    - Select
-    - Speed
+      -Advanced Settings
+    - Brightness
+    - Brightness Compensation
+    - Compensation Level
+    - Gamma Offset
+    - High Resolution
+    - Video Enhancement
 
 - Fixes
   - Fixed shutter values in shutter actions

@@ -1145,6 +1145,76 @@ class instance extends instance_skel {
 
 			// Advanced Setup Actions
 
+			case 'brightness':
+				let brightness = this.camera?.advancesetup?.Brightness
+					? this.camera.advancesetup.Brightness
+					: MODEL_VALUES.brightness.range.default
+				switch (opt.val) {
+					case 'up':
+						newValue = brightness < MODEL_VALUES.brightness.range.max ? ++brightness : brightness
+						break
+					case 'down':
+						newValue = brightness > MODEL_VALUES.brightness.range.max ? --brightness : brightness
+						break
+					case 'value':
+						newValue = opt.value
+						break
+				}
+				body = {
+					Brightness: String(newValue),
+				}
+				this.sendCommand('birddogadvancesetup', 'POST', body)
+				break
+
+			case 'brightness_comp':
+				body = {
+					BrightnessComp: String(opt.val),
+				}
+				this.sendCommand('birddogadvancesetup', 'POST', body)
+				break
+
+			case 'comp_level':
+				body = {
+					CompLevel: String(opt.val),
+				}
+				this.sendCommand('birddogadvancesetup', 'POST', body)
+				break
+
+			case 'gamma_offset':
+				let gamma_offset = this.camera?.advancesetup?.GammaOffset
+					? this.camera.advancesetup.GammaOffset
+					: MODEL_VALUES.gamma_offset.range.default
+				switch (opt.val) {
+					case 'up':
+						newValue = gamma_offset < MODEL_VALUES.gamma_offset.range.max ? ++gamma_offset : gamma_offset
+						break
+					case 'down':
+						newValue = gamma_offset > MODEL_VALUES.gamma_offset.range.max ? --gamma_offset : gamma_offset
+						break
+					case 'value':
+						newValue = opt.value
+						break
+				}
+				body = {
+					GammaOffset: String(newValue),
+				}
+				this.sendCommand('birddogadvancesetup', 'POST', body)
+				break
+
+			case 'high_resolution':
+				body = {
+					HighResolution: String(opt.val),
+				}
+				this.sendCommand('birddogadvancesetup', 'POST', body)
+				break
+
+			case 'video_enhancement':
+				body = {
+					VideoEnhancement: String(opt.val),
+				}
+				this.sendCommand('birddogadvancesetup', 'POST', body)
+				break
+
 			// External Setup Actions
 
 			// Detail Setup Actions

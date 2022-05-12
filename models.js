@@ -430,6 +430,12 @@ module.exports = {
 				stabilizer: { choices: CHOICES.ON_OFF, default: 'Off' },
 				// Color Matrix Actions
 				// Advanced Setup Actions
+				brightness: { choices: CHOICES.UP_DOWN_VALUE, default: 'up', range: { min: 0, max: 6, default: 3 } },
+				brightness_comp: { choices: CHOICES.BRIGHTNESS_COMP, default: 'STANDARD' },
+				comp_level: { choices: CHOICES.COMP_LEVEL, default: 'LOW' },
+				gamma_offset: { choices: CHOICES.UP_DOWN_VALUE, default: 'up', range: { min: -16, max: 64, default: 40 } },
+				high_resolution: { choices: CHOICES.ON_OFF, default: 'Off' },
+				video_enhancement: { choices: CHOICES.ON_OFF, default: 'Off' },
 				// External Setup Actions
 				// Detail Setup Actions
 				// Gamma Setup Actions
@@ -552,6 +558,12 @@ module.exports = {
 				stabilizer: { choices: CHOICES.ON_OFF, default: 'Off' },
 				// Color Matrix Actions
 				// Advanced Setup Actions
+				brightness: { choices: CHOICES.UP_DOWN_VALUE, default: 'up', range: { min: 0, max: 6, default: 3 } },
+				brightness_comp: { choices: CHOICES.BRIGHTNESS_COMP, default: 'STANDARD' },
+				comp_level: { choices: CHOICES.COMP_LEVEL, default: 'LOW' },
+				gamma_offset: { choices: CHOICES.UP_DOWN_VALUE, default: 'up', range: { min: -16, max: 64, default: 40 } },
+				high_resolution: { choices: CHOICES.ON_OFF, default: 'Off' },
+				video_enhancement: { choices: CHOICES.ON_OFF, default: 'Off' },
 				// External Setup Actions
 				// Detail Setup Actions
 				// Gamma Setup Actions
@@ -670,6 +682,12 @@ module.exports = {
 				stabilizer: { choices: CHOICES.ON_OFF, default: 'Off' },
 				// Color Matrix Actions
 				// Advanced Setup Actions
+				brightness: { choices: CHOICES.UP_DOWN_VALUE, default: 'up', range: { min: 0, max: 6, default: 3 } },
+				brightness_comp: { choices: CHOICES.BRIGHTNESS_COMP, default: 'STANDARD' },
+				comp_level: { choices: CHOICES.COMP_LEVEL, default: 'LOW' },
+				gamma_offset: { choices: CHOICES.UP_DOWN_VALUE, default: 'up', range: { min: -16, max: 64, default: 40 } },
+				high_resolution: { choices: CHOICES.ON_OFF, default: 'Off' },
+				video_enhancement: { choices: CHOICES.ON_OFF, default: 'Off' },
 				// External Setup Actions
 				// Detail Setup Actions
 				// Gamma Setup Actions
@@ -788,6 +806,12 @@ module.exports = {
 				stabilizer: { choices: CHOICES.ON_OFF, default: 'Off' },
 				// Color Matrix Actions
 				// Advanced Setup Actions
+				brightness: { choices: CHOICES.UP_DOWN_VALUE, default: 'up', range: { min: 0, max: 6, default: 3 } },
+				brightness_comp: { choices: CHOICES.BRIGHTNESS_COMP, default: 'STANDARD' },
+				comp_level: { choices: CHOICES.COMP_LEVEL, default: 'LOW' },
+				gamma_offset: { choices: CHOICES.UP_DOWN_VALUE, default: 'up', range: { min: -16, max: 64, default: 40 } },
+				high_resolution: { choices: CHOICES.ON_OFF, default: 'Off' },
+				video_enhancement: { choices: CHOICES.ON_OFF, default: 'Off' },
 				// External Setup Actions
 				// Detail Setup Actions
 				// Gamma Setup Actions
@@ -906,6 +930,12 @@ module.exports = {
 				stabilizer: { choices: CHOICES.ON_OFF, default: 'Off' },
 				// Color Matrix Actions
 				// Advanced Setup Actions
+				brightness: { choices: CHOICES.UP_DOWN_VALUE, default: 'up', range: { min: 0, max: 6, default: 3 } },
+				brightness_comp: { choices: CHOICES.BRIGHTNESS_COMP, default: 'STANDARD' },
+				comp_level: { choices: CHOICES.COMP_LEVEL, default: 'LOW' },
+				gamma_offset: { choices: CHOICES.UP_DOWN_VALUE, default: 'up', range: { min: -16, max: 64, default: 40 } },
+				high_resolution: { choices: CHOICES.ON_OFF, default: 'Off' },
+				video_enhancement: { choices: CHOICES.ON_OFF, default: 'Off' },
 				// External Setup Actions
 				// Detail Setup Actions
 				// Gamma Setup Actions
@@ -1024,6 +1054,12 @@ module.exports = {
 				stabilizer: { choices: CHOICES.ON_OFF, default: 'Off' },
 				// Color Matrix Actions
 				// Advanced Setup Actions
+				brightness: { choices: CHOICES.UP_DOWN_VALUE, default: 'up', range: { min: 0, max: 6, default: 3 } },
+				brightness_comp: { choices: CHOICES.BRIGHTNESS_COMP, default: 'STANDARD' },
+				comp_level: { choices: CHOICES.COMP_LEVEL, default: 'LOW' },
+				gamma_offset: { choices: CHOICES.UP_DOWN_VALUE, default: 'up', range: { min: -16, max: 64, default: 40 } },
+				high_resolution: { choices: CHOICES.ON_OFF, default: 'Off' },
+				video_enhancement: { choices: CHOICES.ON_OFF, default: 'Off' },
 				// External Setup Actions
 				// Detail Setup Actions
 				// Gamma Setup Actions

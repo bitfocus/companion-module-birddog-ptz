@@ -1452,6 +1452,114 @@ module.exports = {
 
 		// Advanced Setup Actions
 
+		if (MODEL_VALUES?.brightness) {
+			actions['brightness'] = {
+				label: 'Brightness',
+				options: [
+					{
+						type: 'dropdown',
+						label: 'Brightness',
+						id: 'val',
+						choices: MODEL_VALUES.brightness.choices,
+						default: MODEL_VALUES.brightness.default,
+					},
+					{
+						type: 'number',
+						label: 'Value (' + MODEL_VALUES.brightness.range.min + ' to ' + MODEL_VALUES.brightness.range.max + ')',
+						id: 'value',
+						min: MODEL_VALUES.brightness.range.min,
+						max: MODEL_VALUES.brightness.range.max,
+						default: MODEL_VALUES.brightness.range.default,
+						isVisible: (action) => action.options.val === 'value',
+					},
+				],
+			}
+		}
+
+		if (MODEL_VALUES?.brightness_comp) {
+			actions['brightness_comp'] = {
+				label: 'Brightness Compensation',
+				options: [
+					{
+						type: 'dropdown',
+						label: 'Mode',
+						id: 'val',
+						choices: MODEL_VALUES.brightness_comp.choices,
+						default: MODEL_VALUES.brightness_comp.default,
+					},
+				],
+			}
+		}
+
+		if (MODEL_VALUES?.comp_level) {
+			actions['comp_level'] = {
+				label: 'Compensation Level',
+				options: [
+					{
+						type: 'dropdown',
+						label: 'Level',
+						id: 'val',
+						choices: MODEL_VALUES.comp_level.choices,
+						default: MODEL_VALUES.comp_level.default,
+					},
+				],
+			}
+		}
+
+		if (MODEL_VALUES?.gamma_offset) {
+			actions['gamma_offset'] = {
+				label: 'Gamma Offset',
+				options: [
+					{
+						type: 'dropdown',
+						label: 'Gamma Offset',
+						id: 'val',
+						choices: MODEL_VALUES.gamma_offset.choices,
+						default: MODEL_VALUES.gamma_offset.default,
+					},
+					{
+						type: 'number',
+						label: 'Value (' + MODEL_VALUES.gamma_offset.range.min + ' to ' + MODEL_VALUES.gamma_offset.range.max + ')',
+						id: 'value',
+						min: MODEL_VALUES.gamma_offset.range.min,
+						max: MODEL_VALUES.gamma_offset.range.max,
+						default: MODEL_VALUES.gamma_offset.range.default,
+						isVisible: (action) => action.options.val === 'value',
+					},
+				],
+			}
+		}
+
+		if (MODEL_VALUES?.high_resolution) {
+			actions['high_resolution'] = {
+				label: 'High Resolution',
+				options: [
+					{
+						type: 'dropdown',
+						label: 'On / Off',
+						id: 'val',
+						choices: MODEL_VALUES.high_resolution.choices,
+						default: MODEL_VALUES.high_resolution.default,
+					},
+				],
+			}
+		}
+
+		if (MODEL_VALUES?.video_enhancement) {
+			actions['video_enhancement'] = {
+				label: 'Video Enhancement',
+				options: [
+					{
+						type: 'dropdown',
+						label: 'On / Off',
+						id: 'val',
+						choices: MODEL_VALUES.video_enhancement.choices,
+						default: MODEL_VALUES.video_enhancement.default,
+					},
+				],
+			}
+		}
+
 		// External Setup Actions
 
 		// Detail Setup Actions

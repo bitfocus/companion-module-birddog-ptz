@@ -552,6 +552,12 @@ module.exports = {
 		{ id: 'BRIGHT', label: 'Bright' },
 	],
 
+	COMP_LEVEL: [
+		{ id: 'LOW', label: 'Low' },
+		{ id: 'MID', label: 'Mid' },
+		{ id: 'HIGH', label: 'High' },
+	],
+
 	// ############
 	// P400/P4K Settings Look Ups
 	// ############
