@@ -591,6 +591,35 @@ exports.updateVariables = function () {
 		if (MODEL_SPEC?.bandwidth) {
 			this.setVariable('bandwidth', this.camera.detail.Bandwidth)
 		}
+
+		if (MODEL_SPEC?.bw_balance) {
+			this.setVariable('bw_balance', this.camera.detail.BwBalance)
+		}
+
+		if (MODEL_SPEC?.crispening) {
+			this.setVariable('crispening', this.camera.detail.Crispening)
+		}
+
+		if (MODEL_SPEC?.detail) {
+			this.setVariable('detail', this.camera.detail.Detail)
+		}
+
+		if (MODEL_SPEC?.highlight_detail) {
+			this.setVariable('highlight_detail', this.camera.detail.HighLightDetail)
+		}
+
+		if (MODEL_SPEC?.hv_balance) {
+			this.setVariable('hv_balance', this.camera.detail.HvBalance)
+		}
+		
+		if (MODEL_SPEC?.limit) {
+			this.setVariable('limit', this.camera.detail.Limit)
+		}
+
+		if (MODEL_SPEC?.super_low) {
+			this.setVariable('super_low', this.camera.detail.SuperLow)
+		}
 	}
+
 	// Gamma Setup Variables
 }

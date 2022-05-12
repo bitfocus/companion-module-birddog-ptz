@@ -1146,6 +1146,13 @@ module.exports = {
 				twod_nr: { label: `2D Noise Reduction` },
 				// Detail Setup Variables
 				bandwidth: { label: `Bandwidth` },
+				bw_balance: { label: `BW Balance` },
+				crispening: { label: `Crispening` },
+				detail: { label: `Detail` },
+				highlight_detail: { label: `Highlight Detail` },
+				hv_balance: { label: `Hv Balance` },
+				limit: { label: `Limit` },
+				super_low: { label: `Super Low` },
 			},
 			actions: {
 				...COMMON[2],
@@ -1216,6 +1223,14 @@ module.exports = {
 				// Advanced Setup Actions
 				// External Setup Actions
 				// Detail Setup Actions
+				bandwidth: { choices: CHOICES.BANDWIDTH_4K, default: 'DEFAULT' },
+				bw_balance: { choices: CHOICES.BW_BALANCE_4K, default: 'TYPE1' },
+				crispening: { choices: CHOICES.UP_DOWN_VALUE, default: 'up', range: { min: 0, max: 7, default: 4 }},
+				detail: { choices: CHOICES.ON_OFF, default: 'Off' },
+				highlight_detail: { choices: CHOICES.UP_DOWN_VALUE, default: 'up', range: { min: 0, max: 4, default: 0 } },
+				hv_balance: { choices: CHOICES.UP_DOWN_VALUE, default: 'up', range: { min: -2, max: 2, default: 0 } },
+				limit: { choices: CHOICES.UP_DOWN_VALUE, default: 'up', range: { min: 0, max: 7, default: 4 } },
+				super_low: {choices: CHOICES.UP_DOWN_VALUE, default: 'up', range: { min: 0, max: 7, default: 4 }},
 				// Gamma Setup Actions
 				// Other Actions
 			},
@@ -1277,6 +1292,13 @@ module.exports = {
 				twod_nr: { label: `2D Noise Reduction` },
 				// Detail Setup Variables
 				bandwidth: { label: `Bandwidth` },
+				bw_balance: { label: `BW Balance` },
+				crispening: { label: `Crispening` },
+				detail: { label: `Detail` },
+				highlight_detail: { label: `Highlight Detail` },
+				hv_balance: { label: `Hv Balance` },
+				limit: { label: `Limit` },
+				super_low: { label: `Super Low` },
 			},
 			actions: {
 				...COMMON[2],
@@ -1348,6 +1370,14 @@ module.exports = {
 				// Advanced Setup Actions
 				// External Setup Actions
 				// Detail Setup Actions
+				bandwidth: { choices: CHOICES.BANDWIDTH_4K, default: 'DEFAULT' },
+				bw_balance: { choices: CHOICES.BW_BALANCE_4K, default: 'TYPE1' },
+				crispening: { choices: CHOICES.UP_DOWN_VALUE, default: 'up', range: { min: 0, max: 7, default: 4 }},
+				detail: { choices: CHOICES.ON_OFF, default: 'Off' },
+				highlight_detail: { choices: CHOICES.UP_DOWN_VALUE, default: 'up', range: { min: 0, max: 4, default: 0 } },
+				hv_balance: { choices: CHOICES.UP_DOWN_VALUE, default: 'up', range: { min: -2, max: 2, default: 0 } },
+				limit: { choices: CHOICES.UP_DOWN_VALUE, default: 'up', range: { min: 0, max: 7, default: 4 } },
+				super_low: {choices: CHOICES.UP_DOWN_VALUE, default: 'up', range: { min: 0, max: 7, default: 4 }},
 				// Gamma Setup Actions
 				// Other Actions
 			},

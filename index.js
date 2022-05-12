@@ -1240,6 +1240,132 @@ class instance extends instance_skel {
 
 			// Detail Setup Actions
 
+			case 'bandwidth':
+				body = {
+					Bandwidth: String(opt.val),
+				}
+				this.sendCommand('birddogdetsetup', 'POST', body)
+				break
+
+			case 'bw_balance':
+				body = {
+					BwBandwidth: String(opt.val),
+				}
+				this.sendCommand('birddogdetsetup', 'POST', body)
+				break
+
+			case 'crispening':
+				let crispening = this.camera?.detail?.Crispening
+					? this.camera.detail.Crispening
+					: MODEL_VALUES.crispening.range.default
+				switch (opt.val) {
+					case 'up':
+						newValue = crispening < MODEL_VALUES.crispening.range.max ? ++crispening : crispening
+						break
+					case 'down':
+						newValue = crispening > MODEL_VALUES.crispening.range.max ? --crispening : crispening
+						break
+					case 'value':
+						newValue = opt.value
+						break
+				}
+				body = {
+					Crispening: String(newValue),
+				}
+				this.sendCommand('birddogdetsetup', 'POST', body)
+				break
+
+			case 'detail':
+				body = {
+					Detail: String(opt.val),
+				}
+				this.sendCommand('birddogdetsetup', 'POST', body)
+				break
+
+			case 'highlight_detail':
+				let highlight_detail = this.camera?.detail?.HighlightDetail
+					? this.camera.detail.HighlightDetail
+					: MODEL_VALUES.highlight_detail.range.default
+				switch (opt.val) {
+					case 'up':
+						newValue =
+							highlight_detail < MODEL_VALUES.highlight_detail.range.max ? ++highlight_detail : highlight_detail
+						break
+					case 'down':
+						newValue =
+							highlight_detail > MODEL_VALUES.highlight_detail.range.max ? --highlight_detail : highlight_detail
+						break
+					case 'value':
+						newValue = opt.value
+						break
+				}
+				body = {
+					HighlightDetail: String(newValue),
+				}
+				this.sendCommand('birddogdetsetup', 'POST', body)
+				break
+
+			case 'hv_balance':
+				let hv_balance = this.camera?.detail?.HvBalance
+					? this.camera.detail.HvBalance
+					: MODEL_VALUES.hv_balance.range.default
+				switch (opt.val) {
+					case 'up':
+						newValue = hv_balance < MODEL_VALUES.hv_balance.range.max ? ++hv_balance : hv_balance
+						break
+					case 'down':
+						newValue = hv_balance > MODEL_VALUES.hv_balance.range.max ? --hv_balance : hv_balance
+						break
+					case 'value':
+						newValue = opt.value
+						break
+				}
+				body = {
+					HvBalance: String(newValue),
+				}
+				this.sendCommand('birddogdetsetup', 'POST', body)
+				break
+
+			case 'limit':
+				let limit = this.camera?.detail?.Limit ? this.camera.detail.Limit : MODEL_VALUES.limit.range.default
+				switch (opt.val) {
+					case 'up':
+						newValue = limit < MODEL_VALUES.limit.range.max ? ++limit : limit
+						break
+					case 'down':
+						newValue = limit > MODEL_VALUES.limit.range.max ? --limit : limit
+						break
+					case 'value':
+						newValue = opt.value
+						break
+				}
+				body = {
+					Limit: String(newValue),
+				}
+				this.sendCommand('birddogdetsetup', 'POST', body)
+				break
+
+			case 'super_low':
+				let super_low = this.camera?.detail?.SuperLow
+					? this.camera.detail.SuperLow
+					: MODEL_VALUES.super_low.range.default
+				switch (opt.val) {
+					case 'up':
+						newValue = super_low < MODEL_VALUES.super_low.range.max ? ++super_low : super_low
+						break
+					case 'down':
+						newValue = super_low > MODEL_VALUES.super_low.range.max ? --super_low : super_low
+						break
+					case 'value':
+						newValue = opt.value
+						break
+				}
+				body = {
+					SuperLow: String(newValue),
+				}
+				this.sendCommand('birddogdetsetup', 'POST', body)
+				break
+
 			// Gamma Setup Actions
 
 			// Other Actions

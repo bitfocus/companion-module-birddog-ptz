@@ -1609,6 +1609,171 @@ module.exports = {
 
 		// Detail Setup Actions
 
+		if (MODEL_VALUES?.bandwidth) {
+			actions['bandwidth'] = {
+				label: 'Bandwidth',
+				options: [
+					{
+						type: 'dropdown',
+						label: 'Mode',
+						id: 'val',
+						choices: MODEL_VALUES.bandwidth.choices,
+						default: MODEL_VALUES.bandwidth.default,
+					},
+				],
+			}
+		}
+
+		if (MODEL_VALUES?.bw_balance) {
+			actions['bw_balance'] = {
+				label: 'BW Balance',
+				options: [
+					{
+						type: 'dropdown',
+						label: 'Mode',
+						id: 'val',
+						choices: MODEL_VALUES.bw_balance.choices,
+						default: MODEL_VALUES.bw_balance.default,
+					},
+				],
+			}
+		}
+
+		if (MODEL_VALUES?.crispening) {
+			actions['crispening'] = {
+				label: 'Crispening',
+				options: [
+					{
+						type: 'dropdown',
+						label: 'Crispening',
+						id: 'val',
+						choices: MODEL_VALUES.crispening.choices,
+						default: MODEL_VALUES.crispening.default,
+					},
+					{
+						type: 'number',
+						label: 'Value (' + MODEL_VALUES.crispening.range.min + ' to ' + MODEL_VALUES.crispening.range.max + ')',
+						id: 'value',
+						min: MODEL_VALUES.crispening.range.min,
+						max: MODEL_VALUES.crispening.range.max,
+						default: MODEL_VALUES.crispening.range.default,
+						isVisible: (action) => action.options.val === 'value',
+					},
+				],
+			}
+		}
+
+		if (MODEL_VALUES?.detail) {
+			actions['detail'] = {
+				label: 'Detail',
+				options: [
+					{
+						type: 'dropdown',
+						label: 'On / Off',
+						id: 'val',
+						choices: MODEL_VALUES.detail.choices,
+						default: MODEL_VALUES.detail.default,
+					},
+				],
+			}
+		}
+
+		if (MODEL_VALUES?.highlight_detail) {
+			actions['highlight_detail'] = {
+				label: 'Highlight Detail',
+				options: [
+					{
+						type: 'dropdown',
+						label: 'Highlight Detail',
+						id: 'val',
+						choices: MODEL_VALUES.highlight_detail.choices,
+						default: MODEL_VALUES.highlight_detail.default,
+					},
+					{
+						type: 'number',
+						label: 'Value (' + MODEL_VALUES.highlight_detail.range.min + ' to ' + MODEL_VALUES.highlight_detail.range.max + ')',
+						id: 'value',
+						min: MODEL_VALUES.highlight_detail.range.min,
+						max: MODEL_VALUES.highlight_detail.range.max,
+						default: MODEL_VALUES.highlight_detail.range.default,
+						isVisible: (action) => action.options.val === 'value',
+					},
+				],
+			}
+		}
+
+		if (MODEL_VALUES?.hv_balance) {
+			actions['hv_balance'] = {
+				label: 'Hv Balance',
+				options: [
+					{
+						type: 'dropdown',
+						label: 'Hv Balance',
+						id: 'val',
+						choices: MODEL_VALUES.hv_balance.choices,
+						default: MODEL_VALUES.hv_balance.default,
+					},
+					{
+						type: 'number',
+						label: 'Value (' + MODEL_VALUES.hv_balance.range.min + ' to ' + MODEL_VALUES.hv_balance.range.max + ')',
+						id: 'value',
+						min: MODEL_VALUES.hv_balance.range.min,
+						max: MODEL_VALUES.hv_balance.range.max,
+						default: MODEL_VALUES.hv_balance.range.default,
+						isVisible: (action) => action.options.val === 'value',
+					},
+				],
+			}
+		}
+
+		if (MODEL_VALUES?.limit) {
+			actions['limit'] = {
+				label: 'Limit',
+				options: [
+					{
+						type: 'dropdown',
+						label: 'Limit',
+						id: 'val',
+						choices: MODEL_VALUES.limit.choices,
+						default: MODEL_VALUES.limit.default,
+					},
+					{
+						type: 'number',
+						label: 'Value (' + MODEL_VALUES.limit.range.min + ' to ' + MODEL_VALUES.limit.range.max + ')',
+						id: 'value',
+						min: MODEL_VALUES.limit.range.min,
+						max: MODEL_VALUES.limit.range.max,
+						default: MODEL_VALUES.limit.range.default,
+						isVisible: (action) => action.options.val === 'value',
+					},
+				],
+			}
+		}
+
+		if (MODEL_VALUES?.super_low) {
+			actions['super_low'] = {
+				label: 'Super Low',
+				options: [
+					{
+						type: 'dropdown',
+						label: 'Super Low',
+						id: 'val',
+						choices: MODEL_VALUES.super_low.choices,
+						default: MODEL_VALUES.super_low.default,
+					},
+					{
+						type: 'number',
+						label: 'Value (' + MODEL_VALUES.super_low.range.min + ' to ' + MODEL_VALUES.super_low.range.max + ')',
+						id: 'value',
+						min: MODEL_VALUES.super_low.range.min,
+						max: MODEL_VALUES.super_low.range.max,
+						default: MODEL_VALUES.super_low.range.default,
+						isVisible: (action) => action.options.val === 'value',
+					},
+				],
+			}
+		}
+
 		// Gamma Setup Actions
 
 		// Other Actions

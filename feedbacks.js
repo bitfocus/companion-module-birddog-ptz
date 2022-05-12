@@ -1861,6 +1861,203 @@ exports.initFeedbacks = function () {
 
 	// Detail Setup Feedback
 
+	if (MODEL_VALUES?.bandwidth) {
+		feedbacks.bandwidth = {
+			type: 'boolean',
+			label: 'Bandwidth',
+			description: 'If the camera matches the selected Bandwidth mode, change the style of the button',
+			style: {
+				color: ColorBlack,
+				bgcolor: ColorGreen,
+			},
+			options: [
+				{
+					type: 'dropdown',
+					label: 'Mode',
+					id: 'val',
+					choices: MODEL_VALUES.bandwidth.choices,
+					default: MODEL_VALUES.bandwidth.default,
+				},
+			],
+			callback: (feedback) => {
+				return this.camera?.detail?.Bandwidth == feedback.options.val
+			},
+		}
+	}
+
+	if (MODEL_VALUES?.bw_balance) {
+		feedbacks.bw_balance = {
+			type: 'boolean',
+			label: 'Bandwidth',
+			description: 'If the camera matches the selected Bandwidth mode, change the style of the button',
+			style: {
+				color: ColorBlack,
+				bgcolor: ColorGreen,
+			},
+			options: [
+				{
+					type: 'dropdown',
+					label: 'Mode',
+					id: 'val',
+					choices: MODEL_VALUES.bw_balance.choices,
+					default: MODEL_VALUES.bw_balance.default,
+				},
+			],
+			callback: (feedback) => {
+				return this.camera?.detail?.BwBalance == feedback.options.val
+			},
+		}
+	}
+
+	if (MODEL_VALUES?.crispening) {
+		feedbacks.crispening = {
+			type: 'boolean',
+			label: 'Crispening',
+			description: 'If the camera matches the selected Crispening value, change the style of the button',
+			style: {
+				color: ColorBlack,
+				bgcolor: ColorGreen,
+			},
+			options: [
+				{
+					type: 'number',
+					label: 'Value (' + MODEL_VALUES.crispening.range.min + ' to ' + MODEL_VALUES.crispening.range.max + ')',
+					id: 'value',
+					min: MODEL_VALUES.crispening.range.min,
+					max: MODEL_VALUES.crispening.range.max,
+					default: MODEL_VALUES.crispening.range.default,
+				},
+			],
+			callback: (feedback) => {
+				return this.camera?.detail?.Crispening == feedback.options.value
+			},
+		}
+	}
+
+	if (MODEL_VALUES?.detail) {
+		feedbacks.detail = {
+			type: 'boolean',
+			label: 'Detail',
+			description: 'If the camera matches the selected Detail value, change the style of the button',
+			style: {
+				color: ColorBlack,
+				bgcolor: ColorGreen,
+			},
+			options: [
+				{
+					type: 'dropdown',
+					label: 'On / Off',
+					id: 'val',
+					choices: MODEL_VALUES.detail.choices,
+					default: MODEL_VALUES.detail.default,
+				},
+			],
+			callback: (feedback) => {
+				return this.camera?.detail?.Detail == feedback.options.val
+			},
+		}
+	}
+
+	if (MODEL_VALUES?.highlight_detail) {
+		feedbacks.highlight_detail = {
+			type: 'boolean',
+			label: 'Highlight Detail',
+			description: 'If the camera matches the selected Highlight Detail value, change the style of the button',
+			style: {
+				color: ColorBlack,
+				bgcolor: ColorGreen,
+			},
+			options: [
+				{
+					type: 'number',
+					label: 'Value (' + MODEL_VALUES.highlight_detail.range.min + ' to ' + MODEL_VALUES.highlight_detail.range.max + ')',
+					id: 'value',
+					min: MODEL_VALUES.highlight_detail.range.min,
+					max: MODEL_VALUES.highlight_detail.range.max,
+					default: MODEL_VALUES.highlight_detail.range.default,
+				},
+			],
+			callback: (feedback) => {
+				return this.camera?.detail?.HighLightDetail == feedback.options.value
+			},
+		}
+	}
+
+	if (MODEL_VALUES?.hv_balance) {
+		feedbacks.hv_balance = {
+			type: 'boolean',
+			label: 'Hv Balance',
+			description: 'If the camera matches the selected Hv Balance value, change the style of the button',
+			style: {
+				color: ColorBlack,
+				bgcolor: ColorGreen,
+			},
+			options: [
+				{
+					type: 'number',
+					label: 'Value (' + MODEL_VALUES.hv_balance.range.min + ' to ' + MODEL_VALUES.hv_balance.range.max + ')',
+					id: 'value',
+					min: MODEL_VALUES.hv_balance.range.min,
+					max: MODEL_VALUES.hv_balance.range.max,
+					default: MODEL_VALUES.hv_balance.range.default,
+				},
+			],
+			callback: (feedback) => {
+				return this.camera?.detail?.HvBalance == feedback.options.value
+			},
+		}
+	}
+
+	if (MODEL_VALUES?.limit) {
+		feedbacks.limit = {
+			type: 'boolean',
+			label: 'Limit',
+			description: 'If the camera matches the selected Limit value, change the style of the button',
+			style: {
+				color: ColorBlack,
+				bgcolor: ColorGreen,
+			},
+			options: [
+				{
+					type: 'number',
+					label: 'Value (' + MODEL_VALUES.limit.range.min + ' to ' + MODEL_VALUES.limit.range.max + ')',
+					id: 'value',
+					min: MODEL_VALUES.limit.range.min,
+					max: MODEL_VALUES.limit.range.max,
+					default: MODEL_VALUES.limit.range.default,
+				},
+			],
+			callback: (feedback) => {
+				return this.camera?.detail?.Limit == feedback.options.value
+			},
+		}
+	}
+
+	if (MODEL_VALUES?.super_low) {
+		feedbacks.super_low = {
+			type: 'boolean',
+			label: 'Super Low',
+			description: 'If the camera matches the selected Super Low value, change the style of the button',
+			style: {
+				color: ColorBlack,
+				bgcolor: ColorGreen,
+			},
+			options: [
+				{
+					type: 'number',
+					label: 'Value (' + MODEL_VALUES.super_low.range.min + ' to ' + MODEL_VALUES.super_low.range.max + ')',
+					id: 'value',
+					min: MODEL_VALUES.super_low.range.min,
+					max: MODEL_VALUES.super_low.range.max,
+					default: MODEL_VALUES.super_low.range.default,
+				},
+			],
+			callback: (feedback) => {
+				return this.camera?.detail?.SuperLow == feedback.options.value
+			},
+		}
+	}
+
 	// Gamma Setup Feedback
 
 	// Other Feedback

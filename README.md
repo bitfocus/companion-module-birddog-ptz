@@ -77,6 +77,16 @@ See [HELP.md](https://github.com/bitfocus/companion-module-birddog-ptz/blob/main
     - Aux
     - Rain Wiper
     - 12v Out
+  - Detail Setting
+    - Bandwidth
+    - BW Balance
+    - Crispening
+    - Detail
+    - Highlight Detail
+    - Hv Balance
+    - Limit
+    - Super Low
+
 
 - Fixes
   - Fixed shutter values in shutter actions
