@@ -1129,8 +1129,8 @@ exports.initFeedbacks = function () {
 					type: 'dropdown',
 					label: 'White Balance Mode',
 					id: 'white_balance',
-					choices: MODEL_VALUES.wb.choices,
-					default: MODEL_VALUES.wb.default,
+					choices: MODEL_VALUES.wb_mode.choices,
+					default: MODEL_VALUES.wb_mode.default,
 				},
 			],
 			callback: (feedback) => {

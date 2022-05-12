@@ -204,7 +204,12 @@ exports.updateVariables = function () {
 		}
 
 		if (MODEL_SPEC?.exposure_comp_level) {
-			this.setVariable('exposure_comp_level', this.camera.expsetup.ExpCompLvl)
+			//Convert API range to variable range for P100 & PF120
+			let level =
+				this.camera.model === 'P100' || this.camera.model === 'PF120'
+					? parseInt(this.camera.expsetup.ExpCompLvl) - 7
+					: this.camera.expsetup.ExpCompLvl
+			this.setVariable('exposure_comp_level', level.toString())
 		}
 
 		if (MODEL_SPEC?.exposure_mode) {

@@ -1065,8 +1065,8 @@ module.exports = {
 						type: 'dropdown',
 						label: 'Mode',
 						id: 'val',
-						choices: MODEL_VALUES.wb.choices,
-						default: MODEL_VALUES.wb.default,
+						choices: MODEL_VALUES.wb_mode.choices,
+						default: MODEL_VALUES.wb_mode.default,
 					},
 				],
 			}

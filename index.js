@@ -500,9 +500,12 @@ class instance extends instance_skel {
 						}
 						break
 					case 'On':
+						//Convert action range to API range for P100 & PF120
+						let level =
+							this.camera.model === 'P100' || this.camera.model === 'PF120' ? String(opt.level + 7) : String(opt.level)
 						body = {
 							ExpCompEn: String(opt.val),
-							ExpCompLvl: String(opt.level), //Convert action range to API range
+							ExpCompLvl: String(level),
 						}
 						break
 				}
@@ -1096,12 +1099,17 @@ class instance extends instance_skel {
 		} else if (cmd.match('/birddogptzsetup')) {
 			this.camera.ptz = data
 		} else if (cmd.match('/birddogexpsetup')) {
-			if (this.camera.expsetup?.GainLimit !== data.GainLimit) {
+			if (this.camera.expsetup?.GainLimit && this.camera.expsetup.GainLimit !== data.GainLimit) {
 				// rebuild actions if GainLimit has changed
+				console.log('-----Gain Limit changed')
 				this.camera.expsetup.GainLimit = data.GainLimit
 				this.actions()
-			} else if (this.camera.expsetup?.ShutterMaxSpeed !== data.ShutterMaxSpeed) {
+			} else if (
+				this.camera.expsetup?.ShutterMaxSpeed &&
+				this.camera.expsetup.ShutterMaxSpeed !== data.ShutterMaxSpeed
+			) {
 				// rebuild actions if ShutterMaxSpeed has changed
+				console.log('-----ShutterMaxSpeed changed')
 				this.camera.expsetup.ShutterMaxSpeed = data.ShutterMaxSpeed
 				this.actions()
 			}
@@ -1267,7 +1275,6 @@ class instance extends instance_skel {
 		this.sendVISCACommand(VISCA.MSG_QRY + VISCA.CAM_FOCUS_AUTO + VISCA.END_MSG, '\x5a') // Query Auto Focus Mode
 		this.sendVISCACommand(VISCA.MSG_QRY + VISCA.CAM_FREEZE + VISCA.END_MSG, '\x5b') // Query Freeze
 		this.sendVISCACommand(VISCA.MSG_QRY + VISCA.CAM_ZOOM_DIRECT + VISCA.END_MSG, '\x5c') // Query Zoom Position
-		this.sendVISCACommand(VISCA.MSG_QRY_OPERATION + VISCA.OP_PAN_POS + VISCA.END_MSG, '\x5d') // Query Pan/Tilt Position
 		// Specific Model Info
 		if (MODEL_API?.birddogcmsetup) {
 			this.sendCommand('birddogcmsetup', 'GET')
@@ -1283,6 +1290,9 @@ class instance extends instance_skel {
 		}
 		if (MODEL_API?.birddoggammasetup) {
 			this.sendCommand('birddoggammasetup', 'GET')
+		}
+		if (MODEL_API?.pt_pos) {
+			this.sendVISCACommand(VISCA.MSG_QRY_OPERATION + VISCA.OP_PAN_POS + VISCA.END_MSG, '\x5d') // Query Pan/Tilt Position
 		}
 
 		this.debug('----Camera Setup----')

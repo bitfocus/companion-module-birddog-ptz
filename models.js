@@ -109,7 +109,6 @@ const COMMON = [
 		focusM: { choices: CHOICES.AUTO_FOCUS, default: 'Auto' },
 		// Exposure Actions
 		expComp: { choices: CHOICES.ON_OFF, default: 'Off' },
-		expCompLvl: { choices: CHOICES.UP_DOWN_VALUE, default: 'up', range: { min: -128, max: 127, default: 0 } },
 		// White Balance Actions
 		wbOnePush: true,
 		blue_gain: { choices: CHOICES.UP_DOWN_VALUE, default: 'up', range: { min: 0, max: 255, default: 128 } },
@@ -135,6 +134,7 @@ module.exports = {
 			apicalls: {
 				...COMMON[0],
 				birddogcmsetup: true,
+				pt_pos: true,
 			},
 			variables: {
 				...COMMON[1],
@@ -194,6 +194,7 @@ module.exports = {
 				// Focus Actions
 				// Exposure Actions
 				bright_level: { range: { min: 0, max: 27, default: 14 } },
+				expCompLvl: { choices: CHOICES.UP_DOWN_VALUE, default: 'up', range: { min: -7, max: 7, default: 0 } },
 				expM: { choices: CHOICES.EXP_MODE_1, default: 'FULL-AUTO' },
 				gain: { choices: CHOICES.GAIN_1, default: 0 },
 				iris: { choices: CHOICES.IRIS_1, default: 8, range: { closed: 0, min: 1, max: 13 } },
@@ -277,6 +278,7 @@ module.exports = {
 				// Focus Actions
 				// Exposure Actions
 				bright_level: { range: { min: 0, max: 27, default: 14 } },
+				expCompLvl: { choices: CHOICES.UP_DOWN_VALUE, default: 'up', range: { min: -7, max: 7, default: 0 } },
 				expM: { choices: CHOICES.EXP_MODE_1, default: 'FULL-AUTO' },
 				gain: { choices: CHOICES.GAIN_1, default: 0 },
 				iris: { choices: CHOICES.IRIS_1, default: 8, range: { closed: 0, min: 1, max: 13 } },
@@ -311,6 +313,7 @@ module.exports = {
 				...COMMON[0],
 				birddogcmsetup: true,
 				birddogadvancesetup: true,
+				pt_pos: true,
 			},
 			variables: {
 				...COMMON[1],
@@ -385,6 +388,7 @@ module.exports = {
 				// Exposure Actions
 				ae_response: { range: { min: 1, max: 48, default: 1 } },
 				bright_level: { range: { min: 0, max: 31, default: 16 } },
+				expCompLvl: { choices: CHOICES.UP_DOWN_VALUE, default: 'up', range: { min: -128, max: 127, default: 0 } },
 				expM: { choices: CHOICES.EXP_MODE_2, default: 'FULL-AUTO' },
 				gain: { choices: CHOICES.GAIN_2, default: 1 },
 				gain_limit: { range: { min: 4, max: 15, default: 15 } },
@@ -420,6 +424,7 @@ module.exports = {
 				...COMMON[0],
 				birddogcmsetup: true,
 				birddogadvancesetup: true,
+				pt_pos: true,
 			},
 			variables: {
 				...COMMON[1],
@@ -495,6 +500,7 @@ module.exports = {
 				// Exposure Actions
 				ae_response: { range: { min: 1, max: 48, default: 1 } },
 				bright_level: { range: { min: 0, max: 31, default: 16 } },
+				expCompLvl: { choices: CHOICES.UP_DOWN_VALUE, default: 'up', range: { min: -128, max: 127, default: 0 } },
 				expM: { choices: CHOICES.EXP_MODE_1, default: 'FULL-AUTO' },
 				gain: { choices: CHOICES.GAIN_2, default: 1 },
 				gain_limit: { range: { min: 4, max: 15, default: 15 } },
@@ -531,6 +537,7 @@ module.exports = {
 				birddogcmsetup: true,
 				birddogadvancesetup: true,
 				birddogexternalsetup: true,
+				pt_pos: true,
 			},
 			variables: {
 				...COMMON[1],
@@ -602,6 +609,7 @@ module.exports = {
 				// Exposure Actions
 				ae_response: { range: { min: 1, max: 48, default: 1 } },
 				bright_level: { range: { min: 0, max: 31, default: 16 } },
+				expCompLvl: { choices: CHOICES.UP_DOWN_VALUE, default: 'up', range: { min: -128, max: 127, default: 0 } },
 				expM: { choices: CHOICES.EXP_MODE_1, default: 'FULL-AUTO' },
 				gain: { choices: CHOICES.GAIN_2, default: 1 },
 				gain_limit: { range: { min: 4, max: 15, default: 15 } },
@@ -638,6 +646,7 @@ module.exports = {
 				birddogcmsetup: true,
 				birddogadvancesetup: true,
 				birddogexternalsetup: true,
+				pt_pos: true,
 			},
 			variables: {
 				...COMMON[1],
@@ -709,6 +718,7 @@ module.exports = {
 				// Exposure Actions
 				ae_response: { range: { min: 1, max: 48, default: 1 } },
 				bright_level: { range: { min: 0, max: 31, default: 16 } },
+				expCompLvl: { choices: CHOICES.UP_DOWN_VALUE, default: 'up', range: { min: -128, max: 127, default: 0 } },
 				expM: { choices: CHOICES.EXP_MODE_1, default: 'FULL-AUTO' },
 				gain: { choices: CHOICES.GAIN_2, default: 1 },
 				gain_limit: { range: { min: 4, max: 15, default: 15 } },
@@ -745,6 +755,7 @@ module.exports = {
 				birddogcmsetup: true,
 				birddogadvancesetup: true,
 				birddogexternalsetup: true,
+				pt_pos: true,
 			},
 			variables: {
 				...COMMON[1],
@@ -816,6 +827,7 @@ module.exports = {
 				// Exposure Actions
 				ae_response: { range: { min: 1, max: 48, default: 1 } },
 				bright_level: { range: { min: 0, max: 31, default: 16 } },
+				expCompLvl: { choices: CHOICES.UP_DOWN_VALUE, default: 'up', range: { min: -128, max: 127, default: 0 } },
 				expM: { choices: CHOICES.EXP_MODE_1, default: 'FULL-AUTO' },
 				gain: { choices: CHOICES.GAIN_2, default: 1 },
 				gain_limit: { range: { min: 4, max: 15, default: 15 } },
@@ -852,6 +864,7 @@ module.exports = {
 				birddogcmsetup: true,
 				birddogadvancesetup: true,
 				birddogexternalsetup: true,
+				pt_pos: true,
 			},
 			variables: {
 				...COMMON[1],
@@ -923,6 +936,7 @@ module.exports = {
 				// Exposure Actions
 				ae_response: { range: { min: 1, max: 48, default: 1 } },
 				bright_level: { range: { min: 0, max: 31, default: 16 } },
+				expCompLvl: { choices: CHOICES.UP_DOWN_VALUE, default: 'up', range: { min: -128, max: 127, default: 0 } },
 				expM: { choices: CHOICES.EXP_MODE_1, default: 'FULL-AUTO' },
 				gain: { choices: CHOICES.GAIN_2, default: 1 },
 				gain_limit: { range: { min: 4, max: 15, default: 15 } },
@@ -958,6 +972,7 @@ module.exports = {
 				...COMMON[0],
 				birddogdetsetup: true,
 				birddoggammasetup: true,
+				pt_pos: true,
 			},
 			variables: {
 				...COMMON[1],
@@ -1030,6 +1045,7 @@ module.exports = {
 				ae_response: { range: { min: 4, max: 48, default: 1 } },
 				bright_level: { range: { min: 0, max: 41, default: 21 } },
 				backlight: { choices: CHOICES.ON_OFF, default: 'On' },
+				expCompLvl: { choices: CHOICES.UP_DOWN_VALUE, default: 'up', range: { min: -128, max: 127, default: 0 } },
 				expM: { choices: CHOICES.EXP_MODE_3, default: 'FULL-AUTO' },
 				gain: { choices: CHOICES.GAIN_3, default: 1 },
 				gain_limit: { range: { min: 4, max: 13, default: 13 } },
@@ -1081,6 +1097,7 @@ module.exports = {
 				...COMMON[0],
 				birddogdetsetup: true,
 				birddoggammasetup: true,
+				pt_pos: true,
 			},
 			variables: {
 				...COMMON[1],
@@ -1153,6 +1170,7 @@ module.exports = {
 				ae_response: { range: { min: 1, max: 48, default: 1 } },
 				bright_level: { range: { min: 5, max: 37, default: 21 } },
 				backlight: { choices: CHOICES.ON_OFF, default: 'On' },
+				expCompLvl: { choices: CHOICES.UP_DOWN_VALUE, default: 'up', range: { min: -128, max: 127, default: 0 } },
 				expM: { choices: CHOICES.EXP_MODE_3, default: 'FULL-AUTO' },
 				gain: { choices: CHOICES.GAIN_3, default: 1 },
 				gain_limit: { range: { min: 4, max: 13, default: 13 } },
