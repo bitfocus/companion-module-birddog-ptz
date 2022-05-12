@@ -742,26 +742,77 @@ exports.initFeedbacks = function () {
 
 	// White Balance Feedback
 
-	if (MODEL_VALUES?.wb) {
-		feedbacks.wb_mode = {
+	if (MODEL_VALUES?.bg) {
+		feedbacks.bg = {
 			type: 'boolean',
-			label: 'Camera White Balance Mode',
-			description: 'Change the style of the button based on the WB mode',
+			label: 'BG',
+			description: 'If the camera matches the selected BG level, change the style of the button',
 			style: {
 				color: ColorBlack,
 				bgcolor: ColorGreen,
 			},
 			options: [
 				{
-					type: 'dropdown',
-					label: 'White Balance Mode',
-					id: 'white_balance',
-					choices: MODEL_VALUES.wb.choices,
-					default: MODEL_VALUES.wb.default,
+					type: 'number',
+					label: 'Value (' + MODEL_VALUES.bg.range.min + ' to ' + MODEL_VALUES.bg.range.max + ')',
+					id: 'level',
+					default: MODEL_VALUES.bg.range.default,
+					min: MODEL_VALUES.bg.range.min,
+					max: MODEL_VALUES.bg.range.max,
 				},
 			],
 			callback: (feedback) => {
-				return this.camera?.wb?.WbMode == feedback.options.white_balance
+				return this.camera?.expsetup?.BG == feedback.options.level
+			},
+		}
+	}
+
+	if (MODEL_VALUES?.br) {
+		feedbacks.br = {
+			type: 'boolean',
+			label: 'BR',
+			description: 'If the camera matches the selected BR level, change the style of the button',
+			style: {
+				color: ColorBlack,
+				bgcolor: ColorGreen,
+			},
+			options: [
+				{
+					type: 'number',
+					label: 'Value (' + MODEL_VALUES.br.range.min + ' to ' + MODEL_VALUES.br.range.max + ')',
+					id: 'level',
+					default: MODEL_VALUES.br.range.default,
+					min: MODEL_VALUES.br.range.min,
+					max: MODEL_VALUES.br.range.max,
+				},
+			],
+			callback: (feedback) => {
+				return this.camera?.expsetup?.BR == feedback.options.level
+			},
+		}
+	}
+
+	if (MODEL_VALUES?.blue_gain) {
+		feedbacks.blue_gain = {
+			type: 'boolean',
+			label: 'Blue Gain',
+			description: 'If the camera matches the selected BR level, change the style of the button',
+			style: {
+				color: ColorBlack,
+				bgcolor: ColorGreen,
+			},
+			options: [
+				{
+					type: 'number',
+					label: 'Value (' + MODEL_VALUES.blue_gain.range.min + ' to ' + MODEL_VALUES.blue_gain.range.max + ')',
+					id: 'level',
+					default: MODEL_VALUES.blue_gain.range.default,
+					min: MODEL_VALUES.blue_gain.range.min,
+					max: MODEL_VALUES.blue_gain.range.max,
+				},
+			],
+			callback: (feedback) => {
+				return this.camera?.expsetup?.BlueGain == feedback.options.level
 			},
 		}
 	}
@@ -790,6 +841,304 @@ exports.initFeedbacks = function () {
 			},
 		}
 	}
+
+	if (MODEL_VALUES?.gb) {
+		feedbacks.gb = {
+			type: 'boolean',
+			label: 'GB',
+			description: 'If the camera matches the selected GB level, change the style of the button',
+			style: {
+				color: ColorBlack,
+				bgcolor: ColorGreen,
+			},
+			options: [
+				{
+					type: 'number',
+					label: 'Value (' + MODEL_VALUES.gb.range.min + ' to ' + MODEL_VALUES.gb.range.max + ')',
+					id: 'level',
+					default: MODEL_VALUES.gb.range.default,
+					min: MODEL_VALUES.gb.range.min,
+					max: MODEL_VALUES.gb.range.max,
+				},
+			],
+			callback: (feedback) => {
+				return this.camera?.expsetup?.GB == feedback.options.level
+			},
+		}
+	}
+
+	if (MODEL_VALUES?.gr) {
+		feedbacks.gr = {
+			type: 'boolean',
+			label: 'GR',
+			description: 'If the camera matches the selected GR level, change the style of the button',
+			style: {
+				color: ColorBlack,
+				bgcolor: ColorGreen,
+			},
+			options: [
+				{
+					type: 'number',
+					label: 'Value (' + MODEL_VALUES.gr.range.min + ' to ' + MODEL_VALUES.gr.range.max + ')',
+					id: 'level',
+					default: MODEL_VALUES.gr.range.default,
+					min: MODEL_VALUES.gr.range.min,
+					max: MODEL_VALUES.gr.range.max,
+				},
+			],
+			callback: (feedback) => {
+				return this.camera?.expsetup?.GR == feedback.options.level
+			},
+		}
+	}
+
+	if (MODEL_VALUES?.level) {
+		feedbacks.level = {
+			type: 'boolean',
+			label: 'Level',
+			description: 'If the camera matches the selected level, change the style of the button',
+			style: {
+				color: ColorBlack,
+				bgcolor: ColorGreen,
+			},
+			options: [
+				{
+					type: 'number',
+					label: 'Value (' + MODEL_VALUES.level.range.min + ' to ' + MODEL_VALUES.level.range.max + ')',
+					id: 'level',
+					default: MODEL_VALUES.level.range.default,
+					min: MODEL_VALUES.level.range.min,
+					max: MODEL_VALUES.level.range.max,
+				},
+			],
+			callback: (feedback) => {
+				return this.camera?.expsetup?.Level == feedback.options.level
+			},
+		}
+	}
+
+	if (MODEL_VALUES?.matrix) {
+		feedbacks.matrix = {
+			type: 'boolean',
+			label: 'Matrix',
+			description: 'If the camera matches the selected Matrix mode, change the style of the button',
+			style: {
+				color: ColorBlack,
+				bgcolor: ColorGreen,
+			},
+			options: [
+				{
+					type: 'dropdown',
+					label: 'On/Off',
+					id: 'val',
+					choices: MODEL_VALUES.matrix.choices,
+					default: MODEL_VALUES.matrix.default,
+				},
+			],
+			callback: (feedback) => {
+				return this.camera?.wb?.Matrix == feedback.options.white_balance
+			},
+		}
+	}
+
+	if (MODEL_VALUES?.offset) {
+		feedbacks.offset = {
+			type: 'boolean',
+			label: 'Offset',
+			description: 'If the camera matches the selected Offset level, change the style of the button',
+			style: {
+				color: ColorBlack,
+				bgcolor: ColorGreen,
+			},
+			options: [
+				{
+					type: 'number',
+					label: 'Value (' + MODEL_VALUES.offset.range.min + ' to ' + MODEL_VALUES.offset.range.max + ')',
+					id: 'value',
+					default: MODEL_VALUES.offset.range.default,
+					min: MODEL_VALUES.offset.range.min,
+					max: MODEL_VALUES.offset.range.max,
+				},
+			],
+			callback: (feedback) => {
+				return this.camera?.expsetup?.Offset == feedback.options.level
+			},
+		}
+	}
+
+	if (MODEL_VALUES?.phase) {
+		feedbacks.phase = {
+			type: 'boolean',
+			label: 'Phase',
+			description: 'If the camera matches the selected Phase level, change the style of the button',
+			style: {
+				color: ColorBlack,
+				bgcolor: ColorGreen,
+			},
+			options: [
+				{
+					type: 'number',
+					label: 'Value (' + MODEL_VALUES.phase.range.min + ' to ' + MODEL_VALUES.phase.range.max + ')',
+					id: 'value',
+					default: MODEL_VALUES.phase.range.default,
+					min: MODEL_VALUES.phase.range.min,
+					max: MODEL_VALUES.phase.range.max,
+				},
+			],
+			callback: (feedback) => {
+				return this.camera?.expsetup?.Phase == feedback.options.level
+			},
+		}
+	}
+
+	if (MODEL_VALUES?.rb) {
+		feedbacks.rb = {
+			type: 'boolean',
+			label: 'RB',
+			description: 'If the camera matches the selected RB level, change the style of the button',
+			style: {
+				color: ColorBlack,
+				bgcolor: ColorGreen,
+			},
+			options: [
+				{
+					type: 'number',
+					label: 'Value (' + MODEL_VALUES.rb.range.min + ' to ' + MODEL_VALUES.rb.range.max + ')',
+					id: 'value',
+					default: MODEL_VALUES.rb.range.default,
+					min: MODEL_VALUES.rb.range.min,
+					max: MODEL_VALUES.rb.range.max,
+				},
+			],
+			callback: (feedback) => {
+				return this.camera?.expsetup?.RB == feedback.options.level
+			},
+		}
+	}
+
+	if (MODEL_VALUES?.rg) {
+		feedbacks.rg = {
+			type: 'boolean',
+			label: 'RG',
+			description: 'If the camera matches the selected RG level, change the style of the button',
+			style: {
+				color: ColorBlack,
+				bgcolor: ColorGreen,
+			},
+			options: [
+				{
+					type: 'number',
+					label: 'Value (' + MODEL_VALUES.rg.range.min + ' to ' + MODEL_VALUES.rg.range.max + ')',
+					id: 'value',
+					default: MODEL_VALUES.rg.range.default,
+					min: MODEL_VALUES.rg.range.min,
+					max: MODEL_VALUES.rg.range.max,
+				},
+			],
+			callback: (feedback) => {
+				return this.camera?.expsetup?.RG == feedback.options.level
+			},
+		}
+	}
+
+	if (MODEL_VALUES?.red_gain) {
+		feedbacks.red_gain = {
+			type: 'boolean',
+			label: 'Red Gain',
+			description: 'If the camera matches the selected Red Gain level, change the style of the button',
+			style: {
+				color: ColorBlack,
+				bgcolor: ColorGreen,
+			},
+			options: [
+				{
+					type: 'number',
+					label: 'Value (' + MODEL_VALUES.red_gain.range.min + ' to ' + MODEL_VALUES.red_gain.range.max + ')',
+					id: 'level',
+					default: MODEL_VALUES.red_gain.range.default,
+					min: MODEL_VALUES.red_gain.range.min,
+					max: MODEL_VALUES.red_gain.range.max,
+				},
+			],
+			callback: (feedback) => {
+				return this.camera?.expsetup?.RedGain == feedback.options.level
+			},
+		}
+	}
+
+	if (MODEL_VALUES?.select) {
+		feedbacks.select = {
+			type: 'boolean',
+			label: 'Select',
+			description: 'Change the style of the button based on the WB mode',
+			style: {
+				color: ColorBlack,
+				bgcolor: ColorGreen,
+			},
+			options: [
+				{
+					type: 'dropdown',
+					label: 'On/Off',
+					id: 'val',
+					choices: MODEL_VALUES.select.choices,
+					default: MODEL_VALUES.select.default,
+				},
+			],
+			callback: (feedback) => {
+				return this.camera?.wb?.Select == feedback.options.val
+			},
+		}
+	}
+
+	if (MODEL_VALUES?.speed) {
+		feedbacks.speed = {
+			type: 'boolean',
+			label: 'Speed',
+			description: 'If the camera matches the selected Red Gain level, change the style of the button',
+			style: {
+				color: ColorBlack,
+				bgcolor: ColorGreen,
+			},
+			options: [
+				{
+					type: 'number',
+					label: 'Value (' + MODEL_VALUES.speed.range.min + ' to ' + MODEL_VALUES.speed.range.max + ')',
+					id: 'value',
+					default: MODEL_VALUES.speed.range.default,
+					min: MODEL_VALUES.speed.range.min,
+					max: MODEL_VALUES.speed.range.max,
+				},
+			],
+			callback: (feedback) => {
+				return this.camera?.expsetup?.Speed == feedback.options.level
+			},
+		}
+	}
+
+	if (MODEL_VALUES?.wb) {
+		feedbacks.wb_mode = {
+			type: 'boolean',
+			label: 'Camera White Balance Mode',
+			description: 'Change the style of the button based on the WB mode',
+			style: {
+				color: ColorBlack,
+				bgcolor: ColorGreen,
+			},
+			options: [
+				{
+					type: 'dropdown',
+					label: 'White Balance Mode',
+					id: 'white_balance',
+					choices: MODEL_VALUES.wb.choices,
+					default: MODEL_VALUES.wb.default,
+				},
+			],
+			callback: (feedback) => {
+				return this.camera?.wb?.WbMode == feedback.options.white_balance
+			},
+		}
+	}
+
 	// Picture Setup Feedback
 
 	// Color Matrix Feedback

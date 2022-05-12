@@ -14,48 +14,36 @@ See [HELP.md](https://github.com/bitfocus/companion-module-birddog-ptz/blob/main
 
   - Changed Pan/Tilt/Zoom Speed inputs to numbers
 
-- New Actions
+- New Actions / Feedback
 
   - Ae Response
   - Backlight
+  - BG
+  - BR
   - Bright Level
   - Exposure Compensation
   - Exposure Compensation Level
   - Gain Limit
   - Gain Point
   - Gain Point Position
+  - GB
+  - GR
+  - Level
+  - Matrix
   - NDI Audio
   - NDI Group Enable
+  - Offset
+  - Phase
+  - RB
+  - RG
+  - Select
   - Shutter Control Overwrite
   - Shutter Max Speed
   - Shutter Min Speed
   - Shutter Speed Overwrite
   - Slow Shutter Enable
   - Slow Shutter Limit
-  - Spotlight
-  - Transmit Method
-
-- New Feedbacks
-
-  - Ae Response
-  - Backlight
-  - Bright Level
-  - Exposure Compensation
-  - Exposure Compensation Level
-  - Gain
-  - Gain Limit
-  - Gain Point
-  - Gain Point Position
-  - Iris
-  - NDI Audio
-  - NDI Group Enable
-  - Shutter Control Overwrite
-  - Shutter Max Speed
-  - Shutter Min Speed
-  - Shutter Speed
-  - Shutter Speed Overwrite
-  - Slow Shutter Enable
-  - Slow Shutter Limit
+  - Speed
   - Spotlight
   - Transmit Method
 

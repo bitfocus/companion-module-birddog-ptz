@@ -755,52 +755,37 @@ class instance extends instance_skel {
 
 			// White Balance Actions
 
-			case 'wb':
+			case 'bg':
 				body = {
-					WbMode: String(opt.val),
+					BG: String(opt.val),
 				}
 				this.sendCommand('birddogwbsetup', 'POST', body)
 				break
 
-			case 'wbOnePush':
-				cmd = VISCA.MSG_CAM + VISCA.CAM_WB_TRIGGER + VISCA.CMD_CAM_WB_TRIGGER_NOW + VISCA.END_MSG
-				this.sendVISCACommand(cmd)
+			case 'br':
+				body = {
+					BR: String(opt.val),
+				}
+				this.sendCommand('birddogwbsetup', 'POST', body)
 				break
 
-			case 'gainRed':
-				let gainRed = this.camera?.wbsetup?.RedGain ? this.camera.wbsetup.RedGain : 128
+			case 'blue_gain':
+				let blue_gain = this.camera?.wbsetup?.BlueGain
+					? this.camera.wbsetup.BlueGain
+					: MODEL_VALUES.blue_gain.range.default
 				switch (opt.val) {
 					case 'up':
-						newValue = gainRed < 255 ? ++gainRed : gainRed
+						newValue = blue_gain < MODEL_VALUES.blue_gain.range.max ? ++blue_gain : blue_gain
 						break
 					case 'down':
-						newValue = gainRed > 0 ? --gainRed : gainRed
+						newValue = blue_gain > MODEL_VALUES.blue_gain.range.min ? --blue_gain : blue_gain
 						break
 					case 'value':
 						newValue = opt.value
 						break
 				}
 				body = {
-					RedGain: String(newValue),
-				}
-				this.sendCommand('birddogwbsetup', 'POST', body)
-				break
-
-			case 'gainBlue':
-				let gainBlue = this.camera?.wbsetup?.RedGain ? this.camera.wbsetup.RedGain : 128
-				switch (opt.val) {
-					case 'up':
-						newValue = gainBlue < 255 ? ++gainBlue : gainBlue
-						break
-					case 'down':
-						newValue = gainBlue > 0 ? --gainBlue : gainBlue
-						break
-					case 'value':
-						newValue = opt.value
-						break
-				}
-				body = {
-					RedGain: String(newValue),
+					BlueGain: String(newValue),
 				}
 				this.sendCommand('birddogwbsetup', 'POST', body)
 				break
@@ -810,6 +795,107 @@ class instance extends instance_skel {
 					ColorTemp: String(opt.val),
 				}
 				this.sendCommand('birddogwbsetup', 'POST', body)
+				break
+
+			case 'gb':
+				body = {
+					GB: String(opt.val),
+				}
+				this.sendCommand('birddogwbsetup', 'POST', body)
+				break
+
+			case 'gr':
+				body = {
+					GR: String(opt.val),
+				}
+				this.sendCommand('birddogwbsetup', 'POST', body)
+				break
+
+			case 'level':
+				body = {
+					Level: String(opt.val),
+				}
+				this.sendCommand('birddogwbsetup', 'POST', body)
+				break
+
+			case 'matrix':
+				body = {
+					Matrix: String(opt.val),
+				}
+				this.sendCommand('birddogwbsetup', 'POST', body)
+				break
+
+			case 'offset':
+				body = {
+					Offset: String(opt.val),
+				}
+				this.sendCommand('birddogwbsetup', 'POST', body)
+				break
+
+			case 'phase':
+				body = {
+					Phase: String(opt.val),
+				}
+				this.sendCommand('birddogwbsetup', 'POST', body)
+				break
+
+			case 'rb':
+				body = {
+					RB: String(opt.val),
+				}
+				this.sendCommand('birddogwbsetup', 'POST', body)
+				break
+
+			case 'rg':
+				body = {
+					RG: String(opt.val),
+				}
+				this.sendCommand('birddogwbsetup', 'POST', body)
+				break
+
+			case 'red_gain':
+				let red_gain = this.camera?.wbsetup?.RedGain ? this.camera.wbsetup.RedGain : 128
+				switch (opt.val) {
+					case 'up':
+						newValue = red_gain < 255 ? ++red_gain : red_gain
+						break
+					case 'down':
+						newValue = red_gain > 0 ? --red_gain : red_gain
+						break
+					case 'value':
+						newValue = opt.value
+						break
+				}
+				body = {
+					RedGain: String(newValue),
+				}
+				this.sendCommand('birddogwbsetup', 'POST', body)
+				break
+
+			case 'select':
+				body = {
+					Select: String(opt.val),
+				}
+				this.sendCommand('birddogwbsetup', 'POST', body)
+				break
+
+			case 'speed':
+				body = {
+					Speed: String(opt.val),
+				}
+				this.sendCommand('birddogwbsetup', 'POST', body)
+				break
+
+			case 'wb_mode':
+				body = {
+					WbMode: String(opt.val),
+				}
+				this.sendCommand('birddogwbsetup', 'POST', body)
+				break
+
+			case 'wbOnePush':
+				cmd = VISCA.MSG_CAM + VISCA.CAM_WB_TRIGGER + VISCA.CMD_CAM_WB_TRIGGER_NOW + VISCA.END_MSG
+				this.sendVISCACommand(cmd)
 				break
 
 			// Picture Setup Actions
@@ -1010,11 +1096,12 @@ class instance extends instance_skel {
 		} else if (cmd.match('/birddogptzsetup')) {
 			this.camera.ptz = data
 		} else if (cmd.match('/birddogexpsetup')) {
-			if ( this.camera.expsetup?.GainLimit !== data.GainLimit) {  // rebuild actions if GainLimit has changed
+			if (this.camera.expsetup?.GainLimit !== data.GainLimit) {
+				// rebuild actions if GainLimit has changed
 				this.camera.expsetup.GainLimit = data.GainLimit
 				this.actions()
-			}
-			else if (this.camera.expsetup?.ShutterMaxSpeed !== data.ShutterMaxSpeed) { // rebuild actions if ShutterMaxSpeed has changed
+			} else if (this.camera.expsetup?.ShutterMaxSpeed !== data.ShutterMaxSpeed) {
+				// rebuild actions if ShutterMaxSpeed has changed
 				this.camera.expsetup.ShutterMaxSpeed = data.ShutterMaxSpeed
 				this.actions()
 			}

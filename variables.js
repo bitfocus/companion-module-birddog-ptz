@@ -277,6 +277,14 @@ exports.updateVariables = function () {
 	}
 	// /birddogwbsetup
 	if (this.camera.wbsetup) {
+		if (MODEL_SPEC?.bg) {
+			this.setVariable('bg', this.camera.wbsetup.BG)
+		}
+
+		if (MODEL_SPEC?.br) {
+			this.setVariable('br', this.camera.wbsetup.BR)
+		}
+
 		if (MODEL_SPEC?.blue_gain) {
 			this.setVariable('blue_gain', this.camera.wbsetup.BlueGain)
 		}
@@ -284,8 +292,49 @@ exports.updateVariables = function () {
 		if (MODEL_SPEC?.color_temp) {
 			this.setVariable('color_temp', this.camera.wbsetup.ColorTemp)
 		}
+
+		if (MODEL_SPEC?.gb) {
+			this.setVariable('gb', this.camera.wbsetup.GB)
+		}
+
+		if (MODEL_SPEC?.gr) {
+			this.setVariable('gr', this.camera.wbsetup.GR)
+		}
+
+		if (MODEL_SPEC?.level) {
+			this.setVariable('level', this.camera.wbsetup.Level)
+		}
+
+		if (MODEL_SPEC?.matrix) {
+			this.setVariable('matrix', this.camera.wbsetup.Matrix)
+		}
+
+		if (MODEL_SPEC?.offset) {
+			this.setVariable('offset', this.camera.wbsetup.Offset)
+		}
+
+		if (MODEL_SPEC?.phase) {
+			this.setVariable('phase', this.camera.wbsetup.Phase)
+		}
+
+		if (MODEL_SPEC?.rb) {
+			this.setVariable('rb', this.camera.wbsetup.RB)
+		}
+
+		if (MODEL_SPEC?.rg) {
+			this.setVariable('rg', this.camera.wbsetup.RG)
+		}
+
 		if (MODEL_SPEC?.red_gain) {
 			this.setVariable('red_gain', this.camera.wbsetup.RedGain)
+		}
+
+		if (MODEL_SPEC?.select) {
+			this.setVariable('select', this.camera.wbsetup.Select)
+		}
+
+		if (MODEL_SPEC?.speed) {
+			this.setVariable('speed', this.camera.wbsetup.Speed)
 		}
 
 		if (MODEL_SPEC?.wb_mode) {

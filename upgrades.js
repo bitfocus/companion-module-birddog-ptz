@@ -320,6 +320,18 @@ module.exports = {
 				action.options.val = val
 				changed = true
 			}
+			if (action.action === 'gainBlue') {
+				action.action = 'blue_gain'
+				changed = true
+			}
+			if (action.action === 'gainRed') {
+				action.action = 'red_gain'
+				changed = true
+			}
+			if (action.action === 'wb') {
+				action.action = 'wb_mode'
+				changed = true
+			}
 		})
 		return changed
 	},

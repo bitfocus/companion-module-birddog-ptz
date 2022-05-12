@@ -804,8 +804,261 @@ module.exports = {
 
 		// White Balance Actions
 
-		if (MODEL_VALUES?.wb) {
-			actions['wb'] = {
+		if (MODEL_VALUES?.bg) {
+			actions['bg'] = {
+				label: 'BG',
+				options: [
+					{
+						type: 'number',
+						label: 'Value (' + MODEL_VALUES.bg.range.min + ' to ' + MODEL_VALUES.bg.range.max + ')',
+						id: 'value',
+						default: MODEL_VALUES.bg.range.default,
+						min: MODEL_VALUES.bg.range.min,
+						max: MODEL_VALUES.bg.range.max,
+					},
+				],
+			}
+		}
+
+		if (MODEL_VALUES?.br) {
+			actions['br'] = {
+				label: 'BR',
+				options: [
+					{
+						type: 'number',
+						label: 'Value (' + MODEL_VALUES.br.range.min + ' to ' + MODEL_VALUES.br.range.max + ')',
+						id: 'value',
+						default: MODEL_VALUES.br.range.default,
+						min: MODEL_VALUES.br.range.min,
+						max: MODEL_VALUES.br.range.max,
+					},
+				],
+			}
+		}
+
+		if (MODEL_VALUES?.blue_gain) {
+			actions['blue_gain'] = {
+				label: 'Gain Blue',
+				options: [
+					{
+						type: 'dropdown',
+						label: 'Gain Blue',
+						id: 'val',
+						choices: MODEL_VALUES.blue_gain.choices,
+						default: MODEL_VALUES.blue_gain.default,
+					},
+					{
+						type: 'number',
+						label: 'Value (' + MODEL_VALUES.blue_gain.range.min + ' to ' + MODEL_VALUES.blue_gain.range.max + ')',
+						id: 'value',
+						default: MODEL_VALUES.blue_gain.range.default,
+						min: MODEL_VALUES.blue_gain.range.min,
+						max: MODEL_VALUES.blue_gain.range.max,
+						isVisible: (action) => action.options.val === 'value',
+					},
+				],
+			}
+		}
+
+		if (MODEL_VALUES?.color_temp) {
+			actions['color_temp'] = {
+				label: 'Color Temperature',
+				options: [
+					{
+						type: 'dropdown',
+						label: 'Color Temperature (k)',
+						id: 'val',
+						choices: MODEL_VALUES.color_temp.choices,
+						default: MODEL_VALUES.color_temp.default,
+					},
+				],
+			}
+		}
+
+		if (MODEL_VALUES?.gb) {
+			actions['gb'] = {
+				label: 'GB',
+				options: [
+					{
+						type: 'number',
+						label: 'Value (' + MODEL_VALUES.gb.range.min + ' to ' + MODEL_VALUES.gb.range.max + ')',
+						id: 'value',
+						default: MODEL_VALUES.gb.range.default,
+						min: MODEL_VALUES.gb.range.min,
+						max: MODEL_VALUES.gr.range.max,
+					},
+				],
+			}
+		}
+
+		if (MODEL_VALUES?.gr) {
+			actions['gr'] = {
+				label: 'GR',
+				options: [
+					{
+						type: 'number',
+						label: 'Value (' + MODEL_VALUES.gr.range.min + ' to ' + MODEL_VALUES.gr.range.max + ')',
+						id: 'value',
+						default: MODEL_VALUES.gr.range.default,
+						min: MODEL_VALUES.gr.range.min,
+						max: MODEL_VALUES.gr.range.max,
+					},
+				],
+			}
+		}
+
+		if (MODEL_VALUES?.level) {
+			actions['level'] = {
+				label: 'Level',
+				options: [
+					{
+						type: 'number',
+						label: 'Level (' + MODEL_VALUES.level.range.min + ' to ' + MODEL_VALUES.level.range.max + ')',
+						id: 'value',
+						default: MODEL_VALUES.level.range.default,
+						min: MODEL_VALUES.level.range.min,
+						max: MODEL_VALUES.level.range.max,
+					},
+				],
+			}
+		}
+
+		if (MODEL_VALUES?.matrix) {
+			actions['matrix'] = {
+				label: 'Matrix',
+				options: [
+					{
+						type: 'dropdown',
+						label: 'On/Off',
+						id: 'val',
+						choices: MODEL_VALUES.matrix.choices,
+						default: MODEL_VALUES.matrix.default,
+					},
+				],
+			}
+		}
+
+		if (MODEL_VALUES?.offset) {
+			actions['offset'] = {
+				label: 'Offset',
+				options: [
+					{
+						type: 'number',
+						label: 'Value (' + MODEL_VALUES.offset.range.min + ' to ' + MODEL_VALUES.offset.range.max + ')',
+						id: 'value',
+						default: MODEL_VALUES.offset.range.default,
+						min: MODEL_VALUES.offset.range.min,
+						max: MODEL_VALUES.offset.range.max,
+					},
+				],
+			}
+		}
+
+		if (MODEL_VALUES?.phase) {
+			actions['phase'] = {
+				label: 'Phase',
+				options: [
+					{
+						type: 'number',
+						label: 'Value (' + MODEL_VALUES.phase.range.min + ' to ' + MODEL_VALUES.phase.range.max + ')',
+						id: 'value',
+						default: MODEL_VALUES.phase.range.default,
+						min: MODEL_VALUES.phase.range.min,
+						max: MODEL_VALUES.phase.range.max,
+					},
+				],
+			}
+		}
+
+		if (MODEL_VALUES?.rb) {
+			actions['rb'] = {
+				label: 'RB',
+				options: [
+					{
+						type: 'number',
+						label: 'Value (' + MODEL_VALUES.rb.range.min + ' to ' + MODEL_VALUES.rb.range.max + ')',
+						id: 'value',
+						default: MODEL_VALUES.rb.range.default,
+						min: MODEL_VALUES.rb.range.min,
+						max: MODEL_VALUES.rb.range.max,
+					},
+				],
+			}
+		}
+
+		if (MODEL_VALUES?.rg) {
+			actions['rg'] = {
+				label: 'RG',
+				options: [
+					{
+						type: 'number',
+						label: 'Value (' + MODEL_VALUES.rg.range.min + ' to ' + MODEL_VALUES.rg.range.max + ')',
+						id: 'value',
+						default: MODEL_VALUES.rg.range.default,
+						min: MODEL_VALUES.rg.range.min,
+						max: MODEL_VALUES.rg.range.max,
+					},
+				],
+			}
+		}
+
+		if (MODEL_VALUES?.red_gain) {
+			actions['red_gain'] = {
+				label: 'Red Gain',
+				options: [
+					{
+						type: 'dropdown',
+						label: 'Red Gain',
+						id: 'val',
+						choices: MODEL_VALUES.red_gain.choices,
+						default: MODEL_VALUES.red_gain.default,
+					},
+					{
+						type: 'number',
+						label: 'Value (' + MODEL_VALUES.red_gain.range.min + ' to ' + MODEL_VALUES.red_gain.range.max + ')',
+						id: 'value',
+						default: MODEL_VALUES.red_gain.range.default,
+						min: MODEL_VALUES.red_gain.range.min,
+						max: MODEL_VALUES.red_gain.range.max,
+						isVisible: (action) => action.options.val === 'value',
+					},
+				],
+			}
+		}
+
+		if (MODEL_VALUES?.select) {
+			actions['select'] = {
+				label: 'Select',
+				options: [
+					{
+						type: 'dropdown',
+						label: 'On/Off',
+						id: 'val',
+						choices: MODEL_VALUES.select.choices,
+						default: MODEL_VALUES.select.default,
+					},
+				],
+			}
+		}
+
+		if (MODEL_VALUES?.speed) {
+			actions['speed'] = {
+				label: 'Speed',
+				options: [
+					{
+						type: 'number',
+						label: 'Value (' + MODEL_VALUES.speed.range.min + ' to ' + MODEL_VALUES.speed.range.max + ')',
+						id: 'value',
+						default: MODEL_VALUES.speed.range.default,
+						min: MODEL_VALUES.speed.range.min,
+						max: MODEL_VALUES.speed.range.max,
+					},
+				],
+			}
+		}
+
+		if (MODEL_VALUES?.wb_mode) {
+			actions['wb_mode'] = {
 				label: 'White Balance Mode',
 				options: [
 					{
@@ -822,66 +1075,6 @@ module.exports = {
 			actions['wbOnePush'] = {
 				label: 'White Balance One Push Trigger',
 				description: 'Camera must be in One Push mode in order to use this action',
-			}
-		}
-		if (MODEL_VALUES?.gainBlue) {
-			actions['gainBlue'] = {
-				label: 'Gain Blue',
-				options: [
-					{
-						type: 'dropdown',
-						label: 'Gain Blue',
-						id: 'val',
-						choices: MODEL_VALUES.gainBlue.choices,
-						default: MODEL_VALUES.gainBlue.default,
-					},
-					{
-						type: 'number',
-						label: 'Value (' + MODEL_VALUES.gainBlue.range.min + ' to ' + MODEL_VALUES.gainBlue.range.max + ')',
-						id: 'value',
-						default: MODEL_VALUES.gainBlue.range.default,
-						min: MODEL_VALUES.gainBlue.range.min,
-						max: MODEL_VALUES.gainBlue.range.max,
-						isVisible: (action) => action.options.val === 'value',
-					},
-				],
-			}
-		}
-		if (MODEL_VALUES?.gainRed) {
-			actions['gainRed'] = {
-				label: 'Gain Red',
-				options: [
-					{
-						type: 'dropdown',
-						label: 'Gain Red',
-						id: 'val',
-						choices: MODEL_VALUES.gainRed.choices,
-						default: MODEL_VALUES.gainRed.default,
-					},
-					{
-						type: 'number',
-						label: 'Value (' + MODEL_VALUES.gainRed.range.min + ' to ' + MODEL_VALUES.gainRed.range.max + ')',
-						id: 'value',
-						default: MODEL_VALUES.gainRed.range.default,
-						min: MODEL_VALUES.gainRed.range.min,
-						max: MODEL_VALUES.gainRed.range.max,
-						isVisible: (action) => action.options.val === 'value',
-					},
-				],
-			}
-		}
-		if (MODEL_VALUES?.color_temp) {
-			actions['color_temp'] = {
-				label: 'Color Temperature',
-				options: [
-					{
-						type: 'dropdown',
-						label: 'Color Temperature (k)',
-						id: 'val',
-						choices: MODEL_VALUES.color_temp.choices,
-						default: MODEL_VALUES.color_temp.default,
-					},
-				],
 			}
 		}
 

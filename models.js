@@ -112,8 +112,8 @@ const COMMON = [
 		expCompLvl: { choices: CHOICES.UP_DOWN_VALUE, default: 'up', range: { min: -128, max: 127, default: 0 } },
 		// White Balance Actions
 		wbOnePush: true,
-		gainBlue: { choices: CHOICES.UP_DOWN_VALUE, default: 'up', range: { min: 0, max: 255, default: 127 } },
-		gainRed: { choices: CHOICES.UP_DOWN_VALUE, default: 'up', range: { min: 0, max: 255, default: 127 } },
+		blue_gain: { choices: CHOICES.UP_DOWN_VALUE, default: 'up', range: { min: 0, max: 255, default: 128 } },
+		red_gain: { choices: CHOICES.UP_DOWN_VALUE, default: 'up', range: { min: 0, max: 255, default: 128 } },
 		// Picture Setup Actions
 		picFlip: { choices: CHOICES.ON_OFF, default: 'On' },
 		picMirror: { choices: CHOICES.ON_OFF, default: 'On' },
@@ -206,7 +206,7 @@ module.exports = {
 				},
 				shutter_speed_overwrite: { range: { min: 30, max: 110, default: 60 } },
 				// White Balance Actions
-				wb: { choices: CHOICES.WB_MODE_1, default: 'AUTO' },
+				wb_mode: { choices: CHOICES.WB_MODE_1, default: 'AUTO' },
 				color_temp: { choices: CHOICES.COLOR_TEMP, default: '6500' },
 				// Picture Setup Actions
 				contrast: { choices: CHOICES.UP_DOWN_VALUE, default: 'up', range: { min: 0, max: 15, default: 7 } },
@@ -289,7 +289,7 @@ module.exports = {
 				},
 				shutter_speed_overwrite: { range: { min: 30, max: 110, default: 60 } },
 				// White Balance Actions
-				wb: { choices: CHOICES.WB_MODE_1, default: 'AUTO' },
+				wb_mode: { choices: CHOICES.WB_MODE_1, default: 'AUTO' },
 				color_temp: { choices: CHOICES.COLOR_TEMP, default: '6500' },
 				// Picture Setup Actions
 				contrast: { choices: CHOICES.UP_DOWN_VALUE, default: 'up', range: { min: 0, max: 15, default: 7 } },
@@ -399,7 +399,7 @@ module.exports = {
 				slow_shutter_en: { choices: CHOICES.ON_OFF, default: 'Off' },
 				slow_shutter_limit: { range: { min: 1, max: 6, default: 3 } },
 				// White Balance Actions
-				wb: { choices: CHOICES.WB_MODE_2, default: 'AUTO' },
+				wb_mode: { choices: CHOICES.WB_MODE_2, default: 'AUTO' },
 				// Picture Setup Actions
 				pictureEffect: { choices: CHOICES.PICTURE_EFFECT, default: 'BW' },
 				irMode: { choices: CHOICES.IR_CUT_FILTER_3, default: 'NoiseReduction' },
@@ -509,7 +509,7 @@ module.exports = {
 				slow_shutter_en: { choices: CHOICES.ON_OFF, default: 'Off' },
 				slow_shutter_limit: { range: { min: 1, max: 6, default: 3 } },
 				// White Balance Actions
-				wb: { choices: CHOICES.WB_MODE_2, default: 'AUTO' },
+				wb_mode: { choices: CHOICES.WB_MODE_2, default: 'AUTO' },
 				// Picture Setup Actions
 				pictureEffect: { choices: CHOICES.PICTURE_EFFECT, default: 'BW' },
 				irMode: { choices: CHOICES.IR_CUT_FILTER_1, default: 'Auto' },
@@ -616,7 +616,7 @@ module.exports = {
 				slow_shutter_en: { choices: CHOICES.ON_OFF, default: 'Off' },
 				slow_shutter_limit: { range: { min: 1, max: 6, default: 3 } },
 				// White Balance Actions
-				wb: { choices: CHOICES.WB_MODE_2, default: 'AUTO' },
+				wb_mode: { choices: CHOICES.WB_MODE_2, default: 'AUTO' },
 				// Picture Setup Actions
 				pictureEffect: { choices: CHOICES.PICTURE_EFFECT, default: 'BW' },
 				irMode: { choices: CHOICES.IR_CUT_FILTER_1, default: 'Auto' },
@@ -723,7 +723,7 @@ module.exports = {
 				slow_shutter_en: { choices: CHOICES.ON_OFF, default: 'Off' },
 				slow_shutter_limit: { range: { min: 1, max: 6, default: 3 } },
 				// White Balance Actions
-				wb: { choices: CHOICES.WB_MODE_2, default: 'AUTO' },
+				wb_mode: { choices: CHOICES.WB_MODE_2, default: 'AUTO' },
 				// Picture Setup Actions
 				pictureEffect: { choices: CHOICES.PICTURE_EFFECT, default: 'BW' },
 				irMode: { choices: CHOICES.IR_CUT_FILTER_1, default: 'Auto' },
@@ -830,7 +830,7 @@ module.exports = {
 				slow_shutter_en: { choices: CHOICES.ON_OFF, default: 'Off' },
 				slow_shutter_limit: { range: { min: 1, max: 6, default: 3 } },
 				// White Balance Actions
-				wb: { choices: CHOICES.WB_MODE_2, default: 'AUTO' },
+				wb_mode: { choices: CHOICES.WB_MODE_2, default: 'AUTO' },
 				// Picture Setup Actions
 				pictureEffect: { choices: CHOICES.PICTURE_EFFECT, default: 'BW' },
 				irMode: { choices: CHOICES.IR_CUT_FILTER_1, default: 'Auto' },
@@ -937,7 +937,7 @@ module.exports = {
 				slow_shutter_en: { choices: CHOICES.ON_OFF, default: 'Off' },
 				slow_shutter_limit: { range: { min: 1, max: 6, default: 3 } },
 				// White Balance Actions
-				wb: { choices: CHOICES.WB_MODE_2, default: 'AUTO' },
+				wb_mode: { choices: CHOICES.WB_MODE_2, default: 'AUTO' },
 				// Picture Setup Actions
 				pictureEffect: { choices: CHOICES.PICTURE_EFFECT, default: 'BW' },
 				irMode: { choices: CHOICES.IR_CUT_FILTER_1, default: 'Auto' },
@@ -982,6 +982,19 @@ module.exports = {
 				slow_shutter_en: { label: `Slow Shutter Enable ` },
 				slow_shutter_limit: { label: `Slow Shutter Limit` },
 				spotlight: { label: `Spotlight` },
+				// /birddogwbsetup
+				bg: { label: `BG` },
+				br: { label: `BR` },
+				gb: { label: `GB` },
+				gr: { label: `GR` },
+				level: { label: `Level` },
+				matrix: { label: `Matrix` },
+				offset: { label: `Offset` },
+				phase: { label: `Phase` },
+				rb: { label: `RB` },
+				rg: { label: `RG` },
+				select: { label: `Select` },
+				speed: { label: `Speed` },
 				// /birddogpicsetup
 				chroma_suppress: { label: `Chroma Suppress` },
 				hlc_mode: { label: `HLC Mode` },
@@ -1036,7 +1049,19 @@ module.exports = {
 				slow_shutter_limit: { range: { min: 6, max: 17, default: 12 } },
 				spotlight: { choices: CHOICES.ON_OFF, default: 'Off' },
 				// White Balance Actions
-				wb: { choices: CHOICES.WB_MODE_2, default: 'AUTO' },
+				bg: { range: { min: -99, max: 99, default: 0 } },
+				br: { range: { min: -99, max: 99, default: 0 } },
+				gb: { range: { min: -99, max: 99, default: 0 } },
+				gr: { range: { min: -99, max: 99, default: 0 } },
+				level: { range: { min: 0, max: 14, default: 7 } },
+				matrix: { choices: CHOICES.ON_OFF, default: 'Off' },
+				offset: { range: { min: 0, max: 14, default: 7 } },
+				phase: { range: { min: 0, max: 14, default: 7 } },
+				rb: { range: { min: -99, max: 99, default: 0 } },
+				rg: { range: { min: -99, max: 99, default: 0 } },
+				select: { choices: CHOICES.WB_SELECT, default: 'OFF' },
+				speed: { range: { min: 1, max: 5, default: 3 } },
+				wb_mode: { choices: CHOICES.WB_MODE_2, default: 'AUTO' },
 				// Picture Setup Actions
 				irMode: { choices: CHOICES.IR_CUT_FILTER_2, default: 'On' },
 				// Color Matrix Actions
@@ -1080,6 +1105,19 @@ module.exports = {
 				slow_shutter_en: { label: `Slow Shutter Enable` },
 				slow_shutter_limit: { label: `Slow Shutter Limit` },
 				spotlight: { label: `Spotlight` },
+				// /birddogwbsetup
+				bg: { label: `BG` },
+				br: { label: `BR` },
+				gb: { label: `GB` },
+				gr: { label: `GR` },
+				level: { label: `Level` },
+				matrix: { label: `Matrix` },
+				offset: { label: `Offset` },
+				phase: { label: `Phase` },
+				rb: { label: `RB` },
+				rg: { label: `RG` },
+				select: { label: `Select` },
+				speed: { label: `Speed` },
 				// /birddogpicsetup
 				chroma_suppress: { label: `Chroma Suppress` },
 				hlc_mode: { label: `HLC Mode` },
@@ -1134,7 +1172,19 @@ module.exports = {
 				slow_shutter_limit: { range: { min: 6, max: 17, default: 12 } },
 				spotlight: { choices: CHOICES.ON_OFF, default: 'Off' },
 				// White Balance Actions
-				wb: { choices: CHOICES.WB_MODE_2, default: 'AUTO' },
+				bg: { range: { min: -99, max: 99, default: 0 } },
+				br: { range: { min: -99, max: 99, default: 0 } },
+				gb: { range: { min: -99, max: 99, default: 0 } },
+				gr: { range: { min: -99, max: 99, default: 0 } },
+				level: { range: { min: 0, max: 14, default: 7 } },
+				matrix: { choices: CHOICES.ON_OFF, default: 'Off' },
+				offset: { range: { min: 0, max: 14, default: 7 } },
+				phase: { range: { min: 0, max: 14, default: 7 } },
+				rb: { range: { min: -99, max: 99, default: 0 } },
+				rg: { range: { min: -99, max: 99, default: 0 } },
+				select: { choices: CHOICES.WB_SELECT, default: 'OFF' },
+				speed: { range: { min: 1, max: 5, default: 3 } },
+				wb_mode: { choices: CHOICES.WB_MODE_2, default: 'AUTO' },
 				// Picture Setup Actions
 				irMode: { choices: CHOICES.IR_CUT_FILTER_2, default: 'On' },
 				// Color Matrix Actions
