@@ -263,8 +263,8 @@ exports.updateVariables = function () {
 			this.setVariable('shutter_speed_overwrite', this.camera.expsetup.ShutterSpeedOverwrite)
 		}
 
-		if (MODEL_SPEC?.slow_shutter) {
-			this.setVariable('slow_shutter', this.camera.expsetup.SlowShutterEn)
+		if (MODEL_SPEC?.slow_shutter_en) {
+			this.setVariable('slow_shutter_en', this.camera.expsetup.SlowShutterEn)
 		}
 
 		if (MODEL_SPEC?.slow_shutter_limit) {
