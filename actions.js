@@ -1562,6 +1562,51 @@ module.exports = {
 
 		// External Setup Actions
 
+		if (MODEL_VALUES?.aux) {
+			actions['aux'] = {
+				label: 'Aux',
+				options: [
+					{
+						type: 'dropdown',
+						label: 'On / Off',
+						id: 'val',
+						choices: MODEL_VALUES.aux.choices,
+						default: MODEL_VALUES.aux.default,
+					},
+				],
+			}
+		}
+
+		if (MODEL_VALUES?.rain_wiper) {
+			actions['rain_wiper'] = {
+				label: 'Rain Wiper',
+				options: [
+					{
+						type: 'dropdown',
+						label: 'On / Off',
+						id: 'val',
+						choices: MODEL_VALUES.rain_wiper.choices,
+						default: MODEL_VALUES.rain_wiper.default,
+					},
+				],
+			}
+		}
+
+		if (MODEL_VALUES?.v12vout) {
+			actions['v12vout'] = {
+				label: '12v Out',
+				options: [
+					{
+						type: 'dropdown',
+						label: 'On / Off',
+						id: 'val',
+						choices: MODEL_VALUES.v12vout.choices,
+						default: MODEL_VALUES.v12vout.default,
+					},
+				],
+			}
+		}
+
 		// Detail Setup Actions
 
 		// Gamma Setup Actions

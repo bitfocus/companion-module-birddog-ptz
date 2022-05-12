@@ -66,13 +66,17 @@ See [HELP.md](https://github.com/bitfocus/companion-module-birddog-ptz/blob/main
     - 3D Noise Reduction
     - 2D Noise Reduction
     - Wide Dynamic Range
-      -Advanced Settings
+  - Advanced Settings
     - Brightness
     - Brightness Compensation
     - Compensation Level
     - Gamma Offset
     - High Resolution
     - Video Enhancement
+  - External Settings
+    - Aux
+    - Rain Wiper
+    - 12v Out
 
 - Fixes
   - Fixed shutter values in shutter actions

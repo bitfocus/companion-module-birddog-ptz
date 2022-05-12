@@ -572,6 +572,20 @@ exports.updateVariables = function () {
 		}
 	}
 	// External Setup Variables
+	if (this.camera.externalsetup) {
+		if (MODEL_SPEC?.aux) {
+			this.setVariable('aux', this.camera.externalsetup.Aux)
+		}
+
+		if (MODEL_SPEC?.rain_wiper) {
+			this.setVariable('rain_wiper', this.camera.externalsetup.RainWiper)
+		}
+
+		if (MODEL_SPEC?.v12vout) {
+			this.setVariable('v12vout', this.camera.externalsetup.V12vOut)
+		}
+	}
+
 	// Detail Setup Variables
 	if (this.camera.detail) {
 		if (MODEL_SPEC?.bandwidth) {

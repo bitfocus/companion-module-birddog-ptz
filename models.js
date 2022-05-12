@@ -628,6 +628,9 @@ module.exports = {
 				gamma_offset: { label: 'Gamma Offset' },
 				high_resolution: { label: 'High Resolution' },
 				video_enhancement: { label: 'Video Enhancement' },
+				// External Setup Variables
+				aux: { label: 'Aux' },
+				v12vout: { label: '12v Out' },
 			},
 			actions: {
 				...COMMON[2],
@@ -689,6 +692,8 @@ module.exports = {
 				high_resolution: { choices: CHOICES.ON_OFF, default: 'Off' },
 				video_enhancement: { choices: CHOICES.ON_OFF, default: 'Off' },
 				// External Setup Actions
+				aux: { choices: CHOICES.ON_OFF, default: 'Off' },
+				v12vout: { choices: CHOICES.ON_OFF, default: 'Off' },
 				// Detail Setup Actions
 				// Gamma Setup Actions
 				// Other Actions
@@ -752,6 +757,9 @@ module.exports = {
 				gamma_offset: { label: 'Gamma Offset' },
 				high_resolution: { label: 'High Resolution' },
 				video_enhancement: { label: 'Video Enhancement' },
+				// External Setup Variables
+				aux: { label: 'Aux' },
+				v12vout: { label: '12v Out' },
 			},
 			actions: {
 				...COMMON[2],
@@ -813,6 +821,8 @@ module.exports = {
 				high_resolution: { choices: CHOICES.ON_OFF, default: 'Off' },
 				video_enhancement: { choices: CHOICES.ON_OFF, default: 'Off' },
 				// External Setup Actions
+				aux: { choices: CHOICES.ON_OFF, default: 'Off' },
+				v12vout: { choices: CHOICES.ON_OFF, default: 'Off' },
 				// Detail Setup Actions
 				// Gamma Setup Actions
 				// Other Actions
@@ -876,6 +886,10 @@ module.exports = {
 				gamma_offset: { label: 'Gamma Offset' },
 				high_resolution: { label: 'High Resolution' },
 				video_enhancement: { label: 'Video Enhancement' },
+				// External Setup Variables
+				aux: { label: 'Aux' },
+				rain_wiper: { label: 'Rain Wiper' },
+				v12vout: { label: '12v Out' },
 			},
 			actions: {
 				...COMMON[2],
@@ -937,6 +951,9 @@ module.exports = {
 				high_resolution: { choices: CHOICES.ON_OFF, default: 'Off' },
 				video_enhancement: { choices: CHOICES.ON_OFF, default: 'Off' },
 				// External Setup Actions
+				aux: { choices: CHOICES.ON_OFF, default: 'Off' },
+				rain_wiper: { choices: CHOICES.ON_OFF, default: 'Off' },
+				v12vout: { choices: CHOICES.ON_OFF, default: 'Off' },
 				// Detail Setup Actions
 				// Gamma Setup Actions
 				// Other Actions
@@ -1000,6 +1017,10 @@ module.exports = {
 				gamma_offset: { label: 'Gamma Offset' },
 				high_resolution: { label: 'High Resolution' },
 				video_enhancement: { label: 'Video Enhancement' },
+				// External Setup Variables
+				aux: { label: 'Aux' },
+				rain_wiper: { label: 'Rain Wiper' },
+				v12vout: { label: '12v Out' },
 			},
 			actions: {
 				...COMMON[2],
@@ -1061,6 +1082,9 @@ module.exports = {
 				high_resolution: { choices: CHOICES.ON_OFF, default: 'Off' },
 				video_enhancement: { choices: CHOICES.ON_OFF, default: 'Off' },
 				// External Setup Actions
+				aux: { choices: CHOICES.ON_OFF, default: 'Off' },
+				rain_wiper: { choices: CHOICES.ON_OFF, default: 'Off' },
+				v12vout: { choices: CHOICES.ON_OFF, default: 'Off' },
 				// Detail Setup Actions
 				// Gamma Setup Actions
 				// Other Actions

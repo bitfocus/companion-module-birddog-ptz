@@ -1787,6 +1787,78 @@ exports.initFeedbacks = function () {
 
 	// External Setup Feedback
 
+	if (MODEL_VALUES?.aux) {
+		feedbacks.aux = {
+			type: 'boolean',
+			label: 'Aux',
+			description: 'If the camera matches the selected Aux mode, change the style of the button',
+			style: {
+				color: ColorBlack,
+				bgcolor: ColorGreen,
+			},
+			options: [
+				{
+					type: 'dropdown',
+					label: 'On / Off',
+					id: 'val',
+					choices: MODEL_VALUES.aux.choices,
+					default: MODEL_VALUES.aux.default,
+				},
+			],
+			callback: (feedback) => {
+				return this.camera?.externalsetup?.Aux == feedback.options.val
+			},
+		}
+	}
+
+	if (MODEL_VALUES?.rain_wiper) {
+		feedbacks.rain_wiper = {
+			type: 'boolean',
+			label: 'Rain Wiper',
+			description: 'If the camera matches the selected Rain Wiper mode, change the style of the button',
+			style: {
+				color: ColorBlack,
+				bgcolor: ColorGreen,
+			},
+			options: [
+				{
+					type: 'dropdown',
+					label: 'On / Off',
+					id: 'val',
+					choices: MODEL_VALUES.rain_wiper.choices,
+					default: MODEL_VALUES.rain_wiper.default,
+				},
+			],
+			callback: (feedback) => {
+				return this.camera?.externalsetup?.RainWiper == feedback.options.val
+			},
+		}
+	}
+
+	if (MODEL_VALUES?.v12vout) {
+		feedbacks.v12vout = {
+			type: 'boolean',
+			label: '12v Out',
+			description: 'If the camera matches the selected 12v Out mode, change the style of the button',
+			style: {
+				color: ColorBlack,
+				bgcolor: ColorGreen,
+			},
+			options: [
+				{
+					type: 'dropdown',
+					label: 'On / Off',
+					id: 'val',
+					choices: MODEL_VALUES.v12vout.choices,
+					default: MODEL_VALUES.v12vout.default,
+				},
+			],
+			callback: (feedback) => {
+				return this.camera?.externalsetup?.V12vOut == feedback.options.val
+			},
+		}
+	}
+
 	// Detail Setup Feedback
 
 	// Gamma Setup Feedback

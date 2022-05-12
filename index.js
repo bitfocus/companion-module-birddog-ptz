@@ -1217,6 +1217,27 @@ class instance extends instance_skel {
 
 			// External Setup Actions
 
+			case 'aux':
+				body = {
+					Aux: String(opt.val),
+				}
+				this.sendCommand('birddogexternalsetup', 'POST', body)
+				break
+
+			case 'rain_wiper':
+				body = {
+					VideoEnhancement: String(opt.val),
+				}
+				this.sendCommand('birddogexternalsetup', 'POST', body)
+				break
+
+			case 'v12vout':
+				body = {
+					VideoEnhancement: String(opt.val),
+				}
+				this.sendCommand('birddogexternalsetup', 'POST', body)
+				break
+
 			// Detail Setup Actions
 
 			// Gamma Setup Actions
