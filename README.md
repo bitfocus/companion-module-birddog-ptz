@@ -16,36 +16,56 @@ See [HELP.md](https://github.com/bitfocus/companion-module-birddog-ptz/blob/main
 
 - New Actions / Feedback
 
-  - Ae Response
-  - Backlight
-  - BG
-  - BR
-  - Bright Level
-  - Exposure Compensation
-  - Exposure Compensation Level
-  - Gain Limit
-  - Gain Point
-  - Gain Point Position
-  - GB
-  - GR
-  - Level
-  - Matrix
-  - NDI Audio
-  - NDI Group Enable
-  - Offset
-  - Phase
-  - RB
-  - RG
-  - Select
-  - Shutter Control Overwrite
-  - Shutter Max Speed
-  - Shutter Min Speed
-  - Shutter Speed Overwrite
-  - Slow Shutter Enable
-  - Slow Shutter Limit
-  - Speed
-  - Spotlight
-  - Transmit Method
+  - Encode Setup
+    - NDI Audio
+    - NDI Group Enable
+  - Encode Transport
+    - Transmit Method
+  - Exposure
+    - Ae Response
+    - Backlight
+    - Bright Level
+    - Exposure Compensation
+    - Exposure Compensation Level
+    - Gain Limit
+    - Gain Point
+    - Gain Point Position
+    - Shutter Control Overwrite
+    - Shutter Max Speed
+    - Shutter Min Speed
+    - Shutter Speed Overwrite
+    - Slow Shutter Enable
+    - Slow Shutter Limit
+    - Spotlight
+  - Picture Settings
+    - Backlight Compensation
+    - Chroma Suppress
+    - Color
+    - Gamma
+    - Highlight Compensation
+    - Highlight Compensation Mask
+    - Hue
+    - Low Latency
+    - ND Filter
+    - Noise Reduction
+    - Sharpness
+    - Stabilizer
+    - 3D Noise Reduction
+    - 2D Noise Reduction
+    - Wide Dynamic Range
+  - White Balance
+    - BG
+    - BR
+    - GB
+    - GR
+    - Level
+    - Matrix
+    - Offset
+    - Phase
+    - RB
+    - RG
+    - Select
+    - Speed
 
 - Fixes
   - Fixed shutter values in shutter actions

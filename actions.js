@@ -493,7 +493,7 @@ module.exports = {
 			}
 		}
 
-		if (MODEL_VALUES?.expM) {
+		if (MODEL_VALUES?.exposure_mode) {
 			actions['expM'] = {
 				label: 'Exposure Mode',
 				options: [
@@ -501,8 +501,8 @@ module.exports = {
 						type: 'dropdown',
 						label: 'Mode',
 						id: 'val',
-						choices: MODEL_VALUES.expM.choices,
-						default: MODEL_VALUES.expM.default,
+						choices: MODEL_VALUES.exposure_mode.choices,
+						default: MODEL_VALUES.exposure_mode.default,
 					},
 				],
 			}
@@ -1080,34 +1080,60 @@ module.exports = {
 
 		// Picture Setup Actions
 
-		if (MODEL_VALUES?.picFlip) {
-			actions['picFlip'] = {
-				label: 'Picture Flip',
+		if (MODEL_VALUES?.backlight_com) {
+			actions['backlight_com'] = {
+				label: 'Backlight Compensation',
 				options: [
 					{
 						type: 'dropdown',
-						label: 'On / Off',
+						label: 'On/Off',
 						id: 'val',
-						choices: MODEL_VALUES.picFlip.choices,
-						default: MODEL_VALUES.picFlip.default,
+						choices: MODEL_VALUES.backlight_com.choices,
+						default: MODEL_VALUES.backlight_com.default,
 					},
 				],
 			}
 		}
-		if (MODEL_VALUES?.picMirror) {
-			actions['picMirror'] = {
-				label: 'Picture Mirror',
+
+		if (MODEL_VALUES?.chroma_suppress) {
+			actions['chroma_suppress'] = {
+				label: 'Chroma Suppress',
 				options: [
 					{
 						type: 'dropdown',
-						label: 'On / Off',
+						label: 'Mode',
 						id: 'val',
-						choices: MODEL_VALUES.picFlip.choices,
-						default: MODEL_VALUES.picFlip.default,
+						choices: MODEL_VALUES.chroma_suppress.choices,
+						default: MODEL_VALUES.chroma_suppress.default,
 					},
 				],
 			}
 		}
+
+		if (MODEL_VALUES?.color) {
+			actions['color'] = {
+				label: 'Color',
+				options: [
+					{
+						type: 'dropdown',
+						label: 'Color',
+						id: 'val',
+						choices: MODEL_VALUES.color.choices,
+						default: MODEL_VALUES.color.default,
+					},
+					{
+						type: 'number',
+						label: 'Value (' + MODEL_VALUES.color.range.min + ' to ' + MODEL_VALUES.color.range.max + ')',
+						id: 'value',
+						min: MODEL_VALUES.color.range.min,
+						max: MODEL_VALUES.color.range.max,
+						default: MODEL_VALUES.color.range.default,
+						isVisible: (action) => action.options.val === 'value',
+					},
+				],
+			}
+		}
+
 		if (MODEL_VALUES?.contrast) {
 			actions['contrast'] = {
 				label: 'Contrast',
@@ -1131,6 +1157,7 @@ module.exports = {
 				],
 			}
 		}
+
 		if (MODEL_VALUES?.pictureEffect) {
 			actions['pictureEffect'] = {
 				label: 'Picture Effect',
@@ -1146,16 +1173,276 @@ module.exports = {
 			}
 		}
 
-		if (MODEL_VALUES?.irMode) {
-			actions['irMode'] = {
-				label: 'IR Cut Filter',
+		if (MODEL_VALUES?.picFlip) {
+			actions['picFlip'] = {
+				label: 'Picture Flip',
 				options: [
 					{
 						type: 'dropdown',
 						label: 'On / Off',
 						id: 'val',
-						choices: MODEL_VALUES.irMode.choices,
-						default: MODEL_VALUES.irMode.default,
+						choices: MODEL_VALUES.picFlip.choices,
+						default: MODEL_VALUES.picFlip.default,
+					},
+				],
+			}
+		}
+
+		if (MODEL_VALUES?.gamma) {
+			actions['gamma'] = {
+				label: 'Gamma',
+				options: [
+					{
+						type: 'dropdown',
+						label: 'Gamma',
+						id: 'val',
+						choices: MODEL_VALUES.gamma.choices,
+						default: MODEL_VALUES.gamma.default,
+					},
+					{
+						type: 'number',
+						label: 'Value (' + MODEL_VALUES.gamma.range.min + ' to ' + MODEL_VALUES.gamma.range.max + ')',
+						id: 'value',
+						min: MODEL_VALUES.gamma.range.min,
+						max: MODEL_VALUES.gamma.range.max,
+						default: MODEL_VALUES.gamma.range.default,
+						isVisible: (action) => action.options.val === 'value',
+					},
+				],
+			}
+		}
+
+		if (MODEL_VALUES?.highlight_comp) {
+			actions['highlight_comp'] = {
+				label: 'Highlight Compensation',
+				options: [
+					{
+						type: 'dropdown',
+						label: 'Highlight Compensation',
+						id: 'val',
+						choices: MODEL_VALUES.highlight_comp.choices,
+						default: MODEL_VALUES.highlight_comp.default,
+					},
+				],
+			}
+		}
+
+		if (MODEL_VALUES?.highlight_comp_mask) {
+			actions['highlight_comp_mask'] = {
+				label: 'Highlight Compensation Mask',
+				options: [
+					{
+						type: 'dropdown',
+						label: 'Highlight Compensation Mask',
+						id: 'val',
+						choices: MODEL_VALUES.highlight_comp_mask.choices,
+						default: MODEL_VALUES.highlight_comp_mask.default,
+					},
+					{
+						type: 'number',
+						label:
+							'Value (' +
+							MODEL_VALUES.highlight_comp_mask.range.min +
+							' to ' +
+							MODEL_VALUES.highlight_comp_mask.range.max +
+							')',
+						id: 'value',
+						min: MODEL_VALUES.highlight_comp_mask.range.min,
+						max: MODEL_VALUES.highlight_comp_mask.range.max,
+						default: MODEL_VALUES.highlight_comp_mask.range.default,
+						isVisible: (action) => action.options.val === 'value',
+					},
+				],
+			}
+		}
+
+		if (MODEL_VALUES?.hue) {
+			actions['hue'] = {
+				label: 'Hue',
+				options: [
+					{
+						type: 'dropdown',
+						label: 'Hue',
+						id: 'val',
+						choices: MODEL_VALUES.hue.choices,
+						default: MODEL_VALUES.hue.default,
+					},
+					{
+						type: 'number',
+						label: 'Value (' + MODEL_VALUES.hue.range.min + ' to ' + MODEL_VALUES.hue.range.max + ')',
+						id: 'value',
+						min: MODEL_VALUES.hue.range.min,
+						max: MODEL_VALUES.hue.range.max,
+						default: MODEL_VALUES.hue.range.default,
+						isVisible: (action) => action.options.val === 'value',
+					},
+				],
+			}
+		}
+
+		if (MODEL_VALUES?.ir_cutfilter) {
+			actions['ir_cutfilter'] = {
+				label: 'IR Cut Filter',
+				options: [
+					{
+						type: 'dropdown',
+						label: 'Mode',
+						id: 'val',
+						choices: MODEL_VALUES.ir_cutfilter.choices,
+						default: MODEL_VALUES.ir_cutfilter.default,
+					},
+				],
+			}
+		}
+
+		if (MODEL_VALUES?.low_latency) {
+			actions['low_latency'] = {
+				label: 'Low Latency',
+				options: [
+					{
+						type: 'dropdown',
+						label: 'On / Off',
+						id: 'val',
+						choices: MODEL_VALUES.low_latency.choices,
+						default: MODEL_VALUES.low_latency.default,
+					},
+				],
+			}
+		}
+
+		if (MODEL_VALUES?.picMirror) {
+			actions['picMirror'] = {
+				label: 'Picture Mirror',
+				options: [
+					{
+						type: 'dropdown',
+						label: 'On / Off',
+						id: 'val',
+						choices: MODEL_VALUES.picMirror.choices,
+						default: MODEL_VALUES.picMirror.default,
+					},
+				],
+			}
+		}
+
+		if (MODEL_VALUES?.nd_filter) {
+			actions['nd_filter'] = {
+				label: 'ND Filter',
+				options: [
+					{
+						type: 'dropdown',
+						label: 'ND Filter',
+						id: 'val',
+						choices: MODEL_VALUES.nd_filter.choices,
+						default: MODEL_VALUES.nd_filter.default,
+					},
+					{
+						type: 'number',
+						label: 'Value (' + MODEL_VALUES.nd_filter.range.min + ' to ' + MODEL_VALUES.nd_filter.range.max + ')',
+						id: 'value',
+						min: MODEL_VALUES.nd_filter.range.min,
+						max: MODEL_VALUES.nd_filter.range.max,
+						default: MODEL_VALUES.nd_filter.range.default,
+						isVisible: (action) => action.options.val === 'value',
+					},
+				],
+			}
+		}
+
+		if (MODEL_VALUES?.noise_reduction) {
+			actions['noise_reduction'] = {
+				label: 'Noise Reduction',
+				options: [
+					{
+						type: 'dropdown',
+						label: 'Noise Reduction',
+						id: 'val',
+						choices: MODEL_VALUES.noise_reduction.choices,
+						default: MODEL_VALUES.noise_reduction.default,
+					},
+				],
+			}
+		}
+
+		if (MODEL_VALUES?.sharpness) {
+			actions['sharpness'] = {
+				label: 'Sharpness',
+				options: [
+					{
+						type: 'dropdown',
+						label: 'Sharpness',
+						id: 'val',
+						choices: MODEL_VALUES.sharpness.choices,
+						default: MODEL_VALUES.sharpness.default,
+					},
+					{
+						type: 'number',
+						label: 'Value (' + MODEL_VALUES.sharpness.range.min + ' to ' + MODEL_VALUES.sharpness.range.max + ')',
+						id: 'value',
+						min: MODEL_VALUES.sharpness.range.min,
+						max: MODEL_VALUES.sharpness.range.max,
+						default: MODEL_VALUES.sharpness.range.default,
+						isVisible: (action) => action.options.val === 'value',
+					},
+				],
+			}
+		}
+
+		if (MODEL_VALUES?.stabilizer) {
+			actions['stabilizer'] = {
+				label: 'Stabilizer',
+				options: [
+					{
+						type: 'dropdown',
+						label: 'On / Off',
+						id: 'val',
+						choices: MODEL_VALUES.stabilizer.choices,
+						default: MODEL_VALUES.stabilizer.default,
+					},
+				],
+			}
+		}
+
+		if (MODEL_VALUES?.threed_nr) {
+			actions['threed_nr'] = {
+				label: '3D Noise Reduction',
+				options: [
+					{
+						type: 'dropdown',
+						label: '3D NR',
+						id: 'val',
+						choices: MODEL_VALUES.threed_nr.choices,
+						default: MODEL_VALUES.threed_nr.default,
+					},
+				],
+			}
+		}
+
+		if (MODEL_VALUES?.twod_nr) {
+			actions['twod_nr'] = {
+				label: '2D Noise Reduction',
+				options: [
+					{
+						type: 'dropdown',
+						label: '2D NR',
+						id: 'val',
+						choices: MODEL_VALUES.twod_nr.choices,
+						default: MODEL_VALUES.twod_nr.default,
+					},
+				],
+			}
+		}
+
+		if (MODEL_VALUES?.wide_dynamic_range) {
+			actions['wide_dynamic_range'] = {
+				label: 'Wide Dynamic Range',
+				options: [
+					{
+						type: 'dropdown',
+						label: 'Wide Dynamic Range',
+						id: 'val',
+						choices: MODEL_VALUES.wide_dynamic_range.choices,
+						default: MODEL_VALUES.wide_dynamic_range.default,
 					},
 				],
 			}

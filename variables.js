@@ -30,7 +30,7 @@ exports.updateVariables = function () {
 	MODEL_SPEC = MODELS.find((MODELS) => MODELS.id == this.camera.model)?.variables
 	MODEL_VALUES = MODELS.find((MODELS) => MODELS.id == this.camera.model)?.actions
 
-	// /about
+	// General Camera Variables
 	if (this.camera.about) {
 		if (MODEL_SPEC?.firmware) {
 			this.setVariable('firmware', this.camera.firmware)
@@ -73,8 +73,7 @@ exports.updateVariables = function () {
 		this.setVariable('freeze', this.camera.freeze)
 	}
 
-	// API Variables
-	// /analogaudiosetup
+	// Analog Audio Variables
 	if (this.camera.audio) {
 		if (MODEL_SPEC?.audio_in_gain) {
 			this.setVariable('audio_in_gain', this.camera.audio.AnalogAudioInGain - 50 + 'DB') //Convert API range to action range
@@ -88,12 +87,12 @@ exports.updateVariables = function () {
 			this.setVariable('audio_output', this.camera.audio.AnalogAudiooutputselect)
 		}
 	}
-	// /videooutputinterface
+	// Video Output Interface Variables
 	//	if (MODEL_SPEC?.video_output) {
 	//		this.setVariable('video_output',this.camera.video.videooutput)
 	//	}
 
-	// /encodesetup
+	// Encode Setup Variables
 	if (this.camera.encode) {
 		if (MODEL_SPEC?.bandwidth_mode) {
 			this.setVariable('bandwidth_mode', this.camera.encode.BandwidthMode)
@@ -127,7 +126,7 @@ exports.updateVariables = function () {
 			this.setVariable('video_format', this.camera.encode.VideoFormat)
 		}
 	}
-	// /encodeTransport
+	// Encode Transport Variables
 	if (this.camera.transport) {
 		if (MODEL_SPEC?.transmit_method) {
 			this.setVariable('transmit_method', this.camera.transport.txpm)
@@ -141,7 +140,7 @@ exports.updateVariables = function () {
 			this.setVariable('transmit_netmask', this.camera.transport.txnetmask)
 		}
 	}
-	// /NDIDisServer
+	// NDI Discovery Server Variables
 	if (this.camera.ndiserver) {
 		if (MODEL_SPEC?.ndi_discovery_server) {
 			this.setVariable('ndi_discovery_server', this.camera.ndiserver.NDIDisServ === 'NDIDisServEn' ? 'On' : 'Off')
@@ -151,7 +150,7 @@ exports.updateVariables = function () {
 			this.setVariable('ndi_discovery_server_ip', this.camera.ndiserver.NDIDisServIP)
 		}
 	}
-	// /birddogptzsetup
+	// PTZ Variables
 	if (this.camera.ptz) {
 		if (MODEL_SPEC?.pan_speed) {
 			this.setVariable('pan_speed', this.camera.ptz.PanSpeed)
@@ -165,7 +164,7 @@ exports.updateVariables = function () {
 			this.setVariable('zoom_speed', this.camera.ptz.ZoomSpeed)
 		}
 	}
-	// PTZ Position
+
 	if (this.camera.position) {
 		if (MODEL_SPEC?.zoom_position) {
 			this.setVariable('zoom_position', getPositionLabel(MODEL_VALUES.zoom.posZoomChoices, this.camera.position.zoom))
@@ -179,13 +178,13 @@ exports.updateVariables = function () {
 			this.setVariable('tilt_position', getPositionLabel(MODEL_VALUES.pt.posTiltChoices, this.camera.position.tilt))
 		}
 	}
-	// Focus Settings
+	// Focus Variables
 	if (this.camera.focus) {
 		if (MODEL_SPEC?.focus_mode) {
 			this.setVariable('focus_mode', this.camera.focus.mode)
 		}
 	}
-	// /birddogexpsetup
+	// Exposure Variables
 	if (this.camera.expsetup) {
 		if (MODEL_SPEC?.ae_response) {
 			this.setVariable('ae_response', this.camera.expsetup.AeResponse)
@@ -280,7 +279,7 @@ exports.updateVariables = function () {
 			this.setVariable('spotlight', this.camera.expsetup.Spotlight)
 		}
 	}
-	// /birddogwbsetup
+	// White Balance Variables
 	if (this.camera.wbsetup) {
 		if (MODEL_SPEC?.bg) {
 			this.setVariable('bg', this.camera.wbsetup.BG)
@@ -346,7 +345,7 @@ exports.updateVariables = function () {
 			this.setVariable('wb_mode', this.camera.wbsetup.WbMode)
 		}
 	}
-	// /birddogpicsetup
+	// Picture Setup Variables
 	if (this.camera.picsetup) {
 		if (MODEL_SPEC?.backlight_com) {
 			this.setVariable('backlight_com', this.camera.picsetup.BackLightCom)
@@ -354,6 +353,10 @@ exports.updateVariables = function () {
 
 		if (MODEL_SPEC?.chroma_suppress) {
 			this.setVariable('chroma_suppress', this.camera.picsetup.ChromeSuppress)
+		}
+
+		if (MODEL_SPEC?.color) {
+			this.setVariable('color', this.camera.picsetup.Color)
 		}
 
 		if (MODEL_SPEC?.contrast) {
@@ -372,8 +375,12 @@ exports.updateVariables = function () {
 			this.setVariable('gamma', this.camera.picsetup.Gamma)
 		}
 
-		if (MODEL_SPEC?.hlc_mode) {
-			this.setVariable('hlc_mode', this.camera.picsetup.HighlightComp)
+		if (MODEL_SPEC?.highlight_comp) {
+			this.setVariable('highlight_comp', this.camera.picsetup.HighlightComp)
+		}
+
+		if (MODEL_SPEC?.highlight_comp_mask) {
+			this.setVariable('highlight_comp_mask', this.camera.picsetup.HighlightCompMask)
 		}
 
 		if (MODEL_SPEC?.hue) {
@@ -400,10 +407,6 @@ exports.updateVariables = function () {
 			this.setVariable('noise_reduction', this.camera.picsetup.NoiseReduction)
 		}
 
-		if (MODEL_SPEC?.saturation) {
-			this.setVariable('saturation', this.camera.picsetup.Color)
-		}
-
 		if (MODEL_SPEC?.sharpness) {
 			this.setVariable('sharpness', this.camera.picsetup.Sharpness)
 		}
@@ -412,19 +415,19 @@ exports.updateVariables = function () {
 			this.setVariable('stabilizer', this.camera.picsetup.Stabilizer)
 		}
 
-		if (MODEL_SPEC?.twod_nr) {
-			this.setVariable('twod_nr', this.camera.picsetup.TWODNR)
-		}
-
 		if (MODEL_SPEC?.threed_nr) {
 			this.setVariable('threed_nr', this.camera.picsetup.ThreeDNR)
+		}
+
+		if (MODEL_SPEC?.twod_nr) {
+			this.setVariable('twod_nr', this.camera.picsetup.TWODNR)
 		}
 
 		if (MODEL_SPEC?.wide_dynamic_range) {
 			this.setVariable('wide_dynamic_range', this.camera.picsetup.WideDynamicRange)
 		}
 	}
-	// /birddogcmsetup
+	// Color Matrix Variables
 	if (this.camera.cmsetup) {
 		if (MODEL_SPEC?.cm_blue_gain) {
 			this.setVariable(
@@ -542,7 +545,7 @@ exports.updateVariables = function () {
 			)
 		}
 	}
-	// /birddogadvancesetup
+	// Advanced Setup Variables
 	if (this.camera.advancesetup) {
 		if (MODEL_SPEC?.brightness) {
 			this.setVariable('brightness', this.camera.advancesetup.Brightness)
@@ -568,12 +571,12 @@ exports.updateVariables = function () {
 			this.setVariable('video_enhancement', this.camera.advancesetup.VideoEnhancement)
 		}
 	}
-	// /birddogexternalsetup
-	// /birddogdetsetup
+	// External Setup Variables
+	// Detail Setup Variables
 	if (this.camera.detail) {
 		if (MODEL_SPEC?.bandwidth) {
 			this.setVariable('bandwidth', this.camera.detail.Bandwidth)
 		}
 	}
-	// /birddoggammasetup
+	// Gamma Setup Variables
 }

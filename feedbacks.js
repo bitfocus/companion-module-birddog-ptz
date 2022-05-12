@@ -360,7 +360,7 @@ exports.initFeedbacks = function () {
 		}
 	}
 
-	if (MODEL_VALUES?.expM) {
+	if (MODEL_VALUES?.exposure_mode) {
 		feedbacks.exposureMode = {
 			type: 'boolean',
 			label: 'Exposure Mode',
@@ -374,8 +374,8 @@ exports.initFeedbacks = function () {
 					type: 'dropdown',
 					label: 'Mode',
 					id: 'mode',
-					choices: MODEL_VALUES.expM.choices,
-					default: MODEL_VALUES.expM.default,
+					choices: MODEL_VALUES.exposure_mode.choices,
+					default: MODEL_VALUES.exposure_mode.default,
 				},
 			],
 			callback: (feedback) => {
@@ -762,7 +762,7 @@ exports.initFeedbacks = function () {
 				},
 			],
 			callback: (feedback) => {
-				return this.camera?.expsetup?.BG == feedback.options.level
+				return this.camera?.wbsetup?.BG == feedback.options.level
 			},
 		}
 	}
@@ -787,7 +787,7 @@ exports.initFeedbacks = function () {
 				},
 			],
 			callback: (feedback) => {
-				return this.camera?.expsetup?.BR == feedback.options.level
+				return this.camera?.wbsetup?.BR == feedback.options.level
 			},
 		}
 	}
@@ -812,7 +812,7 @@ exports.initFeedbacks = function () {
 				},
 			],
 			callback: (feedback) => {
-				return this.camera?.expsetup?.BlueGain == feedback.options.level
+				return this.camera?.wbsetup?.BlueGain == feedback.options.level
 			},
 		}
 	}
@@ -862,7 +862,7 @@ exports.initFeedbacks = function () {
 				},
 			],
 			callback: (feedback) => {
-				return this.camera?.expsetup?.GB == feedback.options.level
+				return this.camera?.wbsetup?.GB == feedback.options.level
 			},
 		}
 	}
@@ -887,7 +887,7 @@ exports.initFeedbacks = function () {
 				},
 			],
 			callback: (feedback) => {
-				return this.camera?.expsetup?.GR == feedback.options.level
+				return this.camera?.wbsetup?.GR == feedback.options.level
 			},
 		}
 	}
@@ -912,7 +912,7 @@ exports.initFeedbacks = function () {
 				},
 			],
 			callback: (feedback) => {
-				return this.camera?.expsetup?.Level == feedback.options.level
+				return this.camera?.wbsetup?.Level == feedback.options.level
 			},
 		}
 	}
@@ -936,7 +936,7 @@ exports.initFeedbacks = function () {
 				},
 			],
 			callback: (feedback) => {
-				return this.camera?.wb?.Matrix == feedback.options.white_balance
+				return this.camera?.wbsetup?.Matrix == feedback.options.white_balance
 			},
 		}
 	}
@@ -961,7 +961,7 @@ exports.initFeedbacks = function () {
 				},
 			],
 			callback: (feedback) => {
-				return this.camera?.expsetup?.Offset == feedback.options.level
+				return this.camera?.wbsetup?.Offset == feedback.options.level
 			},
 		}
 	}
@@ -986,7 +986,7 @@ exports.initFeedbacks = function () {
 				},
 			],
 			callback: (feedback) => {
-				return this.camera?.expsetup?.Phase == feedback.options.level
+				return this.camera?.wbsetup?.Phase == feedback.options.level
 			},
 		}
 	}
@@ -1011,7 +1011,7 @@ exports.initFeedbacks = function () {
 				},
 			],
 			callback: (feedback) => {
-				return this.camera?.expsetup?.RB == feedback.options.level
+				return this.camera?.wbsetup?.RB == feedback.options.level
 			},
 		}
 	}
@@ -1036,7 +1036,7 @@ exports.initFeedbacks = function () {
 				},
 			],
 			callback: (feedback) => {
-				return this.camera?.expsetup?.RG == feedback.options.level
+				return this.camera?.wbsetup?.RG == feedback.options.level
 			},
 		}
 	}
@@ -1061,7 +1061,7 @@ exports.initFeedbacks = function () {
 				},
 			],
 			callback: (feedback) => {
-				return this.camera?.expsetup?.RedGain == feedback.options.level
+				return this.camera?.wbsetup?.RedGain == feedback.options.level
 			},
 		}
 	}
@@ -1085,7 +1085,7 @@ exports.initFeedbacks = function () {
 				},
 			],
 			callback: (feedback) => {
-				return this.camera?.wb?.Select == feedback.options.val
+				return this.camera?.wbsetup?.Select == feedback.options.val
 			},
 		}
 	}
@@ -1110,12 +1110,12 @@ exports.initFeedbacks = function () {
 				},
 			],
 			callback: (feedback) => {
-				return this.camera?.expsetup?.Speed == feedback.options.level
+				return this.camera?.wbsetup?.Speed == feedback.options.level
 			},
 		}
 	}
 
-	if (MODEL_VALUES?.wb) {
+	if (MODEL_VALUES?.wb_mode) {
 		feedbacks.wb_mode = {
 			type: 'boolean',
 			label: 'Camera White Balance Mode',
@@ -1134,12 +1134,506 @@ exports.initFeedbacks = function () {
 				},
 			],
 			callback: (feedback) => {
-				return this.camera?.wb?.WbMode == feedback.options.white_balance
+				return this.camera?.wbsetup?.WbMode == feedback.options.white_balance
 			},
 		}
 	}
 
 	// Picture Setup Feedback
+
+	if (MODEL_VALUES?.backlight_com) {
+		feedbacks.backlight_com = {
+			type: 'boolean',
+			label: 'Backlight Compensation',
+			description: 'If the camera matches the selected Backlight Compensation, change the style of the button',
+			style: {
+				color: ColorBlack,
+				bgcolor: ColorGreen,
+			},
+			options: [
+				{
+					type: 'dropdown',
+					label: 'On/Off',
+					id: 'val',
+					choices: MODEL_VALUES.backlight_com.choices,
+					default: MODEL_VALUES.backlight_com.default,
+				},
+			],
+			callback: (feedback) => {
+				return this.camera?.picsetup?.BackLightCom == feedback.options.val
+			},
+		}
+	}
+
+	if (MODEL_VALUES?.chroma_suppress) {
+		feedbacks.chroma_suppress = {
+			type: 'boolean',
+			label: 'Chroma Suppress',
+			description: 'If the camera matches the selected Chroma Suppression, change the style of the button',
+			style: {
+				color: ColorBlack,
+				bgcolor: ColorGreen,
+			},
+			options: [
+				{
+					type: 'dropdown',
+					label: 'Mode',
+					id: 'val',
+					choices: MODEL_VALUES.chroma_suppress.choices,
+					default: MODEL_VALUES.chroma_suppress.default,
+				},
+			],
+			callback: (feedback) => {
+				return this.camera?.picsetup?.ChromeSuppress == feedback.options.val
+			},
+		}
+	}
+
+	if (MODEL_VALUES?.color) {
+		feedbacks.color = {
+			type: 'boolean',
+			label: 'Color',
+			description: 'If the camera matches the selected Color level, change the style of the button',
+			style: {
+				color: ColorBlack,
+				bgcolor: ColorGreen,
+			},
+			options: [
+				{
+					type: 'number',
+					label: 'Value (' + MODEL_VALUES.color.range.min + ' to ' + MODEL_VALUES.color.range.max + ')',
+					id: 'value',
+					min: MODEL_VALUES.color.range.min,
+					max: MODEL_VALUES.color.range.max,
+					default: MODEL_VALUES.color.range.default,
+				},
+			],
+			callback: (feedback) => {
+				return this.camera?.picsetup?.Color == feedback.options.value
+			},
+		}
+	}
+
+	if (MODEL_VALUES?.contrast) {
+		feedbacks.contrast = {
+			type: 'boolean',
+			label: 'Contrast',
+			description: 'If the camera matches the selected Contrast level, change the style of the button',
+			style: {
+				color: ColorBlack,
+				bgcolor: ColorGreen,
+			},
+			options: [
+				{
+					type: 'number',
+					label: 'Value (' + MODEL_VALUES.contrast.range.min + ' to ' + MODEL_VALUES.contrast.range.max + ')',
+					id: 'value',
+					min: MODEL_VALUES.contrast.range.min,
+					max: MODEL_VALUES.contrast.range.max,
+					default: MODEL_VALUES.contrast.range.default,
+					isVisible: (action) => action.options.val === 'value',
+				},
+			],
+			callback: (feedback) => {
+				return this.camera?.picsetup?.Contrast == feedback.options.value
+			},
+		}
+	}
+
+	if (MODEL_VALUES?.pictureEffect) {
+		feedbacks.pictureEffect = {
+			type: 'boolean',
+			label: 'Picture Effect',
+			description: 'If the camera matches the selected Effect mode, change the style of the button',
+			style: {
+				color: ColorBlack,
+				bgcolor: ColorGreen,
+			},
+			options: [
+				{
+					type: 'dropdown',
+					label: 'Effect',
+					id: 'val',
+					choices: MODEL_VALUES.pictureEffect.choices,
+					default: MODEL_VALUES.pictureEffect.default,
+				},
+			],
+			callback: (feedback) => {
+				return this.camera?.picsetup?.Effect == feedback.options.val
+			},
+		}
+	}
+
+	if (MODEL_VALUES?.picFlip) {
+		feedbacks.picFlip = {
+			type: 'boolean',
+			label: 'Picture Flip',
+			description: 'If the camera matches the selected Flip mode, change the style of the button',
+			style: {
+				color: ColorBlack,
+				bgcolor: ColorGreen,
+			},
+			options: [
+				{
+					type: 'dropdown',
+					label: 'On / Off',
+					id: 'val',
+					choices: MODEL_VALUES.picFlip.choices,
+					default: MODEL_VALUES.picFlip.default,
+				},
+			],
+			callback: (feedback) => {
+				return this.camera?.picsetup?.Flip == feedback.options.val
+			},
+		}
+	}
+
+	if (MODEL_VALUES?.gamma) {
+		feedbacks.gamma = {
+			type: 'boolean',
+			label: 'Gamma',
+			description: 'If the camera matches the selected Gamma value, change the style of the button',
+			style: {
+				color: ColorBlack,
+				bgcolor: ColorGreen,
+			},
+			options: [
+				{
+					type: 'number',
+					label: 'Value (' + MODEL_VALUES.gamma.range.min + ' to ' + MODEL_VALUES.gamma.range.max + ')',
+					id: 'value',
+					min: MODEL_VALUES.gamma.range.min,
+					max: MODEL_VALUES.gamma.range.max,
+					default: MODEL_VALUES.gamma.range.default,
+				},
+			],
+			callback: (feedback) => {
+				return this.camera?.picsetup?.Gamma == feedback.options.value
+			},
+		}
+	}
+
+	if (MODEL_VALUES?.highlight_comp) {
+		feedbacks.highlight_comp = {
+			type: 'boolean',
+			label: 'Highlight Compensation',
+			description: 'If the camera matches the selected Highlight Compensation mode, change the style of the button',
+			style: {
+				color: ColorBlack,
+				bgcolor: ColorGreen,
+			},
+			options: [
+				{
+					type: 'dropdown',
+					label: 'Highlight Compensation',
+					id: 'val',
+					choices: MODEL_VALUES.highlight_comp.choices,
+					default: MODEL_VALUES.highlight_comp.default,
+				},
+			],
+			callback: (feedback) => {
+				return this.camera?.picsetup?.HighlightComp == feedback.options.val
+			},
+		}
+	}
+
+	if (MODEL_VALUES?.highlight_comp_mask) {
+		feedbacks.highlight_comp_mask = {
+			type: 'boolean',
+			label: 'Highlight Compensation Mask',
+			description:
+				'If the camera matches the selected Highlight Compensation Mask value, change the style of the button',
+			style: {
+				color: ColorBlack,
+				bgcolor: ColorGreen,
+			},
+			options: [
+				{
+					type: 'number',
+					label:
+						'Value (' +
+						MODEL_VALUES.highlight_comp_mask.range.min +
+						' to ' +
+						MODEL_VALUES.highlight_comp_mask.range.max +
+						')',
+					id: 'value',
+					min: MODEL_VALUES.highlight_comp_mask.range.min,
+					max: MODEL_VALUES.highlight_comp_mask.range.max,
+					default: MODEL_VALUES.highlight_comp_mask.range.default,
+				},
+			],
+			callback: (feedback) => {
+				return this.camera?.picsetup?.HighlightCompMask == feedback.options.value
+			},
+		}
+	}
+
+	if (MODEL_VALUES?.hue) {
+		feedbacks.hue = {
+			type: 'boolean',
+			label: 'Hue',
+			description: 'If the camera matches the selected Hue value, change the style of the button',
+			style: {
+				color: ColorBlack,
+				bgcolor: ColorGreen,
+			},
+			options: [
+				{
+					type: 'number',
+					label: 'Value (' + MODEL_VALUES.hue.range.min + ' to ' + MODEL_VALUES.hue.range.max + ')',
+					id: 'value',
+					min: MODEL_VALUES.hue.range.min,
+					max: MODEL_VALUES.hue.range.max,
+					default: MODEL_VALUES.hue.range.default,
+				},
+			],
+			callback: (feedback) => {
+				return this.camera?.picsetup?.Hue == feedback.options.value
+			},
+		}
+	}
+
+	if (MODEL_VALUES?.ir_cutfilter) {
+		feedbacks.ir_cutfilter = {
+			type: 'boolean',
+			label: 'IR Cut Filter',
+			description: 'If the camera matches the selected IR Cut Filter mode, change the style of the button',
+			style: {
+				color: ColorBlack,
+				bgcolor: ColorGreen,
+			},
+			options: [
+				{
+					type: 'dropdown',
+					label: 'Mode',
+					id: 'val',
+					choices: MODEL_VALUES.ir_cutfilter.choices,
+					default: MODEL_VALUES.ir_cutfilter.default,
+				},
+			],
+			callback: (feedback) => {
+				return this.camera?.picsetup?.IRCutFilter == feedback.options.val
+			},
+		}
+	}
+
+	if (MODEL_VALUES?.low_latency) {
+		feedbacks.low_latency = {
+			type: 'boolean',
+			label: 'Low Latency',
+			description: 'If the camera matches the selected Low Latency mode, change the style of the button',
+			style: {
+				color: ColorBlack,
+				bgcolor: ColorGreen,
+			},
+			options: [
+				{
+					type: 'dropdown',
+					label: 'On / Off',
+					id: 'val',
+					choices: MODEL_VALUES.low_latency.choices,
+					default: MODEL_VALUES.low_latency.default,
+				},
+			],
+			callback: (feedback) => {
+				return this.camera?.picsetup?.LowLatency == feedback.options.val
+			},
+		}
+	}
+
+	if (MODEL_VALUES?.picMirror) {
+		feedbacks.picMirror = {
+			type: 'boolean',
+			label: 'Picture Mirror',
+			description: 'If the camera matches the selected Picture Mirror mode, change the style of the button',
+			style: {
+				color: ColorBlack,
+				bgcolor: ColorGreen,
+			},
+			options: [
+				{
+					type: 'dropdown',
+					label: 'On / Off',
+					id: 'val',
+					choices: MODEL_VALUES.picMirror.choices,
+					default: MODEL_VALUES.picMirror.default,
+				},
+			],
+			callback: (feedback) => {
+				return this.camera?.picsetup?.Mirror == feedback.options.val
+			},
+		}
+	}
+
+	if (MODEL_VALUES?.nd_filter) {
+		feedbacks.nd_filter = {
+			type: 'boolean',
+			label: 'ND Filter',
+			description: 'If the camera matches the selected ND Filter value, change the style of the button',
+			style: {
+				color: ColorBlack,
+				bgcolor: ColorGreen,
+			},
+			options: [
+				{
+					type: 'number',
+					label: 'Value (' + MODEL_VALUES.nd_filter.range.min + ' to ' + MODEL_VALUES.nd_filter.range.max + ')',
+					id: 'value',
+					min: MODEL_VALUES.nd_filter.range.min,
+					max: MODEL_VALUES.nd_filter.range.max,
+					default: MODEL_VALUES.nd_filter.range.default,
+				},
+			],
+			callback: (feedback) => {
+				return this.camera?.picsetup?.NDFilter == feedback.options.value
+			},
+		}
+	}
+
+	if (MODEL_VALUES?.noise_reduction) {
+		feedbacks.noise_reduction = {
+			type: 'boolean',
+			label: 'Noise Reduction',
+			description: 'If the camera matches the selected Noise Reduction mode, change the style of the button',
+			style: {
+				color: ColorBlack,
+				bgcolor: ColorGreen,
+			},
+			options: [
+				{
+					type: 'dropdown',
+					label: 'Noise Reduction',
+					id: 'val',
+					choices: MODEL_VALUES.noise_reduction.choices,
+					default: MODEL_VALUES.noise_reduction.default,
+				},
+			],
+			callback: (feedback) => {
+				return this.camera?.picsetup?.NoiseReduction == feedback.options.val
+			},
+		}
+	}
+
+	if (MODEL_VALUES?.sharpness) {
+		feedbacks.sharpness = {
+			type: 'boolean',
+			label: 'Sharpness',
+			description: 'If the camera matches the selected Sharpness value, change the style of the button',
+			style: {
+				color: ColorBlack,
+				bgcolor: ColorGreen,
+			},
+			options: [
+				{
+					type: 'number',
+					label: 'Value (' + MODEL_VALUES.sharpness.range.min + ' to ' + MODEL_VALUES.sharpness.range.max + ')',
+					id: 'value',
+					min: MODEL_VALUES.sharpness.range.min,
+					max: MODEL_VALUES.sharpness.range.max,
+					default: MODEL_VALUES.sharpness.range.default,
+				},
+			],
+			callback: (feedback) => {
+				return this.camera?.picsetup?.Sharpness == feedback.options.value
+			},
+		}
+	}
+
+	if (MODEL_VALUES?.stabilizer) {
+		feedbacks.stabilizer = {
+			type: 'boolean',
+			label: 'Stabilizer',
+			description: 'If the camera matches the selected Stabilizer mode, change the style of the button',
+			style: {
+				color: ColorBlack,
+				bgcolor: ColorGreen,
+			},
+			options: [
+				{
+					type: 'dropdown',
+					label: 'On / Off',
+					id: 'val',
+					choices: MODEL_VALUES.stabilizer.choices,
+					default: MODEL_VALUES.stabilizer.default,
+				},
+			],
+			callback: (feedback) => {
+				return this.camera?.picsetup?.NoiseReduction == feedback.options.val
+			},
+		}
+	}
+
+	if (MODEL_VALUES?.threed_nr) {
+		feedbacks.threed_nr = {
+			type: 'boolean',
+			label: '3D Noise Reduction',
+			description: 'If the camera matches the selected 3D Noise Reduction mode, change the style of the button',
+			style: {
+				color: ColorBlack,
+				bgcolor: ColorGreen,
+			},
+			options: [
+				{
+					type: 'dropdown',
+					label: '3D NR',
+					id: 'val',
+					choices: MODEL_VALUES.threed_nr.choices,
+					default: MODEL_VALUES.threed_nr.default,
+				},
+			],
+			callback: (feedback) => {
+				return this.camera?.picsetup?.ThreeDNR == feedback.options.val
+			},
+		}
+	}
+
+	if (MODEL_VALUES?.twod_nr) {
+		feedbacks.twod_nr = {
+			type: 'boolean',
+			label: '2D Noise Reduction',
+			description: 'If the camera matches the selected 2D Noise Reduction mode, change the style of the button',
+			style: {
+				color: ColorBlack,
+				bgcolor: ColorGreen,
+			},
+			options: [
+				{
+					type: 'dropdown',
+					label: '2D NR',
+					id: 'val',
+					choices: MODEL_VALUES.twod_nr.choices,
+					default: MODEL_VALUES.twod_nr.default,
+				},
+			],
+			callback: (feedback) => {
+				return this.camera?.picsetup?.TWODNR == feedback.options.val
+			},
+		}
+	}
+
+	if (MODEL_VALUES?.wide_dynamic_range) {
+		feedbacks.wide_dynamic_range = {
+			type: 'boolean',
+			label: 'Wide Dynamic Range',
+			description: 'If the camera matches the selected Wide Dynamic Range mode, change the style of the button',
+			style: {
+				color: ColorBlack,
+				bgcolor: ColorGreen,
+			},
+			options: [
+				{
+					type: 'dropdown',
+					label: 'Wide Dynamic Range',
+					id: 'val',
+					choices: MODEL_VALUES.wide_dynamic_range.choices,
+					default: MODEL_VALUES.wide_dynamic_range.default,
+				},
+			],
+			callback: (feedback) => {
+				return this.camera?.picsetup?.WideDynamicRange == feedback.options.val
+			},
+		}
+	}
 
 	// Color Matrix Feedback
 

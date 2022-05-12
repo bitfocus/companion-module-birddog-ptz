@@ -135,6 +135,7 @@ module.exports = {
 				}
 			}
 			if (action.action === 'irMode') {
+				action.action = 'ir_cutfilter'
 				if (action.options.bol == '0') {
 					action.options.val = 'On'
 					changed = true

@@ -54,6 +54,25 @@ module.exports = {
 		{ id: 'value', label: 'Value' },
 	],
 
+	OFF_1_to_5: [
+		{ id: 'Off', label: 'Off' },
+		{ id: '1', label: '1' },
+		{ id: '2', label: '2' },
+		{ id: '3', label: '3' },
+		{ id: '4', label: '4' },
+		{ id: '5', label: '5' },
+	],
+
+	OFF_1_to_6: [
+		{ id: 'Off', label: 'Off' },
+		{ id: '1', label: '1' },
+		{ id: '2', label: '2' },
+		{ id: '3', label: '3' },
+		{ id: '4', label: '4' },
+		{ id: '5', label: '5' },
+		{ id: '6', label: '6' },
+	],
+
 	// ############
 	// IRIS Look Ups
 	// ############

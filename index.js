@@ -857,13 +857,13 @@ class instance extends instance_skel {
 				break
 
 			case 'red_gain':
-				let red_gain = this.camera?.wbsetup?.RedGain ? this.camera.wbsetup.RedGain : 128
+				let red_gain = this.camera?.wbsetup?.RedGain ? this.camera.wbsetup.RedGain : MODEL_VALUES.red_gain.range.default
 				switch (opt.val) {
 					case 'up':
-						newValue = red_gain < 255 ? ++red_gain : red_gain
+						newValue = red_gain < MODEL_VALUES.red_gain.range.max ? ++red_gain : red_gain
 						break
 					case 'down':
-						newValue = red_gain > 0 ? --red_gain : red_gain
+						newValue = red_gain > MODEL_VALUES.red_gain.range.min ? --red_gain : red_gain
 						break
 					case 'value':
 						newValue = opt.value
@@ -903,14 +903,49 @@ class instance extends instance_skel {
 
 			// Picture Setup Actions
 
-			case 'contrast':
-				let contrast = this.camera?.picsetup?.Contrast ? this.camera.picsetup.Contrast : 7
+			case 'backlight_com':
+				body = {
+					BackLightCom: String(opt.val),
+				}
+				this.sendCommand('birddogpicsetup', 'POST', body)
+				break
+
+			case 'chroma_suppress':
+				body = {
+					ChromeSuppress: String(opt.val),
+				}
+				this.sendCommand('birddogpicsetup', 'POST', body)
+				break
+
+			case 'color':
+				let color = this.camera?.picsetup?.Color ? this.camera.picsetup.Color : MODEL_VALUES.color.range.default
 				switch (opt.val) {
 					case 'up':
-						newValue = contrast < 15 ? ++contrast : contrast
+						newValue = color < MODEL_VALUES.color.range.max ? ++color : color
 						break
 					case 'down':
-						newValue = contrast > 0 ? --contrast : contrast
+						newValue = color > MODEL_VALUES.color.range.min ? --color : color
+						break
+					case 'value':
+						newValue = opt.value
+						break
+				}
+				body = {
+					Color: String(newValue),
+				}
+				this.sendCommand('birddogpicsetup', 'POST', body)
+				break
+
+			case 'contrast':
+				let contrast = this.camera?.picsetup?.Contrast
+					? this.camera.picsetup.Contrast
+					: MODEL_VALUES.contrast.range.default
+				switch (opt.val) {
+					case 'up':
+						newValue = contrast < MODEL_VALUES.contrast.range.max ? ++contrast : contrast
+						break
+					case 'down':
+						newValue = contrast > MODEL_VALUES.contrast.range.max ? --contrast : contrast
 						break
 					case 'value':
 						newValue = opt.value
@@ -921,15 +956,10 @@ class instance extends instance_skel {
 				}
 				this.sendCommand('birddogpicsetup', 'POST', body)
 				break
+
 			case 'pictureEffect':
 				body = {
 					Effect: String(opt.val),
-				}
-				this.sendCommand('birddogpicsetup', 'POST', body)
-				break
-			case 'irMode':
-				body = {
-					IRCutFilter: String(opt.val),
 				}
 				this.sendCommand('birddogpicsetup', 'POST', body)
 				break
@@ -941,9 +971,172 @@ class instance extends instance_skel {
 				this.sendCommand('birddogpicsetup', 'POST', body)
 				break
 
+			case 'gamma':
+				let gamma = this.camera?.picsetup?.Gamma ? this.camera.picsetup.Gamma : MODEL_VALUES.gamma.range.default
+				switch (opt.val) {
+					case 'up':
+						newValue = gamma < MODEL_VALUES.gamma.range.max ? ++gamma : gamma
+						break
+					case 'down':
+						newValue = gamma > MODEL_VALUES.gamma.range.max ? --gamma : gamma
+						break
+					case 'value':
+						newValue = opt.value
+						break
+				}
+				body = {
+					Gamma: String(newValue),
+				}
+				this.sendCommand('birddogpicsetup', 'POST', body)
+				break
+
+			case 'highlight_comp':
+				body = {
+					HighlightComp: String(opt.val),
+				}
+				this.sendCommand('birddogpicsetup', 'POST', body)
+				break
+
+			case 'highlight_comp_mask':
+				let highlight_comp_mask = this.camera?.picsetup?.HighlightCompMask
+					? this.camera.picsetup.HighlightCompMask
+					: MODEL_VALUES.highlight_comp_mask.range.default
+				switch (opt.val) {
+					case 'up':
+						newValue =
+							highlight_comp_mask < MODEL_VALUES.highlight_comp_mask.range.max
+								? ++highlight_comp_mask
+								: highlight_comp_mask
+						break
+					case 'down':
+						newValue =
+							highlight_comp_mask > MODEL_VALUES.highlight_comp_mask.range.max
+								? --highlight_comp_mask
+								: highlight_comp_mask
+						break
+					case 'value':
+						newValue = opt.value
+						break
+				}
+				body = {
+					HighlightCompMask: String(newValue),
+				}
+				this.sendCommand('birddogpicsetup', 'POST', body)
+				break
+
+			case 'hue':
+				let hue = this.camera?.picsetup?.Hue ? this.camera.picsetup.Hue : MODEL_VALUES.hue.range.default
+				switch (opt.val) {
+					case 'up':
+						newValue = hue < MODEL_VALUES.hue.range.max ? ++hue : hue
+						break
+					case 'down':
+						newValue = hue > MODEL_VALUES.hue.range.max ? --hue : hue
+						break
+					case 'value':
+						newValue = opt.value
+						break
+				}
+				body = {
+					Hue: String(newValue),
+				}
+				this.sendCommand('birddogpicsetup', 'POST', body)
+				break
+
+			case 'ir_cutfilter':
+				body = {
+					IRCutFilter: String(opt.val),
+				}
+				this.sendCommand('birddogpicsetup', 'POST', body)
+				break
+
+			case 'low_latency':
+				body = {
+					LowLatency: String(opt.val),
+				}
+				this.sendCommand('birddogpicsetup', 'POST', body)
+				break
+
 			case 'picMirror':
 				body = {
 					Mirror: String(opt.val),
+				}
+				this.sendCommand('birddogpicsetup', 'POST', body)
+				break
+
+			case 'nd_filter':
+				let nd_filter = this.camera?.picsetup?.NDFilter
+					? this.camera.picsetup.NDFilter
+					: MODEL_VALUES.nd_filter.range.default
+				switch (opt.val) {
+					case 'up':
+						newValue = nd_filter < MODEL_VALUES.nd_filter.range.max ? ++nd_filter : nd_filter
+						break
+					case 'down':
+						newValue = nd_filter > MODEL_VALUES.nd_filter.range.max ? --nd_filter : nd_filter
+						break
+					case 'value':
+						newValue = opt.value
+						break
+				}
+				body = {
+					NDFilter: String(newValue),
+				}
+				this.sendCommand('birddogpicsetup', 'POST', body)
+				break
+
+			case 'noise_reduction':
+				body = {
+					NoiseReduction: String(opt.val),
+				}
+				this.sendCommand('birddogpicsetup', 'POST', body)
+				break
+
+			case 'sharpness':
+				let sharpness = this.camera?.picsetup?.Sharpness
+					? this.camera.picsetup.Sharpness
+					: MODEL_VALUES.sharpness.range.default
+				switch (opt.val) {
+					case 'up':
+						newValue = sharpness < MODEL_VALUES.sharpness.range.max ? ++sharpness : sharpness
+						break
+					case 'down':
+						newValue = sharpness > MODEL_VALUES.sharpness.range.max ? --sharpness : sharpness
+						break
+					case 'value':
+						newValue = opt.value
+						break
+				}
+				body = {
+					Sharpness: String(newValue),
+				}
+				this.sendCommand('birddogpicsetup', 'POST', body)
+				break
+
+			case 'stabilizer':
+				body = {
+					Stabilizer: String(opt.val),
+				}
+				this.sendCommand('birddogpicsetup', 'POST', body)
+				break
+
+			case 'threed_nr':
+				body = {
+					ThreeDNR: String(opt.val),
+				}
+				this.sendCommand('birddogpicsetup', 'POST', body)
+				break
+
+			case 'twod_nr':
+				body = {
+					TWODNR: String(opt.val),
+				}
+				this.sendCommand('birddogpicsetup', 'POST', body)
+				break
+
+			case 'wide_dynamic_range':
+				body = {
+					WideDynamicRange: String(opt.val),
 				}
 				this.sendCommand('birddogpicsetup', 'POST', body)
 				break

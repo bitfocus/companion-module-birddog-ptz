@@ -24,7 +24,7 @@ const COMMON = [
 	},
 	{
 		//Variables
-		// /about
+		// General Camera Variables
 		firmware: { label: 'Firmware' },
 		model: { label: 'Model' },
 		hostname: { label: 'Name' },
@@ -36,12 +36,12 @@ const COMMON = [
 		// VISCA Variables
 		standby: { label: 'Standby' },
 		freeze: { label: 'Freeze' },
-		// API Variables
-		// /analogaudiosetup
+		// Analog Audio Variables
 		audio_in_gain: { label: 'Audio In Gain' },
 		audio_out_gain: { label: 'Audio Out Gain' },
 		audio_output: { label: 'Audio Output' },
-		// /encodesetup
+		// Video Output Interface Variables
+		// Encode Setup Variables
 		bandwidth_mode: { label: 'Bandwidth Mode' },
 		bandwidth_select: { label: 'Bandwidth Select' },
 		ndi_audio: { label: `NDI Audio` },
@@ -49,19 +49,19 @@ const COMMON = [
 		ndi_group_name: { label: `NDI Group Name` },
 		stream_name: { label: `Stream Name` },
 		video_format: { label: `Video Format` },
-		// /encodeTransport
+		// Encode Transport Variables
 		transmit_method: { label: `Transmit Method` },
 		transmit_netprefix: { label: 'Transmit Net Prefix' },
 		transmit_netmask: { label: 'Transmit Netmask' },
-		// /NDIDisServer
+		// NDI Discovery Server Variables
 		ndi_discovery_server: { label: `NDI Discovery Server` },
 		ndi_discovery_server_ip: { label: `NDI Discovery Server IP` },
-		// /birddogptzsetup
+		// PTZ Variables
 		zoom_speed: { label: `Zoom Speed` },
 		zoom_position: { label: `Zoom Position` },
-		// Focus Settings
+		// Focus Variables
 		focus_mode: { label: `Focus Mode` },
-		// /birddogexpsetup
+		// Exposure Variables
 		bright_level: { label: `Bright Level` },
 		exposure_comp: { label: `Exposure Compensation` },
 		exposure_comp_level: { label: `Exposure Compensation Level` },
@@ -69,11 +69,11 @@ const COMMON = [
 		gain: { label: `Gain` },
 		iris: { label: `Iris` },
 		shutter_speed: { label: `Shutter Speed` },
-		// /birddogwbsetup
+		// White Balance Variables
 		blue_gain: { label: `Blue Gain` },
 		red_gain: { label: `Red Gain` },
 		wb_mode: { label: `White Balance Mode` },
-		// /birddogpicsetup
+		// Picture Setup Variables
 		flip: { label: `Flip` },
 		mirror: { label: `Mirror` },
 	},
@@ -138,26 +138,26 @@ module.exports = {
 			},
 			variables: {
 				...COMMON[1],
-				// /birddogptzsetup
+				// PTZ Variables
 				pan_speed: { label: `Pan Speed` },
 				tilt_speed: { label: `Tilt Speed` },
 				pan_position: { label: `Pan Position` },
 				tilt_position: { label: `Tilt Position` },
-				// /birddogexpsetup
+				// Exposure Variables
 				shutter_control_overwrite: { label: `Shutter Control Overwrite` },
 				shutter_speed_overwrite: { label: `Shutter Speed Overwrite` },
-				// /birddogwbsetup
+				// White Balance Variables
 				color_temp: { label: `Color Temp` },
-				// /birddogpicsetup
+				// Picture Setup Variables
+				color: { label: `Saturation` },
 				contrast: { label: `Contrast` },
 				effect: { label: `Effect` },
 				gamma: { label: `Gamma` },
 				hue: { label: `Hue` },
 				noise_reduction: { label: `Noise Reduction` },
-				saturation: { label: `Saturation` },
 				sharpness: { label: `Sharpness` },
 				wide_dynamic_range: { label: `Wide Dynamic Range` },
-				// /birddogcmsetup
+				// Color Matrix Variables
 				cm_blue_gain: { label: 'Blue Gain' },
 				cm_blue_hue: { label: 'Blue Hue' },
 				cm_cyan_gain: { label: 'Cyan Gain' },
@@ -195,7 +195,7 @@ module.exports = {
 				// Exposure Actions
 				bright_level: { range: { min: 0, max: 27, default: 14 } },
 				expCompLvl: { choices: CHOICES.UP_DOWN_VALUE, default: 'up', range: { min: -7, max: 7, default: 0 } },
-				expM: { choices: CHOICES.EXP_MODE_1, default: 'FULL-AUTO' },
+				exposure_mode: { choices: CHOICES.EXP_MODE_1, default: 'FULL-AUTO' },
 				gain: { choices: CHOICES.GAIN_1, default: 0 },
 				iris: { choices: CHOICES.IRIS_1, default: 8, range: { closed: 0, min: 1, max: 13 } },
 				shutter_control_overwrite: { choices: CHOICES.ON_OFF, default: 'On' },
@@ -210,8 +210,14 @@ module.exports = {
 				wb_mode: { choices: CHOICES.WB_MODE_1, default: 'AUTO' },
 				color_temp: { choices: CHOICES.COLOR_TEMP, default: '6500' },
 				// Picture Setup Actions
-				contrast: { choices: CHOICES.UP_DOWN_VALUE, default: 'up', range: { min: 0, max: 15, default: 7 } },
+				color: { choices: CHOICES.UP_DOWN_VALUE, default: 'up', range: { min: 0, max: 15, default: 8 } },
+				contrast: { choices: CHOICES.UP_DOWN_VALUE, default: 'up', range: { min: 0, max: 15, default: 8 } },
 				pictureEffect: { choices: CHOICES.PICTURE_EFFECT, default: 'BW' },
+				gamma: { choices: CHOICES.UP_DOWN_VALUE, default: 'up', range: { min: 0, max: 4, default: 2 } },
+				hue: { choices: CHOICES.UP_DOWN_VALUE, default: 'up', range: { min: 0, max: 15, default: 8 } },
+				noise_reduction: { choices: CHOICES.OFF_1_to_5, default: 'Off' },
+				sharpness: { choices: CHOICES.UP_DOWN_VALUE, default: 'up', range: { min: 0, max: 15, default: 8 } },
+				wide_dynamic_range: { choices: CHOICES.OFF_1_to_6, default: 'Off' },
 				// Color Matrix Actions
 				// Advanced Setup Actions
 				// External Setup Actions
@@ -236,21 +242,21 @@ module.exports = {
 				// Video Output Interface Actions
 				// Encode Setup Actions
 				tally_mode: { label: `Tally Mode` },
-				// /birddogexpsetup
+				// Exposure Variables
 				shutter_control_overwrite: { label: `Shutter Control Overwrite` },
 				shutter_speed_overwrite: { label: `Shutter Speed Overwrite` },
-				// /birddogwbsetup
+				// White Balance Variables
 				color_temp: { label: `Color Temp` },
-				// /birddogpicsetup
+				// Picture Setup Variables
+				color: { label: `Saturation` },
 				contrast: { label: `Contrast` },
 				effect: { label: `Effect` },
 				gamma: { label: `Gamma` },
 				hue: { label: `Hue` },
 				noise_reduction: { label: `Noise Reduction` },
-				saturation: { label: `Saturation` },
 				sharpness: { label: `Sharpness` },
 				wide_dynamic_range: { label: `Wide Dynamic Range` },
-				// /birddogcmsetup
+				// Color Matrix Variables
 				cm_blue_gain: { label: 'Blue Gain' },
 				cm_blue_hue: { label: 'Blue Hue' },
 				cm_cyan_gain: { label: 'Cyan Gain' },
@@ -279,7 +285,7 @@ module.exports = {
 				// Exposure Actions
 				bright_level: { range: { min: 0, max: 27, default: 14 } },
 				expCompLvl: { choices: CHOICES.UP_DOWN_VALUE, default: 'up', range: { min: -7, max: 7, default: 0 } },
-				expM: { choices: CHOICES.EXP_MODE_1, default: 'FULL-AUTO' },
+				exposure_mode: { choices: CHOICES.EXP_MODE_1, default: 'FULL-AUTO' },
 				gain: { choices: CHOICES.GAIN_1, default: 0 },
 				iris: { choices: CHOICES.IRIS_1, default: 8, range: { closed: 0, min: 1, max: 13 } },
 				shutter_control_overwrite: { choices: CHOICES.ON_OFF, default: 'On' },
@@ -294,8 +300,14 @@ module.exports = {
 				wb_mode: { choices: CHOICES.WB_MODE_1, default: 'AUTO' },
 				color_temp: { choices: CHOICES.COLOR_TEMP, default: '6500' },
 				// Picture Setup Actions
-				contrast: { choices: CHOICES.UP_DOWN_VALUE, default: 'up', range: { min: 0, max: 15, default: 7 } },
+				color: { choices: CHOICES.UP_DOWN_VALUE, default: 'up', range: { min: 0, max: 15, default: 8 } },
+				contrast: { choices: CHOICES.UP_DOWN_VALUE, default: 'up', range: { min: 0, max: 15, default: 8 } },
 				pictureEffect: { choices: CHOICES.PICTURE_EFFECT, default: 'BW' },
+				gamma: { choices: CHOICES.UP_DOWN_VALUE, default: 'up', range: { min: 0, max: 4, default: 2 } },
+				hue: { choices: CHOICES.UP_DOWN_VALUE, default: 'up', range: { min: 0, max: 15, default: 8 } },
+				noise_reduction: { choices: CHOICES.OFF_1_to_5, default: 'Off' },
+				sharpness: { choices: CHOICES.UP_DOWN_VALUE, default: 'up', range: { min: 0, max: 15, default: 8 } },
+				wide_dynamic_range: { choices: CHOICES.OFF_1_to_6, default: 'Off' },
 				// Color Matrix Actions
 				// Advanced Setup Actions
 				// External Setup Actions
@@ -317,30 +329,31 @@ module.exports = {
 			},
 			variables: {
 				...COMMON[1],
-				// /encodesetup
+				// Encode Setup Variables
 				tally_mode: { label: `Tally Mode` },
-				// /birddogptzsetup
+				// PTZ Variables
 				pan_speed: { label: `Pan Speed` },
 				tilt_speed: { label: `Tilt Speed` },
 				pan_position: { label: `Pan Position` },
 				tilt_position: { label: `Tilt Position` },
-				// /birddogexpsetup
+				// Exposure Variables
 				ae_response: { label: `Ae Response` },
 				gain_limit: { label: `Gain Limit` },
 				high_sensitivity: { label: `High Sensitivity` },
 				slow_shutter_en: { label: `Slow Shutter Enable` },
 				slow_shutter_limit: { label: `Slow Shutter Limit` },
-				// /birddogpicsetup
-				backlight_com: { label: `Backlight Com` },
+				// Picture Setup Variables
+				backlight_com: { label: `Backlight Compensation` },
 				chroma_suppress: { label: `Chroma Suppress` },
 				effect: { label: `Effect` },
 				gamma: { label: `Gamma` },
-				hlc_mode: { label: `HLC Mode` },
+				highlight_comp: { label: `Highlight Compensation` },
+				highlight_comp_mask: { label: `Highlight Compensation Mask` },
 				ir_cutfilter: { label: `IR Cut Filter` },
 				noise_reduction: { label: `Noise Reduction` },
 				sharpness: { label: `Sharpness` },
 				stabilizer: { label: `Stabilizer` },
-				// /birddogcmsetup
+				// Color Matrix Variables
 				cm_blue_gain: { label: 'Blue Gain' },
 				cm_blue_hue: { label: 'Blue Hue' },
 				cm_color_gain: { label: 'Color Gain' },
@@ -355,7 +368,7 @@ module.exports = {
 				cm_red_hue: { label: 'Red Hue' },
 				cm_yellow_gain: { label: 'Yellow Gain' },
 				cm_yellow_hue: { label: 'Yellow Hue' },
-				// /birddogadvancesetup
+				// Advanced Setup Variables
 				brightness: { label: 'Brightness' },
 				brightness_comp: { label: 'Brightness Comp' },
 				comp_level: { label: 'Comp Level' },
@@ -389,7 +402,7 @@ module.exports = {
 				ae_response: { range: { min: 1, max: 48, default: 1 } },
 				bright_level: { range: { min: 0, max: 31, default: 16 } },
 				expCompLvl: { choices: CHOICES.UP_DOWN_VALUE, default: 'up', range: { min: -128, max: 127, default: 0 } },
-				expM: { choices: CHOICES.EXP_MODE_2, default: 'FULL-AUTO' },
+				exposure_mode: { choices: CHOICES.EXP_MODE_2, default: 'FULL-AUTO' },
 				gain: { choices: CHOICES.GAIN_2, default: 1 },
 				gain_limit: { range: { min: 4, max: 15, default: 15 } },
 				iris: { choices: CHOICES.IRIS_2, default: 12, range: { closed: 0, min: 5, max: 17 } },
@@ -405,8 +418,16 @@ module.exports = {
 				// White Balance Actions
 				wb_mode: { choices: CHOICES.WB_MODE_2, default: 'AUTO' },
 				// Picture Setup Actions
+				backlight_com: { choices: CHOICES.ON_OFF, default: 'Off' },
+				chroma_suppress: { choices: CHOICES.OFF_L_M_H, default: 'Off' },
 				pictureEffect: { choices: CHOICES.PICTURE_EFFECT, default: 'BW' },
-				irMode: { choices: CHOICES.IR_CUT_FILTER_3, default: 'NoiseReduction' },
+				gamma: { choices: CHOICES.UP_DOWN_VALUE, default: 'up', range: { min: 0, max: 1, default: 1 } },
+				highlight_comp: { choices: CHOICES.OFF_L_M_H, default: 'Off' },
+				highlight_comp_mask: { choices: CHOICES.UP_DOWN_VALUE, default: 'up', range: { min: 0, max: 3, default: 1 } },
+				ir_cutfilter: { choices: CHOICES.IR_CUT_FILTER_3, default: 'NoiseReduction' },
+				noise_reduction: { choices: CHOICES.OFF_1_to_5, default: 'Off' },
+				sharpness: { choices: CHOICES.UP_DOWN_VALUE, default: 'up', range: { min: -128, max: 127, default: 0 } },
+				stabilizer: { choices: CHOICES.ON_OFF, default: 'Off' },
 				// Color Matrix Actions
 				// Advanced Setup Actions
 				// External Setup Actions
@@ -428,31 +449,32 @@ module.exports = {
 			},
 			variables: {
 				...COMMON[1],
-				// /encodesetup
+				// Encode Setup Variables
 				tally_mode: { label: `Tally Mode` },
-				// /birddogptzsetup
+				// PTZ Variables
 				pan_speed: { label: `Pan Speed` },
 				tilt_speed: { label: `Tilt Speed` },
 				pan_position: { label: `Pan Position` },
 				tilt_position: { label: `Tilt Position` },
-				// /birddogexpsetup
+				// Exposure Variables
 				ae_response: { label: `Ae Response` },
 				gain_limit: { label: `Gain Limit` },
 				high_sensitivity: { label: `High Sensitivity` },
 				slow_shutter_en: { label: `Slow Shutter Enable` },
 				slow_shutter_limit: { label: `Slow Shutter Limit` },
-				// /birddogpicsetup
-				backlight_com: { label: `Backlight Com` },
+				// Picture Setup Variables
+				backlight_com: { label: `Backlight Compensation` },
 				chroma_suppress: { label: `Chroma Suppress` },
 				effect: { label: `Effect` },
 				gamma: { label: `Gamma` },
-				hlc_mode: { label: `HLC Mode` },
+				highlight_comp: { label: `Highlight Compensation` },
+				highlight_comp_mask: { label: `Highlight Compensation Mask` },
 				ir_cutfilter: { label: `IR Cut Filter` },
 				low_latency: { label: `Low Latency` },
 				noise_reduction: { label: `Noise Reduction` },
 				sharpness: { label: `Sharpness` },
 				stabilizer: { label: `Stabilizer` },
-				// /birddogcmsetup
+				// Color Matrix Variables
 				cm_blue_gain: { label: 'Blue Gain' },
 				cm_blue_hue: { label: 'Blue Hue' },
 				cm_color_gain: { label: 'Color Gain' },
@@ -467,7 +489,7 @@ module.exports = {
 				cm_red_hue: { label: 'Red Hue' },
 				cm_yellow_gain: { label: 'Yellow Gain' },
 				cm_yellow_hue: { label: 'Yellow Hue' },
-				// /birddogadvancesetup
+				// Advanced Setup Variables
 				brightness: { label: 'Brightness' },
 				brightness_comp: { label: 'Brightness Comp' },
 				comp_level: { label: 'Comp Level' },
@@ -501,7 +523,7 @@ module.exports = {
 				ae_response: { range: { min: 1, max: 48, default: 1 } },
 				bright_level: { range: { min: 0, max: 31, default: 16 } },
 				expCompLvl: { choices: CHOICES.UP_DOWN_VALUE, default: 'up', range: { min: -128, max: 127, default: 0 } },
-				expM: { choices: CHOICES.EXP_MODE_1, default: 'FULL-AUTO' },
+				exposure_mode: { choices: CHOICES.EXP_MODE_1, default: 'FULL-AUTO' },
 				gain: { choices: CHOICES.GAIN_2, default: 1 },
 				gain_limit: { range: { min: 4, max: 15, default: 15 } },
 				iris: { choices: CHOICES.IRIS_2, default: 12, range: { closed: 0, min: 5, max: 17 } },
@@ -517,8 +539,17 @@ module.exports = {
 				// White Balance Actions
 				wb_mode: { choices: CHOICES.WB_MODE_2, default: 'AUTO' },
 				// Picture Setup Actions
+				backlight_com: { choices: CHOICES.ON_OFF, default: 'Off' },
+				chroma_suppress: { choices: CHOICES.OFF_L_M_H, default: 'Off' },
 				pictureEffect: { choices: CHOICES.PICTURE_EFFECT, default: 'BW' },
-				irMode: { choices: CHOICES.IR_CUT_FILTER_1, default: 'Auto' },
+				gamma: { choices: CHOICES.UP_DOWN_VALUE, default: 'up', range: { min: 0, max: 1, default: 1 } },
+				highlight_comp: { choices: CHOICES.OFF_L_M_H, default: 'Off' },
+				highlight_comp_mask: { choices: CHOICES.UP_DOWN_VALUE, default: 'up', range: { min: 0, max: 15, default: 1 } },
+				ir_cutfilter: { choices: CHOICES.IR_CUT_FILTER_1, default: 'Auto' },
+				low_latency: { choices: CHOICES.ON_OFF, default: 'Off' },
+				noise_reduction: { choices: CHOICES.OFF_1_to_5, default: 'Off' },
+				sharpness: { choices: CHOICES.UP_DOWN_VALUE, default: 'up', range: { min: -128, max: 127, default: 0 } },
+				stabilizer: { choices: CHOICES.ON_OFF, default: 'Off' },
 				// Color Matrix Actions
 				// Advanced Setup Actions
 				// External Setup Actions
@@ -541,28 +572,29 @@ module.exports = {
 			},
 			variables: {
 				...COMMON[1],
-				// /birddogptzsetup
+				// PTZ Variables
 				pan_speed: { label: `Pan Speed` },
 				tilt_speed: { label: `Tilt Speed` },
 				pan_position: { label: `Pan Position` },
 				tilt_position: { label: `Tilt Position` },
-				// /birddogexpsetup
+				// Exposure Variables
 				ae_response: { label: `Ae Response` },
 				gain_limit: { label: `Gain Limit` },
 				high_sensitivity: { label: `High Sensitivity` },
 				slow_shutter_en: { label: `Slow Shutter Enable` },
 				slow_shutter_limit: { label: `Slow Shutter Limit` },
-				// /birddogpicsetup
-				backlight_com: { label: `Backlight Com` },
+				// Picture Setup Variables
+				backlight_com: { label: `Backlight Compensation` },
 				chroma_suppress: { label: `Chroma Suppress` },
 				effect: { label: `Effect` },
 				gamma: { label: `Gamma` },
-				hlc_mode: { label: `HLC Mode` },
+				highlight_comp: { label: `Highlight Compensation` },
+				highlight_comp_mask: { label: `Highlight Compensation Mask` },
 				ir_cutfilter: { label: `IR Cut Filter` },
 				noise_reduction: { label: `Noise Reduction` },
 				sharpness: { label: `Sharpness` },
 				stabilizer: { label: `Stabilizer` },
-				// /birddogcmsetup
+				// Color Matrix Variables
 				cm_blue_gain: { label: 'Blue Gain' },
 				cm_blue_hue: { label: 'Blue Hue' },
 				cm_color_gain: { label: 'Color Gain' },
@@ -577,7 +609,7 @@ module.exports = {
 				cm_red_hue: { label: 'Red Hue' },
 				cm_yellow_gain: { label: 'Yellow Gain' },
 				cm_yellow_hue: { label: 'Yellow Hue' },
-				// /birddogadvancesetup
+				// Advanced Setup Variables
 				brightness: { label: 'Brightness' },
 				brightness_comp: { label: 'Brightness Comp' },
 				comp_level: { label: 'Comp Level' },
@@ -610,7 +642,7 @@ module.exports = {
 				ae_response: { range: { min: 1, max: 48, default: 1 } },
 				bright_level: { range: { min: 0, max: 31, default: 16 } },
 				expCompLvl: { choices: CHOICES.UP_DOWN_VALUE, default: 'up', range: { min: -128, max: 127, default: 0 } },
-				expM: { choices: CHOICES.EXP_MODE_1, default: 'FULL-AUTO' },
+				exposure_mode: { choices: CHOICES.EXP_MODE_1, default: 'FULL-AUTO' },
 				gain: { choices: CHOICES.GAIN_2, default: 1 },
 				gain_limit: { range: { min: 4, max: 15, default: 15 } },
 				highSensitivity: { choices: CHOICES.ON_OFF, default: 'On' },
@@ -626,8 +658,16 @@ module.exports = {
 				// White Balance Actions
 				wb_mode: { choices: CHOICES.WB_MODE_2, default: 'AUTO' },
 				// Picture Setup Actions
+				backlight_com: { choices: CHOICES.ON_OFF, default: 'Off' },
+				chroma_suppress: { choices: CHOICES.OFF_L_M_H, default: 'Off' },
 				pictureEffect: { choices: CHOICES.PICTURE_EFFECT, default: 'BW' },
-				irMode: { choices: CHOICES.IR_CUT_FILTER_1, default: 'Auto' },
+				gamma: { choices: CHOICES.UP_DOWN_VALUE, default: 'up', range: { min: 0, max: 1, default: 1 } },
+				highlight_comp: { choices: CHOICES.OFF_L_M_H, default: 'Off' },
+				highlight_comp_mask: { choices: CHOICES.UP_DOWN_VALUE, default: 'up', range: { min: 0, max: 15, default: 1 } },
+				ir_cutfilter: { choices: CHOICES.IR_CUT_FILTER_1, default: 'Auto' },
+				noise_reduction: { choices: CHOICES.OFF_1_to_5, default: 'Off' },
+				sharpness: { choices: CHOICES.UP_DOWN_VALUE, default: 'up', range: { min: -128, max: 127, default: 0 } },
+				stabilizer: { choices: CHOICES.ON_OFF, default: 'Off' },
 				// Color Matrix Actions
 				// Advanced Setup Actions
 				// External Setup Actions
@@ -650,28 +690,29 @@ module.exports = {
 			},
 			variables: {
 				...COMMON[1],
-				// /birddogptzsetup
+				// PTZ Variables
 				pan_speed: { label: `Pan Speed` },
 				tilt_speed: { label: `Tilt Speed` },
 				pan_position: { label: `Pan Position` },
 				tilt_position: { label: `Tilt Position` },
-				// /birddogexpsetup
+				// Exposure Variables
 				ae_response: { label: `Ae Response` },
 				gain_limit: { label: `Gain Limit` },
 				high_sensitivity: { label: `High Sensitivity` },
 				slow_shutter_en: { label: `Slow Shutter Enable` },
 				slow_shutter_limit: { label: `Slow Shutter Limit` },
-				// /birddogpicsetup
-				backlight_com: { label: `Backlight Com` },
+				// Picture Setup Variables
+				backlight_com: { label: `Backlight Compensation` },
 				chroma_suppress: { label: `Chroma Suppress` },
 				effect: { label: `Effect` },
 				gamma: { label: `Gamma` },
-				hlc_mode: { label: `HLC Mode` },
+				highlight_comp: { label: `Highlight Compensation` },
+				highlight_comp_mask: { label: `Highlight Compensation Mask` },
 				ir_cutfilter: { label: `IR Cut Filter` },
 				noise_reduction: { label: `Noise Reduction` },
 				sharpness: { label: `Sharpness` },
 				stabilizer: { label: `Stabilizer` },
-				// /birddogcmsetup
+				// Color Matrix Variables
 				cm_blue_gain: { label: 'Blue Gain' },
 				cm_blue_hue: { label: 'Blue Hue' },
 				cm_color_gain: { label: 'Color Gain' },
@@ -686,7 +727,7 @@ module.exports = {
 				cm_red_hue: { label: 'Red Hue' },
 				cm_yellow_gain: { label: 'Yellow Gain' },
 				cm_yellow_hue: { label: 'Yellow Hue' },
-				// /birddogadvancesetup
+				// Advanced Setup Variables
 				brightness: { label: 'Brightness' },
 				brightness_comp: { label: 'Brightness Comp' },
 				comp_level: { label: 'Comp Level' },
@@ -719,7 +760,7 @@ module.exports = {
 				ae_response: { range: { min: 1, max: 48, default: 1 } },
 				bright_level: { range: { min: 0, max: 31, default: 16 } },
 				expCompLvl: { choices: CHOICES.UP_DOWN_VALUE, default: 'up', range: { min: -128, max: 127, default: 0 } },
-				expM: { choices: CHOICES.EXP_MODE_1, default: 'FULL-AUTO' },
+				exposure_mode: { choices: CHOICES.EXP_MODE_1, default: 'FULL-AUTO' },
 				gain: { choices: CHOICES.GAIN_2, default: 1 },
 				gain_limit: { range: { min: 4, max: 15, default: 15 } },
 				highSensitivity: { choices: CHOICES.ON_OFF, default: 'On' },
@@ -735,8 +776,16 @@ module.exports = {
 				// White Balance Actions
 				wb_mode: { choices: CHOICES.WB_MODE_2, default: 'AUTO' },
 				// Picture Setup Actions
+				backlight_com: { choices: CHOICES.ON_OFF, default: 'Off' },
+				chroma_suppress: { choices: CHOICES.OFF_L_M_H, default: 'Off' },
 				pictureEffect: { choices: CHOICES.PICTURE_EFFECT, default: 'BW' },
-				irMode: { choices: CHOICES.IR_CUT_FILTER_1, default: 'Auto' },
+				gamma: { choices: CHOICES.UP_DOWN_VALUE, default: 'up', range: { min: 0, max: 1, default: 1 } },
+				highlight_comp: { choices: CHOICES.OFF_L_M_H, default: 'Off' },
+				highlight_comp_mask: { choices: CHOICES.UP_DOWN_VALUE, default: 'up', range: { min: 0, max: 15, default: 1 } },
+				ir_cutfilter: { choices: CHOICES.IR_CUT_FILTER_1, default: 'Auto' },
+				noise_reduction: { choices: CHOICES.OFF_1_to_5, default: 'Off' },
+				sharpness: { choices: CHOICES.UP_DOWN_VALUE, default: 'up', range: { min: -128, max: 127, default: 0 } },
+				stabilizer: { choices: CHOICES.ON_OFF, default: 'Off' },
 				// Color Matrix Actions
 				// Advanced Setup Actions
 				// External Setup Actions
@@ -759,28 +808,29 @@ module.exports = {
 			},
 			variables: {
 				...COMMON[1],
-				// /birddogptzsetup
+				// PTZ Variables
 				pan_speed: { label: `Pan Speed` },
 				tilt_speed: { label: `Tilt Speed` },
 				pan_position: { label: `Pan Position` },
 				tilt_position: { label: `Tilt Position` },
-				// /birddogexpsetup
+				// Exposure Variables
 				ae_response: { label: `Ae Response` },
 				gain_limit: { label: `Gain Limit` },
 				high_sensitivity: { label: `High Sensitivity` },
 				slow_shutter_en: { label: `Slow Shutter Enable` },
 				slow_shutter_limit: { label: `Slow Shutter Limit` },
-				// /birddogpicsetup
-				backlight_com: { label: `Backlight Com` },
+				// Picture Setup Variables
+				backlight_com: { label: `Backlight Compensation` },
 				chroma_suppress: { label: `Chroma Suppress` },
 				effect: { label: `Effect` },
 				gamma: { label: `Gamma` },
-				hlc_mode: { label: `HLC Mode` },
+				highlight_comp: { label: `Highlight Compensation` },
+				highlight_comp_mask: { label: `Highlight Compensation Mask` },
 				ir_cutfilter: { label: `IR Cut Filter` },
 				noise_reduction: { label: `Noise Reduction` },
 				sharpness: { label: `Sharpness` },
 				stabilizer: { label: `Stabilizer` },
-				// /birddogcmsetup
+				// Color Matrix Variables
 				cm_blue_gain: { label: 'Blue Gain' },
 				cm_blue_hue: { label: 'Blue Hue' },
 				cm_color_gain: { label: 'Color Gain' },
@@ -795,7 +845,7 @@ module.exports = {
 				cm_red_hue: { label: 'Red Hue' },
 				cm_yellow_gain: { label: 'Yellow Gain' },
 				cm_yellow_hue: { label: 'Yellow Hue' },
-				// /birddogadvancesetup
+				// Advanced Setup Variables
 				brightness: { label: 'Brightness' },
 				brightness_comp: { label: 'Brightness Comp' },
 				comp_level: { label: 'Comp Level' },
@@ -828,7 +878,7 @@ module.exports = {
 				ae_response: { range: { min: 1, max: 48, default: 1 } },
 				bright_level: { range: { min: 0, max: 31, default: 16 } },
 				expCompLvl: { choices: CHOICES.UP_DOWN_VALUE, default: 'up', range: { min: -128, max: 127, default: 0 } },
-				expM: { choices: CHOICES.EXP_MODE_1, default: 'FULL-AUTO' },
+				exposure_mode: { choices: CHOICES.EXP_MODE_1, default: 'FULL-AUTO' },
 				gain: { choices: CHOICES.GAIN_2, default: 1 },
 				gain_limit: { range: { min: 4, max: 15, default: 15 } },
 				highSensitivity: { choices: CHOICES.ON_OFF, default: 'On' },
@@ -844,8 +894,16 @@ module.exports = {
 				// White Balance Actions
 				wb_mode: { choices: CHOICES.WB_MODE_2, default: 'AUTO' },
 				// Picture Setup Actions
+				backlight_com: { choices: CHOICES.ON_OFF, default: 'Off' },
+				chroma_suppress: { choices: CHOICES.OFF_L_M_H, default: 'Off' },
 				pictureEffect: { choices: CHOICES.PICTURE_EFFECT, default: 'BW' },
-				irMode: { choices: CHOICES.IR_CUT_FILTER_1, default: 'Auto' },
+				gamma: { choices: CHOICES.UP_DOWN_VALUE, default: 'up', range: { min: 0, max: 1, default: 1 } },
+				highlight_comp: { choices: CHOICES.OFF_L_M_H, default: 'Off' },
+				highlight_comp_mask: { choices: CHOICES.UP_DOWN_VALUE, default: 'up', range: { min: 0, max: 15, default: 1 } },
+				ir_cutfilter: { choices: CHOICES.IR_CUT_FILTER_1, default: 'Auto' },
+				noise_reduction: { choices: CHOICES.OFF_1_to_5, default: 'Off' },
+				sharpness: { choices: CHOICES.UP_DOWN_VALUE, default: 'up', range: { min: -128, max: 127, default: 0 } },
+				stabilizer: { choices: CHOICES.ON_OFF, default: 'Off' },
 				// Color Matrix Actions
 				// Advanced Setup Actions
 				// External Setup Actions
@@ -868,28 +926,29 @@ module.exports = {
 			},
 			variables: {
 				...COMMON[1],
-				// /birddogptzsetup
+				// PTZ Variables
 				pan_speed: { label: `Pan Speed` },
 				tilt_speed: { label: `Tilt Speed` },
 				pan_position: { label: `Pan Position` },
 				tilt_position: { label: `Tilt Position` },
-				// /birddogexpsetup
+				// Exposure Variables
 				ae_response: { label: `Ae Response` },
 				gain_limit: { label: `Gain Limit` },
 				high_sensitivity: { label: `High Sensitivity` },
 				slow_shutter_en: { label: `Slow Shutter Enable` },
 				slow_shutter_limit: { label: `Slow Shutter Limit` },
-				// /birddogpicsetup
-				backlight_com: { label: `Backlight Com` },
+				// Picture Setup Variables
+				backlight_com: { label: `Backlight Compensation` },
 				chroma_suppress: { label: `Chroma Suppress` },
 				effect: { label: `Effect` },
 				gamma: { label: `Gamma` },
-				hlc_mode: { label: `HLC Mode` },
+				highlight_comp: { label: `Highlight Compensation` },
+				highlight_comp_mask: { label: `Highlight Compensation Mask` },
 				ir_cutfilter: { label: `IR Cut Filter` },
 				noise_reduction: { label: `Noise Reduction` },
 				sharpness: { label: `Sharpness` },
 				stabilizer: { label: `Stabilizer` },
-				// /birddogcmsetup
+				// Color Matrix Variables
 				cm_blue_gain: { label: 'Blue Gain' },
 				cm_blue_hue: { label: 'Blue Hue' },
 				cm_color_gain: { label: 'Color Gain' },
@@ -904,7 +963,7 @@ module.exports = {
 				cm_red_hue: { label: 'Red Hue' },
 				cm_yellow_gain: { label: 'Yellow Gain' },
 				cm_yellow_hue: { label: 'Yellow Hue' },
-				// /birddogadvancesetup
+				// Advanced Setup Variables
 				brightness: { label: 'Brightness' },
 				brightness_comp: { label: 'Brightness Comp' },
 				comp_level: { label: 'Comp Level' },
@@ -937,7 +996,7 @@ module.exports = {
 				ae_response: { range: { min: 1, max: 48, default: 1 } },
 				bright_level: { range: { min: 0, max: 31, default: 16 } },
 				expCompLvl: { choices: CHOICES.UP_DOWN_VALUE, default: 'up', range: { min: -128, max: 127, default: 0 } },
-				expM: { choices: CHOICES.EXP_MODE_1, default: 'FULL-AUTO' },
+				exposure_mode: { choices: CHOICES.EXP_MODE_1, default: 'FULL-AUTO' },
 				gain: { choices: CHOICES.GAIN_2, default: 1 },
 				gain_limit: { range: { min: 4, max: 15, default: 15 } },
 				highSensitivity: { choices: CHOICES.ON_OFF, default: 'On' },
@@ -953,8 +1012,16 @@ module.exports = {
 				// White Balance Actions
 				wb_mode: { choices: CHOICES.WB_MODE_2, default: 'AUTO' },
 				// Picture Setup Actions
+				backlight_com: { choices: CHOICES.ON_OFF, default: 'Off' },
+				chroma_suppress: { choices: CHOICES.OFF_L_M_H, default: 'Off' },
 				pictureEffect: { choices: CHOICES.PICTURE_EFFECT, default: 'BW' },
-				irMode: { choices: CHOICES.IR_CUT_FILTER_1, default: 'Auto' },
+				gamma: { choices: CHOICES.UP_DOWN_VALUE, default: 'up', range: { min: 0, max: 1, default: 1 } },
+				highlight_comp: { choices: CHOICES.OFF_L_M_H, default: 'Off' },
+				highlight_comp_mask: { choices: CHOICES.UP_DOWN_VALUE, default: 'up', range: { min: 0, max: 15, default: 1 } },
+				ir_cutfilter: { choices: CHOICES.IR_CUT_FILTER_1, default: 'Auto' },
+				noise_reduction: { choices: CHOICES.OFF_1_to_5, default: 'Off' },
+				sharpness: { choices: CHOICES.UP_DOWN_VALUE, default: 'up', range: { min: -128, max: 127, default: 0 } },
+				stabilizer: { choices: CHOICES.ON_OFF, default: 'Off' },
 				// Color Matrix Actions
 				// Advanced Setup Actions
 				// External Setup Actions
@@ -976,16 +1043,16 @@ module.exports = {
 			},
 			variables: {
 				...COMMON[1],
-				// /videooutputinterface
+				// Video Output Interface Variables
 				video_output: {},
-				// /encodesetup
+				// Encode Setup Variables
 				tally_mode: { label: `Tally Mode` },
-				// /birddogptzsetup
+				// PTZ Variables
 				pan_speed: { label: `Pan Speed` },
 				tilt_speed: { label: `Tilt Speed` },
 				pan_position: { label: `Pan Position` },
 				tilt_position: { label: `Tilt Position` },
-				// /birddogexpsetup
+				// Exposure Variables
 				ae_response: { label: `Ae Response` },
 				backlight: { label: `Backlight` },
 				gain_limit: { label: `Gain Limit` },
@@ -997,7 +1064,7 @@ module.exports = {
 				slow_shutter_en: { label: `Slow Shutter Enable ` },
 				slow_shutter_limit: { label: `Slow Shutter Limit` },
 				spotlight: { label: `Spotlight` },
-				// /birddogwbsetup
+				// White Balance Variables
 				bg: { label: `BG` },
 				br: { label: `BR` },
 				gb: { label: `GB` },
@@ -1010,14 +1077,14 @@ module.exports = {
 				rg: { label: `RG` },
 				select: { label: `Select` },
 				speed: { label: `Speed` },
-				// /birddogpicsetup
+				// Picture Setup Variables
 				chroma_suppress: { label: `Chroma Suppress` },
-				hlc_mode: { label: `HLC Mode` },
+				highlight_comp: { label: `Highlight Compensation` },
 				ir_cutfilter: { label: `IR Cut Filter` },
 				stabilizer: { label: `Stabilizer` },
-				twod_nr: { label: `2D Noise Reduction` },
 				threed_nr: { label: `3D Noise Reduction` },
-				// /birddogdetsetup
+				twod_nr: { label: `2D Noise Reduction` },
+				// Detail Setup Variables
 				bandwidth: { label: `Bandwidth` },
 			},
 			actions: {
@@ -1046,7 +1113,7 @@ module.exports = {
 				bright_level: { range: { min: 0, max: 41, default: 21 } },
 				backlight: { choices: CHOICES.ON_OFF, default: 'On' },
 				expCompLvl: { choices: CHOICES.UP_DOWN_VALUE, default: 'up', range: { min: -128, max: 127, default: 0 } },
-				expM: { choices: CHOICES.EXP_MODE_3, default: 'FULL-AUTO' },
+				exposure_mode: { choices: CHOICES.EXP_MODE_3, default: 'FULL-AUTO' },
 				gain: { choices: CHOICES.GAIN_3, default: 1 },
 				gain_limit: { range: { min: 4, max: 13, default: 13 } },
 				gain_point: { choices: CHOICES.ON_OFF, default: 'On' },
@@ -1079,7 +1146,12 @@ module.exports = {
 				speed: { range: { min: 1, max: 5, default: 3 } },
 				wb_mode: { choices: CHOICES.WB_MODE_2, default: 'AUTO' },
 				// Picture Setup Actions
-				irMode: { choices: CHOICES.IR_CUT_FILTER_2, default: 'On' },
+				chroma_suppress: { choices: CHOICES.OFF_L_M_H, default: 'Off' },
+				highlight_comp: { choices: CHOICES.ON_OFF, default: 'Off' },
+				ir_cutfilter: { choices: CHOICES.IR_CUT_FILTER_2, default: 'On' },
+				stabilizer: { choices: CHOICES.ON_OFF, default: 'Off' },
+				threed_nr: { choices: CHOICES.OFF_1_to_5, default: 'Off' },
+				twod_nr: { choices: CHOICES.OFF_1_to_5, default: 'Off' },
 				// Color Matrix Actions
 				// Advanced Setup Actions
 				// External Setup Actions
@@ -1101,16 +1173,16 @@ module.exports = {
 			},
 			variables: {
 				...COMMON[1],
-				// /videooutputinterface
+				// Video Output Interface Variables
 				video_output: {},
-				// /encodesetup
+				// Encode Setup Variables
 				tally_mode: { label: `Tally Mode` },
-				// /birddogptzsetup
+				// PTZ Variables
 				pan_speed: { label: `Pan Speed` },
 				tilt_speed: { label: `Tilt Speed` },
 				pan_position: { label: `Pan Position` },
 				tilt_position: { label: `Tilt Position` },
-				// /birddogexpsetup
+				// Exposure Variables
 				ae_response: { label: `Ae Response` },
 				backlight: { label: `Backlight` },
 				gain_limit: { label: `Gain Limit` },
@@ -1122,7 +1194,7 @@ module.exports = {
 				slow_shutter_en: { label: `Slow Shutter Enable` },
 				slow_shutter_limit: { label: `Slow Shutter Limit` },
 				spotlight: { label: `Spotlight` },
-				// /birddogwbsetup
+				// White Balance Variables
 				bg: { label: `BG` },
 				br: { label: `BR` },
 				gb: { label: `GB` },
@@ -1135,14 +1207,15 @@ module.exports = {
 				rg: { label: `RG` },
 				select: { label: `Select` },
 				speed: { label: `Speed` },
-				// /birddogpicsetup
+				// Picture Setup Variables
 				chroma_suppress: { label: `Chroma Suppress` },
-				hlc_mode: { label: `HLC Mode` },
+				highlight_comp: { label: `Highlight Compensation` },
 				ir_cutfilter: { label: `IR Cut Filter` },
+				nd_filter: { label: `ND Filter` },
 				stabilizer: { label: `Stabilizer` },
-				twod_nr: { label: `2D Noise Reduction` },
 				threed_nr: { label: `3D Noise Reduction` },
-				// /birddogdetsetup
+				twod_nr: { label: `2D Noise Reduction` },
+				// Detail Setup Variables
 				bandwidth: { label: `Bandwidth` },
 			},
 			actions: {
@@ -1171,7 +1244,7 @@ module.exports = {
 				bright_level: { range: { min: 5, max: 37, default: 21 } },
 				backlight: { choices: CHOICES.ON_OFF, default: 'On' },
 				expCompLvl: { choices: CHOICES.UP_DOWN_VALUE, default: 'up', range: { min: -128, max: 127, default: 0 } },
-				expM: { choices: CHOICES.EXP_MODE_3, default: 'FULL-AUTO' },
+				exposure_mode: { choices: CHOICES.EXP_MODE_3, default: 'FULL-AUTO' },
 				gain: { choices: CHOICES.GAIN_3, default: 1 },
 				gain_limit: { range: { min: 4, max: 13, default: 13 } },
 				gain_point: { choices: CHOICES.ON_OFF, default: 'On' },
@@ -1204,7 +1277,13 @@ module.exports = {
 				speed: { range: { min: 1, max: 5, default: 3 } },
 				wb_mode: { choices: CHOICES.WB_MODE_2, default: 'AUTO' },
 				// Picture Setup Actions
-				irMode: { choices: CHOICES.IR_CUT_FILTER_2, default: 'On' },
+				chroma_suppress: { choices: CHOICES.OFF_L_M_H, default: 'Off' },
+				highlight_comp: { choices: CHOICES.ON_OFF, default: 'Off' },
+				ir_cutfilter: { choices: CHOICES.IR_CUT_FILTER_2, default: 'On' },
+				nd_filter: { range: { min: 0, max: 3, default: 2 } },
+				stabilizer: { choices: CHOICES.ON_OFF, default: 'Off' },
+				threed_nr: { choices: CHOICES.OFF_1_to_5, default: 'Off' },
+				twod_nr: { choices: CHOICES.OFF_1_to_5, default: 'Off' },
 				// Color Matrix Actions
 				// Advanced Setup Actions
 				// External Setup Actions
