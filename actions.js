@@ -678,7 +678,7 @@ module.exports = {
 
 		if (MODEL_VALUES?.shutter_min_speed) {
 			actions['shutter_min_speed'] = {
-				label: 'Shutter Max Speed',
+				label: 'Shutter Min Speed',
 				options: [
 					{
 						type: 'dropdown',

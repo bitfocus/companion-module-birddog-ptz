@@ -1014,6 +1014,10 @@ class instance extends instance_skel {
 				this.camera.expsetup.GainLimit = data.GainLimit
 				this.actions()
 			}
+			else if (this.camera.expsetup?.ShutterMaxSpeed !== data.ShutterMaxSpeed) { // rebuild actions if ShutterMaxSpeed has changed
+				this.camera.expsetup.ShutterMaxSpeed = data.ShutterMaxSpeed
+				this.actions()
+			}
 			this.camera.expsetup = data
 		} else if (cmd.match('/birddogwbsetup')) {
 			this.camera.wbsetup = data
