@@ -1922,7 +1922,7 @@ class instance extends instance_skel {
 					errorText.match('ECONNREFUSED') ||
 					errorText.match('ENOTFOUND') ||
 					errorText.match('EHOSTDOWN') ||
-					errorText.match('EHOSTDOWN')
+					errorText.match('ETIMEDOUT')
 				) {
 					if (this.currentStatus != 2) {
 						this.status(this.STATUS_ERROR)
