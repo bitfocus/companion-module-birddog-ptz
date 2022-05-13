@@ -1558,7 +1558,7 @@ exports.initFeedbacks = function () {
 				},
 			],
 			callback: (feedback) => {
-				return this.camera?.picsetup?.NoiseReduction == feedback.options.val
+				return this.camera?.picsetup?.Stabilizer == feedback.options.val
 			},
 		}
 	}
@@ -1970,7 +1970,12 @@ exports.initFeedbacks = function () {
 			options: [
 				{
 					type: 'number',
-					label: 'Value (' + MODEL_VALUES.highlight_detail.range.min + ' to ' + MODEL_VALUES.highlight_detail.range.max + ')',
+					label:
+						'Value (' +
+						MODEL_VALUES.highlight_detail.range.min +
+						' to ' +
+						MODEL_VALUES.highlight_detail.range.max +
+						')',
 					id: 'value',
 					min: MODEL_VALUES.highlight_detail.range.min,
 					max: MODEL_VALUES.highlight_detail.range.max,

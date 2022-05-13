@@ -1691,7 +1691,12 @@ module.exports = {
 					},
 					{
 						type: 'number',
-						label: 'Value (' + MODEL_VALUES.highlight_detail.range.min + ' to ' + MODEL_VALUES.highlight_detail.range.max + ')',
+						label:
+							'Value (' +
+							MODEL_VALUES.highlight_detail.range.min +
+							' to ' +
+							MODEL_VALUES.highlight_detail.range.max +
+							')',
 						id: 'value',
 						min: MODEL_VALUES.highlight_detail.range.min,
 						max: MODEL_VALUES.highlight_detail.range.max,

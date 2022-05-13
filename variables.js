@@ -611,7 +611,7 @@ exports.updateVariables = function () {
 		if (MODEL_SPEC?.hv_balance) {
 			this.setVariable('hv_balance', this.camera.detail.HvBalance)
 		}
-		
+
 		if (MODEL_SPEC?.limit) {
 			this.setVariable('limit', this.camera.detail.Limit)
 		}
