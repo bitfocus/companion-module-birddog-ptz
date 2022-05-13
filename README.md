@@ -19,6 +19,8 @@ See [HELP.md](https://github.com/bitfocus/companion-module-birddog-ptz/blob/main
   - Analog Audio
     - Analog Audio In Gain
     - Analog Audio Out Gain
+  - Video Output
+    - Video Output
   - PTZ
     - Pan Position
     - Pan Speed
@@ -31,6 +33,8 @@ See [HELP.md](https://github.com/bitfocus/companion-module-birddog-ptz/blob/main
     - NDI Group Enable
   - Encode Transport
     - Transmit Method
+  - NDI Discovery
+    - NDI Discovery Server
   - Exposure
     - Ae Response
     - Backlight

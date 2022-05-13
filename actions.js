@@ -91,7 +91,7 @@ module.exports = {
 				options: [
 					{
 						type: 'dropdown',
-						label: 'Decode Comms / Decode Loop',
+						label: 'Mode',
 						id: 'val',
 						choices: MODEL_VALUES.analogAudioOutput.choices,
 						default: MODEL_VALUES.analogAudioOutput.default,
@@ -101,6 +101,21 @@ module.exports = {
 		}
 
 		// Video Output Interface Actions
+
+		if (MODEL_VALUES?.video_output) {
+			actions['video_output'] = {
+				label: 'Video Output',
+				options: [
+					{
+						type: 'dropdown',
+						label: 'Mode',
+						id: 'val',
+						choices: MODEL_VALUES.video_output.choices,
+						default: MODEL_VALUES.video_output.default,
+					},
+				],
+			}
+		}
 
 		// Encode Setup Actions
 
@@ -179,6 +194,7 @@ module.exports = {
 		}
 
 		// Encode Transport Actions
+
 		if (MODEL_VALUES?.transmit_method) {
 			actions['transmit_method'] = {
 				label: 'Transmit Method',
@@ -195,6 +211,21 @@ module.exports = {
 		}
 
 		// NDI Discovery Server Actions
+
+		if (MODEL_VALUES?.ndi_discovery_server) {
+			actions['ndi_discovery_server'] = {
+				label: 'NDI Discovery Server',
+				options: [
+					{
+						type: 'dropdown',
+						label: 'Enabled / Disabled',
+						id: 'val',
+						choices: MODEL_VALUES.ndi_discovery_server.choices,
+						default: MODEL_VALUES.ndi_discovery_server.default,
+					},
+				],
+			}
+		}
 
 		// PTZ Actions
 

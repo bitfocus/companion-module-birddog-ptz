@@ -428,6 +428,11 @@ module.exports = {
 		{ id: 'DecodeLoop', label: 'Loop' },
 	],
 
+	VIDEO_OUTPUT: [
+		{ id: 'NormalMode', label: 'Normal' },
+		{ id: 'LowLatency', label: 'Low Latency' },
+	],
+
 	// ############
 	// NDI ENCODE Look Ups
 	// ############
@@ -457,6 +462,15 @@ module.exports = {
 	TALLY_MODE: [
 		{ id: 'TallyOn', label: 'Tally On' },
 		{ id: 'TallyOff', label: 'Tally Off' },
+	],
+
+	// ############
+	// NDI Discovery Look Ups
+	// ############
+
+	NDI_DIS_SVR: [
+		{ id: 'NDIDisServEn', label: 'Enabled' },
+		{ id: 'NDIDisServDis', label: 'Disabled' },
 	],
 
 	// ############

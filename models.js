@@ -99,6 +99,7 @@ const COMMON = [
 		// Encode Transport Actions
 		transmit_method: { choices: CHOICES.ENCODE_TXPM, default: 'UDP' },
 		// NDI Discovery Server Actions
+		ndi_discovery_server: { choices: CHOICES.NDI_DIS_SVR, default: 'NDIDisServDis' },
 		// PTZ Actions
 		zoomSpeed: { choices: CHOICES.SPEED_CHANGES, default: 'up', range: { min: 0, max: 7, default: 4 } },
 		zoom: { choices: CHOICES.PTZ_ZOOM, default: 'in' },
@@ -1205,6 +1206,7 @@ module.exports = {
 			id: 'P400',
 			apicalls: {
 				...COMMON[0],
+				videooutputinterface: true,
 				birddogdetsetup: true,
 				birddoggammasetup: true,
 				pt_pos: true,
@@ -1212,7 +1214,7 @@ module.exports = {
 			variables: {
 				...COMMON[1],
 				// Video Output Interface Variables
-				video_output: {},
+				video_output: { label: `Video Mode` },
 				// Encode Setup Variables
 				tally_mode: { label: `Tally Mode` },
 				// PTZ Variables
@@ -1278,6 +1280,7 @@ module.exports = {
 				// General Camera Actions
 				// Analog Audio Actions
 				// Video Output Interface Actions
+				video_output: { choices: CHOICES.VIDEO_OUTPUT, default: 'NormalMode' },
 				// Encode Setup Actions
 				// Encode Transport Actions
 				// NDI Discovery Server Actions
@@ -1371,6 +1374,7 @@ module.exports = {
 			id: 'P4K',
 			apicalls: {
 				...COMMON[0],
+				videooutputinterface: true,
 				birddogdetsetup: true,
 				birddoggammasetup: true,
 				pt_pos: true,
@@ -1378,7 +1382,7 @@ module.exports = {
 			variables: {
 				...COMMON[1],
 				// Video Output Interface Variables
-				video_output: {},
+				video_output: { label: `Video Mode` },
 				// Encode Setup Variables
 				tally_mode: { label: `Tally Mode` },
 				// PTZ Variables
@@ -1445,6 +1449,7 @@ module.exports = {
 				// General Camera Actions
 				// Analog Audio Actions
 				// Video Output Interface Actions
+				video_output: { choices: CHOICES.VIDEO_OUTPUT, default: 'NormalMode' },
 				// Encode Setup Actions
 				// Encode Transport Actions
 				// NDI Discovery Server Actions

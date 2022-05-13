@@ -149,6 +149,30 @@ exports.initFeedbacks = function () {
 
 	// Video Output Interface Feedback
 
+	if (MODEL_VALUES?.video_output) {
+		feedbacks.video_output = {
+			type: 'boolean',
+			label: 'Video Output',
+			description: 'If the camera matches the selected Video Output mode, change the style of the button',
+			style: {
+				color: ColorBlack,
+				bgcolor: ColorGreen,
+			},
+			options: [
+				{
+					type: 'dropdown',
+					label: 'Mode',
+					id: 'val',
+					choices: MODEL_VALUES.video_output.choices,
+					default: MODEL_VALUES.video_output.default,
+				},
+			],
+			callback: (feedback) => {
+				return this.camera?.video?.videooutput == feedback.options.val
+			},
+		}
+	}
+
 	// Encode Setup Feedback
 
 	if (MODEL_VALUES?.encodeBandwidth) {
@@ -274,6 +298,30 @@ exports.initFeedbacks = function () {
 	}
 
 	// NDI Discovery Server Feedback
+
+	if (MODEL_VALUES?.ndi_discovery_server) {
+		feedbacks.ndi_discovery_server = {
+			type: 'boolean',
+			label: 'NDI Discovery Server',
+			description: 'If the camera matches the selected NDI Discovery Server status, change the style of the button',
+			style: {
+				color: ColorBlack,
+				bgcolor: ColorGreen,
+			},
+			options: [
+				{
+					type: 'dropdown',
+					label: 'Enabled / Disabled',
+					id: 'val',
+					choices: MODEL_VALUES.ndi_discovery_server.choices,
+					default: MODEL_VALUES.ndi_discovery_server.default,
+				},
+			],
+			callback: (feedback) => {
+				return this.camera?.ndiserver?.NDIDisServ == feedback.options.val
+			},
+		}
+	}
 
 	// PTZ Feedback
 

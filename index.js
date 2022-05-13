@@ -179,6 +179,13 @@ class instance extends instance_skel {
 
 			// Video Output Interface Actions
 
+			case 'video_output':
+				body = {
+					videooutput: String(opt.val),
+				}
+				this.sendCommand('videooutputinterface', 'POST', body)
+				break
+
 			// Encode Setup Actions
 
 			case 'tally':
@@ -229,6 +236,13 @@ class instance extends instance_skel {
 				break
 
 			// NDI Discovery Server Actions
+
+			case 'ndi_discovery_server':
+				body = {
+					NDIDisServ: String(opt.val),
+				}
+				this.sendCommand('NDIDisServer', 'POST', body)
+				break
 
 			// PTZ Actions
 
@@ -1959,6 +1973,8 @@ class instance extends instance_skel {
 			}
 		} else if (cmd.match('/analogaudiosetup')) {
 			this.camera.audio = data
+		} else if (cmd.match('/videooutputinterface')) {
+			this.camera.video = data
 		} else if (cmd.match('/encodetransport')) {
 			this.camera.transport = data
 		} else if (cmd.match('/encodesetup')) {
@@ -2155,6 +2171,9 @@ class instance extends instance_skel {
 		this.sendVISCACommand(VISCA.MSG_QRY + VISCA.CAM_FREEZE + VISCA.END_MSG, '\x5b') // Query Freeze
 		this.sendVISCACommand(VISCA.MSG_QRY + VISCA.CAM_ZOOM_DIRECT + VISCA.END_MSG, '\x5c') // Query Zoom Position
 		// Specific Model Info
+		if (MODEL_API?.videooutputinterface) {
+			this.sendCommand('videooutputinterface', 'GET')
+		}
 		if (MODEL_API?.birddogcmsetup) {
 			this.sendCommand('birddogcmsetup', 'GET')
 		}
