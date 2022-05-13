@@ -1143,6 +1143,300 @@ class instance extends instance_skel {
 
 			// Color Matrix Actions
 
+			case 'cm_blue_gain':
+				let cm_blue_gain = this.camera?.cmsetup?.BlueGain
+					? this.camera.cmsetup.BlueGain
+					: MODEL_VALUES.cm_blue_gain.range.default
+				switch (opt.val) {
+					case 'up':
+						newValue = cm_blue_gain < MODEL_VALUES.cm_blue_gain.range.max ? ++cm_blue_gain : cm_blue_gain
+						break
+					case 'down':
+						newValue = cm_blue_gain > MODEL_VALUES.cm_blue_gain.range.min ? --cm_blue_gain : cm_blue_gain
+						break
+					case 'value':
+						newValue = opt.value
+						break
+				}
+				body = {
+					BlueGain: String(newValue),
+				}
+				this.sendCommand('birddogcmsetup', 'POST', body)
+				break
+
+			case 'cm_blue_hue':
+				let cm_blue_hue = this.camera?.cmsetup?.BlueHue
+					? this.camera.cmsetup.BlueHue
+					: MODEL_VALUES.cm_blue_hue.range.default
+				switch (opt.val) {
+					case 'up':
+						newValue = cm_blue_hue < MODEL_VALUES.cm_blue_hue.range.max ? ++cm_blue_hue : cm_blue_hue
+						break
+					case 'down':
+						newValue = cm_blue_hue > MODEL_VALUES.cm_blue_hue.range.min ? --cm_blue_hue : cm_blue_hue
+						break
+					case 'value':
+						newValue = opt.value
+						break
+				}
+				body = {
+					BlueHue: String(newValue),
+				}
+				this.sendCommand('birddogcmsetup', 'POST', body)
+				break
+
+			case 'cm_color_gain':
+				let cm_color_gain = this.camera?.cmsetup?.ColorGain
+					? this.camera.cmsetup.ColorGain
+					: MODEL_VALUES.cm_color_gain.range.default
+				switch (opt.val) {
+					case 'up':
+						newValue = cm_color_gain < MODEL_VALUES.cm_color_gain.range.max ? ++cm_color_gain : cm_color_gain
+						break
+					case 'down':
+						newValue = cm_color_gain > MODEL_VALUES.cm_color_gain.range.min ? --cm_color_gain : cm_color_gain
+						break
+					case 'value':
+						newValue = opt.value
+						break
+				}
+				body = {
+					ColorGain: String(newValue),
+				}
+				this.sendCommand('birddogcmsetup', 'POST', body)
+				break
+
+			case 'cm_cyan_gain':
+				let cm_cyan_gain = this.camera?.cmsetup?.CyanGain
+					? this.camera.cmsetup.CyanGain
+					: MODEL_VALUES.cm_cyan_gain.range.default
+				switch (opt.val) {
+					case 'up':
+						newValue = cm_cyan_gain < MODEL_VALUES.cm_cyan_gain.range.max ? ++cm_cyan_gain : cm_cyan_gain
+						break
+					case 'down':
+						newValue = cm_cyan_gain > MODEL_VALUES.cm_cyan_gain.range.min ? --cm_cyan_gain : cm_cyan_gain
+						break
+					case 'value':
+						newValue = opt.value
+						break
+				}
+				body = {
+					CyanGain: String(newValue),
+				}
+				this.sendCommand('birddogcmsetup', 'POST', body)
+				break
+
+			case 'cm_cyan_hue':
+				let cm_cyan_hue = this.camera?.cmsetup?.CyanHue
+					? this.camera.cmsetup.CyanHue
+					: MODEL_VALUES.cm_cyan_hue.range.default
+				switch (opt.val) {
+					case 'up':
+						newValue = cm_cyan_hue < MODEL_VALUES.cm_cyan_hue.range.max ? ++cm_cyan_hue : cm_cyan_hue
+						break
+					case 'down':
+						newValue = cm_cyan_hue > MODEL_VALUES.cm_cyan_hue.range.min ? --cm_cyan_hue : cm_cyan_hue
+						break
+					case 'value':
+						newValue = opt.value
+						break
+				}
+				body = {
+					CyanHue: String(newValue),
+				}
+				this.sendCommand('birddogcmsetup', 'POST', body)
+				break
+
+			case 'cm_green_gain':
+				let cm_green_gain = this.camera?.cmsetup?.GreenGain
+					? this.camera.cmsetup.GreenGain
+					: MODEL_VALUES.cm_green_gain.range.default
+				switch (opt.val) {
+					case 'up':
+						newValue = cm_green_gain < MODEL_VALUES.cm_green_gain.range.max ? ++cm_green_gain : cm_green_gain
+						break
+					case 'down':
+						newValue = cm_green_gain > MODEL_VALUES.cm_green_gain.range.min ? --cm_green_gain : cm_green_gain
+						break
+					case 'value':
+						newValue = opt.value
+						break
+				}
+				body = {
+					GreenGain: String(newValue),
+				}
+				this.sendCommand('birddogcmsetup', 'POST', body)
+				break
+
+			case 'cm_green_hue':
+				let cm_green_hue = this.camera?.cmsetup?.GreenHue
+					? this.camera.cmsetup.GreenHue
+					: MODEL_VALUES.cm_green_hue.range.default
+				switch (opt.val) {
+					case 'up':
+						newValue = cm_green_hue < MODEL_VALUES.cm_green_hue.range.max ? ++cm_green_hue : cm_green_hue
+						break
+					case 'down':
+						newValue = cm_green_hue > MODEL_VALUES.cm_green_hue.range.min ? --cm_green_hue : cm_green_hue
+						break
+					case 'value':
+						newValue = opt.value
+						break
+				}
+				body = {
+					GreenHue: String(newValue),
+				}
+				this.sendCommand('birddogcmsetup', 'POST', body)
+				break
+
+			case 'cm_hue_phase':
+				let cm_hue_phase = this.camera?.cmsetup?.HuePhase
+					? this.camera.cmsetup.HuePhase
+					: MODEL_VALUES.cm_hue_phase.range.default
+				switch (opt.val) {
+					case 'up':
+						newValue = cm_hue_phase < MODEL_VALUES.cm_hue_phase.range.max ? ++cm_hue_phase : cm_hue_phase
+						break
+					case 'down':
+						newValue = cm_hue_phase > MODEL_VALUES.cm_hue_phase.range.min ? --cm_hue_phase : cm_hue_phase
+						break
+					case 'value':
+						newValue = opt.value
+						break
+				}
+				body = {
+					HuePhase: String(newValue),
+				}
+				this.sendCommand('birddogcmsetup', 'POST', body)
+				break
+
+			case 'cm_mag_gain':
+				let cm_mag_gain = this.camera?.cmsetup?.MagGain
+					? this.camera.cmsetup.MagGain
+					: MODEL_VALUES.cm_mag_gain.range.default
+				switch (opt.val) {
+					case 'up':
+						newValue = cm_mag_gain < MODEL_VALUES.cm_mag_gain.range.max ? ++cm_mag_gain : cm_mag_gain
+						break
+					case 'down':
+						newValue = cm_mag_gain > MODEL_VALUES.cm_mag_gain.range.min ? --cm_mag_gain : cm_mag_gain
+						break
+					case 'value':
+						newValue = opt.value
+						break
+				}
+				body = {
+					MagGain: String(newValue),
+				}
+				this.sendCommand('birddogcmsetup', 'POST', body)
+				break
+
+			case 'cm_mag_hue':
+				let cm_mag_hue = this.camera?.cmsetup?.MagHue
+					? this.camera.cmsetup.MagHue
+					: MODEL_VALUES.cm_mag_hue.range.default
+				switch (opt.val) {
+					case 'up':
+						newValue = cm_mag_hue < MODEL_VALUES.cm_mag_hue.range.max ? ++cm_mag_hue : cm_mag_hue
+						break
+					case 'down':
+						newValue = cm_mag_hue > MODEL_VALUES.cm_mag_hue.range.min ? --cm_mag_hue : cm_mag_hue
+						break
+					case 'value':
+						newValue = opt.value
+						break
+				}
+				body = {
+					MagHue: String(newValue),
+				}
+				this.sendCommand('birddogcmsetup', 'POST', body)
+				break
+
+			case 'cm_red_gain':
+				let cm_red_gain = this.camera?.cmsetup?.RedGain
+					? this.camera.cmsetup.RedGain
+					: MODEL_VALUES.cm_red_gain.range.default
+				switch (opt.val) {
+					case 'up':
+						newValue = cm_red_gain < MODEL_VALUES.cm_red_gain.range.max ? ++cm_red_gain : cm_red_gain
+						break
+					case 'down':
+						newValue = cm_red_gain > MODEL_VALUES.cm_red_gain.range.min ? --cm_red_gain : cm_red_gain
+						break
+					case 'value':
+						newValue = opt.value
+						break
+				}
+				body = {
+					RedGain: String(newValue),
+				}
+				this.sendCommand('birddogcmsetup', 'POST', body)
+				break
+
+			case 'cm_red_hue':
+				let cm_red_hue = this.camera?.cmsetup?.RedHue
+					? this.camera.cmsetup.RedHue
+					: MODEL_VALUES.cm_red_hue.range.default
+				switch (opt.val) {
+					case 'up':
+						newValue = cm_red_hue < MODEL_VALUES.cm_red_hue.range.max ? ++cm_red_hue : cm_red_hue
+						break
+					case 'down':
+						newValue = cm_red_hue > MODEL_VALUES.cm_red_hue.range.min ? --cm_red_hue : cm_red_hue
+						break
+					case 'value':
+						newValue = opt.value
+						break
+				}
+				body = {
+					RedHue: String(newValue),
+				}
+				this.sendCommand('birddogcmsetup', 'POST', body)
+				break
+
+			case 'cm_yellow_gain':
+				let cm_yellow_gain = this.camera?.cmsetup?.YellowGain
+					? this.camera.cmsetup.YellowGain
+					: MODEL_VALUES.cm_yellow_gain.range.default
+				switch (opt.val) {
+					case 'up':
+						newValue = cm_yellow_gain < MODEL_VALUES.cm_yellow_gain.range.max ? ++cm_yellow_gain : cm_yellow_gain
+						break
+					case 'down':
+						newValue = cm_yellow_gain > MODEL_VALUES.cm_yellow_gain.range.min ? --cm_yellow_gain : cm_yellow_gain
+						break
+					case 'value':
+						newValue = opt.value
+						break
+				}
+				body = {
+					YellowGain: String(newValue),
+				}
+				this.sendCommand('birddogcmsetup', 'POST', body)
+				break
+
+			case 'cm_yellow_hue':
+				let cm_yellow_hue = this.camera?.cmsetup?.YellowHue
+					? this.camera.cmsetup.YellowHue
+					: MODEL_VALUES.cm_yellow_hue.range.default
+				switch (opt.val) {
+					case 'up':
+						newValue = cm_yellow_hue < MODEL_VALUES.cm_yellow_hue.range.max ? ++cm_yellow_hue : cm_yellow_hue
+						break
+					case 'down':
+						newValue = cm_yellow_hue > MODEL_VALUES.cm_yellow_hue.range.min ? --cm_yellow_hue : cm_yellow_hue
+						break
+					case 'value':
+						newValue = opt.value
+						break
+				}
+				body = {
+					YellowHue: String(newValue),
+				}
+				this.sendCommand('birddogcmsetup', 'POST', body)
+				break
+
 			// Advanced Setup Actions
 
 			case 'brightness':

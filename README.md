@@ -66,6 +66,21 @@ See [HELP.md](https://github.com/bitfocus/companion-module-birddog-ptz/blob/main
     - 3D Noise Reduction
     - 2D Noise Reduction
     - Wide Dynamic Range
+  - Color Matrix
+    - Color Matrix - Blue Gain
+    - Color Matrix - Blue Hue
+    - Color Matrix - Color Gain
+    - Color Matrix - Cyan Gain
+    - Color Matrix - Cyan Hue
+    - Color Matrix - Green Gain
+    - Color Matrix - Green Hue
+    - Color Matrix - Hue Phase
+    - Color Matrix - Magenta Gain
+    - Color Matrix - Magenta Hue
+    - Color Matrix - Red Gain
+    - Color Matrix - Red Hue
+    - Color Matrix - Yellow Gain
+    - Color Matrix - Yellow Hue
   - Advanced Settings
     - Brightness
     - Brightness Compensation

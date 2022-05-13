@@ -1637,6 +1637,357 @@ exports.initFeedbacks = function () {
 
 	// Color Matrix Feedback
 
+	if (MODEL_VALUES?.cm_blue_gain) {
+		feedbacks.cm_blue_gain = {
+			type: 'boolean',
+			label: 'Color Matrix - Blue Gain',
+			description: 'If the camera matches the selected Blue Gain value, change the style of the button',
+			style: {
+				color: ColorBlack,
+				bgcolor: ColorGreen,
+			},
+			options: [
+				{
+					type: 'number',
+					label: 'Value (' + MODEL_VALUES.cm_blue_gain.range.min + ' to ' + MODEL_VALUES.cm_blue_gain.range.max + ')',
+					id: 'value',
+					min: MODEL_VALUES.cm_blue_gain.range.min,
+					max: MODEL_VALUES.cm_blue_gain.range.max,
+					default: MODEL_VALUES.cm_blue_gain.range.default,
+				},
+			],
+			callback: (feedback) => {
+				return this.camera?.cmsetup?.BlueGain == feedback.options.value
+			},
+		}
+	}
+
+	if (MODEL_VALUES?.cm_blue_hue) {
+		feedbacks.cm_blue_hue = {
+			type: 'boolean',
+			label: 'Color Matrix - Blue Hue',
+			description: 'If the camera matches the selected Blue Hue value, change the style of the button',
+			style: {
+				color: ColorBlack,
+				bgcolor: ColorGreen,
+			},
+			options: [
+				{
+					type: 'number',
+					label: 'Value (' + MODEL_VALUES.cm_blue_hue.range.min + ' to ' + MODEL_VALUES.cm_blue_hue.range.max + ')',
+					id: 'value',
+					min: MODEL_VALUES.cm_blue_hue.range.min,
+					max: MODEL_VALUES.cm_blue_hue.range.max,
+					default: MODEL_VALUES.cm_blue_hue.range.default,
+				},
+			],
+			callback: (feedback) => {
+				return this.camera?.cmsetup?.BlueHue == feedback.options.value
+			},
+		}
+	}
+
+	if (MODEL_VALUES?.cm_color_gain) {
+		feedbacks.cm_color_gain = {
+			type: 'boolean',
+			label: 'Color Matrix - Color Gain',
+			description: 'If the camera matches the selected Color Gain value, change the style of the button',
+			style: {
+				color: ColorBlack,
+				bgcolor: ColorGreen,
+			},
+			options: [
+				{
+					type: 'number',
+					label: 'Value (' + MODEL_VALUES.cm_color_gain.range.min + ' to ' + MODEL_VALUES.cm_color_gain.range.max + ')',
+					id: 'value',
+					min: MODEL_VALUES.cm_color_gain.range.min,
+					max: MODEL_VALUES.cm_color_gain.range.max,
+					default: MODEL_VALUES.cm_color_gain.range.default,
+				},
+			],
+			callback: (feedback) => {
+				return this.camera?.cmsetup?.ColourGain == feedback.options.value
+			},
+		}
+	}
+
+	if (MODEL_VALUES?.cm_cyan_gain) {
+		feedbacks.cm_cyan_gain = {
+			type: 'boolean',
+			label: 'Color Matrix - Cyan Gain',
+			description: 'If the camera matches the selected Cyan Gain value, change the style of the button',
+			style: {
+				color: ColorBlack,
+				bgcolor: ColorGreen,
+			},
+			options: [
+				{
+					type: 'number',
+					label: 'Value (' + MODEL_VALUES.cm_cyan_gain.range.min + ' to ' + MODEL_VALUES.cm_cyan_gain.range.max + ')',
+					id: 'value',
+					min: MODEL_VALUES.cm_cyan_gain.range.min,
+					max: MODEL_VALUES.cm_cyan_gain.range.max,
+					default: MODEL_VALUES.cm_cyan_gain.range.default,
+				},
+			],
+			callback: (feedback) => {
+				return this.camera?.cmsetup?.CyanGain == feedback.options.value
+			},
+		}
+	}
+
+	if (MODEL_VALUES?.cm_cyan_hue) {
+		feedbacks.cm_cyan_hue = {
+			type: 'boolean',
+			label: 'Color Matrix - Cyan Hue',
+			description: 'If the camera matches the selected Cyan Hue value, change the style of the button',
+			style: {
+				color: ColorBlack,
+				bgcolor: ColorGreen,
+			},
+			options: [
+				{
+					type: 'number',
+					label: 'Value (' + MODEL_VALUES.cm_cyan_hue.range.min + ' to ' + MODEL_VALUES.cm_cyan_hue.range.max + ')',
+					id: 'value',
+					min: MODEL_VALUES.cm_cyan_hue.range.min,
+					max: MODEL_VALUES.cm_cyan_hue.range.max,
+					default: MODEL_VALUES.cm_cyan_hue.range.default,
+				},
+			],
+			callback: (feedback) => {
+				return this.camera?.cmsetup?.CyanHue == feedback.options.value
+			},
+		}
+	}
+
+	if (MODEL_VALUES?.cm_green_gain) {
+		feedbacks.cm_green_gain = {
+			type: 'boolean',
+			label: 'Color Matrix - Green Gain',
+			description: 'If the camera matches the selected Green Gain value, change the style of the button',
+			style: {
+				color: ColorBlack,
+				bgcolor: ColorGreen,
+			},
+			options: [
+				{
+					type: 'number',
+					label: 'Value (' + MODEL_VALUES.cm_green_gain.range.min + ' to ' + MODEL_VALUES.cm_green_gain.range.max + ')',
+					id: 'value',
+					min: MODEL_VALUES.cm_green_gain.range.min,
+					max: MODEL_VALUES.cm_green_gain.range.max,
+					default: MODEL_VALUES.cm_green_gain.range.default,
+				},
+			],
+			callback: (feedback) => {
+				return this.camera?.cmsetup?.GreenGain == feedback.options.value
+			},
+		}
+	}
+
+	if (MODEL_VALUES?.cm_green_hue) {
+		feedbacks.cm_green_hue = {
+			type: 'boolean',
+			label: 'Color Matrix - Green Hue',
+			description: 'If the camera matches the selected Green Hue value, change the style of the button',
+			style: {
+				color: ColorBlack,
+				bgcolor: ColorGreen,
+			},
+			options: [
+				{
+					type: 'number',
+					label: 'Value (' + MODEL_VALUES.cm_green_hue.range.min + ' to ' + MODEL_VALUES.cm_green_hue.range.max + ')',
+					id: 'value',
+					min: MODEL_VALUES.cm_green_hue.range.min,
+					max: MODEL_VALUES.cm_green_hue.range.max,
+					default: MODEL_VALUES.cm_green_hue.range.default,
+				},
+			],
+			callback: (feedback) => {
+				return this.camera?.cmsetup?.GreenHue == feedback.options.value
+			},
+		}
+	}
+
+	if (MODEL_VALUES?.cm_hue_phase) {
+		feedbacks.cm_hue_phase = {
+			type: 'boolean',
+			label: 'Color Matrix - Hue Phase',
+			description: 'If the camera matches the selected Hue Phase value, change the style of the button',
+			style: {
+				color: ColorBlack,
+				bgcolor: ColorGreen,
+			},
+			options: [
+				{
+					type: 'number',
+					label: 'Value (' + MODEL_VALUES.cm_hue_phase.range.min + ' to ' + MODEL_VALUES.cm_hue_phase.range.max + ')',
+					id: 'value',
+					min: MODEL_VALUES.cm_hue_phase.range.min,
+					max: MODEL_VALUES.cm_hue_phase.range.max,
+					default: MODEL_VALUES.cm_hue_phase.range.default,
+				},
+			],
+			callback: (feedback) => {
+				return this.camera?.cmsetup?.HuePhase == feedback.options.value
+			},
+		}
+	}
+
+	if (MODEL_VALUES?.cm_mag_gain) {
+		feedbacks.cm_mag_gain = {
+			type: 'boolean',
+			label: 'Color Matrix - Magenta Gain',
+			description: 'If the camera matches the selected Magenta Gain value, change the style of the button',
+			style: {
+				color: ColorBlack,
+				bgcolor: ColorGreen,
+			},
+			options: [
+				{
+					type: 'number',
+					label: 'Value (' + MODEL_VALUES.cm_mag_gain.range.min + ' to ' + MODEL_VALUES.cm_mag_gain.range.max + ')',
+					id: 'value',
+					min: MODEL_VALUES.cm_mag_gain.range.min,
+					max: MODEL_VALUES.cm_mag_gain.range.max,
+					default: MODEL_VALUES.cm_mag_gain.range.default,
+				},
+			],
+			callback: (feedback) => {
+				return this.camera?.cmsetup?.MagGain == feedback.options.value
+			},
+		}
+	}
+
+	if (MODEL_VALUES?.cm_mag_hue) {
+		feedbacks.cm_mag_hue = {
+			type: 'boolean',
+			label: 'Color Matrix - Magenta Hue',
+			description: 'If the camera matches the selected Magenta Hue value, change the style of the button',
+			style: {
+				color: ColorBlack,
+				bgcolor: ColorGreen,
+			},
+			options: [
+				{
+					type: 'number',
+					label: 'Value (' + MODEL_VALUES.cm_mag_hue.range.min + ' to ' + MODEL_VALUES.cm_mag_hue.range.max + ')',
+					id: 'value',
+					min: MODEL_VALUES.cm_mag_hue.range.min,
+					max: MODEL_VALUES.cm_mag_hue.range.max,
+					default: MODEL_VALUES.cm_mag_hue.range.default,
+				},
+			],
+			callback: (feedback) => {
+				return this.camera?.cmsetup?.MagHue == feedback.options.value
+			},
+		}
+	}
+
+	if (MODEL_VALUES?.cm_red_gain) {
+		feedbacks.cm_red_gain = {
+			type: 'boolean',
+			label: 'Color Matrix - Red Gain',
+			description: 'If the camera matches the selected Red Gain value, change the style of the button',
+			style: {
+				color: ColorBlack,
+				bgcolor: ColorGreen,
+			},
+			options: [
+				{
+					type: 'number',
+					label: 'Value (' + MODEL_VALUES.cm_red_gain.range.min + ' to ' + MODEL_VALUES.cm_red_gain.range.max + ')',
+					id: 'value',
+					min: MODEL_VALUES.cm_red_gain.range.min,
+					max: MODEL_VALUES.cm_red_gain.range.max,
+					default: MODEL_VALUES.cm_red_gain.range.default,
+				},
+			],
+			callback: (feedback) => {
+				return this.camera?.cmsetup?.RedGain == feedback.options.value
+			},
+		}
+	}
+
+	if (MODEL_VALUES?.cm_red_hue) {
+		feedbacks.cm_red_hue = {
+			type: 'boolean',
+			label: 'Color Matrix - Red Hue',
+			description: 'If the camera matches the selected Red Hue value, change the style of the button',
+			style: {
+				color: ColorBlack,
+				bgcolor: ColorGreen,
+			},
+			options: [
+				{
+					type: 'number',
+					label: 'Value (' + MODEL_VALUES.cm_red_hue.range.min + ' to ' + MODEL_VALUES.cm_red_hue.range.max + ')',
+					id: 'value',
+					min: MODEL_VALUES.cm_red_hue.range.min,
+					max: MODEL_VALUES.cm_red_hue.range.max,
+					default: MODEL_VALUES.cm_red_hue.range.default,
+				},
+			],
+			callback: (feedback) => {
+				return this.camera?.cmsetup?.RedHue == feedback.options.value
+			},
+		}
+	}
+
+	if (MODEL_VALUES?.cm_yellow_gain) {
+		feedbacks.cm_yellow_gain = {
+			type: 'boolean',
+			label: 'Color Matrix - Yellow Gain',
+			description: 'If the camera matches the selected Yellow Gain value, change the style of the button',
+			style: {
+				color: ColorBlack,
+				bgcolor: ColorGreen,
+			},
+			options: [
+				{
+					type: 'number',
+					label:
+						'Value (' + MODEL_VALUES.cm_yellow_gain.range.min + ' to ' + MODEL_VALUES.cm_yellow_gain.range.max + ')',
+					id: 'value',
+					min: MODEL_VALUES.cm_yellow_gain.range.min,
+					max: MODEL_VALUES.cm_yellow_gain.range.max,
+					default: MODEL_VALUES.cm_yellow_gain.range.default,
+				},
+			],
+			callback: (feedback) => {
+				return this.camera?.cmsetup?.YellowGain == feedback.options.value
+			},
+		}
+	}
+
+	if (MODEL_VALUES?.cm_yellow_hue) {
+		feedbacks.cm_yellow_hue = {
+			type: 'boolean',
+			label: 'Color Matrix - Yellow Hue',
+			description: 'If the camera matches the selected Yellow Hue value, change the style of the button',
+			style: {
+				color: ColorBlack,
+				bgcolor: ColorGreen,
+			},
+			options: [
+				{
+					type: 'number',
+					label: 'Value (' + MODEL_VALUES.cm_yellow_hue.range.min + ' to ' + MODEL_VALUES.cm_yellow_hue.range.max + ')',
+					id: 'value',
+					min: MODEL_VALUES.cm_yellow_hue.range.min,
+					max: MODEL_VALUES.cm_yellow_hue.range.max,
+					default: MODEL_VALUES.cm_yellow_hue.range.default,
+				},
+			],
+			callback: (feedback) => {
+				return this.camera?.cmsetup?.YellowHue == feedback.options.value
+			},
+		}
+	}
+
 	// Advanced Setup Feedback
 
 	if (MODEL_VALUES?.brightness) {

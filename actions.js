@@ -1450,6 +1450,346 @@ module.exports = {
 
 		// Color Matrix Actions
 
+		if (MODEL_VALUES?.cm_blue_gain) {
+			actions['cm_blue_gain'] = {
+				label: 'Color Matrix - Blue Gain',
+				options: [
+					{
+						type: 'dropdown',
+						label: 'Blue Gain',
+						id: 'val',
+						choices: MODEL_VALUES.cm_blue_gain.choices,
+						default: MODEL_VALUES.cm_blue_gain.default,
+					},
+					{
+						type: 'number',
+						label: 'Value (' + MODEL_VALUES.cm_blue_gain.range.min + ' to ' + MODEL_VALUES.cm_blue_gain.range.max + ')',
+						id: 'value',
+						min: MODEL_VALUES.cm_blue_gain.range.min,
+						max: MODEL_VALUES.cm_blue_gain.range.max,
+						default: MODEL_VALUES.cm_blue_gain.range.default,
+						isVisible: (action) => action.options.val == 'value',
+					},
+				],
+			}
+		}
+
+		if (MODEL_VALUES?.cm_blue_hue) {
+			actions['cm_blue_hue'] = {
+				label: 'Color Matrix - Blue Hue',
+				options: [
+					{
+						type: 'dropdown',
+						label: 'Blue Hue',
+						id: 'val',
+						choices: MODEL_VALUES.cm_blue_hue.choices,
+						default: MODEL_VALUES.cm_blue_hue.default,
+					},
+					{
+						type: 'number',
+						label: 'Value (' + MODEL_VALUES.cm_blue_hue.range.min + ' to ' + MODEL_VALUES.cm_blue_hue.range.max + ')',
+						id: 'value',
+						min: MODEL_VALUES.cm_blue_hue.range.min,
+						max: MODEL_VALUES.cm_blue_hue.range.max,
+						default: MODEL_VALUES.cm_blue_hue.range.default,
+						isVisible: (action) => action.options.val == 'value',
+					},
+				],
+			}
+		}
+
+		if (MODEL_VALUES?.cm_color_gain) {
+			actions['cm_color_gain'] = {
+				label: 'Color Matrix - Color Gain',
+				options: [
+					{
+						type: 'dropdown',
+						label: 'Color Gain',
+						id: 'val',
+						choices: MODEL_VALUES.cm_color_gain.choices,
+						default: MODEL_VALUES.cm_color_gain.default,
+					},
+					{
+						type: 'number',
+						label:
+							'Value (' + MODEL_VALUES.cm_color_gain.range.min + ' to ' + MODEL_VALUES.cm_color_gain.range.max + ')',
+						id: 'value',
+						min: MODEL_VALUES.cm_color_gain.range.min,
+						max: MODEL_VALUES.cm_color_gain.range.max,
+						default: MODEL_VALUES.cm_color_gain.range.default,
+						isVisible: (action) => action.options.val == 'value',
+					},
+				],
+			}
+		}
+
+		if (MODEL_VALUES?.cm_cyan_gain) {
+			actions['cm_cyan_gain'] = {
+				label: 'Color Matrix - Cyan Gain',
+				options: [
+					{
+						type: 'dropdown',
+						label: 'Cyan Gain',
+						id: 'val',
+						choices: MODEL_VALUES.cm_cyan_gain.choices,
+						default: MODEL_VALUES.cm_cyan_gain.default,
+					},
+					{
+						type: 'number',
+						label: 'Value (' + MODEL_VALUES.cm_cyan_gain.range.min + ' to ' + MODEL_VALUES.cm_cyan_gain.range.max + ')',
+						id: 'value',
+						min: MODEL_VALUES.cm_cyan_gain.range.min,
+						max: MODEL_VALUES.cm_cyan_gain.range.max,
+						default: MODEL_VALUES.cm_cyan_gain.range.default,
+						isVisible: (action) => action.options.val == 'value',
+					},
+				],
+			}
+		}
+
+		if (MODEL_VALUES?.cm_cyan_hue) {
+			actions['cm_cyan_hue'] = {
+				label: 'Color Matrix - Cyan Hue',
+				options: [
+					{
+						type: 'dropdown',
+						label: 'Cyan Hue',
+						id: 'val',
+						choices: MODEL_VALUES.cm_cyan_hue.choices,
+						default: MODEL_VALUES.cm_cyan_hue.default,
+					},
+					{
+						type: 'number',
+						label: 'Value (' + MODEL_VALUES.cm_cyan_hue.range.min + ' to ' + MODEL_VALUES.cm_cyan_hue.range.max + ')',
+						id: 'value',
+						min: MODEL_VALUES.cm_cyan_hue.range.min,
+						max: MODEL_VALUES.cm_cyan_hue.range.max,
+						default: MODEL_VALUES.cm_cyan_hue.range.default,
+						isVisible: (action) => action.options.val == 'value',
+					},
+				],
+			}
+		}
+
+		if (MODEL_VALUES?.cm_green_gain) {
+			actions['cm_green_gain'] = {
+				label: 'Color Matrix - Green Gain',
+				options: [
+					{
+						type: 'dropdown',
+						label: 'Green Gain',
+						id: 'val',
+						choices: MODEL_VALUES.cm_green_gain.choices,
+						default: MODEL_VALUES.cm_green_gain.default,
+					},
+					{
+						type: 'number',
+						label:
+							'Value (' + MODEL_VALUES.cm_green_gain.range.min + ' to ' + MODEL_VALUES.cm_green_gain.range.max + ')',
+						id: 'value',
+						min: MODEL_VALUES.cm_green_gain.range.min,
+						max: MODEL_VALUES.cm_green_gain.range.max,
+						default: MODEL_VALUES.cm_green_gain.range.default,
+						isVisible: (action) => action.options.val == 'value',
+					},
+				],
+			}
+		}
+
+		if (MODEL_VALUES?.cm_green_hue) {
+			actions['cm_green_hue'] = {
+				label: 'Color Matrix - Green Hue',
+				options: [
+					{
+						type: 'dropdown',
+						label: 'Green Hue',
+						id: 'val',
+						choices: MODEL_VALUES.cm_green_hue.choices,
+						default: MODEL_VALUES.cm_green_hue.default,
+					},
+					{
+						type: 'number',
+						label: 'Value (' + MODEL_VALUES.cm_green_hue.range.min + ' to ' + MODEL_VALUES.cm_green_hue.range.max + ')',
+						id: 'value',
+						min: MODEL_VALUES.cm_green_hue.range.min,
+						max: MODEL_VALUES.cm_green_hue.range.max,
+						default: MODEL_VALUES.cm_green_hue.range.default,
+						isVisible: (action) => action.options.val == 'value',
+					},
+				],
+			}
+		}
+
+		if (MODEL_VALUES?.cm_hue_phase) {
+			actions['cm_hue_phase'] = {
+				label: 'Color Matrix - Hue Phase',
+				options: [
+					{
+						type: 'dropdown',
+						label: 'Hue Phase',
+						id: 'val',
+						choices: MODEL_VALUES.cm_hue_phase.choices,
+						default: MODEL_VALUES.cm_hue_phase.default,
+					},
+					{
+						type: 'number',
+						label: 'Value (' + MODEL_VALUES.cm_hue_phase.range.min + ' to ' + MODEL_VALUES.cm_hue_phase.range.max + ')',
+						id: 'value',
+						min: MODEL_VALUES.cm_hue_phase.range.min,
+						max: MODEL_VALUES.cm_hue_phase.range.max,
+						default: MODEL_VALUES.cm_hue_phase.range.default,
+						isVisible: (action) => action.options.val == 'value',
+					},
+				],
+			}
+		}
+
+		if (MODEL_VALUES?.cm_mag_gain) {
+			actions['cm_mag_gain'] = {
+				label: 'Color Matrix - Magenta Gain',
+				options: [
+					{
+						type: 'dropdown',
+						label: 'Magenta Gain',
+						id: 'val',
+						choices: MODEL_VALUES.cm_mag_gain.choices,
+						default: MODEL_VALUES.cm_mag_gain.default,
+					},
+					{
+						type: 'number',
+						label: 'Value (' + MODEL_VALUES.cm_mag_gain.range.min + ' to ' + MODEL_VALUES.cm_mag_gain.range.max + ')',
+						id: 'value',
+						min: MODEL_VALUES.cm_mag_gain.range.min,
+						max: MODEL_VALUES.cm_mag_gain.range.max,
+						default: MODEL_VALUES.cm_mag_gain.range.default,
+						isVisible: (action) => action.options.val == 'value',
+					},
+				],
+			}
+		}
+
+		if (MODEL_VALUES?.cm_mag_hue) {
+			actions['cm_mag_hue'] = {
+				label: 'Color Matrix - Magenta Hue',
+				options: [
+					{
+						type: 'dropdown',
+						label: 'Magenta Hue',
+						id: 'val',
+						choices: MODEL_VALUES.cm_mag_hue.choices,
+						default: MODEL_VALUES.cm_mag_hue.default,
+					},
+					{
+						type: 'number',
+						label: 'Value (' + MODEL_VALUES.cm_mag_hue.range.min + ' to ' + MODEL_VALUES.cm_mag_hue.range.max + ')',
+						id: 'value',
+						min: MODEL_VALUES.cm_mag_hue.range.min,
+						max: MODEL_VALUES.cm_mag_hue.range.max,
+						default: MODEL_VALUES.cm_mag_hue.range.default,
+						isVisible: (action) => action.options.val == 'value',
+					},
+				],
+			}
+		}
+
+		if (MODEL_VALUES?.cm_red_gain) {
+			actions['cm_red_gain'] = {
+				label: 'Color Matrix - Red Gain',
+				options: [
+					{
+						type: 'dropdown',
+						label: 'Red Gain',
+						id: 'val',
+						choices: MODEL_VALUES.cm_red_gain.choices,
+						default: MODEL_VALUES.cm_red_gain.default,
+					},
+					{
+						type: 'number',
+						label: 'Value (' + MODEL_VALUES.cm_red_gain.range.min + ' to ' + MODEL_VALUES.cm_red_gain.range.max + ')',
+						id: 'value',
+						min: MODEL_VALUES.cm_red_gain.range.min,
+						max: MODEL_VALUES.cm_red_gain.range.max,
+						default: MODEL_VALUES.cm_red_gain.range.default,
+						isVisible: (action) => action.options.val == 'value',
+					},
+				],
+			}
+		}
+
+		if (MODEL_VALUES?.cm_red_hue) {
+			actions['cm_red_hue'] = {
+				label: 'Color Matrix - Red Hue',
+				options: [
+					{
+						type: 'dropdown',
+						label: 'Red Hue',
+						id: 'val',
+						choices: MODEL_VALUES.cm_red_hue.choices,
+						default: MODEL_VALUES.cm_red_hue.default,
+					},
+					{
+						type: 'number',
+						label: 'Value (' + MODEL_VALUES.cm_red_hue.range.min + ' to ' + MODEL_VALUES.cm_red_hue.range.max + ')',
+						id: 'value',
+						min: MODEL_VALUES.cm_red_hue.range.min,
+						max: MODEL_VALUES.cm_red_hue.range.max,
+						default: MODEL_VALUES.cm_red_hue.range.default,
+						isVisible: (action) => action.options.val == 'value',
+					},
+				],
+			}
+		}
+
+		if (MODEL_VALUES?.cm_yellow_gain) {
+			actions['cm_yellow_gain'] = {
+				label: 'Color Matrix - Yellow Gain',
+				options: [
+					{
+						type: 'dropdown',
+						label: 'Yellow Gain',
+						id: 'val',
+						choices: MODEL_VALUES.cm_yellow_gain.choices,
+						default: MODEL_VALUES.cm_yellow_gain.default,
+					},
+					{
+						type: 'number',
+						label:
+							'Value (' + MODEL_VALUES.cm_yellow_gain.range.min + ' to ' + MODEL_VALUES.cm_yellow_gain.range.max + ')',
+						id: 'value',
+						min: MODEL_VALUES.cm_yellow_gain.range.min,
+						max: MODEL_VALUES.cm_yellow_gain.range.max,
+						default: MODEL_VALUES.cm_yellow_gain.range.default,
+						isVisible: (action) => action.options.val == 'value',
+					},
+				],
+			}
+		}
+
+		if (MODEL_VALUES?.cm_yellow_hue) {
+			actions['cm_yellow_hue'] = {
+				label: 'Color Matrix - Yellow Hue',
+				options: [
+					{
+						type: 'dropdown',
+						label: 'Yellow Hue',
+						id: 'val',
+						choices: MODEL_VALUES.cm_yellow_hue.choices,
+						default: MODEL_VALUES.cm_yellow_hue.default,
+					},
+					{
+						type: 'number',
+						label:
+							'Value (' + MODEL_VALUES.cm_yellow_hue.range.min + ' to ' + MODEL_VALUES.cm_yellow_hue.range.max + ')',
+						id: 'value',
+						min: MODEL_VALUES.cm_yellow_hue.range.min,
+						max: MODEL_VALUES.cm_yellow_hue.range.max,
+						default: MODEL_VALUES.cm_yellow_hue.range.default,
+						isVisible: (action) => action.options.val == 'value',
+					},
+				],
+			}
+		}
+
 		// Advanced Setup Actions
 
 		if (MODEL_VALUES?.brightness) {
