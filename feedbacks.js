@@ -1558,7 +1558,7 @@ exports.initFeedbacks = function () {
 				},
 			],
 			callback: (feedback) => {
-				return this.camera?.picsetup?.NoiseReduction == feedback.options.val
+				return this.camera?.picsetup?.Stabilizer == feedback.options.val
 			},
 		}
 	}

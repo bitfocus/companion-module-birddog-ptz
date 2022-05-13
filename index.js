@@ -605,7 +605,7 @@ class instance extends instance_skel {
 							iris === MODEL_VALUES.iris.range.closed
 								? MODEL_VALUES.iris.range.min
 								: iris < MODEL_VALUES.iris.range.max
-								? --iris
+								? ++iris
 								: MODEL_VALUES.iris.range.max
 						break
 					case 'down':
@@ -945,7 +945,7 @@ class instance extends instance_skel {
 						newValue = contrast < MODEL_VALUES.contrast.range.max ? ++contrast : contrast
 						break
 					case 'down':
-						newValue = contrast > MODEL_VALUES.contrast.range.max ? --contrast : contrast
+						newValue = contrast > MODEL_VALUES.contrast.range.min ? --contrast : contrast
 						break
 					case 'value':
 						newValue = opt.value
@@ -978,7 +978,7 @@ class instance extends instance_skel {
 						newValue = gamma < MODEL_VALUES.gamma.range.max ? ++gamma : gamma
 						break
 					case 'down':
-						newValue = gamma > MODEL_VALUES.gamma.range.max ? --gamma : gamma
+						newValue = gamma > MODEL_VALUES.gamma.range.min ? --gamma : gamma
 						break
 					case 'value':
 						newValue = opt.value
@@ -1010,7 +1010,7 @@ class instance extends instance_skel {
 						break
 					case 'down':
 						newValue =
-							highlight_comp_mask > MODEL_VALUES.highlight_comp_mask.range.max
+							highlight_comp_mask > MODEL_VALUES.highlight_comp_mask.range.min
 								? --highlight_comp_mask
 								: highlight_comp_mask
 						break
@@ -1031,7 +1031,7 @@ class instance extends instance_skel {
 						newValue = hue < MODEL_VALUES.hue.range.max ? ++hue : hue
 						break
 					case 'down':
-						newValue = hue > MODEL_VALUES.hue.range.max ? --hue : hue
+						newValue = hue > MODEL_VALUES.hue.range.min ? --hue : hue
 						break
 					case 'value':
 						newValue = opt.value
@@ -1073,7 +1073,7 @@ class instance extends instance_skel {
 						newValue = nd_filter < MODEL_VALUES.nd_filter.range.max ? ++nd_filter : nd_filter
 						break
 					case 'down':
-						newValue = nd_filter > MODEL_VALUES.nd_filter.range.max ? --nd_filter : nd_filter
+						newValue = nd_filter > MODEL_VALUES.nd_filter.range.min ? --nd_filter : nd_filter
 						break
 					case 'value':
 						newValue = opt.value
@@ -1101,7 +1101,7 @@ class instance extends instance_skel {
 						newValue = sharpness < MODEL_VALUES.sharpness.range.max ? ++sharpness : sharpness
 						break
 					case 'down':
-						newValue = sharpness > MODEL_VALUES.sharpness.range.max ? --sharpness : sharpness
+						newValue = sharpness > MODEL_VALUES.sharpness.range.min ? --sharpness : sharpness
 						break
 					case 'value':
 						newValue = opt.value
@@ -1154,7 +1154,7 @@ class instance extends instance_skel {
 						newValue = brightness < MODEL_VALUES.brightness.range.max ? ++brightness : brightness
 						break
 					case 'down':
-						newValue = brightness > MODEL_VALUES.brightness.range.max ? --brightness : brightness
+						newValue = brightness > MODEL_VALUES.brightness.range.min ? --brightness : brightness
 						break
 					case 'value':
 						newValue = opt.value
@@ -1189,7 +1189,7 @@ class instance extends instance_skel {
 						newValue = gamma_offset < MODEL_VALUES.gamma_offset.range.max ? ++gamma_offset : gamma_offset
 						break
 					case 'down':
-						newValue = gamma_offset > MODEL_VALUES.gamma_offset.range.max ? --gamma_offset : gamma_offset
+						newValue = gamma_offset > MODEL_VALUES.gamma_offset.range.min ? --gamma_offset : gamma_offset
 						break
 					case 'value':
 						newValue = opt.value
@@ -1263,7 +1263,7 @@ class instance extends instance_skel {
 						newValue = crispening < MODEL_VALUES.crispening.range.max ? ++crispening : crispening
 						break
 					case 'down':
-						newValue = crispening > MODEL_VALUES.crispening.range.max ? --crispening : crispening
+						newValue = crispening > MODEL_VALUES.crispening.range.min ? --crispening : crispening
 						break
 					case 'value':
 						newValue = opt.value
@@ -1293,7 +1293,7 @@ class instance extends instance_skel {
 						break
 					case 'down':
 						newValue =
-							highlight_detail > MODEL_VALUES.highlight_detail.range.max ? --highlight_detail : highlight_detail
+							highlight_detail > MODEL_VALUES.highlight_detail.range.min ? --highlight_detail : highlight_detail
 						break
 					case 'value':
 						newValue = opt.value
@@ -1314,7 +1314,7 @@ class instance extends instance_skel {
 						newValue = hv_balance < MODEL_VALUES.hv_balance.range.max ? ++hv_balance : hv_balance
 						break
 					case 'down':
-						newValue = hv_balance > MODEL_VALUES.hv_balance.range.max ? --hv_balance : hv_balance
+						newValue = hv_balance > MODEL_VALUES.hv_balance.range.min ? --hv_balance : hv_balance
 						break
 					case 'value':
 						newValue = opt.value
@@ -1333,7 +1333,7 @@ class instance extends instance_skel {
 						newValue = limit < MODEL_VALUES.limit.range.max ? ++limit : limit
 						break
 					case 'down':
-						newValue = limit > MODEL_VALUES.limit.range.max ? --limit : limit
+						newValue = limit > MODEL_VALUES.limit.range.min ? --limit : limit
 						break
 					case 'value':
 						newValue = opt.value
@@ -1354,7 +1354,7 @@ class instance extends instance_skel {
 						newValue = super_low < MODEL_VALUES.super_low.range.max ? ++super_low : super_low
 						break
 					case 'down':
-						newValue = super_low > MODEL_VALUES.super_low.range.max ? --super_low : super_low
+						newValue = super_low > MODEL_VALUES.super_low.range.min ? --super_low : super_low
 						break
 					case 'value':
 						newValue = opt.value
@@ -1597,6 +1597,12 @@ class instance extends instance_skel {
 				let data = json
 				if (data && type == 'GET') {
 					this.processData(decodeURI(url), data)
+				} else if ((data && type == 'PUT') || type == 'POST') {
+					if (decodeURI(url).match('/encodesetup')) {
+						//Temp workaround since encodesetup is not in poll, update if changed
+						this.sendCommand('encodesetup', 'GET')
+					}
+					this.debug(data)
 				} else {
 					this.debug(`Command failed ${url}`)
 				}
@@ -1604,7 +1610,12 @@ class instance extends instance_skel {
 			.catch((err) => {
 				this.debug(err)
 				let errorText = String(err)
-				if (errorText.match('ECONNREFUSED') || errorText.match('ENOTFOUND') || errorText.match('EHOSTDOWN')) {
+				if (
+					errorText.match('ECONNREFUSED') ||
+					errorText.match('ENOTFOUND') ||
+					errorText.match('EHOSTDOWN') ||
+					errorText.match('EHOSTDOWN')
+				) {
 					if (this.currentStatus != 2) {
 						this.status(this.STATUS_ERROR)
 						this.log(
