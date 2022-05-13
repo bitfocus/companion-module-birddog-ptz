@@ -86,7 +86,6 @@ See [HELP.md](https://github.com/bitfocus/companion-module-birddog-ptz/blob/main
     - Hv Balance
     - Limit
     - Super Low
-
   - Gamma Settings
     - Black Gamma Level
     - Black Level
