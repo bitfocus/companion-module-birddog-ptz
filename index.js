@@ -1368,6 +1368,170 @@ class instance extends instance_skel {
 
 			// Gamma Setup Actions
 
+			case 'black_gamma_level':
+				let black_gamma_level = this.camera?.gammasetup?.BlackGammaLevel
+					? this.camera.gammasetup.BlackGammaLevel
+					: MODEL_VALUES.black_gamma_level.range.default
+				switch (opt.val) {
+					case 'up':
+						newValue =
+							black_gamma_level < MODEL_VALUES.black_gamma_level.range.max ? ++black_gamma_level : black_gamma_level
+						break
+					case 'down':
+						newValue =
+							black_gamma_level > MODEL_VALUES.black_gamma_level.range.max ? --black_gamma_level : black_gamma_level
+						break
+					case 'value':
+						newValue = opt.value
+						break
+				}
+				body = {
+					BlackGammaLevel: String(newValue),
+				}
+				this.sendCommand('birddoggammasetup', 'POST', body)
+				break
+
+			case 'black_level':
+				let black_level = this.camera?.gammasetup?.BlackLevel
+					? this.camera.gammasetup.BlackLevel
+					: MODEL_VALUES.black_level.range.default
+				switch (opt.val) {
+					case 'up':
+						newValue = black_level < MODEL_VALUES.black_level.range.max ? ++black_level : black_level
+						break
+					case 'down':
+						newValue = black_level > MODEL_VALUES.black_level.range.max ? --black_level : black_level
+						break
+					case 'value':
+						newValue = opt.value
+						break
+				}
+				body = {
+					BlackLevel: String(newValue),
+				}
+				this.sendCommand('birddoggammasetup', 'POST', body)
+				break
+
+			case 'black_level_range':
+				body = {
+					BlackLevelRange: String(opt.val),
+				}
+				this.sendCommand('birddoggammasetup', 'POST', body)
+				break
+
+			case 'effect':
+				let effect = this.camera?.gammasetup?.Effect ? this.camera.gammasetup.Effect : MODEL_VALUES.effect.range.default
+				switch (opt.val) {
+					case 'up':
+						newValue = effect < MODEL_VALUES.effect.range.max ? ++effect : effect
+						break
+					case 'down':
+						newValue = effect > MODEL_VALUES.effect.range.max ? --effect : effect
+						break
+					case 'value':
+						newValue = opt.value
+						break
+				}
+				body = {
+					Effect: String(newValue),
+				}
+				this.sendCommand('birddoggammasetup', 'POST', body)
+				break
+
+			case 'level':
+				let level = this.camera?.gammasetup?.Level ? this.camera.gammasetup.Level : MODEL_VALUES.level.range.default
+				switch (opt.val) {
+					case 'up':
+						newValue = level < MODEL_VALUES.level.range.max ? ++level : level
+						break
+					case 'down':
+						newValue = level > MODEL_VALUES.level.range.max ? --level : level
+						break
+					case 'value':
+						newValue = opt.value
+						break
+				}
+				body = {
+					Level: String(newValue),
+				}
+				this.sendCommand('birddoggammasetup', 'POST', body)
+				break
+
+			case 'offset':
+				let offset = this.camera?.gammasetup?.Offset ? this.camera.gammasetup.Offset : MODEL_VALUES.offset.range.default
+				switch (opt.val) {
+					case 'up':
+						newValue = offset < MODEL_VALUES.offset.range.max ? ++offset : offset
+						break
+					case 'down':
+						newValue = offset > MODEL_VALUES.offset.range.max ? --offset : offset
+						break
+					case 'value':
+						newValue = opt.value
+						break
+				}
+				body = {
+					Offset: String(newValue),
+				}
+				this.sendCommand('birddoggammasetup', 'POST', body)
+				break
+
+			case 'pattern':
+				let pattern = this.camera?.gammasetup?.Pattern
+					? this.camera.gammasetup.Pattern
+					: MODEL_VALUES.pattern.range.default
+				switch (opt.val) {
+					case 'up':
+						newValue = pattern < MODEL_VALUES.pattern.range.max ? ++pattern : pattern
+						break
+					case 'down':
+						newValue = pattern > MODEL_VALUES.pattern.range.max ? --pattern : pattern
+						break
+					case 'value':
+						newValue = opt.value
+						break
+				}
+				body = {
+					Pattern: String(newValue),
+				}
+				this.sendCommand('birddoggammasetup', 'POST', body)
+				break
+
+			case 'pattern_fine':
+				let pattern_fine = this.camera?.gammasetup?.PatternFine
+					? this.camera.gammasetup.PatternFine
+					: MODEL_VALUES.pattern_fine.range.default
+				switch (opt.val) {
+					case 'up':
+						newValue = pattern_fine < MODEL_VALUES.pattern_fine.range.max ? ++pattern_fine : pattern_fine
+						break
+					case 'down':
+						newValue = pattern_fine > MODEL_VALUES.pattern_fine.range.max ? --pattern_fine : pattern_fine
+						break
+					case 'value':
+						newValue = opt.value
+						break
+				}
+				body = {
+					PatternFine: String(newValue),
+				}
+				this.sendCommand('birddoggammasetup', 'POST', body)
+				break
+
+			case 'settings':
+				body = {
+					Settings: String(opt.val),
+				}
+				this.sendCommand('birddoggammasetup', 'POST', body)
+				break
+
+			case 'visibility_enhancer':
+				body = {
+					VisibilityEnhancer: String(opt.val),
+				}
+				this.sendCommand('birddoggammasetup', 'POST', body)
+				break
+
 			// Other Actions
 
 			case 'defog':

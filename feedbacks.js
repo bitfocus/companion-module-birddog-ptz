@@ -1880,7 +1880,7 @@ exports.initFeedbacks = function () {
 				},
 			],
 			callback: (feedback) => {
-				return this.camera?.detail?.Bandwidth == feedback.options.val
+				return this.camera?.detsetup?.Bandwidth == feedback.options.val
 			},
 		}
 	}
@@ -1904,7 +1904,7 @@ exports.initFeedbacks = function () {
 				},
 			],
 			callback: (feedback) => {
-				return this.camera?.detail?.BwBalance == feedback.options.val
+				return this.camera?.detsetup?.BwBalance == feedback.options.val
 			},
 		}
 	}
@@ -1929,7 +1929,7 @@ exports.initFeedbacks = function () {
 				},
 			],
 			callback: (feedback) => {
-				return this.camera?.detail?.Crispening == feedback.options.value
+				return this.camera?.detsetup?.Crispening == feedback.options.value
 			},
 		}
 	}
@@ -1953,7 +1953,7 @@ exports.initFeedbacks = function () {
 				},
 			],
 			callback: (feedback) => {
-				return this.camera?.detail?.Detail == feedback.options.val
+				return this.camera?.detsetup?.Detail == feedback.options.val
 			},
 		}
 	}
@@ -1970,7 +1970,12 @@ exports.initFeedbacks = function () {
 			options: [
 				{
 					type: 'number',
-					label: 'Value (' + MODEL_VALUES.highlight_detail.range.min + ' to ' + MODEL_VALUES.highlight_detail.range.max + ')',
+					label:
+						'Value (' +
+						MODEL_VALUES.highlight_detail.range.min +
+						' to ' +
+						MODEL_VALUES.highlight_detail.range.max +
+						')',
 					id: 'value',
 					min: MODEL_VALUES.highlight_detail.range.min,
 					max: MODEL_VALUES.highlight_detail.range.max,
@@ -1978,7 +1983,7 @@ exports.initFeedbacks = function () {
 				},
 			],
 			callback: (feedback) => {
-				return this.camera?.detail?.HighLightDetail == feedback.options.value
+				return this.camera?.detsetup?.HighLightDetail == feedback.options.value
 			},
 		}
 	}
@@ -2003,7 +2008,7 @@ exports.initFeedbacks = function () {
 				},
 			],
 			callback: (feedback) => {
-				return this.camera?.detail?.HvBalance == feedback.options.value
+				return this.camera?.detsetup?.HvBalance == feedback.options.value
 			},
 		}
 	}
@@ -2028,7 +2033,7 @@ exports.initFeedbacks = function () {
 				},
 			],
 			callback: (feedback) => {
-				return this.camera?.detail?.Limit == feedback.options.value
+				return this.camera?.detsetup?.Limit == feedback.options.value
 			},
 		}
 	}
@@ -2053,12 +2058,264 @@ exports.initFeedbacks = function () {
 				},
 			],
 			callback: (feedback) => {
-				return this.camera?.detail?.SuperLow == feedback.options.value
+				return this.camera?.detsetup?.SuperLow == feedback.options.value
 			},
 		}
 	}
 
 	// Gamma Setup Feedback
+
+	if (MODEL_VALUES?.black_gamma_level) {
+		feedbacks.black_gamma_level = {
+			type: 'boolean',
+			label: 'Black Gamma Level',
+			description: 'If the camera matches the selected Black Gamma Level, change the style of the button',
+			style: {
+				color: ColorBlack,
+				bgcolor: ColorGreen,
+			},
+			options: [
+				{
+					type: 'number',
+					label:
+						'Level (' +
+						MODEL_VALUES.black_gamma_level.range.min +
+						' to ' +
+						MODEL_VALUES.black_gamma_level.range.max +
+						')',
+					id: 'value',
+					min: MODEL_VALUES.black_gamma_level.range.min,
+					max: MODEL_VALUES.black_gamma_level.range.max,
+					default: MODEL_VALUES.black_gamma_level.range.default,
+				},
+			],
+			callback: (feedback) => {
+				return this.camera?.gammasetup?.BlackGammaLevel == feedback.options.value
+			},
+		}
+	}
+
+	if (MODEL_VALUES?.black_level) {
+		feedbacks.black_level = {
+			type: 'boolean',
+			label: 'Black Gamma Level',
+			description: 'If the camera matches the selected Black Level, change the style of the button',
+			style: {
+				color: ColorBlack,
+				bgcolor: ColorGreen,
+			},
+			options: [
+				{
+					type: 'number',
+					label: 'Level (' + MODEL_VALUES.black_level.range.min + ' to ' + MODEL_VALUES.black_level.range.max + ')',
+					id: 'value',
+					min: MODEL_VALUES.black_level.range.min,
+					max: MODEL_VALUES.black_level.range.max,
+					default: MODEL_VALUES.black_level.range.default,
+				},
+			],
+			callback: (feedback) => {
+				return this.camera?.gammasetup?.BlackLevel == feedback.options.value
+			},
+		}
+	}
+
+	if (MODEL_VALUES?.black_level_range) {
+		feedbacks.black_level_range = {
+			type: 'boolean',
+			label: 'Black Level Range',
+			description: 'If the camera matches the selected Black Level Range, change the style of the button',
+			style: {
+				color: ColorBlack,
+				bgcolor: ColorGreen,
+			},
+			options: [
+				{
+					type: 'dropdown',
+					label: 'Black Level Range',
+					id: 'val',
+					choices: MODEL_VALUES.black_level_range.choices,
+					default: MODEL_VALUES.black_level_range.default,
+				},
+			],
+			callback: (feedback) => {
+				return this.camera?.gammasetup?.BlackLevelRange == feedback.options.value
+			},
+		}
+	}
+
+	if (MODEL_VALUES?.effect) {
+		feedbacks.effect = {
+			type: 'boolean',
+			label: 'Effect',
+			description: 'If the camera matches the selected Effect Range, change the style of the button',
+			style: {
+				color: ColorBlack,
+				bgcolor: ColorGreen,
+			},
+			options: [
+				{
+					type: 'number',
+					label: 'Value (' + MODEL_VALUES.effect.range.min + ' to ' + MODEL_VALUES.effect.range.max + ')',
+					id: 'value',
+					min: MODEL_VALUES.effect.range.min,
+					max: MODEL_VALUES.effect.range.max,
+					default: MODEL_VALUES.effect.range.default,
+				},
+			],
+			callback: (feedback) => {
+				return this.camera?.gammasetup?.Effect == feedback.options.value
+			},
+		}
+	}
+
+	if (MODEL_VALUES?.level) {
+		feedbacks.level = {
+			type: 'boolean',
+			label: 'Effect',
+			description: 'If the camera matches the selected Level, change the style of the button',
+			style: {
+				color: ColorBlack,
+				bgcolor: ColorGreen,
+			},
+			options: [
+				{
+					type: 'number',
+					label: 'Value (' + MODEL_VALUES.level.range.min + ' to ' + MODEL_VALUES.level.range.max + ')',
+					id: 'value',
+					min: MODEL_VALUES.level.range.min,
+					max: MODEL_VALUES.level.range.max,
+					default: MODEL_VALUES.level.range.default,
+				},
+			],
+			callback: (feedback) => {
+				return this.camera?.gammasetup?.Level == feedback.options.value
+			},
+		}
+	}
+
+	if (MODEL_VALUES?.offset) {
+		feedbacks.offset = {
+			type: 'boolean',
+			label: 'Offset',
+			description: 'If the camera matches the selected Offset level, change the style of the button',
+			style: {
+				color: ColorBlack,
+				bgcolor: ColorGreen,
+			},
+			options: [
+				{
+					type: 'number',
+					label: 'Value (' + MODEL_VALUES.offset.range.min + ' to ' + MODEL_VALUES.offset.range.max + ')',
+					id: 'value',
+					min: MODEL_VALUES.offset.range.min,
+					max: MODEL_VALUES.offset.range.max,
+					default: MODEL_VALUES.offset.range.default,
+				},
+			],
+			callback: (feedback) => {
+				return this.camera?.gammasetup?.Offset == feedback.options.value
+			},
+		}
+	}
+
+	if (MODEL_VALUES?.pattern) {
+		feedbacks.pattern = {
+			type: 'boolean',
+			label: 'Pattern',
+			description: 'If the camera matches the selected Pattern level, change the style of the button',
+			style: {
+				color: ColorBlack,
+				bgcolor: ColorGreen,
+			},
+			options: [
+				{
+					type: 'number',
+					label: 'Value (' + MODEL_VALUES.pattern.range.min + ' to ' + MODEL_VALUES.pattern.range.max + ')',
+					id: 'value',
+					min: MODEL_VALUES.pattern.range.min,
+					max: MODEL_VALUES.pattern.range.max,
+					default: MODEL_VALUES.pattern.range.default,
+				},
+			],
+			callback: (feedback) => {
+				return this.camera?.gammasetup?.Pattern == feedback.options.value
+			},
+		}
+	}
+
+	if (MODEL_VALUES?.pattern_fine) {
+		feedbacks.pattern_fine = {
+			type: 'boolean',
+			label: 'Pattern Fine',
+			description: 'If the camera matches the selected Pattern Fine level, change the style of the button',
+			style: {
+				color: ColorBlack,
+				bgcolor: ColorGreen,
+			},
+			options: [
+				{
+					type: 'number',
+					label: 'Value (' + MODEL_VALUES.pattern_fine.range.min + ' to ' + MODEL_VALUES.pattern_fine.range.max + ')',
+					id: 'value',
+					min: MODEL_VALUES.pattern_fine.range.min,
+					max: MODEL_VALUES.pattern_fine.range.max,
+					default: MODEL_VALUES.pattern_fine.range.default,
+				},
+			],
+			callback: (feedback) => {
+				return this.camera?.gammasetup?.PatternFine == feedback.options.value
+			},
+		}
+	}
+
+	if (MODEL_VALUES?.settings) {
+		feedbacks.settings = {
+			type: 'boolean',
+			label: 'Settings',
+			description: 'If the camera matches the selected Settings mode, change the style of the button',
+			style: {
+				color: ColorBlack,
+				bgcolor: ColorGreen,
+			},
+			options: [
+				{
+					type: 'dropdown',
+					label: 'Settings',
+					id: 'val',
+					choices: MODEL_VALUES.settings.choices,
+					default: MODEL_VALUES.settings.default,
+				},
+			],
+			callback: (feedback) => {
+				return this.camera?.gammasetup?.Settings == feedback.options.value
+			},
+		}
+	}
+
+	if (MODEL_VALUES?.visibility_enhancer) {
+		feedbacks.visibility_enhancer = {
+			type: 'boolean',
+			label: 'Visibility Enhancer',
+			description: 'If the camera matches the selected Visibility Enhancer mode, change the style of the button',
+			style: {
+				color: ColorBlack,
+				bgcolor: ColorGreen,
+			},
+			options: [
+				{
+					type: 'dropdown',
+					label: 'Settings',
+					id: 'val',
+					choices: MODEL_VALUES.visibility_enhancer.choices,
+					default: MODEL_VALUES.visibility_enhancer.default,
+				},
+			],
+			callback: (feedback) => {
+				return this.camera?.gammasetup?.VisibilityEnhancer == feedback.options.value
+			},
+		}
+	}
 
 	// Other Feedback
 

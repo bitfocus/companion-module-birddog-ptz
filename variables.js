@@ -587,39 +587,80 @@ exports.updateVariables = function () {
 	}
 
 	// Detail Setup Variables
-	if (this.camera.detail) {
+	if (this.camera.detsetup) {
 		if (MODEL_SPEC?.bandwidth) {
-			this.setVariable('bandwidth', this.camera.detail.Bandwidth)
+			this.setVariable('bandwidth', this.camera.detsetup.Bandwidth)
 		}
 
 		if (MODEL_SPEC?.bw_balance) {
-			this.setVariable('bw_balance', this.camera.detail.BwBalance)
+			this.setVariable('bw_balance', this.camera.detsetup.BwBalance)
 		}
 
 		if (MODEL_SPEC?.crispening) {
-			this.setVariable('crispening', this.camera.detail.Crispening)
+			this.setVariable('crispening', this.camera.detsetup.Crispening)
 		}
 
 		if (MODEL_SPEC?.detail) {
-			this.setVariable('detail', this.camera.detail.Detail)
+			this.setVariable('detail', this.camera.detsetup.Detail)
 		}
 
 		if (MODEL_SPEC?.highlight_detail) {
-			this.setVariable('highlight_detail', this.camera.detail.HighLightDetail)
+			this.setVariable('highlight_detail', this.camera.detsetup.HighLightDetail)
 		}
 
 		if (MODEL_SPEC?.hv_balance) {
-			this.setVariable('hv_balance', this.camera.detail.HvBalance)
+			this.setVariable('hv_balance', this.camera.detsetup.HvBalance)
 		}
-		
+
 		if (MODEL_SPEC?.limit) {
-			this.setVariable('limit', this.camera.detail.Limit)
+			this.setVariable('limit', this.camera.detsetup.Limit)
 		}
 
 		if (MODEL_SPEC?.super_low) {
-			this.setVariable('super_low', this.camera.detail.SuperLow)
+			this.setVariable('super_low', this.camera.detsetup.SuperLow)
 		}
 	}
 
 	// Gamma Setup Variables
+	if (this.camera.gammasetup) {
+		if (MODEL_SPEC?.black_gamma_level) {
+			this.setVariable('black_gamma_level', this.camera.gammasetup.BlackGammaLevel)
+		}
+
+		if (MODEL_SPEC?.black_level) {
+			this.setVariable('black_level', this.camera.gammasetup.BlackLevel)
+		}
+
+		if (MODEL_SPEC?.black_level_range) {
+			this.setVariable('black_level_range', this.camera.gammasetup.BlackLevelRange)
+		}
+
+		if (MODEL_SPEC?.effect) {
+			this.setVariable('effect', this.camera.gammasetup.Effect)
+		}
+
+		if (MODEL_SPEC?.level) {
+			this.setVariable('level', this.camera.gammasetup.Level)
+		}
+
+		if (MODEL_SPEC?.offset) {
+			this.setVariable('offset', this.camera.gammasetup.Offset)
+		}
+
+		if (MODEL_SPEC?.pattern) {
+			this.setVariable('pattern', this.camera.gammasetup.Pattern)
+		}
+
+		if (MODEL_SPEC?.pattern_fine) {
+			this.setVariable('pattern_fine', this.camera.gammasetup.PatternFine)
+		}
+
+		if (MODEL_SPEC?.settings) {
+			this.setVariable('settings', this.camera.gammasetup.Settings)
+		}
+
+		if (MODEL_SPEC?.visibility_enhancer) {
+			this.setVariable('visibility_enhancer', this.camera.gammasetup.VisibilityEnhancer)
+		}
+	}
 }

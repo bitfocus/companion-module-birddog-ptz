@@ -34,6 +34,12 @@ module.exports = {
 		{ id: 'HIGH', label: 'High' },
 	],
 
+	L_Mid_H: [
+		{ id: 'LOW', label: 'Low' },
+		{ id: 'MID', label: 'Mid' },
+		{ id: 'HIGH', label: 'High' },
+	],
+
 	OFF_L_M_H: [
 		{ id: 'OFF', label: 'Off' },
 		{ id: 'LOW', label: 'Low' },
@@ -550,12 +556,6 @@ module.exports = {
 		{ id: 'DARK', label: 'Dark' },
 		{ id: 'STANDARD', label: 'Standard' },
 		{ id: 'BRIGHT', label: 'Bright' },
-	],
-
-	COMP_LEVEL: [
-		{ id: 'LOW', label: 'Low' },
-		{ id: 'MID', label: 'Mid' },
-		{ id: 'HIGH', label: 'High' },
 	],
 
 	// ############

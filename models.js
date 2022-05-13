@@ -432,7 +432,7 @@ module.exports = {
 				// Advanced Setup Actions
 				brightness: { choices: CHOICES.UP_DOWN_VALUE, default: 'up', range: { min: 0, max: 6, default: 3 } },
 				brightness_comp: { choices: CHOICES.BRIGHTNESS_COMP, default: 'STANDARD' },
-				comp_level: { choices: CHOICES.COMP_LEVEL, default: 'LOW' },
+				comp_level: { choices: CHOICES.L_Mid_H, default: 'LOW' },
 				gamma_offset: { choices: CHOICES.UP_DOWN_VALUE, default: 'up', range: { min: -16, max: 64, default: 40 } },
 				high_resolution: { choices: CHOICES.ON_OFF, default: 'Off' },
 				video_enhancement: { choices: CHOICES.ON_OFF, default: 'Off' },
@@ -560,7 +560,7 @@ module.exports = {
 				// Advanced Setup Actions
 				brightness: { choices: CHOICES.UP_DOWN_VALUE, default: 'up', range: { min: 0, max: 6, default: 3 } },
 				brightness_comp: { choices: CHOICES.BRIGHTNESS_COMP, default: 'STANDARD' },
-				comp_level: { choices: CHOICES.COMP_LEVEL, default: 'LOW' },
+				comp_level: { choices: CHOICES.L_Mid_H, default: 'LOW' },
 				gamma_offset: { choices: CHOICES.UP_DOWN_VALUE, default: 'up', range: { min: -16, max: 64, default: 40 } },
 				high_resolution: { choices: CHOICES.ON_OFF, default: 'Off' },
 				video_enhancement: { choices: CHOICES.ON_OFF, default: 'Off' },
@@ -687,7 +687,7 @@ module.exports = {
 				// Advanced Setup Actions
 				brightness: { choices: CHOICES.UP_DOWN_VALUE, default: 'up', range: { min: 0, max: 6, default: 3 } },
 				brightness_comp: { choices: CHOICES.BRIGHTNESS_COMP, default: 'STANDARD' },
-				comp_level: { choices: CHOICES.COMP_LEVEL, default: 'LOW' },
+				comp_level: { choices: CHOICES.L_Mid_H, default: 'LOW' },
 				gamma_offset: { choices: CHOICES.UP_DOWN_VALUE, default: 'up', range: { min: -16, max: 64, default: 40 } },
 				high_resolution: { choices: CHOICES.ON_OFF, default: 'Off' },
 				video_enhancement: { choices: CHOICES.ON_OFF, default: 'Off' },
@@ -816,7 +816,7 @@ module.exports = {
 				// Advanced Setup Actions
 				brightness: { choices: CHOICES.UP_DOWN_VALUE, default: 'up', range: { min: 0, max: 6, default: 3 } },
 				brightness_comp: { choices: CHOICES.BRIGHTNESS_COMP, default: 'STANDARD' },
-				comp_level: { choices: CHOICES.COMP_LEVEL, default: 'LOW' },
+				comp_level: { choices: CHOICES.L_Mid_H, default: 'LOW' },
 				gamma_offset: { choices: CHOICES.UP_DOWN_VALUE, default: 'up', range: { min: -16, max: 64, default: 40 } },
 				high_resolution: { choices: CHOICES.ON_OFF, default: 'Off' },
 				video_enhancement: { choices: CHOICES.ON_OFF, default: 'Off' },
@@ -946,7 +946,7 @@ module.exports = {
 				// Advanced Setup Actions
 				brightness: { choices: CHOICES.UP_DOWN_VALUE, default: 'up', range: { min: 0, max: 6, default: 3 } },
 				brightness_comp: { choices: CHOICES.BRIGHTNESS_COMP, default: 'STANDARD' },
-				comp_level: { choices: CHOICES.COMP_LEVEL, default: 'LOW' },
+				comp_level: { choices: CHOICES.L_Mid_H, default: 'LOW' },
 				gamma_offset: { choices: CHOICES.UP_DOWN_VALUE, default: 'up', range: { min: -16, max: 64, default: 40 } },
 				high_resolution: { choices: CHOICES.ON_OFF, default: 'Off' },
 				video_enhancement: { choices: CHOICES.ON_OFF, default: 'Off' },
@@ -1077,7 +1077,7 @@ module.exports = {
 				// Advanced Setup Actions
 				brightness: { choices: CHOICES.UP_DOWN_VALUE, default: 'up', range: { min: 0, max: 6, default: 3 } },
 				brightness_comp: { choices: CHOICES.BRIGHTNESS_COMP, default: 'STANDARD' },
-				comp_level: { choices: CHOICES.COMP_LEVEL, default: 'LOW' },
+				comp_level: { choices: CHOICES.L_Mid_H, default: 'LOW' },
 				gamma_offset: { choices: CHOICES.UP_DOWN_VALUE, default: 'up', range: { min: -16, max: 64, default: 40 } },
 				high_resolution: { choices: CHOICES.ON_OFF, default: 'Off' },
 				video_enhancement: { choices: CHOICES.ON_OFF, default: 'Off' },
@@ -1153,6 +1153,17 @@ module.exports = {
 				hv_balance: { label: `Hv Balance` },
 				limit: { label: `Limit` },
 				super_low: { label: `Super Low` },
+				// Gamma Setup Variables
+				black_gamma_level: { label: `Black Gamma Level` },
+				black_level: { label: `Black Level` },
+				black_level_range: { label: `Black Level Range` },
+				effect: { label: `Effect` },
+				level: { label: `Level` },
+				offset: { label: `Offset` },
+				pattern: { label: `Pattern` },
+				pattern_fine: { label: `Pattern Fine` },
+				settings: { label: `Settings` },
+				visibility_enhancer: { label: `Visibilty Enhancer` },
 			},
 			actions: {
 				...COMMON[2],
@@ -1225,13 +1236,23 @@ module.exports = {
 				// Detail Setup Actions
 				bandwidth: { choices: CHOICES.BANDWIDTH_4K, default: 'DEFAULT' },
 				bw_balance: { choices: CHOICES.BW_BALANCE_4K, default: 'TYPE1' },
-				crispening: { choices: CHOICES.UP_DOWN_VALUE, default: 'up', range: { min: 0, max: 7, default: 4 }},
+				crispening: { choices: CHOICES.UP_DOWN_VALUE, default: 'up', range: { min: 0, max: 7, default: 4 } },
 				detail: { choices: CHOICES.ON_OFF, default: 'Off' },
 				highlight_detail: { choices: CHOICES.UP_DOWN_VALUE, default: 'up', range: { min: 0, max: 4, default: 0 } },
 				hv_balance: { choices: CHOICES.UP_DOWN_VALUE, default: 'up', range: { min: -2, max: 2, default: 0 } },
 				limit: { choices: CHOICES.UP_DOWN_VALUE, default: 'up', range: { min: 0, max: 7, default: 4 } },
-				super_low: {choices: CHOICES.UP_DOWN_VALUE, default: 'up', range: { min: 0, max: 7, default: 4 }},
+				super_low: { choices: CHOICES.UP_DOWN_VALUE, default: 'up', range: { min: 0, max: 7, default: 4 } },
 				// Gamma Setup Actions
+				black_gamma_level: { choices: CHOICES.UP_DOWN_VALUE, default: 'up', range: { min: 0, max: 14, default: 7 } },
+				black_level: { choices: CHOICES.UP_DOWN_VALUE, default: 'up', range: { min: 0, max: 96, default: 48 } },
+				black_level_range: { choices: CHOICES.L_Mid_H, default: 'LOW' },
+				effect: { choices: CHOICES.UP_DOWN_VALUE, default: 'up', range: { min: -3, max: 3, default: 0 } },
+				level: { choices: CHOICES.UP_DOWN_VALUE, default: 'up', range: { min: 0, max: 14, default: 0 } },
+				offset: { choices: CHOICES.UP_DOWN_VALUE, default: 'up', range: { min: -64, max: 64, default: 0 } },
+				pattern: { choices: CHOICES.UP_DOWN_VALUE, default: 'up', range: { min: 0, max: 512, default: 256 } },
+				pattern_fine: { choices: CHOICES.UP_DOWN_VALUE, default: 'up', range: { min: 0, max: 9, default: 5 } },
+				settings: { choices: CHOICES.GAMMA_SETTINGS, default: 'PATTERN' },
+				visibility_enhancer: { choices: CHOICES.ON_OFF, default: 'Off' },
 				// Other Actions
 			},
 			feedback: {
@@ -1299,6 +1320,17 @@ module.exports = {
 				hv_balance: { label: `Hv Balance` },
 				limit: { label: `Limit` },
 				super_low: { label: `Super Low` },
+				// Gamma Setup Variables
+				black_gamma_level: { label: `Black Gamma Level` },
+				black_level: { label: `Black Level` },
+				black_level_range: { label: `Black Level Range` },
+				effect: { label: `Effect` },
+				level: { label: `Level` },
+				offset: { label: `Offset` },
+				pattern: { label: `Pattern` },
+				pattern_fine: { label: `Pattern Fine` },
+				settings: { label: `Settings` },
+				visibility_enhancer: { label: `Visibilty Enhancer` },
 			},
 			actions: {
 				...COMMON[2],
@@ -1372,13 +1404,23 @@ module.exports = {
 				// Detail Setup Actions
 				bandwidth: { choices: CHOICES.BANDWIDTH_4K, default: 'DEFAULT' },
 				bw_balance: { choices: CHOICES.BW_BALANCE_4K, default: 'TYPE1' },
-				crispening: { choices: CHOICES.UP_DOWN_VALUE, default: 'up', range: { min: 0, max: 7, default: 4 }},
+				crispening: { choices: CHOICES.UP_DOWN_VALUE, default: 'up', range: { min: 0, max: 7, default: 4 } },
 				detail: { choices: CHOICES.ON_OFF, default: 'Off' },
 				highlight_detail: { choices: CHOICES.UP_DOWN_VALUE, default: 'up', range: { min: 0, max: 4, default: 0 } },
 				hv_balance: { choices: CHOICES.UP_DOWN_VALUE, default: 'up', range: { min: -2, max: 2, default: 0 } },
 				limit: { choices: CHOICES.UP_DOWN_VALUE, default: 'up', range: { min: 0, max: 7, default: 4 } },
-				super_low: {choices: CHOICES.UP_DOWN_VALUE, default: 'up', range: { min: 0, max: 7, default: 4 }},
+				super_low: { choices: CHOICES.UP_DOWN_VALUE, default: 'up', range: { min: 0, max: 7, default: 4 } },
 				// Gamma Setup Actions
+				black_gamma_level: { choices: CHOICES.UP_DOWN_VALUE, default: 'up', range: { min: 0, max: 14, default: 7 } },
+				black_level: { choices: CHOICES.UP_DOWN_VALUE, default: 'up', range: { min: 0, max: 96, default: 48 } },
+				black_level_range: { choices: CHOICES.L_Mid_H, default: 'LOW' },
+				effect: { choices: CHOICES.UP_DOWN_VALUE, default: 'up', range: { min: -3, max: 3, default: 0 } },
+				level: { choices: CHOICES.UP_DOWN_VALUE, default: 'up', range: { min: 0, max: 14, default: 0 } },
+				offset: { choices: CHOICES.UP_DOWN_VALUE, default: 'up', range: { min: -64, max: 64, default: 0 } },
+				pattern: { choices: CHOICES.UP_DOWN_VALUE, default: 'up', range: { min: 0, max: 512, default: 256 } },
+				pattern_fine: { choices: CHOICES.UP_DOWN_VALUE, default: 'up', range: { min: 0, max: 9, default: 5 } },
+				settings: { choices: CHOICES.GAMMA_SETTINGS, default: 'PATTERN' },
+				visibility_enhancer: { choices: CHOICES.ON_OFF, default: 'Off' },
 				// Other Actions
 			},
 			feedback: {

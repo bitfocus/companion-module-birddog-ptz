@@ -1691,7 +1691,12 @@ module.exports = {
 					},
 					{
 						type: 'number',
-						label: 'Value (' + MODEL_VALUES.highlight_detail.range.min + ' to ' + MODEL_VALUES.highlight_detail.range.max + ')',
+						label:
+							'Value (' +
+							MODEL_VALUES.highlight_detail.range.min +
+							' to ' +
+							MODEL_VALUES.highlight_detail.range.max +
+							')',
 						id: 'value',
 						min: MODEL_VALUES.highlight_detail.range.min,
 						max: MODEL_VALUES.highlight_detail.range.max,
@@ -1775,6 +1780,224 @@ module.exports = {
 		}
 
 		// Gamma Setup Actions
+
+		if (MODEL_VALUES?.black_gamma_level) {
+			actions['black_gamma_level'] = {
+				label: 'Black Gamma Level',
+				options: [
+					{
+						type: 'dropdown',
+						label: 'Black Gamma Level',
+						id: 'val',
+						choices: MODEL_VALUES.black_gamma_level.choices,
+						default: MODEL_VALUES.black_gamma_level.default,
+					},
+					{
+						type: 'number',
+						label:
+							'Value (' +
+							MODEL_VALUES.black_gamma_level.range.min +
+							' to ' +
+							MODEL_VALUES.black_gamma_level.range.max +
+							')',
+						id: 'value',
+						min: MODEL_VALUES.black_gamma_level.range.min,
+						max: MODEL_VALUES.black_gamma_level.range.max,
+						default: MODEL_VALUES.black_gamma_level.range.default,
+						isVisible: (action) => action.options.val === 'value',
+					},
+				],
+			}
+		}
+
+		if (MODEL_VALUES?.black_level) {
+			actions['black_level'] = {
+				label: 'Black Level',
+				options: [
+					{
+						type: 'dropdown',
+						label: 'Black Level',
+						id: 'val',
+						choices: MODEL_VALUES.black_level.choices,
+						default: MODEL_VALUES.black_level.default,
+					},
+					{
+						type: 'number',
+						label: 'Value (' + MODEL_VALUES.black_level.range.min + ' to ' + MODEL_VALUES.black_level.range.max + ')',
+						id: 'value',
+						min: MODEL_VALUES.black_level.range.min,
+						max: MODEL_VALUES.black_level.range.max,
+						default: MODEL_VALUES.black_level.range.default,
+						isVisible: (action) => action.options.val === 'value',
+					},
+				],
+			}
+		}
+
+		if (MODEL_VALUES?.black_level_range) {
+			actions['black_level_range'] = {
+				label: 'Black Level Range',
+				options: [
+					{
+						type: 'dropdown',
+						label: 'Black Level Range',
+						id: 'val',
+						choices: MODEL_VALUES.black_level_range.choices,
+						default: MODEL_VALUES.black_level_range.default,
+					},
+				],
+			}
+		}
+
+		if (MODEL_VALUES?.effect) {
+			actions['effect'] = {
+				label: 'Effect',
+				options: [
+					{
+						type: 'dropdown',
+						label: 'Effect',
+						id: 'val',
+						choices: MODEL_VALUES.effect.choices,
+						default: MODEL_VALUES.effect.default,
+					},
+					{
+						type: 'number',
+						label: 'Value (' + MODEL_VALUES.effect.range.min + ' to ' + MODEL_VALUES.effect.range.max + ')',
+						id: 'value',
+						min: MODEL_VALUES.effect.range.min,
+						max: MODEL_VALUES.effect.range.max,
+						default: MODEL_VALUES.effect.range.default,
+						isVisible: (action) => action.options.val === 'value',
+					},
+				],
+			}
+		}
+
+		if (MODEL_VALUES?.level) {
+			actions['level'] = {
+				label: 'Level',
+				options: [
+					{
+						type: 'dropdown',
+						label: 'Level',
+						id: 'val',
+						choices: MODEL_VALUES.level.choices,
+						default: MODEL_VALUES.level.default,
+					},
+					{
+						type: 'number',
+						label: 'Value (' + MODEL_VALUES.level.range.min + ' to ' + MODEL_VALUES.level.range.max + ')',
+						id: 'value',
+						min: MODEL_VALUES.level.range.min,
+						max: MODEL_VALUES.level.range.max,
+						default: MODEL_VALUES.level.range.default,
+						isVisible: (action) => action.options.val === 'value',
+					},
+				],
+			}
+		}
+
+		if (MODEL_VALUES?.offset) {
+			actions['offset'] = {
+				label: 'Offset',
+				options: [
+					{
+						type: 'dropdown',
+						label: 'Offset',
+						id: 'val',
+						choices: MODEL_VALUES.offset.choices,
+						default: MODEL_VALUES.offset.default,
+					},
+					{
+						type: 'number',
+						label: 'Value (' + MODEL_VALUES.offset.range.min + ' to ' + MODEL_VALUES.offset.range.max + ')',
+						id: 'value',
+						min: MODEL_VALUES.offset.range.min,
+						max: MODEL_VALUES.offset.range.max,
+						default: MODEL_VALUES.offset.range.default,
+						isVisible: (action) => action.options.val === 'value',
+					},
+				],
+			}
+		}
+
+		if (MODEL_VALUES?.pattern) {
+			actions['pattern'] = {
+				label: 'Pattern',
+				options: [
+					{
+						type: 'dropdown',
+						label: 'Pattern',
+						id: 'val',
+						choices: MODEL_VALUES.pattern.choices,
+						default: MODEL_VALUES.pattern.default,
+					},
+					{
+						type: 'number',
+						label: 'Value (' + MODEL_VALUES.pattern.range.min + ' to ' + MODEL_VALUES.pattern.range.max + ')',
+						id: 'value',
+						min: MODEL_VALUES.pattern.range.min,
+						max: MODEL_VALUES.pattern.range.max,
+						default: MODEL_VALUES.pattern.range.default,
+						isVisible: (action) => action.options.val === 'value',
+					},
+				],
+			}
+		}
+
+		if (MODEL_VALUES?.pattern_fine) {
+			actions['pattern_fine'] = {
+				label: 'Pattern Fine',
+				options: [
+					{
+						type: 'dropdown',
+						label: 'Pattern Fine',
+						id: 'val',
+						choices: MODEL_VALUES.pattern_fine.choices,
+						default: MODEL_VALUES.pattern_fine.default,
+					},
+					{
+						type: 'number',
+						label: 'Value (' + MODEL_VALUES.pattern_fine.range.min + ' to ' + MODEL_VALUES.pattern_fine.range.max + ')',
+						id: 'value',
+						min: MODEL_VALUES.pattern_fine.range.min,
+						max: MODEL_VALUES.pattern_fine.range.max,
+						default: MODEL_VALUES.pattern_fine.range.default,
+						isVisible: (action) => action.options.val === 'value',
+					},
+				],
+			}
+		}
+
+		if (MODEL_VALUES?.settings) {
+			actions['settings'] = {
+				label: 'Settings',
+				options: [
+					{
+						type: 'dropdown',
+						label: 'Settings',
+						id: 'val',
+						choices: MODEL_VALUES.settings.choices,
+						default: MODEL_VALUES.settings.default,
+					},
+				],
+			}
+		}
+
+		if (MODEL_VALUES?.visibility_enhancer) {
+			actions['visibility_enhancer'] = {
+				label: 'Visibility Enhancer',
+				options: [
+					{
+						type: 'dropdown',
+						label: 'Settings',
+						id: 'val',
+						choices: MODEL_VALUES.visibility_enhancer.choices,
+						default: MODEL_VALUES.visibility_enhancer.default,
+					},
+				],
+			}
+		}
 
 		// Other Actions
 

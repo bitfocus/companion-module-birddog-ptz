@@ -77,7 +77,7 @@ See [HELP.md](https://github.com/bitfocus/companion-module-birddog-ptz/blob/main
     - Aux
     - Rain Wiper
     - 12v Out
-  - Detail Setting
+  - Detail Settings
     - Bandwidth
     - BW Balance
     - Crispening
@@ -87,6 +87,17 @@ See [HELP.md](https://github.com/bitfocus/companion-module-birddog-ptz/blob/main
     - Limit
     - Super Low
 
+  - Gamma Settings
+    - Black Gamma Level
+    - Black Level
+    - Black Level Range
+    - Effect
+    - Level
+    - Offset
+    - Pattern
+    - Pattern Fine
+    - Settings
+    - Visibility Enhancer
 
 - Fixes
   - Fixed shutter values in shutter actions
