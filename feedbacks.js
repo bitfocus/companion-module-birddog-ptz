@@ -14,142 +14,213 @@ exports.initFeedbacks = function () {
 
 	// General Camera Feedback
 
-	feedbacks.standby_status = {
-		type: 'boolean',
-		label: 'Camera Standby Status',
-		description: 'If the camera is in standby, change the style of the button',
-		style: {
-			color: ColorBlack,
-			bgcolor: ColorGreen,
-		},
-		options: [
-			{
-				type: 'dropdown',
-				label: 'Status',
-				id: 'standby',
-				choices: CHOICES.STANDBY,
-				default: 'on',
+	if (MODEL_VALUES?.standby) {
+		feedbacks.standby_status = {
+			type: 'boolean',
+			label: 'Camera Standby Status',
+			description: 'If the camera is in standby, change the style of the button',
+			style: {
+				color: ColorBlack,
+				bgcolor: ColorGreen,
 			},
-		],
-		callback: (feedback) => {
-			return this.camera?.standby == feedback.options.standby
-		},
+			options: [
+				{
+					type: 'dropdown',
+					label: 'On/Standby',
+					id: 'val',
+					choices: MODEL_VALUES.standby.choices,
+					default: MODEL_VALUES.standby.default,
+				},
+			],
+			callback: (feedback) => {
+				return this.camera?.standby == feedback.options.standby
+			},
+		}
 	}
 
-	feedbacks.freeze_status = {
-		type: 'boolean',
-		label: 'Camera Freeze Status',
-		description: 'If the camera matches the selected freeze status, change the style of the button',
-		style: {
-			color: ColorBlack,
-			bgcolor: ColorGreen,
-		},
-		options: [
-			{
-				type: 'dropdown',
-				label: 'Freeze',
-				id: 'freeze',
-				choices: CHOICES.ON_OFF,
-				default: 'On',
+	if (MODEL_VALUES?.freeze) {
+		feedbacks.freeze_status = {
+			type: 'boolean',
+			label: 'Camera Freeze Status',
+			description: 'If the camera matches the selected freeze status, change the style of the button',
+			style: {
+				color: ColorBlack,
+				bgcolor: ColorGreen,
 			},
-		],
-		callback: (feedback) => {
-			return this.camera?.freeze == feedback.options.freeze
-		},
+			options: [
+				{
+					type: 'dropdown',
+					label: 'On / Off',
+					id: 'val',
+					choices: MODEL_VALUES.freeze.choices,
+					default: MODEL_VALUES.freeze.default,
+				},
+			],
+			callback: (feedback) => {
+				return this.camera?.freeze == feedback.options.freeze
+			},
+		}
 	}
-
 	// Analog Audio Feedback
 
-	feedbacks.analogAudioOutput = {
-		type: 'boolean',
-		label: 'Analog Audio Output Select',
-		description: 'If the camera matches the selected audio ouptut selector, change the style of the button',
-		style: {
-			color: ColorBlack,
-			bgcolor: ColorGreen,
-		},
-		options: [
-			{
-				type: 'dropdown',
-				label: 'Decode Comms / Decode Loop ',
-				id: 'val',
-				choices: CHOICES.ANALOG_AUDIO_OUTPUT,
-				default: 'DecodeComms',
+	if (MODEL_VALUES?.analogAudioInGain) {
+		feedbacks.analogAudioInGain = {
+			type: 'boolean',
+			label: 'Analog Audio In Gain',
+			description: 'If the camera matches the selected Audio Out Gain, change the style of the button',
+			style: {
+				color: ColorBlack,
+				bgcolor: ColorGreen,
 			},
-		],
-		callback: (feedback) => {
-			return this.camera?.audio?.AnalogAudiooutputselect == feedback.options.val
-		},
+			options: [
+				{
+					type: 'number',
+					label:
+						'Analog Audio In Gain (dB) (' +
+						MODEL_VALUES.analogAudioInGain.range.min +
+						' to ' +
+						MODEL_VALUES.analogAudioInGain.range.max +
+						')',
+					id: 'val',
+					default: MODEL_VALUES.analogAudioInGain.range.default,
+					min: MODEL_VALUES.analogAudioInGain.range.min,
+					max: MODEL_VALUES.analogAudioInGain.range.max,
+				},
+			],
+			callback: (feedback) => {
+				return this.camera?.audio?.AnalogAudioInGain == feedback.options.val
+			},
+		}
+	}
+
+	if (MODEL_VALUES?.analogAudioOutGain) {
+		feedbacks.analogAudioOutGain = {
+			type: 'boolean',
+			label: 'Analog Audio Out Gain',
+			description: 'If the camera matches the selected Audio Out Gain, change the style of the button',
+			style: {
+				color: ColorBlack,
+				bgcolor: ColorGreen,
+			},
+			options: [
+				{
+					type: 'number',
+					label:
+						'Analog Audio Out Gain (dB) (' +
+						MODEL_VALUES.analogAudioOutGain.range.min +
+						' to ' +
+						MODEL_VALUES.analogAudioOutGain.range.max +
+						')',
+					id: 'val',
+					default: MODEL_VALUES.analogAudioOutGain.range.default,
+					min: MODEL_VALUES.analogAudioOutGain.range.min,
+					max: MODEL_VALUES.analogAudioOutGain.range.max,
+				},
+			],
+			callback: (feedback) => {
+				return this.camera?.audio?.AnalogAudioOutGain == feedback.options.val
+			},
+		}
+	}
+
+	if (MODEL_VALUES?.analogAudioOutput) {
+		feedbacks.analogAudioOutput = {
+			type: 'boolean',
+			label: 'Analog Audio Output Select',
+			description: 'If the camera matches the selected audio ouptut selector, change the style of the button',
+			style: {
+				color: ColorBlack,
+				bgcolor: ColorGreen,
+			},
+			options: [
+				{
+					type: 'dropdown',
+					label: 'Decode Comms / Decode Loop',
+					id: 'val',
+					choices: MODEL_VALUES.analogAudioOutput.choices,
+					default: MODEL_VALUES.analogAudioOutput.default,
+				},
+			],
+			callback: (feedback) => {
+				return this.camera?.audio?.AnalogAudiooutputselect == feedback.options.val
+			},
+		}
 	}
 
 	// Video Output Interface Feedback
 
 	// Encode Setup Feedback
 
-	feedbacks.encodeBandwidth = {
-		type: 'boolean',
-		label: 'Camera Encode Bandwidth Mode',
-		description: 'If the camera matches the selected encode bandwidth mode, change the style of the button',
-		style: {
-			color: ColorBlack,
-			bgcolor: ColorGreen,
-		},
-		options: [
-			{
-				type: 'dropdown',
-				label: 'Manual / NDI Managed',
-				id: 'val',
-				choices: CHOICES.ENCODE_BANDWIDTH_MODE,
-				default: 'NDIManaged',
+	if (MODEL_VALUES?.encodeBandwidth) {
+		feedbacks.encodeBandwidth = {
+			type: 'boolean',
+			label: 'Camera Encode Bandwidth Mode',
+			description: 'If the camera matches the selected encode bandwidth mode, change the style of the button',
+			style: {
+				color: ColorBlack,
+				bgcolor: ColorGreen,
 			},
-		],
-		callback: (feedback) => {
-			return this.camera?.encode?.BandwidthMode == feedback.options.val
-		},
+			options: [
+				{
+					type: 'dropdown',
+					label: 'Manual / NDI Managed',
+					id: 'val',
+					choices: MODEL_VALUES.encodeBandwidth.choices,
+					default: MODEL_VALUES.encodeBandwidth.default,
+				},
+			],
+			callback: (feedback) => {
+				return this.camera?.encode?.BandwidthMode == feedback.options.val
+			},
+		}
 	}
 
-	feedbacks.ndiAudio = {
-		type: 'boolean',
-		label: 'NDI Audio',
-		description: 'If the camera matches the selected NDI Audio selector, change the style of the button',
-		style: {
-			color: ColorBlack,
-			bgcolor: ColorGreen,
-		},
-		options: [
-			{
-				type: 'dropdown',
-				label: 'Analog / Mute',
-				id: 'val',
-				choices: CHOICES.ENCODE_NDI_AUDIO,
-				default: 'NDIAudioMute',
+	if (MODEL_VALUES?.ndiAudio) {
+		feedbacks.ndiAudio = {
+			type: 'boolean',
+			label: 'NDI Audio',
+			description: 'If the camera matches the selected NDI Audio selector, change the style of the button',
+			style: {
+				color: ColorBlack,
+				bgcolor: ColorGreen,
 			},
-		],
-		callback: (feedback) => {
-			return this.camera?.encode?.NDIAudio == feedback.options.val
-		},
+			options: [
+				{
+					type: 'dropdown',
+					label: 'Analog / Mute',
+					id: 'val',
+					choices: MODEL_VALUES.ndiAudio.choices,
+					default: MODEL_VALUES.ndiAudio.default,
+				},
+			],
+			callback: (feedback) => {
+				return this.camera?.encode?.NDIAudio == feedback.options.val
+			},
+		}
 	}
 
-	feedbacks.ndiGroupEnable = {
-		type: 'boolean',
-		label: 'NDI Group Enable',
-		description: 'If the camera matches the selected NDI Group Enable  selector, change the style of the button',
-		style: {
-			color: ColorBlack,
-			bgcolor: ColorGreen,
-		},
-		options: [
-			{
-				type: 'dropdown',
-				label: 'NDI Group Enable',
-				id: 'val',
-				choices: CHOICES.ENCODE_NDIGroup,
-				default: 'NDIGroupDis',
+	if (MODEL_VALUES?.ndiGroupEnable) {
+		feedbacks.ndiGroupEnable = {
+			type: 'boolean',
+			label: 'NDI Group Enable',
+			description: 'If the camera matches the selected NDI Group Enable  selector, change the style of the button',
+			style: {
+				color: ColorBlack,
+				bgcolor: ColorGreen,
 			},
-		],
-		callback: (feedback) => {
-			return this.camera?.encode?.NDIGroup == feedback.options.val
-		},
+			options: [
+				{
+					type: 'dropdown',
+					label: 'NDI Group Enable',
+					id: 'val',
+					choices: MODEL_VALUES.ndiGroupEnable.choices,
+					default: MODEL_VALUES.ndiGroupEnable.default,
+				},
+			],
+			callback: (feedback) => {
+				return this.camera?.encode?.NDIGroup == feedback.options.val
+			},
+		}
 	}
 
 	if (MODEL_VALUES?.tally) {
@@ -175,6 +246,7 @@ exports.initFeedbacks = function () {
 			},
 		}
 	}
+
 	// Encode Transport Feedback
 
 	if (MODEL_VALUES?.transmit_method) {
@@ -205,28 +277,175 @@ exports.initFeedbacks = function () {
 
 	// PTZ Feedback
 
+	if (MODEL_VALUES?.pt) {
+		feedbacks.posPan = {
+			type: 'boolean',
+			label: 'Pan Position',
+			description: 'If the camera matches the selected Pan Position, change the style of the button',
+			style: {
+				color: ColorBlack,
+				bgcolor: ColorGreen,
+			},
+			options: [
+				{
+					type: 'dropdown',
+					label: 'Pan Position',
+					id: 'posPan',
+					choices: MODEL_VALUES.pt.posPanChoices,
+					default: MODEL_VALUES.pt.posPanDefault,
+				},
+			],
+			callback: (feedback) => {
+				return this.camera?.position?.pan == feedback.options.posPan
+			},
+		}
+
+		feedbacks.posTilt = {
+			type: 'boolean',
+			label: 'Tilt Position',
+			description: 'If the camera matches the selected Tilt Position, change the style of the button',
+			style: {
+				color: ColorBlack,
+				bgcolor: ColorGreen,
+			},
+			options: [
+				{
+					type: 'dropdown',
+					label: 'Tilt Position',
+					id: 'posTilt',
+					choices: MODEL_VALUES.pt.posTiltChoices,
+					default: MODEL_VALUES.pt.posTiltDefault,
+				},
+			],
+			callback: (feedback) => {
+				return this.camera?.position?.tilt == feedback.options.posTilt
+			},
+		}
+	}
+
+	if (MODEL_VALUES?.zoom) {
+		feedbacks.posZoom = {
+			type: 'boolean',
+			label: 'Zoom Position',
+			description: 'If the camera matches the selected Zoom Position, change the style of the button',
+			style: {
+				color: ColorBlack,
+				bgcolor: ColorGreen,
+			},
+			options: [
+				{
+					type: 'dropdown',
+					label: 'Zoom Position',
+					id: 'posZoom',
+					choices: MODEL_VALUES.zoom.posZoomChoices,
+					default: MODEL_VALUES.zoom.posZoomDefault,
+				},
+			],
+			callback: (feedback) => {
+				return this.camera?.position?.zoom == feedback.options.posZoom
+			},
+		}
+	}
+
+	if (MODEL_VALUES?.panSpeed) {
+		feedbacks.panSpeed = {
+			type: 'boolean',
+			label: 'Pan Speed',
+			description: 'If the camera matches the selected Pan Speed, change the style of the button',
+			style: {
+				color: ColorBlack,
+				bgcolor: ColorGreen,
+			},
+			options: [
+				{
+					type: 'number',
+					label: 'Speed (' + MODEL_VALUES.panSpeed.range.min + ' to ' + MODEL_VALUES.panSpeed.range.max + ')',
+					id: 'value',
+					default: MODEL_VALUES.panSpeed.range.default,
+					min: MODEL_VALUES.panSpeed.range.min,
+					max: MODEL_VALUES.panSpeed.range.max,
+				},
+			],
+			callback: (feedback) => {
+				return this.camera?.ptz?.PanSpeed == feedback.options.value
+			},
+		}
+	}
+
+	if (MODEL_VALUES?.tiltSpeed) {
+		feedbacks.tiltSpeed = {
+			type: 'boolean',
+			label: 'Tilt Speed',
+			description: 'If the camera matches the selected Tilt Speed, change the style of the button',
+			style: {
+				color: ColorBlack,
+				bgcolor: ColorGreen,
+			},
+			options: [
+				{
+					type: 'number',
+					label: 'Speed (' + MODEL_VALUES.tiltSpeed.range.min + ' to ' + MODEL_VALUES.tiltSpeed.range.max + ')',
+					id: 'value',
+					default: MODEL_VALUES.tiltSpeed.range.default,
+					min: MODEL_VALUES.tiltSpeed.range.min,
+					max: MODEL_VALUES.tiltSpeed.range.max,
+				},
+			],
+			callback: (feedback) => {
+				return this.camera?.ptz?.PanSpeed == feedback.options.value
+			},
+		}
+	}
+
+	if (MODEL_VALUES?.zoomSpeed) {
+		feedbacks.zoomSpeed = {
+			type: 'boolean',
+			label: 'Zoom Speed',
+			description: 'If the camera matches the selected Zoom Speed, change the style of the button',
+			style: {
+				color: ColorBlack,
+				bgcolor: ColorGreen,
+			},
+			options: [
+				{
+					type: 'number',
+					label: 'Speed (' + MODEL_VALUES.zoomSpeed.range.min + ' to ' + MODEL_VALUES.zoomSpeed.range.max + ')',
+					id: 'value',
+					default: MODEL_VALUES.zoomSpeed.range.default,
+					min: MODEL_VALUES.zoomSpeed.range.min,
+					max: MODEL_VALUES.zoomSpeed.range.max,
+				},
+			],
+			callback: (feedback) => {
+				return this.camera?.ptz?.PanSpeed == feedback.options.value
+			},
+		}
+	}
+
 	// Focus Feedback
 
-	feedbacks.focusMode = {
-		type: 'boolean',
-		label: 'Focus Mode',
-		description: 'If the camera matches the selected focus mode, change the style of the button',
-		style: {
-			color: ColorBlack,
-			bgcolor: ColorGreen,
-		},
-		options: [
-			{
-				type: 'dropdown',
-				label: 'Mode',
-				id: 'mode',
-				choices: CHOICES.AUTO_FOCUS,
-				default: 'Auto',
+	if (MODEL_VALUES?.focusM) {
+		feedbacks.focusMode = {
+			type: 'boolean',
+			label: 'Focus Mode',
+			description: 'If the camera matches the selected focus mode, change the style of the button',
+			style: {
+				color: ColorBlack,
+				bgcolor: ColorGreen,
 			},
-		],
-		callback: (feedback) => {
-			return this.camera?.focus?.mode == feedback.options.mode
-		},
+			options: [
+				{
+					type: 'dropdown',
+					label: 'Mode',
+					id: 'val',
+					choices: MODEL_VALUES.focusM.choices,
+					default: MODEL_VALUES.focusM.default,
+				},
+			],
+			callback: (feedback) => {
+				return this.camera?.focus?.mode == feedback.options.mode
+			},
+		}
 	}
 
 	// Exposure Feedback

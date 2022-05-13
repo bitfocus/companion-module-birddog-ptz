@@ -16,6 +16,16 @@ See [HELP.md](https://github.com/bitfocus/companion-module-birddog-ptz/blob/main
 
 - New Actions / Feedback
 
+  - Analog Audio
+    - Analog Audio In Gain
+    - Analog Audio Out Gain
+  - PTZ
+    - Pan Position
+    - Pan Speed
+    - Tilt Postion
+    - Tilt Speed
+    - Zoom Position
+    - Zoom Speed
   - Encode Setup
     - NDI Audio
     - NDI Group Enable

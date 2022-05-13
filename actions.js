@@ -25,6 +25,7 @@ module.exports = {
 				],
 			}
 		}
+
 		if (MODEL_VALUES?.freeze) {
 			actions['freeze'] = {
 				label: 'Freeze',
@@ -62,6 +63,7 @@ module.exports = {
 				],
 			}
 		}
+
 		if (MODEL_VALUES?.analogAudioOutGain) {
 			actions['analogAudioOutGain'] = {
 				label: 'Analog Audio Out Gain',
@@ -82,6 +84,7 @@ module.exports = {
 				],
 			}
 		}
+
 		if (MODEL_VALUES?.analogAudioOutput) {
 			actions['analogAudioOutput'] = {
 				label: 'Analog Audio Output Select',
@@ -129,6 +132,7 @@ module.exports = {
 				],
 			}
 		}
+
 		if (MODEL_VALUES?.ndiAudio) {
 			actions['ndiAudio'] = {
 				label: 'NDI Audio',
@@ -143,6 +147,7 @@ module.exports = {
 				],
 			}
 		}
+
 		if (MODEL_VALUES?.ndiGroupEnable) {
 			actions['ndiGroupEnable'] = {
 				label: 'NDI Group Enable',
@@ -157,6 +162,7 @@ module.exports = {
 				],
 			}
 		}
+
 		if (MODEL_VALUES?.tally) {
 			actions['tally'] = {
 				label: 'Tally',
@@ -187,6 +193,7 @@ module.exports = {
 				],
 			}
 		}
+
 		// NDI Discovery Server Actions
 
 		// PTZ Actions
@@ -246,6 +253,7 @@ module.exports = {
 				],
 			}
 		}
+
 		if (MODEL_VALUES?.zoom) {
 			actions['zoom'] = {
 				label: 'Zoom',
@@ -284,6 +292,7 @@ module.exports = {
 				],
 			}
 		}
+
 		if (MODEL_VALUES?.panSpeed) {
 			actions['panSpeed'] = {
 				label: 'Pan Speed',
@@ -307,6 +316,7 @@ module.exports = {
 				],
 			}
 		}
+
 		if (MODEL_VALUES?.tiltSpeed) {
 			actions['tiltSpeed'] = {
 				label: 'Tilt Speed',
@@ -330,6 +340,7 @@ module.exports = {
 				],
 			}
 		}
+
 		if (MODEL_VALUES?.zoomSpeed) {
 			actions['zoomSpeed'] = {
 				label: 'Zoom Speed',
@@ -353,6 +364,7 @@ module.exports = {
 				],
 			}
 		}
+
 		if (MODEL_VALUES?.savePset) {
 			actions['savePset'] = {
 				label: 'Save Preset',
@@ -368,6 +380,7 @@ module.exports = {
 				],
 			}
 		}
+
 		if (MODEL_VALUES?.recallPset) {
 			actions['recallPset'] = {
 				label: 'Recall Preset',
@@ -383,6 +396,7 @@ module.exports = {
 				],
 			}
 		}
+
 		// Focus Actions
 
 		if (MODEL_VALUES?.focus) {
@@ -399,6 +413,7 @@ module.exports = {
 				],
 			}
 		}
+
 		if (MODEL_VALUES?.focusM) {
 			actions['focusM'] = {
 				label: 'Focus Mode',
