@@ -135,6 +135,7 @@ module.exports = {
 				}
 			}
 			if (action.action === 'irMode') {
+				action.action = 'ir_cutfilter'
 				if (action.options.bol == '0') {
 					action.options.val = 'On'
 					changed = true
@@ -318,6 +319,18 @@ module.exports = {
 					val = action.options.val
 				}
 				action.options.val = val
+				changed = true
+			}
+			if (action.action === 'gainBlue') {
+				action.action = 'blue_gain'
+				changed = true
+			}
+			if (action.action === 'gainRed') {
+				action.action = 'red_gain'
+				changed = true
+			}
+			if (action.action === 'wb') {
+				action.action = 'wb_mode'
 				changed = true
 			}
 		})

@@ -55,4 +55,10 @@ function strToPQRS(string) {
 	)
 }
 
-module.exports = { addStringToBinary, createPositionArray, createZoomArray, getPositionLabel, strToPQRS }
+module.exports = {
+	addStringToBinary,
+	createPositionArray,
+	createZoomArray,
+	getPositionLabel,
+	strToPQRS,
+}

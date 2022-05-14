@@ -8,6 +8,128 @@ See [HELP.md](https://github.com/bitfocus/companion-module-birddog-ptz/blob/main
 
 ## Changes
 
+### v2.0.3
+
+- Changes
+
+  - Changed Pan/Tilt/Zoom Speed inputs to numbers
+
+- New Actions / Feedback
+
+  - Analog Audio
+    - Analog Audio In Gain
+    - Analog Audio Out Gain
+  - Video Output
+    - Video Output
+  - PTZ
+    - Pan Position
+    - Pan Speed
+    - Tilt Postion
+    - Tilt Speed
+    - Zoom Position
+    - Zoom Speed
+  - Encode Setup
+    - NDI Audio
+    - NDI Group Enable
+  - Encode Transport
+    - Transmit Method
+  - NDI Discovery
+    - NDI Discovery Server
+  - Exposure
+    - Ae Response
+    - Backlight
+    - Bright Level
+    - Exposure Compensation
+    - Exposure Compensation Level
+    - Gain Limit
+    - Gain Point
+    - Gain Point Position
+    - Shutter Control Overwrite
+    - Shutter Max Speed
+    - Shutter Min Speed
+    - Shutter Speed Overwrite
+    - Slow Shutter Enable
+    - Slow Shutter Limit
+    - Spotlight
+  - White Balance
+    - BG
+    - BR
+    - GB
+    - GR
+    - Level
+    - Matrix
+    - Offset
+    - Phase
+    - RB
+    - RG
+    - Select
+    - Speed
+  - Picture Settings
+    - Backlight Compensation
+    - Chroma Suppress
+    - Color
+    - Gamma
+    - Highlight Compensation
+    - Highlight Compensation Mask
+    - Hue
+    - Low Latency
+    - ND Filter
+    - Noise Reduction
+    - Sharpness
+    - Stabilizer
+    - 3D Noise Reduction
+    - 2D Noise Reduction
+    - Wide Dynamic Range
+  - Color Matrix
+    - Color Matrix - Blue Gain
+    - Color Matrix - Blue Hue
+    - Color Matrix - Color Gain
+    - Color Matrix - Cyan Gain
+    - Color Matrix - Cyan Hue
+    - Color Matrix - Green Gain
+    - Color Matrix - Green Hue
+    - Color Matrix - Hue Phase
+    - Color Matrix - Magenta Gain
+    - Color Matrix - Magenta Hue
+    - Color Matrix - Red Gain
+    - Color Matrix - Red Hue
+    - Color Matrix - Yellow Gain
+    - Color Matrix - Yellow Hue
+  - Advanced Settings
+    - Brightness
+    - Brightness Compensation
+    - Compensation Level
+    - Gamma Offset
+    - High Resolution
+    - Video Enhancement
+  - External Settings
+    - Aux
+    - Rain Wiper
+    - 12v Out
+  - Detail Settings
+    - Bandwidth
+    - BW Balance
+    - Crispening
+    - Detail
+    - Highlight Detail
+    - Hv Balance
+    - Limit
+    - Super Low
+  - Gamma Settings
+    - Black Gamma Level
+    - Black Level
+    - Black Level Range
+    - Effect
+    - Level
+    - Offset
+    - Pattern
+    - Pattern Fine
+    - Settings
+    - Visibility Enhancer
+
+- Fixes
+  - Fixed shutter values in shutter actions
+
 ### v2.0.2
 
 - Make API calls depending on model
@@ -15,6 +137,7 @@ See [HELP.md](https://github.com/bitfocus/companion-module-birddog-ptz/blob/main
 - Added ability to Pan/Tilt drive to a location
 - Added ability Zoom direct
 - Show values depending on model
+
   - Gain
   - Iris
   - Shutter

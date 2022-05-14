@@ -34,6 +34,12 @@ module.exports = {
 		{ id: 'HIGH', label: 'High' },
 	],
 
+	L_Mid_H: [
+		{ id: 'LOW', label: 'Low' },
+		{ id: 'MID', label: 'Mid' },
+		{ id: 'HIGH', label: 'High' },
+	],
+
 	OFF_L_M_H: [
 		{ id: 'OFF', label: 'Off' },
 		{ id: 'LOW', label: 'Low' },
@@ -52,6 +58,25 @@ module.exports = {
 		{ id: 'down', label: 'Down' },
 		{ id: 'reset', label: 'Reset' },
 		{ id: 'value', label: 'Value' },
+	],
+
+	OFF_1_to_5: [
+		{ id: 'Off', label: 'Off' },
+		{ id: '1', label: '1' },
+		{ id: '2', label: '2' },
+		{ id: '3', label: '3' },
+		{ id: '4', label: '4' },
+		{ id: '5', label: '5' },
+	],
+
+	OFF_1_to_6: [
+		{ id: 'Off', label: 'Off' },
+		{ id: '1', label: '1' },
+		{ id: '2', label: '2' },
+		{ id: '3', label: '3' },
+		{ id: '4', label: '4' },
+		{ id: '5', label: '5' },
+		{ id: '6', label: '6' },
 	],
 
 	// ############
@@ -76,7 +101,7 @@ module.exports = {
 	],
 
 	IRIS_2: [
-		{ id: '0', label: 'CLOSED' },
+		{ id: '4', label: 'CLOSED' },
 		{ id: '5', label: 'F14.0' },
 		{ id: '6', label: 'F11.0' },
 		{ id: '7', label: 'F9.6' },
@@ -155,8 +180,26 @@ module.exports = {
 		{ id: '14', label: '28 dB' },
 		{ id: '15', label: '30 dB' },
 	],
-
+	//P200, A200, A300
 	GAIN_2: [
+		{ id: '1', label: '0 dB' },
+		{ id: '2', label: '3.6 dB' },
+		{ id: '3', label: '7.1 dB' },
+		{ id: '4', label: '10.7 dB' },
+		{ id: '5', label: '14.3 dB' },
+		{ id: '6', label: '17.8 dB' },
+		{ id: '7', label: '21.4  dB' },
+		{ id: '8', label: '25 dB' },
+		{ id: '9', label: '28.6 dB' },
+		{ id: '10', label: '32.1 dB' },
+		{ id: '11', label: '35.7 dB' },
+		{ id: '12', label: '39.3 dB' },
+		{ id: '13', label: '42.8 dB' },
+		{ id: '14', label: '46.4 dB' },
+		{ id: '15', label: '50 dB' },
+	],
+	//P400, P4K
+	GAIN_3: [
 		{ id: '1', label: '0 dB' },
 		{ id: '2', label: '3 dB' },
 		{ id: '3', label: '6 dB' },
@@ -170,8 +213,6 @@ module.exports = {
 		{ id: '11', label: '30 dB' },
 		{ id: '12', label: '33 dB' },
 		{ id: '13', label: '36 dB' },
-		{ id: '14', label: '39 dB' },
-		{ id: '15', label: '42 dB' },
 	],
 
 	// ############
@@ -325,64 +366,6 @@ module.exports = {
 	// PTZ Look Ups
 	// ############
 
-	ZOOM_SPEED: [
-		{ id: 0, label: 'Speed 00 (Slow)' },
-		{ id: 1, label: 'Speed 01' },
-		{ id: 2, label: 'Speed 02' },
-		{ id: 3, label: 'Speed 03' },
-		{ id: 4, label: 'Speed 04' },
-		{ id: 5, label: 'Speed 05' },
-		{ id: 6, label: 'Speed 06' },
-		{ id: 7, label: 'Speed 07 (Fast)' },
-	],
-
-	PAN_SPEED: [
-		{ id: 0, label: 'Speed 00 (Slow)' },
-		{ id: 1, label: 'Speed 01' },
-		{ id: 2, label: 'Speed 02' },
-		{ id: 3, label: 'Speed 03' },
-		{ id: 4, label: 'Speed 04' },
-		{ id: 5, label: 'Speed 05' },
-		{ id: 6, label: 'Speed 06' },
-		{ id: 7, label: 'Speed 07' },
-		{ id: 8, label: 'Speed 08' },
-		{ id: 9, label: 'Speed 09' },
-		{ id: 10, label: 'Speed 10' },
-		{ id: 11, label: 'Speed 11' },
-		{ id: 12, label: 'Speed 12' },
-		{ id: 13, label: 'Speed 13' },
-		{ id: 14, label: 'Speed 14' },
-		{ id: 15, label: 'Speed 15' },
-		{ id: 16, label: 'Speed 16' },
-		{ id: 17, label: 'Speed 17' },
-		{ id: 18, label: 'Speed 18' },
-		{ id: 19, label: 'Speed 19' },
-		{ id: 20, label: 'Speed 20' },
-		{ id: 21, label: 'Speed 21 (Fast)' },
-	],
-
-	TILT_SPEED: [
-		{ id: 0, label: 'Speed 00 (Slow)' },
-		{ id: 1, label: 'Speed 01' },
-		{ id: 2, label: 'Speed 02' },
-		{ id: 3, label: 'Speed 03' },
-		{ id: 4, label: 'Speed 04' },
-		{ id: 5, label: 'Speed 05' },
-		{ id: 6, label: 'Speed 06' },
-		{ id: 7, label: 'Speed 07' },
-		{ id: 8, label: 'Speed 08' },
-		{ id: 9, label: 'Speed 09' },
-		{ id: 10, label: 'Speed 10' },
-		{ id: 11, label: 'Speed 11' },
-		{ id: 12, label: 'Speed 12' },
-		{ id: 13, label: 'Speed 13' },
-		{ id: 14, label: 'Speed 14' },
-		{ id: 15, label: 'Speed 15' },
-		{ id: 16, label: 'Speed 16' },
-		{ id: 17, label: 'Speed 17' },
-		{ id: 18, label: 'Speed 18 (Fast)' },
-	],
-
 	SPEED_CHANGES: [
 		{ id: 'up', label: 'Speed Up' },
 		{ id: 'down', label: 'Speed Down' },
@@ -445,6 +428,11 @@ module.exports = {
 		{ id: 'DecodeLoop', label: 'Loop' },
 	],
 
+	VIDEO_OUTPUT: [
+		{ id: 'NormalMode', label: 'Normal' },
+		{ id: 'LowLatency', label: 'Low Latency' },
+	],
+
 	// ############
 	// NDI ENCODE Look Ups
 	// ############
@@ -457,7 +445,6 @@ module.exports = {
 	],
 
 	ENCODE_NDI_AUDIO: [
-		{ id: 'NDIAudioMain', label: 'NDI Audio Main' },
 		{ id: 'NDIAudioAnalog', label: 'NDI Audio Analog' },
 		{ id: 'NDIAudioMute', label: 'NDI Audio Mute' },
 	],
@@ -468,13 +455,22 @@ module.exports = {
 	],
 
 	ENCODE_NDIGroup: [
-		{ id: 'NDIGroupEn', label: 'NDI Group Enabled' },
-		{ id: 'NDIGroupDis', label: 'NDI Group Disabled' },
+		{ id: 'NDIGroupEn', label: 'Enabled' },
+		{ id: 'NDIGroupDis', label: 'Disabled' },
 	],
 
 	TALLY_MODE: [
 		{ id: 'TallyOn', label: 'Tally On' },
 		{ id: 'TallyOff', label: 'Tally Off' },
+	],
+
+	// ############
+	// NDI Discovery Look Ups
+	// ############
+
+	NDI_DIS_SVR: [
+		{ id: 'NDIDisServEn', label: 'Enabled' },
+		{ id: 'NDIDisServDis', label: 'Disabled' },
 	],
 
 	// ############

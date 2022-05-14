@@ -34,7 +34,6 @@ class instance extends instance_skel {
 
 		this.camera.position = { pan: '0000', tilt: '0000', zoom: '0000' }
 
-
 		this.camera.framerate = 50
 	}
 
@@ -124,10 +123,13 @@ class instance extends instance_skel {
 		let panSpeed = this.camera?.ptz?.PanSpeed ? this.camera.ptz.PanSpeed : 11
 		let tiltSpeed = this.camera?.ptz?.PanSpeed ? this.camera.ptz.TiltSpeed : 9
 		let zoomSpeed = this.camera?.ptz?.ZoomSpeed ? this.camera.ptz.ZoomSpeed : 4
+		let gainLimit
 		let newValue
 		let body = {}
 
 		switch (action.action) {
+			// General Camera Actions
+
 			case 'standby':
 				switch (opt.val) {
 					case 'on':
@@ -139,6 +141,110 @@ class instance extends instance_skel {
 				}
 				this.sendVISCACommand(cmd)
 				break
+
+			case 'freeze':
+				switch (opt.val) {
+					case 'On':
+						cmd = VISCA.MSG_CAM + VISCA.CAM_FREEZE + VISCA.DATA_ONVAL + VISCA.END_MSG
+						break
+					case 'Off':
+						cmd = VISCA.MSG_CAM + VISCA.CAM_FREEZE + VISCA.DATA_OFFVAL + VISCA.END_MSG
+						break
+				}
+				this.sendVISCACommand(cmd)
+				break
+
+			// Analog Audio Actions
+
+			case 'analogAudioInGain':
+				body = {
+					AnalogAudioInGain: String(opt.val + 50), //Convert action range to API range
+				}
+				this.sendCommand('analogaudiosetup', 'POST', body)
+				break
+
+			case 'analogAudioOutGain':
+				body = {
+					AnalogAudioOutGain: String(opt.val + 50), //Convert action range to API range
+				}
+				this.sendCommand('analogaudiosetup', 'POST', body)
+				break
+
+			case 'analogAudioOutput':
+				body = {
+					AnalogAudiooutputselect: String(opt.val),
+				}
+				this.sendCommand('analogaudiosetup', 'POST', body)
+				break
+
+			// Video Output Interface Actions
+
+			case 'video_output':
+				body = {
+					videooutput: String(opt.val),
+				}
+				this.sendCommand('videooutputinterface', 'POST', body)
+				break
+
+			// Encode Setup Actions
+
+			case 'tally':
+				body = {
+					TallyMode: String(opt.val),
+				}
+				this.sendCommand('encodesetup', 'POST', body)
+				break
+
+			case 'encodeBandwidth':
+				switch (opt.val) {
+					case 'NDIManaged':
+						body = {
+							BandwidthMode: String(opt.val),
+						}
+						break
+					case 'Manual':
+						body = {
+							BandwidthMode: String(opt.val),
+							BandwidthSelect: String(opt.bandwidth),
+						}
+						break
+				}
+				this.sendCommand('encodesetup', 'POST', body)
+				break
+
+			case 'ndiAudio':
+				body = {
+					NDIAudio: String(opt.val),
+				}
+				this.sendCommand('encodesetup', 'POST', body)
+				break
+
+			case 'ndiGroupEnable':
+				body = {
+					NDIGroup: String(opt.val),
+				}
+				this.sendCommand('encodesetup', 'POST', body)
+				break
+
+			// Encode Transport Actions
+
+			case 'transmit_method':
+				body = {
+					txpm: String(opt.val),
+				}
+				this.sendCommand('encodeTransport', 'POST', body)
+				break
+
+			// NDI Discovery Server Actions
+
+			case 'ndi_discovery_server':
+				body = {
+					NDIDisServ: String(opt.val),
+				}
+				this.sendCommand('NDIDisServer', 'POST', body)
+				break
+
+			// PTZ Actions
 
 			case 'pt':
 				panSpeed = opt.override === true ? opt.panSpeed : panSpeed
@@ -254,10 +360,10 @@ class instance extends instance_skel {
 			case 'panSpeed':
 				switch (opt.type) {
 					case 'up':
-						newValue = panSpeed < 21 ? ++panSpeed : 21
+						newValue = panSpeed < MODEL_VALUES.panSpeed.range.max ? ++panSpeed : MODEL_VALUES.panSpeed.range.max
 						break
 					case 'down':
-						newValue = panSpeed > 1 ? --panSpeed : 1
+						newValue = panSpeed > MODEL_VALUES.panSpeed.range.min ? --panSpeed : MODEL_VALUES.panSpeed.range.min
 						break
 					case 'value':
 						newValue = opt.value
@@ -272,11 +378,10 @@ class instance extends instance_skel {
 			case 'tiltSpeed':
 				switch (opt.type) {
 					case 'up':
-						newValue = tiltSpeed < 18 ? ++tiltSpeed : 18
+						newValue = tiltSpeed < MODEL_VALUES.tiltSpeed.range.max ? ++tiltSpeed : MODEL_VALUES.tiltSpeed.range.max
 						break
 					case 'down':
-						newValue = tiltSpeed > 1 ? --tiltSpeed : 1
-						break
+						newValue = tiltSpeed > MODEL_VALUES.tiltSpeed.range.min ? --tiltSpeed : MODEL_VALUES.tiltSpeed.range.min
 					case 'value':
 						newValue = opt.value
 						break
@@ -290,10 +395,10 @@ class instance extends instance_skel {
 			case 'zoomSpeed':
 				switch (opt.type) {
 					case 'up':
-						newValue = zoomSpeed < 7 ? ++zoomSpeed : 7
+						newValue = zoomSpeed < MODEL_VALUES.zoomSpeed.range.max ? ++zoomSpeed : MODEL_VALUES.zoomSpeed.range.max
 						break
 					case 'down':
-						newValue = zoomSpeed > 1 ? --zoomSpeed : 1
+						newValue = zoomSpeed > MODEL_VALUES.zoomSpeed.range.min ? --zoomSpeed : MODEL_VALUES.zoomSpeed.range.min
 						break
 					case 'value':
 						newValue = opt.value
@@ -332,6 +437,22 @@ class instance extends instance_skel {
 				this.sendVISCACommand(cmd)
 				break
 
+			case 'savePset':
+				body = {
+					Preset: String('Preset-' + opt.val),
+				}
+				this.sendCommand('save', 'POST', body)
+				break
+
+			case 'recallPset':
+				body = {
+					Preset: String('Preset-' + opt.val),
+				}
+				this.sendCommand('recall', 'POST', body)
+				break
+
+			// Focus Actions
+
 			case 'focus':
 				switch (opt.val) {
 					case 'near':
@@ -362,6 +483,49 @@ class instance extends instance_skel {
 				this.sendVISCACommand(cmd)
 				break
 
+			// Exposure Actions
+
+			case 'ae_response':
+				body = {
+					AeResponse: String(opt.level),
+				}
+				this.sendCommand('birddogexpsetup', 'POST', body)
+				break
+
+			case 'backlight':
+				body = {
+					Backlight: String(opt.val),
+				}
+				this.sendCommand('birddogexpsetup', 'POST', body)
+				break
+
+			case 'bright_level':
+				body = {
+					BrightLevel: String(opt.val),
+				}
+				this.sendCommand('birddogexpsetup', 'POST', body)
+				break
+
+			case 'expComp':
+				switch (opt.val) {
+					case 'Off':
+						body = {
+							ExpCompEn: String(opt.val),
+						}
+						break
+					case 'On':
+						//Convert action range to API range for P100 & PF120
+						let level =
+							this.camera.model === 'P100' || this.camera.model === 'PF120' ? String(opt.level + 7) : String(opt.level)
+						body = {
+							ExpCompEn: String(opt.val),
+							ExpCompLvl: String(level),
+						}
+						break
+				}
+				this.sendCommand('birddogexpsetup', 'POST', body)
+				break
+
 			case 'expM':
 				body = {
 					ExpMode: String(opt.val),
@@ -369,73 +533,82 @@ class instance extends instance_skel {
 				this.sendCommand('birddogexpsetup', 'POST', body)
 				break
 
-			case 'wb':
-				body = {
-					WbMode: String(opt.val),
-				}
-				this.sendCommand('birddogwbsetup', 'POST', body)
-				break
-
-			case 'wbOnePush':
-				cmd = VISCA.MSG_CAM + VISCA.CAM_WB_TRIGGER + VISCA.CMD_CAM_WB_TRIGGER_NOW + VISCA.END_MSG
-				this.sendVISCACommand(cmd)
-				break
-
 			case 'gain':
 				let gain = this.camera?.expsetup?.GainLevel ? this.camera.expsetup.GainLevel : MODEL_VALUES.gain.default
+				gainLimit = this.camera?.expsetup?.GainLimit ? this.camera.expsetup.GainLimit : MODEL_VALUES.gain.choices.length
 				switch (opt.val) {
 					case 'up':
-						newValue = gain < 15 ? ++gain : gain
+						newValue = gain < gainLimit ? ++gain : gain
 						break
 					case 'down':
-						newValue = gain > 0 ? --gain : gain
+						newValue = gain > MODEL_VALUES.gain.choices[0] ? --gain : gain
 						break
 					case 'value':
-						newValue = opt.value
+						newValue = parseFloat(opt.value) <= gainLimit ? opt.value : gain
 						break
 				}
+				this.debug(gainLimit)
 				body = {
 					GainLevel: String(newValue),
 				}
 				this.sendCommand('birddogexpsetup', 'POST', body)
 				break
 
-			case 'gainRed':
-				let gainRed = this.camera?.wbsetup?.RedGain ? this.camera.wbsetup.RedGain : 128
+			case 'gainLimit':
+				gainLimit = this.camera?.expsetup?.GainLimit
+					? this.camera.expsetup.GainLimit
+					: MODEL_VALUES.gain_limit.range.default
 				switch (opt.val) {
 					case 'up':
-						newValue = gainRed < 255 ? ++gainRed : gainRed
+						newValue = gainLimit < MODEL_VALUES.gain_limit.range.max ? ++gainLimit : gainLimit
 						break
 					case 'down':
-						newValue = gainRed > 0 ? --gainRed : gainRed
+						newValue = gainLimit > MODEL_VALUES.gain_limit.range.min ? --gainLimit : gainLimit
 						break
 					case 'value':
 						newValue = opt.value
 						break
 				}
 				body = {
-					RedGain: String(newValue),
+					GainLimit: String(newValue),
 				}
-				this.sendCommand('birddogwbsetup', 'POST', body)
+				this.sendCommand('birddogexpsetup', 'POST', body)
 				break
 
-			case 'gainBlue':
-				let gainBlue = this.camera?.wbsetup?.RedGain ? this.camera.wbsetup.RedGain : 128
+			case 'gainPoint':
+				body = {
+					GainPoint: String(opt.val),
+				}
+				this.sendCommand('birddogexpsetup', 'POST', body)
+				break
+
+			case 'gainPointPosition':
+				let gainPointPosition = this.camera?.expsetup?.GainPointPosition
+					? this.camera.expsetup.GainPointPosition
+					: MODEL_VALUES.gain.default
 				switch (opt.val) {
 					case 'up':
-						newValue = gainBlue < 255 ? ++gainBlue : gainBlue
+						newValue =
+							gainPointPosition < this.camera.expsetup.GainLimit ? ++gainPointPosition : this.camera.expsetup.GainLimit
 						break
 					case 'down':
-						newValue = gainBlue > 0 ? --gainBlue : gainBlue
+						newValue = gainPointPosition > MODEL_VALUES.gain[0] ? --gainPointPosition : gainPointPosition
 						break
 					case 'value':
 						newValue = opt.value
 						break
 				}
 				body = {
-					RedGain: String(newValue),
+					GainPointPosition: String(newValue),
 				}
-				this.sendCommand('birddogwbsetup', 'POST', body)
+				this.sendCommand('birddogexpsetup', 'POST', body)
+				break
+
+			case 'highSensitivity':
+				body = {
+					HighSensitivity: String(opt.val),
+				}
+				this.sendCommand('birddogexpsetup', 'POST', body)
 				break
 
 			case 'iris':
@@ -446,7 +619,7 @@ class instance extends instance_skel {
 							iris === MODEL_VALUES.iris.range.closed
 								? MODEL_VALUES.iris.range.min
 								: iris < MODEL_VALUES.iris.range.max
-								? --iris
+								? ++iris
 								: MODEL_VALUES.iris.range.max
 						break
 					case 'down':
@@ -467,49 +640,326 @@ class instance extends instance_skel {
 				this.sendCommand('birddogexpsetup', 'POST', body)
 				break
 
+			case 'shutter_control_overwrite':
+				body = {
+					ShutterControlOverwrite: String(opt.val),
+				}
+				this.sendCommand('birddogexpsetup', 'POST', body)
+				break
+
 			case 'shut':
-				let shutter_speed = this.camera?.expsetup?.shutter_speed
-					? this.camera.expsetup.shutter_speed
+				let shutter_speed = this.camera?.expsetup?.ShutterSpeed
+					? this.camera.expsetup.ShutterSpeed
 					: MODEL_VALUES.shut.default
 				switch (opt.val) {
 					case 'up':
 						newValue = shutter_speed < MODEL_VALUES.shut.range.max ? ++shutter_speed : MODEL_VALUES.shut.range.max
 						break
 					case 'down':
-						newValue = shutter_speed > MODEL_VALUES.shut.range.min ? ++shutter_speed : MODEL_VALUES.shut.range.min
+						newValue = shutter_speed > MODEL_VALUES.shut.range.min ? --shutter_speed : MODEL_VALUES.shut.range.min
 						break
 					case 'value':
 						newValue = opt.value
 						break
 				}
 				body = {
-					IrisLevel: String(newValue),
+					ShutterSpeed: String(newValue),
 				}
 				this.sendCommand('birddogexpsetup', 'POST', body)
 				break
 
-			case 'savePset':
-				body = {
-					Preset: String('Preset-' + opt.val),
+			case 'shutter_max_speed':
+				let shutter_max_speed = this.camera?.expsetup?.ShutterMaxSpeed
+					? this.camera.expsetup.ShutterMaxSpeed
+					: MODEL_VALUES.shutter_max_speed.range.default
+				switch (opt.val) {
+					case 'up':
+						newValue =
+							shutter_max_speed < MODEL_VALUES.shutter_max_speed.range.max
+								? ++shutter_max_speed
+								: MODEL_VALUES.shutter_max_speed.range.max
+						break
+					case 'down':
+						newValue =
+							shutter_max_speed > MODEL_VALUES.shutter_max_speed.range.min
+								? --shutter_max_speed
+								: MODEL_VALUES.shutter_max_speed.range.min
+						break
+					case 'value':
+						newValue = opt.value
+						break
 				}
-				this.sendCommand('save', 'POST', body)
+				body = {
+					ShutterMaxSpeed: String(newValue),
+				}
+				this.sendCommand('birddogexpsetup', 'POST', body)
 				break
 
-			case 'recallPset':
-				body = {
-					Preset: String('Preset-' + opt.val),
+			case 'shutter_min_speed':
+				let shutter_min_speed = this.camera?.expsetup?.ShutterMinSpeed
+					? this.camera.expsetup.ShutterMinSpeed
+					: MODEL_VALUES.shutter_min_speed.range.default
+				switch (opt.val) {
+					case 'up':
+						newValue =
+							shutter_min_speed < this.camera.expsetup.ShutterMaxSpeed
+								? ++shutter_min_speed
+								: this.camera.expsetup.ShutterMaxSpeed
+						break
+					case 'down':
+						newValue =
+							shutter_min_speed > MODEL_VALUES.shutter_min_speed.range.min
+								? --shutter_min_speed
+								: MODEL_VALUES.shutter_min_speed.range.min
+						break
+					case 'value':
+						newValue = opt.value
+						break
 				}
-				this.sendCommand('recall', 'POST', body)
+				body = {
+					ShutterMinSpeed: String(newValue),
+				}
+				this.sendCommand('birddogexpsetup', 'POST', body)
+				break
+
+			case 'shutter_speed_overwrite':
+				body = {
+					ShutterSpeedOverwrite: String(opt.val),
+				}
+				this.sendCommand('birddogexpsetup', 'POST', body)
+				break
+
+			case 'slow_shutter_en':
+				body = {
+					SlowShutterEn: String(opt.val),
+				}
+				this.sendCommand('birddogexpsetup', 'POST', body)
+				break
+
+			case 'slow_shutter_limit':
+				let slow_shutter_limit = this.camera?.expsetup?.SlowShutterLimit
+					? this.camera.expsetup.SlowShutterLimit
+					: MODEL_VALUES.slow_shutter_limit.range.default
+				switch (opt.val) {
+					case 'up':
+						newValue =
+							slow_shutter_limit < MODEL_VALUES.slow_shutter_limit.range.max
+								? ++slow_shutter_limit
+								: MODEL_VALUES.slow_shutter_limit.range.max
+						break
+					case 'down':
+						newValue =
+							slow_shutter_limit > MODEL_VALUES.slow_shutter_limit.range.min
+								? --slow_shutter_limit
+								: MODEL_VALUES.slow_shutter_limit.range.min
+						break
+					case 'value':
+						newValue = opt.value
+						break
+				}
+				body = {
+					SlowShutterLimit: String(newValue),
+				}
+				this.sendCommand('birddogexpsetup', 'POST', body)
+				break
+
+			case 'spotlight':
+				body = {
+					Spotlight: String(opt.val),
+				}
+				this.sendCommand('birddogexpsetup', 'POST', body)
+				break
+
+			// White Balance Actions
+
+			case 'bg':
+				body = {
+					BG: String(opt.val),
+				}
+				this.sendCommand('birddogwbsetup', 'POST', body)
+				break
+
+			case 'br':
+				body = {
+					BR: String(opt.val),
+				}
+				this.sendCommand('birddogwbsetup', 'POST', body)
+				break
+
+			case 'blue_gain':
+				let blue_gain = this.camera?.wbsetup?.BlueGain
+					? this.camera.wbsetup.BlueGain
+					: MODEL_VALUES.blue_gain.range.default
+				switch (opt.val) {
+					case 'up':
+						newValue = blue_gain < MODEL_VALUES.blue_gain.range.max ? ++blue_gain : blue_gain
+						break
+					case 'down':
+						newValue = blue_gain > MODEL_VALUES.blue_gain.range.min ? --blue_gain : blue_gain
+						break
+					case 'value':
+						newValue = opt.value
+						break
+				}
+				body = {
+					BlueGain: String(newValue),
+				}
+				this.sendCommand('birddogwbsetup', 'POST', body)
+				break
+
+			case 'color_temp':
+				body = {
+					ColorTemp: String(opt.val),
+				}
+				this.sendCommand('birddogwbsetup', 'POST', body)
+				break
+
+			case 'gb':
+				body = {
+					GB: String(opt.val),
+				}
+				this.sendCommand('birddogwbsetup', 'POST', body)
+				break
+
+			case 'gr':
+				body = {
+					GR: String(opt.val),
+				}
+				this.sendCommand('birddogwbsetup', 'POST', body)
+				break
+
+			case 'level':
+				body = {
+					Level: String(opt.val),
+				}
+				this.sendCommand('birddogwbsetup', 'POST', body)
+				break
+
+			case 'matrix':
+				body = {
+					Matrix: String(opt.val),
+				}
+				this.sendCommand('birddogwbsetup', 'POST', body)
+				break
+
+			case 'offset':
+				body = {
+					Offset: String(opt.val),
+				}
+				this.sendCommand('birddogwbsetup', 'POST', body)
+				break
+
+			case 'phase':
+				body = {
+					Phase: String(opt.val),
+				}
+				this.sendCommand('birddogwbsetup', 'POST', body)
+				break
+
+			case 'rb':
+				body = {
+					RB: String(opt.val),
+				}
+				this.sendCommand('birddogwbsetup', 'POST', body)
+				break
+
+			case 'rg':
+				body = {
+					RG: String(opt.val),
+				}
+				this.sendCommand('birddogwbsetup', 'POST', body)
+				break
+
+			case 'red_gain':
+				let red_gain = this.camera?.wbsetup?.RedGain ? this.camera.wbsetup.RedGain : MODEL_VALUES.red_gain.range.default
+				switch (opt.val) {
+					case 'up':
+						newValue = red_gain < MODEL_VALUES.red_gain.range.max ? ++red_gain : red_gain
+						break
+					case 'down':
+						newValue = red_gain > MODEL_VALUES.red_gain.range.min ? --red_gain : red_gain
+						break
+					case 'value':
+						newValue = opt.value
+						break
+				}
+				body = {
+					RedGain: String(newValue),
+				}
+				this.sendCommand('birddogwbsetup', 'POST', body)
+				break
+
+			case 'select':
+				body = {
+					Select: String(opt.val),
+				}
+				this.sendCommand('birddogwbsetup', 'POST', body)
+				break
+
+			case 'speed':
+				body = {
+					Speed: String(opt.val),
+				}
+				this.sendCommand('birddogwbsetup', 'POST', body)
+				break
+
+			case 'wb_mode':
+				body = {
+					WbMode: String(opt.val),
+				}
+				this.sendCommand('birddogwbsetup', 'POST', body)
+				break
+
+			case 'wbOnePush':
+				cmd = VISCA.MSG_CAM + VISCA.CAM_WB_TRIGGER + VISCA.CMD_CAM_WB_TRIGGER_NOW + VISCA.END_MSG
+				this.sendVISCACommand(cmd)
+				break
+
+			// Picture Setup Actions
+
+			case 'backlight_com':
+				body = {
+					BackLightCom: String(opt.val),
+				}
+				this.sendCommand('birddogpicsetup', 'POST', body)
+				break
+
+			case 'chroma_suppress':
+				body = {
+					ChromeSuppress: String(opt.val),
+				}
+				this.sendCommand('birddogpicsetup', 'POST', body)
+				break
+
+			case 'color':
+				let color = this.camera?.picsetup?.Color ? this.camera.picsetup.Color : MODEL_VALUES.color.range.default
+				switch (opt.val) {
+					case 'up':
+						newValue = color < MODEL_VALUES.color.range.max ? ++color : color
+						break
+					case 'down':
+						newValue = color > MODEL_VALUES.color.range.min ? --color : color
+						break
+					case 'value':
+						newValue = opt.value
+						break
+				}
+				body = {
+					Color: String(newValue),
+				}
+				this.sendCommand('birddogpicsetup', 'POST', body)
 				break
 
 			case 'contrast':
-				let contrast = this.camera?.picsetup?.Contrast ? this.camera.picsetup.Contrast : 7
+				let contrast = this.camera?.picsetup?.Contrast
+					? this.camera.picsetup.Contrast
+					: MODEL_VALUES.contrast.range.default
 				switch (opt.val) {
 					case 'up':
-						newValue = contrast < 15 ? ++contrast : contrast
+						newValue = contrast < MODEL_VALUES.contrast.range.max ? ++contrast : contrast
 						break
 					case 'down':
-						newValue = contrast > 0 ? --contrast : contrast
+						newValue = contrast > MODEL_VALUES.contrast.range.min ? --contrast : contrast
 						break
 					case 'value':
 						newValue = opt.value
@@ -527,6 +977,870 @@ class instance extends instance_skel {
 				}
 				this.sendCommand('birddogpicsetup', 'POST', body)
 				break
+
+			case 'picFlip':
+				body = {
+					Flip: String(opt.val),
+				}
+				this.sendCommand('birddogpicsetup', 'POST', body)
+				break
+
+			case 'gamma':
+				let gamma = this.camera?.picsetup?.Gamma ? this.camera.picsetup.Gamma : MODEL_VALUES.gamma.range.default
+				switch (opt.val) {
+					case 'up':
+						newValue = gamma < MODEL_VALUES.gamma.range.max ? ++gamma : gamma
+						break
+					case 'down':
+						newValue = gamma > MODEL_VALUES.gamma.range.min ? --gamma : gamma
+						break
+					case 'value':
+						newValue = opt.value
+						break
+				}
+				body = {
+					Gamma: String(newValue),
+				}
+				this.sendCommand('birddogpicsetup', 'POST', body)
+				break
+
+			case 'highlight_comp':
+				body = {
+					HighlightComp: String(opt.val),
+				}
+				this.sendCommand('birddogpicsetup', 'POST', body)
+				break
+
+			case 'highlight_comp_mask':
+				let highlight_comp_mask = this.camera?.picsetup?.HighlightCompMask
+					? this.camera.picsetup.HighlightCompMask
+					: MODEL_VALUES.highlight_comp_mask.range.default
+				switch (opt.val) {
+					case 'up':
+						newValue =
+							highlight_comp_mask < MODEL_VALUES.highlight_comp_mask.range.max
+								? ++highlight_comp_mask
+								: highlight_comp_mask
+						break
+					case 'down':
+						newValue =
+							highlight_comp_mask > MODEL_VALUES.highlight_comp_mask.range.min
+								? --highlight_comp_mask
+								: highlight_comp_mask
+						break
+					case 'value':
+						newValue = opt.value
+						break
+				}
+				body = {
+					HighlightCompMask: String(newValue),
+				}
+				this.sendCommand('birddogpicsetup', 'POST', body)
+				break
+
+			case 'hue':
+				let hue = this.camera?.picsetup?.Hue ? this.camera.picsetup.Hue : MODEL_VALUES.hue.range.default
+				switch (opt.val) {
+					case 'up':
+						newValue = hue < MODEL_VALUES.hue.range.max ? ++hue : hue
+						break
+					case 'down':
+						newValue = hue > MODEL_VALUES.hue.range.min ? --hue : hue
+						break
+					case 'value':
+						newValue = opt.value
+						break
+				}
+				body = {
+					Hue: String(newValue),
+				}
+				this.sendCommand('birddogpicsetup', 'POST', body)
+				break
+
+			case 'ir_cutfilter':
+				body = {
+					IRCutFilter: String(opt.val),
+				}
+				this.sendCommand('birddogpicsetup', 'POST', body)
+				break
+
+			case 'low_latency':
+				body = {
+					LowLatency: String(opt.val),
+				}
+				this.sendCommand('birddogpicsetup', 'POST', body)
+				break
+
+			case 'picMirror':
+				body = {
+					Mirror: String(opt.val),
+				}
+				this.sendCommand('birddogpicsetup', 'POST', body)
+				break
+
+			case 'nd_filter':
+				let nd_filter = this.camera?.picsetup?.NDFilter
+					? this.camera.picsetup.NDFilter
+					: MODEL_VALUES.nd_filter.range.default
+				switch (opt.val) {
+					case 'up':
+						newValue = nd_filter < MODEL_VALUES.nd_filter.range.max ? ++nd_filter : nd_filter
+						break
+					case 'down':
+						newValue = nd_filter > MODEL_VALUES.nd_filter.range.min ? --nd_filter : nd_filter
+						break
+					case 'value':
+						newValue = opt.value
+						break
+				}
+				body = {
+					NDFilter: String(newValue),
+				}
+				this.sendCommand('birddogpicsetup', 'POST', body)
+				break
+
+			case 'noise_reduction':
+				body = {
+					NoiseReduction: String(opt.val),
+				}
+				this.sendCommand('birddogpicsetup', 'POST', body)
+				break
+
+			case 'sharpness':
+				let sharpness = this.camera?.picsetup?.Sharpness
+					? this.camera.picsetup.Sharpness
+					: MODEL_VALUES.sharpness.range.default
+				switch (opt.val) {
+					case 'up':
+						newValue = sharpness < MODEL_VALUES.sharpness.range.max ? ++sharpness : sharpness
+						break
+					case 'down':
+						newValue = sharpness > MODEL_VALUES.sharpness.range.min ? --sharpness : sharpness
+						break
+					case 'value':
+						newValue = opt.value
+						break
+				}
+				body = {
+					Sharpness: String(newValue),
+				}
+				this.sendCommand('birddogpicsetup', 'POST', body)
+				break
+
+			case 'stabilizer':
+				body = {
+					Stabilizer: String(opt.val),
+				}
+				this.sendCommand('birddogpicsetup', 'POST', body)
+				break
+
+			case 'threed_nr':
+				body = {
+					ThreeDNR: String(opt.val),
+				}
+				this.sendCommand('birddogpicsetup', 'POST', body)
+				break
+
+			case 'twod_nr':
+				body = {
+					TWODNR: String(opt.val),
+				}
+				this.sendCommand('birddogpicsetup', 'POST', body)
+				break
+
+			case 'wide_dynamic_range':
+				body = {
+					WideDynamicRange: String(opt.val),
+				}
+				this.sendCommand('birddogpicsetup', 'POST', body)
+				break
+
+			// Color Matrix Actions
+
+			case 'cm_blue_gain':
+				let cm_blue_gain = this.camera?.cmsetup?.BlueGain
+					? this.camera.cmsetup.BlueGain
+					: MODEL_VALUES.cm_blue_gain.range.default
+				switch (opt.val) {
+					case 'up':
+						newValue = cm_blue_gain < MODEL_VALUES.cm_blue_gain.range.max ? ++cm_blue_gain : cm_blue_gain
+						break
+					case 'down':
+						newValue = cm_blue_gain > MODEL_VALUES.cm_blue_gain.range.min ? --cm_blue_gain : cm_blue_gain
+						break
+					case 'value':
+						newValue = opt.value
+						break
+				}
+				body = {
+					BlueGain: String(newValue),
+				}
+				this.sendCommand('birddogcmsetup', 'POST', body)
+				break
+
+			case 'cm_blue_hue':
+				let cm_blue_hue = this.camera?.cmsetup?.BlueHue
+					? this.camera.cmsetup.BlueHue
+					: MODEL_VALUES.cm_blue_hue.range.default
+				switch (opt.val) {
+					case 'up':
+						newValue = cm_blue_hue < MODEL_VALUES.cm_blue_hue.range.max ? ++cm_blue_hue : cm_blue_hue
+						break
+					case 'down':
+						newValue = cm_blue_hue > MODEL_VALUES.cm_blue_hue.range.min ? --cm_blue_hue : cm_blue_hue
+						break
+					case 'value':
+						newValue = opt.value
+						break
+				}
+				body = {
+					BlueHue: String(newValue),
+				}
+				this.sendCommand('birddogcmsetup', 'POST', body)
+				break
+
+			case 'cm_color_gain':
+				let cm_color_gain = this.camera?.cmsetup?.ColorGain
+					? this.camera.cmsetup.ColorGain
+					: MODEL_VALUES.cm_color_gain.range.default
+				switch (opt.val) {
+					case 'up':
+						newValue = cm_color_gain < MODEL_VALUES.cm_color_gain.range.max ? ++cm_color_gain : cm_color_gain
+						break
+					case 'down':
+						newValue = cm_color_gain > MODEL_VALUES.cm_color_gain.range.min ? --cm_color_gain : cm_color_gain
+						break
+					case 'value':
+						newValue = opt.value
+						break
+				}
+				body = {
+					ColorGain: String(newValue),
+				}
+				this.sendCommand('birddogcmsetup', 'POST', body)
+				break
+
+			case 'cm_cyan_gain':
+				let cm_cyan_gain = this.camera?.cmsetup?.CyanGain
+					? this.camera.cmsetup.CyanGain
+					: MODEL_VALUES.cm_cyan_gain.range.default
+				switch (opt.val) {
+					case 'up':
+						newValue = cm_cyan_gain < MODEL_VALUES.cm_cyan_gain.range.max ? ++cm_cyan_gain : cm_cyan_gain
+						break
+					case 'down':
+						newValue = cm_cyan_gain > MODEL_VALUES.cm_cyan_gain.range.min ? --cm_cyan_gain : cm_cyan_gain
+						break
+					case 'value':
+						newValue = opt.value
+						break
+				}
+				body = {
+					CyanGain: String(newValue),
+				}
+				this.sendCommand('birddogcmsetup', 'POST', body)
+				break
+
+			case 'cm_cyan_hue':
+				let cm_cyan_hue = this.camera?.cmsetup?.CyanHue
+					? this.camera.cmsetup.CyanHue
+					: MODEL_VALUES.cm_cyan_hue.range.default
+				switch (opt.val) {
+					case 'up':
+						newValue = cm_cyan_hue < MODEL_VALUES.cm_cyan_hue.range.max ? ++cm_cyan_hue : cm_cyan_hue
+						break
+					case 'down':
+						newValue = cm_cyan_hue > MODEL_VALUES.cm_cyan_hue.range.min ? --cm_cyan_hue : cm_cyan_hue
+						break
+					case 'value':
+						newValue = opt.value
+						break
+				}
+				body = {
+					CyanHue: String(newValue),
+				}
+				this.sendCommand('birddogcmsetup', 'POST', body)
+				break
+
+			case 'cm_green_gain':
+				let cm_green_gain = this.camera?.cmsetup?.GreenGain
+					? this.camera.cmsetup.GreenGain
+					: MODEL_VALUES.cm_green_gain.range.default
+				switch (opt.val) {
+					case 'up':
+						newValue = cm_green_gain < MODEL_VALUES.cm_green_gain.range.max ? ++cm_green_gain : cm_green_gain
+						break
+					case 'down':
+						newValue = cm_green_gain > MODEL_VALUES.cm_green_gain.range.min ? --cm_green_gain : cm_green_gain
+						break
+					case 'value':
+						newValue = opt.value
+						break
+				}
+				body = {
+					GreenGain: String(newValue),
+				}
+				this.sendCommand('birddogcmsetup', 'POST', body)
+				break
+
+			case 'cm_green_hue':
+				let cm_green_hue = this.camera?.cmsetup?.GreenHue
+					? this.camera.cmsetup.GreenHue
+					: MODEL_VALUES.cm_green_hue.range.default
+				switch (opt.val) {
+					case 'up':
+						newValue = cm_green_hue < MODEL_VALUES.cm_green_hue.range.max ? ++cm_green_hue : cm_green_hue
+						break
+					case 'down':
+						newValue = cm_green_hue > MODEL_VALUES.cm_green_hue.range.min ? --cm_green_hue : cm_green_hue
+						break
+					case 'value':
+						newValue = opt.value
+						break
+				}
+				body = {
+					GreenHue: String(newValue),
+				}
+				this.sendCommand('birddogcmsetup', 'POST', body)
+				break
+
+			case 'cm_hue_phase':
+				let cm_hue_phase = this.camera?.cmsetup?.HuePhase
+					? this.camera.cmsetup.HuePhase
+					: MODEL_VALUES.cm_hue_phase.range.default
+				switch (opt.val) {
+					case 'up':
+						newValue = cm_hue_phase < MODEL_VALUES.cm_hue_phase.range.max ? ++cm_hue_phase : cm_hue_phase
+						break
+					case 'down':
+						newValue = cm_hue_phase > MODEL_VALUES.cm_hue_phase.range.min ? --cm_hue_phase : cm_hue_phase
+						break
+					case 'value':
+						newValue = opt.value
+						break
+				}
+				body = {
+					HuePhase: String(newValue),
+				}
+				this.sendCommand('birddogcmsetup', 'POST', body)
+				break
+
+			case 'cm_mag_gain':
+				let cm_mag_gain = this.camera?.cmsetup?.MagGain
+					? this.camera.cmsetup.MagGain
+					: MODEL_VALUES.cm_mag_gain.range.default
+				switch (opt.val) {
+					case 'up':
+						newValue = cm_mag_gain < MODEL_VALUES.cm_mag_gain.range.max ? ++cm_mag_gain : cm_mag_gain
+						break
+					case 'down':
+						newValue = cm_mag_gain > MODEL_VALUES.cm_mag_gain.range.min ? --cm_mag_gain : cm_mag_gain
+						break
+					case 'value':
+						newValue = opt.value
+						break
+				}
+				body = {
+					MagGain: String(newValue),
+				}
+				this.sendCommand('birddogcmsetup', 'POST', body)
+				break
+
+			case 'cm_mag_hue':
+				let cm_mag_hue = this.camera?.cmsetup?.MagHue
+					? this.camera.cmsetup.MagHue
+					: MODEL_VALUES.cm_mag_hue.range.default
+				switch (opt.val) {
+					case 'up':
+						newValue = cm_mag_hue < MODEL_VALUES.cm_mag_hue.range.max ? ++cm_mag_hue : cm_mag_hue
+						break
+					case 'down':
+						newValue = cm_mag_hue > MODEL_VALUES.cm_mag_hue.range.min ? --cm_mag_hue : cm_mag_hue
+						break
+					case 'value':
+						newValue = opt.value
+						break
+				}
+				body = {
+					MagHue: String(newValue),
+				}
+				this.sendCommand('birddogcmsetup', 'POST', body)
+				break
+
+			case 'cm_red_gain':
+				let cm_red_gain = this.camera?.cmsetup?.RedGain
+					? this.camera.cmsetup.RedGain
+					: MODEL_VALUES.cm_red_gain.range.default
+				switch (opt.val) {
+					case 'up':
+						newValue = cm_red_gain < MODEL_VALUES.cm_red_gain.range.max ? ++cm_red_gain : cm_red_gain
+						break
+					case 'down':
+						newValue = cm_red_gain > MODEL_VALUES.cm_red_gain.range.min ? --cm_red_gain : cm_red_gain
+						break
+					case 'value':
+						newValue = opt.value
+						break
+				}
+				body = {
+					RedGain: String(newValue),
+				}
+				this.sendCommand('birddogcmsetup', 'POST', body)
+				break
+
+			case 'cm_red_hue':
+				let cm_red_hue = this.camera?.cmsetup?.RedHue
+					? this.camera.cmsetup.RedHue
+					: MODEL_VALUES.cm_red_hue.range.default
+				switch (opt.val) {
+					case 'up':
+						newValue = cm_red_hue < MODEL_VALUES.cm_red_hue.range.max ? ++cm_red_hue : cm_red_hue
+						break
+					case 'down':
+						newValue = cm_red_hue > MODEL_VALUES.cm_red_hue.range.min ? --cm_red_hue : cm_red_hue
+						break
+					case 'value':
+						newValue = opt.value
+						break
+				}
+				body = {
+					RedHue: String(newValue),
+				}
+				this.sendCommand('birddogcmsetup', 'POST', body)
+				break
+
+			case 'cm_yellow_gain':
+				let cm_yellow_gain = this.camera?.cmsetup?.YellowGain
+					? this.camera.cmsetup.YellowGain
+					: MODEL_VALUES.cm_yellow_gain.range.default
+				switch (opt.val) {
+					case 'up':
+						newValue = cm_yellow_gain < MODEL_VALUES.cm_yellow_gain.range.max ? ++cm_yellow_gain : cm_yellow_gain
+						break
+					case 'down':
+						newValue = cm_yellow_gain > MODEL_VALUES.cm_yellow_gain.range.min ? --cm_yellow_gain : cm_yellow_gain
+						break
+					case 'value':
+						newValue = opt.value
+						break
+				}
+				body = {
+					YellowGain: String(newValue),
+				}
+				this.sendCommand('birddogcmsetup', 'POST', body)
+				break
+
+			case 'cm_yellow_hue':
+				let cm_yellow_hue = this.camera?.cmsetup?.YellowHue
+					? this.camera.cmsetup.YellowHue
+					: MODEL_VALUES.cm_yellow_hue.range.default
+				switch (opt.val) {
+					case 'up':
+						newValue = cm_yellow_hue < MODEL_VALUES.cm_yellow_hue.range.max ? ++cm_yellow_hue : cm_yellow_hue
+						break
+					case 'down':
+						newValue = cm_yellow_hue > MODEL_VALUES.cm_yellow_hue.range.min ? --cm_yellow_hue : cm_yellow_hue
+						break
+					case 'value':
+						newValue = opt.value
+						break
+				}
+				body = {
+					YellowHue: String(newValue),
+				}
+				this.sendCommand('birddogcmsetup', 'POST', body)
+				break
+
+			// Advanced Setup Actions
+
+			case 'brightness':
+				let brightness = this.camera?.advancesetup?.Brightness
+					? this.camera.advancesetup.Brightness
+					: MODEL_VALUES.brightness.range.default
+				switch (opt.val) {
+					case 'up':
+						newValue = brightness < MODEL_VALUES.brightness.range.max ? ++brightness : brightness
+						break
+					case 'down':
+						newValue = brightness > MODEL_VALUES.brightness.range.min ? --brightness : brightness
+						break
+					case 'value':
+						newValue = opt.value
+						break
+				}
+				body = {
+					Brightness: String(newValue),
+				}
+				this.sendCommand('birddogadvancesetup', 'POST', body)
+				break
+
+			case 'brightness_comp':
+				body = {
+					BrightnessComp: String(opt.val),
+				}
+				this.sendCommand('birddogadvancesetup', 'POST', body)
+				break
+
+			case 'comp_level':
+				body = {
+					CompLevel: String(opt.val),
+				}
+				this.sendCommand('birddogadvancesetup', 'POST', body)
+				break
+
+			case 'gamma_offset':
+				let gamma_offset = this.camera?.advancesetup?.GammaOffset
+					? this.camera.advancesetup.GammaOffset
+					: MODEL_VALUES.gamma_offset.range.default
+				switch (opt.val) {
+					case 'up':
+						newValue = gamma_offset < MODEL_VALUES.gamma_offset.range.max ? ++gamma_offset : gamma_offset
+						break
+					case 'down':
+						newValue = gamma_offset > MODEL_VALUES.gamma_offset.range.min ? --gamma_offset : gamma_offset
+						break
+					case 'value':
+						newValue = opt.value
+						break
+				}
+				body = {
+					GammaOffset: String(newValue),
+				}
+				this.sendCommand('birddogadvancesetup', 'POST', body)
+				break
+
+			case 'high_resolution':
+				body = {
+					HighResolution: String(opt.val),
+				}
+				this.sendCommand('birddogadvancesetup', 'POST', body)
+				break
+
+			case 'video_enhancement':
+				body = {
+					VideoEnhancement: String(opt.val),
+				}
+				this.sendCommand('birddogadvancesetup', 'POST', body)
+				break
+
+			// External Setup Actions
+
+			case 'aux':
+				body = {
+					Aux: String(opt.val),
+				}
+				this.sendCommand('birddogexternalsetup', 'POST', body)
+				break
+
+			case 'rain_wiper':
+				body = {
+					VideoEnhancement: String(opt.val),
+				}
+				this.sendCommand('birddogexternalsetup', 'POST', body)
+				break
+
+			case 'v12vout':
+				body = {
+					VideoEnhancement: String(opt.val),
+				}
+				this.sendCommand('birddogexternalsetup', 'POST', body)
+				break
+
+			// Detail Setup Actions
+
+			case 'bandwidth':
+				body = {
+					Bandwidth: String(opt.val),
+				}
+				this.sendCommand('birddogdetsetup', 'POST', body)
+				break
+
+			case 'bw_balance':
+				body = {
+					BwBandwidth: String(opt.val),
+				}
+				this.sendCommand('birddogdetsetup', 'POST', body)
+				break
+
+			case 'crispening':
+				let crispening = this.camera?.detail?.Crispening
+					? this.camera.detail.Crispening
+					: MODEL_VALUES.crispening.range.default
+				switch (opt.val) {
+					case 'up':
+						newValue = crispening < MODEL_VALUES.crispening.range.max ? ++crispening : crispening
+						break
+					case 'down':
+						newValue = crispening > MODEL_VALUES.crispening.range.min ? --crispening : crispening
+						break
+					case 'value':
+						newValue = opt.value
+						break
+				}
+				body = {
+					Crispening: String(newValue),
+				}
+				this.sendCommand('birddogdetsetup', 'POST', body)
+				break
+
+			case 'detail':
+				body = {
+					Detail: String(opt.val),
+				}
+				this.sendCommand('birddogdetsetup', 'POST', body)
+				break
+
+			case 'highlight_detail':
+				let highlight_detail = this.camera?.detail?.HighlightDetail
+					? this.camera.detail.HighlightDetail
+					: MODEL_VALUES.highlight_detail.range.default
+				switch (opt.val) {
+					case 'up':
+						newValue =
+							highlight_detail < MODEL_VALUES.highlight_detail.range.max ? ++highlight_detail : highlight_detail
+						break
+					case 'down':
+						newValue =
+							highlight_detail > MODEL_VALUES.highlight_detail.range.min ? --highlight_detail : highlight_detail
+						break
+					case 'value':
+						newValue = opt.value
+						break
+				}
+				body = {
+					HighlightDetail: String(newValue),
+				}
+				this.sendCommand('birddogdetsetup', 'POST', body)
+				break
+
+			case 'hv_balance':
+				let hv_balance = this.camera?.detail?.HvBalance
+					? this.camera.detail.HvBalance
+					: MODEL_VALUES.hv_balance.range.default
+				switch (opt.val) {
+					case 'up':
+						newValue = hv_balance < MODEL_VALUES.hv_balance.range.max ? ++hv_balance : hv_balance
+						break
+					case 'down':
+						newValue = hv_balance > MODEL_VALUES.hv_balance.range.min ? --hv_balance : hv_balance
+						break
+					case 'value':
+						newValue = opt.value
+						break
+				}
+				body = {
+					HvBalance: String(newValue),
+				}
+				this.sendCommand('birddogdetsetup', 'POST', body)
+				break
+
+			case 'limit':
+				let limit = this.camera?.detail?.Limit ? this.camera.detail.Limit : MODEL_VALUES.limit.range.default
+				switch (opt.val) {
+					case 'up':
+						newValue = limit < MODEL_VALUES.limit.range.max ? ++limit : limit
+						break
+					case 'down':
+						newValue = limit > MODEL_VALUES.limit.range.min ? --limit : limit
+						break
+					case 'value':
+						newValue = opt.value
+						break
+				}
+				body = {
+					Limit: String(newValue),
+				}
+				this.sendCommand('birddogdetsetup', 'POST', body)
+				break
+
+			case 'super_low':
+				let super_low = this.camera?.detail?.SuperLow
+					? this.camera.detail.SuperLow
+					: MODEL_VALUES.super_low.range.default
+				switch (opt.val) {
+					case 'up':
+						newValue = super_low < MODEL_VALUES.super_low.range.max ? ++super_low : super_low
+						break
+					case 'down':
+						newValue = super_low > MODEL_VALUES.super_low.range.min ? --super_low : super_low
+						break
+					case 'value':
+						newValue = opt.value
+						break
+				}
+				body = {
+					SuperLow: String(newValue),
+				}
+				this.sendCommand('birddogdetsetup', 'POST', body)
+				break
+
+			// Gamma Setup Actions
+
+			case 'black_gamma_level':
+				let black_gamma_level = this.camera?.gammasetup?.BlackGammaLevel
+					? this.camera.gammasetup.BlackGammaLevel
+					: MODEL_VALUES.black_gamma_level.range.default
+				switch (opt.val) {
+					case 'up':
+						newValue =
+							black_gamma_level < MODEL_VALUES.black_gamma_level.range.max ? ++black_gamma_level : black_gamma_level
+						break
+					case 'down':
+						newValue =
+							black_gamma_level > MODEL_VALUES.black_gamma_level.range.max ? --black_gamma_level : black_gamma_level
+						break
+					case 'value':
+						newValue = opt.value
+						break
+				}
+				body = {
+					BlackGammaLevel: String(newValue),
+				}
+				this.sendCommand('birddoggammasetup', 'POST', body)
+				break
+
+			case 'black_level':
+				let black_level = this.camera?.gammasetup?.BlackLevel
+					? this.camera.gammasetup.BlackLevel
+					: MODEL_VALUES.black_level.range.default
+				switch (opt.val) {
+					case 'up':
+						newValue = black_level < MODEL_VALUES.black_level.range.max ? ++black_level : black_level
+						break
+					case 'down':
+						newValue = black_level > MODEL_VALUES.black_level.range.max ? --black_level : black_level
+						break
+					case 'value':
+						newValue = opt.value
+						break
+				}
+				body = {
+					BlackLevel: String(newValue),
+				}
+				this.sendCommand('birddoggammasetup', 'POST', body)
+				break
+
+			case 'black_level_range':
+				body = {
+					BlackLevelRange: String(opt.val),
+				}
+				this.sendCommand('birddoggammasetup', 'POST', body)
+				break
+
+			case 'effect':
+				let effect = this.camera?.gammasetup?.Effect ? this.camera.gammasetup.Effect : MODEL_VALUES.effect.range.default
+				switch (opt.val) {
+					case 'up':
+						newValue = effect < MODEL_VALUES.effect.range.max ? ++effect : effect
+						break
+					case 'down':
+						newValue = effect > MODEL_VALUES.effect.range.max ? --effect : effect
+						break
+					case 'value':
+						newValue = opt.value
+						break
+				}
+				body = {
+					Effect: String(newValue),
+				}
+				this.sendCommand('birddoggammasetup', 'POST', body)
+				break
+
+			case 'level':
+				let level = this.camera?.gammasetup?.Level ? this.camera.gammasetup.Level : MODEL_VALUES.level.range.default
+				switch (opt.val) {
+					case 'up':
+						newValue = level < MODEL_VALUES.level.range.max ? ++level : level
+						break
+					case 'down':
+						newValue = level > MODEL_VALUES.level.range.max ? --level : level
+						break
+					case 'value':
+						newValue = opt.value
+						break
+				}
+				body = {
+					Level: String(newValue),
+				}
+				this.sendCommand('birddoggammasetup', 'POST', body)
+				break
+
+			case 'offset':
+				let offset = this.camera?.gammasetup?.Offset ? this.camera.gammasetup.Offset : MODEL_VALUES.offset.range.default
+				switch (opt.val) {
+					case 'up':
+						newValue = offset < MODEL_VALUES.offset.range.max ? ++offset : offset
+						break
+					case 'down':
+						newValue = offset > MODEL_VALUES.offset.range.max ? --offset : offset
+						break
+					case 'value':
+						newValue = opt.value
+						break
+				}
+				body = {
+					Offset: String(newValue),
+				}
+				this.sendCommand('birddoggammasetup', 'POST', body)
+				break
+
+			case 'pattern':
+				let pattern = this.camera?.gammasetup?.Pattern
+					? this.camera.gammasetup.Pattern
+					: MODEL_VALUES.pattern.range.default
+				switch (opt.val) {
+					case 'up':
+						newValue = pattern < MODEL_VALUES.pattern.range.max ? ++pattern : pattern
+						break
+					case 'down':
+						newValue = pattern > MODEL_VALUES.pattern.range.max ? --pattern : pattern
+						break
+					case 'value':
+						newValue = opt.value
+						break
+				}
+				body = {
+					Pattern: String(newValue),
+				}
+				this.sendCommand('birddoggammasetup', 'POST', body)
+				break
+
+			case 'pattern_fine':
+				let pattern_fine = this.camera?.gammasetup?.PatternFine
+					? this.camera.gammasetup.PatternFine
+					: MODEL_VALUES.pattern_fine.range.default
+				switch (opt.val) {
+					case 'up':
+						newValue = pattern_fine < MODEL_VALUES.pattern_fine.range.max ? ++pattern_fine : pattern_fine
+						break
+					case 'down':
+						newValue = pattern_fine > MODEL_VALUES.pattern_fine.range.max ? --pattern_fine : pattern_fine
+						break
+					case 'value':
+						newValue = opt.value
+						break
+				}
+				body = {
+					PatternFine: String(newValue),
+				}
+				this.sendCommand('birddoggammasetup', 'POST', body)
+				break
+
+			case 'settings':
+				body = {
+					Settings: String(opt.val),
+				}
+				this.sendCommand('birddoggammasetup', 'POST', body)
+				break
+
+			case 'visibility_enhancer':
+				body = {
+					VisibilityEnhancer: String(opt.val),
+				}
+				this.sendCommand('birddoggammasetup', 'POST', body)
+				break
+
+			// Other Actions
 
 			case 'defog':
 				switch (opt.val) {
@@ -546,13 +1860,6 @@ class instance extends instance_skel {
 				this.sendVISCACommand(cmd)
 				break
 
-			case 'irMode':
-				body = {
-					IRCutFilter: String(opt.val),
-				}
-				this.sendCommand('birddogpicsetup', 'POST', body)
-				break
-
 			case 'hrMode':
 				switch (opt.val) {
 					case 'On':
@@ -565,46 +1872,6 @@ class instance extends instance_skel {
 				this.sendVISCACommand(cmd)
 				break
 
-			case 'highSensitivity':
-				body = {
-					HighSensitivity: String(opt.val),
-				}
-				this.sendCommand('birddogexpsetup', 'POST', body)
-				break
-
-			case 'tally':
-				body = {
-					TallyMode: String(opt.val),
-				}
-				this.sendCommand('encodesetup', 'POST', body)
-				break
-
-			case 'freeze':
-				switch (opt.val) {
-					case 'On':
-						cmd = VISCA.MSG_CAM + VISCA.CAM_FREEZE + VISCA.DATA_ONVAL + VISCA.END_MSG
-						break
-					case 'Off':
-						cmd = VISCA.MSG_CAM + VISCA.CAM_FREEZE + VISCA.DATA_OFFVAL + VISCA.END_MSG
-						break
-				}
-				this.sendVISCACommand(cmd)
-				break
-
-			case 'picFlip':
-				body = {
-					Flip: String(opt.val),
-				}
-				this.sendCommand('birddogpicsetup', 'POST', body)
-				break
-
-			case 'picMirror':
-				body = {
-					Mirror: String(opt.val),
-				}
-				this.sendCommand('birddogpicsetup', 'POST', body)
-				break
-
 			case 'custom':
 				let hexData = opt.custom.replace(/\s+/g, '')
 				let tempBuffer = Buffer.from(hexData, 'hex')
@@ -614,51 +1881,6 @@ class instance extends instance_skel {
 				} else {
 					this.log('error', 'Error, command "' + opt.custom + '" does not start with 8')
 				}
-				break
-
-			case 'encodeBandwidth':
-				switch (opt.val) {
-					case 'NDIManaged':
-						body = {
-							BandwidthMode: String(opt.val),
-						}
-						break
-					case 'Manual':
-						body = {
-							BandwidthMode: String(opt.val),
-							BandwidthSelect: String(opt.bandwidth),
-						}
-						break
-				}
-				this.sendCommand('encodesetup', 'POST', body)
-				break
-
-			case 'analogAudioInGain':
-				body = {
-					AnalogAudioInGain: String(opt.val + 50), //Convert action range to API range
-				}
-				this.sendCommand('analogaudiosetup', 'POST', body)
-				break
-
-			case 'analogAudioOutGain':
-				body = {
-					AnalogAudioOutGain: String(opt.val + 50), //Convert action range to API range
-				}
-				this.sendCommand('analogaudiosetup', 'POST', body)
-				break
-
-			case 'analogAudioOutput':
-				body = {
-					AnalogAudiooutputselect: String(opt.val),
-				}
-				this.sendCommand('analogaudiosetup', 'POST', body)
-				break
-
-			case 'color_temp':
-				body = {
-					ColorTemp: String(opt.val),
-				}
-				this.sendCommand('birddogwbsetup', 'POST', body)
 				break
 		}
 	}
@@ -683,6 +1905,12 @@ class instance extends instance_skel {
 				let data = json
 				if (data && type == 'GET') {
 					this.processData(decodeURI(url), data)
+				} else if ((data && type == 'PUT') || type == 'POST') {
+					if (decodeURI(url).match('/encodesetup')) {
+						//Temp workaround since encodesetup is not in poll, update if changed
+						this.sendCommand('encodesetup', 'GET')
+					}
+					this.debug(data)
 				} else {
 					this.debug(`Command failed ${url}`)
 				}
@@ -690,7 +1918,12 @@ class instance extends instance_skel {
 			.catch((err) => {
 				this.debug(err)
 				let errorText = String(err)
-				if (errorText.match('ECONNREFUSED') || errorText.match('ENOTFOUND') || errorText.match('EHOSTDOWN')) {
+				if (
+					errorText.match('ECONNREFUSED') ||
+					errorText.match('ENOTFOUND') ||
+					errorText.match('EHOSTDOWN') ||
+					errorText.match('ETIMEDOUT')
+				) {
 					if (this.currentStatus != 2) {
 						this.status(this.STATUS_ERROR)
 						this.log(
@@ -740,6 +1973,8 @@ class instance extends instance_skel {
 			}
 		} else if (cmd.match('/analogaudiosetup')) {
 			this.camera.audio = data
+		} else if (cmd.match('/videooutputinterface')) {
+			this.camera.video = data
 		} else if (cmd.match('/encodetransport')) {
 			this.camera.transport = data
 		} else if (cmd.match('/encodesetup')) {
@@ -759,6 +1994,20 @@ class instance extends instance_skel {
 		} else if (cmd.match('/birddogptzsetup')) {
 			this.camera.ptz = data
 		} else if (cmd.match('/birddogexpsetup')) {
+			if (this.camera.expsetup?.GainLimit && this.camera.expsetup.GainLimit !== data.GainLimit) {
+				// rebuild actions if GainLimit has changed
+				console.log('-----Gain Limit changed')
+				this.camera.expsetup.GainLimit = data.GainLimit
+				this.actions()
+			} else if (
+				this.camera.expsetup?.ShutterMaxSpeed &&
+				this.camera.expsetup.ShutterMaxSpeed !== data.ShutterMaxSpeed
+			) {
+				// rebuild actions if ShutterMaxSpeed has changed
+				console.log('-----ShutterMaxSpeed changed')
+				this.camera.expsetup.ShutterMaxSpeed = data.ShutterMaxSpeed
+				this.actions()
+			}
 			this.camera.expsetup = data
 		} else if (cmd.match('/birddogwbsetup')) {
 			this.camera.wbsetup = data
@@ -921,8 +2170,10 @@ class instance extends instance_skel {
 		this.sendVISCACommand(VISCA.MSG_QRY + VISCA.CAM_FOCUS_AUTO + VISCA.END_MSG, '\x5a') // Query Auto Focus Mode
 		this.sendVISCACommand(VISCA.MSG_QRY + VISCA.CAM_FREEZE + VISCA.END_MSG, '\x5b') // Query Freeze
 		this.sendVISCACommand(VISCA.MSG_QRY + VISCA.CAM_ZOOM_DIRECT + VISCA.END_MSG, '\x5c') // Query Zoom Position
-		this.sendVISCACommand(VISCA.MSG_QRY_OPERATION + VISCA.OP_PAN_POS + VISCA.END_MSG, '\x5d') // Query Pan/Tilt Position
 		// Specific Model Info
+		if (MODEL_API?.videooutputinterface) {
+			this.sendCommand('videooutputinterface', 'GET')
+		}
 		if (MODEL_API?.birddogcmsetup) {
 			this.sendCommand('birddogcmsetup', 'GET')
 		}
@@ -937,6 +2188,9 @@ class instance extends instance_skel {
 		}
 		if (MODEL_API?.birddoggammasetup) {
 			this.sendCommand('birddoggammasetup', 'GET')
+		}
+		if (MODEL_API?.pt_pos) {
+			this.sendVISCACommand(VISCA.MSG_QRY_OPERATION + VISCA.OP_PAN_POS + VISCA.END_MSG, '\x5d') // Query Pan/Tilt Position
 		}
 
 		this.debug('----Camera Setup----')
