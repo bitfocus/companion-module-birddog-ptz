@@ -1,4 +1,4 @@
-const { getPositionLabel } = require('./utils')
+const { getPositionLabel, sortByLabel } = require('./utils')
 
 var { MODELS } = require('./models.js')
 const CHOICES = require('./choices.js')
@@ -11,7 +11,7 @@ exports.updateVariableDefinitions = function () {
 
 	MODEL_SPEC = MODELS.find((MODELS) => MODELS.id == this.camera.model)?.variables
 
-	sortedlist = Object.fromEntries(Object.entries(MODEL_SPEC).sort())
+	sortedlist = Object.fromEntries(Object.entries(MODEL_SPEC).sort(sortByLabel))
 
 	for (i in sortedlist) {
 		variables.push({

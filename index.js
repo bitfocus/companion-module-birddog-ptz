@@ -195,7 +195,7 @@ class instance extends instance_skel {
 				this.sendCommand('encodesetup', 'POST', body)
 				break
 
-			case 'encodeBandwidth':
+			case 'bandwidth_mode':
 				switch (opt.val) {
 					case 'NDIManaged':
 						body = {
@@ -541,13 +541,12 @@ class instance extends instance_skel {
 						newValue = gain < gainLimit ? ++gain : gain
 						break
 					case 'down':
-						newValue = gain > MODEL_VALUES.gain.choices[0] ? --gain : gain
+						newValue = gain > MODEL_VALUES.gain.choices[0]?.id ? --gain : gain
 						break
 					case 'value':
-						newValue = parseFloat(opt.value) <= gainLimit ? opt.value : gain
+						newValue = parseFloat(opt.value) <= gainLimit ? opt.value : gainLimit
 						break
 				}
-				this.debug(gainLimit)
 				body = {
 					GainLevel: String(newValue),
 				}
@@ -1910,7 +1909,6 @@ class instance extends instance_skel {
 						//Temp workaround since encodesetup is not in poll, update if changed
 						this.sendCommand('encodesetup', 'GET')
 					}
-					this.debug(data)
 				} else {
 					this.debug(`Command failed ${url}`)
 				}
