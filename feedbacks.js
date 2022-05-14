@@ -665,9 +665,7 @@ exports.initFeedbacks = function () {
 					type: 'dropdown',
 					label: 'Gain (dB)',
 					id: 'gain',
-					choices: this.camera.expsetup?.GainLimit
-						? MODEL_VALUES.gain.choices.slice(0, parseInt(this.camera.expsetup.GainLimit, 10) + 1)
-						: MODEL_VALUES.gain.choices,
+					choices: MODEL_VALUES.gain.choices,
 					default: MODEL_VALUES.gain.default,
 				},
 			],
