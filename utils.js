@@ -55,10 +55,23 @@ function strToPQRS(string) {
 	)
 }
 
+function sortByLabel(a, b) {
+	labelA = a[1].label
+	labelB = b[1].label
+	if (labelA < labelB) {
+		return -1
+	}
+	if (labelA > labelB) {
+		return 1
+	}
+	return 0
+}
+
 module.exports = {
 	addStringToBinary,
 	createPositionArray,
 	createZoomArray,
 	getPositionLabel,
 	strToPQRS,
+	sortByLabel,
 }

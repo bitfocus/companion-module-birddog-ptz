@@ -195,7 +195,7 @@ class instance extends instance_skel {
 				this.sendCommand('encodesetup', 'POST', body)
 				break
 
-			case 'encodeBandwidth':
+			case 'bandwidth_mode':
 				switch (opt.val) {
 					case 'NDIManaged':
 						body = {

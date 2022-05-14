@@ -1,3 +1,4 @@
+const { sortByLabel } = require('./utils')
 var { MODELS } = require('./models.js')
 const CHOICES = require('./choices.js')
 
@@ -17,7 +18,7 @@ exports.initFeedbacks = function () {
 	if (MODEL_VALUES?.standby) {
 		feedbacks.standby_status = {
 			type: 'boolean',
-			label: 'Camera Standby Status',
+			label: 'VISCA - Standby On/Off',
 			description: 'If the camera is in standby, change the style of the button',
 			style: {
 				color: ColorBlack,
@@ -33,7 +34,7 @@ exports.initFeedbacks = function () {
 				},
 			],
 			callback: (feedback) => {
-				return this.camera?.standby == feedback.options.standby
+				return this.camera?.standby == feedback.options.val
 			},
 		}
 	}
@@ -41,7 +42,7 @@ exports.initFeedbacks = function () {
 	if (MODEL_VALUES?.freeze) {
 		feedbacks.freeze_status = {
 			type: 'boolean',
-			label: 'Camera Freeze Status',
+			label: 'VISCA - Freeze',
 			description: 'If the camera matches the selected freeze status, change the style of the button',
 			style: {
 				color: ColorBlack,
@@ -57,7 +58,7 @@ exports.initFeedbacks = function () {
 				},
 			],
 			callback: (feedback) => {
-				return this.camera?.freeze == feedback.options.freeze
+				return this.camera?.freeze == feedback.options.val
 			},
 		}
 	}
@@ -66,7 +67,7 @@ exports.initFeedbacks = function () {
 	if (MODEL_VALUES?.analogAudioInGain) {
 		feedbacks.analogAudioInGain = {
 			type: 'boolean',
-			label: 'Analog Audio In Gain',
+			label: 'Analog Audio - Analog Audio In Gain',
 			description: 'If the camera matches the selected Audio Out Gain, change the style of the button',
 			style: {
 				color: ColorBlack,
@@ -96,7 +97,7 @@ exports.initFeedbacks = function () {
 	if (MODEL_VALUES?.analogAudioOutGain) {
 		feedbacks.analogAudioOutGain = {
 			type: 'boolean',
-			label: 'Analog Audio Out Gain',
+			label: 'Analog Audio - Analog Audio Out Gain',
 			description: 'If the camera matches the selected Audio Out Gain, change the style of the button',
 			style: {
 				color: ColorBlack,
@@ -126,7 +127,7 @@ exports.initFeedbacks = function () {
 	if (MODEL_VALUES?.analogAudioOutput) {
 		feedbacks.analogAudioOutput = {
 			type: 'boolean',
-			label: 'Analog Audio Output Select',
+			label: 'Analog Audio - Analog Audio Output Select',
 			description: 'If the camera matches the selected audio ouptut selector, change the style of the button',
 			style: {
 				color: ColorBlack,
@@ -152,7 +153,7 @@ exports.initFeedbacks = function () {
 	if (MODEL_VALUES?.video_output) {
 		feedbacks.video_output = {
 			type: 'boolean',
-			label: 'Video Output',
+			label: 'Video Output - Video Mode',
 			description: 'If the camera matches the selected Video Output mode, change the style of the button',
 			style: {
 				color: ColorBlack,
@@ -175,10 +176,10 @@ exports.initFeedbacks = function () {
 
 	// Encode Setup Feedback
 
-	if (MODEL_VALUES?.encodeBandwidth) {
-		feedbacks.encodeBandwidth = {
+	if (MODEL_VALUES?.bandwidth_mode) {
+		feedbacks.bandwidth_mode = {
 			type: 'boolean',
-			label: 'Camera Encode Bandwidth Mode',
+			label: 'Encode Setup - Bandwidth Mode',
 			description: 'If the camera matches the selected encode bandwidth mode, change the style of the button',
 			style: {
 				color: ColorBlack,
@@ -189,8 +190,8 @@ exports.initFeedbacks = function () {
 					type: 'dropdown',
 					label: 'Manual / NDI Managed',
 					id: 'val',
-					choices: MODEL_VALUES.encodeBandwidth.choices,
-					default: MODEL_VALUES.encodeBandwidth.default,
+					choices: MODEL_VALUES.bandwidth_mode.choices,
+					default: MODEL_VALUES.bandwidth_mode.default,
 				},
 			],
 			callback: (feedback) => {
@@ -202,7 +203,7 @@ exports.initFeedbacks = function () {
 	if (MODEL_VALUES?.ndiAudio) {
 		feedbacks.ndiAudio = {
 			type: 'boolean',
-			label: 'NDI Audio',
+			label: 'Encode Setup - NDI Audio',
 			description: 'If the camera matches the selected NDI Audio selector, change the style of the button',
 			style: {
 				color: ColorBlack,
@@ -226,7 +227,7 @@ exports.initFeedbacks = function () {
 	if (MODEL_VALUES?.ndiGroupEnable) {
 		feedbacks.ndiGroupEnable = {
 			type: 'boolean',
-			label: 'NDI Group Enable',
+			label: 'Encode Setup - NDI Group Enable',
 			description: 'If the camera matches the selected NDI Group Enable  selector, change the style of the button',
 			style: {
 				color: ColorBlack,
@@ -250,7 +251,7 @@ exports.initFeedbacks = function () {
 	if (MODEL_VALUES?.tally) {
 		feedbacks.tally = {
 			type: 'boolean',
-			label: 'Tally',
+			label: 'Encode Setup - Tally Mode',
 			description: 'If the camera tally matches the selected mode, change the style of the button',
 			style: {
 				color: ColorBlack,
@@ -276,7 +277,7 @@ exports.initFeedbacks = function () {
 	if (MODEL_VALUES?.transmit_method) {
 		feedbacks.transmit_method = {
 			type: 'boolean',
-			label: 'Transmit Method',
+			label: 'Encode Transport - Transmit Method',
 			description: 'If the camera matches the selected transmit method, change the style of the button',
 			style: {
 				color: ColorBlack,
@@ -302,7 +303,7 @@ exports.initFeedbacks = function () {
 	if (MODEL_VALUES?.ndi_discovery_server) {
 		feedbacks.ndi_discovery_server = {
 			type: 'boolean',
-			label: 'NDI Discovery Server',
+			label: 'NDI Discovery - Server',
 			description: 'If the camera matches the selected NDI Discovery Server status, change the style of the button',
 			style: {
 				color: ColorBlack,
@@ -328,7 +329,7 @@ exports.initFeedbacks = function () {
 	if (MODEL_VALUES?.pt) {
 		feedbacks.posPan = {
 			type: 'boolean',
-			label: 'Pan Position',
+			label: 'PTZ - Pan Position',
 			description: 'If the camera matches the selected Pan Position, change the style of the button',
 			style: {
 				color: ColorBlack,
@@ -350,7 +351,7 @@ exports.initFeedbacks = function () {
 
 		feedbacks.posTilt = {
 			type: 'boolean',
-			label: 'Tilt Position',
+			label: 'PTZ - Tilt Position',
 			description: 'If the camera matches the selected Tilt Position, change the style of the button',
 			style: {
 				color: ColorBlack,
@@ -374,7 +375,7 @@ exports.initFeedbacks = function () {
 	if (MODEL_VALUES?.zoom) {
 		feedbacks.posZoom = {
 			type: 'boolean',
-			label: 'Zoom Position',
+			label: 'PTZ - Zoom Position',
 			description: 'If the camera matches the selected Zoom Position, change the style of the button',
 			style: {
 				color: ColorBlack,
@@ -398,7 +399,7 @@ exports.initFeedbacks = function () {
 	if (MODEL_VALUES?.panSpeed) {
 		feedbacks.panSpeed = {
 			type: 'boolean',
-			label: 'Pan Speed',
+			label: 'PTZ - Pan Speed',
 			description: 'If the camera matches the selected Pan Speed, change the style of the button',
 			style: {
 				color: ColorBlack,
@@ -423,7 +424,7 @@ exports.initFeedbacks = function () {
 	if (MODEL_VALUES?.tiltSpeed) {
 		feedbacks.tiltSpeed = {
 			type: 'boolean',
-			label: 'Tilt Speed',
+			label: 'PTZ - Tilt Speed',
 			description: 'If the camera matches the selected Tilt Speed, change the style of the button',
 			style: {
 				color: ColorBlack,
@@ -448,7 +449,7 @@ exports.initFeedbacks = function () {
 	if (MODEL_VALUES?.zoomSpeed) {
 		feedbacks.zoomSpeed = {
 			type: 'boolean',
-			label: 'Zoom Speed',
+			label: 'PTZ - Zoom Speed',
 			description: 'If the camera matches the selected Zoom Speed, change the style of the button',
 			style: {
 				color: ColorBlack,
@@ -475,7 +476,7 @@ exports.initFeedbacks = function () {
 	if (MODEL_VALUES?.focusM) {
 		feedbacks.focusMode = {
 			type: 'boolean',
-			label: 'Focus Mode',
+			label: 'Focus - Focus Mode',
 			description: 'If the camera matches the selected focus mode, change the style of the button',
 			style: {
 				color: ColorBlack,
@@ -501,7 +502,7 @@ exports.initFeedbacks = function () {
 	if (MODEL_VALUES?.ae_response) {
 		feedbacks.ae_response = {
 			type: 'boolean',
-			label: 'Ae Response Level',
+			label: 'Exposure - Ae Response Level',
 			description: 'If the camera matches the selected Ae Response level, change the style of the button',
 			style: {
 				color: ColorBlack,
@@ -527,7 +528,7 @@ exports.initFeedbacks = function () {
 	if (MODEL_VALUES?.backlight) {
 		feedbacks.backlight = {
 			type: 'boolean',
-			label: 'Backlight',
+			label: 'Exposure - Backlight',
 			description: 'If the camera has Backlight on, change the style of the button',
 			style: {
 				color: ColorBlack,
@@ -551,7 +552,7 @@ exports.initFeedbacks = function () {
 	if (MODEL_VALUES?.bright_level) {
 		feedbacks.bright_level = {
 			type: 'boolean',
-			label: 'Bright Level',
+			label: 'Exposure - Bright Level',
 			description: 'If the camera matches the selected Bright Level, change the style of the button',
 			style: {
 				color: ColorBlack,
@@ -576,7 +577,7 @@ exports.initFeedbacks = function () {
 	if (MODEL_VALUES?.expComp) {
 		feedbacks.exposureCompEn = {
 			type: 'boolean',
-			label: 'Exposure Compensation',
+			label: 'Exposure - Exposure Compensation',
 			description: 'If the camera matches the selected exposure compensation status, change the style of the button',
 			style: {
 				color: ColorBlack,
@@ -600,7 +601,7 @@ exports.initFeedbacks = function () {
 	if (MODEL_VALUES?.expCompLvl) {
 		feedbacks.exposureCompLvl = {
 			type: 'boolean',
-			label: 'Exposure Compensation Level',
+			label: 'Exposure - Exposure Compensation Level',
 			description: 'If the camera matches the selected exposure compensation level, change the style of the button',
 			style: {
 				color: ColorBlack,
@@ -630,7 +631,7 @@ exports.initFeedbacks = function () {
 	if (MODEL_VALUES?.exposure_mode) {
 		feedbacks.exposureMode = {
 			type: 'boolean',
-			label: 'Exposure Mode',
+			label: 'Exposure - Exposure Mode',
 			description: 'If the camera matches the selected exposure mode, change the style of the button',
 			style: {
 				color: ColorBlack,
@@ -654,7 +655,7 @@ exports.initFeedbacks = function () {
 	if (MODEL_VALUES?.gain) {
 		feedbacks.gain = {
 			type: 'boolean',
-			label: 'Gain',
+			label: 'Exposure - Gain',
 			description: 'If the camera matches the selected gain, change the style of the button',
 			style: {
 				color: ColorBlack,
@@ -678,7 +679,7 @@ exports.initFeedbacks = function () {
 	if (MODEL_VALUES?.gain_limit) {
 		feedbacks.gain_limit = {
 			type: 'boolean',
-			label: 'Gain Limit',
+			label: 'Exposure - Gain Limit',
 			description: 'If the camera matches the selected gain limit, change the style of the button',
 			style: {
 				color: ColorBlack,
@@ -705,7 +706,7 @@ exports.initFeedbacks = function () {
 	if (MODEL_VALUES?.gain_point) {
 		feedbacks.gain_point = {
 			type: 'boolean',
-			label: 'Gain Point',
+			label: 'Exposure - Gain Point',
 			description: 'If the camera has gain point on, change the style of the button',
 			style: {
 				color: ColorBlack,
@@ -729,7 +730,7 @@ exports.initFeedbacks = function () {
 	if (MODEL_VALUES?.gain_point) {
 		feedbacks.gain_point_position = {
 			type: 'boolean',
-			label: 'Gain Point Position',
+			label: 'Exposure - Gain Point Position',
 			description: 'If the camera matches the selected gain point, change the style of the button',
 			style: {
 				color: ColorBlack,
@@ -753,7 +754,7 @@ exports.initFeedbacks = function () {
 	if (MODEL_VALUES?.high_sensitivity) {
 		feedbacks.high_sensitivity = {
 			type: 'boolean',
-			label: 'High Sensitivity Mode',
+			label: 'Exposure - High Sensitivity Mode',
 			description: 'If the camera has high sensitivity turned on, change the style of the button',
 			style: {
 				color: ColorBlack,
@@ -777,7 +778,7 @@ exports.initFeedbacks = function () {
 	if (MODEL_VALUES?.iris) {
 		feedbacks.iris = {
 			type: 'boolean',
-			label: 'Iris',
+			label: 'Exposure - Iris',
 			description: 'If the camera matches the selected Iris value, change the style of the button',
 			style: {
 				color: ColorBlack,
@@ -801,7 +802,7 @@ exports.initFeedbacks = function () {
 	if (MODEL_VALUES?.shutter_control_overwrite) {
 		feedbacks.shutter_control_overwrite = {
 			type: 'boolean',
-			label: 'Shutter Control Overwrite',
+			label: 'Exposure - Shutter Control Overwrite',
 			description: 'If the camera has Shutter Control Overwrite turned on, change the style of the button',
 			style: {
 				color: ColorBlack,
@@ -825,7 +826,7 @@ exports.initFeedbacks = function () {
 	if (MODEL_VALUES?.shutter_max_speed) {
 		feedbacks.shushutter_max_speedt = {
 			type: 'boolean',
-			label: 'Shutter Max Speed',
+			label: 'Exposure - Shutter Max Speed',
 			description: 'If the camera matches the selected shutter max speed, change the style of the button',
 			style: {
 				color: ColorBlack,
@@ -852,7 +853,7 @@ exports.initFeedbacks = function () {
 	if (MODEL_VALUES?.shutter_min_speed) {
 		feedbacks.shushutter_min_speedt = {
 			type: 'boolean',
-			label: 'Shutter Min Speed',
+			label: 'Exposure - Shutter Min Speed',
 			description: 'If the camera matches the selected shutter max speed, change the style of the button',
 			style: {
 				color: ColorBlack,
@@ -879,7 +880,7 @@ exports.initFeedbacks = function () {
 	if (MODEL_VALUES?.shutter_speed) {
 		feedbacks.shut = {
 			type: 'boolean',
-			label: 'Shutter Speed',
+			label: 'Exposure - Shutter Speed',
 			description: 'If the camera matches the selected shutter speed, change the style of the button',
 			style: {
 				color: ColorBlack,
@@ -903,7 +904,7 @@ exports.initFeedbacks = function () {
 	if (MODEL_VALUES?.shutter_speed_overwrite) {
 		feedbacks.shutter_speed_overwrite = {
 			type: 'boolean',
-			label: 'Shutter Speed Overwrite',
+			label: 'Exposure - Shutter Speed Overwrite',
 			description: 'If the camera matches the selected Shutter Speed Overwrite level, change the style of the button',
 			style: {
 				color: ColorBlack,
@@ -933,7 +934,7 @@ exports.initFeedbacks = function () {
 	if (MODEL_VALUES?.slow_shutter_en) {
 		feedbacks.slow_shutter_en = {
 			type: 'boolean',
-			label: 'Slow Shutter Enable',
+			label: 'Exposure - Slow Shutter Enable',
 			description: 'If the camera matches the Slow Shutter state, change the style of the button',
 			style: {
 				color: ColorBlack,
@@ -957,7 +958,7 @@ exports.initFeedbacks = function () {
 	if (MODEL_VALUES?.slow_shutter_limit) {
 		feedbacks.slow_shutter_limit = {
 			type: 'boolean',
-			label: 'Slow Shutter Limit',
+			label: 'Exposure - Slow Shutter Limit',
 			description: 'If the camera matches the selected slow shutter limit, change the style of the button',
 			style: {
 				color: ColorBlack,
@@ -984,7 +985,7 @@ exports.initFeedbacks = function () {
 	if (MODEL_VALUES?.spotlight) {
 		feedbacks.spotlight = {
 			type: 'boolean',
-			label: 'Spotlight',
+			label: 'Exposure - Spotlight',
 			description: 'If the camera matches the Spotlight state, change the style of the button',
 			style: {
 				color: ColorBlack,
@@ -1010,7 +1011,7 @@ exports.initFeedbacks = function () {
 	if (MODEL_VALUES?.bg) {
 		feedbacks.bg = {
 			type: 'boolean',
-			label: 'BG',
+			label: 'White Balance - BG',
 			description: 'If the camera matches the selected BG level, change the style of the button',
 			style: {
 				color: ColorBlack,
@@ -1035,7 +1036,7 @@ exports.initFeedbacks = function () {
 	if (MODEL_VALUES?.br) {
 		feedbacks.br = {
 			type: 'boolean',
-			label: 'BR',
+			label: 'White Balance - BR',
 			description: 'If the camera matches the selected BR level, change the style of the button',
 			style: {
 				color: ColorBlack,
@@ -1060,7 +1061,7 @@ exports.initFeedbacks = function () {
 	if (MODEL_VALUES?.blue_gain) {
 		feedbacks.blue_gain = {
 			type: 'boolean',
-			label: 'Blue Gain',
+			label: 'White Balance - Blue Gain',
 			description: 'If the camera matches the selected BR level, change the style of the button',
 			style: {
 				color: ColorBlack,
@@ -1085,7 +1086,7 @@ exports.initFeedbacks = function () {
 	if (MODEL_VALUES?.color_temp) {
 		feedbacks.color_temp = {
 			type: 'boolean',
-			label: 'Color Temp',
+			label: 'White Balance - Color Temp',
 			description:
 				'If the camera color temperature matches the selected color temperature, change the style of the button',
 			style: {
@@ -1110,7 +1111,7 @@ exports.initFeedbacks = function () {
 	if (MODEL_VALUES?.gb) {
 		feedbacks.gb = {
 			type: 'boolean',
-			label: 'GB',
+			label: 'White Balance - GB',
 			description: 'If the camera matches the selected GB level, change the style of the button',
 			style: {
 				color: ColorBlack,
@@ -1135,7 +1136,7 @@ exports.initFeedbacks = function () {
 	if (MODEL_VALUES?.gr) {
 		feedbacks.gr = {
 			type: 'boolean',
-			label: 'GR',
+			label: 'White Balance - GR',
 			description: 'If the camera matches the selected GR level, change the style of the button',
 			style: {
 				color: ColorBlack,
@@ -1160,7 +1161,7 @@ exports.initFeedbacks = function () {
 	if (MODEL_VALUES?.level) {
 		feedbacks.level = {
 			type: 'boolean',
-			label: 'Level',
+			label: 'White Balance - Level',
 			description: 'If the camera matches the selected level, change the style of the button',
 			style: {
 				color: ColorBlack,
@@ -1185,7 +1186,7 @@ exports.initFeedbacks = function () {
 	if (MODEL_VALUES?.matrix) {
 		feedbacks.matrix = {
 			type: 'boolean',
-			label: 'Matrix',
+			label: 'White Balance - Matrix',
 			description: 'If the camera matches the selected Matrix mode, change the style of the button',
 			style: {
 				color: ColorBlack,
@@ -1209,7 +1210,7 @@ exports.initFeedbacks = function () {
 	if (MODEL_VALUES?.offset) {
 		feedbacks.offset = {
 			type: 'boolean',
-			label: 'Offset',
+			label: 'White Balance - Offset',
 			description: 'If the camera matches the selected Offset level, change the style of the button',
 			style: {
 				color: ColorBlack,
@@ -1234,7 +1235,7 @@ exports.initFeedbacks = function () {
 	if (MODEL_VALUES?.phase) {
 		feedbacks.phase = {
 			type: 'boolean',
-			label: 'Phase',
+			label: 'White Balance - Phase',
 			description: 'If the camera matches the selected Phase level, change the style of the button',
 			style: {
 				color: ColorBlack,
@@ -1259,7 +1260,7 @@ exports.initFeedbacks = function () {
 	if (MODEL_VALUES?.rb) {
 		feedbacks.rb = {
 			type: 'boolean',
-			label: 'RB',
+			label: 'White Balance - RB',
 			description: 'If the camera matches the selected RB level, change the style of the button',
 			style: {
 				color: ColorBlack,
@@ -1284,7 +1285,7 @@ exports.initFeedbacks = function () {
 	if (MODEL_VALUES?.rg) {
 		feedbacks.rg = {
 			type: 'boolean',
-			label: 'RG',
+			label: 'White Balance - RG',
 			description: 'If the camera matches the selected RG level, change the style of the button',
 			style: {
 				color: ColorBlack,
@@ -1309,7 +1310,7 @@ exports.initFeedbacks = function () {
 	if (MODEL_VALUES?.red_gain) {
 		feedbacks.red_gain = {
 			type: 'boolean',
-			label: 'Red Gain',
+			label: 'White Balance - Red Gain',
 			description: 'If the camera matches the selected Red Gain level, change the style of the button',
 			style: {
 				color: ColorBlack,
@@ -1334,7 +1335,7 @@ exports.initFeedbacks = function () {
 	if (MODEL_VALUES?.select) {
 		feedbacks.select = {
 			type: 'boolean',
-			label: 'Select',
+			label: 'White Balance - Select',
 			description: 'Change the style of the button based on the WB mode',
 			style: {
 				color: ColorBlack,
@@ -1358,7 +1359,7 @@ exports.initFeedbacks = function () {
 	if (MODEL_VALUES?.speed) {
 		feedbacks.speed = {
 			type: 'boolean',
-			label: 'Speed',
+			label: 'White Balance - Speed',
 			description: 'If the camera matches the selected Red Gain level, change the style of the button',
 			style: {
 				color: ColorBlack,
@@ -1383,7 +1384,7 @@ exports.initFeedbacks = function () {
 	if (MODEL_VALUES?.wb_mode) {
 		feedbacks.wb_mode = {
 			type: 'boolean',
-			label: 'Camera White Balance Mode',
+			label: 'White Balance - White Balance Mode',
 			description: 'Change the style of the button based on the WB mode',
 			style: {
 				color: ColorBlack,
@@ -1409,7 +1410,7 @@ exports.initFeedbacks = function () {
 	if (MODEL_VALUES?.backlight_com) {
 		feedbacks.backlight_com = {
 			type: 'boolean',
-			label: 'Backlight Compensation',
+			label: 'Picture Setup - Backlight Compensation',
 			description: 'If the camera matches the selected Backlight Compensation, change the style of the button',
 			style: {
 				color: ColorBlack,
@@ -1433,7 +1434,7 @@ exports.initFeedbacks = function () {
 	if (MODEL_VALUES?.chroma_suppress) {
 		feedbacks.chroma_suppress = {
 			type: 'boolean',
-			label: 'Chroma Suppress',
+			label: 'Picture Setup - Chroma Suppress',
 			description: 'If the camera matches the selected Chroma Suppression, change the style of the button',
 			style: {
 				color: ColorBlack,
@@ -1457,7 +1458,7 @@ exports.initFeedbacks = function () {
 	if (MODEL_VALUES?.color) {
 		feedbacks.color = {
 			type: 'boolean',
-			label: 'Color',
+			label: 'Picture Setup - Color',
 			description: 'If the camera matches the selected Color level, change the style of the button',
 			style: {
 				color: ColorBlack,
@@ -1482,7 +1483,7 @@ exports.initFeedbacks = function () {
 	if (MODEL_VALUES?.contrast) {
 		feedbacks.contrast = {
 			type: 'boolean',
-			label: 'Contrast',
+			label: 'Picture Setup - Contrast',
 			description: 'If the camera matches the selected Contrast level, change the style of the button',
 			style: {
 				color: ColorBlack,
@@ -1508,7 +1509,7 @@ exports.initFeedbacks = function () {
 	if (MODEL_VALUES?.pictureEffect) {
 		feedbacks.pictureEffect = {
 			type: 'boolean',
-			label: 'Picture Effect',
+			label: 'Picture Setup - Effect',
 			description: 'If the camera matches the selected Effect mode, change the style of the button',
 			style: {
 				color: ColorBlack,
@@ -1532,7 +1533,7 @@ exports.initFeedbacks = function () {
 	if (MODEL_VALUES?.picFlip) {
 		feedbacks.picFlip = {
 			type: 'boolean',
-			label: 'Picture Flip',
+			label: 'Picture Setup - Flip',
 			description: 'If the camera matches the selected Flip mode, change the style of the button',
 			style: {
 				color: ColorBlack,
@@ -1556,7 +1557,7 @@ exports.initFeedbacks = function () {
 	if (MODEL_VALUES?.gamma) {
 		feedbacks.gamma = {
 			type: 'boolean',
-			label: 'Gamma',
+			label: 'Picture Setup - Gamma',
 			description: 'If the camera matches the selected Gamma value, change the style of the button',
 			style: {
 				color: ColorBlack,
@@ -1581,7 +1582,7 @@ exports.initFeedbacks = function () {
 	if (MODEL_VALUES?.highlight_comp) {
 		feedbacks.highlight_comp = {
 			type: 'boolean',
-			label: 'Highlight Compensation',
+			label: 'Picture Setup - Highlight Compensation',
 			description: 'If the camera matches the selected Highlight Compensation mode, change the style of the button',
 			style: {
 				color: ColorBlack,
@@ -1605,7 +1606,7 @@ exports.initFeedbacks = function () {
 	if (MODEL_VALUES?.highlight_comp_mask) {
 		feedbacks.highlight_comp_mask = {
 			type: 'boolean',
-			label: 'Highlight Compensation Mask',
+			label: 'Picture Setup - Highlight Compensation Mask',
 			description:
 				'If the camera matches the selected Highlight Compensation Mask value, change the style of the button',
 			style: {
@@ -1636,7 +1637,7 @@ exports.initFeedbacks = function () {
 	if (MODEL_VALUES?.hue) {
 		feedbacks.hue = {
 			type: 'boolean',
-			label: 'Hue',
+			label: 'Picture Setup - Hue',
 			description: 'If the camera matches the selected Hue value, change the style of the button',
 			style: {
 				color: ColorBlack,
@@ -1661,7 +1662,7 @@ exports.initFeedbacks = function () {
 	if (MODEL_VALUES?.ir_cutfilter) {
 		feedbacks.ir_cutfilter = {
 			type: 'boolean',
-			label: 'IR Cut Filter',
+			label: 'Picture Setup - IR Cut Filter',
 			description: 'If the camera matches the selected IR Cut Filter mode, change the style of the button',
 			style: {
 				color: ColorBlack,
@@ -1685,7 +1686,7 @@ exports.initFeedbacks = function () {
 	if (MODEL_VALUES?.low_latency) {
 		feedbacks.low_latency = {
 			type: 'boolean',
-			label: 'Low Latency',
+			label: 'Picture Setup - Low Latency',
 			description: 'If the camera matches the selected Low Latency mode, change the style of the button',
 			style: {
 				color: ColorBlack,
@@ -1709,7 +1710,7 @@ exports.initFeedbacks = function () {
 	if (MODEL_VALUES?.picMirror) {
 		feedbacks.picMirror = {
 			type: 'boolean',
-			label: 'Picture Mirror',
+			label: 'Picture Setup - Mirror',
 			description: 'If the camera matches the selected Picture Mirror mode, change the style of the button',
 			style: {
 				color: ColorBlack,
@@ -1733,7 +1734,7 @@ exports.initFeedbacks = function () {
 	if (MODEL_VALUES?.nd_filter) {
 		feedbacks.nd_filter = {
 			type: 'boolean',
-			label: 'ND Filter',
+			label: 'Picture Setup - ND Filter',
 			description: 'If the camera matches the selected ND Filter value, change the style of the button',
 			style: {
 				color: ColorBlack,
@@ -1758,7 +1759,7 @@ exports.initFeedbacks = function () {
 	if (MODEL_VALUES?.noise_reduction) {
 		feedbacks.noise_reduction = {
 			type: 'boolean',
-			label: 'Noise Reduction',
+			label: 'Picture Setup - Noise Reduction',
 			description: 'If the camera matches the selected Noise Reduction mode, change the style of the button',
 			style: {
 				color: ColorBlack,
@@ -1782,7 +1783,7 @@ exports.initFeedbacks = function () {
 	if (MODEL_VALUES?.sharpness) {
 		feedbacks.sharpness = {
 			type: 'boolean',
-			label: 'Sharpness',
+			label: 'Picture Setup - Sharpness',
 			description: 'If the camera matches the selected Sharpness value, change the style of the button',
 			style: {
 				color: ColorBlack,
@@ -1807,7 +1808,7 @@ exports.initFeedbacks = function () {
 	if (MODEL_VALUES?.stabilizer) {
 		feedbacks.stabilizer = {
 			type: 'boolean',
-			label: 'Stabilizer',
+			label: 'Picture Setup - Stabilizer',
 			description: 'If the camera matches the selected Stabilizer mode, change the style of the button',
 			style: {
 				color: ColorBlack,
@@ -1831,7 +1832,7 @@ exports.initFeedbacks = function () {
 	if (MODEL_VALUES?.threed_nr) {
 		feedbacks.threed_nr = {
 			type: 'boolean',
-			label: '3D Noise Reduction',
+			label: 'Picture Setup - 3D Noise Reduction',
 			description: 'If the camera matches the selected 3D Noise Reduction mode, change the style of the button',
 			style: {
 				color: ColorBlack,
@@ -1855,7 +1856,7 @@ exports.initFeedbacks = function () {
 	if (MODEL_VALUES?.twod_nr) {
 		feedbacks.twod_nr = {
 			type: 'boolean',
-			label: '2D Noise Reduction',
+			label: 'Picture Setup - 2D Noise Reduction',
 			description: 'If the camera matches the selected 2D Noise Reduction mode, change the style of the button',
 			style: {
 				color: ColorBlack,
@@ -1879,7 +1880,7 @@ exports.initFeedbacks = function () {
 	if (MODEL_VALUES?.wide_dynamic_range) {
 		feedbacks.wide_dynamic_range = {
 			type: 'boolean',
-			label: 'Wide Dynamic Range',
+			label: 'Picture Setup - Wide Dynamic Range',
 			description: 'If the camera matches the selected Wide Dynamic Range mode, change the style of the button',
 			style: {
 				color: ColorBlack,
@@ -2258,7 +2259,7 @@ exports.initFeedbacks = function () {
 	if (MODEL_VALUES?.brightness) {
 		feedbacks.brightness = {
 			type: 'boolean',
-			label: 'Brightness',
+			label: 'Advanced Setup - Brightness',
 			description: 'If the camera matches the selected Brightness value, change the style of the button',
 			style: {
 				color: ColorBlack,
@@ -2283,7 +2284,7 @@ exports.initFeedbacks = function () {
 	if (MODEL_VALUES?.brightness_comp) {
 		feedbacks.brightness_comp = {
 			type: 'boolean',
-			label: 'Brightness Compensation',
+			label: 'Advanced Setup - Brightness Compensation',
 			description: 'If the camera matches the selected Brightness Compensation mode, change the style of the button',
 			style: {
 				color: ColorBlack,
@@ -2307,7 +2308,7 @@ exports.initFeedbacks = function () {
 	if (MODEL_VALUES?.comp_level) {
 		feedbacks.comp_level = {
 			type: 'boolean',
-			label: 'Compensation Level',
+			label: 'Advanced Setup - Compensation Level',
 			description: 'If the camera matches the selected Compensation Level, change the style of the button',
 			style: {
 				color: ColorBlack,
@@ -2331,7 +2332,7 @@ exports.initFeedbacks = function () {
 	if (MODEL_VALUES?.gamma_offset) {
 		feedbacks.gamma_offset = {
 			type: 'boolean',
-			label: 'Gamma Offset',
+			label: 'Advanced Setup - Gamma Offset',
 			description: 'If the camera matches the selected Gamma Offset value, change the style of the button',
 			style: {
 				color: ColorBlack,
@@ -2356,7 +2357,7 @@ exports.initFeedbacks = function () {
 	if (MODEL_VALUES?.high_resolution) {
 		feedbacks.high_resolution = {
 			type: 'boolean',
-			label: 'High Resolution',
+			label: 'Advanced Setup - High Resolution',
 			description: 'If the camera matches the selected High Resolution mode, change the style of the button',
 			style: {
 				color: ColorBlack,
@@ -2380,7 +2381,7 @@ exports.initFeedbacks = function () {
 	if (MODEL_VALUES?.video_enhancement) {
 		feedbacks.video_enhancement = {
 			type: 'boolean',
-			label: 'Video Enhancement',
+			label: 'Advanced Setup - Video Enhancement',
 			description: 'If the camera matches the selected Video Enhancement mode, change the style of the button',
 			style: {
 				color: ColorBlack,
@@ -2406,7 +2407,7 @@ exports.initFeedbacks = function () {
 	if (MODEL_VALUES?.aux) {
 		feedbacks.aux = {
 			type: 'boolean',
-			label: 'Aux',
+			label: 'External Setup - Aux',
 			description: 'If the camera matches the selected Aux mode, change the style of the button',
 			style: {
 				color: ColorBlack,
@@ -2430,7 +2431,7 @@ exports.initFeedbacks = function () {
 	if (MODEL_VALUES?.rain_wiper) {
 		feedbacks.rain_wiper = {
 			type: 'boolean',
-			label: 'Rain Wiper',
+			label: 'External Setup - Rain Wiper',
 			description: 'If the camera matches the selected Rain Wiper mode, change the style of the button',
 			style: {
 				color: ColorBlack,
@@ -2454,7 +2455,7 @@ exports.initFeedbacks = function () {
 	if (MODEL_VALUES?.v12vout) {
 		feedbacks.v12vout = {
 			type: 'boolean',
-			label: '12v Out',
+			label: 'External Setup - 12v Out',
 			description: 'If the camera matches the selected 12v Out mode, change the style of the button',
 			style: {
 				color: ColorBlack,
@@ -2480,7 +2481,7 @@ exports.initFeedbacks = function () {
 	if (MODEL_VALUES?.bandwidth) {
 		feedbacks.bandwidth = {
 			type: 'boolean',
-			label: 'Bandwidth',
+			label: 'Detail Setup - Bandwidth',
 			description: 'If the camera matches the selected Bandwidth mode, change the style of the button',
 			style: {
 				color: ColorBlack,
@@ -2504,8 +2505,8 @@ exports.initFeedbacks = function () {
 	if (MODEL_VALUES?.bw_balance) {
 		feedbacks.bw_balance = {
 			type: 'boolean',
-			label: 'Bandwidth',
-			description: 'If the camera matches the selected Bandwidth mode, change the style of the button',
+			label: 'Detail Setup - BW Bandwidth',
+			description: 'If the camera matches the selected BW Bandwidth mode, change the style of the button',
 			style: {
 				color: ColorBlack,
 				bgcolor: ColorGreen,
@@ -2528,7 +2529,7 @@ exports.initFeedbacks = function () {
 	if (MODEL_VALUES?.crispening) {
 		feedbacks.crispening = {
 			type: 'boolean',
-			label: 'Crispening',
+			label: 'Detail Setup - Crispening',
 			description: 'If the camera matches the selected Crispening value, change the style of the button',
 			style: {
 				color: ColorBlack,
@@ -2553,7 +2554,7 @@ exports.initFeedbacks = function () {
 	if (MODEL_VALUES?.detail) {
 		feedbacks.detail = {
 			type: 'boolean',
-			label: 'Detail',
+			label: 'Detail Setup - Detail',
 			description: 'If the camera matches the selected Detail value, change the style of the button',
 			style: {
 				color: ColorBlack,
@@ -2577,7 +2578,7 @@ exports.initFeedbacks = function () {
 	if (MODEL_VALUES?.highlight_detail) {
 		feedbacks.highlight_detail = {
 			type: 'boolean',
-			label: 'Highlight Detail',
+			label: 'Detail Setup - Highlight Detail',
 			description: 'If the camera matches the selected Highlight Detail value, change the style of the button',
 			style: {
 				color: ColorBlack,
@@ -2607,7 +2608,7 @@ exports.initFeedbacks = function () {
 	if (MODEL_VALUES?.hv_balance) {
 		feedbacks.hv_balance = {
 			type: 'boolean',
-			label: 'Hv Balance',
+			label: 'Detail Setup - Hv Balance',
 			description: 'If the camera matches the selected Hv Balance value, change the style of the button',
 			style: {
 				color: ColorBlack,
@@ -2632,7 +2633,7 @@ exports.initFeedbacks = function () {
 	if (MODEL_VALUES?.limit) {
 		feedbacks.limit = {
 			type: 'boolean',
-			label: 'Limit',
+			label: 'Detail Setup - Limit',
 			description: 'If the camera matches the selected Limit value, change the style of the button',
 			style: {
 				color: ColorBlack,
@@ -2657,7 +2658,7 @@ exports.initFeedbacks = function () {
 	if (MODEL_VALUES?.super_low) {
 		feedbacks.super_low = {
 			type: 'boolean',
-			label: 'Super Low',
+			label: 'Detail Setup - Super Low',
 			description: 'If the camera matches the selected Super Low value, change the style of the button',
 			style: {
 				color: ColorBlack,
@@ -2684,7 +2685,7 @@ exports.initFeedbacks = function () {
 	if (MODEL_VALUES?.black_gamma_level) {
 		feedbacks.black_gamma_level = {
 			type: 'boolean',
-			label: 'Black Gamma Level',
+			label: 'Gamma Setup - Black Gamma Level',
 			description: 'If the camera matches the selected Black Gamma Level, change the style of the button',
 			style: {
 				color: ColorBlack,
@@ -2714,7 +2715,7 @@ exports.initFeedbacks = function () {
 	if (MODEL_VALUES?.black_level) {
 		feedbacks.black_level = {
 			type: 'boolean',
-			label: 'Black Gamma Level',
+			label: 'Gamma Setup - Black Gamma Level',
 			description: 'If the camera matches the selected Black Level, change the style of the button',
 			style: {
 				color: ColorBlack,
@@ -2739,7 +2740,7 @@ exports.initFeedbacks = function () {
 	if (MODEL_VALUES?.black_level_range) {
 		feedbacks.black_level_range = {
 			type: 'boolean',
-			label: 'Black Level Range',
+			label: 'Gamma Setup - Black Level Range',
 			description: 'If the camera matches the selected Black Level Range, change the style of the button',
 			style: {
 				color: ColorBlack,
@@ -2763,7 +2764,7 @@ exports.initFeedbacks = function () {
 	if (MODEL_VALUES?.effect) {
 		feedbacks.effect = {
 			type: 'boolean',
-			label: 'Effect',
+			label: 'Gamma Setup - Effect',
 			description: 'If the camera matches the selected Effect Range, change the style of the button',
 			style: {
 				color: ColorBlack,
@@ -2788,7 +2789,7 @@ exports.initFeedbacks = function () {
 	if (MODEL_VALUES?.level) {
 		feedbacks.level = {
 			type: 'boolean',
-			label: 'Effect',
+			label: 'Gamma Setup - Level',
 			description: 'If the camera matches the selected Level, change the style of the button',
 			style: {
 				color: ColorBlack,
@@ -2813,7 +2814,7 @@ exports.initFeedbacks = function () {
 	if (MODEL_VALUES?.offset) {
 		feedbacks.offset = {
 			type: 'boolean',
-			label: 'Offset',
+			label: 'Gamma Setup - Offset',
 			description: 'If the camera matches the selected Offset level, change the style of the button',
 			style: {
 				color: ColorBlack,
@@ -2838,7 +2839,7 @@ exports.initFeedbacks = function () {
 	if (MODEL_VALUES?.pattern) {
 		feedbacks.pattern = {
 			type: 'boolean',
-			label: 'Pattern',
+			label: 'Gamma Setup - Pattern',
 			description: 'If the camera matches the selected Pattern level, change the style of the button',
 			style: {
 				color: ColorBlack,
@@ -2863,7 +2864,7 @@ exports.initFeedbacks = function () {
 	if (MODEL_VALUES?.pattern_fine) {
 		feedbacks.pattern_fine = {
 			type: 'boolean',
-			label: 'Pattern Fine',
+			label: 'Gamma Setup - Pattern Fine',
 			description: 'If the camera matches the selected Pattern Fine level, change the style of the button',
 			style: {
 				color: ColorBlack,
@@ -2888,7 +2889,7 @@ exports.initFeedbacks = function () {
 	if (MODEL_VALUES?.settings) {
 		feedbacks.settings = {
 			type: 'boolean',
-			label: 'Settings',
+			label: 'Gamma Setup - Settings',
 			description: 'If the camera matches the selected Settings mode, change the style of the button',
 			style: {
 				color: ColorBlack,
@@ -2912,7 +2913,7 @@ exports.initFeedbacks = function () {
 	if (MODEL_VALUES?.visibility_enhancer) {
 		feedbacks.visibility_enhancer = {
 			type: 'boolean',
-			label: 'Visibility Enhancer',
+			label: 'Gamma Setup - Visibility Enhancer',
 			description: 'If the camera matches the selected Visibility Enhancer mode, change the style of the button',
 			style: {
 				color: ColorBlack,
@@ -2937,5 +2938,5 @@ exports.initFeedbacks = function () {
 
 	this.setFeedbackDefinitions(feedbacks)
 
-	return Object.fromEntries(Object.entries(feedbacks).sort())
+	return Object.fromEntries(Object.entries(feedbacks).sort(sortByLabel))
 }
