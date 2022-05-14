@@ -8,7 +8,7 @@ See [HELP.md](https://github.com/bitfocus/companion-module-birddog-ptz/blob/main
 
 ## Changes
 
-### v2.0.3
+### v2.1.0
 
 - Changes
 
