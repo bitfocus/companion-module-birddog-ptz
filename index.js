@@ -649,13 +649,19 @@ class instance extends instance_skel {
 			case 'shut':
 				let shutter_speed = this.camera?.expsetup?.ShutterSpeed
 					? this.camera.expsetup.ShutterSpeed
-					: MODEL_VALUES.shut.default
+					: MODEL_VALUES.shutter_speed.default
 				switch (opt.val) {
 					case 'up':
-						newValue = shutter_speed < MODEL_VALUES.shut.range.max ? ++shutter_speed : MODEL_VALUES.shut.range.max
+						newValue =
+							shutter_speed < MODEL_VALUES.shutter_speed.range.max
+								? ++shutter_speed
+								: MODEL_VALUES.shutter_speed.range.max
 						break
 					case 'down':
-						newValue = shutter_speed > MODEL_VALUES.shut.range.min ? --shutter_speed : MODEL_VALUES.shut.range.min
+						newValue =
+							shutter_speed > MODEL_VALUES.shutter_speed.range.min
+								? --shutter_speed
+								: MODEL_VALUES.shutter_speed.range.min
 						break
 					case 'value':
 						newValue = opt.value
@@ -2191,7 +2197,7 @@ class instance extends instance_skel {
 			this.sendVISCACommand(VISCA.MSG_QRY_OPERATION + VISCA.OP_PAN_POS + VISCA.END_MSG, '\x5d') // Query Pan/Tilt Position
 		}
 
-		this.debug('----Camera Setup----')
+		this.debug('----Camera Setup for - ', this.camera.model)
 		this.debug(this.camera)
 	}
 }
