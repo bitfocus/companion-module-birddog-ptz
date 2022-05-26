@@ -66,7 +66,7 @@ exports.updateVariables = function () {
 	}
 	// VISCA Variables
 	if (MODEL_SPEC?.standby) {
-		this.setVariable('standby', this.camera.standby)
+		this.setVariable('standby', MODEL_VALUES.standby.choices.find((o) => o.id == this.camera.standby)?.label)
 	}
 
 	if (MODEL_SPEC?.freeze) {
