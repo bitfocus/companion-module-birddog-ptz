@@ -345,7 +345,7 @@ module.exports = {
 			},
 		},
 		{
-			id: 'P200_A2_A3',
+			id: 'P200A2A3',
 			apicalls: {
 				...COMMON[0],
 				birddogcmsetup: true,
@@ -485,7 +485,7 @@ module.exports = {
 			},
 		},
 		{
-			id: 'P200_A4_A5',
+			id: 'P200A4A5',
 			apicalls: {
 				...COMMON[0],
 				birddogcmsetup: true,
@@ -627,7 +627,7 @@ module.exports = {
 			},
 		},
 		{
-			id: 'A200_GEN1',
+			id: 'A200GEN1',
 			apicalls: {
 				...COMMON[0],
 				birddogcmsetup: true,
@@ -770,7 +770,7 @@ module.exports = {
 			},
 		},
 		{
-			id: 'A200_GEN2',
+			id: 'A200GEN2',
 			apicalls: {
 				...COMMON[0],
 				birddogcmsetup: true,
@@ -913,7 +913,7 @@ module.exports = {
 			},
 		},
 		{
-			id: 'A300_GEN1',
+			id: 'A300GEN1',
 			apicalls: {
 				...COMMON[0],
 				birddogcmsetup: true,
@@ -1058,7 +1058,7 @@ module.exports = {
 			},
 		},
 		{
-			id: 'A300_GEN2',
+			id: 'A300GEN2',
 			apicalls: {
 				...COMMON[0],
 				birddogcmsetup: true,

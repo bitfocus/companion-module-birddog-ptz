@@ -6,7 +6,15 @@ module.exports = {
 	getActions() {
 		this.debug(this?.camera?.model)
 
-		MODEL_VALUES = MODELS.find((MODELS) => MODELS.id == this.camera.model).actions
+		MODEL_VALUES = MODELS.find((MODELS) => MODELS.id == this.camera.model)?.actions
+
+		if (!MODEL_VALUES && this.currentStatus != 2) {
+			this.log('error', `Unrecognized camera model: ${this.camera.model}`)
+			this.status(this.STATUS_ERROR)
+			if (this.poll_interval !== undefined) {
+				clearInterval(this.poll_interval)
+			}
+		}
 
 		let actions = {}
 
@@ -635,7 +643,13 @@ module.exports = {
 						type: 'dropdown',
 						label: 'Value',
 						id: 'value',
-						choices: MODEL_VALUES.gain.choices.slice(0, parseInt(this.camera.expsetup.GainLimit, 10) + 1),
+						choices: MODEL_VALUES.gain.choices.slice(
+							0,
+							parseInt(
+								this.camera.expsetup.GainLimit ? this.camera.expsetup.GainLimit : MODEL_VALUES.gain.default,
+								10
+							) + 1
+						),
 						default: MODEL_VALUES.gain.default,
 						isVisible: (action) => action.options.val === 'value',
 					},
