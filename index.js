@@ -1958,7 +1958,7 @@ class instance extends instance_skel {
 					data.FirmwareVersion.indexOf(' ') + 1,
 					data.FirmwareVersion.lastIndexOf(' ')
 				)
-				model = model.replace(/ /g, '_')
+				model = model.replace(/ |_/g, '')
 				if (!this.camera.model || this.camera.model != model) {
 					if (this.camera.model) {
 						this.log('info', 'New model detected, reloading module: ' + this.camera.model)
