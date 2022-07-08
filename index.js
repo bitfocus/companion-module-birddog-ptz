@@ -75,8 +75,12 @@ class instance extends instance_skel {
 
 		if (this.config.host !== undefined) {
 			this.debug('----Config Model Choice:- ' + this.config.model)
-			this.camera.model = this.config.model
-			this.init_udp()
+			this.getCameraModel()
+		} else {
+			this.status(
+				this.STATUS_ERROR,
+				'Unable to connect, please enter an IP address for your camera in the module settings'
+			)
 		}
 	}
 
@@ -97,13 +101,9 @@ class instance extends instance_skel {
 		this.status(this.STATUS_WARNING, 'Connecting')
 
 		this.port = 52381 // Visca port
+
 		// Get Initial Camera Info
-		this.sendCommand('about', 'GET')
-		this.sendCommand('encodesetup', 'GET') // allow an initial query to this API to collect camera info
-
-		this.init_udp()
-
-		this.updateVariables()
+		this.getCameraModel()
 	}
 
 	initVariables() {
@@ -1951,36 +1951,10 @@ class instance extends instance_skel {
 
 	processData(cmd, data) {
 		if (cmd.match('/about')) {
-			if (this.currentStatus != 0 && data.FirmwareVersion) {
+			if (this.currentStatus != 0 && data.FirmwareVersion && this.camera.model) {
 				this.status(this.STATUS_OK)
 				this.log('info', `Connected to ${data.HostName}`)
 				this.camera.about = data
-			} else if (data.Version === '1.0' && this.currentStatus != 2) {
-				this.log('error', 'Please upgrade your BirdDog camera to the latest LTS firmware to use this module')
-				this.status(this.STATUS_ERROR)
-				if (this.poll_interval !== undefined) {
-					clearInterval(this.poll_interval)
-				}
-			}
-			if (data.FirmwareVersion) {
-				if (this.camera.model === 'Auto') {
-					let model = data.FirmwareVersion.substring(
-						data.FirmwareVersion.indexOf(' ') + 1,
-						data.FirmwareVersion.lastIndexOf(' ')
-					)
-					model = model.replace(/ |_/g, '')
-					if (!this.camera.model || this.camera.model != model) {
-						if (this.camera.model) {
-							this.log('info', 'New model detected, reloading module: ' + this.camera.model)
-						}
-					}
-					this.camera.model = model
-					this.debug('----New model detected:- ' + this.camera.model)
-					this.actions()
-					this.initPresets()
-					this.initVariables()
-					this.initFeedbacks()
-				}
 				this.camera.firmware = data.FirmwareVersion.substring(
 					data.FirmwareVersion.lastIndexOf(' ') + 1,
 					data.FirmwareVersion.length
@@ -2210,6 +2184,64 @@ class instance extends instance_skel {
 
 		this.debug('----Camera Setup for - ', this.camera.model)
 		this.debug(this.camera)
+	}
+
+	getCameraModel() {
+		if (this.config.model === 'Auto') {
+			let url = `http://${this.config.host}:8080/about`
+			let options = {
+				method: 'GET',
+				headers: { 'Content-Type': 'application/json' },
+			}
+			fetch(url, options)
+				.then((res) => {
+					if (res.status == 200) {
+						return res.json()
+					}
+				})
+				.then((json) => {
+					let data = json
+					if (data?.FirmwareVersion) {
+						let model = data.FirmwareVersion.substring(
+							data.FirmwareVersion.indexOf(' ') + 1,
+							data.FirmwareVersion.lastIndexOf(' ')
+						)
+						model = model.replace(/ |_/g, '')
+
+						this.initializeCamera(model)
+					} else if (data?.Version === '1.0' && this.currentStatus != 2) {
+						this.log('error', 'Please upgrade your BirdDog camera to the latest LTS firmware to use this module')
+						this.status(this.STATUS_ERROR)
+						if (this.poll_interval !== undefined) {
+							clearInterval(this.poll_interval)
+						}
+					}
+				})
+				.catch((err) => {
+					this.debug(err)
+				})
+		} else {
+			this.initializeCamera(this.config.model)
+		}
+	}
+
+	initializeCamera(model) {
+		if (MODELS.find((MODELS) => MODELS.id == model)) {
+			this.camera.model = model
+
+			this.sendCommand('about', 'GET')
+			this.sendCommand('encodesetup', 'GET') // allow an initial query to this API to collect camera info
+
+			this.init_udp()
+
+			this.updateVariables()
+			this.actions()
+			this.initPresets()
+			this.initVariables()
+			this.initFeedbacks()
+		} else {
+			this.log('error', `Could not connect, unrecognized camera model: ${model}`)
+		}
 	}
 }
 exports = module.exports = instance
