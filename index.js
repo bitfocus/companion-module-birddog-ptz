@@ -6,6 +6,7 @@ const { initFeedbacks } = require('./feedbacks')
 const upgradeScripts = require('./upgrades')
 const { addStringToBinary, strToPQRS } = require('./utils')
 const VISCA = require('./constants')
+const CHOICES = require('./choices.js')
 var { MODELS } = require('./models.js')
 
 const udp = require('../../udp')
@@ -57,6 +58,13 @@ class instance extends instance_skel {
 				width: 6,
 				regex: this.REGEX_IP,
 			},
+			{
+				type: 'dropdown',
+				id: 'model',
+				label: 'BirdDog Model',
+				default: 'Auto',
+				choices: CHOICES.CAMERA,
+			},
 		]
 	}
 
@@ -66,6 +74,8 @@ class instance extends instance_skel {
 		this.status(this.STATUS_WARNING, 'Connecting')
 
 		if (this.config.host !== undefined) {
+			this.debug('----Config Model Choice:- ' + this.config.model)
+			this.camera.model = this.config.model
 			this.init_udp()
 		}
 	}
@@ -1944,6 +1954,7 @@ class instance extends instance_skel {
 			if (this.currentStatus != 0 && data.FirmwareVersion) {
 				this.status(this.STATUS_OK)
 				this.log('info', `Connected to ${data.HostName}`)
+				this.camera.about = data
 			} else if (data.Version === '1.0' && this.currentStatus != 2) {
 				this.log('error', 'Please upgrade your BirdDog camera to the latest LTS firmware to use this module')
 				this.status(this.STATUS_ERROR)
@@ -1952,16 +1963,16 @@ class instance extends instance_skel {
 				}
 			}
 			if (data.FirmwareVersion) {
-				this.camera.about = data
-
-				let model = data.FirmwareVersion.substring(
-					data.FirmwareVersion.indexOf(' ') + 1,
-					data.FirmwareVersion.lastIndexOf(' ')
-				)
-				model = model.replace(/ |_/g, '')
-				if (!this.camera.model || this.camera.model != model) {
-					if (this.camera.model) {
-						this.log('info', 'New model detected, reloading module: ' + this.camera.model)
+				if (this.camera.model === 'Auto') {
+					let model = data.FirmwareVersion.substring(
+						data.FirmwareVersion.indexOf(' ') + 1,
+						data.FirmwareVersion.lastIndexOf(' ')
+					)
+					model = model.replace(/ |_/g, '')
+					if (!this.camera.model || this.camera.model != model) {
+						if (this.camera.model) {
+							this.log('info', 'New model detected, reloading module: ' + this.camera.model)
+						}
 					}
 					this.camera.model = model
 					this.debug('----New model detected:- ' + this.camera.model)
