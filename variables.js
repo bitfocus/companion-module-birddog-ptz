@@ -219,7 +219,7 @@ exports.updateVariables = function () {
 				this.camera.model === 'P100' || this.camera.model === 'PF120'
 					? parseInt(this.camera.expsetup.ExpCompLvl) - 7
 					: this.camera.expsetup.ExpCompLvl
-			this.setVariable('exposure_comp_level', level.toString())
+			this.setVariable('exposure_comp_level', level?.toString())
 		}
 
 		if (MODEL_SPEC?.exposure_mode) {
