@@ -2225,7 +2225,7 @@ class instance extends instance_skel {
 					) {
 						if (this.currentStatus != 2) {
 							this.status(this.STATUS_ERROR)
-							this.log('error', `Unabled to connect to BirdDog PTZ Camera (Error: ${errorText?.split('reason:')[1]})`)
+							this.log('error', `Unable to connect to BirdDog PTZ Camera (Error: ${errorText?.split('reason:')[1]})`)
 						}
 					}
 				})

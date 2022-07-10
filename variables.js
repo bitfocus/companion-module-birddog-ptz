@@ -33,9 +33,8 @@ exports.updateVariables = function () {
 	// General Camera Variables
 	if (this.camera.about) {
 		if (MODEL_SPEC?.firmware) {
-			this.setVariable('firmware', this.camera.firmware.major + '.' + camera.firmware.minor)
+			this.setVariable('firmware', this.camera.firmware.major + '.' + this.camera.firmware.minor)
 		}
-
 		if (MODEL_SPEC?.model) {
 			this.setVariable('model', this.camera.model)
 		}
