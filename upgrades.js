@@ -2,11 +2,6 @@ module.exports = {
 	choicesUpgrade: function (context, config, actions, feedbacks) {
 		let changed = false
 
-		if (config.model == undefined || config.model =='') {
-			config.model = 'Auto'
-			changed = true
-		}
-
 		actions.forEach((action) => {
 			if (action.action === 'freeze') {
 				if (action.options.val == '0') {
@@ -340,5 +335,12 @@ module.exports = {
 			}
 		})
 		return changed
+	},
+	autoDetectDefault: function (context, config, actions, feedbacks) {
+		let changed = false
+		if (config.model == undefined || config.model == '') {
+			config.model = 'Auto'
+			changed = true
+		}
 	},
 }

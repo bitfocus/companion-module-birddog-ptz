@@ -39,7 +39,7 @@ class instance extends instance_skel {
 	}
 
 	static GetUpgradeScripts() {
-		return [upgradeScripts.choicesUpgrade]
+		return [upgradeScripts.choicesUpgrade, upgradeScripts.autoDetectDefault]
 	}
 
 	config_fields() {
