@@ -31,11 +31,11 @@ class instance extends instance_skel {
 
 		this.camera = {}
 
-		// Initialise Objects for VISCA queries
+		// Initialise Inital Camera Objects
 
 		this.camera.position = { pan: '0000', tilt: '0000', zoom: '0000' }
-
 		this.camera.framerate = 50
+		this.camera.firmware = {}
 	}
 
 	static GetUpgradeScripts() {
@@ -1955,10 +1955,11 @@ class instance extends instance_skel {
 				this.status(this.STATUS_OK)
 				this.log('info', `Connected to ${data.HostName}`)
 				this.camera.about = data
-				this.camera.firmware = data.FirmwareVersion.substring(
-					data.FirmwareVersion.lastIndexOf(' ') + 1,
-					data.FirmwareVersion.length
-				)
+				if (!this.camera.firmware.major) {
+					this.camera.firmware = {}
+					this.camera.firmware.major = FirmwareVersion.substring(FirmwareVersion.lastIndexOf(' ') + 1).substring(0, 1)
+					this.camera.firmware.minor = FirmwareVersion.substring(FirmwareVersion.lastIndexOf(' ') + 2).substring(1)
+				}
 			}
 		} else if (cmd.match('/analogaudiosetup')) {
 			this.camera.audio = data
