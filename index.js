@@ -2188,7 +2188,7 @@ class instance extends instance_skel {
 
 	getCameraModel() {
 		if (this.config.model === 'Auto') {
-			let url = `http://${this.config.host}:8080/about`
+			let url = `http://${this.config.host}:8080/version`
 			let options = {
 				method: 'GET',
 				headers: { 'Content-Type': 'application/json' },
@@ -2196,20 +2196,16 @@ class instance extends instance_skel {
 			fetch(url, options)
 				.then((res) => {
 					if (res.status == 200) {
-						return res.json()
+						this.debug(res)
+						return res.text()
 					}
 				})
-				.then((json) => {
-					let data = json
-					if (data?.FirmwareVersion) {
-						let model = data.FirmwareVersion.substring(
-							data.FirmwareVersion.indexOf(' ') + 1,
-							data.FirmwareVersion.lastIndexOf(' ')
-						)
-						model = model.replace(/ |_/g, '')
-
+				.then((data) => {
+					let model = data
+					if (model) {
+						model = model.replace(/BirdDog| |_/g, '')
 						this.initializeCamera(model)
-					} else if (data?.Version === '1.0' && this.currentStatus != 2) {
+					} else if (!model && this.currentStatus != 2) {
 						this.log('error', 'Please upgrade your BirdDog camera to the latest LTS firmware to use this module')
 						this.status(this.STATUS_ERROR)
 						if (this.poll_interval !== undefined) {
@@ -2219,6 +2215,18 @@ class instance extends instance_skel {
 				})
 				.catch((err) => {
 					this.debug(err)
+					let errorText = String(err)
+					if (
+						errorText.match('ECONNREFUSED') ||
+						errorText.match('ENOTFOUND') ||
+						errorText.match('EHOSTDOWN') ||
+						errorText.match('ETIMEDOUT')
+					) {
+						if (this.currentStatus != 2) {
+							this.status(this.STATUS_ERROR)
+							this.log('error', `Unabled to connect to BirdDog PTZ Camera (Error: ${errorText?.split('reason:')[1]})`)
+						}
+					}
 				})
 		} else {
 			this.initializeCamera(this.config.model)
