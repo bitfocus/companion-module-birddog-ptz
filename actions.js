@@ -646,7 +646,7 @@ module.exports = {
 						choices: MODEL_VALUES.gain.choices.slice(
 							0,
 							parseInt(
-								this.camera.expsetup.GainLimit ? this.camera.expsetup.GainLimit : MODEL_VALUES.gain.default,
+								this.camera.expsetup?.GainLimit ? this.camera.expsetup?.GainLimit : MODEL_VALUES.gain.default,
 								10
 							) + 1
 						),
@@ -753,7 +753,7 @@ module.exports = {
 						id: 'value',
 						choices: MODEL_VALUES.shut?.['shutter_' + [this.camera.framerate]].slice(
 							MODEL_VALUES.shutter_min_speed.range.min,
-							parseInt(this.camera.expsetup.ShutterMaxSpeed, 10) + 1
+							parseInt(this.camera.expsetup?.ShutterMaxSpeed, 10) + 1
 						),
 						default: MODEL_VALUES.shutter_max_speed.range.default,
 						isVisible: (action) => action.options.val === 'value',

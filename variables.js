@@ -33,9 +33,8 @@ exports.updateVariables = function () {
 	// General Camera Variables
 	if (this.camera.about) {
 		if (MODEL_SPEC?.firmware) {
-			this.setVariable('firmware', this.camera.firmware)
+			this.setVariable('firmware', this.camera.firmware.major + '.' + this.camera.firmware.minor)
 		}
-
 		if (MODEL_SPEC?.model) {
 			this.setVariable('model', this.camera.model)
 		}
@@ -219,7 +218,7 @@ exports.updateVariables = function () {
 				this.camera.model === 'P100' || this.camera.model === 'PF120'
 					? parseInt(this.camera.expsetup.ExpCompLvl) - 7
 					: this.camera.expsetup.ExpCompLvl
-			this.setVariable('exposure_comp_level', level.toString())
+			this.setVariable('exposure_comp_level', level?.toString())
 		}
 
 		if (MODEL_SPEC?.exposure_mode) {

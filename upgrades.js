@@ -336,4 +336,11 @@ module.exports = {
 		})
 		return changed
 	},
+	autoDetectDefault: function (context, config, actions, feedbacks) {
+		let changed = false
+		if (config.model == undefined || config.model == '') {
+			config.model = 'Auto'
+			changed = true
+		}
+	},
 }

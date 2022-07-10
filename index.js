@@ -6,6 +6,7 @@ const { initFeedbacks } = require('./feedbacks')
 const upgradeScripts = require('./upgrades')
 const { addStringToBinary, strToPQRS } = require('./utils')
 const VISCA = require('./constants')
+const CHOICES = require('./choices.js')
 var { MODELS } = require('./models.js')
 
 const udp = require('../../udp')
@@ -30,15 +31,15 @@ class instance extends instance_skel {
 
 		this.camera = {}
 
-		// Initialise Objects for VISCA queries
+		// Initialise Inital Camera Objects
 
 		this.camera.position = { pan: '0000', tilt: '0000', zoom: '0000' }
-
 		this.camera.framerate = 50
+		this.camera.firmware = {}
 	}
 
 	static GetUpgradeScripts() {
-		return [upgradeScripts.choicesUpgrade]
+		return [upgradeScripts.choicesUpgrade, upgradeScripts.autoDetectDefault]
 	}
 
 	config_fields() {
@@ -57,6 +58,13 @@ class instance extends instance_skel {
 				width: 6,
 				regex: this.REGEX_IP,
 			},
+			{
+				type: 'dropdown',
+				id: 'model',
+				label: 'BirdDog Model',
+				default: 'Auto',
+				choices: CHOICES.CAMERA,
+			},
 		]
 	}
 
@@ -66,7 +74,13 @@ class instance extends instance_skel {
 		this.status(this.STATUS_WARNING, 'Connecting')
 
 		if (this.config.host !== undefined) {
-			this.init_udp()
+			this.debug('----Config Model Choice:- ' + this.config.model)
+			this.getCameraModel()
+		} else {
+			this.status(
+				this.STATUS_ERROR,
+				'Unable to connect, please enter an IP address for your camera in the module settings'
+			)
 		}
 	}
 
@@ -87,13 +101,9 @@ class instance extends instance_skel {
 		this.status(this.STATUS_WARNING, 'Connecting')
 
 		this.port = 52381 // Visca port
+
 		// Get Initial Camera Info
-		this.sendCommand('about', 'GET')
-		this.sendCommand('encodesetup', 'GET') // allow an initial query to this API to collect camera info
-
-		this.init_udp()
-
-		this.updateVariables()
+		this.getCameraModel()
 	}
 
 	initVariables() {
@@ -1941,39 +1951,15 @@ class instance extends instance_skel {
 
 	processData(cmd, data) {
 		if (cmd.match('/about')) {
-			if (this.currentStatus != 0 && data.FirmwareVersion) {
+			if (this.currentStatus != 0 && data.FirmwareVersion && this.camera.model) {
 				this.status(this.STATUS_OK)
 				this.log('info', `Connected to ${data.HostName}`)
-			} else if (data.Version === '1.0' && this.currentStatus != 2) {
-				this.log('error', 'Please upgrade your BirdDog camera to the latest LTS firmware to use this module')
-				this.status(this.STATUS_ERROR)
-				if (this.poll_interval !== undefined) {
-					clearInterval(this.poll_interval)
-				}
-			}
-			if (data.FirmwareVersion) {
 				this.camera.about = data
-
-				let model = data.FirmwareVersion.substring(
-					data.FirmwareVersion.indexOf(' ') + 1,
-					data.FirmwareVersion.lastIndexOf(' ')
-				)
-				model = model.replace(/ |_/g, '')
-				if (!this.camera.model || this.camera.model != model) {
-					if (this.camera.model) {
-						this.log('info', 'New model detected, reloading module: ' + this.camera.model)
-					}
-					this.camera.model = model
-					this.debug('----New model detected:- ' + this.camera.model)
-					this.actions()
-					this.initPresets()
-					this.initVariables()
-					this.initFeedbacks()
+				if (!this.camera.firmware.major) {
+					this.camera.firmware = {}
+					this.camera.firmware.major = FirmwareVersion.substring(FirmwareVersion.lastIndexOf(' ') + 1).substring(0, 1)
+					this.camera.firmware.minor = FirmwareVersion.substring(FirmwareVersion.lastIndexOf(' ') + 2).substring(1)
 				}
-				this.camera.firmware = data.FirmwareVersion.substring(
-					data.FirmwareVersion.lastIndexOf(' ') + 1,
-					data.FirmwareVersion.length
-				)
 			}
 		} else if (cmd.match('/analogaudiosetup')) {
 			this.camera.audio = data
@@ -2199,6 +2185,72 @@ class instance extends instance_skel {
 
 		this.debug('----Camera Setup for - ', this.camera.model)
 		this.debug(this.camera)
+	}
+
+	getCameraModel() {
+		if (this.config.model === 'Auto') {
+			let url = `http://${this.config.host}:8080/version`
+			let options = {
+				method: 'GET',
+				headers: { 'Content-Type': 'application/json' },
+			}
+			fetch(url, options)
+				.then((res) => {
+					if (res.status == 200) {
+						this.debug(res)
+						return res.text()
+					}
+				})
+				.then((data) => {
+					let model = data
+					if (model) {
+						model = model.replace(/BirdDog| |_/g, '')
+						this.initializeCamera(model)
+					} else if (!model && this.currentStatus != 2) {
+						this.log('error', 'Please upgrade your BirdDog camera to the latest LTS firmware to use this module')
+						this.status(this.STATUS_ERROR)
+						if (this.poll_interval !== undefined) {
+							clearInterval(this.poll_interval)
+						}
+					}
+				})
+				.catch((err) => {
+					this.debug(err)
+					let errorText = String(err)
+					if (
+						errorText.match('ECONNREFUSED') ||
+						errorText.match('ENOTFOUND') ||
+						errorText.match('EHOSTDOWN') ||
+						errorText.match('ETIMEDOUT')
+					) {
+						if (this.currentStatus != 2) {
+							this.status(this.STATUS_ERROR)
+							this.log('error', `Unable to connect to BirdDog PTZ Camera (Error: ${errorText?.split('reason:')[1]})`)
+						}
+					}
+				})
+		} else {
+			this.initializeCamera(this.config.model)
+		}
+	}
+
+	initializeCamera(model) {
+		if (MODELS.find((MODELS) => MODELS.id == model)) {
+			this.camera.model = model
+
+			this.sendCommand('about', 'GET')
+			this.sendCommand('encodesetup', 'GET') // allow an initial query to this API to collect camera info
+
+			this.init_udp()
+
+			this.updateVariables()
+			this.actions()
+			this.initPresets()
+			this.initVariables()
+			this.initFeedbacks()
+		} else {
+			this.log('error', `Could not connect, unrecognized camera model: ${model}`)
+		}
 	}
 }
 exports = module.exports = instance
