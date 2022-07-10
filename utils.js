@@ -67,6 +67,11 @@ function sortByLabel(a, b) {
 	return 0
 }
 
+function filterModelDetails(array, model, type, FW) {
+	asArray = Object.entries(array.find((MODELS) => MODELS.id == model)?.[type])
+	return Object.fromEntries(asArray.filter((item) => item[1].firmware.includes(FW)))
+}
+
 module.exports = {
 	addStringToBinary,
 	createPositionArray,
@@ -74,4 +79,5 @@ module.exports = {
 	getPositionLabel,
 	strToPQRS,
 	sortByLabel,
+	filterModelDetails,
 }
