@@ -27,7 +27,7 @@ module.exports = {
 		{id: 'A200GEN1', label: 'A200 GEN1'},
 		{id: 'A200GEN2', label: 'A200 GEN2'},
 		{id: 'A300GEN1', label: 'A300 GEN1'},
-		{id: 'A200GEN2', label: 'A200 GEN2'},
+		{id: 'A300GEN2', label: 'A300 GEN2'},
 		{id: 'P400', label: 'P400'},
 		{id: 'P4K', label: 'P4K'},
 	],
