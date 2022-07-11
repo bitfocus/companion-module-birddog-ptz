@@ -10,11 +10,7 @@ exports.updateVariableDefinitions = function () {
 	const variables = []
 
 	//MODEL_SPEC = MODELS.find((MODELS) => MODELS.id == this.camera.model)?.variables
-	this.debug('----- Define Variables called')
-	this.debug('----- Camera.Model:',this.camera.model )
-	this.debug('----- Camera.FW.major:',this.camera.firmware.major )
 	MODEL_SPEC = filterModelDetails(MODELS, this.camera.model, 'variables', this.camera.firmware.major)
-	this.debug('------ Filtered Models:', MODEL_SPEC)
 	sortedlist = Object.fromEntries(Object.entries(MODEL_SPEC).sort(sortByLabel))
 
 	for (i in sortedlist) {
