@@ -4,7 +4,7 @@ const presets = require('./presets')
 const { updateVariableDefinitions, updateVariables } = require('./variables')
 const { initFeedbacks } = require('./feedbacks')
 const upgradeScripts = require('./upgrades')
-const { addStringToBinary, strToPQRS } = require('./utils')
+const { addStringToBinary, strToPQRS, filterModelDetails } = require('./utils')
 const VISCA = require('./constants')
 const CHOICES = require('./choices.js')
 var { MODELS } = require('./models.js')
@@ -2145,17 +2145,35 @@ class instance extends instance_skel {
 	}
 
 	poll() {
-		let MODEL_API = MODELS.find((MODELS) => MODELS.id == this.camera.model)?.apicalls
+		// let MODEL_API = MODELS.find((MODELS) => MODELS.id == this.camera.model)?.apicalls
+		let MODEL_API = filterModelDetails(MODELS, this.camera.model, 'apicalls', this.camera.firmware.major)
 		// Common Device Info
-		this.sendCommand('about', 'GET')
-		this.sendCommand('analogaudiosetup', 'GET')
-		this.sendCommand('encodetransport', 'GET')
-		//this.sendCommand('encodesetup', 'GET') Temporary skip to avoid BirdDog API bug
-		this.sendCommand('NDIDisServer', 'GET')
-		this.sendCommand('birddogptzsetup', 'GET')
-		this.sendCommand('birddogexpsetup', 'GET')
-		this.sendCommand('birddogwbsetup', 'GET')
-		this.sendCommand('birddogpicsetup', 'GET')
+		if (MODEL_API?.about) {
+			this.sendCommand('about', 'GET')
+		}
+		if (MODEL_API?.analogaudiosetup) {
+			this.sendCommand('analogaudiosetup', 'GET')
+		}
+		if (MODEL_API?.encodetransport) {
+			this.sendCommand('encodetransport', 'GET')
+		}
+		//if (MODEL_API?.encodesetup) {
+		//this.sendCommand('encodesetup', 'GET') Temporary skip to avoid BirdDog API bug }
+		if (MODEL_API?.NDIDisServer) {
+			this.sendCommand('NDIDisServer', 'GET')
+		}
+		if (MODEL_API?.birddogptzsetup) {
+			this.sendCommand('birddogptzsetup', 'GET')
+		}
+		if (MODEL_API?.birddogexpsetup) {
+			this.sendCommand('birddogexpsetup', 'GET')
+		}
+		if (MODEL_API?.birddogwbsetup) {
+			this.sendCommand('birddogwbsetup', 'GET')
+		}
+		if (MODEL_API?.birddogpicsetup) {
+			this.sendCommand('birddogpicsetup', 'GET')
+		}
 		this.sendVISCACommand(VISCA.MSG_QRY + VISCA.CAM_POWER + VISCA.END_MSG, '\x4a') // Query Standby status
 		this.sendVISCACommand(VISCA.MSG_QRY + VISCA.CAM_FOCUS_AUTO + VISCA.END_MSG, '\x5a') // Query Auto Focus Mode
 		this.sendVISCACommand(VISCA.MSG_QRY + VISCA.CAM_FREEZE + VISCA.END_MSG, '\x5b') // Query Freeze

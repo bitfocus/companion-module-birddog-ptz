@@ -3,24 +3,24 @@ const COMMON = [
 	{
 		//API Calls
 		//Basic Device Information
-		about: true,
+		about: {firmware: ["4","5"]},
 		//Device Settings
-		analogaudiosetup: true,
+		analogaudiosetup: {firmware: ["4","5"]},
 		//NDI Encode
-		encodesetup: true,
-		encodetransport: true,
+		encodesetup: {firmware: ["4","5"]},
+		encodetransport: {firmware: ["4","5"]},
 		//NDI Finder
-		NDIDisServer: true,
+		NDIDisServer: {firmware: ["4","5"]},
 		//PTZ
-		birddogptzsetup: true,
-		recallPost: true,
-		savePost: true,
+		birddogptzsetup: {firmware: ["4","5"]},
+		recallPost: {firmware: ["4","5"]},
+		savePost: {firmware: ["4","5"]},
 		//Exposure
-		birddogexpsetup: true,
+		birddogexpsetup: {firmware: ["4","5"]},
 		//White Balance
-		birddogwbsetup: true,
+		birddogwbsetup: {firmware: ["4","5"]},
 		//Picture Settings
-		birddogpicsetup: true,
+		birddogpicsetup: {firmware: ["4","5"]},
 	},
 	{
 		//Variables
@@ -134,8 +134,8 @@ module.exports = {
 			id: 'P100',
 			apicalls: {
 				...COMMON[0],
-				birddogcmsetup: true,
-				pt_pos: true,
+				birddogcmsetup: {firmware: ["4","5"]},
+				pt_pos: {firmware: ["4","5"]},
 			},
 			variables: {
 				...COMMON[1],
@@ -246,7 +246,7 @@ module.exports = {
 			id: 'PF120',
 			apicalls: {
 				...COMMON[0],
-				birddogcmsetup: true,
+				birddogcmsetup: {firmware: ["4","5"]},
 			},
 			variables: {
 				...COMMON[1],
@@ -348,9 +348,9 @@ module.exports = {
 			id: 'P200A2A3',
 			apicalls: {
 				...COMMON[0],
-				birddogcmsetup: true,
-				birddogadvancesetup: true,
-				pt_pos: true,
+				birddogcmsetup: {firmware: ["4","5"]},
+				birddogadvancesetup: {firmware: ["4","5"]},
+				pt_pos: {firmware: ["4","5"]},
 			},
 			variables: {
 				...COMMON[1],
@@ -488,9 +488,9 @@ module.exports = {
 			id: 'P200A4A5',
 			apicalls: {
 				...COMMON[0],
-				birddogcmsetup: true,
-				birddogadvancesetup: true,
-				pt_pos: true,
+				birddogcmsetup: {firmware: ["4","5"]},
+				birddogadvancesetup: {firmware: ["4","5"]},
+				pt_pos: {firmware: ["4","5"]},
 			},
 			variables: {
 				...COMMON[1],
@@ -630,10 +630,10 @@ module.exports = {
 			id: 'A200GEN1',
 			apicalls: {
 				...COMMON[0],
-				birddogcmsetup: true,
-				birddogadvancesetup: true,
-				birddogexternalsetup: true,
-				pt_pos: true,
+				birddogcmsetup: {firmware: ["4","5"]},
+				birddogadvancesetup: {firmware: ["4","5"]},
+				birddogexternalsetup: {firmware: ["4","5"]},
+				pt_pos: {firmware: ["4","5"]},
 			},
 			variables: {
 				...COMMON[1],
@@ -773,10 +773,10 @@ module.exports = {
 			id: 'A200GEN2',
 			apicalls: {
 				...COMMON[0],
-				birddogcmsetup: true,
-				birddogadvancesetup: true,
-				birddogexternalsetup: true,
-				pt_pos: true,
+				birddogcmsetup: {firmware: ["4","5"]},
+				birddogadvancesetup: {firmware: ["4","5"]},
+				birddogexternalsetup: {firmware: ["4","5"]},
+				pt_pos: {firmware: ["4","5"]},
 			},
 			variables: {
 				...COMMON[1],
@@ -916,10 +916,10 @@ module.exports = {
 			id: 'A300GEN1',
 			apicalls: {
 				...COMMON[0],
-				birddogcmsetup: true,
-				birddogadvancesetup: true,
-				birddogexternalsetup: true,
-				pt_pos: true,
+				birddogcmsetup: {firmware: ["4","5"]},
+				birddogadvancesetup: {firmware: ["4","5"]},
+				birddogexternalsetup: {firmware: ["4","5"]},
+				pt_pos: {firmware: ["4","5"]},
 			},
 			variables: {
 				...COMMON[1],
@@ -1061,10 +1061,10 @@ module.exports = {
 			id: 'A300GEN2',
 			apicalls: {
 				...COMMON[0],
-				birddogcmsetup: true,
-				birddogadvancesetup: true,
-				birddogexternalsetup: true,
-				pt_pos: true,
+				birddogcmsetup: {firmware: ["4","5"]},
+				birddogadvancesetup: {firmware: ["4","5"]},
+				birddogexternalsetup: {firmware: ["4","5"]},
+				pt_pos: {firmware: ["4","5"]},
 			},
 			variables: {
 				...COMMON[1],
@@ -1206,10 +1206,10 @@ module.exports = {
 			id: 'P400',
 			apicalls: {
 				...COMMON[0],
-				videooutputinterface: true,
-				birddogdetsetup: true,
-				birddoggammasetup: true,
-				pt_pos: true,
+				videooutputinterface: {firmware: ["4","5"]},
+				birddogdetsetup: {firmware: ["4","5"]},
+				birddoggammasetup: {firmware: ["4","5"]},
+				pt_pos: {firmware: ["4","5"]},
 			},
 			variables: {
 				...COMMON[1],
@@ -1374,10 +1374,10 @@ module.exports = {
 			id: 'P4K',
 			apicalls: {
 				...COMMON[0],
-				videooutputinterface: true,
-				birddogdetsetup: true,
-				birddoggammasetup: true,
-				pt_pos: true,
+				videooutputinterface: {firmware: ["4","5"]},
+				birddogdetsetup: {firmware: ["4","5"]},
+				birddoggammasetup: {firmware: ["4","5"]},
+				pt_pos: {firmware: ["4","5"]},
 			},
 			variables: {
 				...COMMON[1],
