@@ -10,28 +10,28 @@ See [HELP.md](https://github.com/bitfocus/companion-module-birddog-ptz/blob/main
 
 ### v2.1.3
 - Changes
- - Enable Camera model to be specified in config
+  - Enable Camera model to be specified in config
 
 - Fixes
   - Move Model detection to seperate function
   - Use /version call instead of /about for Model
+  
 ### v2.1.2
 - Fixes
   - Actions not building for P4K and P400 
   - Better handling of various camera models
   - Improved Gain Action
+  
 ### v2.1.1
 - Fixes
   - Shutter Up/Down action
   - Standby Variable showing correct value
+
 ### v2.1.0
-
 - Changes
-
   - Changed Pan/Tilt/Zoom Speed inputs to numbers
 
 - New Actions / Feedback
-
   - Analog Audio
     - Analog Audio In Gain
     - Analog Audio Out Gain
