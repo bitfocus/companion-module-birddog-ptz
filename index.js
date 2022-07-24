@@ -1955,6 +1955,7 @@ class instance extends instance_skel {
 				this.status(this.STATUS_OK)
 				this.log('info', `Connected to ${data.HostName}`)
 				this.camera.about = data
+				this.debug('----- Camera about:' + this.camera.about)
 				if (!this.camera.firmware.major) {
 					this.camera.firmware = {}
 					this.camera.firmware.major = this.camera.about.FirmwareVersion.substring(
@@ -1963,6 +1964,8 @@ class instance extends instance_skel {
 					this.camera.firmware.minor = this.camera.about.FirmwareVersion.substring(
 						this.camera.about.FirmwareVersion.lastIndexOf(' ') + 2
 					).substring(1)
+					this.debug('----- Camera FW Major:' + this.camera.firmware.major)
+					this.debug('----- Camera FW Minor:' + this.camera.firmware.minor)
 					this.actions()
 					this.initVariables()
 					this.initFeedbacks()
