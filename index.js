@@ -1955,7 +1955,6 @@ class instance extends instance_skel {
 				this.status(this.STATUS_OK)
 				this.log('info', `Connected to ${data.HostName}`)
 				this.camera.about = data
-				this.debug('----- Camera about:' + this.camera.about)
 				if (!this.camera.firmware.major) {
 					this.camera.firmware = {}
 					this.camera.firmware.major = this.camera.about.FirmwareVersion.substring(
@@ -2234,6 +2233,7 @@ class instance extends instance_skel {
 					if (model) {
 						model = model.replace(/BirdDog| |_/g, '')
 						this.initializeCamera(model)
+						this.debug('----- Detected Camera Model:' + model)
 					} else if (!model && this.currentStatus != 2) {
 						this.log('error', 'Please upgrade your BirdDog camera to the latest LTS firmware to use this module')
 						this.status(this.STATUS_ERROR)
@@ -2263,7 +2263,7 @@ class instance extends instance_skel {
 	}
 
 	initializeCamera(model) {
-		if (MODELS.find((MODELS) => MODELS.id == model)) {
+		if (MODELS[0].cameras.includes(model)) {
 			this.camera.model = model
 
 			this.sendCommand('about', 'GET')

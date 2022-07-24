@@ -68,15 +68,13 @@ function sortByLabel(a, b) {
 }
 
 function filterModelDetails(array, model, type, FW) {
-	asArray = Object.entries(array[0]?.[type]);
+	asArray = Object.entries(array[0]?.[type])
 	return Object.fromEntries(
-	  asArray.filter(
-		(item) =>
-		  item[1].camera.includes(model) | item[1].camera.includes("All") &&
-		  item[1].firmware.includes(FW)
-	  )
-	);
-  }
+		asArray.filter(
+			(item) => (item[1].camera.includes(model) || item[1].camera.includes('All')) && item[1].firmware.includes(FW)
+		)
+	)
+}
 
 module.exports = {
 	addStringToBinary,
