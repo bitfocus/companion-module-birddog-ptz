@@ -133,6 +133,15 @@ function getModelActionDetails(array, FW, model) {
 	return merge(commonActions[0]?.action, modelActions[0]?.action)
 }
 
+function getModelQueries(array, model, FW) {
+	asArray = Object.entries(array)
+	return Object.fromEntries(
+		asArray.filter(
+			(item) => (item[1].camera.includes(model) || item[1].camera.includes('All')) && item[1].firmware.includes(FW)
+		)
+	)
+}
+
 module.exports = {
 	addStringToBinary,
 	createPositionArray,
@@ -142,4 +151,5 @@ module.exports = {
 	sortByAction,
 	getModelVariables,
 	getModelActions,
+	getModelQueries,
 }

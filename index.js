@@ -4,10 +4,10 @@ const presets = require('./presets')
 const { updateVariableDefinitions, updateVariables } = require('./variables')
 const { initFeedbacks } = require('./feedbacks')
 const upgradeScripts = require('./upgrades')
-const { addStringToBinary, strToPQRS, filterModelDetails } = require('./utils')
+const { addStringToBinary, strToPQRS, getModelActions, getModelQueries } = require('./utils')
 const VISCA = require('./constants')
 const CHOICES = require('./choices.js')
-var { MODELS } = require('./models.js')
+var { MODEL_CAMERAS, MODEL_QUERIES, MODEL_SPECS } = require('./models.js')
 
 const udp = require('../../udp')
 const fetch = require('node-fetch')
@@ -128,7 +128,7 @@ class instance extends instance_skel {
 		let cmd = ''
 		let fb = ''
 
-		let MODEL_VALUES = MODELS.find((MODELS) => MODELS.id == this.camera.model).actions
+		let MODEL_ACTIONS = getModelActions(MODEL_SPECS, this.camera.firmware.major, this.camera.model)
 
 		let panSpeed = this.camera?.ptz?.PanSpeed ? this.camera.ptz.PanSpeed : 11
 		let tiltSpeed = this.camera?.ptz?.PanSpeed ? this.camera.ptz.TiltSpeed : 9
@@ -370,10 +370,10 @@ class instance extends instance_skel {
 			case 'panSpeed':
 				switch (opt.type) {
 					case 'up':
-						newValue = panSpeed < MODEL_VALUES.panSpeed.range.max ? ++panSpeed : MODEL_VALUES.panSpeed.range.max
+						newValue = panSpeed < MODEL_ACTIONS.panSpeed.range.max ? ++panSpeed : MODEL_ACTIONS.panSpeed.range.max
 						break
 					case 'down':
-						newValue = panSpeed > MODEL_VALUES.panSpeed.range.min ? --panSpeed : MODEL_VALUES.panSpeed.range.min
+						newValue = panSpeed > MODEL_ACTIONS.panSpeed.range.min ? --panSpeed : MODEL_ACTIONS.panSpeed.range.min
 						break
 					case 'value':
 						newValue = opt.value
@@ -388,10 +388,10 @@ class instance extends instance_skel {
 			case 'tiltSpeed':
 				switch (opt.type) {
 					case 'up':
-						newValue = tiltSpeed < MODEL_VALUES.tiltSpeed.range.max ? ++tiltSpeed : MODEL_VALUES.tiltSpeed.range.max
+						newValue = tiltSpeed < MODEL_ACTIONS.tiltSpeed.range.max ? ++tiltSpeed : MODEL_ACTIONS.tiltSpeed.range.max
 						break
 					case 'down':
-						newValue = tiltSpeed > MODEL_VALUES.tiltSpeed.range.min ? --tiltSpeed : MODEL_VALUES.tiltSpeed.range.min
+						newValue = tiltSpeed > MODEL_ACTIONS.tiltSpeed.range.min ? --tiltSpeed : MODEL_ACTIONS.tiltSpeed.range.min
 					case 'value':
 						newValue = opt.value
 						break
@@ -405,10 +405,10 @@ class instance extends instance_skel {
 			case 'zoomSpeed':
 				switch (opt.type) {
 					case 'up':
-						newValue = zoomSpeed < MODEL_VALUES.zoomSpeed.range.max ? ++zoomSpeed : MODEL_VALUES.zoomSpeed.range.max
+						newValue = zoomSpeed < MODEL_ACTIONS.zoomSpeed.range.max ? ++zoomSpeed : MODEL_ACTIONS.zoomSpeed.range.max
 						break
 					case 'down':
-						newValue = zoomSpeed > MODEL_VALUES.zoomSpeed.range.min ? --zoomSpeed : MODEL_VALUES.zoomSpeed.range.min
+						newValue = zoomSpeed > MODEL_ACTIONS.zoomSpeed.range.min ? --zoomSpeed : MODEL_ACTIONS.zoomSpeed.range.min
 						break
 					case 'value':
 						newValue = opt.value
@@ -544,14 +544,16 @@ class instance extends instance_skel {
 				break
 
 			case 'gain':
-				let gain = this.camera?.expsetup?.GainLevel ? this.camera.expsetup.GainLevel : MODEL_VALUES.gain.default
-				gainLimit = this.camera?.expsetup?.GainLimit ? this.camera.expsetup.GainLimit : MODEL_VALUES.gain.choices.length
+				let gain = this.camera?.expsetup?.GainLevel ? this.camera.expsetup.GainLevel : MODEL_ACTIONS.gain.default
+				gainLimit = this.camera?.expsetup?.GainLimit
+					? this.camera.expsetup.GainLimit
+					: MODEL_ACTIONS.gain.choices.length
 				switch (opt.val) {
 					case 'up':
 						newValue = gain < gainLimit ? ++gain : gain
 						break
 					case 'down':
-						newValue = gain > MODEL_VALUES.gain.choices[0]?.id ? --gain : gain
+						newValue = gain > MODEL_ACTIONS.gain.choices[0]?.id ? --gain : gain
 						break
 					case 'value':
 						newValue = parseFloat(opt.value) <= gainLimit ? opt.value : gainLimit
@@ -566,13 +568,13 @@ class instance extends instance_skel {
 			case 'gainLimit':
 				gainLimit = this.camera?.expsetup?.GainLimit
 					? this.camera.expsetup.GainLimit
-					: MODEL_VALUES.gain_limit.range.default
+					: MODEL_ACTIONS.gain_limit.range.default
 				switch (opt.val) {
 					case 'up':
-						newValue = gainLimit < MODEL_VALUES.gain_limit.range.max ? ++gainLimit : gainLimit
+						newValue = gainLimit < MODEL_ACTIONS.gain_limit.range.max ? ++gainLimit : gainLimit
 						break
 					case 'down':
-						newValue = gainLimit > MODEL_VALUES.gain_limit.range.min ? --gainLimit : gainLimit
+						newValue = gainLimit > MODEL_ACTIONS.gain_limit.range.min ? --gainLimit : gainLimit
 						break
 					case 'value':
 						newValue = opt.value
@@ -594,14 +596,14 @@ class instance extends instance_skel {
 			case 'gainPointPosition':
 				let gainPointPosition = this.camera?.expsetup?.GainPointPosition
 					? this.camera.expsetup.GainPointPosition
-					: MODEL_VALUES.gain.default
+					: MODEL_ACTIONS.gain.default
 				switch (opt.val) {
 					case 'up':
 						newValue =
 							gainPointPosition < this.camera.expsetup.GainLimit ? ++gainPointPosition : this.camera.expsetup.GainLimit
 						break
 					case 'down':
-						newValue = gainPointPosition > MODEL_VALUES.gain[0] ? --gainPointPosition : gainPointPosition
+						newValue = gainPointPosition > MODEL_ACTIONS.gain[0] ? --gainPointPosition : gainPointPosition
 						break
 					case 'value':
 						newValue = opt.value
@@ -621,23 +623,23 @@ class instance extends instance_skel {
 				break
 
 			case 'iris':
-				let iris = this.camera?.expsetup?.IrisLevel ? this.camera.expsetup.IrisLevel : MODEL_VALUES.iris.default
+				let iris = this.camera?.expsetup?.IrisLevel ? this.camera.expsetup.IrisLevel : MODEL_ACTIONS.iris.default
 				switch (opt.val) {
 					case 'up':
 						newValue =
-							iris === MODEL_VALUES.iris.range.closed
-								? MODEL_VALUES.iris.range.min
-								: iris < MODEL_VALUES.iris.range.max
+							iris === MODEL_ACTIONS.iris.range.closed
+								? MODEL_ACTIONS.iris.range.min
+								: iris < MODEL_ACTIONS.iris.range.max
 								? ++iris
-								: MODEL_VALUES.iris.range.max
+								: MODEL_ACTIONS.iris.range.max
 						break
 					case 'down':
 						newValue =
-							iris === MODEL_VALUES.iris.range.min
-								? MODEL_VALUES.iris.range.closed
-								: iris > MODEL_VALUES.iris.range.min
+							iris === MODEL_ACTIONS.iris.range.min
+								? MODEL_ACTIONS.iris.range.closed
+								: iris > MODEL_ACTIONS.iris.range.min
 								? --iris
-								: MODEL_VALUES.iris.range.closed
+								: MODEL_ACTIONS.iris.range.closed
 						break
 					case 'value':
 						newValue = opt.value
@@ -659,19 +661,19 @@ class instance extends instance_skel {
 			case 'shut':
 				let shutter_speed = this.camera?.expsetup?.ShutterSpeed
 					? this.camera.expsetup.ShutterSpeed
-					: MODEL_VALUES.shutter_speed.default
+					: MODEL_ACTIONS.shutter_speed.default
 				switch (opt.val) {
 					case 'up':
 						newValue =
-							shutter_speed < MODEL_VALUES.shutter_speed.range.max
+							shutter_speed < MODEL_ACTIONS.shutter_speed.range.max
 								? ++shutter_speed
-								: MODEL_VALUES.shutter_speed.range.max
+								: MODEL_ACTIONS.shutter_speed.range.max
 						break
 					case 'down':
 						newValue =
-							shutter_speed > MODEL_VALUES.shutter_speed.range.min
+							shutter_speed > MODEL_ACTIONS.shutter_speed.range.min
 								? --shutter_speed
-								: MODEL_VALUES.shutter_speed.range.min
+								: MODEL_ACTIONS.shutter_speed.range.min
 						break
 					case 'value':
 						newValue = opt.value
@@ -686,19 +688,19 @@ class instance extends instance_skel {
 			case 'shutter_max_speed':
 				let shutter_max_speed = this.camera?.expsetup?.ShutterMaxSpeed
 					? this.camera.expsetup.ShutterMaxSpeed
-					: MODEL_VALUES.shutter_max_speed.range.default
+					: MODEL_ACTIONS.shutter_max_speed.range.default
 				switch (opt.val) {
 					case 'up':
 						newValue =
-							shutter_max_speed < MODEL_VALUES.shutter_max_speed.range.max
+							shutter_max_speed < MODEL_ACTIONS.shutter_max_speed.range.max
 								? ++shutter_max_speed
-								: MODEL_VALUES.shutter_max_speed.range.max
+								: MODEL_ACTIONS.shutter_max_speed.range.max
 						break
 					case 'down':
 						newValue =
-							shutter_max_speed > MODEL_VALUES.shutter_max_speed.range.min
+							shutter_max_speed > MODEL_ACTIONS.shutter_max_speed.range.min
 								? --shutter_max_speed
-								: MODEL_VALUES.shutter_max_speed.range.min
+								: MODEL_ACTIONS.shutter_max_speed.range.min
 						break
 					case 'value':
 						newValue = opt.value
@@ -713,7 +715,7 @@ class instance extends instance_skel {
 			case 'shutter_min_speed':
 				let shutter_min_speed = this.camera?.expsetup?.ShutterMinSpeed
 					? this.camera.expsetup.ShutterMinSpeed
-					: MODEL_VALUES.shutter_min_speed.range.default
+					: MODEL_ACTIONS.shutter_min_speed.range.default
 				switch (opt.val) {
 					case 'up':
 						newValue =
@@ -723,9 +725,9 @@ class instance extends instance_skel {
 						break
 					case 'down':
 						newValue =
-							shutter_min_speed > MODEL_VALUES.shutter_min_speed.range.min
+							shutter_min_speed > MODEL_ACTIONS.shutter_min_speed.range.min
 								? --shutter_min_speed
-								: MODEL_VALUES.shutter_min_speed.range.min
+								: MODEL_ACTIONS.shutter_min_speed.range.min
 						break
 					case 'value':
 						newValue = opt.value
@@ -754,19 +756,19 @@ class instance extends instance_skel {
 			case 'slow_shutter_limit':
 				let slow_shutter_limit = this.camera?.expsetup?.SlowShutterLimit
 					? this.camera.expsetup.SlowShutterLimit
-					: MODEL_VALUES.slow_shutter_limit.range.default
+					: MODEL_ACTIONS.slow_shutter_limit.range.default
 				switch (opt.val) {
 					case 'up':
 						newValue =
-							slow_shutter_limit < MODEL_VALUES.slow_shutter_limit.range.max
+							slow_shutter_limit < MODEL_ACTIONS.slow_shutter_limit.range.max
 								? ++slow_shutter_limit
-								: MODEL_VALUES.slow_shutter_limit.range.max
+								: MODEL_ACTIONS.slow_shutter_limit.range.max
 						break
 					case 'down':
 						newValue =
-							slow_shutter_limit > MODEL_VALUES.slow_shutter_limit.range.min
+							slow_shutter_limit > MODEL_ACTIONS.slow_shutter_limit.range.min
 								? --slow_shutter_limit
-								: MODEL_VALUES.slow_shutter_limit.range.min
+								: MODEL_ACTIONS.slow_shutter_limit.range.min
 						break
 					case 'value':
 						newValue = opt.value
@@ -804,13 +806,13 @@ class instance extends instance_skel {
 			case 'blue_gain':
 				let blue_gain = this.camera?.wbsetup?.BlueGain
 					? this.camera.wbsetup.BlueGain
-					: MODEL_VALUES.blue_gain.range.default
+					: MODEL_ACTIONS.blue_gain.range.default
 				switch (opt.val) {
 					case 'up':
-						newValue = blue_gain < MODEL_VALUES.blue_gain.range.max ? ++blue_gain : blue_gain
+						newValue = blue_gain < MODEL_ACTIONS.blue_gain.range.max ? ++blue_gain : blue_gain
 						break
 					case 'down':
-						newValue = blue_gain > MODEL_VALUES.blue_gain.range.min ? --blue_gain : blue_gain
+						newValue = blue_gain > MODEL_ACTIONS.blue_gain.range.min ? --blue_gain : blue_gain
 						break
 					case 'value':
 						newValue = opt.value
@@ -886,13 +888,15 @@ class instance extends instance_skel {
 				break
 
 			case 'red_gain':
-				let red_gain = this.camera?.wbsetup?.RedGain ? this.camera.wbsetup.RedGain : MODEL_VALUES.red_gain.range.default
+				let red_gain = this.camera?.wbsetup?.RedGain
+					? this.camera.wbsetup.RedGain
+					: MODEL_ACTIONS.red_gain.range.default
 				switch (opt.val) {
 					case 'up':
-						newValue = red_gain < MODEL_VALUES.red_gain.range.max ? ++red_gain : red_gain
+						newValue = red_gain < MODEL_ACTIONS.red_gain.range.max ? ++red_gain : red_gain
 						break
 					case 'down':
-						newValue = red_gain > MODEL_VALUES.red_gain.range.min ? --red_gain : red_gain
+						newValue = red_gain > MODEL_ACTIONS.red_gain.range.min ? --red_gain : red_gain
 						break
 					case 'value':
 						newValue = opt.value
@@ -947,13 +951,13 @@ class instance extends instance_skel {
 				break
 
 			case 'color':
-				let color = this.camera?.picsetup?.Color ? this.camera.picsetup.Color : MODEL_VALUES.color.range.default
+				let color = this.camera?.picsetup?.Color ? this.camera.picsetup.Color : MODEL_ACTIONS.color.range.default
 				switch (opt.val) {
 					case 'up':
-						newValue = color < MODEL_VALUES.color.range.max ? ++color : color
+						newValue = color < MODEL_ACTIONS.color.range.max ? ++color : color
 						break
 					case 'down':
-						newValue = color > MODEL_VALUES.color.range.min ? --color : color
+						newValue = color > MODEL_ACTIONS.color.range.min ? --color : color
 						break
 					case 'value':
 						newValue = opt.value
@@ -968,13 +972,13 @@ class instance extends instance_skel {
 			case 'contrast':
 				let contrast = this.camera?.picsetup?.Contrast
 					? this.camera.picsetup.Contrast
-					: MODEL_VALUES.contrast.range.default
+					: MODEL_ACTIONS.contrast.range.default
 				switch (opt.val) {
 					case 'up':
-						newValue = contrast < MODEL_VALUES.contrast.range.max ? ++contrast : contrast
+						newValue = contrast < MODEL_ACTIONS.contrast.range.max ? ++contrast : contrast
 						break
 					case 'down':
-						newValue = contrast > MODEL_VALUES.contrast.range.min ? --contrast : contrast
+						newValue = contrast > MODEL_ACTIONS.contrast.range.min ? --contrast : contrast
 						break
 					case 'value':
 						newValue = opt.value
@@ -1001,13 +1005,13 @@ class instance extends instance_skel {
 				break
 
 			case 'gamma':
-				let gamma = this.camera?.picsetup?.Gamma ? this.camera.picsetup.Gamma : MODEL_VALUES.gamma.range.default
+				let gamma = this.camera?.picsetup?.Gamma ? this.camera.picsetup.Gamma : MODEL_ACTIONS.gamma.range.default
 				switch (opt.val) {
 					case 'up':
-						newValue = gamma < MODEL_VALUES.gamma.range.max ? ++gamma : gamma
+						newValue = gamma < MODEL_ACTIONS.gamma.range.max ? ++gamma : gamma
 						break
 					case 'down':
-						newValue = gamma > MODEL_VALUES.gamma.range.min ? --gamma : gamma
+						newValue = gamma > MODEL_ACTIONS.gamma.range.min ? --gamma : gamma
 						break
 					case 'value':
 						newValue = opt.value
@@ -1029,17 +1033,17 @@ class instance extends instance_skel {
 			case 'highlight_comp_mask':
 				let highlight_comp_mask = this.camera?.picsetup?.HighlightCompMask
 					? this.camera.picsetup.HighlightCompMask
-					: MODEL_VALUES.highlight_comp_mask.range.default
+					: MODEL_ACTIONS.highlight_comp_mask.range.default
 				switch (opt.val) {
 					case 'up':
 						newValue =
-							highlight_comp_mask < MODEL_VALUES.highlight_comp_mask.range.max
+							highlight_comp_mask < MODEL_ACTIONS.highlight_comp_mask.range.max
 								? ++highlight_comp_mask
 								: highlight_comp_mask
 						break
 					case 'down':
 						newValue =
-							highlight_comp_mask > MODEL_VALUES.highlight_comp_mask.range.min
+							highlight_comp_mask > MODEL_ACTIONS.highlight_comp_mask.range.min
 								? --highlight_comp_mask
 								: highlight_comp_mask
 						break
@@ -1054,13 +1058,13 @@ class instance extends instance_skel {
 				break
 
 			case 'hue':
-				let hue = this.camera?.picsetup?.Hue ? this.camera.picsetup.Hue : MODEL_VALUES.hue.range.default
+				let hue = this.camera?.picsetup?.Hue ? this.camera.picsetup.Hue : MODEL_ACTIONS.hue.range.default
 				switch (opt.val) {
 					case 'up':
-						newValue = hue < MODEL_VALUES.hue.range.max ? ++hue : hue
+						newValue = hue < MODEL_ACTIONS.hue.range.max ? ++hue : hue
 						break
 					case 'down':
-						newValue = hue > MODEL_VALUES.hue.range.min ? --hue : hue
+						newValue = hue > MODEL_ACTIONS.hue.range.min ? --hue : hue
 						break
 					case 'value':
 						newValue = opt.value
@@ -1096,13 +1100,13 @@ class instance extends instance_skel {
 			case 'nd_filter':
 				let nd_filter = this.camera?.picsetup?.NDFilter
 					? this.camera.picsetup.NDFilter
-					: MODEL_VALUES.nd_filter.range.default
+					: MODEL_ACTIONS.nd_filter.range.default
 				switch (opt.val) {
 					case 'up':
-						newValue = nd_filter < MODEL_VALUES.nd_filter.range.max ? ++nd_filter : nd_filter
+						newValue = nd_filter < MODEL_ACTIONS.nd_filter.range.max ? ++nd_filter : nd_filter
 						break
 					case 'down':
-						newValue = nd_filter > MODEL_VALUES.nd_filter.range.min ? --nd_filter : nd_filter
+						newValue = nd_filter > MODEL_ACTIONS.nd_filter.range.min ? --nd_filter : nd_filter
 						break
 					case 'value':
 						newValue = opt.value
@@ -1124,13 +1128,13 @@ class instance extends instance_skel {
 			case 'sharpness':
 				let sharpness = this.camera?.picsetup?.Sharpness
 					? this.camera.picsetup.Sharpness
-					: MODEL_VALUES.sharpness.range.default
+					: MODEL_ACTIONS.sharpness.range.default
 				switch (opt.val) {
 					case 'up':
-						newValue = sharpness < MODEL_VALUES.sharpness.range.max ? ++sharpness : sharpness
+						newValue = sharpness < MODEL_ACTIONS.sharpness.range.max ? ++sharpness : sharpness
 						break
 					case 'down':
-						newValue = sharpness > MODEL_VALUES.sharpness.range.min ? --sharpness : sharpness
+						newValue = sharpness > MODEL_ACTIONS.sharpness.range.min ? --sharpness : sharpness
 						break
 					case 'value':
 						newValue = opt.value
@@ -1175,13 +1179,13 @@ class instance extends instance_skel {
 			case 'cm_blue_gain':
 				let cm_blue_gain = this.camera?.cmsetup?.BlueGain
 					? this.camera.cmsetup.BlueGain
-					: MODEL_VALUES.cm_blue_gain.range.default
+					: MODEL_ACTIONS.cm_blue_gain.range.default
 				switch (opt.val) {
 					case 'up':
-						newValue = cm_blue_gain < MODEL_VALUES.cm_blue_gain.range.max ? ++cm_blue_gain : cm_blue_gain
+						newValue = cm_blue_gain < MODEL_ACTIONS.cm_blue_gain.range.max ? ++cm_blue_gain : cm_blue_gain
 						break
 					case 'down':
-						newValue = cm_blue_gain > MODEL_VALUES.cm_blue_gain.range.min ? --cm_blue_gain : cm_blue_gain
+						newValue = cm_blue_gain > MODEL_ACTIONS.cm_blue_gain.range.min ? --cm_blue_gain : cm_blue_gain
 						break
 					case 'value':
 						newValue = opt.value
@@ -1196,13 +1200,13 @@ class instance extends instance_skel {
 			case 'cm_blue_hue':
 				let cm_blue_hue = this.camera?.cmsetup?.BlueHue
 					? this.camera.cmsetup.BlueHue
-					: MODEL_VALUES.cm_blue_hue.range.default
+					: MODEL_ACTIONS.cm_blue_hue.range.default
 				switch (opt.val) {
 					case 'up':
-						newValue = cm_blue_hue < MODEL_VALUES.cm_blue_hue.range.max ? ++cm_blue_hue : cm_blue_hue
+						newValue = cm_blue_hue < MODEL_ACTIONS.cm_blue_hue.range.max ? ++cm_blue_hue : cm_blue_hue
 						break
 					case 'down':
-						newValue = cm_blue_hue > MODEL_VALUES.cm_blue_hue.range.min ? --cm_blue_hue : cm_blue_hue
+						newValue = cm_blue_hue > MODEL_ACTIONS.cm_blue_hue.range.min ? --cm_blue_hue : cm_blue_hue
 						break
 					case 'value':
 						newValue = opt.value
@@ -1217,13 +1221,13 @@ class instance extends instance_skel {
 			case 'cm_color_gain':
 				let cm_color_gain = this.camera?.cmsetup?.ColorGain
 					? this.camera.cmsetup.ColorGain
-					: MODEL_VALUES.cm_color_gain.range.default
+					: MODEL_ACTIONS.cm_color_gain.range.default
 				switch (opt.val) {
 					case 'up':
-						newValue = cm_color_gain < MODEL_VALUES.cm_color_gain.range.max ? ++cm_color_gain : cm_color_gain
+						newValue = cm_color_gain < MODEL_ACTIONS.cm_color_gain.range.max ? ++cm_color_gain : cm_color_gain
 						break
 					case 'down':
-						newValue = cm_color_gain > MODEL_VALUES.cm_color_gain.range.min ? --cm_color_gain : cm_color_gain
+						newValue = cm_color_gain > MODEL_ACTIONS.cm_color_gain.range.min ? --cm_color_gain : cm_color_gain
 						break
 					case 'value':
 						newValue = opt.value
@@ -1238,13 +1242,13 @@ class instance extends instance_skel {
 			case 'cm_cyan_gain':
 				let cm_cyan_gain = this.camera?.cmsetup?.CyanGain
 					? this.camera.cmsetup.CyanGain
-					: MODEL_VALUES.cm_cyan_gain.range.default
+					: MODEL_ACTIONS.cm_cyan_gain.range.default
 				switch (opt.val) {
 					case 'up':
-						newValue = cm_cyan_gain < MODEL_VALUES.cm_cyan_gain.range.max ? ++cm_cyan_gain : cm_cyan_gain
+						newValue = cm_cyan_gain < MODEL_ACTIONS.cm_cyan_gain.range.max ? ++cm_cyan_gain : cm_cyan_gain
 						break
 					case 'down':
-						newValue = cm_cyan_gain > MODEL_VALUES.cm_cyan_gain.range.min ? --cm_cyan_gain : cm_cyan_gain
+						newValue = cm_cyan_gain > MODEL_ACTIONS.cm_cyan_gain.range.min ? --cm_cyan_gain : cm_cyan_gain
 						break
 					case 'value':
 						newValue = opt.value
@@ -1259,13 +1263,13 @@ class instance extends instance_skel {
 			case 'cm_cyan_hue':
 				let cm_cyan_hue = this.camera?.cmsetup?.CyanHue
 					? this.camera.cmsetup.CyanHue
-					: MODEL_VALUES.cm_cyan_hue.range.default
+					: MODEL_ACTIONS.cm_cyan_hue.range.default
 				switch (opt.val) {
 					case 'up':
-						newValue = cm_cyan_hue < MODEL_VALUES.cm_cyan_hue.range.max ? ++cm_cyan_hue : cm_cyan_hue
+						newValue = cm_cyan_hue < MODEL_ACTIONS.cm_cyan_hue.range.max ? ++cm_cyan_hue : cm_cyan_hue
 						break
 					case 'down':
-						newValue = cm_cyan_hue > MODEL_VALUES.cm_cyan_hue.range.min ? --cm_cyan_hue : cm_cyan_hue
+						newValue = cm_cyan_hue > MODEL_ACTIONS.cm_cyan_hue.range.min ? --cm_cyan_hue : cm_cyan_hue
 						break
 					case 'value':
 						newValue = opt.value
@@ -1280,13 +1284,13 @@ class instance extends instance_skel {
 			case 'cm_green_gain':
 				let cm_green_gain = this.camera?.cmsetup?.GreenGain
 					? this.camera.cmsetup.GreenGain
-					: MODEL_VALUES.cm_green_gain.range.default
+					: MODEL_ACTIONS.cm_green_gain.range.default
 				switch (opt.val) {
 					case 'up':
-						newValue = cm_green_gain < MODEL_VALUES.cm_green_gain.range.max ? ++cm_green_gain : cm_green_gain
+						newValue = cm_green_gain < MODEL_ACTIONS.cm_green_gain.range.max ? ++cm_green_gain : cm_green_gain
 						break
 					case 'down':
-						newValue = cm_green_gain > MODEL_VALUES.cm_green_gain.range.min ? --cm_green_gain : cm_green_gain
+						newValue = cm_green_gain > MODEL_ACTIONS.cm_green_gain.range.min ? --cm_green_gain : cm_green_gain
 						break
 					case 'value':
 						newValue = opt.value
@@ -1301,13 +1305,13 @@ class instance extends instance_skel {
 			case 'cm_green_hue':
 				let cm_green_hue = this.camera?.cmsetup?.GreenHue
 					? this.camera.cmsetup.GreenHue
-					: MODEL_VALUES.cm_green_hue.range.default
+					: MODEL_ACTIONS.cm_green_hue.range.default
 				switch (opt.val) {
 					case 'up':
-						newValue = cm_green_hue < MODEL_VALUES.cm_green_hue.range.max ? ++cm_green_hue : cm_green_hue
+						newValue = cm_green_hue < MODEL_ACTIONS.cm_green_hue.range.max ? ++cm_green_hue : cm_green_hue
 						break
 					case 'down':
-						newValue = cm_green_hue > MODEL_VALUES.cm_green_hue.range.min ? --cm_green_hue : cm_green_hue
+						newValue = cm_green_hue > MODEL_ACTIONS.cm_green_hue.range.min ? --cm_green_hue : cm_green_hue
 						break
 					case 'value':
 						newValue = opt.value
@@ -1322,13 +1326,13 @@ class instance extends instance_skel {
 			case 'cm_hue_phase':
 				let cm_hue_phase = this.camera?.cmsetup?.HuePhase
 					? this.camera.cmsetup.HuePhase
-					: MODEL_VALUES.cm_hue_phase.range.default
+					: MODEL_ACTIONS.cm_hue_phase.range.default
 				switch (opt.val) {
 					case 'up':
-						newValue = cm_hue_phase < MODEL_VALUES.cm_hue_phase.range.max ? ++cm_hue_phase : cm_hue_phase
+						newValue = cm_hue_phase < MODEL_ACTIONS.cm_hue_phase.range.max ? ++cm_hue_phase : cm_hue_phase
 						break
 					case 'down':
-						newValue = cm_hue_phase > MODEL_VALUES.cm_hue_phase.range.min ? --cm_hue_phase : cm_hue_phase
+						newValue = cm_hue_phase > MODEL_ACTIONS.cm_hue_phase.range.min ? --cm_hue_phase : cm_hue_phase
 						break
 					case 'value':
 						newValue = opt.value
@@ -1343,13 +1347,13 @@ class instance extends instance_skel {
 			case 'cm_mag_gain':
 				let cm_mag_gain = this.camera?.cmsetup?.MagGain
 					? this.camera.cmsetup.MagGain
-					: MODEL_VALUES.cm_mag_gain.range.default
+					: MODEL_ACTIONS.cm_mag_gain.range.default
 				switch (opt.val) {
 					case 'up':
-						newValue = cm_mag_gain < MODEL_VALUES.cm_mag_gain.range.max ? ++cm_mag_gain : cm_mag_gain
+						newValue = cm_mag_gain < MODEL_ACTIONS.cm_mag_gain.range.max ? ++cm_mag_gain : cm_mag_gain
 						break
 					case 'down':
-						newValue = cm_mag_gain > MODEL_VALUES.cm_mag_gain.range.min ? --cm_mag_gain : cm_mag_gain
+						newValue = cm_mag_gain > MODEL_ACTIONS.cm_mag_gain.range.min ? --cm_mag_gain : cm_mag_gain
 						break
 					case 'value':
 						newValue = opt.value
@@ -1364,13 +1368,13 @@ class instance extends instance_skel {
 			case 'cm_mag_hue':
 				let cm_mag_hue = this.camera?.cmsetup?.MagHue
 					? this.camera.cmsetup.MagHue
-					: MODEL_VALUES.cm_mag_hue.range.default
+					: MODEL_ACTIONS.cm_mag_hue.range.default
 				switch (opt.val) {
 					case 'up':
-						newValue = cm_mag_hue < MODEL_VALUES.cm_mag_hue.range.max ? ++cm_mag_hue : cm_mag_hue
+						newValue = cm_mag_hue < MODEL_ACTIONS.cm_mag_hue.range.max ? ++cm_mag_hue : cm_mag_hue
 						break
 					case 'down':
-						newValue = cm_mag_hue > MODEL_VALUES.cm_mag_hue.range.min ? --cm_mag_hue : cm_mag_hue
+						newValue = cm_mag_hue > MODEL_ACTIONS.cm_mag_hue.range.min ? --cm_mag_hue : cm_mag_hue
 						break
 					case 'value':
 						newValue = opt.value
@@ -1385,13 +1389,13 @@ class instance extends instance_skel {
 			case 'cm_red_gain':
 				let cm_red_gain = this.camera?.cmsetup?.RedGain
 					? this.camera.cmsetup.RedGain
-					: MODEL_VALUES.cm_red_gain.range.default
+					: MODEL_ACTIONS.cm_red_gain.range.default
 				switch (opt.val) {
 					case 'up':
-						newValue = cm_red_gain < MODEL_VALUES.cm_red_gain.range.max ? ++cm_red_gain : cm_red_gain
+						newValue = cm_red_gain < MODEL_ACTIONS.cm_red_gain.range.max ? ++cm_red_gain : cm_red_gain
 						break
 					case 'down':
-						newValue = cm_red_gain > MODEL_VALUES.cm_red_gain.range.min ? --cm_red_gain : cm_red_gain
+						newValue = cm_red_gain > MODEL_ACTIONS.cm_red_gain.range.min ? --cm_red_gain : cm_red_gain
 						break
 					case 'value':
 						newValue = opt.value
@@ -1406,13 +1410,13 @@ class instance extends instance_skel {
 			case 'cm_red_hue':
 				let cm_red_hue = this.camera?.cmsetup?.RedHue
 					? this.camera.cmsetup.RedHue
-					: MODEL_VALUES.cm_red_hue.range.default
+					: MODEL_ACTIONS.cm_red_hue.range.default
 				switch (opt.val) {
 					case 'up':
-						newValue = cm_red_hue < MODEL_VALUES.cm_red_hue.range.max ? ++cm_red_hue : cm_red_hue
+						newValue = cm_red_hue < MODEL_ACTIONS.cm_red_hue.range.max ? ++cm_red_hue : cm_red_hue
 						break
 					case 'down':
-						newValue = cm_red_hue > MODEL_VALUES.cm_red_hue.range.min ? --cm_red_hue : cm_red_hue
+						newValue = cm_red_hue > MODEL_ACTIONS.cm_red_hue.range.min ? --cm_red_hue : cm_red_hue
 						break
 					case 'value':
 						newValue = opt.value
@@ -1427,13 +1431,13 @@ class instance extends instance_skel {
 			case 'cm_yellow_gain':
 				let cm_yellow_gain = this.camera?.cmsetup?.YellowGain
 					? this.camera.cmsetup.YellowGain
-					: MODEL_VALUES.cm_yellow_gain.range.default
+					: MODEL_ACTIONS.cm_yellow_gain.range.default
 				switch (opt.val) {
 					case 'up':
-						newValue = cm_yellow_gain < MODEL_VALUES.cm_yellow_gain.range.max ? ++cm_yellow_gain : cm_yellow_gain
+						newValue = cm_yellow_gain < MODEL_ACTIONS.cm_yellow_gain.range.max ? ++cm_yellow_gain : cm_yellow_gain
 						break
 					case 'down':
-						newValue = cm_yellow_gain > MODEL_VALUES.cm_yellow_gain.range.min ? --cm_yellow_gain : cm_yellow_gain
+						newValue = cm_yellow_gain > MODEL_ACTIONS.cm_yellow_gain.range.min ? --cm_yellow_gain : cm_yellow_gain
 						break
 					case 'value':
 						newValue = opt.value
@@ -1448,13 +1452,13 @@ class instance extends instance_skel {
 			case 'cm_yellow_hue':
 				let cm_yellow_hue = this.camera?.cmsetup?.YellowHue
 					? this.camera.cmsetup.YellowHue
-					: MODEL_VALUES.cm_yellow_hue.range.default
+					: MODEL_ACTIONS.cm_yellow_hue.range.default
 				switch (opt.val) {
 					case 'up':
-						newValue = cm_yellow_hue < MODEL_VALUES.cm_yellow_hue.range.max ? ++cm_yellow_hue : cm_yellow_hue
+						newValue = cm_yellow_hue < MODEL_ACTIONS.cm_yellow_hue.range.max ? ++cm_yellow_hue : cm_yellow_hue
 						break
 					case 'down':
-						newValue = cm_yellow_hue > MODEL_VALUES.cm_yellow_hue.range.min ? --cm_yellow_hue : cm_yellow_hue
+						newValue = cm_yellow_hue > MODEL_ACTIONS.cm_yellow_hue.range.min ? --cm_yellow_hue : cm_yellow_hue
 						break
 					case 'value':
 						newValue = opt.value
@@ -1471,13 +1475,13 @@ class instance extends instance_skel {
 			case 'brightness':
 				let brightness = this.camera?.advancesetup?.Brightness
 					? this.camera.advancesetup.Brightness
-					: MODEL_VALUES.brightness.range.default
+					: MODEL_ACTIONS.brightness.range.default
 				switch (opt.val) {
 					case 'up':
-						newValue = brightness < MODEL_VALUES.brightness.range.max ? ++brightness : brightness
+						newValue = brightness < MODEL_ACTIONS.brightness.range.max ? ++brightness : brightness
 						break
 					case 'down':
-						newValue = brightness > MODEL_VALUES.brightness.range.min ? --brightness : brightness
+						newValue = brightness > MODEL_ACTIONS.brightness.range.min ? --brightness : brightness
 						break
 					case 'value':
 						newValue = opt.value
@@ -1506,13 +1510,13 @@ class instance extends instance_skel {
 			case 'gamma_offset':
 				let gamma_offset = this.camera?.advancesetup?.GammaOffset
 					? this.camera.advancesetup.GammaOffset
-					: MODEL_VALUES.gamma_offset.range.default
+					: MODEL_ACTIONS.gamma_offset.range.default
 				switch (opt.val) {
 					case 'up':
-						newValue = gamma_offset < MODEL_VALUES.gamma_offset.range.max ? ++gamma_offset : gamma_offset
+						newValue = gamma_offset < MODEL_ACTIONS.gamma_offset.range.max ? ++gamma_offset : gamma_offset
 						break
 					case 'down':
-						newValue = gamma_offset > MODEL_VALUES.gamma_offset.range.min ? --gamma_offset : gamma_offset
+						newValue = gamma_offset > MODEL_ACTIONS.gamma_offset.range.min ? --gamma_offset : gamma_offset
 						break
 					case 'value':
 						newValue = opt.value
@@ -1580,13 +1584,13 @@ class instance extends instance_skel {
 			case 'crispening':
 				let crispening = this.camera?.detail?.Crispening
 					? this.camera.detail.Crispening
-					: MODEL_VALUES.crispening.range.default
+					: MODEL_ACTIONS.crispening.range.default
 				switch (opt.val) {
 					case 'up':
-						newValue = crispening < MODEL_VALUES.crispening.range.max ? ++crispening : crispening
+						newValue = crispening < MODEL_ACTIONS.crispening.range.max ? ++crispening : crispening
 						break
 					case 'down':
-						newValue = crispening > MODEL_VALUES.crispening.range.min ? --crispening : crispening
+						newValue = crispening > MODEL_ACTIONS.crispening.range.min ? --crispening : crispening
 						break
 					case 'value':
 						newValue = opt.value
@@ -1608,15 +1612,15 @@ class instance extends instance_skel {
 			case 'highlight_detail':
 				let highlight_detail = this.camera?.detail?.HighlightDetail
 					? this.camera.detail.HighlightDetail
-					: MODEL_VALUES.highlight_detail.range.default
+					: MODEL_ACTIONS.highlight_detail.range.default
 				switch (opt.val) {
 					case 'up':
 						newValue =
-							highlight_detail < MODEL_VALUES.highlight_detail.range.max ? ++highlight_detail : highlight_detail
+							highlight_detail < MODEL_ACTIONS.highlight_detail.range.max ? ++highlight_detail : highlight_detail
 						break
 					case 'down':
 						newValue =
-							highlight_detail > MODEL_VALUES.highlight_detail.range.min ? --highlight_detail : highlight_detail
+							highlight_detail > MODEL_ACTIONS.highlight_detail.range.min ? --highlight_detail : highlight_detail
 						break
 					case 'value':
 						newValue = opt.value
@@ -1631,13 +1635,13 @@ class instance extends instance_skel {
 			case 'hv_balance':
 				let hv_balance = this.camera?.detail?.HvBalance
 					? this.camera.detail.HvBalance
-					: MODEL_VALUES.hv_balance.range.default
+					: MODEL_ACTIONS.hv_balance.range.default
 				switch (opt.val) {
 					case 'up':
-						newValue = hv_balance < MODEL_VALUES.hv_balance.range.max ? ++hv_balance : hv_balance
+						newValue = hv_balance < MODEL_ACTIONS.hv_balance.range.max ? ++hv_balance : hv_balance
 						break
 					case 'down':
-						newValue = hv_balance > MODEL_VALUES.hv_balance.range.min ? --hv_balance : hv_balance
+						newValue = hv_balance > MODEL_ACTIONS.hv_balance.range.min ? --hv_balance : hv_balance
 						break
 					case 'value':
 						newValue = opt.value
@@ -1650,13 +1654,13 @@ class instance extends instance_skel {
 				break
 
 			case 'limit':
-				let limit = this.camera?.detail?.Limit ? this.camera.detail.Limit : MODEL_VALUES.limit.range.default
+				let limit = this.camera?.detail?.Limit ? this.camera.detail.Limit : MODEL_ACTIONS.limit.range.default
 				switch (opt.val) {
 					case 'up':
-						newValue = limit < MODEL_VALUES.limit.range.max ? ++limit : limit
+						newValue = limit < MODEL_ACTIONS.limit.range.max ? ++limit : limit
 						break
 					case 'down':
-						newValue = limit > MODEL_VALUES.limit.range.min ? --limit : limit
+						newValue = limit > MODEL_ACTIONS.limit.range.min ? --limit : limit
 						break
 					case 'value':
 						newValue = opt.value
@@ -1671,13 +1675,13 @@ class instance extends instance_skel {
 			case 'super_low':
 				let super_low = this.camera?.detail?.SuperLow
 					? this.camera.detail.SuperLow
-					: MODEL_VALUES.super_low.range.default
+					: MODEL_ACTIONS.super_low.range.default
 				switch (opt.val) {
 					case 'up':
-						newValue = super_low < MODEL_VALUES.super_low.range.max ? ++super_low : super_low
+						newValue = super_low < MODEL_ACTIONS.super_low.range.max ? ++super_low : super_low
 						break
 					case 'down':
-						newValue = super_low > MODEL_VALUES.super_low.range.min ? --super_low : super_low
+						newValue = super_low > MODEL_ACTIONS.super_low.range.min ? --super_low : super_low
 						break
 					case 'value':
 						newValue = opt.value
@@ -1694,15 +1698,15 @@ class instance extends instance_skel {
 			case 'black_gamma_level':
 				let black_gamma_level = this.camera?.gammasetup?.BlackGammaLevel
 					? this.camera.gammasetup.BlackGammaLevel
-					: MODEL_VALUES.black_gamma_level.range.default
+					: MODEL_ACTIONS.black_gamma_level.range.default
 				switch (opt.val) {
 					case 'up':
 						newValue =
-							black_gamma_level < MODEL_VALUES.black_gamma_level.range.max ? ++black_gamma_level : black_gamma_level
+							black_gamma_level < MODEL_ACTIONS.black_gamma_level.range.max ? ++black_gamma_level : black_gamma_level
 						break
 					case 'down':
 						newValue =
-							black_gamma_level > MODEL_VALUES.black_gamma_level.range.max ? --black_gamma_level : black_gamma_level
+							black_gamma_level > MODEL_ACTIONS.black_gamma_level.range.max ? --black_gamma_level : black_gamma_level
 						break
 					case 'value':
 						newValue = opt.value
@@ -1717,13 +1721,13 @@ class instance extends instance_skel {
 			case 'black_level':
 				let black_level = this.camera?.gammasetup?.BlackLevel
 					? this.camera.gammasetup.BlackLevel
-					: MODEL_VALUES.black_level.range.default
+					: MODEL_ACTIONS.black_level.range.default
 				switch (opt.val) {
 					case 'up':
-						newValue = black_level < MODEL_VALUES.black_level.range.max ? ++black_level : black_level
+						newValue = black_level < MODEL_ACTIONS.black_level.range.max ? ++black_level : black_level
 						break
 					case 'down':
-						newValue = black_level > MODEL_VALUES.black_level.range.max ? --black_level : black_level
+						newValue = black_level > MODEL_ACTIONS.black_level.range.max ? --black_level : black_level
 						break
 					case 'value':
 						newValue = opt.value
@@ -1743,13 +1747,15 @@ class instance extends instance_skel {
 				break
 
 			case 'effect':
-				let effect = this.camera?.gammasetup?.Effect ? this.camera.gammasetup.Effect : MODEL_VALUES.effect.range.default
+				let effect = this.camera?.gammasetup?.Effect
+					? this.camera.gammasetup.Effect
+					: MODEL_ACTIONS.effect.range.default
 				switch (opt.val) {
 					case 'up':
-						newValue = effect < MODEL_VALUES.effect.range.max ? ++effect : effect
+						newValue = effect < MODEL_ACTIONS.effect.range.max ? ++effect : effect
 						break
 					case 'down':
-						newValue = effect > MODEL_VALUES.effect.range.max ? --effect : effect
+						newValue = effect > MODEL_ACTIONS.effect.range.max ? --effect : effect
 						break
 					case 'value':
 						newValue = opt.value
@@ -1762,13 +1768,13 @@ class instance extends instance_skel {
 				break
 
 			case 'level':
-				let level = this.camera?.gammasetup?.Level ? this.camera.gammasetup.Level : MODEL_VALUES.level.range.default
+				let level = this.camera?.gammasetup?.Level ? this.camera.gammasetup.Level : MODEL_ACTIONS.level.range.default
 				switch (opt.val) {
 					case 'up':
-						newValue = level < MODEL_VALUES.level.range.max ? ++level : level
+						newValue = level < MODEL_ACTIONS.level.range.max ? ++level : level
 						break
 					case 'down':
-						newValue = level > MODEL_VALUES.level.range.max ? --level : level
+						newValue = level > MODEL_ACTIONS.level.range.max ? --level : level
 						break
 					case 'value':
 						newValue = opt.value
@@ -1781,13 +1787,15 @@ class instance extends instance_skel {
 				break
 
 			case 'offset':
-				let offset = this.camera?.gammasetup?.Offset ? this.camera.gammasetup.Offset : MODEL_VALUES.offset.range.default
+				let offset = this.camera?.gammasetup?.Offset
+					? this.camera.gammasetup.Offset
+					: MODEL_ACTIONS.offset.range.default
 				switch (opt.val) {
 					case 'up':
-						newValue = offset < MODEL_VALUES.offset.range.max ? ++offset : offset
+						newValue = offset < MODEL_ACTIONS.offset.range.max ? ++offset : offset
 						break
 					case 'down':
-						newValue = offset > MODEL_VALUES.offset.range.max ? --offset : offset
+						newValue = offset > MODEL_ACTIONS.offset.range.max ? --offset : offset
 						break
 					case 'value':
 						newValue = opt.value
@@ -1802,13 +1810,13 @@ class instance extends instance_skel {
 			case 'pattern':
 				let pattern = this.camera?.gammasetup?.Pattern
 					? this.camera.gammasetup.Pattern
-					: MODEL_VALUES.pattern.range.default
+					: MODEL_ACTIONS.pattern.range.default
 				switch (opt.val) {
 					case 'up':
-						newValue = pattern < MODEL_VALUES.pattern.range.max ? ++pattern : pattern
+						newValue = pattern < MODEL_ACTIONS.pattern.range.max ? ++pattern : pattern
 						break
 					case 'down':
-						newValue = pattern > MODEL_VALUES.pattern.range.max ? --pattern : pattern
+						newValue = pattern > MODEL_ACTIONS.pattern.range.max ? --pattern : pattern
 						break
 					case 'value':
 						newValue = opt.value
@@ -1823,13 +1831,13 @@ class instance extends instance_skel {
 			case 'pattern_fine':
 				let pattern_fine = this.camera?.gammasetup?.PatternFine
 					? this.camera.gammasetup.PatternFine
-					: MODEL_VALUES.pattern_fine.range.default
+					: MODEL_ACTIONS.pattern_fine.range.default
 				switch (opt.val) {
 					case 'up':
-						newValue = pattern_fine < MODEL_VALUES.pattern_fine.range.max ? ++pattern_fine : pattern_fine
+						newValue = pattern_fine < MODEL_ACTIONS.pattern_fine.range.max ? ++pattern_fine : pattern_fine
 						break
 					case 'down':
-						newValue = pattern_fine > MODEL_VALUES.pattern_fine.range.max ? --pattern_fine : pattern_fine
+						newValue = pattern_fine > MODEL_ACTIONS.pattern_fine.range.max ? --pattern_fine : pattern_fine
 						break
 					case 'value':
 						newValue = opt.value
@@ -2154,33 +2162,32 @@ class instance extends instance_skel {
 	}
 
 	poll() {
-		// let MODEL_API = MODELS.find((MODELS) => MODELS.id == this.camera.model)?.apicalls
-		let MODEL_API = filterModelDetails(MODELS, this.camera.model, 'apicalls', this.camera.firmware.major)
+		let MODEL_QRY = getModelQueries(MODEL_QUERIES, this.camera.model, this.camera.firmware.major)
 		// Common Device Info
-		if (MODEL_API?.about) {
+		if (MODEL_QRY?.about) {
 			this.sendCommand('about', 'GET')
 		}
-		if (MODEL_API?.analogaudiosetup) {
+		if (MODEL_QRY?.analogaudiosetup) {
 			this.sendCommand('analogaudiosetup', 'GET')
 		}
-		if (MODEL_API?.encodetransport) {
+		if (MODEL_QRY?.encodetransport) {
 			this.sendCommand('encodetransport', 'GET')
 		}
-		//if (MODEL_API?.encodesetup) {
+		//if (MODEL_QRY?.encodesetup) {
 		//this.sendCommand('encodesetup', 'GET') Temporary skip to avoid BirdDog API bug }
-		if (MODEL_API?.NDIDisServer) {
+		if (MODEL_QRY?.NDIDisServer) {
 			this.sendCommand('NDIDisServer', 'GET')
 		}
-		if (MODEL_API?.birddogptzsetup) {
+		if (MODEL_QRY?.birddogptzsetup) {
 			this.sendCommand('birddogptzsetup', 'GET')
 		}
-		if (MODEL_API?.birddogexpsetup) {
+		if (MODEL_QRY?.birddogexpsetup) {
 			this.sendCommand('birddogexpsetup', 'GET')
 		}
-		if (MODEL_API?.birddogwbsetup) {
+		if (MODEL_QRY?.birddogwbsetup) {
 			this.sendCommand('birddogwbsetup', 'GET')
 		}
-		if (MODEL_API?.birddogpicsetup) {
+		if (MODEL_QRY?.birddogpicsetup) {
 			this.sendCommand('birddogpicsetup', 'GET')
 		}
 		this.sendVISCACommand(VISCA.MSG_QRY + VISCA.CAM_POWER + VISCA.END_MSG, '\x4a') // Query Standby status
@@ -2188,25 +2195,25 @@ class instance extends instance_skel {
 		this.sendVISCACommand(VISCA.MSG_QRY + VISCA.CAM_FREEZE + VISCA.END_MSG, '\x5b') // Query Freeze
 		this.sendVISCACommand(VISCA.MSG_QRY + VISCA.CAM_ZOOM_DIRECT + VISCA.END_MSG, '\x5c') // Query Zoom Position
 		// Specific Model Info
-		if (MODEL_API?.videooutputinterface) {
+		if (MODEL_QRY?.videooutputinterface) {
 			this.sendCommand('videooutputinterface', 'GET')
 		}
-		if (MODEL_API?.birddogcmsetup) {
+		if (MODEL_QRY?.birddogcmsetup) {
 			this.sendCommand('birddogcmsetup', 'GET')
 		}
-		if (MODEL_API?.birddogadvancesetup) {
+		if (MODEL_QRY?.birddogadvancesetup) {
 			this.sendCommand('birddogadvancesetup', 'GET')
 		}
-		if (MODEL_API?.birddogexternalsetup) {
+		if (MODEL_QRY?.birddogexternalsetup) {
 			this.sendCommand('birddogexternalsetup', 'GET')
 		}
-		if (MODEL_API?.birddogdetsetup) {
+		if (MODEL_QRY?.birddogdetsetup) {
 			this.sendCommand('birddogdetsetup', 'GET')
 		}
-		if (MODEL_API?.birddoggammasetup) {
+		if (MODEL_QRY?.birddoggammasetup) {
 			this.sendCommand('birddoggammasetup', 'GET')
 		}
-		if (MODEL_API?.pt_pos) {
+		if (MODEL_QRY?.pt_pos) {
 			this.sendVISCACommand(VISCA.MSG_QRY_OPERATION + VISCA.OP_PAN_POS + VISCA.END_MSG, '\x5d') // Query Pan/Tilt Position
 		}
 
@@ -2263,7 +2270,7 @@ class instance extends instance_skel {
 	}
 
 	initializeCamera(model) {
-		if (MODELS[0].cameras.includes(model)) {
+		if (MODEL_CAMERAS.includes(model)) {
 			this.camera.model = model
 
 			this.sendCommand('about', 'GET')

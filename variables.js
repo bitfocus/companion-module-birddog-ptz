@@ -15,7 +15,7 @@ exports.updateVariableDefinitions = function () {
 // #########################
 exports.updateVariables = function () {
 	MODEL_SPEC = getModelVariables(MODEL_SPECS, this.camera.firmware.major, this.camera.model)
-	MODEL_VALUES = getModelActions(MODEL_SPECS, this.camera.firmware.major, this.camera.model)
+	MODEL_ACTIONS = getModelActions(MODEL_SPECS, this.camera.firmware.major, this.camera.model)
 
 	// General Camera Variables
 	if (this.camera.about) {
@@ -52,7 +52,7 @@ exports.updateVariables = function () {
 	}
 	// VISCA Variables
 	if (MODEL_SPEC?.standby) {
-		this.setVariable('standby', MODEL_VALUES.standby.choices.find((o) => o.id == this.camera.standby)?.label)
+		this.setVariable('standby', MODEL_ACTIONS.standby.choices.find((o) => o.id == this.camera.standby)?.label)
 	}
 
 	if (MODEL_SPEC?.freeze) {
@@ -162,15 +162,15 @@ exports.updateVariables = function () {
 	}
 	if (this.camera.position) {
 		if (MODEL_SPEC?.zoom_position) {
-			this.setVariable('zoom_position', getPositionLabel(MODEL_VALUES.zoom.posZoomChoices, this.camera.position.zoom))
+			this.setVariable('zoom_position', getPositionLabel(MODEL_ACTIONS.zoom.posZoomChoices, this.camera.position.zoom))
 		}
 
 		if (MODEL_SPEC?.pan_position) {
-			this.setVariable('pan_position', getPositionLabel(MODEL_VALUES.pt.posPanChoices, this.camera.position.pan))
+			this.setVariable('pan_position', getPositionLabel(MODEL_ACTIONS.pt.posPanChoices, this.camera.position.pan))
 		}
 
 		if (MODEL_SPEC?.tilt_position) {
-			this.setVariable('tilt_position', getPositionLabel(MODEL_VALUES.pt.posTiltChoices, this.camera.position.tilt))
+			this.setVariable('tilt_position', getPositionLabel(MODEL_ACTIONS.pt.posTiltChoices, this.camera.position.tilt))
 		}
 	}
 	// Focus Variables
@@ -213,13 +213,13 @@ exports.updateVariables = function () {
 		}
 
 		if (MODEL_SPEC?.gain) {
-			this.setVariable('gain', MODEL_VALUES.gain.choices.find((o) => o.id == this.camera.expsetup.GainLevel)?.label)
+			this.setVariable('gain', MODEL_ACTIONS.gain.choices.find((o) => o.id == this.camera.expsetup.GainLevel)?.label)
 		}
 
 		if (MODEL_SPEC?.gain_limit) {
 			this.setVariable(
 				'gain_limit',
-				MODEL_VALUES.gain.choices.find((o) => o.id == this.camera.expsetup.GainLimit)?.label
+				MODEL_ACTIONS.gain.choices.find((o) => o.id == this.camera.expsetup.GainLimit)?.label
 			)
 		}
 
@@ -236,7 +236,7 @@ exports.updateVariables = function () {
 		}
 
 		if (MODEL_SPEC?.iris) {
-			this.setVariable('iris', MODEL_VALUES.iris.choices.find((o) => o.id == this.camera.expsetup.IrisLevel)?.label)
+			this.setVariable('iris', MODEL_ACTIONS.iris.choices.find((o) => o.id == this.camera.expsetup.IrisLevel)?.label)
 		}
 
 		if (MODEL_SPEC?.shutter_control_overwrite) {
@@ -254,7 +254,7 @@ exports.updateVariables = function () {
 		if (MODEL_SPEC?.shutter_speed) {
 			this.setVariable(
 				'shutter_speed',
-				MODEL_VALUES.shutter_speed?.['shutter_' + [this.camera.framerate]].find(
+				MODEL_ACTIONS.shutter_speed?.['shutter_' + [this.camera.framerate]].find(
 					(o) => o.id == this.camera.expsetup.ShutterSpeed
 				)?.label
 			)
