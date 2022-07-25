@@ -1,13 +1,12 @@
-const { sortByLabel, filterModelDetails } = require('./utils')
-var { MODELS } = require('./models.js')
+const { sortByAction, getModelActions } = require('./utils')
+var { MODEL_SPECS } = require('./models.js')
 const CHOICES = require('./choices.js')
 
 module.exports = {
 	getActions() {
 		this.debug(this?.camera?.model)
 
-		//MODEL_VALUES = MODELS.find((MODELS) => MODELS.id == this.camera.model)?.actions
-		MODEL_VALUES = filterModelDetails(MODELS, this.camera.model, 'actions', this.camera.firmware.major)
+		MODEL_VALUES = getModelActions(MODEL_SPECS, this.camera.firmware.major, this.camera.model)
 
 		if (!MODEL_VALUES && this.currentStatus != 2) {
 			this.log('error', `Unrecognized camera model: ${this.camera.model}`)
@@ -2447,6 +2446,6 @@ module.exports = {
 				],
 			}
 		}
-		return Object.fromEntries(Object.entries(actions).sort(sortByLabel))
+		return Object.fromEntries(Object.entries(actions).sort(sortByAction))
 	},
 }

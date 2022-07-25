@@ -118,7 +118,7 @@ module.exports = {
 			action: [
 				{
 					camera: ['common'],
-					actions: { choices: CHOICES.ON_OFF, default: 'On' },
+					action: { choices: CHOICES.ON_OFF, default: 'on' },
 				},
 			],
 		},

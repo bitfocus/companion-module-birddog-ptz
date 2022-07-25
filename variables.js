@@ -1,34 +1,21 @@
-const { getPositionLabel, sortByLabel, filterModelDetails } = require('./utils')
+const { getPositionLabel, getModelVariables, getModelActions } = require('./utils')
 
-var { MODELS } = require('./models.js')
+var { MODEL_SPECS } = require('./models.js')
 const CHOICES = require('./choices.js')
 
 // ##########################
 // #### Define Variables ####
 // ##########################
 exports.updateVariableDefinitions = function () {
-	const variables = []
-
-	//MODEL_SPEC = MODELS.find((MODELS) => MODELS.id == this.camera.model)?.variables
-	MODEL_SPEC = filterModelDetails(MODELS, this.camera.model, 'variables', this.camera.firmware.major)
-	sortedlist = Object.fromEntries(Object.entries(MODEL_SPEC).sort(sortByLabel))
-
-	for (i in sortedlist) {
-		variables.push({
-			label: sortedlist[i].label,
-			name: i,
-		})
-	}
-
-	this.setVariableDefinitions(variables)
+	this.setVariableDefinitions(getModelVariables(MODEL_SPECS, this.camera.firmware.major, this.camera.model))
 }
 
 // #########################
 // #### Update Variables ####
 // #########################
 exports.updateVariables = function () {
-	MODEL_SPEC = MODELS.find((MODELS) => MODELS.id == this.camera.model)?.variables
-	MODEL_VALUES = MODELS.find((MODELS) => MODELS.id == this.camera.model)?.actions
+	MODEL_SPEC = getModelVariables(MODEL_SPECS, this.camera.firmware.major, this.camera.model)
+	MODEL_VALUES = getModelActions(MODEL_SPECS, this.camera.firmware.major, this.camera.model)
 
 	// General Camera Variables
 	if (this.camera.about) {

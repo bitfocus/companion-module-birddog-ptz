@@ -2,8 +2,7 @@
 // #### Utils	####
 // #################
 
-const merge = (...objects) =>
-  objects.reduce((acc, cur) => ({ ...acc, ...cur }));
+const merge = (...objects) => objects.reduce((acc, cur) => ({ ...acc, ...cur }))
 
 function addStringToBinary(binaryStr, string) {
 	let data = Buffer.from(binaryStr, 'binary').toString('hex')
@@ -59,6 +58,18 @@ function strToPQRS(string) {
 }
 
 function sortByLabel(a, b) {
+	labelA = a[1].variable_label
+	labelB = b[1].variable_label
+	if (labelA < labelB) {
+		return -1
+	}
+	if (labelA > labelB) {
+		return 1
+	}
+	return 0
+}
+
+function sortByAction(a, b) {
 	labelA = a[1].label
 	labelB = b[1].label
 	if (labelA < labelB) {
@@ -72,51 +83,55 @@ function sortByLabel(a, b) {
 
 function getModelVariables(array, FW, model) {
 	// returns an object containing all variables based on model & FW
-	const variables = [];
-	tempArray = Object.entries(array);
-	
-	filteredArray = tempArray.filter(
-	  (array) =>
-		(array[1].camera.includes(model) || array[1].camera.includes("All")) &&
-		array[1].firmware.includes(FW)
-	);
-	filteredArray.forEach((array) =>
-	  variables.push({
-		label: array[1].variable_label,
-		name: array[1].variable_name,
-	  })
-	);
-	return variables;
-  }
+	const variables = []
+	tempArray = Object.entries(array)
 
-  function getModelActions(array, FW, model) {
+	filteredArray = tempArray.filter(
+		(array) =>
+			// filter array based on: All cameras or Model matches, and FW matches & has 'variable_name' object
+			(array[1].camera.includes(model) || array[1].camera.includes('All')) &&
+			array[1].firmware.includes(FW) &&
+			array[1]?.variable_name
+	)
+	filteredArray.sort(sortByLabel)
+	filteredArray.forEach((array) =>
+		variables.push({
+			label: array[1].variable_label,
+			name: array[1].variable_name,
+		})
+	)
+	return variables
+}
+
+function getModelActions(array, FW, model) {
 	// returns an object containing all actions based on model & FW
-	const actions = [];
-	tempArray = Object.entries(array);
+	const actions = []
+	tempArray = Object.entries(array)
 	filteredArray = tempArray.filter(
-	  (array) =>
-	  // filter array based on: All cameras or Model matches, and FW matches & has 'action' object
-		(array[1].camera.includes(model) || array[1].camera.includes("All")) &&
-		array[1].firmware.includes(FW) &&
-		array[1]?.action
-	);
+		(array) =>
+			// filter array based on: All cameras or Model matches, and FW matches & has 'action' object
+			(array[1].camera.includes(model) || array[1].camera.includes('All')) &&
+			array[1].firmware.includes(FW) &&
+			array[1]?.action
+	)
+	filteredArray.sort(sortByLabel)
 	filteredArray.forEach((array) =>
-	  actions.push({
-		[array[0]]: getModelActionDetails(array[1].action, FW, model),
-	  })
-	);
-	return merge(...actions);
-  }
+		actions.push({
+			[array[0]]: getModelActionDetails(array[1].action, FW, model),
+		})
+	)
+	return merge(...actions)
+}
 
-  function getModelActionDetails(array, FW, model) {
+function getModelActionDetails(array, FW, model) {
 	// returns an object containing actions based on model & FW
-	commonActions = array.filter((array) => array.camera.includes("common"));
+	commonActions = array.filter((array) => array.camera.includes('common'))
 	modelActions = array.filter(
-	  // filter array based on: All cameras or Model matches, and if it contains a FW filed, then if FW matches
-	  (array) => (array.camera.includes(model) || array.camera.includes("All")) && (array.firmware?.includes(FW) ?? true)
-	);
-	return merge(commonActions[0].action, modelActions[0]?.action);
-  }
+		// filter array based on: All cameras or Model matches, and if it contains a FW filed, then if FW matches
+		(array) => (array.camera.includes(model) || array.camera.includes('All')) && (array.firmware?.includes(FW) ?? true)
+	)
+	return merge(commonActions[0]?.action, modelActions[0]?.action)
+}
 
 module.exports = {
 	addStringToBinary,
@@ -124,7 +139,7 @@ module.exports = {
 	createZoomArray,
 	getPositionLabel,
 	strToPQRS,
-	sortByLabel,
+	sortByAction,
 	getModelVariables,
 	getModelActions,
 }

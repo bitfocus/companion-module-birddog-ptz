@@ -1,5 +1,5 @@
-const { sortByLabel, filterModelDetails } = require('./utils')
-var { MODELS } = require('./models.js')
+const { getModelActions } = require('./utils')
+var { MODEL_SPECS } = require('./models.js')
 const CHOICES = require('./choices.js')
 
 exports.initFeedbacks = function () {
@@ -10,7 +10,7 @@ exports.initFeedbacks = function () {
 	const ColorOrange = this.rgb(255, 102, 0) // Orange
 
 	//MODEL_VALUES = MODELS.find((MODELS) => MODELS.id == this.camera.model)?.actions
-	MODEL_VALUES = filterModelDetails(MODELS, this.camera.model, 'actions', this.camera.firmware.major)
+	MODEL_VALUES = getModelActions(MODEL_SPECS, this.camera.firmware.major, this.camera.model)
 
 	const feedbacks = {}
 
