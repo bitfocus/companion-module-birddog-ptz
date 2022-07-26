@@ -10,6 +10,7 @@ function addStringToBinary(binaryStr, string) {
 	return String.fromCharCode(sum.toString())
 }
 
+// Create Postion Arrays with Max degress, Min degrees, step degree, & Hex vlaue of MAx degrees
 function createPositionArray(max, min, steps, maxhex) {
 	var array = []
 	ratio = maxhex / max

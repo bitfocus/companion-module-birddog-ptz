@@ -36,6 +36,12 @@ class instance extends instance_skel {
 		this.camera.position = { pan: '0000', tilt: '0000', zoom: '0000' }
 		this.camera.framerate = 50
 		this.camera.firmware = {}
+
+		// Keep track of setInterval
+		this.timers = {
+			pollCameraConfig: null, // ID of setInterval for Camera Config polling
+			pollCameraStatus: null, // ID of setInterval for Camera Status polling
+		}
 	}
 
 	static GetUpgradeScripts() {
@@ -88,9 +94,19 @@ class instance extends instance_skel {
 		if (this.udp !== undefined) {
 			this.udp.destroy()
 		}
-		if (this.poll_interval !== undefined) {
-			clearInterval(this.poll_interval)
+		// Clear polling timers
+		if (this.timers.pollCameraStatus !== undefined) {
+			clearInterval(this.timers.pollCameraStatus)
 		}
+		if (this.timers.pollCameraConfig) {
+			clearInterval(this.timers.pollCameraConfig)
+			this.timers.pollCameraConfig = null
+		}
+		//if (this.timers.pollCameraStatus) {
+		//	clearInterval(this.timers.pollCameraConfig)
+		//	this.timers.pollCameraStatus = null
+		//}
+
 		debug('destroy', this.id)
 	}
 
@@ -2135,8 +2151,8 @@ class instance extends instance_skel {
 			this.udp.destroy()
 			delete this.udp
 		}
-		if (this.poll_interval !== undefined) {
-			clearInterval(this.poll_interval)
+		if (this.timers.pollCameraStatus !== undefined) {
+			clearInterval(this.timers.pollCameraStatus)
 		}
 		if (this.config.host !== undefined) {
 			this.udp = new udp(this.config.host, this.port)
@@ -2145,8 +2161,7 @@ class instance extends instance_skel {
 			this.sendControlCommand('\x01')
 			this.packet_counter = 0
 
-			this.poll_interval = setInterval(this.poll.bind(this), 3000) //ms for poll
-			this.poll()
+			this.startPolling()
 
 			this.udp.on('status_change', (status, message) => {
 				//this.status(status, message)
@@ -2161,7 +2176,39 @@ class instance extends instance_skel {
 		}
 	}
 
-	poll() {
+	// Poll for BirdDog camera configuration/status
+	startPolling() {
+		//Immediately do the poll
+		this.pollCameraConfig()
+		this.pollCameraStatus()
+
+		// Repeat the poll at set intervals
+		this.timers.pollCameraConfig = setInterval(this.pollCameraConfig.bind(this), 10000) // No need to poll frequently
+		this.timers.pollCameraStatus = setInterval(this.pollCameraStatus.bind(this), 3000) // This will be used to get status of the camera
+	}
+
+	stopPolling() {
+		if (this.timers.pollCameraConfig) {
+			clearInterval(this.timers.pollCameraConfig)
+			this.timers.pollCameraConfig = null
+		}
+		if (this.timers.pollCameraStatus) {
+			clearInterval(this.timers.pollCameraStatus)
+			this.timers.pollCameraStatus = null
+		}
+	}
+
+	// Get Camera configuration
+	pollCameraConfig() {
+		let MODEL_QRY = getModelQueries(MODEL_QUERIES, this.camera.model, this.camera.firmware.major)
+
+		if (MODEL_QRY?.about) {
+			this.sendCommand('about', 'GET')
+		}
+	}
+
+	// Get Camera Status
+	pollCameraStatus() {
 		let MODEL_QRY = getModelQueries(MODEL_QUERIES, this.camera.model, this.camera.firmware.major)
 		// Common Device Info
 		if (MODEL_QRY?.about) {
@@ -2244,8 +2291,8 @@ class instance extends instance_skel {
 					} else if (!model && this.currentStatus != 2) {
 						this.log('error', 'Please upgrade your BirdDog camera to the latest LTS firmware to use this module')
 						this.status(this.STATUS_ERROR)
-						if (this.poll_interval !== undefined) {
-							clearInterval(this.poll_interval)
+						if (this.timers.pollCameraStatus !== undefined) {
+							clearInterval(this.timers.pollCameraStatus)
 						}
 					}
 				})
