@@ -7,7 +7,7 @@ const upgradeScripts = require('./upgrades')
 const { addStringToBinary, strToPQRS, getModelActions, getModelQueries } = require('./utils')
 const VISCA = require('./constants')
 const CHOICES = require('./choices.js')
-var { MODEL_CAMERAS, MODEL_QUERIES, MODEL_SPECS } = require('./models.js')
+var { MODEL_QUERIES, MODEL_SPECS } = require('./models.js')
 
 const udp = require('../../udp')
 const fetch = require('node-fetch')
@@ -69,7 +69,7 @@ class instance extends instance_skel {
 				id: 'model',
 				label: 'BirdDog Model',
 				default: 'Auto',
-				choices: CHOICES.CAMERA,
+				choices: CHOICES.CAMERAS,
 			},
 		]
 	}
@@ -2334,5 +2334,22 @@ class instance extends instance_skel {
 			this.log('error', `Could not connect, unrecognized camera model: ${model}`)
 		}
 	}
+
+	checkCameraModel(detectedModel) {
+		model = CHOICES.CAMERAS.find((element) => {
+			if (element?.other) {
+				tempArray = Object.entries(element)
+				return tempArray[2][1].includes(detectedModel)
+			} else {
+				return false
+			}
+		})
+		if (model) {
+			return model.id
+		} else {
+			return 'Default'
+		}
+	}
 }
+
 exports = module.exports = instance

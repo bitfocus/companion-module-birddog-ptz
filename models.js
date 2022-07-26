@@ -1,19 +1,6 @@
 const CHOICES = require('./choices.js')
 
 module.exports = {
-	MODEL_CAMERAS: [
-		'P100',
-		'PF120',
-		'P200A2A3',
-		'P200A4A5',
-		'A200GEN1',
-		'A200GEN2',
-		'A300GEN1',
-		'A300GEN2',
-		'P400',
-		'P4K',
-	],
-
 	MODEL_QUERIES: {
 		//Basic Device Information
 		about: { camera: ['All'], firmware: ['4', '5'] },
