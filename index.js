@@ -2314,22 +2314,18 @@ class instance extends instance_skel {
 	}
 
 	initializeCamera(model) {
-		if (CHOICES.CAMERAS.includes(model)) {
-			this.camera.model = model
+		this.camera.model = checkCameraModel(model)
 
-			this.sendCommand('about', 'GET')
-			this.sendCommand('encodesetup', 'GET') // allow an initial query to this API to collect camera info
+		this.sendCommand('about', 'GET')
+		this.sendCommand('encodesetup', 'GET') // allow an initial query to this API to collect camera info
 
-			this.init_udp()
+		this.init_udp()
 
-			this.updateVariables()
-			this.actions()
-			this.initPresets()
-			this.initVariables()
-			this.initFeedbacks()
-		} else {
-			this.log('error', `Could not connect, unrecognized camera model: ${model}`)
-		}
+		this.updateVariables()
+		this.actions()
+		this.initPresets()
+		this.initVariables()
+		this.initFeedbacks()
 	}
 
 	checkCameraModel(detectedModel) {
@@ -2344,6 +2340,7 @@ class instance extends instance_skel {
 		if (model) {
 			return model.id
 		} else {
+			this.log('error', `Unrecognized camera model: ${model}. Using "Default" camera profile`)
 			return 'Default'
 		}
 	}
