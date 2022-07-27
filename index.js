@@ -2210,10 +2210,7 @@ class instance extends instance_skel {
 	// Get Camera Status
 	pollCameraStatus() {
 		let MODEL_QRY = getModelQueries(MODEL_QUERIES, this.camera.model, this.camera.firmware.major)
-		// Common Device Info
-		if (MODEL_QRY?.about) {
-			this.sendCommand('about', 'GET')
-		}
+
 		if (MODEL_QRY?.analogaudiosetup) {
 			this.sendCommand('analogaudiosetup', 'GET')
 		}
@@ -2317,7 +2314,7 @@ class instance extends instance_skel {
 	}
 
 	initializeCamera(model) {
-		if (MODEL_CAMERAS.includes(model)) {
+		if (CHOICES.CAMERAS.includes(model)) {
 			this.camera.model = model
 
 			this.sendCommand('about', 'GET')
