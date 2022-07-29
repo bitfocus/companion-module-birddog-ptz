@@ -1975,25 +1975,7 @@ class instance extends instance_skel {
 
 	processData(cmd, data) {
 		if (cmd.match('/about')) {
-			if (this.currentStatus != 0 && data.FirmwareVersion && this.camera.model) {
-				this.status(this.STATUS_OK)
-				this.log('info', `Connected to ${data.HostName}`)
-				this.camera.about = data
-				if (!this.camera.firmware.major) {
-					this.camera.firmware = {}
-					this.camera.firmware.major = this.camera.about.FirmwareVersion.substring(
-						this.camera.about.FirmwareVersion.lastIndexOf(' ') + 1
-					).substring(0, 1)
-					this.camera.firmware.minor = this.camera.about.FirmwareVersion.substring(
-						this.camera.about.FirmwareVersion.lastIndexOf(' ') + 2
-					).substring(1)
-					this.debug('----- Camera FW Major:' + this.camera.firmware.major)
-					this.debug('----- Camera FW Minor:' + this.camera.firmware.minor)
-					this.actions()
-					this.initVariables()
-					this.initFeedbacks()
-				}
-			}
+			this.camera.about = data
 		} else if (cmd.match('/analogaudiosetup')) {
 			this.camera.audio = data
 		} else if (cmd.match('/videooutputinterface')) {
@@ -2283,8 +2265,8 @@ class instance extends instance_skel {
 					let model = data
 					if (model) {
 						model = model.replace(/BirdDog| |_/g, '')
-						this.initializeCamera(model)
-						this.debug('----- Detected Camera Model:' + model)
+						this.camera.model = checkCameraModel(model)
+						getCameraFW()
 					} else if (!model && this.currentStatus != 2) {
 						this.log('error', 'Please upgrade your BirdDog camera to the latest LTS firmware to use this module')
 						this.status(this.STATUS_ERROR)
@@ -2313,19 +2295,72 @@ class instance extends instance_skel {
 		}
 	}
 
-	initializeCamera(model) {
-		this.camera.model = checkCameraModel(model)
+	getCameraFW() {
+		let url = `http://${this.config.host}:8080/about`
+		let options = {
+			method: 'GET',
+			headers: { 'Content-Type': 'application/json' },
+		}
+		fetch(url, options)
+			.then((res) => {
+				if (res.status == 200) {
+					this.debug(res)
+					return res.json()
+				}
+			})
+			.then((data) => {
+				if (data.FirmwareVersion) {
+					this.camera.firmware = {}
+					this.camera.firmware.major = data.FirmwareVersion.substring(
+						data.FirmwareVersion.lastIndexOf(' ') + 1
+					).substring(0, 1)
+					this.camera.firmware.minor = data.FirmwareVersion.substring(
+						data.FirmwareVersion.lastIndexOf(' ') + 2
+					).substring(1)
+					this.debug('----- Camera FW Major:' + this.camera.firmware.major)
+					this.debug('----- Camera FW Minor:' + this.camera.firmware.minor)
+					this.initializeCamera(data.HostName)
+				} else if (data.Version === '1.0' && this.currentStatus != 2) {
+					this.log('error', 'Please upgrade your BirdDog camera to the latest LTS firmware to use this module')
+					this.status(this.STATUS_ERROR)
+					if (this.timers.pollCameraStatus !== undefined) {
+						clearInterval(this.timers.pollCameraStatus)
+					}
+				}
+			})
+			.catch((err) => {
+				this.debug(err)
+				let errorText = String(err)
+				if (
+					errorText.match('ECONNREFUSED') ||
+					errorText.match('ENOTFOUND') ||
+					errorText.match('EHOSTDOWN') ||
+					errorText.match('ETIMEDOUT')
+				) {
+					if (this.currentStatus != 2) {
+						this.status(this.STATUS_ERROR)
+						this.log('error', `Unable to connect to BirdDog PTZ Camera (Error: ${errorText?.split('reason:')[1]})`)
+					}
+				}
+			})
+	}
+
+	initializeCamera(hostname) {
+		if (this.currentStatus != 0 && this.camera.firmware.major && this.camera.model) {
+			this.status(this.STATUS_OK)
+			this.log('info', `Connected to ${hostname}`)
+		}
 
 		this.sendCommand('about', 'GET')
 		this.sendCommand('encodesetup', 'GET') // allow an initial query to this API to collect camera info
-
-		this.init_udp()
 
 		this.updateVariables()
 		this.actions()
 		this.initPresets()
 		this.initVariables()
 		this.initFeedbacks()
+
+		this.init_udp()
 	}
 
 	checkCameraModel(detectedModel) {
@@ -2338,9 +2373,11 @@ class instance extends instance_skel {
 			}
 		})
 		if (model) {
+			this.log('info', `Detected camera model: ${model}`)
+			this.debug('----- Detected camera model:' + model)
 			return model.id
 		} else {
-			this.log('error', `Unrecognized camera model: ${model}. Using "Default" camera profile`)
+			this.log('error', `Unrecognized camera model: ${detectedModel}. Using "Default" camera profile`)
 			return 'Default'
 		}
 	}
