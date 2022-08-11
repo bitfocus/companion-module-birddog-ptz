@@ -84,7 +84,8 @@ function sortByAction(a, b) {
 
 function getModelVariables(array, FW, model) {
 	// returns an object containing all variables based on model & FW
-	const variables = []
+	//console.log('---- in getModelVariables')
+	//const variables = []
 	tempArray = Object.entries(array)
 
 	filteredArray = tempArray.filter(
@@ -95,13 +96,14 @@ function getModelVariables(array, FW, model) {
 			array[1]?.variable_name
 	)
 	filteredArray.sort(sortByLabel)
-	filteredArray.forEach((array) =>
-		variables.push({
-			label: array[1].variable_label,
-			name: array[1].variable_name,
-		})
-	)
-	return variables
+//	filteredArray.forEach((array) =>
+//		variables.push({
+//			label: array[1].variable_label,
+//			name: array[1].variable_name,
+//		})
+//	)
+//	console.log('---- List of variables', variables)
+	return filteredArray
 }
 
 function getModelActions(array, FW, model) {
@@ -149,6 +151,7 @@ module.exports = {
 	createZoomArray,
 	getPositionLabel,
 	strToPQRS,
+	sortByLabel,
 	sortByAction,
 	getModelVariables,
 	getModelActions,

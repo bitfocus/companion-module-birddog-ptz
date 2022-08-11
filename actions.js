@@ -4,9 +4,11 @@ const CHOICES = require('./choices.js')
 
 module.exports = {
 	getActions() {
-		this.debug(this?.camera?.model)
+		this.debug('---- in getActions. Stored model is ', this?.camera?.model)
 
 		MODEL_ACTIONS = getModelActions(MODEL_SPECS, this.camera.firmware.major, this.camera.model)
+
+		//this.debug('---- MODEL_ACTIONS list is', MODEL_ACTIONS)
 
 		if (!MODEL_ACTIONS && this.currentStatus != 2) {
 			this.log('error', `Unrecognized camera model: ${this.camera.model}`)
@@ -2464,6 +2466,10 @@ module.exports = {
 				],
 			}
 		}
+		//this.debug('---- List of actions ', actions)
+		let sortedActions = Object.entries(actions).sort(sortByAction)
+		// this.debug('---- List of sorted actions ', sortedActions)
 		return Object.fromEntries(Object.entries(actions).sort(sortByAction))
+		//return sortedActions
 	},
 }

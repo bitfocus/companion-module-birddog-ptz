@@ -1,4 +1,4 @@
-const { getModelActions } = require('./utils')
+const { getModelActions, sortByLabel } = require('./utils')
 var { MODEL_SPECS } = require('./models.js')
 const CHOICES = require('./choices.js')
 

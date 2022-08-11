@@ -2257,7 +2257,7 @@ class instance extends instance_skel {
 			fetch(url, options)
 				.then((res) => {
 					if (res.status == 200) {
-						this.debug(res)
+						//this.debug(res)
 						return res.text()
 					}
 				})
@@ -2265,8 +2265,9 @@ class instance extends instance_skel {
 					let model = data
 					if (model) {
 						model = model.replace(/BirdDog| |_/g, '')
-						this.camera.model = checkCameraModel(model)
-						getCameraFW()
+						//this.debug('---- Model returned from call to "/version" is ', model, ' - now running checkCameraModel')
+						this.camera.model = this.checkCameraModel(model)
+						this.getCameraFW()
 					} else if (!model && this.currentStatus != 2) {
 						this.log('error', 'Please upgrade your BirdDog camera to the latest LTS firmware to use this module')
 						this.status(this.STATUS_ERROR)
@@ -2291,7 +2292,7 @@ class instance extends instance_skel {
 					}
 				})
 		} else {
-			this.initializeCamera(this.config.model)
+			// this.initializeCamera(this.config.model)
 		}
 	}
 
@@ -2304,7 +2305,7 @@ class instance extends instance_skel {
 		fetch(url, options)
 			.then((res) => {
 				if (res.status == 200) {
-					this.debug(res)
+					//this.debug(res)
 					return res.json()
 				}
 			})
@@ -2317,8 +2318,8 @@ class instance extends instance_skel {
 					this.camera.firmware.minor = data.FirmwareVersion.substring(
 						data.FirmwareVersion.lastIndexOf(' ') + 2
 					).substring(1)
-					this.debug('----- Camera FW Major:' + this.camera.firmware.major)
-					this.debug('----- Camera FW Minor:' + this.camera.firmware.minor)
+					//this.debug('---- Camera FW Major:' + this.camera.firmware.major)
+					//this.debug('---- Camera FW Minor:' + this.camera.firmware.minor)
 					this.initializeCamera(data.HostName)
 				} else if (data.Version === '1.0' && this.currentStatus != 2) {
 					this.log('error', 'Please upgrade your BirdDog camera to the latest LTS firmware to use this module')
@@ -2346,38 +2347,48 @@ class instance extends instance_skel {
 	}
 
 	initializeCamera(hostname) {
+		this.debug('---- in initializeCamera')
 		if (this.currentStatus != 0 && this.camera.firmware.major && this.camera.model) {
 			this.status(this.STATUS_OK)
 			this.log('info', `Connected to ${hostname}`)
+			this.debug('---- Connected to', hostname)
+			//this.sendCommand('about', 'GET')
+			//this.sendCommand('encodesetup', 'GET') // allow an initial query to this API to collect camera info
+
+			// this.updateVariables()
+			this.actions()
+			this.initPresets()
+			this.initVariables()
+			this.initFeedbacks()
+
+			this.init_udp()
+		} else {
+			this.status(this.STATUS_ERROR)
+			this.log('error', `Unable to connect to ${hostname}`)
 		}
-
-		this.sendCommand('about', 'GET')
-		this.sendCommand('encodesetup', 'GET') // allow an initial query to this API to collect camera info
-
-		this.updateVariables()
-		this.actions()
-		this.initPresets()
-		this.initVariables()
-		this.initFeedbacks()
-
-		this.init_udp()
 	}
 
 	checkCameraModel(detectedModel) {
-		model = CHOICES.CAMERAS.find((element) => {
-			if (element?.other) {
-				tempArray = Object.entries(element)
+		this.debug('---- In checkCameraModel with detectedModel as', detectedModel)
+		var model = CHOICES.CAMERAS.find((element) => {
+			this.debug('---- Checking element ', element)
+			if (element.id === detectedModel) {
+				return detectedModel
+			} else if (element?.other) {
+				var tempArray = Object.entries(element)
 				return tempArray[2][1].includes(detectedModel)
 			} else {
+				this.debug('---- Returning False for ', element)
 				return false
 			}
 		})
 		if (model) {
-			this.log('info', `Detected camera model: ${model}`)
-			this.debug('----- Detected camera model:' + model)
+			this.log('info', `Detected camera model: ${model.id}`)
+			this.debug('---- Detected camera model: ' + model.id)
 			return model.id
 		} else {
 			this.log('error', `Unrecognized camera model: ${detectedModel}. Using "Default" camera profile`)
+			this.debug(`Unrecognized camera model: ${detectedModel}. Using "Default" camera profile`)
 			return 'Default'
 		}
 	}
