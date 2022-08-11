@@ -8,22 +8,7 @@ const CHOICES = require('./choices.js')
 // #### Define Variables ####
 // ##########################
 exports.updateVariableDefinitions = function () {
-	const variables = []
-
-	sortedlist = getModelVariables(MODEL_SPECS, this.camera.firmware.major, this.camera.model)
-
-	for (i in sortedlist) {
-		variables.push({
-      label: sortedlist[i][1].variable_label,
-			name: sortedlist[i][1].variable_name,
-		})
-	}
-
-	this.setVariableDefinitions(variables)
-
-
-
-	//this.setVariableDefinitions(getModelVariables(MODEL_SPECS, this.camera.firmware.major, this.camera.model))
+	this.setVariableDefinitions(getModelVariables(MODEL_SPECS, this.camera.firmware.major, this.camera.model))
 }
 
 // #########################

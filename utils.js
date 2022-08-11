@@ -84,8 +84,7 @@ function sortByAction(a, b) {
 
 function getModelVariables(array, FW, model) {
 	// returns an object containing all variables based on model & FW
-	//console.log('---- in getModelVariables')
-	//const variables = []
+	const variables = []
 	tempArray = Object.entries(array)
 
 	filteredArray = tempArray.filter(
@@ -96,14 +95,13 @@ function getModelVariables(array, FW, model) {
 			array[1]?.variable_name
 	)
 	filteredArray.sort(sortByLabel)
-//	filteredArray.forEach((array) =>
-//		variables.push({
-//			label: array[1].variable_label,
-//			name: array[1].variable_name,
-//		})
-//	)
-//	console.log('---- List of variables', variables)
-	return filteredArray
+	filteredArray.forEach((array) =>
+		variables.push({
+			label: array[1].variable_label,
+			name: array[1].variable_name,
+		})
+	)
+	return variables
 }
 
 function getModelActions(array, FW, model) {

@@ -2466,10 +2466,7 @@ module.exports = {
 				],
 			}
 		}
-		//this.debug('---- List of actions ', actions)
-		let sortedActions = Object.entries(actions).sort(sortByAction)
-		// this.debug('---- List of sorted actions ', sortedActions)
 		return Object.fromEntries(Object.entries(actions).sort(sortByAction))
-		//return sortedActions
+
 	},
 }
