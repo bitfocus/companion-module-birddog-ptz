@@ -2187,23 +2187,26 @@ class instance extends instance_skel {
 		if (MODEL_QRY?.about) {
 			this.sendCommand('about', 'GET')
 		}
-	}
-
-	// Get Camera Status
-	pollCameraStatus() {
-		let MODEL_QRY = getModelQueries(MODEL_QUERIES, this.camera.model, this.camera.firmware.major)
-
+		if (MODEL_QRY?.encodesetup) {
+		this.sendCommand('encodesetup', 'GET')
+		}
 		if (MODEL_QRY?.analogaudiosetup) {
 			this.sendCommand('analogaudiosetup', 'GET')
 		}
 		if (MODEL_QRY?.encodetransport) {
 			this.sendCommand('encodetransport', 'GET')
 		}
-		//if (MODEL_QRY?.encodesetup) {
-		//this.sendCommand('encodesetup', 'GET') Temporary skip to avoid BirdDog API bug }
 		if (MODEL_QRY?.NDIDisServer) {
 			this.sendCommand('NDIDisServer', 'GET')
 		}
+
+	}
+
+	// Get Camera Status
+	pollCameraStatus() {
+		let MODEL_QRY = getModelQueries(MODEL_QUERIES, this.camera.model, this.camera.firmware.major)
+
+
 		if (MODEL_QRY?.birddogptzsetup) {
 			this.sendCommand('birddogptzsetup', 'GET')
 		}
@@ -2220,7 +2223,7 @@ class instance extends instance_skel {
 		this.sendVISCACommand(VISCA.MSG_QRY + VISCA.CAM_FOCUS_AUTO + VISCA.END_MSG, '\x5a') // Query Auto Focus Mode
 		this.sendVISCACommand(VISCA.MSG_QRY + VISCA.CAM_FREEZE + VISCA.END_MSG, '\x5b') // Query Freeze
 		this.sendVISCACommand(VISCA.MSG_QRY + VISCA.CAM_ZOOM_DIRECT + VISCA.END_MSG, '\x5c') // Query Zoom Position
-		// Specific Model Info
+	
 		if (MODEL_QRY?.videooutputinterface) {
 			this.sendCommand('videooutputinterface', 'GET')
 		}
@@ -2352,10 +2355,7 @@ class instance extends instance_skel {
 			this.status(this.STATUS_OK)
 			this.log('info', `Connected to ${hostname}`)
 			this.debug('---- Connected to', hostname)
-			//this.sendCommand('about', 'GET')
-			//this.sendCommand('encodesetup', 'GET') // allow an initial query to this API to collect camera info
 
-			// this.updateVariables()
 			this.actions()
 			this.initPresets()
 			this.initVariables()

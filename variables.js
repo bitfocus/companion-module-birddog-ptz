@@ -18,8 +18,6 @@ exports.updateVariables = function () {
 	MODEL_VARIABLES = getModelVariables(MODEL_SPECS, this.camera.firmware.major, this.camera.model)
 	MODEL_ACTIONS = getModelActions(MODEL_SPECS, this.camera.firmware.major, this.camera.model)
 
-	console.log('---- in updateVariables')
-
 	// General Camera Variables
 	if (this.camera.about) {
 		if (MODEL_VARIABLES.some((variable) => variable.name === 'firmware')) {

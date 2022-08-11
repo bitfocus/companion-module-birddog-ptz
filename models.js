@@ -110,7 +110,7 @@ module.exports = {
 		// VISCA
 		freeze: {
 			camera: ['All'],
-			firmware: ['4', '5'],
+			firmware: ['4',], //v5 is returning incorrectly formatted VISCA msg
 			variable_name: 'freeze',
 			variable_label: 'VISCA - Freeze',
 			action: [
@@ -391,7 +391,7 @@ module.exports = {
 		zoom: {
 			camera: ['All'],
 			firmware: ['4', '5'],
-			variable_name: 'zoom_postion',
+			variable_name: 'zoom_position',
 			variable_label: `PTZ - Zoom Position`,
 			action: [
 				{
