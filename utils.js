@@ -2,6 +2,9 @@
 // #### Utils	####
 // #################
 
+// Reduce an array of objects down to a list of objects
+// @params - An array of objects
+// @returns - A list of objects
 const merge = (...objects) => objects.reduce((acc, cur) => ({ ...acc, ...cur }))
 
 function addStringToBinary(binaryStr, string) {
