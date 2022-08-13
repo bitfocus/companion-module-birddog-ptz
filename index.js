@@ -31,11 +31,11 @@ class instance extends instance_skel {
 
 		// Initialise Inital Camera Objects
 
-		this.camera = {}
+		//	this.camera = {}
 
-		this.camera.position = { pan: '0000', tilt: '0000', zoom: '0000' }
-		this.camera.framerate = 50
-		this.camera.firmware = {}
+		//	this.camera.position = { pan: '0000', tilt: '0000', zoom: '0000' }
+		//	this.camera.framerate = 50
+		//	this.camera.firmware = {}
 
 		// Keep track of setInterval
 		this.timers = {
@@ -119,7 +119,7 @@ class instance extends instance_skel {
 		this.port = 52381 // Visca port
 
 		// Initial State for Camera
-		//this.intializeState()   //commented out until changes are done
+		this.intializeState()
 
 		// Get Initial Camera Info
 		this.getCameraModel()
@@ -2398,12 +2398,18 @@ class instance extends instance_skel {
 	intializeState() {
 		this.camera = {}
 		// Take all level 1 elements from MODEL_SPECS, and add them to this.camera object
-		Object.keys(MODEL_SPECS).map((element) => (this.camera[element] = {}))
+		Object.keys(MODEL_SPECS)
+			.sort()
+			.map((element) => (this.camera[element] = {}))
 
 		// Set some defaults
 		this.camera.pt = { pan: '0000', tilt: '0000' }
 		this.camera.zoom = '0000'
 		this.camera.framerate = 50
+
+		// Old defaults
+		this.camera.position = { pan: '0000', tilt: '0000', zoom: '0000' }
+
 		this.debug('---- Initial State for camera', this.camera)
 	}
 }
