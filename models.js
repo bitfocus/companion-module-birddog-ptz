@@ -730,7 +730,7 @@ module.exports = {
 		slow_shutter_en: {
 			camera: ['P200A2A3', 'P200A4A5', 'A200GEN1', 'A200GEN2', 'A300GEN1', 'A300GEN2', 'P400', 'P4K'],
 			firmware: ['4', '5'],
-			variable_name: 'slow_shutter_on',
+			variable_name: 'slow_shutter_en',
 			variable_label: `Exposure - Slow Shutter Enable`,
 			action: [
 				{
