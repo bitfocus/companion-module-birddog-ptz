@@ -1056,7 +1056,7 @@ module.exports = {
 		highlight_comp_mask: {
 			camera: ['P200A2A3', 'P200A4A5', 'A200GEN1', 'A200GEN2', 'A300GEN1', 'A300GEN2'],
 			firmware: ['4', '5'],
-			variable_name: 'highligh_comp_mask',
+			variable_name: 'highlight_comp_mask',
 			variable_label: `Picture Setup - Highlight Compensation Mask`,
 			action: [
 				{

@@ -2295,7 +2295,8 @@ class instance extends instance_skel {
 					}
 				})
 		} else {
-			// this.initializeCamera(this.config.model)
+			this.camera.model = this.config.model
+			this.getCameraFW()
 		}
 	}
 
