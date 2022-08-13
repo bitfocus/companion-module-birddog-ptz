@@ -64,11 +64,9 @@ module.exports = {
 			variable_name: 'firmware',
 			variable_label: 'General - Firmware',
 		},
-		model: {
+		framerate: {
 			camera: ['All'],
 			firmware: ['4', '5'],
-			variable_name: 'model',
-			variable_label: 'General - Model',
 		},
 		hostname: {
 			camera: ['All'],
@@ -81,6 +79,12 @@ module.exports = {
 			firmware: ['4', '5'],
 			variable_name: 'ipaddress',
 			variable_label: 'General - IP Address',
+		},
+		model: {
+			camera: ['All'],
+			firmware: ['4', '5'],
+			variable_name: 'model',
+			variable_label: 'General - Model',
 		},
 		netmask: {
 			camera: ['All'],

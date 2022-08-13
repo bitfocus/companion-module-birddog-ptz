@@ -29,9 +29,9 @@ class instance extends instance_skel {
 		this.addStringToBinary = addStringToBinary
 		this.strToPQRS = strToPQRS
 
-		this.camera = {}
-
 		// Initialise Inital Camera Objects
+
+		this.camera = {}
 
 		this.camera.position = { pan: '0000', tilt: '0000', zoom: '0000' }
 		this.camera.framerate = 50
@@ -117,6 +117,9 @@ class instance extends instance_skel {
 		this.status(this.STATUS_WARNING, 'Connecting')
 
 		this.port = 52381 // Visca port
+
+		// Initial State for Camera
+		//this.intializeState()   //commented out until changes are done
 
 		// Get Initial Camera Info
 		this.getCameraModel()
@@ -2188,7 +2191,7 @@ class instance extends instance_skel {
 			this.sendCommand('about', 'GET')
 		}
 		if (MODEL_QRY?.encodesetup) {
-		this.sendCommand('encodesetup', 'GET')
+			this.sendCommand('encodesetup', 'GET')
 		}
 		if (MODEL_QRY?.analogaudiosetup) {
 			this.sendCommand('analogaudiosetup', 'GET')
@@ -2199,13 +2202,11 @@ class instance extends instance_skel {
 		if (MODEL_QRY?.NDIDisServer) {
 			this.sendCommand('NDIDisServer', 'GET')
 		}
-
 	}
 
 	// Get Camera Status
 	pollCameraStatus() {
 		let MODEL_QRY = getModelQueries(MODEL_QUERIES, this.camera.model, this.camera.firmware.major)
-
 
 		if (MODEL_QRY?.birddogptzsetup) {
 			this.sendCommand('birddogptzsetup', 'GET')
@@ -2223,7 +2224,7 @@ class instance extends instance_skel {
 		this.sendVISCACommand(VISCA.MSG_QRY + VISCA.CAM_FOCUS_AUTO + VISCA.END_MSG, '\x5a') // Query Auto Focus Mode
 		this.sendVISCACommand(VISCA.MSG_QRY + VISCA.CAM_FREEZE + VISCA.END_MSG, '\x5b') // Query Freeze
 		this.sendVISCACommand(VISCA.MSG_QRY + VISCA.CAM_ZOOM_DIRECT + VISCA.END_MSG, '\x5c') // Query Zoom Position
-	
+
 		if (MODEL_QRY?.videooutputinterface) {
 			this.sendCommand('videooutputinterface', 'GET')
 		}
@@ -2392,6 +2393,17 @@ class instance extends instance_skel {
 			this.debug(`Unrecognized camera model: ${detectedModel}. Using "Default" camera profile`)
 			return 'Default'
 		}
+	}
+
+	intializeState() {
+		let SPECS = Object.keys(MODEL_SPECS)
+		this.camera = {}
+		SPECS.map((element) => (this.camera[element] = {}))
+
+		this.camera.pt = { pan: '0000', tilt: '0000' }
+		this.camera.zoom = '0000'
+		this.camera.framerate = 50
+		this.debug('---- Initial State for camera', this.camera)
 	}
 }
 
