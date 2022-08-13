@@ -2396,10 +2396,11 @@ class instance extends instance_skel {
 	}
 
 	intializeState() {
-		let SPECS = Object.keys(MODEL_SPECS)
 		this.camera = {}
-		SPECS.map((element) => (this.camera[element] = {}))
+		// Take all level 1 elements from MODEL_SPECS, and add them to this.camera object
+		Object.keys(MODEL_SPECS).map((element) => (this.camera[element] = {}))
 
+		// Set some defaults
 		this.camera.pt = { pan: '0000', tilt: '0000' }
 		this.camera.zoom = '0000'
 		this.camera.framerate = 50
