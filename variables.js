@@ -121,15 +121,15 @@ exports.updateVariables = function () {
 
 	if (this.camera.transport) {
 		if (MODEL_VARIABLES.some((variable) => variable.name === 'transmit_method')) {
-			this.setVariable('transmit_method', this.camera.transport.txpm)
+			this.setVariable('transmit_method', this.camera.transport.Txpm)
 		}
 
 		if (MODEL_VARIABLES.some((variable) => variable.name === 'transmit_netprefix')) {
-			this.setVariable('transmit_netprefix', this.camera.transport.txnetprefix)
+			this.setVariable('transmit_netprefix', this.camera.transport.Txnetprefix)
 		}
 
 		if (MODEL_VARIABLES.some((variable) => variable.name === 'transmit_netmask')) {
-			this.setVariable('transmit_netmask', this.camera.transport.txnetmask)
+			this.setVariable('transmit_netmask', this.camera.transport.Txnetmask)
 		}
 	}
 	// NDI Discovery Server Variables
