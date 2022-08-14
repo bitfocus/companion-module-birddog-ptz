@@ -1966,60 +1966,76 @@ class instance extends instance_skel {
 	}
 
 	processData(cmd, data) {
-		if (cmd.match('/about')) {
-			this.camera.about = data
-		} else if (cmd.match('/analogaudiosetup')) {
-			this.camera.audio = data
-		} else if (cmd.match('/videooutputinterface')) {
-			this.camera.video = data
-		} else if (cmd.match('/encodetransport')) {
-			this.camera.transport = data
-		} else if (cmd.match('/encodesetup')) {
-			if (!this.camera?.encode || this.camera?.encode?.VideoFormat !== data.VideoFormat) {
-				if (data.VideoFormat.match('24')) {
-					this.camera.framerate = 24
-				} else if (data.VideoFormat.match('25') || data.VideoFormat.match('50')) {
-					this.camera.framerate = 50
-				} else {
-					this.camera.framerate = 60
+		switch (cmd.slice(cmd.lastIndexOf('/') + 1)) {
+			case 'about':
+				this.camera.about = data
+				break
+			case 'analogaudiosetup':
+				this.camera.audio = data
+				break
+			case 'videooutputinterface':
+				this.camera.video = data
+				break
+			case 'encodetransport':
+				this.camera.transport = data
+				break
+			case 'encodesetup':
+				if (!this.camera?.encode || this.camera?.encode?.VideoFormat !== data.VideoFormat) {
+					if (data.VideoFormat.match('24')) {
+						this.camera.framerate = 24
+					} else if (data.VideoFormat.match('25') || data.VideoFormat.match('50')) {
+						this.camera.framerate = 50
+					} else {
+						this.camera.framerate = 60
+					}
+					this.actions()
 				}
-				this.actions()
-			}
-			this.camera.encode = data
-		} else if (cmd.match('/NDIDisServer')) {
-			this.camera.ndiserver = data
-		} else if (cmd.match('/birddogptzsetup')) {
-			this.camera.ptz = data
-		} else if (cmd.match('/birddogexpsetup')) {
-			if (this.camera.expsetup?.GainLimit && this.camera.expsetup.GainLimit !== data.GainLimit) {
-				// rebuild actions if GainLimit has changed
-				console.log('-----Gain Limit changed')
-				this.camera.expsetup.GainLimit = data.GainLimit
-				this.actions()
-			} else if (
-				this.camera.expsetup?.ShutterMaxSpeed &&
-				this.camera.expsetup.ShutterMaxSpeed !== data.ShutterMaxSpeed
-			) {
-				// rebuild actions if ShutterMaxSpeed has changed
-				console.log('-----ShutterMaxSpeed changed')
-				this.camera.expsetup.ShutterMaxSpeed = data.ShutterMaxSpeed
-				this.actions()
-			}
-			this.camera.expsetup = data
-		} else if (cmd.match('/birddogwbsetup')) {
-			this.camera.wbsetup = data
-		} else if (cmd.match('/birddogpicsetup')) {
-			this.camera.picsetup = data
-		} else if (cmd.match('/birddogcmsetup')) {
-			this.camera.cmsetup = data
-		} else if (cmd.match('/birddogadvancesetup')) {
-			this.camera.advancesetup = data
-		} else if (cmd.match('/birddogexternalsetup')) {
-			this.camera.externalsetup = data
-		} else if (cmd.match('/birddogdetsetup')) {
-			this.camera.detsetup = data
-		} else if (cmd.match('/birddoggammasetup')) {
-			this.camera.gammasetup = data
+				this.camera.encode = data
+				break
+			case 'NDIDisServer':
+				this.camera.ndiserver = data
+				break
+			case 'birddogptzsetup':
+				this.camera.ptz = data
+				break
+			case 'birddogexpsetup':
+				if (this.camera.expsetup?.GainLimit && this.camera.expsetup.GainLimit !== data.GainLimit) {
+					// rebuild actions if GainLimit has changed
+					console.log('-----Gain Limit changed')
+					this.camera.expsetup.GainLimit = data.GainLimit
+					this.actions()
+				} else if (
+					this.camera.expsetup?.ShutterMaxSpeed &&
+					this.camera.expsetup.ShutterMaxSpeed !== data.ShutterMaxSpeed
+				) {
+					// rebuild actions if ShutterMaxSpeed has changed
+					console.log('-----ShutterMaxSpeed changed')
+					this.camera.expsetup.ShutterMaxSpeed = data.ShutterMaxSpeed
+					this.actions()
+				}
+				this.camera.expsetup = data
+				break
+			case 'birddogwbsetup':
+				this.camera.wbsetup = data
+				break
+			case 'birddogpicsetup':
+				this.camera.picsetup = data
+				break
+			case '/birddogcmsetup':
+				this.camera.cmsetup = data
+				break
+			case 'birddogadvancesetup':
+				this.camera.advancesetup = data
+				break
+			case 'birddogexternalsetup':
+				this.camera.externalsetup = data
+				break
+			case 'birddogdetsetup':
+				this.camera.detsetup = data
+				break
+			case 'birddoggammasetup':
+				this.camera.gammasetup = data
+				break
 		}
 		this.updateVariables()
 		this.checkFeedbacks()
@@ -2305,17 +2321,13 @@ class instance extends instance_skel {
 			})
 			.then((data) => {
 				if (data.FirmwareVersion) {
-					let FW_major = data.FirmwareVersion.substring(
-						data.FirmwareVersion.lastIndexOf(' ') + 1
-					).substring(0, 1)
-					let FW_minor = data.FirmwareVersion.substring(
-						data.FirmwareVersion.lastIndexOf(' ') + 2
-					).substring(1)
+					let FW_major = data.FirmwareVersion.substring(data.FirmwareVersion.lastIndexOf(' ') + 1).substring(0, 1)
+					let FW_minor = data.FirmwareVersion.substring(data.FirmwareVersion.lastIndexOf(' ') + 2).substring(1)
 					//this.debug('---- Camera FW Major:' + FW_major)
 					//this.debug('---- Camera FW Minor:' + FW_minor)
 
 					// Set Initial State for Camera
-					this.intializeState(model,FW_major,FW_minor)
+					this.intializeState(model, FW_major, FW_minor)
 
 					// InitializeCamera
 					this.initializeCamera(data.HostName)
@@ -2388,7 +2400,7 @@ class instance extends instance_skel {
 		}
 	}
 
-	intializeState(model, FW_major,FW_minor) {
+	intializeState(model, FW_major, FW_minor) {
 		// Take all level 1 elements from MODEL_SPECS filtered by;
 		// - All cameras or model matches
 		// - FW matches
