@@ -29,14 +29,6 @@ class instance extends instance_skel {
 		this.addStringToBinary = addStringToBinary
 		this.strToPQRS = strToPQRS
 
-		// Initialise Inital Camera Objects
-
-		//	this.camera = {}
-
-		//	this.camera.position = { pan: '0000', tilt: '0000', zoom: '0000' }
-		//	this.camera.framerate = 50
-		//	this.camera.firmware = {}
-
 		// Keep track of setInterval
 		this.timers = {
 			pollCameraConfig: null, // ID of setInterval for Camera Config polling
@@ -117,9 +109,6 @@ class instance extends instance_skel {
 		this.status(this.STATUS_WARNING, 'Connecting')
 
 		this.port = 52381 // Visca port
-
-		// Initial State for Camera
-		this.intializeState()
 
 		// Get Initial Camera Info
 		this.getCameraModel()
@@ -2270,8 +2259,8 @@ class instance extends instance_skel {
 					if (model) {
 						model = model.replace(/BirdDog| |_/g, '')
 						//this.debug('---- Model returned from call to "/version" is ', model, ' - now running checkCameraModel')
-						this.camera.model = this.checkCameraModel(model)
-						this.getCameraFW()
+						//this.camera.model = this.checkCameraModel(model)
+						this.getCameraFW(this.checkCameraModel(model))
 					} else if (!model && this.currentStatus != 2) {
 						this.log('error', 'Please upgrade your BirdDog camera to the latest LTS firmware to use this module')
 						this.status(this.STATUS_ERROR)
@@ -2296,12 +2285,12 @@ class instance extends instance_skel {
 					}
 				})
 		} else {
-			this.camera.model = this.config.model
-			this.getCameraFW()
+			//this.camera.model = this.config.model
+			this.getCameraFW(this.config.model)
 		}
 	}
 
-	getCameraFW() {
+	getCameraFW(model) {
 		let url = `http://${this.config.host}:8080/about`
 		let options = {
 			method: 'GET',
@@ -2316,15 +2305,19 @@ class instance extends instance_skel {
 			})
 			.then((data) => {
 				if (data.FirmwareVersion) {
-					this.camera.firmware = {}
-					this.camera.firmware.major = data.FirmwareVersion.substring(
+					let FW_major = data.FirmwareVersion.substring(
 						data.FirmwareVersion.lastIndexOf(' ') + 1
 					).substring(0, 1)
-					this.camera.firmware.minor = data.FirmwareVersion.substring(
+					let FW_minor = data.FirmwareVersion.substring(
 						data.FirmwareVersion.lastIndexOf(' ') + 2
 					).substring(1)
-					//this.debug('---- Camera FW Major:' + this.camera.firmware.major)
-					//this.debug('---- Camera FW Minor:' + this.camera.firmware.minor)
+					//this.debug('---- Camera FW Major:' + FW_major)
+					//this.debug('---- Camera FW Minor:' + FW_minor)
+
+					// Set Initial State for Camera
+					this.intializeState(model,FW_major,FW_minor)
+
+					// InitializeCamera
 					this.initializeCamera(data.HostName)
 				} else if (data.Version === '1.0' && this.currentStatus != 2) {
 					this.log('error', 'Please upgrade your BirdDog camera to the latest LTS firmware to use this module')
@@ -2395,14 +2388,31 @@ class instance extends instance_skel {
 		}
 	}
 
-	intializeState() {
+	intializeState(model, FW_major,FW_minor) {
+		// Take all level 1 elements from MODEL_SPECS filtered by;
+		// - All cameras or model matches
+		// - FW matches
+		// - 'store_state' is true
+		// and add them to this.camera object
+
 		this.camera = {}
-		// Take all level 1 elements from MODEL_SPECS, and add them to this.camera object
-		Object.keys(MODEL_SPECS)
+
+		let filteredArray = Object.entries(MODEL_SPECS).filter(
+			(array) =>
+				// filter array based on: All cameras or Model matches, and FW matches & has 'store_state' object
+				(array[1].camera.includes(model) || array[1].camera.includes('All')) &&
+				array[1].firmware.includes(FW_major) &&
+				array[1].store_state === true
+		)
+
+		Object.keys(Object.fromEntries(filteredArray))
 			.sort()
 			.map((element) => (this.camera[element] = {}))
 
 		// Set some defaults
+		this.camera.model = model
+		this.camera.firmware.major = FW_major
+		this.camera.firmware.minor = FW_minor
 		this.camera.pt = { pan: '0000', tilt: '0000' }
 		this.camera.zoom = '0000'
 		this.camera.framerate = 50

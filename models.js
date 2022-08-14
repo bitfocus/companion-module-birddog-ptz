@@ -61,52 +61,61 @@ module.exports = {
 		firmware: {
 			camera: ['All'],
 			firmware: ['4', '5'],
+			store_state: true,
 			variable_name: 'firmware',
 			variable_label: 'General - Firmware',
 		},
 		framerate: {
 			camera: ['All'],
 			firmware: ['4', '5'],
+			store_state: true,
 		},
 		hostname: {
 			camera: ['All'],
 			firmware: ['4', '5'],
+			store_state: true,
 			variable_name: 'hostname',
 			variable_label: 'General - Name',
 		},
 		ipaddress: {
 			camera: ['All'],
 			firmware: ['4', '5'],
+			store_state: true,
 			variable_name: 'ipaddress',
 			variable_label: 'General - IP Address',
 		},
 		model: {
 			camera: ['All'],
 			firmware: ['4', '5'],
+			store_state: true,
 			variable_name: 'model',
 			variable_label: 'General - Model',
 		},
 		netmask: {
 			camera: ['All'],
 			firmware: ['4', '5'],
+			store_state: true,
 			variable_name: 'netmask',
 			variable_label: 'General - Network Mask',
 		},
 		network_config: {
 			camera: ['All'],
 			firmware: ['4', '5'],
+			store_state: true,
 			variable_name: 'network_config',
 			variable_label: 'General - Network Config Method',
 		},
 		serial_number: {
 			camera: ['All'],
 			firmware: ['4', '5'],
+			store_state: true,
 			variable_name: 'serial_number',
 			variable_label: 'General - Serial Number',
 		},
 		status: {
 			camera: ['All'],
 			firmware: ['4', '5'],
+			store_state: true,
 			variable_name: 'status',
 			variable_label: 'General - Status',
 		},
@@ -114,7 +123,8 @@ module.exports = {
 		// VISCA
 		freeze: {
 			camera: ['All'],
-			firmware: ['4',], //v5 is returning incorrectly formatted VISCA msg
+			firmware: ['4'], //v5 is returning incorrectly formatted VISCA msg
+			store_state: true,
 			variable_name: 'freeze',
 			variable_label: 'VISCA - Freeze',
 			action: [
@@ -127,6 +137,7 @@ module.exports = {
 		standby: {
 			camera: ['All'],
 			firmware: ['4', '5'],
+			store_state: true,
 			variable_name: 'standby',
 			variable_label: 'VISCA - Standby',
 			action: [
@@ -141,6 +152,7 @@ module.exports = {
 		analogAudioInGain: {
 			camera: ['All'],
 			firmware: ['4', '5'],
+			store_state: true,
 			variable_name: 'audio_in_gain',
 			variable_label: 'Analog Audio - Audio In Gain',
 			action: [
@@ -153,6 +165,7 @@ module.exports = {
 		analogAudioOutGain: {
 			camera: ['All'],
 			firmware: ['4', '5'],
+			store_state: true,
 			variable_name: 'audio_out_gain',
 			variable_label: 'Analog Audio - Audio Out Gain',
 			action: [
@@ -165,6 +178,7 @@ module.exports = {
 		analogAudioOutput: {
 			camera: ['All'],
 			firmware: ['4', '5'],
+			store_state: true,
 			variable_name: 'audio_output',
 			variable_label: 'Analog Audio - Audio Output',
 			action: [
@@ -179,6 +193,7 @@ module.exports = {
 		video_output: {
 			camera: ['P400', 'P4K'],
 			firmware: ['4', '5'],
+			store_state: true,
 			variable_name: 'video_output',
 			variable_label: `Video Output - Video Mode`,
 			action: [
@@ -193,6 +208,7 @@ module.exports = {
 		bandwidth_mode: {
 			camera: ['All'],
 			firmware: ['4', '5'],
+			store_state: true,
 			variable_name: 'bandwidth_mode',
 			variable_label: 'Encode Setup - Bandwidth Mode',
 			action: [
@@ -205,6 +221,7 @@ module.exports = {
 		bandwidth_select: {
 			camera: ['All'],
 			firmware: ['4', '5'],
+			store_state: true,
 			variable_name: 'bandwidth_select',
 			variable_label: 'Encode Setup - Bandwidth Select',
 			action: [
@@ -217,6 +234,7 @@ module.exports = {
 		ndiAudio: {
 			camera: ['All'],
 			firmware: ['4', '5'],
+			store_state: true,
 			variable_name: 'ndi_audio',
 			variable_label: `Encode Setup - NDI Audio`,
 			action: [
@@ -229,6 +247,7 @@ module.exports = {
 		ndiGroupEnable: {
 			camera: ['All'],
 			firmware: ['4', '5'],
+			store_state: true,
 			variable_name: 'ndi_group',
 			variable_label: `Encode Setup - NDI Group`,
 			action: [
@@ -241,18 +260,21 @@ module.exports = {
 		ndi_group_name: {
 			camera: ['All'],
 			firmware: ['4', '5'],
+			store_state: true,
 			variable_name: 'ndi_group_name',
 			variable_label: `Encode Setup - NDI Group Name`,
 		},
 		stream_name: {
 			camera: ['All'],
 			firmware: ['4', '5'],
+			store_state: true,
 			variable_name: 'stream_name',
 			variable_label: `Encode Setup - Stream Name`,
 		},
 		tally: {
 			camera: ['PF120', 'P200A2A3', 'P200A4A5', 'P400', 'P4K'],
 			firmware: ['4', '5'],
+			store_state: true,
 			variable_name: 'tally_mode',
 			variable_label: `Encode Setup - Tally Mode`,
 			action: [
@@ -265,6 +287,7 @@ module.exports = {
 		video_format: {
 			camera: ['All'],
 			firmware: ['4', '5'],
+			store_state: true,
 			variable_name: 'video_format',
 			variable_label: `Encode Setup - Video Format`,
 		},
@@ -273,6 +296,7 @@ module.exports = {
 		transmit_method: {
 			camera: ['All'],
 			firmware: ['4', '5'],
+			store_state: true,
 			variable_name: 'transmit_method',
 			variable_label: `Encode Transport - Transmit Method`,
 			action: [
@@ -285,12 +309,14 @@ module.exports = {
 		transmit_netprefix: {
 			camera: ['All'],
 			firmware: ['4', '5'],
+			store_state: true,
 			variable_name: 'transmit_netprefix',
 			variable_label: 'Encode Transport - Transmit Net Prefix',
 		},
 		transmit_netmask: {
 			camera: ['All'],
 			firmware: ['4', '5'],
+			store_state: true,
 			variable_name: 'transmit_netmask',
 			variable_label: 'Encode Transport - Transmit Netmask',
 		},
@@ -299,6 +325,7 @@ module.exports = {
 		ndi_discovery_server: {
 			camera: ['All'],
 			firmware: ['4', '5'],
+			store_state: true,
 			variable_name: 'ndi_discovery_server',
 			variable_label: `NDI Discovery - Server`,
 			action: [
@@ -311,6 +338,7 @@ module.exports = {
 		ndi_discovery_server_ip: {
 			camera: ['All'],
 			firmware: ['4', '5'],
+			store_state: true,
 			variable_name: 'ndi_discovery_server_ip',
 			variable_label: `NDI Discovery - Server IP`,
 		},
@@ -319,6 +347,7 @@ module.exports = {
 		pt: {
 			camera: ['P100', 'P200A2A3', 'P200A4A5', 'A200GEN1', 'A200GEN2', 'A300GEN1', 'A300GEN2', 'P400', 'P4K'],
 			firmware: ['4', '5'],
+			store_state: true,
 			variable_name: 'pan_position',
 			variable_label: `PTZ - Pan Position`,
 			action: [
@@ -345,6 +374,7 @@ module.exports = {
 		panSpeed: {
 			camera: ['P100', 'P200A2A3', 'P200A4A5', 'A200GEN1', 'A200GEN2', 'A300GEN1', 'A300GEN2', 'P400', 'P4K'],
 			firmware: ['4', '5'],
+			store_state: true,
 			variable_name: 'pan_speed',
 			variable_label: `PTZ - Pan Speed`,
 			action: [
@@ -357,6 +387,7 @@ module.exports = {
 		recallPset: {
 			camera: ['All'],
 			firmware: ['4', '5'],
+			store_state: false,
 			action: [
 				{
 					camera: ['common'],
@@ -367,6 +398,7 @@ module.exports = {
 		savePset: {
 			camera: ['All'],
 			firmware: ['4', '5'],
+			store_state: false,
 			action: [
 				{
 					camera: ['common'],
@@ -377,12 +409,14 @@ module.exports = {
 		tilt_position: {
 			camera: ['P100', 'P200A2A3', 'P200A4A5', 'A200GEN1', 'A200GEN2', 'A300GEN1', 'A300GEN2', 'P400', 'P4K'],
 			firmware: ['4', '5'],
+			store_state: true,
 			variable_name: 'tilt_position',
 			variable_label: `PTZ - Tilt Position`,
 		},
 		tiltSpeed: {
 			camera: ['P100', 'P200A2A3', 'P200A4A5', 'A200GEN1', 'A200GEN2', 'A300GEN1', 'A300GEN2', 'P400', 'P4K'],
 			firmware: ['4', '5'],
+			store_state: true,
 			variable_name: 'tilt_speed',
 			variable_label: `PTZ - Tilt Speed`,
 			action: [
@@ -395,6 +429,7 @@ module.exports = {
 		zoom: {
 			camera: ['All'],
 			firmware: ['4', '5'],
+			store_state: true,
 			variable_name: 'zoom_position',
 			variable_label: `PTZ - Zoom Position`,
 			action: [
@@ -427,6 +462,7 @@ module.exports = {
 		zoomSpeed: {
 			camera: ['All'],
 			firmware: ['4', '5'],
+			store_state: true,
 			variable_name: 'zoom_speed',
 			variable_label: `PTZ - Zoom Speed`,
 			action: [
@@ -441,6 +477,7 @@ module.exports = {
 		focus: {
 			camera: ['All'],
 			firmware: ['4', '5'],
+			store_state: false,
 			action: [
 				{
 					camera: ['common'],
@@ -451,6 +488,7 @@ module.exports = {
 		focusM: {
 			camera: ['All'],
 			firmware: ['4', '5'],
+			store_state: true,
 			variable_name: 'focus_mode',
 			variable_label: `Focus - Focus Mode`,
 			action: [
@@ -465,6 +503,7 @@ module.exports = {
 		ae_response: {
 			camera: ['P200A2A3', 'P200A4A5', 'A200GEN1', 'A200GEN2', 'A300GEN1', 'A300GEN2', 'P400', 'P4K'],
 			firmware: ['4', '5'],
+			store_state: true,
 			variable_name: 'ae_response',
 			variable_label: `Exposure - Ae Response`,
 			action: [
@@ -477,6 +516,7 @@ module.exports = {
 		backlight: {
 			camera: ['P400', 'P4K'],
 			firmware: ['4', '5'],
+			store_state: true,
 			variable_name: 'backlight',
 			variable_label: `Exposure - Backlight`,
 			action: [
@@ -489,6 +529,7 @@ module.exports = {
 		bright_level: {
 			camera: ['All'],
 			firmware: ['4', '5'],
+			store_state: true,
 			variable_name: 'bright_level',
 			variable_label: `Exposure - Bright Level`,
 			action: [
@@ -513,6 +554,7 @@ module.exports = {
 		expComp: {
 			camera: ['All'],
 			firmware: ['4', '5'],
+			store_state: true,
 			variable_name: 'exposure_comp',
 			variable_label: `Exposure - Exposure Compensation`,
 			action: [
@@ -525,6 +567,7 @@ module.exports = {
 		expCompLvl: {
 			camera: ['All'],
 			firmware: ['4', '5'],
+			store_state: true,
 			variable_name: 'exposure_comp_level',
 			variable_label: `Exposure - Exposure Compensation Level`,
 			action: [
@@ -545,6 +588,7 @@ module.exports = {
 		exposure_mode: {
 			camera: ['All'],
 			firmware: ['4', '5'],
+			store_state: true,
 			variable_name: 'exposure_mode',
 			variable_label: `Exposure - Exposure Mode`,
 			action: [
@@ -569,6 +613,7 @@ module.exports = {
 		gain: {
 			camera: ['All'],
 			firmware: ['4', '5'],
+			store_state: true,
 			variable_name: 'gain',
 			variable_label: `Exposure - Gain`,
 			action: [
@@ -589,6 +634,7 @@ module.exports = {
 		gain_limit: {
 			camera: ['P200A2A3', 'P200A4A5', 'A200GEN1', 'A200GEN2', 'A300GEN1', 'A300GEN2', 'P400', 'P4K'],
 			firmware: ['4', '5'],
+			store_state: true,
 			variable_name: 'gain_limit',
 			variable_label: `Exposure - Gain Limit`,
 			action: [
@@ -605,6 +651,7 @@ module.exports = {
 		gain_point: {
 			camera: ['P400', 'P4K'],
 			firmware: ['4', '5'],
+			store_state: true,
 			variable_name: 'gain_point',
 			variable_label: `Exposure - Gain Point`,
 			action: [
@@ -617,12 +664,14 @@ module.exports = {
 		gain_point_position: {
 			camera: ['P400', 'P4K'],
 			firmware: ['4', '5'],
+			store_state: true,
 			variable_name: 'gain_point_position',
 			variable_label: `Exposure - Gain Point Position `,
 		},
 		high_sensitivity: {
 			camera: ['P200A2A3', 'P200A4A5', 'A200GEN1', 'A200GEN2', 'A300GEN1', 'A300GEN2', 'P400', 'P4K'],
 			firmware: ['4', '5'],
+			store_state: true,
 			variable_name: 'high_sensitivity',
 			variable_label: `Exposure - High Sensitivity`,
 			action: [
@@ -635,6 +684,7 @@ module.exports = {
 		iris: {
 			camera: ['All'],
 			firmware: ['4', '5'],
+			store_state: true,
 			variable_name: 'iris',
 			variable_label: `Exposure - Iris`,
 			action: [
@@ -659,6 +709,7 @@ module.exports = {
 		shutter_control_overwrite: {
 			camera: ['P100', 'PF120'],
 			firmware: ['4', '5'],
+			store_state: true,
 			variable_name: 'shutter_control_overwrite',
 			variable_label: `Exposure - Shutter Control Overwrite`,
 			action: [
@@ -671,6 +722,7 @@ module.exports = {
 		shutter_max_speed: {
 			camera: ['P400', 'P4K'],
 			firmware: ['4', '5'],
+			store_state: true,
 			variable_name: 'shutter_max_speed',
 			variable_label: `Exposure - Shutter Max Speed`,
 			action: [
@@ -683,6 +735,7 @@ module.exports = {
 		shutter_min_speed: {
 			camera: ['P400', 'P4K'],
 			firmware: ['4', '5'],
+			store_state: true,
 			variable_name: 'shutter_min_speed',
 			variable_label: `Exposure - Shutter Min Speed`,
 			action: [
@@ -695,6 +748,7 @@ module.exports = {
 		shutter_speed: {
 			camera: ['All'],
 			firmware: ['4', '5'],
+			store_state: true,
 			variable_name: 'shutter_speed',
 			variable_label: `Exposure - Shutter Speed`,
 			action: [
@@ -722,6 +776,7 @@ module.exports = {
 		shutter_speed_overwrite: {
 			camera: ['P100', 'PF120'],
 			firmware: ['4', '5'],
+			store_state: true,
 			variable_name: 'shutter_speed_overwrite',
 			variable_label: `Exposure - Shutter Speed Overwrite`,
 			action: [
@@ -734,6 +789,7 @@ module.exports = {
 		slow_shutter_en: {
 			camera: ['P200A2A3', 'P200A4A5', 'A200GEN1', 'A200GEN2', 'A300GEN1', 'A300GEN2', 'P400', 'P4K'],
 			firmware: ['4', '5'],
+			store_state: true,
 			variable_name: 'slow_shutter_en',
 			variable_label: `Exposure - Slow Shutter Enable`,
 			action: [
@@ -746,6 +802,7 @@ module.exports = {
 		slow_shutter_limit: {
 			camera: ['P200A2A3', 'P200A4A5', 'A200GEN1', 'A200GEN2', 'A300GEN1', 'A300GEN2', 'P400', 'P4K'],
 			firmware: ['4', '5'],
+			store_state: true,
 			variable_name: 'slow_shutter_limit',
 			variable_label: `Exposure - Slow Shutter Limit`,
 			action: [
@@ -762,6 +819,7 @@ module.exports = {
 		spotlight: {
 			camera: ['P400', 'P4K'],
 			firmware: ['4', '5'],
+			store_state: true,
 			variable_name: 'spotlight',
 			variable_label: `Exposure - Spotlight`,
 			action: [
@@ -776,6 +834,7 @@ module.exports = {
 		bg: {
 			camera: ['P400', 'P4K'],
 			firmware: ['4', '5'],
+			store_state: true,
 			variable_name: 'bg',
 			variable_label: `White Balance - BG`,
 			action: [
@@ -788,6 +847,7 @@ module.exports = {
 		blue_gain: {
 			camera: ['All'],
 			firmware: ['4', '5'],
+			store_state: true,
 			variable_name: 'blue_gain',
 			variable_label: `White Balance - Blue Gain`,
 			action: [
@@ -800,6 +860,7 @@ module.exports = {
 		br: {
 			camera: ['P400', 'P4K'],
 			firmware: ['4', '5'],
+			store_state: true,
 			variable_name: 'br',
 			variable_label: `White Balance - BR`,
 			action: [
@@ -812,6 +873,7 @@ module.exports = {
 		color_temp: {
 			camera: ['P100', 'PF120'],
 			firmware: ['4', '5'],
+			store_state: true,
 			variable_name: 'color_temp',
 			variable_label: `White Balance - Color Temp`,
 			action: [
@@ -824,6 +886,7 @@ module.exports = {
 		gb: {
 			camera: ['P400', 'P4K'],
 			firmware: ['4', '5'],
+			store_state: true,
 			variable_name: 'gb',
 			variable_label: `White Balance - GB`,
 			action: [
@@ -836,6 +899,7 @@ module.exports = {
 		gr: {
 			camera: ['P400', 'P4K'],
 			firmware: ['4', '5'],
+			store_state: true,
 			variable_name: 'gr',
 			variable_label: `White Balance - GR`,
 			action: [
@@ -848,6 +912,7 @@ module.exports = {
 		level: {
 			camera: ['P400', 'P4K'],
 			firmware: ['4', '5'],
+			store_state: true,
 			variable_name: 'level',
 			variable_label: `White Balance - Level`,
 			action: [
@@ -860,6 +925,7 @@ module.exports = {
 		matrix: {
 			camera: ['P400', 'P4K'],
 			firmware: ['4', '5'],
+			store_state: true,
 			variable_name: 'matrix',
 			variable_label: `White Balance - Matrix`,
 			action: [
@@ -872,6 +938,7 @@ module.exports = {
 		offset: {
 			camera: ['P400', 'P4K'],
 			firmware: ['4', '5'],
+			store_state: true,
 			variable_name: 'offset',
 			variable_label: `White Balance - Offset`,
 			action: [
@@ -884,6 +951,7 @@ module.exports = {
 		phase: {
 			camera: ['P400', 'P4K'],
 			firmware: ['4', '5'],
+			store_state: true,
 			variable_name: 'phase',
 			variable_label: `White Balance - Phase`,
 			action: [
@@ -896,6 +964,7 @@ module.exports = {
 		rb: {
 			camera: ['P400', 'P4K'],
 			firmware: ['4', '5'],
+			store_state: true,
 			variable_name: 'rb',
 			variable_label: `White Balance - RB`,
 			action: [
@@ -908,6 +977,7 @@ module.exports = {
 		red_gain: {
 			camera: ['All'],
 			firmware: ['4', '5'],
+			store_state: true,
 			variable_name: 'red_gain',
 			variable_label: `White Balance - Red Gain`,
 			action: [
@@ -920,6 +990,7 @@ module.exports = {
 		rg: {
 			camera: ['P400', 'P4K'],
 			firmware: ['4', '5'],
+			store_state: true,
 			variable_name: 'rg',
 			variable_label: `White Balance - RG`,
 			action: [
@@ -932,6 +1003,7 @@ module.exports = {
 		select: {
 			camera: ['P400', 'P4K'],
 			firmware: ['4', '5'],
+			store_state: true,
 			variable_name: 'select',
 			variable_label: `White Balance - Select`,
 			action: [
@@ -944,6 +1016,7 @@ module.exports = {
 		speed: {
 			camera: ['P400', 'P4K'],
 			firmware: ['4', '5'],
+			store_state: true,
 			variable_name: 'speed',
 			variable_label: `White Balance - Speed`,
 			action: [
@@ -966,6 +1039,7 @@ module.exports = {
 		wb_mode: {
 			camera: ['All'],
 			firmware: ['4', '5'],
+			store_state: true,
 			variable_name: 'wb_mode',
 			variable_label: `White Balance - White Balance Mode`,
 			action: [
@@ -988,6 +1062,7 @@ module.exports = {
 		backlight_com: {
 			camera: ['P200A2A3', 'P200A4A5', 'A200GEN1', 'A200GEN2', 'A300GEN1', 'A300GEN2'],
 			firmware: ['4', '5'],
+			store_state: true,
 			variable_name: 'backlight_com',
 			variable_label: `Picture Setup - Backlight Compensation`,
 			action: [
@@ -1000,6 +1075,7 @@ module.exports = {
 		chroma_suppress: {
 			camera: ['P200A2A3', 'P200A4A5', 'A200GEN1', 'A200GEN2', 'A300GEN1', 'A300GEN2', 'P400', 'P4K'],
 			firmware: ['4', '5'],
+			store_state: true,
 			variable_name: 'chroma_suppress',
 			variable_label: `Picture Setup - Chroma Suppress`,
 			action: [
@@ -1012,6 +1088,7 @@ module.exports = {
 		color: {
 			camera: ['P100', 'PF120'],
 			firmware: ['4', '5'],
+			store_state: true,
 			variable_name: 'color',
 			variable_label: `Picture Setup - Saturation`,
 			action: [
@@ -1024,6 +1101,7 @@ module.exports = {
 		contrast: {
 			camera: ['P100', 'PF120'],
 			firmware: ['4', '5'],
+			store_state: true,
 			variable_name: 'contrast',
 			variable_label: `Picture Setup - Contrast`,
 			action: [
@@ -1036,6 +1114,7 @@ module.exports = {
 		gamma: {
 			camera: ['P100', 'PF120', 'P200A2A3', 'P200A4A5', 'A200GEN1', 'A200GEN2', 'A300GEN1', 'A300GEN2'],
 			firmware: ['4', '5'],
+			store_state: true,
 			variable_name: 'gamma',
 			variable_label: `Picture Setup - Gamma`,
 			action: [
@@ -1048,6 +1127,7 @@ module.exports = {
 		highlight_comp: {
 			camera: ['P200A2A3', 'P200A4A5', 'A200GEN1', 'A200GEN2', 'A300GEN1', 'A300GEN2', 'P400', 'P4K'],
 			firmware: ['4', '5'],
+			store_state: true,
 			variable_name: 'highlight_comp',
 			variable_label: `Picture Setup - Highlight Compensation`,
 			action: [
@@ -1060,6 +1140,7 @@ module.exports = {
 		highlight_comp_mask: {
 			camera: ['P200A2A3', 'P200A4A5', 'A200GEN1', 'A200GEN2', 'A300GEN1', 'A300GEN2'],
 			firmware: ['4', '5'],
+			store_state: true,
 			variable_name: 'highlight_comp_mask',
 			variable_label: `Picture Setup - Highlight Compensation Mask`,
 			action: [
@@ -1072,6 +1153,7 @@ module.exports = {
 		hue: {
 			camera: ['P100', 'PF120'],
 			firmware: ['4', '5'],
+			store_state: true,
 			variable_name: 'hue',
 			variable_label: `Picture Setup - Hue`,
 			action: [
@@ -1084,6 +1166,7 @@ module.exports = {
 		ir_cutfilter: {
 			camera: ['P200A2A3', 'P200A4A5', 'A200GEN1', 'A200GEN2', 'A300GEN1', 'A300GEN2', 'P400', 'P4K'],
 			firmware: ['4', '5'],
+			store_state: true,
 			variable_name: 'ir_cutfilter',
 			variable_label: `Picture Setup - IR Cut Filter`,
 			action: [
@@ -1104,6 +1187,7 @@ module.exports = {
 		low_latency: {
 			camera: ['P200A4A5'],
 			firmware: ['4', '5'],
+			store_state: true,
 			variable_name: 'low_latency',
 			variable_label: 'Picture Setup - Low Latency',
 			action: [
@@ -1116,6 +1200,7 @@ module.exports = {
 		nd_filter: {
 			camera: ['P4K'],
 			firmware: ['4', '5'],
+			store_state: true,
 			variable_name: 'nd_filter',
 			variable_label: 'Picture Setup - ND Filter',
 			action: [
@@ -1128,6 +1213,7 @@ module.exports = {
 		noise_reduction: {
 			camera: ['P100', 'PF120', 'P200A2A3', 'P200A4A5', 'A200GEN1', 'A200GEN2', 'A300GEN1', 'A300GEN2'],
 			firmware: ['4', '5'],
+			store_state: true,
 			variable_name: 'noise_reduction',
 			variable_label: `Picture Setup - Noise Reduction`,
 			action: [
@@ -1140,6 +1226,7 @@ module.exports = {
 		picFlip: {
 			camera: ['All'],
 			firmware: ['4', '5'],
+			store_state: true,
 			variable_name: 'flip',
 			variable_label: `Picture Setup - Flip`,
 			action: [
@@ -1152,6 +1239,7 @@ module.exports = {
 		picMirror: {
 			camera: ['All'],
 			firmware: ['4', '5'],
+			store_state: true,
 			variable_name: 'mirror',
 			variable_label: `Picture Setup - Mirror`,
 			action: [
@@ -1164,6 +1252,7 @@ module.exports = {
 		pictureEffect: {
 			camera: ['P100', 'PF120', 'P200A2A3', 'P200A4A5', 'A200GEN1', 'A200GEN2', 'A300GEN1', 'A300GEN2'],
 			firmware: ['4', '5'],
+			store_state: true,
 			variable_name: 'effect',
 			variable_label: `Picture Setup - Effect`,
 			action: [
@@ -1176,6 +1265,7 @@ module.exports = {
 		sharpness: {
 			camera: ['P100', 'PF120', 'P200A2A3', 'P200A4A5', 'A200GEN1', 'A200GEN2', 'A300GEN1', 'A300GEN2'],
 			firmware: ['4', '5'],
+			store_state: true,
 			variable_name: 'sharpness',
 			variable_label: `Picture Setup - Sharpness`,
 			action: [
@@ -1196,6 +1286,7 @@ module.exports = {
 		stabilizer: {
 			camera: ['P200A2A3', 'P200A4A5', 'A200GEN1', 'A200GEN2', 'A300GEN1', 'A300GEN2', 'P400', 'P4K'],
 			firmware: ['4', '5'],
+			store_state: true,
 			variable_name: 'stabilizer',
 			variable_label: `Picture Setup - Stabilizer`,
 			action: [
@@ -1208,6 +1299,7 @@ module.exports = {
 		threed_nr: {
 			camera: ['P400', 'P4K'],
 			firmware: ['4', '5'],
+			store_state: true,
 			variable_name: 'threed_nr',
 			variable_label: `Picture Setup - 3D Noise Reduction`,
 			action: [
@@ -1220,6 +1312,7 @@ module.exports = {
 		twod_nr: {
 			camera: ['P400', 'P4K'],
 			firmware: ['4', '5'],
+			store_state: true,
 			variable_name: 'twod_nr',
 			variable_label: `Picture Setup - 2D Noise Reduction`,
 			action: [
@@ -1232,6 +1325,7 @@ module.exports = {
 		wide_dynamic_range: {
 			camera: ['P100', 'PF120'],
 			firmware: ['4', '5'],
+			store_state: true,
 			variable_name: 'wide_dynamic_range',
 			variable_label: `Picture Setup - Wide Dynamic Range`,
 			action: [
@@ -1246,6 +1340,7 @@ module.exports = {
 		cm_blue_gain: {
 			camera: ['P100', 'PF120', 'P200A2A3', 'P200A4A5', 'A200GEN1', 'A200GEN2', 'A300GEN1', 'A300GEN2'],
 			firmware: ['4', '5'],
+			store_state: true,
 			variable_name: 'cm_blue_gain',
 			variable_label: 'Color Matrix - Blue Gain',
 			action: [
@@ -1258,6 +1353,7 @@ module.exports = {
 		cm_blue_hue: {
 			camera: ['P100', 'PF120', 'P200A2A3', 'P200A4A5', 'A200GEN1', 'A200GEN2', 'A300GEN1', 'A300GEN2'],
 			firmware: ['4', '5'],
+			store_state: true,
 			variable_name: 'cm_blue_hue',
 			variable_label: 'Color Matrix - Blue Hue',
 			action: [
@@ -1270,6 +1366,7 @@ module.exports = {
 		cm_color_gain: {
 			camera: ['P200A2A3', 'P200A4A5', 'A200GEN1', 'A200GEN2', 'A300GEN1', 'A300GEN2'],
 			firmware: ['4', '5'],
+			store_state: true,
 			variable_name: 'cm_color_gain',
 			variable_label: 'Color Matrix - Color Gain',
 			action: [
@@ -1282,6 +1379,7 @@ module.exports = {
 		cm_cyan_gain: {
 			camera: ['P100', 'PF120', 'P200A2A3', 'P200A4A5', 'A200GEN1', 'A200GEN2', 'A300GEN1', 'A300GEN2'],
 			firmware: ['4', '5'],
+			store_state: true,
 			variable_name: 'cm_cyan_gain',
 			variable_label: 'Color Matrix - Cyan Gain',
 			action: [
@@ -1294,6 +1392,7 @@ module.exports = {
 		cm_cyan_hue: {
 			camera: ['P100', 'PF120', 'P200A2A3', 'P200A4A5', 'A200GEN1', 'A200GEN2', 'A300GEN1', 'A300GEN2'],
 			firmware: ['4', '5'],
+			store_state: true,
 			variable_name: 'cm_cyan_hue',
 			variable_label: 'Color Matrix - Cyan Hue',
 			action: [
@@ -1306,6 +1405,7 @@ module.exports = {
 		cm_green_gain: {
 			camera: ['P100', 'PF120', 'P200A2A3', 'P200A4A5', 'A200GEN1', 'A200GEN2', 'A300GEN1', 'A300GEN2'],
 			firmware: ['4', '5'],
+			store_state: true,
 			variable_name: 'cm_green_gain',
 			variable_label: 'Color Matrix - Green Gain',
 			action: [
@@ -1318,6 +1418,7 @@ module.exports = {
 		cm_green_hue: {
 			camera: ['P100', 'PF120', 'P200A2A3', 'P200A4A5', 'A200GEN1', 'A200GEN2', 'A300GEN1', 'A300GEN2'],
 			firmware: ['4', '5'],
+			store_state: true,
 			variable_name: 'cm_green_hue',
 			variable_label: 'Color Matrix - Green Hue',
 			action: [
@@ -1330,6 +1431,7 @@ module.exports = {
 		cm_hue_phase: {
 			camera: ['P200A2A3', 'P200A4A5', 'A200GEN1', 'A200GEN2', 'A300GEN1', 'A300GEN2'],
 			firmware: ['4', '5'],
+			store_state: true,
 			variable_name: 'cm_hue_phase',
 			variable_label: 'Color Matrix - Hue Phase',
 			action: [
@@ -1342,6 +1444,7 @@ module.exports = {
 		cm_mag_gain: {
 			camera: ['P100', 'PF120', 'P200A2A3', 'P200A4A5', 'A200GEN1', 'A200GEN2', 'A300GEN1', 'A300GEN2'],
 			firmware: ['4', '5'],
+			store_state: true,
 			variable_name: 'cm_mag_gain',
 			variable_label: 'Color Matrix - Magenta Gain',
 			action: [
@@ -1354,6 +1457,7 @@ module.exports = {
 		cm_mag_hue: {
 			camera: ['P100', 'PF120', 'P200A2A3', 'P200A4A5', 'A200GEN1', 'A200GEN2', 'A300GEN1', 'A300GEN2'],
 			firmware: ['4', '5'],
+			store_state: true,
 			variable_name: 'cm_mag_hue',
 			variable_label: 'Color Matrix - Magenta Hue',
 			action: [
@@ -1366,6 +1470,7 @@ module.exports = {
 		cm_red_gain: {
 			camera: ['P100', 'PF120', 'P200A2A3', 'P200A4A5', 'A200GEN1', 'A200GEN2', 'A300GEN1', 'A300GEN2'],
 			firmware: ['4', '5'],
+			store_state: true,
 			variable_name: 'cm_red_gain',
 			variable_label: 'Color Matrix - Red Gain',
 			action: [
@@ -1378,6 +1483,7 @@ module.exports = {
 		cm_red_hue: {
 			camera: ['P100', 'PF120', 'P200A2A3', 'P200A4A5', 'A200GEN1', 'A200GEN2', 'A300GEN1', 'A300GEN2'],
 			firmware: ['4', '5'],
+			store_state: true,
 			variable_name: 'cm_red_hue',
 			variable_label: 'Color Matrix - Red Hue',
 			action: [
@@ -1390,6 +1496,7 @@ module.exports = {
 		cm_yellow_gain: {
 			camera: ['P100', 'PF120', 'P200A2A3', 'P200A4A5', 'A200GEN1', 'A200GEN2', 'A300GEN1', 'A300GEN2'],
 			firmware: ['4', '5'],
+			store_state: true,
 			variable_name: 'cm_yellow_gain',
 			variable_label: 'Color Matrix - Yellow Gain',
 			action: [
@@ -1402,6 +1509,7 @@ module.exports = {
 		cm_yellow_hue: {
 			camera: ['P100', 'PF120', 'P200A2A3', 'P200A4A5', 'A200GEN1', 'A200GEN2', 'A300GEN1', 'A300GEN2'],
 			firmware: ['4', '5'],
+			store_state: true,
 			variable_name: 'cm_yellow_hue',
 			variable_label: 'Color Matrix - Yellow Hue',
 			action: [
@@ -1416,6 +1524,7 @@ module.exports = {
 		brightness: {
 			camera: ['P200A2A3', 'P200A4A5', 'A200GEN1', 'A200GEN2', 'A300GEN1', 'A300GEN2'],
 			firmware: ['4', '5'],
+			store_state: true,
 			variable_name: 'brightness',
 			variable_label: 'Advanced Setup - Brightness',
 			action: [
@@ -1428,6 +1537,7 @@ module.exports = {
 		brightness_comp: {
 			camera: ['P200A2A3', 'P200A4A5', 'A200GEN1', 'A200GEN2', 'A300GEN1', 'A300GEN2'],
 			firmware: ['4', '5'],
+			store_state: true,
 			variable_name: 'brightness_comp',
 			variable_label: 'Advanced Setup - Brightness Comp',
 			action: [
@@ -1440,6 +1550,7 @@ module.exports = {
 		comp_level: {
 			camera: ['P200A2A3', 'P200A4A5', 'A200GEN1', 'A200GEN2', 'A300GEN1', 'A300GEN2'],
 			firmware: ['4', '5'],
+			store_state: true,
 			variable_name: 'comp_level',
 			variable_label: 'Advanced Setup - Comp Level',
 			action: [
@@ -1452,6 +1563,7 @@ module.exports = {
 		gamma_offset: {
 			camera: ['P200A2A3', 'P200A4A5', 'A200GEN1', 'A200GEN2', 'A300GEN1', 'A300GEN2'],
 			firmware: ['4', '5'],
+			store_state: true,
 			variable_name: 'gamma_offset',
 			variable_label: 'Advanced Setup - Gamma Offset',
 			action: [
@@ -1464,6 +1576,7 @@ module.exports = {
 		high_resolution: {
 			camera: ['P200A2A3', 'P200A4A5', 'A200GEN1', 'A200GEN2', 'A300GEN1', 'A300GEN2'],
 			firmware: ['4', '5'],
+			store_state: true,
 			variable_name: 'high_resolution',
 			variable_label: 'Advanced Setup - High Resolution',
 			action: [
@@ -1476,6 +1589,7 @@ module.exports = {
 		video_enhancement: {
 			camera: ['P200A2A3', 'P200A4A5', 'A200GEN1', 'A200GEN2', 'A300GEN1', 'A300GEN2'],
 			firmware: ['4', '5'],
+			store_state: true,
 			variable_name: 'video_enhancement',
 			variable_label: 'Advanced Setup - Video Enhancement',
 			action: [
@@ -1490,6 +1604,7 @@ module.exports = {
 		aux: {
 			camera: ['A200GEN1', 'A200GEN2', 'A300GEN1', 'A300GEN2'],
 			firmware: ['4', '5'],
+			store_state: true,
 			variable_name: 'aux',
 			variable_label: 'External Setup - Aux',
 			action: [
@@ -1502,6 +1617,7 @@ module.exports = {
 		rain_wiper: {
 			camera: ['A300GEN1', 'A300GEN2'],
 			firmware: ['4', '5'],
+			store_state: true,
 			variable_name: 'rain_wiper',
 			variable_label: 'External Setup - Rain Wiper',
 			action: [
@@ -1514,6 +1630,7 @@ module.exports = {
 		v12vout: {
 			camera: ['A200GEN1', 'A200GEN2', 'A300GEN1', 'A300GEN2'],
 			firmware: ['4', '5'],
+			store_state: true,
 			variable_name: 'v12vout',
 			variable_label: 'External Setup - 12v Out',
 			action: [
@@ -1528,6 +1645,7 @@ module.exports = {
 		bandwidth: {
 			camera: ['P400', 'P4K'],
 			firmware: ['4', '5'],
+			store_state: true,
 			variable_name: 'bandwidth',
 			variable_label: `Detail Setup - Bandwidth`,
 			action: [
@@ -1540,6 +1658,7 @@ module.exports = {
 		bw_balance: {
 			camera: ['P400', 'P4K'],
 			firmware: ['4', '5'],
+			store_state: true,
 			variable_name: 'bw_balance',
 			variable_label: `Detail Setup - BW Balance`,
 			action: [
@@ -1552,6 +1671,7 @@ module.exports = {
 		crispening: {
 			camera: ['P400', 'P4K'],
 			firmware: ['4', '5'],
+			store_state: true,
 			variable_name: 'crispening',
 			variable_label: `Detail Setup - Crispening`,
 			action: [
@@ -1564,6 +1684,7 @@ module.exports = {
 		detail: {
 			camera: ['P400', 'P4K'],
 			firmware: ['4', '5'],
+			store_state: true,
 			variable_name: 'detail',
 			variable_label: `Detail Setup - Detail`,
 			action: [
@@ -1576,6 +1697,7 @@ module.exports = {
 		highlight_detail: {
 			camera: ['P400', 'P4K'],
 			firmware: ['4', '5'],
+			store_state: true,
 			variable_name: 'highlight_detail',
 			variable_label: `Detail Setup - Highlight Detail`,
 			action: [
@@ -1588,6 +1710,7 @@ module.exports = {
 		hv_balance: {
 			camera: ['P400', 'P4K'],
 			firmware: ['4', '5'],
+			store_state: true,
 			variable_name: 'hv_balance',
 			variable_label: `Detail Setup - Hv Balance`,
 			action: [
@@ -1600,6 +1723,7 @@ module.exports = {
 		limit: {
 			camera: ['P400', 'P4K'],
 			firmware: ['4', '5'],
+			store_state: true,
 			variable_name: 'limit',
 			variable_label: `Detail Setup - Limit`,
 			action: [
@@ -1612,6 +1736,7 @@ module.exports = {
 		super_low: {
 			camera: ['P400', 'P4K'],
 			firmware: ['4', '5'],
+			store_state: true,
 			variable_name: 'super_low',
 			variable_label: `Detail Setup - Super Low`,
 			action: [
@@ -1626,6 +1751,7 @@ module.exports = {
 		black_gamma_level: {
 			camera: ['P400', 'P4K'],
 			firmware: ['4', '5'],
+			store_state: true,
 			variable_name: 'black_gamma_level',
 			variable_label: `Gamma Setup - Black Gamma Level`,
 			action: [
@@ -1638,6 +1764,7 @@ module.exports = {
 		black_level: {
 			camera: ['P400', 'P4K'],
 			firmware: ['4', '5'],
+			store_state: true,
 			variable_name: 'black_level',
 			variable_label: `Gamma Setup - Black Level`,
 			action: [
@@ -1650,6 +1777,7 @@ module.exports = {
 		black_level_range: {
 			camera: ['P400', 'P4K'],
 			firmware: ['4', '5'],
+			store_state: true,
 			variable_name: 'black_level_range',
 			variable_label: `Gamma Setup - Black Level Range`,
 			action: [
@@ -1662,6 +1790,7 @@ module.exports = {
 		effect: {
 			camera: ['P400', 'P4K'],
 			firmware: ['4', '5'],
+			store_state: true,
 			variable_name: 'effect',
 			variable_label: `Gamma Setup - Effect`,
 			action: [
@@ -1674,6 +1803,7 @@ module.exports = {
 		level: {
 			camera: ['P400', 'P4K'],
 			firmware: ['4', '5'],
+			store_state: true,
 			variable_name: 'level',
 			variable_label: `Gamma Setup - Level`,
 			action: [
@@ -1686,6 +1816,7 @@ module.exports = {
 		offset: {
 			camera: ['P400', 'P4K'],
 			firmware: ['4', '5'],
+			store_state: true,
 			variable_name: 'offset',
 			variable_label: `Gamma Setup - Offset`,
 			action: [
@@ -1698,6 +1829,7 @@ module.exports = {
 		pattern: {
 			camera: ['P400', 'P4K'],
 			firmware: ['4', '5'],
+			store_state: true,
 			variable_name: 'pattern',
 			variable_label: `Gamma Setup - Pattern`,
 			action: [
@@ -1710,6 +1842,7 @@ module.exports = {
 		pattern_fine: {
 			camera: ['P400', 'P4K'],
 			firmware: ['4', '5'],
+			store_state: true,
 			variable_name: 'pattern_fine',
 			variable_label: `Gamma Setup - Pattern Fine`,
 			action: [
@@ -1722,6 +1855,7 @@ module.exports = {
 		settings: {
 			camera: ['P400', 'P4K'],
 			firmware: ['4', '5'],
+			store_state: true,
 			variable_name: 'settings',
 			variable_label: `Gamma Setup - Settings`,
 			action: [
@@ -1734,6 +1868,7 @@ module.exports = {
 		visibility_enhancer: {
 			camera: ['P400', 'P4K'],
 			firmware: ['4', '5'],
+			store_state: true,
 			variable_name: 'visibility_enhancer',
 			variable_label: `Gamma Setup - Visibilty Enhancer`,
 			action: [
