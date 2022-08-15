@@ -1969,19 +1969,19 @@ class instance extends instance_skel {
 		let changed
 		switch (cmd.slice(cmd.lastIndexOf('/') + 1)) {
 			case 'about':
-				changed = this.storeState(data)
+				changed = this.storeState(data, 'about')
 				this.camera.about = data
 				break
 			case 'analogaudiosetup':
-				changed = this.storeState(data)
+				changed = this.storeState(data, 'analogaudiosetup')
 				this.camera.audio = data
 				break
 			case 'videooutputinterface':
-				changed = this.storeState(data)
+				changed = this.storeState(data, 'videooutputinterface')
 				this.camera.video = data
 				break
 			case 'encodesetup':
-				changed = this.storeState(data)
+				changed = this.storeState(data, 'encodesetup')
 				let match = data.VideoFormat.match(/\d+\D(\S*)/) // match the framerate
 				if (this.camera?.shutter_table) {
 					switch (match[1]) {
@@ -2013,19 +2013,19 @@ class instance extends instance_skel {
 				this.camera.encode = data
 				break
 			case 'encodetransport':
-				changed = this.storeState(data)
+				changed = this.storeState(data, 'encodetransport')
 				this.camera.transport = data
 				break
 			case 'NDIDisServer':
-				changed = this.storeState(data)
+				changed = this.storeState(data, 'NDIDisServer')
 				this.camera.ndiserver = data
 				break
 			case 'birddogptzsetup':
-				changed = this.storeState(data)
+				changed = this.storeState(data, 'birddogptzsetup')
 				this.camera.ptz = data
 				break
 			case 'birddogexpsetup':
-				changed = this.storeState(data)
+				changed = this.storeState(data, 'birddogexpsetup')
 
 				if (changed.includes('gain_limit')) {
 					// rebuild actions as GainLimit has changed
@@ -2047,31 +2047,31 @@ class instance extends instance_skel {
 				this.camera.expsetup = data
 				break
 			case 'birddogwbsetup':
-				changed = this.storeState(data)
+				changed = this.storeState(data, 'birddogwbsetup')
 				this.camera.wbsetup = data
 				break
 			case 'birddogpicsetup':
-				changed = this.storeState(data)
+				changed = this.storeState(data, 'birddogpicsetup')
 				this.camera.picsetup = data
 				break
 			case 'birddogcmsetup':
-				changed = this.storeState(data)
+				changed = this.storeState(data, 'birddogcmsetup')
 				this.camera.cmsetup = data
 				break
 			case 'birddogadvancesetup':
-				changed = this.storeState(data)
+				changed = this.storeState(data, 'birddogadvancesetup')
 				this.camera.advancesetup = data
 				break
 			case 'birddogexternalsetup':
-				changed = this.storeState(data)
+				changed = this.storeState(data, 'birddogexternalsetup')
 				this.camera.externalsetup = data
 				break
 			case 'birddogdetsetup':
-				changed = this.storeState(data)
+				changed = this.storeState(data, 'birddogdetsetup')
 				this.camera.detsetup = data
 				break
 			case 'birddoggammasetup':
-				changed = this.storeState(data)
+				changed = this.storeState(data, 'birddoggammasetup')
 				this.camera.gammasetup = data
 				break
 		}
@@ -2473,16 +2473,17 @@ class instance extends instance_skel {
 		this.debug('---- Initial State for camera', this.camera)
 	}
 
-	storeState(data) {
+	storeState(data, endpoint) {
 		// Returns an array of this.camera keys that have been changed
 		let changed = []
 		Object.entries(data).forEach((element) => {
 			let stored = Object.entries(MODEL_SPECS).find(
 				(array) =>
 					// find location in this.camera to store API variable
-					// based on: All cameras or Model matches, FW matches and api_variable matches API element
+					// based on: All cameras or Model matches, FW matches, api_endpoint matches & api_variable matches API element
 					(array[1].camera.includes(this.camera.model) || array[1].camera.includes('All')) &&
 					array[1].firmware.includes(this.camera.firmware.major) &&
+					array[1]?.api_endpoint?.includes(endpoint) &&
 					array[1]?.api_variable?.includes(element[0])
 			)
 			if (!stored) {
