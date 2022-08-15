@@ -731,7 +731,7 @@ module.exports = {
 						type: 'dropdown',
 						label: 'Value',
 						id: 'value',
-						choices: MODEL_ACTIONS.shut?.['shutter_' + [this.camera.framerate]].slice(
+						choices: MODEL_ACTIONS.shut?.['shutter_' + [this.camera.shutter_table]].slice(
 							MODEL_ACTIONS.shutter_max_speed.range.min,
 							MODEL_ACTIONS.shutter_max_speed.range.max + 1
 						),
@@ -757,7 +757,7 @@ module.exports = {
 						type: 'dropdown',
 						label: 'Value',
 						id: 'value',
-						choices: MODEL_ACTIONS.shut?.['shutter_' + [this.camera.framerate]].slice(
+						choices: MODEL_ACTIONS.shut?.['shutter_' + [this.camera.shutter_table]].slice(
 							MODEL_ACTIONS.shutter_min_speed.range.min,
 							parseInt(this.camera.expsetup?.ShutterMaxSpeed, 10) + 1
 						),
@@ -783,7 +783,7 @@ module.exports = {
 						type: 'dropdown',
 						label: 'Value',
 						id: 'value',
-						choices: MODEL_ACTIONS.shutter_speed?.['shutter_' + [this.camera.framerate]],
+						choices: MODEL_ACTIONS.shutter_speed?.['shutter_' + [this.camera.shutter_table]],
 						default: MODEL_ACTIONS.shutter_speed.default,
 						isVisible: (action) => action.options.val === 'value',
 					},
@@ -842,7 +842,7 @@ module.exports = {
 						type: 'dropdown',
 						label: 'Value',
 						id: 'value',
-						choices: MODEL_ACTIONS.shutter_speed?.['shutter_' + [this.camera.framerate]].slice(
+						choices: MODEL_ACTIONS.shutter_speed?.['shutter_' + [this.camera.shutter_table]].slice(
 							MODEL_ACTIONS.slow_shutter_limit.range.min,
 							MODEL_ACTIONS.slow_shutter_limit.range.max + 1
 						),

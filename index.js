@@ -1966,74 +1966,112 @@ class instance extends instance_skel {
 	}
 
 	processData(cmd, data) {
+		let changed
 		switch (cmd.slice(cmd.lastIndexOf('/') + 1)) {
 			case 'about':
+				changed = this.storeState(data)
 				this.camera.about = data
 				break
 			case 'analogaudiosetup':
+				changed = this.storeState(data)
 				this.camera.audio = data
 				break
 			case 'videooutputinterface':
+				changed = this.storeState(data)
 				this.camera.video = data
 				break
-			case 'encodetransport':
-				this.camera.transport = data
-				break
 			case 'encodesetup':
-				if (!this.camera?.encode || this.camera?.encode?.VideoFormat !== data.VideoFormat) {
-					if (data.VideoFormat.match('24')) {
-						this.camera.framerate = 24
-					} else if (data.VideoFormat.match('25') || data.VideoFormat.match('50')) {
-						this.camera.framerate = 50
-					} else {
-						this.camera.framerate = 60
-					}
-					this.actions()
+				changed = this.storeState(data)
+				let match = data.VideoFormat.match(/\d+\D(\S*)/) // match the framerate
+				if (this.camera?.shutter_table) {
+					switch (match[1]) {
+						// If the current stored framerate doesn't match the camera framerate, change the stored framerate and repopulate actions
+						case '23.98':
+						case '24':
+							if (!(this.camera.shutter_table === '24')) {
+								this.camera.shutter_table = '24'
+								this.actions()
+							}
+							break
+						case '25':
+						case '50':
+							if (!(this.camera.shutter_table === '50')) {
+								this.camera.shutter_table = '50'
+								this.actions()
+							}
+							break
+						default:
+							if (!(this.camera.shutter_table === '60')) {
+								this.camera.shutter_table = '60'
+								this.actions()
+							}
+							break
+					}}
+				if (this.camera?.framerate) {
+					this.camera.framerate = match[1]
 				}
 				this.camera.encode = data
 				break
+			case 'encodetransport':
+				changed = this.storeState(data)
+				this.camera.transport = data
+				break
 			case 'NDIDisServer':
+				changed = this.storeState(data)
 				this.camera.ndiserver = data
 				break
 			case 'birddogptzsetup':
+				changed = this.storeState(data)
 				this.camera.ptz = data
 				break
 			case 'birddogexpsetup':
-				if (this.camera.expsetup?.GainLimit && this.camera.expsetup.GainLimit !== data.GainLimit) {
-					// rebuild actions if GainLimit has changed
+				changed = this.storeState(data)
+
+				if (changed.includes('gain_limit')) {
+					// rebuild actions as GainLimit has changed
 					console.log('-----Gain Limit changed')
-					this.camera.expsetup.GainLimit = data.GainLimit
 					this.actions()
-				} else if (
-					this.camera.expsetup?.ShutterMaxSpeed &&
-					this.camera.expsetup.ShutterMaxSpeed !== data.ShutterMaxSpeed
-				) {
-					// rebuild actions if ShutterMaxSpeed has changed
+				}
+
+				if (changed.includes('shutter_max_speed')) {
+					// rebuild actions as GainLimit has changed
 					console.log('-----ShutterMaxSpeed changed')
-					this.camera.expsetup.ShutterMaxSpeed = data.ShutterMaxSpeed
+					this.actions()
+				}
+
+				if (changed.includes('shutter_min_speed')) {
+					// rebuild actions as GainLimit has changed
+					console.log('-----ShutterMinSpeed changed')
 					this.actions()
 				}
 				this.camera.expsetup = data
 				break
 			case 'birddogwbsetup':
+				changed = this.storeState(data)
 				this.camera.wbsetup = data
 				break
 			case 'birddogpicsetup':
+				changed = this.storeState(data)
 				this.camera.picsetup = data
 				break
-			case '/birddogcmsetup':
+			case 'birddogcmsetup':
+				changed = this.storeState(data)
 				this.camera.cmsetup = data
 				break
 			case 'birddogadvancesetup':
+				changed = this.storeState(data)
 				this.camera.advancesetup = data
 				break
 			case 'birddogexternalsetup':
+				changed = this.storeState(data)
 				this.camera.externalsetup = data
 				break
 			case 'birddogdetsetup':
+				changed = this.storeState(data)
 				this.camera.detsetup = data
 				break
 			case 'birddoggammasetup':
+				changed = this.storeState(data)
 				this.camera.gammasetup = data
 				break
 		}
@@ -2081,9 +2119,9 @@ class instance extends instance_skel {
 				break
 			case '5a': // Query Auto Focus mode
 				if (data[8] == 0x90 && data[9] == 0x50 && data[10] == 0x02 && data[11] == 0xff) {
-					this.camera.focus = JSON.parse('{"mode":"Auto"}')
+					this.camera.focusM = 'Auto'
 				} else if (data[8] == 0x90 && data[9] == 0x50 && data[10] == 0x03 && data[11] == 0xff) {
-					this.camera.focus = JSON.parse('{"mode":"Manual"}')
+					this.camera.focusM = 'Manual'
 				}
 				break
 			case '5b': // Query Freeze Status
@@ -2095,15 +2133,15 @@ class instance extends instance_skel {
 				break
 			case '5c': // Query Zoom Position
 				if (data[8] == 0x90 && data[9] == 0x50 && data[14] == 0xff) {
-					this.camera.position.zoom =
+					this.camera.zoom_position =
 						data[10].toString(16) + data[11].toString(16) + data[12].toString(16) + data[13].toString(16)
 				}
 				break
 			case '5d': // Query Pan/Tilt Position
 				if (data[8] == 0x90 && data[9] == 0x50 && data[18] == 0xff) {
-					this.camera.position.pan =
+					this.camera.pan_position =
 						data[10].toString(16) + data[11].toString(16) + data[12].toString(16) + data[13].toString(16)
-					this.camera.position.tilt =
+					this.camera.tilt_position =
 						data[14].toString(16) + data[15].toString(16) + data[16].toString(16) + data[17].toString(16)
 				}
 				break
@@ -2425,14 +2463,37 @@ class instance extends instance_skel {
 		this.camera.model = model
 		this.camera.firmware.major = FW_major
 		this.camera.firmware.minor = FW_minor
-		this.camera.pt = { pan: '0000', tilt: '0000' }
-		this.camera.zoom = '0000'
-		this.camera.framerate = 50
+		//this.camera.pt = { pan: '0000', tilt: '0000' }
+		//this.camera.zoom = '0000'
+		this.camera.shutter_table = 60 // Camera defaults to 59.94 on startup
 
 		// Old defaults
-		this.camera.position = { pan: '0000', tilt: '0000', zoom: '0000' }
+		//this.camera.position = { pan: '0000', tilt: '0000', zoom: '0000' }
 
 		this.debug('---- Initial State for camera', this.camera)
+	}
+
+	storeState(data) {
+		// Returns an array of this.camera keys that have been changed
+		let changed = []
+		Object.entries(data).forEach((element) => {
+			let stored = Object.entries(MODEL_SPECS).find(
+				(array) =>
+					// find location in this.camera to store API variable
+					// based on: All cameras or Model matches, FW matches and api_variable matches API element
+					(array[1].camera.includes(this.camera.model) || array[1].camera.includes('All')) &&
+					array[1].firmware.includes(this.camera.firmware.major) &&
+					array[1]?.api_variable?.includes(element[0])
+			)
+			if (!stored) {
+				this.log('warn', `Unknown API variable:  ${element[0]}`)
+				this.debug('---- Unknown API variable: ' + element[0])
+			} else if (this.camera[stored[0]] !== element[1]) {
+				changed.push(stored[0])
+				this.camera[stored[0]] = element[1]
+			}
+		})
+		return changed
 	}
 }
 

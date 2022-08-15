@@ -89,7 +89,7 @@ exports.initFeedbacks = function () {
 				},
 			],
 			callback: (feedback) => {
-				return this.camera?.audio?.AnalogAudioInGain == feedback.options.val
+				return this.camera?.analogAudioInGain == feedback.options.val
 			},
 		}
 	}
@@ -119,7 +119,7 @@ exports.initFeedbacks = function () {
 				},
 			],
 			callback: (feedback) => {
-				return this.camera?.audio?.AnalogAudioOutGain == feedback.options.val
+				return this.camera?.analogAudioOutGain == feedback.options.val
 			},
 		}
 	}
@@ -143,7 +143,7 @@ exports.initFeedbacks = function () {
 				},
 			],
 			callback: (feedback) => {
-				return this.camera?.audio?.AnalogAudiooutputselect == feedback.options.val
+				return this.camera?.analogAudioOutput == feedback.options.val
 			},
 		}
 	}
@@ -169,7 +169,7 @@ exports.initFeedbacks = function () {
 				},
 			],
 			callback: (feedback) => {
-				return this.camera?.video?.videooutput == feedback.options.val
+				return this.camera?.video_output == feedback.options.val
 			},
 		}
 	}
@@ -195,7 +195,7 @@ exports.initFeedbacks = function () {
 				},
 			],
 			callback: (feedback) => {
-				return this.camera?.encode?.BandwidthMode == feedback.options.val
+				return this.camera?.bandwidth_mode == feedback.options.val
 			},
 		}
 	}
@@ -219,7 +219,7 @@ exports.initFeedbacks = function () {
 				},
 			],
 			callback: (feedback) => {
-				return this.camera?.encode?.NDIAudio == feedback.options.val
+				return this.camera?.ndiAudio == feedback.options.val
 			},
 		}
 	}
@@ -243,7 +243,7 @@ exports.initFeedbacks = function () {
 				},
 			],
 			callback: (feedback) => {
-				return this.camera?.encode?.NDIGroup == feedback.options.val
+				return this.camera?.ndiGroupEnable == feedback.options.val
 			},
 		}
 	}
@@ -267,7 +267,7 @@ exports.initFeedbacks = function () {
 				},
 			],
 			callback: (feedback) => {
-				return this.camera?.encode?.TallyMode == feedback.options.mode
+				return this.camera?.tally == feedback.options.mode
 			},
 		}
 	}
@@ -293,7 +293,7 @@ exports.initFeedbacks = function () {
 				},
 			],
 			callback: (feedback) => {
-				return this.camera?.transport?.txpm == feedback.options.val
+				return this.camera?.transmit_method == feedback.options.val
 			},
 		}
 	}
@@ -319,7 +319,7 @@ exports.initFeedbacks = function () {
 				},
 			],
 			callback: (feedback) => {
-				return this.camera?.ndiserver?.NDIDisServ == feedback.options.val
+				return this.camera?.ndi_discovery_server == feedback.options.val
 			},
 		}
 	}
@@ -345,7 +345,7 @@ exports.initFeedbacks = function () {
 				},
 			],
 			callback: (feedback) => {
-				return this.camera?.position?.pan == feedback.options.posPan
+				return this.camera?.pan_position == feedback.options.posPan
 			},
 		}
 
@@ -367,7 +367,7 @@ exports.initFeedbacks = function () {
 				},
 			],
 			callback: (feedback) => {
-				return this.camera?.position?.tilt == feedback.options.posTilt
+				return this.camera?.tilt_position == feedback.options.posTilt
 			},
 		}
 	}
@@ -391,7 +391,7 @@ exports.initFeedbacks = function () {
 				},
 			],
 			callback: (feedback) => {
-				return this.camera?.position?.zoom == feedback.options.posZoom
+				return this.camera?.zoom_position == feedback.options.posZoom
 			},
 		}
 	}
@@ -416,7 +416,7 @@ exports.initFeedbacks = function () {
 				},
 			],
 			callback: (feedback) => {
-				return this.camera?.ptz?.PanSpeed == feedback.options.value
+				return this.camera?.panSpeed == feedback.options.value
 			},
 		}
 	}
@@ -441,7 +441,7 @@ exports.initFeedbacks = function () {
 				},
 			],
 			callback: (feedback) => {
-				return this.camera?.ptz?.PanSpeed == feedback.options.value
+				return this.camera?.tiltSpeed == feedback.options.value
 			},
 		}
 	}
@@ -466,7 +466,7 @@ exports.initFeedbacks = function () {
 				},
 			],
 			callback: (feedback) => {
-				return this.camera?.ptz?.PanSpeed == feedback.options.value
+				return this.camera?.zoomSpeed == feedback.options.value
 			},
 		}
 	}
@@ -492,7 +492,7 @@ exports.initFeedbacks = function () {
 				},
 			],
 			callback: (feedback) => {
-				return this.camera?.focus?.mode == feedback.options.mode
+				return this.camera?.focusM == feedback.options.mode
 			},
 		}
 	}
@@ -520,7 +520,7 @@ exports.initFeedbacks = function () {
 				},
 			],
 			callback: (feedback) => {
-				return this.camera?.expsetup?.AeResponse == feedback.options.level
+				return this.camera?.ae_response == feedback.options.level
 			},
 		}
 	}
@@ -544,7 +544,7 @@ exports.initFeedbacks = function () {
 				},
 			],
 			callback: (feedback) => {
-				return this.camera?.expsetup?.BackLight == feedback.options.mode
+				return this.camera?.backlight == feedback.options.mode
 			},
 		}
 	}
@@ -569,7 +569,7 @@ exports.initFeedbacks = function () {
 				},
 			],
 			callback: (feedback) => {
-				return this.camera?.expsetup?.BrightLevel == feedback.options.level
+				return this.camera?.bright_level == feedback.options.level
 			},
 		}
 	}
@@ -593,7 +593,7 @@ exports.initFeedbacks = function () {
 				},
 			],
 			callback: (feedback) => {
-				return this.camera?.expsetup?.ExpCompEn == feedback.options.mode
+				return this.camera?.expComp == feedback.options.mode
 			},
 		}
 	}
@@ -623,7 +623,7 @@ exports.initFeedbacks = function () {
 				},
 			],
 			callback: (feedback) => {
-				return this.camera?.expsetup?.ExpCompLvl == feedback.options.level
+				return this.camera?.expCompLvl == feedback.options.level
 			},
 		}
 	}
@@ -647,7 +647,7 @@ exports.initFeedbacks = function () {
 				},
 			],
 			callback: (feedback) => {
-				return this.camera?.expsetup?.ExpMode == feedback.options.mode
+				return this.camera?.exposure_mode == feedback.options.mode
 			},
 		}
 	}
@@ -671,7 +671,7 @@ exports.initFeedbacks = function () {
 				},
 			],
 			callback: (feedback) => {
-				return this.camera?.expsetup?.GainLevel == feedback.options.gain
+				return this.camera?.gain == feedback.options.gain
 			},
 		}
 	}
@@ -698,7 +698,7 @@ exports.initFeedbacks = function () {
 				},
 			],
 			callback: (feedback) => {
-				return this.camera?.expsetup?.GainLimit == feedback.options.gain
+				return this.camera?.gain_limit == feedback.options.gain
 			},
 		}
 	}
@@ -722,12 +722,12 @@ exports.initFeedbacks = function () {
 				},
 			],
 			callback: (feedback) => {
-				return this.camera?.expsetup?.GainPoint == feedback.options.val
+				return this.camera?.gain_point == feedback.options.val
 			},
 		}
 	}
 
-	if (MODEL_ACTIONS?.gain_point) {
+	if (MODEL_ACTIONS?.gain_point_position) {
 		feedbacks.gain_point_position = {
 			type: 'boolean',
 			label: 'Exposure - Gain Point Position',
@@ -746,7 +746,7 @@ exports.initFeedbacks = function () {
 				},
 			],
 			callback: (feedback) => {
-				return this.camera?.expsetup?.GainPointPosition == feedback.options.gain
+				return this.camera?.gain_point_position == feedback.options.gain
 			},
 		}
 	}
@@ -770,7 +770,7 @@ exports.initFeedbacks = function () {
 				},
 			],
 			callback: (feedback) => {
-				return this.camera?.expsetup?.high_sensitivity == feedback.options.val
+				return this.camera?.high_sensitivity == feedback.options.val
 			},
 		}
 	}
@@ -794,7 +794,7 @@ exports.initFeedbacks = function () {
 				},
 			],
 			callback: (feedback) => {
-				return this.camera?.expsetup?.IrisLevel == feedback.options.val
+				return this.camera?.iris == feedback.options.val
 			},
 		}
 	}
@@ -818,7 +818,7 @@ exports.initFeedbacks = function () {
 				},
 			],
 			callback: (feedback) => {
-				return this.camera?.expsetup?.ShutterControlOverwrite == feedback.options.val
+				return this.camera?.shutter_control_overwrite == feedback.options.val
 			},
 		}
 	}
@@ -837,7 +837,7 @@ exports.initFeedbacks = function () {
 					type: 'dropdown',
 					label: 'Shutter Speed',
 					id: 'val',
-					choices: MODEL_ACTIONS.shut?.['shutter_' + [this.camera.framerate]].slice(
+					choices: MODEL_ACTIONS.shut?.['shutter_' + [this.camera.shutter_table]].slice(
 						MODEL_ACTIONS.shutter_max_speed.range.min,
 						MODEL_ACTIONS.shutter_max_speed.range.max + 1
 					),
@@ -845,7 +845,7 @@ exports.initFeedbacks = function () {
 				},
 			],
 			callback: (feedback) => {
-				return this.camera?.expsetup?.ShutterMaxSpeed == feedback.options.val
+				return this.camera?.shutter_max_speed == feedback.options.val
 			},
 		}
 	}
@@ -864,7 +864,7 @@ exports.initFeedbacks = function () {
 					type: 'dropdown',
 					label: 'Shutter Speed',
 					id: 'val',
-					choices: MODEL_ACTIONS.shut?.['shutter_' + [this.camera.framerate]].slice(
+					choices: MODEL_ACTIONS.shut?.['shutter_' + [this.camera.shutter_table]].slice(
 						MODEL_ACTIONS.shutter_min_speed.range.min,
 						MODEL_ACTIONS.shutter_min_speed.range.max + 1
 					),
@@ -872,7 +872,7 @@ exports.initFeedbacks = function () {
 				},
 			],
 			callback: (feedback) => {
-				return this.camera?.expsetup?.ShutterMinSpeed == feedback.options.val
+				return this.camera?.shutter_min_speed == feedback.options.val
 			},
 		}
 	}
@@ -891,12 +891,12 @@ exports.initFeedbacks = function () {
 					type: 'dropdown',
 					label: 'Shutter Speed',
 					id: 'val',
-					choices: MODEL_ACTIONS.shutter_speed?.['shutter_' + [this.camera.framerate]],
+					choices: MODEL_ACTIONS.shutter_speed?.['shutter_' + [this.camera.shutter_table]],
 					default: MODEL_ACTIONS.shutter_speed.default,
 				},
 			],
 			callback: (feedback) => {
-				return this.camera?.expsetup?.ShutterSpeed == feedback.options.val
+				return this.camera?.shutter_speed == feedback.options.val
 			},
 		}
 	}
@@ -926,7 +926,7 @@ exports.initFeedbacks = function () {
 				},
 			],
 			callback: (feedback) => {
-				return this.camera?.expsetup?.ShutterSpeedOverwrite == feedback.options.level
+				return this.camera?.shutter_speed_overwrite == feedback.options.level
 			},
 		}
 	}
@@ -950,7 +950,7 @@ exports.initFeedbacks = function () {
 				},
 			],
 			callback: (feedback) => {
-				return this.camera?.expsetup?.SlowShutterEn == feedback.options.val
+				return this.camera?.slow_shutter_en == feedback.options.val
 			},
 		}
 	}
@@ -969,7 +969,7 @@ exports.initFeedbacks = function () {
 					type: 'dropdown',
 					label: 'Shutter Speed',
 					id: 'val',
-					choices: MODEL_ACTIONS.shutter_speed?.['shutter_' + [this.camera.framerate]].slice(
+					choices: MODEL_ACTIONS.shutter_speed?.['shutter_' + [this.camera.shutter_table]].slice(
 						MODEL_ACTIONS.slow_shutter_limit.range.min,
 						MODEL_ACTIONS.slow_shutter_limit.range.max + 1
 					),
@@ -977,7 +977,7 @@ exports.initFeedbacks = function () {
 				},
 			],
 			callback: (feedback) => {
-				return this.camera?.expsetup?.SlowShutterLimit == feedback.options.val
+				return this.camera?.slow_shutter_limit == feedback.options.val
 			},
 		}
 	}
@@ -1001,7 +1001,7 @@ exports.initFeedbacks = function () {
 				},
 			],
 			callback: (feedback) => {
-				return this.camera?.expsetup?.Spotlight == feedback.options.val
+				return this.camera?.spotlight == feedback.options.val
 			},
 		}
 	}
@@ -1028,7 +1028,7 @@ exports.initFeedbacks = function () {
 				},
 			],
 			callback: (feedback) => {
-				return this.camera?.wbsetup?.BG == feedback.options.level
+				return this.camera?.bg == feedback.options.level
 			},
 		}
 	}
@@ -1053,7 +1053,7 @@ exports.initFeedbacks = function () {
 				},
 			],
 			callback: (feedback) => {
-				return this.camera?.wbsetup?.BR == feedback.options.level
+				return this.camera?.br == feedback.options.level
 			},
 		}
 	}
@@ -1078,7 +1078,7 @@ exports.initFeedbacks = function () {
 				},
 			],
 			callback: (feedback) => {
-				return this.camera?.wbsetup?.BlueGain == feedback.options.level
+				return this.camera?.blue_gain == feedback.options.level
 			},
 		}
 	}
@@ -1103,7 +1103,7 @@ exports.initFeedbacks = function () {
 				},
 			],
 			callback: (feedback) => {
-				return this.camera?.wbsetup?.ColorTemp == feedback.options.val
+				return this.camera?.color_temp == feedback.options.val
 			},
 		}
 	}
@@ -1128,7 +1128,7 @@ exports.initFeedbacks = function () {
 				},
 			],
 			callback: (feedback) => {
-				return this.camera?.wbsetup?.GB == feedback.options.level
+				return this.camera?.gb == feedback.options.level
 			},
 		}
 	}
@@ -1153,7 +1153,7 @@ exports.initFeedbacks = function () {
 				},
 			],
 			callback: (feedback) => {
-				return this.camera?.wbsetup?.GR == feedback.options.level
+				return this.camera?.gr == feedback.options.level
 			},
 		}
 	}
@@ -1178,7 +1178,7 @@ exports.initFeedbacks = function () {
 				},
 			],
 			callback: (feedback) => {
-				return this.camera?.wbsetup?.Level == feedback.options.level
+				return this.camera?.level == feedback.options.level
 			},
 		}
 	}
@@ -1202,7 +1202,7 @@ exports.initFeedbacks = function () {
 				},
 			],
 			callback: (feedback) => {
-				return this.camera?.wbsetup?.Matrix == feedback.options.white_balance
+				return this.camera?.matrix == feedback.options.white_balance
 			},
 		}
 	}
@@ -1227,7 +1227,7 @@ exports.initFeedbacks = function () {
 				},
 			],
 			callback: (feedback) => {
-				return this.camera?.wbsetup?.Offset == feedback.options.level
+				return this.camera?.offset == feedback.options.level
 			},
 		}
 	}
@@ -1252,7 +1252,7 @@ exports.initFeedbacks = function () {
 				},
 			],
 			callback: (feedback) => {
-				return this.camera?.wbsetup?.Phase == feedback.options.level
+				return this.camera?.phase == feedback.options.level
 			},
 		}
 	}
@@ -1277,7 +1277,7 @@ exports.initFeedbacks = function () {
 				},
 			],
 			callback: (feedback) => {
-				return this.camera?.wbsetup?.RB == feedback.options.level
+				return this.camera?.rb == feedback.options.level
 			},
 		}
 	}
@@ -1302,7 +1302,7 @@ exports.initFeedbacks = function () {
 				},
 			],
 			callback: (feedback) => {
-				return this.camera?.wbsetup?.RG == feedback.options.level
+				return this.camera?.rg == feedback.options.level
 			},
 		}
 	}
@@ -1327,7 +1327,7 @@ exports.initFeedbacks = function () {
 				},
 			],
 			callback: (feedback) => {
-				return this.camera?.wbsetup?.RedGain == feedback.options.level
+				return this.camera?.red_gain == feedback.options.level
 			},
 		}
 	}
@@ -1351,7 +1351,7 @@ exports.initFeedbacks = function () {
 				},
 			],
 			callback: (feedback) => {
-				return this.camera?.wbsetup?.Select == feedback.options.val
+				return this.camera?.select == feedback.options.val
 			},
 		}
 	}
@@ -1376,7 +1376,7 @@ exports.initFeedbacks = function () {
 				},
 			],
 			callback: (feedback) => {
-				return this.camera?.wbsetup?.Speed == feedback.options.level
+				return this.camera?.speed == feedback.options.level
 			},
 		}
 	}
@@ -1400,7 +1400,7 @@ exports.initFeedbacks = function () {
 				},
 			],
 			callback: (feedback) => {
-				return this.camera?.wbsetup?.WbMode == feedback.options.white_balance
+				return this.camera?.wb_mode == feedback.options.white_balance
 			},
 		}
 	}
@@ -1426,7 +1426,7 @@ exports.initFeedbacks = function () {
 				},
 			],
 			callback: (feedback) => {
-				return this.camera?.picsetup?.BackLightCom == feedback.options.val
+				return this.camera?.backlight_com == feedback.options.val
 			},
 		}
 	}
@@ -1450,7 +1450,7 @@ exports.initFeedbacks = function () {
 				},
 			],
 			callback: (feedback) => {
-				return this.camera?.picsetup?.ChromeSuppress == feedback.options.val
+				return this.camera?.chroma_suppress == feedback.options.val
 			},
 		}
 	}
@@ -1475,7 +1475,7 @@ exports.initFeedbacks = function () {
 				},
 			],
 			callback: (feedback) => {
-				return this.camera?.picsetup?.Color == feedback.options.value
+				return this.camera?.color == feedback.options.value
 			},
 		}
 	}
@@ -1501,7 +1501,7 @@ exports.initFeedbacks = function () {
 				},
 			],
 			callback: (feedback) => {
-				return this.camera?.picsetup?.Contrast == feedback.options.value
+				return this.camera?.contrast == feedback.options.value
 			},
 		}
 	}
@@ -1525,7 +1525,7 @@ exports.initFeedbacks = function () {
 				},
 			],
 			callback: (feedback) => {
-				return this.camera?.picsetup?.Effect == feedback.options.val
+				return this.camera?.pictureEffect == feedback.options.val
 			},
 		}
 	}
@@ -1549,7 +1549,7 @@ exports.initFeedbacks = function () {
 				},
 			],
 			callback: (feedback) => {
-				return this.camera?.picsetup?.Flip == feedback.options.val
+				return this.camera?.picFlip == feedback.options.val
 			},
 		}
 	}
@@ -1574,7 +1574,7 @@ exports.initFeedbacks = function () {
 				},
 			],
 			callback: (feedback) => {
-				return this.camera?.picsetup?.Gamma == feedback.options.value
+				return this.camera?.gamma == feedback.options.value
 			},
 		}
 	}
@@ -1598,7 +1598,7 @@ exports.initFeedbacks = function () {
 				},
 			],
 			callback: (feedback) => {
-				return this.camera?.picsetup?.HighlightComp == feedback.options.val
+				return this.camera?.highlight_comp == feedback.options.val
 			},
 		}
 	}
@@ -1629,7 +1629,7 @@ exports.initFeedbacks = function () {
 				},
 			],
 			callback: (feedback) => {
-				return this.camera?.picsetup?.HighlightCompMask == feedback.options.value
+				return this.camera?.highlight_comp_mask == feedback.options.value
 			},
 		}
 	}
@@ -1654,7 +1654,7 @@ exports.initFeedbacks = function () {
 				},
 			],
 			callback: (feedback) => {
-				return this.camera?.picsetup?.Hue == feedback.options.value
+				return this.camera?.hue == feedback.options.value
 			},
 		}
 	}
@@ -1678,7 +1678,7 @@ exports.initFeedbacks = function () {
 				},
 			],
 			callback: (feedback) => {
-				return this.camera?.picsetup?.IRCutFilter == feedback.options.val
+				return this.camera?.ir_cutfilter == feedback.options.val
 			},
 		}
 	}
@@ -1702,7 +1702,7 @@ exports.initFeedbacks = function () {
 				},
 			],
 			callback: (feedback) => {
-				return this.camera?.picsetup?.LowLatency == feedback.options.val
+				return this.camera?.low_latency == feedback.options.val
 			},
 		}
 	}
@@ -1726,7 +1726,7 @@ exports.initFeedbacks = function () {
 				},
 			],
 			callback: (feedback) => {
-				return this.camera?.picsetup?.Mirror == feedback.options.val
+				return this.camera?.picMirror == feedback.options.val
 			},
 		}
 	}
@@ -1751,7 +1751,7 @@ exports.initFeedbacks = function () {
 				},
 			],
 			callback: (feedback) => {
-				return this.camera?.picsetup?.NDFilter == feedback.options.value
+				return this.camera?.nd_filter == feedback.options.value
 			},
 		}
 	}
@@ -1775,7 +1775,7 @@ exports.initFeedbacks = function () {
 				},
 			],
 			callback: (feedback) => {
-				return this.camera?.picsetup?.NoiseReduction == feedback.options.val
+				return this.camera?.noise_reduction == feedback.options.val
 			},
 		}
 	}
@@ -1800,7 +1800,7 @@ exports.initFeedbacks = function () {
 				},
 			],
 			callback: (feedback) => {
-				return this.camera?.picsetup?.Sharpness == feedback.options.value
+				return this.camera?.sharpness == feedback.options.value
 			},
 		}
 	}
@@ -1824,7 +1824,7 @@ exports.initFeedbacks = function () {
 				},
 			],
 			callback: (feedback) => {
-				return this.camera?.picsetup?.Stabilizer == feedback.options.val
+				return this.camera?.stabilizer == feedback.options.val
 			},
 		}
 	}
@@ -1848,7 +1848,7 @@ exports.initFeedbacks = function () {
 				},
 			],
 			callback: (feedback) => {
-				return this.camera?.picsetup?.ThreeDNR == feedback.options.val
+				return this.camera?.threed_nr == feedback.options.val
 			},
 		}
 	}
@@ -1872,7 +1872,7 @@ exports.initFeedbacks = function () {
 				},
 			],
 			callback: (feedback) => {
-				return this.camera?.picsetup?.TWODNR == feedback.options.val
+				return this.camera?.twod_nr == feedback.options.val
 			},
 		}
 	}
@@ -1896,7 +1896,7 @@ exports.initFeedbacks = function () {
 				},
 			],
 			callback: (feedback) => {
-				return this.camera?.picsetup?.WideDynamicRange == feedback.options.val
+				return this.camera?.wide_dynamic_range == feedback.options.val
 			},
 		}
 	}
@@ -1923,7 +1923,7 @@ exports.initFeedbacks = function () {
 				},
 			],
 			callback: (feedback) => {
-				return this.camera?.cmsetup?.BlueGain == feedback.options.value
+				return this.camera?.cm_blue_gain == feedback.options.value
 			},
 		}
 	}
@@ -1948,7 +1948,7 @@ exports.initFeedbacks = function () {
 				},
 			],
 			callback: (feedback) => {
-				return this.camera?.cmsetup?.BlueHue == feedback.options.value
+				return this.camera?.cm_blue_hue == feedback.options.value
 			},
 		}
 	}
@@ -1974,7 +1974,7 @@ exports.initFeedbacks = function () {
 				},
 			],
 			callback: (feedback) => {
-				return this.camera?.cmsetup?.ColourGain == feedback.options.value
+				return this.camera?.cm_color_gain == feedback.options.value
 			},
 		}
 	}
@@ -1999,7 +1999,7 @@ exports.initFeedbacks = function () {
 				},
 			],
 			callback: (feedback) => {
-				return this.camera?.cmsetup?.CyanGain == feedback.options.value
+				return this.camera?.cm_cyan_gain == feedback.options.value
 			},
 		}
 	}
@@ -2024,7 +2024,7 @@ exports.initFeedbacks = function () {
 				},
 			],
 			callback: (feedback) => {
-				return this.camera?.cmsetup?.CyanHue == feedback.options.value
+				return this.camera?.cm_cyan_hue == feedback.options.value
 			},
 		}
 	}
@@ -2050,7 +2050,7 @@ exports.initFeedbacks = function () {
 				},
 			],
 			callback: (feedback) => {
-				return this.camera?.cmsetup?.GreenGain == feedback.options.value
+				return this.camera?.cm_green_gain == feedback.options.value
 			},
 		}
 	}
@@ -2075,7 +2075,7 @@ exports.initFeedbacks = function () {
 				},
 			],
 			callback: (feedback) => {
-				return this.camera?.cmsetup?.GreenHue == feedback.options.value
+				return this.camera?.cm_green_hue == feedback.options.value
 			},
 		}
 	}
@@ -2100,7 +2100,7 @@ exports.initFeedbacks = function () {
 				},
 			],
 			callback: (feedback) => {
-				return this.camera?.cmsetup?.HuePhase == feedback.options.value
+				return this.camera?.cm_hue_phase == feedback.options.value
 			},
 		}
 	}
@@ -2125,7 +2125,7 @@ exports.initFeedbacks = function () {
 				},
 			],
 			callback: (feedback) => {
-				return this.camera?.cmsetup?.MagGain == feedback.options.value
+				return this.camera?.cm_mag_gain == feedback.options.value
 			},
 		}
 	}
@@ -2150,7 +2150,7 @@ exports.initFeedbacks = function () {
 				},
 			],
 			callback: (feedback) => {
-				return this.camera?.cmsetup?.MagHue == feedback.options.value
+				return this.camera?.cm_mag_hue == feedback.options.value
 			},
 		}
 	}
@@ -2175,7 +2175,7 @@ exports.initFeedbacks = function () {
 				},
 			],
 			callback: (feedback) => {
-				return this.camera?.cmsetup?.RedGain == feedback.options.value
+				return this.camera?.cm_red_gain == feedback.options.value
 			},
 		}
 	}
@@ -2200,7 +2200,7 @@ exports.initFeedbacks = function () {
 				},
 			],
 			callback: (feedback) => {
-				return this.camera?.cmsetup?.RedHue == feedback.options.value
+				return this.camera?.cm_red_hue == feedback.options.value
 			},
 		}
 	}
@@ -2226,7 +2226,7 @@ exports.initFeedbacks = function () {
 				},
 			],
 			callback: (feedback) => {
-				return this.camera?.cmsetup?.YellowGain == feedback.options.value
+				return this.camera?.cm_yellow_gain == feedback.options.value
 			},
 		}
 	}
@@ -2252,7 +2252,7 @@ exports.initFeedbacks = function () {
 				},
 			],
 			callback: (feedback) => {
-				return this.camera?.cmsetup?.YellowHue == feedback.options.value
+				return this.camera?.cm_yellow_hue == feedback.options.value
 			},
 		}
 	}
@@ -2279,7 +2279,7 @@ exports.initFeedbacks = function () {
 				},
 			],
 			callback: (feedback) => {
-				return this.camera?.advancesetup?.Brightness == feedback.options.value
+				return this.camera?.brightness == feedback.options.value
 			},
 		}
 	}
@@ -2303,7 +2303,7 @@ exports.initFeedbacks = function () {
 				},
 			],
 			callback: (feedback) => {
-				return this.camera?.advancesetup?.BrightnessComp == feedback.options.val
+				return this.camera?.brightness_comp == feedback.options.val
 			},
 		}
 	}
@@ -2327,7 +2327,7 @@ exports.initFeedbacks = function () {
 				},
 			],
 			callback: (feedback) => {
-				return this.camera?.advancesetup?.CompLevel == feedback.options.val
+				return this.camera?.comp_level == feedback.options.val
 			},
 		}
 	}
@@ -2352,7 +2352,7 @@ exports.initFeedbacks = function () {
 				},
 			],
 			callback: (feedback) => {
-				return this.camera?.advancesetup?.GammaOffset == feedback.options.value
+				return this.camera?.gamma_offset == feedback.options.value
 			},
 		}
 	}
@@ -2376,7 +2376,7 @@ exports.initFeedbacks = function () {
 				},
 			],
 			callback: (feedback) => {
-				return this.camera?.advancesetup?.HighResolution == feedback.options.val
+				return this.camera?.high_resolution == feedback.options.val
 			},
 		}
 	}
@@ -2400,7 +2400,7 @@ exports.initFeedbacks = function () {
 				},
 			],
 			callback: (feedback) => {
-				return this.camera?.advancesetup?.VideoEnhancement == feedback.options.val
+				return this.camera?.video_enhancement == feedback.options.val
 			},
 		}
 	}
@@ -2426,7 +2426,7 @@ exports.initFeedbacks = function () {
 				},
 			],
 			callback: (feedback) => {
-				return this.camera?.externalsetup?.Aux == feedback.options.val
+				return this.camera?.aux == feedback.options.val
 			},
 		}
 	}
@@ -2450,7 +2450,7 @@ exports.initFeedbacks = function () {
 				},
 			],
 			callback: (feedback) => {
-				return this.camera?.externalsetup?.RainWiper == feedback.options.val
+				return this.camera?.rain_wiper == feedback.options.val
 			},
 		}
 	}
@@ -2474,7 +2474,7 @@ exports.initFeedbacks = function () {
 				},
 			],
 			callback: (feedback) => {
-				return this.camera?.externalsetup?.V12vOut == feedback.options.val
+				return this.camera?.v12vout == feedback.options.val
 			},
 		}
 	}
@@ -2500,7 +2500,7 @@ exports.initFeedbacks = function () {
 				},
 			],
 			callback: (feedback) => {
-				return this.camera?.detsetup?.Bandwidth == feedback.options.val
+				return this.camera?.bandwidth == feedback.options.val
 			},
 		}
 	}
@@ -2524,7 +2524,7 @@ exports.initFeedbacks = function () {
 				},
 			],
 			callback: (feedback) => {
-				return this.camera?.detsetup?.BwBalance == feedback.options.val
+				return this.camera?.bw_balance == feedback.options.val
 			},
 		}
 	}
@@ -2549,7 +2549,7 @@ exports.initFeedbacks = function () {
 				},
 			],
 			callback: (feedback) => {
-				return this.camera?.detsetup?.Crispening == feedback.options.value
+				return this.camera?.crispening == feedback.options.value
 			},
 		}
 	}
@@ -2573,7 +2573,7 @@ exports.initFeedbacks = function () {
 				},
 			],
 			callback: (feedback) => {
-				return this.camera?.detsetup?.Detail == feedback.options.val
+				return this.camera?.detail == feedback.options.val
 			},
 		}
 	}
@@ -2603,7 +2603,7 @@ exports.initFeedbacks = function () {
 				},
 			],
 			callback: (feedback) => {
-				return this.camera?.detsetup?.HighLightDetail == feedback.options.value
+				return this.camera?.highlight_detail == feedback.options.value
 			},
 		}
 	}
@@ -2628,7 +2628,7 @@ exports.initFeedbacks = function () {
 				},
 			],
 			callback: (feedback) => {
-				return this.camera?.detsetup?.HvBalance == feedback.options.value
+				return this.camera?.hv_balance == feedback.options.value
 			},
 		}
 	}
@@ -2653,7 +2653,7 @@ exports.initFeedbacks = function () {
 				},
 			],
 			callback: (feedback) => {
-				return this.camera?.detsetup?.Limit == feedback.options.value
+				return this.camera?.limit == feedback.options.value
 			},
 		}
 	}
@@ -2678,7 +2678,7 @@ exports.initFeedbacks = function () {
 				},
 			],
 			callback: (feedback) => {
-				return this.camera?.detsetup?.SuperLow == feedback.options.value
+				return this.camera?.super_low == feedback.options.value
 			},
 		}
 	}
@@ -2710,7 +2710,7 @@ exports.initFeedbacks = function () {
 				},
 			],
 			callback: (feedback) => {
-				return this.camera?.gammasetup?.BlackGammaLevel == feedback.options.value
+				return this.camera?.black_gamma_level == feedback.options.value
 			},
 		}
 	}
@@ -2735,7 +2735,7 @@ exports.initFeedbacks = function () {
 				},
 			],
 			callback: (feedback) => {
-				return this.camera?.gammasetup?.BlackLevel == feedback.options.value
+				return this.camera?.black_level == feedback.options.value
 			},
 		}
 	}
@@ -2759,7 +2759,7 @@ exports.initFeedbacks = function () {
 				},
 			],
 			callback: (feedback) => {
-				return this.camera?.gammasetup?.BlackLevelRange == feedback.options.value
+				return this.camera?.black_level_range == feedback.options.value
 			},
 		}
 	}
@@ -2784,7 +2784,7 @@ exports.initFeedbacks = function () {
 				},
 			],
 			callback: (feedback) => {
-				return this.camera?.gammasetup?.Effect == feedback.options.value
+				return this.camera?.effect == feedback.options.value
 			},
 		}
 	}
@@ -2809,7 +2809,7 @@ exports.initFeedbacks = function () {
 				},
 			],
 			callback: (feedback) => {
-				return this.camera?.gammasetup?.Level == feedback.options.value
+				return this.camera?.level == feedback.options.value
 			},
 		}
 	}
@@ -2834,7 +2834,7 @@ exports.initFeedbacks = function () {
 				},
 			],
 			callback: (feedback) => {
-				return this.camera?.gammasetup?.Offset == feedback.options.value
+				return this.camera?.offset == feedback.options.value
 			},
 		}
 	}
@@ -2859,7 +2859,7 @@ exports.initFeedbacks = function () {
 				},
 			],
 			callback: (feedback) => {
-				return this.camera?.gammasetup?.Pattern == feedback.options.value
+				return this.camera?.pattern == feedback.options.value
 			},
 		}
 	}
@@ -2884,7 +2884,7 @@ exports.initFeedbacks = function () {
 				},
 			],
 			callback: (feedback) => {
-				return this.camera?.gammasetup?.PatternFine == feedback.options.value
+				return this.camera?.pattern_fine == feedback.options.value
 			},
 		}
 	}
@@ -2908,7 +2908,7 @@ exports.initFeedbacks = function () {
 				},
 			],
 			callback: (feedback) => {
-				return this.camera?.gammasetup?.Settings == feedback.options.value
+				return this.camera?.settings == feedback.options.value
 			},
 		}
 	}
@@ -2932,7 +2932,7 @@ exports.initFeedbacks = function () {
 				},
 			],
 			callback: (feedback) => {
-				return this.camera?.gammasetup?.VisibilityEnhancer == feedback.options.value
+				return this.camera?.visibility_enhancer == feedback.options.value
 			},
 		}
 	}
