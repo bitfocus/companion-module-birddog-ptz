@@ -1422,8 +1422,8 @@ module.exports = {
 			store_state: true,
 			api_endpoint: ['birddogpicsetup'],
 			api_variable: ['Effect'],
-			variable_name: 'effect',
-			variable_label: `Picture Setup - Effect`,
+			variable_name: 'bw_effect',
+			variable_label: `Picture Setup - BW Effect`,
 			action: [
 				{
 					camera: ['common'],
