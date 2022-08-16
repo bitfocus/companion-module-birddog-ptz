@@ -89,6 +89,10 @@ exports.updateVariables = function () {
 		this.setVariable('bandwidth_select', this.camera.bandwidth_select)
 	}
 
+	if (MODEL_VARIABLES.some((variable) => variable.name === 'color_bitdepth')) {
+		this.setVariable('color_bitdepth', this.camera.color_bitdepth)
+	}
+
 	if (MODEL_VARIABLES.some((variable) => variable.name === 'ndi_audio')) {
 		this.setVariable('ndi_audio', this.camera.ndiAudio)
 	}
@@ -101,16 +105,32 @@ exports.updateVariables = function () {
 		this.setVariable('ndi_group_name', this.camera.ndi_group_name)
 	}
 
+	if (MODEL_VARIABLES.some((variable) => variable.name === 'screensaver_mode')) {
+		this.setVariable('screensaver_mode', this.camera.screensaver_mode)
+	}
+
 	if (MODEL_VARIABLES.some((variable) => variable.name === 'stream_name')) {
 		this.setVariable('stream_name', this.camera.stream_name)
+	}
+
+	if (MODEL_VARIABLES.some((variable) => variable.name === 'stream_to_network')) {
+		this.setVariable('stream_to_network', this.camera.stream_to_network)
 	}
 
 	if (MODEL_VARIABLES.some((variable) => variable.name === 'tally_mode')) {
 		this.setVariable('tally_mode', this.camera.tally)
 	}
 
+	if (MODEL_VARIABLES.some((variable) => variable.name === 'video_csc')) {
+		this.setVariable('video_csc', this.camera.video_csc)
+	}
+
 	if (MODEL_VARIABLES.some((variable) => variable.name === 'video_format')) {
 		this.setVariable('video_format', this.camera.video_format)
+	}
+
+	if (MODEL_VARIABLES.some((variable) => variable.name === 'video_sample_rate')) {
+		this.setVariable('video_sample_rate', this.camera.video_sample_rate)
 	}
 
 	// Encode Transport Variables
@@ -125,6 +145,10 @@ exports.updateVariables = function () {
 
 	if (MODEL_VARIABLES.some((variable) => variable.name === 'transmit_netmask')) {
 		this.setVariable('transmit_netmask', this.camera.transmit_netmask)
+	}
+
+	if (MODEL_VARIABLES.some((variable) => variable.name === 'transmit_ttl')) {
+		this.setVariable('transmit_ttl', this.camera.transmit_ttl)
 	}
 
 	// NDI Discovery Server Variables
@@ -142,8 +166,28 @@ exports.updateVariables = function () {
 
 	// PTZ Variables
 
+	if (MODEL_VARIABLES.some((variable) => variable.name === 'freed')) {
+		this.setVariable('freed', this.camera.freed)
+	}
+
+	if (MODEL_VARIABLES.some((variable) => variable.name === 'freed_ip_address')) {
+		this.setVariable('freed_ip_address', this.camera.freed_ip_address)
+	}
+
+	if (MODEL_VARIABLES.some((variable) => variable.name === 'freed_port')) {
+		this.setVariable('freed_port', this.camera.freed_port)
+	}
+
 	if (MODEL_VARIABLES.some((variable) => variable.name === 'pan_speed')) {
 		this.setVariable('pan_speed', this.camera.panSpeed)
+	}
+
+	if (MODEL_VARIABLES.some((variable) => variable.name === 'preset')) {
+		this.setVariable('preset', this.camera.preset)
+	}
+
+	if (MODEL_VARIABLES.some((variable) => variable.name === 'preset_speed')) {
+		this.setVariable('preset_speed', this.camera.preset_speed)
 	}
 
 	if (MODEL_VARIABLES.some((variable) => variable.name === 'tilt_speed')) {

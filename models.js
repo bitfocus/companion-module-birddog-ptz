@@ -255,6 +255,15 @@ module.exports = {
 				},
 			],
 		},
+		color_bitdepth: {
+			camera: ['All'],
+			firmware: ['5'],
+			store_state: true,
+			api_endpoint: ['encodesetup'],
+			api_variable: ['ColorBitDepth'],
+			variable_name: 'color_bitdepth',
+			variable_label: 'Encode Setup - Color Bit Depth',
+		},
 		ndiAudio: {
 			camera: ['All'],
 			firmware: ['4', '5'],
@@ -294,6 +303,15 @@ module.exports = {
 			variable_name: 'ndi_group_name',
 			variable_label: `Encode Setup - NDI Group Name`,
 		},
+		screensaver_mode: {
+			camera: ['All'],
+			firmware: ['5'],
+			store_state: true,
+			api_endpoint: ['encodesetup'],
+			api_variable: ['ScreenSaverMode'],
+			variable_name: 'screensaver_mode',
+			variable_label: `Encode Setup - Screensaver Mode`,
+		},
 		stream_name: {
 			camera: ['All'],
 			firmware: ['4', '5'],
@@ -302,6 +320,15 @@ module.exports = {
 			api_variable: ['StreamName'],
 			variable_name: 'stream_name',
 			variable_label: `Encode Setup - Stream Name`,
+		},
+		stream_to_network: {
+			camera: ['All'],
+			firmware: ['5'],
+			store_state: true,
+			api_endpoint: ['encodesetup'],
+			api_variable: ['StreamToNetwork'],
+			variable_name: 'stream_to_network',
+			variable_label: `Encode Setup - Stream to Network`,
 		},
 		tally: {
 			camera: ['PF120', 'P200A2A3', 'P200A4A5', 'P400', 'P4K'],
@@ -318,6 +345,15 @@ module.exports = {
 				},
 			],
 		},
+		video_csc: {
+			camera: ['All'],
+			firmware: ['5'],
+			store_state: true,
+			api_endpoint: ['encodesetup'],
+			api_variable: ['VideoCSC'],
+			variable_name: 'video_csc',
+			variable_label: `Encode Setup - Video CSC`,
+		},
 		video_format: {
 			camera: ['All'],
 			firmware: ['4', '5'],
@@ -326,6 +362,15 @@ module.exports = {
 			api_variable: ['VideoFormat'],
 			variable_name: 'video_format',
 			variable_label: `Encode Setup - Video Format`,
+		},
+		video_sample_rate: {
+			camera: ['All'],
+			firmware: ['5'],
+			store_state: true,
+			api_endpoint: ['encodesetup'],
+			api_variable: ['VideoSampleRate'],
+			variable_name: 'video_sample_rate',
+			variable_label: `Encode Setup - Video Sample Rate`,
 		},
 
 		// Encode Transport
@@ -362,6 +407,15 @@ module.exports = {
 			variable_name: 'transmit_netmask',
 			variable_label: 'Encode Transport - Transmit Netmask',
 		},
+		transmit_ttl: {
+			camera: ['All'],
+			firmware: ['4', '5'],
+			store_state: true,
+			api_endpoint: ['encodetransport'],
+			api_variable: ['txmcttl', 'Txmcttl'],
+			variable_name: 'transmit_ttl',
+			variable_label: 'Encode Transport - Transmit TTL',
+		},
 
 		// NDI Discovery
 		ndi_discovery_server: {
@@ -390,6 +444,33 @@ module.exports = {
 		},
 
 		// PTZ
+		freed: {
+			camera: ['All'],
+			firmware: ['5'],
+			store_state: true,
+			api_endpoint: ['birddogptzsetup'],
+			api_variable: ['Freed'],
+			variable_name: 'freed',
+			variable_label: `PTZ - FreeD`,
+		},
+		freed_ip_address: {
+			camera: ['All'],
+			firmware: ['5'],
+			store_state: true,
+			api_endpoint: ['birddogptzsetup'],
+			api_variable: ['FreedIpAddr'],
+			variable_name: 'freed_ip_address',
+			variable_label: `PTZ - FreeD IP Address`,
+		},
+		freed_port: {
+			camera: ['All'],
+			firmware: ['5'],
+			store_state: true,
+			api_endpoint: ['birddogptzsetup'],
+			api_variable: ['FreedPort'],
+			variable_name: 'freed_port',
+			variable_label: `PTZ - FreeD Port`,
+		},
 		pt: {
 			camera: ['P100', 'P200A2A3', 'P200A4A5', 'A200GEN1', 'A200GEN2', 'A300GEN1', 'A300GEN2', 'P400', 'P4K'],
 			firmware: ['4', '5'],
@@ -436,6 +517,24 @@ module.exports = {
 					action: { choices: CHOICES.SPEED_CHANGES, default: 'up', range: { min: 0, max: 21, default: 11 } },
 				},
 			],
+		},
+		preset: {
+			camera: ['All'],
+			firmware: ['5'],
+			store_state: true,
+			api_endpoint: ['birddogptzsetup'],
+			api_variable: ['Preset'],
+			variable_name: 'preset',
+			variable_label: `PTZ - Preset`,
+		},
+		preset_speed: {
+			camera: ['All'],
+			firmware: ['5'],
+			store_state: true,
+			api_endpoint: ['birddogptzsetup'],
+			api_variable: ['PresetSpeed'],
+			variable_name: 'preset_speed',
+			variable_label: `PTZ - Preset Speed`,
 		},
 		recallPset: {
 			camera: ['All'],

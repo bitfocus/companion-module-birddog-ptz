@@ -2395,7 +2395,7 @@ class instance extends instance_skel {
 	}
 
 	initializeCamera(hostname) {
-		this.debug('---- in initializeCamera')
+		// this.debug('---- in initializeCamera')
 		if (this.currentStatus != 0 && this.camera.firmware.major && this.camera.model) {
 			this.status(this.STATUS_OK)
 			this.log('info', `Connected to ${hostname}`)
@@ -2463,9 +2463,8 @@ class instance extends instance_skel {
 		this.camera.model = model
 		this.camera.firmware.major = FW_major
 		this.camera.firmware.minor = FW_minor
-		//this.camera.pt = { pan: '0000', tilt: '0000' }
-		//this.camera.zoom = '0000'
 		this.camera.shutter_table = 60 // Camera defaults to 59.94 on startup
+		this.camera.unknown = [] // Array to store unknown API variables
 
 		// Old defaults
 		//this.camera.position = { pan: '0000', tilt: '0000', zoom: '0000' }
@@ -2487,8 +2486,11 @@ class instance extends instance_skel {
 					array[1]?.api_variable?.includes(element[0])
 			)
 			if (!stored) {
-				this.log('warn', `Unknown API variable:  ${element[0]}`)
-				this.debug('---- Unknown API variable: ' + element[0])
+				if (!this.camera.unknown.includes(element[0])) { //Only warn about unknown API variables once
+					this.log('warn', `Unknown API variable:  ${element[0]}`)
+					this.debug('---- Unknown API variable: ' + element[0])
+					this.camera.unknown.push(element[0])
+				}
 			} else if (this.camera[stored[0]] !== element[1]) {
 				changed.push(stored[0])
 				this.camera[stored[0]] = element[1]
