@@ -21,17 +21,17 @@ module.exports = {
 	// ############
 
 	CAMERAS: [
-		{ id: "Auto", label: "Auto Detect" },
-		{ id: "P100", label: "P100" },
-		{ id: "PF120", label: "PF120" },
-		{ id: "P200A2A3", label: "P200 A2_A3" },
-		{ id: "P200A4A5", label: "P200 A4_A5" },
-		{ id: "A200GEN1", label: "A200 GEN1" },
-		{ id: "A200GEN2", label: "A200 GEN2" },
-		{ id: "A300GEN1", label: "A300 GEN1" },
-		{ id: "A300GEN2", label: "A300 GEN2" },
-		{ id: "P400", label: "P400", other: ["EYESP400"] },
-		{ id: "P4K", label: "P4K" },
+		{ id: 'Auto', label: 'Auto Detect' },
+		{ id: 'P100', label: 'P100' },
+		{ id: 'PF120', label: 'PF120' },
+		{ id: 'P200A2A3', label: 'P200 A2_A3' },
+		{ id: 'P200A4A5', label: 'P200 A4_A5' },
+		{ id: 'A200GEN1', label: 'A200 GEN1' },
+		{ id: 'A200GEN2', label: 'A200 GEN2' },
+		{ id: 'A300GEN1', label: 'A300 GEN1' },
+		{ id: 'A300GEN2', label: 'A300 GEN2' },
+		{ id: 'P400', label: 'P400', other: ['EYESP400'] },
+		{ id: 'P4K', label: 'P4K' },
 	],
 
 	ON_OFF: [
@@ -419,6 +419,11 @@ module.exports = {
 	POS_ZOOM_20,
 	POS_ZOOM_30,
 
+	PRESET_MODE: [
+		{ id: 'Camera', label: 'Camera' },
+		{ id: 'Birddog', label: 'BirdDog' },
+	],
+
 	// ############
 	// Focus Look Ups
 	// ############
@@ -478,6 +483,12 @@ module.exports = {
 	TALLY_MODE: [
 		{ id: 'TallyOn', label: 'Tally On' },
 		{ id: 'TallyOff', label: 'Tally Off' },
+	],
+
+	SCREEN_SAVER_MODE: [
+		{ id: 'BirdDogSS', label: 'BirdDog Screensaver' },
+		{ id: 'BlackSS', label: 'Black Screensaver' },
+		{ id: 'CaptureSS', label: 'Capture Screensaver' },
 	],
 
 	// ############

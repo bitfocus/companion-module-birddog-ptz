@@ -248,6 +248,54 @@ exports.initFeedbacks = function () {
 		}
 	}
 
+	if (MODEL_ACTIONS?.screensaver_mode) {
+		feedbacks.screensaver_mode = {
+			type: 'boolean',
+			label: 'Encode Setup - Screensaver Mode',
+			description: 'If the camera matches the selected ScreenSaver Mode, change the style of the button',
+			style: {
+				color: ColorBlack,
+				bgcolor: ColorGreen,
+			},
+			options: [
+				{
+					type: 'dropdown',
+					label: 'ScreenSaver Mode',
+					id: 'val',
+					choices: MODEL_ACTIONS.screensaver_mode.choices,
+					default: MODEL_ACTIONS.screensaver_mode.default,
+				},
+			],
+			callback: (feedback) => {
+				return this.camera?.screensaver_mode == feedback.options.val
+			},
+		}
+	}
+
+	if (MODEL_ACTIONS?.stream_to_network) {
+		feedbacks.stream_to_network = {
+			type: 'boolean',
+			label: 'Encode Setup - Stream to Network',
+			description: 'If the camera matches the selected Stream to Network state, change the style of the button',
+			style: {
+				color: ColorBlack,
+				bgcolor: ColorGreen,
+			},
+			options: [
+				{
+					type: 'dropdown',
+					label: 'On/Off',
+					id: 'val',
+					choices: MODEL_ACTIONS.stream_to_network.choices,
+					default: MODEL_ACTIONS.stream_to_network.default,
+				},
+			],
+			callback: (feedback) => {
+				return this.camera?.stream_to_network == feedback.options.val
+			},
+		}
+	}
+
 	if (MODEL_ACTIONS?.tally) {
 		feedbacks.tally = {
 			type: 'boolean',
@@ -417,6 +465,55 @@ exports.initFeedbacks = function () {
 			],
 			callback: (feedback) => {
 				return this.camera?.panSpeed == feedback.options.value
+			},
+		}
+	}
+
+	if (MODEL_ACTIONS?.preset) {
+		feedbacks.preset = {
+			type: 'boolean',
+			label: 'PTZ - Preset Mode',
+			description: 'If the camera matches the selected Preset Mode, change the style of the button',
+			style: {
+				color: ColorBlack,
+				bgcolor: ColorGreen,
+			},
+			options: [
+				{
+					type: 'dropdown',
+					label: 'Preset Mode',
+					id: 'val',
+					choices: MODEL_ACTIONS.preset.choices,
+					default: MODEL_ACTIONS.preset.default,
+				},
+			],
+			callback: (feedback) => {
+				return this.camera?.preset == feedback.options.val
+			},
+		}
+	}
+
+	if (MODEL_ACTIONS?.preset_speed) {
+		feedbacks.preset_speed = {
+			type: 'boolean',
+			label: 'PTZ - Preset Speed',
+			description: 'If the camera matches the selected Preset Speed, change the style of the button',
+			style: {
+				color: ColorBlack,
+				bgcolor: ColorGreen,
+			},
+			options: [
+				{
+					type: 'number',
+					label: 'Speed (' + MODEL_ACTIONS.preset_speed.range.min + ' to ' + MODEL_ACTIONS.preset_speed.range.max + ')',
+					id: 'value',
+					default: MODEL_ACTIONS.preset_speed.range.default,
+					min: MODEL_ACTIONS.preset_speed.range.min,
+					max: MODEL_ACTIONS.preset_speed.range.max,
+				},
+			],
+			callback: (feedback) => {
+				return this.camera?.preset_speed == feedback.options.value
 			},
 		}
 	}

@@ -142,7 +142,7 @@ module.exports = {
 			action: [
 				{
 					camera: ['common'],
-					action: { choices: CHOICES.ON_OFF, default: 'on' },
+					action: { choices: CHOICES.ON_OFF, default: 'On' },
 				},
 			],
 		},
@@ -311,6 +311,12 @@ module.exports = {
 			api_variable: ['ScreenSaverMode'],
 			variable_name: 'screensaver_mode',
 			variable_label: `Encode Setup - Screensaver Mode`,
+			action: [
+				{
+					camera: ['common'],
+					action: { choices: CHOICES.SCREEN_SAVER_MODE, default: 'BirdDogSS' },
+				},
+			],
 		},
 		stream_name: {
 			camera: ['All'],
@@ -329,6 +335,12 @@ module.exports = {
 			api_variable: ['StreamToNetwork'],
 			variable_name: 'stream_to_network',
 			variable_label: `Encode Setup - Stream to Network`,
+			action: [
+				{
+					camera: ['common'],
+					action: { choices: CHOICES.ON_OFF, default: 'On' },
+				},
+			],
 		},
 		tally: {
 			camera: ['PF120', 'P200A2A3', 'P200A4A5', 'P400', 'P4K'],
@@ -526,6 +538,12 @@ module.exports = {
 			api_variable: ['Preset'],
 			variable_name: 'preset',
 			variable_label: `PTZ - Preset`,
+			action: [
+				{
+					camera: ['common'],
+					action: { choices: CHOICES.PRESET_MODE, default: 'Birddog' },
+				},
+			],
 		},
 		preset_speed: {
 			camera: ['All'],
@@ -535,6 +553,12 @@ module.exports = {
 			api_variable: ['PresetSpeed'],
 			variable_name: 'preset_speed',
 			variable_label: `PTZ - Preset Speed`,
+			action: [
+				{
+					camera: ['common'],
+					action: { choices: CHOICES.SPEED_CHANGES, default: 'up', range: { min: 0, max: 21, default: 11 } },
+				},
+			],
 		},
 		recallPset: {
 			camera: ['All'],

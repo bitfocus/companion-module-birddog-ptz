@@ -186,6 +186,36 @@ module.exports = {
 			}
 		}
 
+		if (MODEL_ACTIONS?.screensaver_mode) {
+			actions['screensaver_mode'] = {
+				label: 'Encode Setup - ScreenSaver Mode',
+				options: [
+					{
+						type: 'dropdown',
+						label: 'ScreenSaver Mode',
+						id: 'val',
+						choices: MODEL_ACTIONS.screensaver_mode.choices,
+						default: MODEL_ACTIONS.screensaver_mode.default,
+					},
+				],
+			}
+		}
+
+		if (MODEL_ACTIONS?.stream_to_network) {
+			actions['stream_to_network'] = {
+				label: 'Encode Setup - Stream to Network',
+				options: [
+					{
+						type: 'dropdown',
+						label: 'On/Off',
+						id: 'val',
+						choices: MODEL_ACTIONS.stream_to_network.choices,
+						default: MODEL_ACTIONS.stream_to_network.default,
+					},
+				],
+			}
+		}
+
 		if (MODEL_ACTIONS?.tally) {
 			actions['tally'] = {
 				label: 'Encode Setup - Tally Mode',
@@ -351,6 +381,46 @@ module.exports = {
 						default: MODEL_ACTIONS.panSpeed.range.default,
 						min: MODEL_ACTIONS.panSpeed.range.min,
 						max: MODEL_ACTIONS.panSpeed.range.max,
+						isVisible: (action) => action.options.type === 'value',
+					},
+				],
+			}
+		}
+
+		if (MODEL_ACTIONS?.preset) {
+			actions['preset'] = {
+				label: 'PTZ - Preset Mode',
+				options: [
+					{
+						type: 'dropdown',
+						label: 'Preset Mode',
+						id: 'val',
+						choices: MODEL_ACTIONS.preset.choices,
+						default: MODEL_ACTIONS.preset.default,
+					},
+				],
+			}
+		}
+
+		if (MODEL_ACTIONS?.preset_speed) {
+			actions['preset_speed'] = {
+				label: 'PTZ - Preset Speed',
+				options: [
+					{
+						type: 'dropdown',
+						label: 'Action',
+						id: 'type',
+						choices: MODEL_ACTIONS.preset_speed.choices,
+						default: MODEL_ACTIONS.preset_speed.default,
+					},
+					{
+						type: 'number',
+						label:
+							'Speed (' + MODEL_ACTIONS.preset_speed.range.min + ' to ' + MODEL_ACTIONS.preset_speed.range.max + ')',
+						id: 'value',
+						default: MODEL_ACTIONS.preset_speed.range.default,
+						min: MODEL_ACTIONS.preset_speed.range.min,
+						max: MODEL_ACTIONS.preset_speed.range.max,
 						isVisible: (action) => action.options.type === 'value',
 					},
 				],
@@ -2463,6 +2533,5 @@ module.exports = {
 			}
 		}
 		return Object.fromEntries(Object.entries(actions).sort(sortByAction))
-
 	},
 }
