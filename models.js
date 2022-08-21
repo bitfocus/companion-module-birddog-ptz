@@ -2466,6 +2466,188 @@ module.exports = {
 			],
 		},
 
+		// WebSocket Variables
+		
+		avbr: {
+			camera: ['All'],
+			firmware: ['5'],
+			store_state: true,
+			api_endpoint: ['WebSocket'],
+			api_variable: ['avbr'],
+			variable_name: 'avbr',
+			variable_label: `Dashboard - Average Bitrate`,
+		},
+
+		aud_ch: {
+			camera: ['All'],
+			firmware: ['5'],
+			store_state: true,
+			api_endpoint: ['WebSocket'],
+			api_variable: ['aud_ch'],
+			variable_name: 'aud_ch',
+			variable_label: `Dashboard - Audio Channels`,
+		},
+
+		aud_sr: {
+			camera: ['All'],
+			firmware: ['5'],
+			store_state: true,
+			api_endpoint: ['WebSocket'],
+			api_variable: ['aud_sr'],
+			variable_name: 'aud_sr',
+			variable_label: `Dashboard - Audio Sample Rate`,
+		},
+
+		aud_stat: {
+			camera: ['All'],
+			firmware: ['5'],
+			store_state: true,
+			api_endpoint: ['WebSocket'],
+			api_variable: ['aud_stat'],
+			variable_name: 'aud_stat',
+			variable_label: `Dashboard - Audio Status`,
+		},
+
+		dashboard_vid_status: {
+			camera: ['All'],
+			firmware: ['5'],
+			store_state: true,
+			api_endpoint: ['WebSocket'],
+			api_variable: ['dashboard_vid_status'],
+			variable_name: 'dashboard_vid_status',
+			variable_label: `Dashboard - Status`,
+		},
+
+		dev_mode: {
+			camera: ['All'],
+			firmware: ['5'],
+			store_state: true,
+			api_endpoint: ['WebSocket'],
+			api_variable: ['dev_mode'],
+			variable_name: 'dev_mode',
+			variable_label: `Dashboard - Device Mode`,
+		},
+
+		gen_status: {
+			camera: ['All'],
+			firmware: ['5'],
+			store_state: true,
+			api_endpoint: ['WebSocket'],
+			api_variable: ['gen_status'],
+			variable_name: 'gen_status',
+			variable_label: `Dashboard - Genlock Status`,
+		},
+
+		mcu_ver: {
+			camera: ['All'],
+			firmware: ['5'],
+			store_state: true,
+			api_endpoint: ['WebSocket'],
+			api_variable: ['mcu_ver'],
+			variable_name: 'mcu_ver',
+			variable_label: `Dashboard - MCU Version`,
+		},
+
+		net_band_perc: {
+			camera: ['All'],
+			firmware: ['5'],
+			store_state: true,
+			api_endpoint: ['WebSocket'],
+			api_variable: ['net_band_perc'],
+			variable_name: 'net_band_perc',
+			variable_label: `Dashboard - Network Bandwidth`,
+		},
+
+		net_mode: {
+			camera: ['All'],
+			firmware: ['5'],
+			store_state: true,
+			api_endpoint: ['WebSocket'],
+			api_variable: ['net_mode'],
+			variable_name: 'net_mode',
+			variable_label: `Dashboard - Network Mode`,
+		},
+
+		net_speed: {
+			camera: ['All'],
+			firmware: ['5'],
+			store_state: true,
+			api_endpoint: ['WebSocket'],
+			api_variable: ['net_speed'],
+			variable_name: 'net_speed',
+			variable_label: `Dashboard - Network Speed`,
+		},
+
+		src_stat: {
+			camera: ['All'],
+			firmware: ['5'],
+			store_state: true,
+			api_endpoint: ['WebSocket'],
+			api_variable: ['src_stat'],
+			variable_name: 'src_stat',
+			variable_label: `Dashboard - Source Status`,
+		},
+
+		sys_info_perc: {
+			camera: ['All'],
+			firmware: ['5'],
+			store_state: true,
+			api_endpoint: ['WebSocket'],
+			api_variable: ['sys_info_perc'],
+			variable_name: 'sys_info_perc',
+			variable_label: `Dashboard - CPU Usage`,
+		},
+
+		vid_fmt: {
+			camera: ['All'],
+			firmware: ['5'],
+			store_state: true,
+			api_endpoint: ['WebSocket'],
+			api_variable: ['vid_fmt'],
+			variable_name: 'vid_fmt',
+			variable_label: `Dashboard - Video Format`,
+		},
+
+		vid_fr: {
+			camera: ['All'],
+			firmware: ['5'],
+			store_state: true,
+			api_endpoint: ['WebSocket'],
+			api_variable: ['vid_fr'],
+			variable_name: 'vid_fr',
+			variable_label: `Dashboard - Video Frame Rate`,
+		},
+
+		vid_res: {
+			camera: ['All'],
+			firmware: ['5'],
+			store_state: true,
+			api_endpoint: ['WebSocket'],
+			api_variable: ['vid_res'],
+			variable_name: 'vid_res',
+			variable_label: `Dashboard - Video Resolution`,
+		},
+
+		vid_sra: {
+			camera: ['All'],
+			firmware: ['5'],
+			store_state: true,
+			api_endpoint: ['WebSocket'],
+			api_variable: ['vid_sra'],
+			variable_name: 'vid_sra',
+			variable_label: `Dashboard - Video Sample Rate`,
+		},
+
+		vid_str_name: {
+			camera: ['All'],
+			firmware: ['5'],
+			store_state: true,
+			api_endpoint: ['WebSocket'],
+			api_variable: ['vid_str_name'],
+			variable_name: 'vid_str_name',
+			variable_label: `Dashboard - NDI Video Stream Name`,
+		},
+
 		// Other Actions
 		custom: {
 			camera: ['All'],

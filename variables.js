@@ -665,4 +665,79 @@ exports.updateVariables = function () {
 	if (MODEL_VARIABLES.some((variable) => variable.name === 'scope_transparency')) {
 		this.setVariable('scope_transparency', this.camera.scope_transparency)
 	}
+
+	// WebSocket Variables
+
+	if (MODEL_VARIABLES.some((variable) => variable.name === 'avbr')) {
+		this.setVariable('avbr', this.camera.avbr)
+	}
+
+	if (MODEL_VARIABLES.some((variable) => variable.name === 'aud_ch')) {
+		this.setVariable('aud_ch', this.camera.aud_ch)
+	}
+
+	if (MODEL_VARIABLES.some((variable) => variable.name === 'aud_sr')) {
+		this.setVariable('aud_sr', this.camera.aud_sr)
+	}
+
+	if (MODEL_VARIABLES.some((variable) => variable.name === 'aud_stat')) {
+		this.setVariable('aud_stat', this.camera.aud_stat)
+	}
+
+	if (MODEL_VARIABLES.some((variable) => variable.name === 'dashboard_vid_status')) {
+		this.setVariable('dashboard_vid_status', this.camera.dashboard_vid_status)
+	}
+
+	if (MODEL_VARIABLES.some((variable) => variable.name === 'dev_mode')) {
+		this.setVariable('dev_mode', this.camera.dev_mode)
+	}
+
+	if (MODEL_VARIABLES.some((variable) => variable.name === 'gen_status')) {
+		this.setVariable('gen_status', this.camera.gen_status)
+	}
+
+	if (MODEL_VARIABLES.some((variable) => variable.name === 'mcu_ver')) {
+		this.setVariable('mcu_ver', this.camera.mcu_ver)
+	}
+
+	if (MODEL_VARIABLES.some((variable) => variable.name === 'net_band_perc')) {
+		this.setVariable('net_band_perc', this.camera.net_band_perc + '%')
+	}
+
+	if (MODEL_VARIABLES.some((variable) => variable.name === 'net_mode')) {
+		this.setVariable('net_mode', this.camera.net_mode)
+	}
+
+	if (MODEL_VARIABLES.some((variable) => variable.name === 'net_speed')) {
+		this.setVariable('net_speed', this.camera.net_speed)
+	}
+
+	if (MODEL_VARIABLES.some((variable) => variable.name === 'src_stat')) {
+		this.setVariable('src_stat', this.camera.src_stat)
+	}
+
+	if (MODEL_VARIABLES.some((variable) => variable.name === 'sys_info_perc')) {
+		this.setVariable('sys_info_perc', this.camera.sys_info_perc + '%')
+	}
+
+	if (MODEL_VARIABLES.some((variable) => variable.name === 'vid_fmt')) {
+		this.setVariable('vid_fmt', this.camera.vid_fmt)
+	}
+
+	if (MODEL_VARIABLES.some((variable) => variable.name === 'vid_fr')) {
+		this.setVariable('vid_fr', this.camera.vid_fr)
+	}
+
+	if (MODEL_VARIABLES.some((variable) => variable.name === 'vid_res')) {
+		this.setVariable('vid_res', this.camera.vid_res)
+	}
+
+	if (MODEL_VARIABLES.some((variable) => variable.name === 'vid_sra')) {
+		this.setVariable('vid_sra', this.camera.vid_sra)
+	}
+
+	if (MODEL_VARIABLES.some((variable) => variable.name === 'vid_str_name')) {
+		this.setVariable('vid_str_name', this.camera.vid_str_name)
+	}
+
 }

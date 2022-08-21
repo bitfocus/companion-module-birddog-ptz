@@ -11,6 +11,7 @@ var { MODEL_QUERIES, MODEL_SPECS } = require('./models.js')
 
 const udp = require('../../udp')
 const fetch = require('node-fetch')
+const WebSocket = require('ws')
 
 let debug
 let log
@@ -83,9 +84,16 @@ class instance extends instance_skel {
 	}
 
 	destroy() {
+		// Clear open connections
 		if (this.udp !== undefined) {
 			this.udp.destroy()
 		}
+
+		if (this.ws !== undefined) {
+			this.ws.close(1000)
+			delete this.ws
+		}
+
 		// Clear polling timers
 		if (this.timers.pollCameraStatus !== undefined) {
 			clearInterval(this.timers.pollCameraStatus)
@@ -94,10 +102,10 @@ class instance extends instance_skel {
 			clearInterval(this.timers.pollCameraConfig)
 			this.timers.pollCameraConfig = null
 		}
-		//if (this.timers.pollCameraStatus) {
-		//	clearInterval(this.timers.pollCameraConfig)
-		//	this.timers.pollCameraStatus = null
-		//}
+
+		if (this.timers.ws_reconnect) {
+			clearInterval(this.timers.ws_reconnect)
+		}
 
 		debug('destroy', this.id)
 	}
@@ -2027,7 +2035,7 @@ class instance extends instance_skel {
 						this.status(this.STATUS_ERROR)
 						this.log(
 							'error',
-							`Connection lost to ${this.camera?.about?.HostName ? this.camera.about.HostName : 'BirdDog PTZ camera'}`
+							`Connection lost to ${this.camera?.HostName ? this.camera.HostName : 'BirdDog PTZ camera'}`
 						)
 					}
 				}
@@ -2282,6 +2290,38 @@ class instance extends instance_skel {
 		}
 	}
 
+	init_ws_listener() {
+		this.debug('----init webscoket')
+		clearInterval(this.timers.ws_reconnect)
+
+		if (this.ws !== undefined) {
+			this.ws.close(1000)
+			delete this.ws
+		}
+
+		this.ws = new WebSocket(`ws://${this.config.host}:6790/`)
+
+		this.ws.on('open', () => {
+			this.log('debug', `WebSocket connection opened to ${this.camera?.HostName}`)
+		})
+
+		this.ws.on('close', (code) => {
+			this.log('debug', `WebSocket Connection closed with code ${code}`)
+			this.debug(`---- WebSocket Connection closed with code ${code}`)
+			this.timers.ws_reconnect = setInterval(this.init_ws_listener.bind(this), 500)
+		})
+
+		this.ws.on('message', (message) => {
+			let data = JSON.parse(message.toString())
+			this.debug('---- WebSocket received: ', data)
+			let changed = this.storeState(data, 'WebSocket')
+		})
+
+		this.ws.on('error', (data) => {
+			this.log('error', `WebSocket error: ${data}`)
+		})
+	}
+
 	// Poll for BirdDog camera configuration/status
 	startPolling() {
 		//Immediately do the poll
@@ -2491,6 +2531,11 @@ class instance extends instance_skel {
 			this.initFeedbacks()
 
 			this.init_udp()
+
+			if (this.camera.firmware.major === '5') {
+				this.init_ws_listener()
+			}
+
 		} else {
 			this.status(this.STATUS_ERROR)
 			this.log('error', `Unable to connect to ${hostname}`)
