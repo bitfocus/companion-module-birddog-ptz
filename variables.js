@@ -73,6 +73,12 @@ exports.updateVariables = function () {
 		this.setVariable('audio_output', this.camera.analogAudioOutput)
 	}
 
+	// Device Settings Variables
+
+	if (MODEL_VARIABLES.some((variable) => variable.name === 'oled')) {
+		this.setVariable('oled', this.camera.oled)
+	}
+
 	// Video Output Interface Variables
 
 	if (MODEL_VARIABLES.some((variable) => variable.name === 'video_output')) {

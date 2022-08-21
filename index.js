@@ -2045,6 +2045,10 @@ class instance extends instance_skel {
 				changed = this.storeState(data, 'analogaudiosetup')
 				this.camera.audio = data
 				break
+			case 'devicesettings':
+				changed = this.storeState(data, 'devicesettings')
+				this.camera.devicesettings = data
+				break
 			case 'videooutputinterface':
 				changed = this.storeState(data, 'videooutputinterface')
 				this.camera.video = data
@@ -2313,6 +2317,12 @@ class instance extends instance_skel {
 		if (MODEL_QRY?.analogaudiosetup) {
 			this.sendCommand('analogaudiosetup', 'GET')
 		}
+		if (MODEL_QRY?.devicesettings) {
+			this.sendCommand('NDIDisServer', 'GET')
+		}
+		if (MODEL_QRY?.videooutputinterface) {
+			this.sendCommand('videooutputinterface', 'GET')
+		}
 		if (MODEL_QRY?.encodetransport) {
 			this.sendCommand('encodetransport', 'GET')
 		}
@@ -2342,9 +2352,6 @@ class instance extends instance_skel {
 		this.sendVISCACommand(VISCA.MSG_QRY + VISCA.CAM_FREEZE + VISCA.END_MSG, '\x5b') // Query Freeze
 		this.sendVISCACommand(VISCA.MSG_QRY + VISCA.CAM_ZOOM_DIRECT + VISCA.END_MSG, '\x5c') // Query Zoom Position
 
-		if (MODEL_QRY?.videooutputinterface) {
-			this.sendCommand('videooutputinterface', 'GET')
-		}
 		if (MODEL_QRY?.birddogcmsetup) {
 			this.sendCommand('birddogcmsetup', 'GET')
 		}

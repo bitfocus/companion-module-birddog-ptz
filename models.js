@@ -7,8 +7,7 @@ module.exports = {
 
 		//Device Settings
 		analogaudiosetup: { camera: ['All'], firmware: ['4', '5'] },
-
-		// Video Output Interface Variables
+		devicesettings: { camera: ['All'], firmware: ['5'] },
 		videooutputinterface: { camera: ['P400', 'P4K'], firmware: ['4', '5'] },
 
 		//NDI Encode
@@ -23,7 +22,19 @@ module.exports = {
 		recallPost: { camera: ['All'], firmware: ['4', '5'] },
 		savePost: { camera: ['All'], firmware: ['4', '5'] },
 		pt_pos: {
-			camera: ['P100', 'P200A2A3', 'P200A4A5', 'A200GEN1', 'A200GEN2', 'A300GEN1', 'A300GEN2', 'P400', 'P4K'],
+			camera: [
+				'P100',
+				'P110',
+				'P120',
+				'P200A2A3',
+				'P200A4A5',
+				'A200GEN1',
+				'A200GEN2',
+				'A300GEN1',
+				'A300GEN2',
+				'P400',
+				'P4K',
+			],
 			firmware: ['4', '5'],
 		},
 
@@ -210,6 +221,17 @@ module.exports = {
 			],
 		},
 
+		// Device Settings
+		oled: {
+			camera: ['P110', 'P120'],
+			firmware: ['5'],
+			store_state: true,
+			api_endpoint: ['devicesettings'],
+			api_variable: ['Oled'],
+			variable_name: 'oled',
+			variable_label: 'Device Settings - OLED',
+		},
+
 		// Video Output Interface
 		video_output: {
 			camera: ['P400', 'P4K'],
@@ -346,7 +368,7 @@ module.exports = {
 			],
 		},
 		tally: {
-			camera: ['PF120', 'P200A2A3', 'P200A4A5', 'P400', 'P4K'],
+			camera: ['P110', 'P120', 'PF120', 'P200A2A3', 'P200A4A5', 'P400', 'P4K'],
 			firmware: ['4', '5'],
 			store_state: true,
 			api_endpoint: ['encodesetup'],
@@ -487,7 +509,19 @@ module.exports = {
 			variable_label: `PTZ - FreeD Port`,
 		},
 		pt: {
-			camera: ['P100', 'P200A2A3', 'P200A4A5', 'A200GEN1', 'A200GEN2', 'A300GEN1', 'A300GEN2', 'P400', 'P4K'],
+			camera: [
+				'P100',
+				'P110',
+				'P120',
+				'P200A2A3',
+				'P200A4A5',
+				'A200GEN1',
+				'A200GEN2',
+				'A300GEN1',
+				'A300GEN2',
+				'P400',
+				'P4K',
+			],
 			firmware: ['4', '5'],
 			store_state: false,
 			action: [
@@ -502,7 +536,7 @@ module.exports = {
 					},
 				},
 				{
-					camera: ['P100'],
+					camera: ['P100', 'P110', 'P120'],
 					action: { posPanChoices: CHOICES.POS_PAN_P100 },
 				},
 				{
@@ -512,14 +546,38 @@ module.exports = {
 			],
 		},
 		pan_position: {
-			camera: ['P100', 'P200A2A3', 'P200A4A5', 'A200GEN1', 'A200GEN2', 'A300GEN1', 'A300GEN2', 'P400', 'P4K'],
+			camera: [
+				'P100',
+				'P110',
+				'P120',
+				'P200A2A3',
+				'P200A4A5',
+				'A200GEN1',
+				'A200GEN2',
+				'A300GEN1',
+				'A300GEN2',
+				'P400',
+				'P4K',
+			],
 			firmware: ['4', '5'],
 			store_state: true,
 			variable_name: 'pan_position',
 			variable_label: `PTZ - Pan Position`,
 		},
 		panSpeed: {
-			camera: ['P100', 'P200A2A3', 'P200A4A5', 'A200GEN1', 'A200GEN2', 'A300GEN1', 'A300GEN2', 'P400', 'P4K'],
+			camera: [
+				'P100',
+				'P110',
+				'P120',
+				'P200A2A3',
+				'P200A4A5',
+				'A200GEN1',
+				'A200GEN2',
+				'A300GEN1',
+				'A300GEN2',
+				'P400',
+				'P4K',
+			],
 			firmware: ['4', '5'],
 			store_state: true,
 			api_endpoint: ['birddogptzsetup'],
@@ -586,14 +644,38 @@ module.exports = {
 			],
 		},
 		tilt_position: {
-			camera: ['P100', 'P200A2A3', 'P200A4A5', 'A200GEN1', 'A200GEN2', 'A300GEN1', 'A300GEN2', 'P400', 'P4K'],
+			camera: [
+				'P100',
+				'P110',
+				'P120',
+				'P200A2A3',
+				'P200A4A5',
+				'A200GEN1',
+				'A200GEN2',
+				'A300GEN1',
+				'A300GEN2',
+				'P400',
+				'P4K',
+			],
 			firmware: ['4', '5'],
 			store_state: true,
 			variable_name: 'tilt_position',
 			variable_label: `PTZ - Tilt Position`,
 		},
 		tiltSpeed: {
-			camera: ['P100', 'P200A2A3', 'P200A4A5', 'A200GEN1', 'A200GEN2', 'A300GEN1', 'A300GEN2', 'P400', 'P4K'],
+			camera: [
+				'P100',
+				'P110',
+				'P120',
+				'P200A2A3',
+				'P200A4A5',
+				'A200GEN1',
+				'A200GEN2',
+				'A300GEN1',
+				'A300GEN2',
+				'P400',
+				'P4K',
+			],
 			firmware: ['4', '5'],
 			store_state: true,
 			api_endpoint: ['birddogptzsetup'],
@@ -625,11 +707,11 @@ module.exports = {
 					action: { posZoomChoices: CHOICES.POS_ZOOM_12 },
 				},
 				{
-					camera: ['P100'],
+					camera: ['P100', 'P110'],
 					action: { posZoomChoices: CHOICES.POS_ZOOM_10 },
 				},
 				{
-					camera: ['PF120', 'P400'],
+					camera: ['PF120', 'P120', 'P400'],
 					action: { posZoomChoices: CHOICES.POS_ZOOM_20 },
 				},
 				{
@@ -728,7 +810,7 @@ module.exports = {
 			variable_label: `Exposure - Bright Level`,
 			action: [
 				{
-					camera: ['P100', 'PF120'],
+					camera: ['P100', 'P110', 'P120', 'PF120'],
 					action: { range: { min: 0, max: 27, default: 14 } },
 				},
 				{
@@ -774,7 +856,7 @@ module.exports = {
 					action: { choices: CHOICES.UP_DOWN_VALUE, default: 'up' },
 				},
 				{
-					camera: ['P100', 'PF120'],
+					camera: ['P100', 'P110', 'P120', 'PF120'],
 					action: { range: { min: -7, max: 7, default: 0 } },
 				},
 				{
@@ -797,7 +879,7 @@ module.exports = {
 					action: { default: 'FULL-AUTO' },
 				},
 				{
-					camera: ['P100', 'PF120', 'P200A4A5', 'A200GEN1', 'A200GEN2', 'A300GEN1', 'A300GEN2'],
+					camera: ['P100', 'P110', 'P120', 'PF120', 'P200A4A5', 'A200GEN1', 'A200GEN2', 'A300GEN1', 'A300GEN2'],
 					action: { choices: CHOICES.EXP_MODE_1 },
 				},
 				{
@@ -820,7 +902,7 @@ module.exports = {
 			variable_label: `Exposure - Gain`,
 			action: [
 				{
-					camera: ['P100', 'PF120'],
+					camera: ['P100', 'P110', 'P120', 'PF120'],
 					action: { choices: CHOICES.GAIN_1, default: 0 },
 				},
 				{
@@ -901,7 +983,7 @@ module.exports = {
 			variable_label: `Exposure - Iris`,
 			action: [
 				{
-					camera: ['P100', 'PF120'],
+					camera: ['P100', 'P110', 'P120', 'PF120'],
 					action: { choices: CHOICES.IRIS_1, default: 8, range: { closed: 0, min: 1, max: 13 } },
 				},
 				{
@@ -919,7 +1001,7 @@ module.exports = {
 			],
 		},
 		shutter_control_overwrite: {
-			camera: ['P100', 'PF120'],
+			camera: ['P100', 'P110', 'P120', 'PF120'],
 			firmware: ['4', '5'],
 			store_state: true,
 			api_endpoint: ['birddogexpsetup'],
@@ -973,7 +1055,18 @@ module.exports = {
 			variable_label: `Exposure - Shutter Speed`,
 			action: [
 				{
-					camera: ['P100', 'PF120', 'P200A2A3', 'P200A4A5', 'A200GEN1', 'A200GEN2', 'A300GEN1', 'A300GEN2'],
+					camera: [
+						'P100',
+						'P110',
+						'P120',
+						'PF120',
+						'P200A2A3',
+						'P200A4A5',
+						'A200GEN1',
+						'A200GEN2',
+						'A300GEN1',
+						'A300GEN2',
+					],
 					action: {
 						shutter_50: CHOICES.SHUTTER_50,
 						shutter_60: CHOICES.SHUTTER_60,
@@ -994,7 +1087,7 @@ module.exports = {
 			],
 		},
 		shutter_speed_overwrite: {
-			camera: ['P100', 'PF120'],
+			camera: ['P100', 'P110', 'P120', 'PF120'],
 			firmware: ['4', '5'],
 			store_state: true,
 			api_endpoint: ['birddogexpsetup'],
@@ -1110,7 +1203,7 @@ module.exports = {
 			],
 		},
 		color_temp: {
-			camera: ['P100', 'PF120'],
+			camera: ['P100', 'P110', 'P120', 'PF120'],
 			firmware: ['4', '5'],
 			store_state: true,
 			api_endpoint: ['birddogwbsetup'],
@@ -1313,7 +1406,7 @@ module.exports = {
 					action: { default: 'AUTO' },
 				},
 				{
-					camera: ['P100', 'PF120'],
+					camera: ['P100', 'P110', 'P120', 'PF120'],
 					action: { choices: CHOICES.WB_MODE_1 },
 				},
 				{
@@ -1355,7 +1448,7 @@ module.exports = {
 			],
 		},
 		color: {
-			camera: ['P100', 'PF120'],
+			camera: ['P100', 'P110', 'P120', 'PF120'],
 			firmware: ['4', '5'],
 			store_state: true,
 			api_endpoint: ['birddogpicsetup'],
@@ -1370,7 +1463,7 @@ module.exports = {
 			],
 		},
 		contrast: {
-			camera: ['P100', 'PF120'],
+			camera: ['P100', 'P110', 'P120', 'PF120'],
 			firmware: ['4', '5'],
 			store_state: true,
 			api_endpoint: ['birddogpicsetup'],
@@ -1385,7 +1478,7 @@ module.exports = {
 			],
 		},
 		gamma: {
-			camera: ['P100', 'PF120', 'P200A2A3', 'P200A4A5', 'A200GEN1', 'A200GEN2', 'A300GEN1', 'A300GEN2'],
+			camera: ['P100', 'P110', 'P120', 'PF120', 'P200A2A3', 'P200A4A5', 'A200GEN1', 'A200GEN2', 'A300GEN1', 'A300GEN2'],
 			firmware: ['4', '5'],
 			store_state: true,
 			api_endpoint: ['birddogpicsetup'],
@@ -1430,7 +1523,7 @@ module.exports = {
 			],
 		},
 		hue: {
-			camera: ['P100', 'PF120'],
+			camera: ['P100', 'P110', 'P120', 'PF120'],
 			firmware: ['4', '5'],
 			store_state: true,
 			api_endpoint: ['birddogpicsetup'],
@@ -1498,7 +1591,7 @@ module.exports = {
 			],
 		},
 		noise_reduction: {
-			camera: ['P100', 'PF120', 'P200A2A3', 'P200A4A5', 'A200GEN1', 'A200GEN2', 'A300GEN1', 'A300GEN2'],
+			camera: ['P100', 'P110', 'P120', 'PF120', 'P200A2A3', 'P200A4A5', 'A200GEN1', 'A200GEN2', 'A300GEN1', 'A300GEN2'],
 			firmware: ['4', '5'],
 			store_state: true,
 			api_endpoint: ['birddogpicsetup'],
@@ -1543,7 +1636,7 @@ module.exports = {
 			],
 		},
 		pictureEffect: {
-			camera: ['P100', 'PF120', 'P200A2A3', 'P200A4A5', 'A200GEN1', 'A200GEN2', 'A300GEN1', 'A300GEN2'],
+			camera: ['P100', 'P110', 'P120', 'PF120', 'P200A2A3', 'P200A4A5', 'A200GEN1', 'A200GEN2', 'A300GEN1', 'A300GEN2'],
 			firmware: ['4', '5'],
 			store_state: true,
 			api_endpoint: ['birddogpicsetup'],
@@ -1558,7 +1651,7 @@ module.exports = {
 			],
 		},
 		sharpness: {
-			camera: ['P100', 'PF120', 'P200A2A3', 'P200A4A5', 'A200GEN1', 'A200GEN2', 'A300GEN1', 'A300GEN2'],
+			camera: ['P100', 'P110', 'P120', 'PF120', 'P200A2A3', 'P200A4A5', 'A200GEN1', 'A200GEN2', 'A300GEN1', 'A300GEN2'],
 			firmware: ['4', '5'],
 			store_state: true,
 			api_endpoint: ['birddogpicsetup'],
@@ -1626,7 +1719,7 @@ module.exports = {
 			],
 		},
 		wide_dynamic_range: {
-			camera: ['P100', 'PF120'],
+			camera: ['P100', 'P110', 'P120', 'PF120'],
 			firmware: ['4', '5'],
 			store_state: true,
 			api_endpoint: ['birddogpicsetup'],
@@ -1643,7 +1736,7 @@ module.exports = {
 
 		// Color Matrix
 		cm_blue_gain: {
-			camera: ['P100', 'PF120', 'P200A2A3', 'P200A4A5', 'A200GEN1', 'A200GEN2', 'A300GEN1', 'A300GEN2'],
+			camera: ['P100', 'P110', 'P120', 'PF120', 'P200A2A3', 'P200A4A5', 'A200GEN1', 'A200GEN2', 'A300GEN1', 'A300GEN2'],
 			firmware: ['4', '5'],
 			store_state: true,
 			api_endpoint: ['birddogcmsetup'],
@@ -1658,7 +1751,7 @@ module.exports = {
 			],
 		},
 		cm_blue_hue: {
-			camera: ['P100', 'PF120', 'P200A2A3', 'P200A4A5', 'A200GEN1', 'A200GEN2', 'A300GEN1', 'A300GEN2'],
+			camera: ['P100', 'P110', 'P120', 'PF120', 'P200A2A3', 'P200A4A5', 'A200GEN1', 'A200GEN2', 'A300GEN1', 'A300GEN2'],
 			firmware: ['4', '5'],
 			store_state: true,
 			api_endpoint: ['birddogcmsetup'],
@@ -1688,7 +1781,7 @@ module.exports = {
 			],
 		},
 		cm_cyan_gain: {
-			camera: ['P100', 'PF120', 'P200A2A3', 'P200A4A5', 'A200GEN1', 'A200GEN2', 'A300GEN1', 'A300GEN2'],
+			camera: ['P100', 'P110', 'P120', 'PF120', 'P200A2A3', 'P200A4A5', 'A200GEN1', 'A200GEN2', 'A300GEN1', 'A300GEN2'],
 			firmware: ['4', '5'],
 			store_state: true,
 			api_endpoint: ['birddogcmsetup'],
@@ -1703,7 +1796,7 @@ module.exports = {
 			],
 		},
 		cm_cyan_hue: {
-			camera: ['P100', 'PF120', 'P200A2A3', 'P200A4A5', 'A200GEN1', 'A200GEN2', 'A300GEN1', 'A300GEN2'],
+			camera: ['P100', 'P110', 'P120', 'PF120', 'P200A2A3', 'P200A4A5', 'A200GEN1', 'A200GEN2', 'A300GEN1', 'A300GEN2'],
 			firmware: ['4', '5'],
 			store_state: true,
 			api_endpoint: ['birddogcmsetup'],
@@ -1718,7 +1811,7 @@ module.exports = {
 			],
 		},
 		cm_green_gain: {
-			camera: ['P100', 'PF120', 'P200A2A3', 'P200A4A5', 'A200GEN1', 'A200GEN2', 'A300GEN1', 'A300GEN2'],
+			camera: ['P100', 'P110', 'P120', 'PF120', 'P200A2A3', 'P200A4A5', 'A200GEN1', 'A200GEN2', 'A300GEN1', 'A300GEN2'],
 			firmware: ['4', '5'],
 			store_state: true,
 			api_endpoint: ['birddogcmsetup'],
@@ -1733,7 +1826,7 @@ module.exports = {
 			],
 		},
 		cm_green_hue: {
-			camera: ['P100', 'PF120', 'P200A2A3', 'P200A4A5', 'A200GEN1', 'A200GEN2', 'A300GEN1', 'A300GEN2'],
+			camera: ['P100', 'P110', 'P120', 'PF120', 'P200A2A3', 'P200A4A5', 'A200GEN1', 'A200GEN2', 'A300GEN1', 'A300GEN2'],
 			firmware: ['4', '5'],
 			store_state: true,
 			api_endpoint: ['birddogcmsetup'],
@@ -1763,7 +1856,7 @@ module.exports = {
 			],
 		},
 		cm_mag_gain: {
-			camera: ['P100', 'PF120', 'P200A2A3', 'P200A4A5', 'A200GEN1', 'A200GEN2', 'A300GEN1', 'A300GEN2'],
+			camera: ['P100', 'P110', 'P120', 'PF120', 'P200A2A3', 'P200A4A5', 'A200GEN1', 'A200GEN2', 'A300GEN1', 'A300GEN2'],
 			firmware: ['4', '5'],
 			store_state: true,
 			api_endpoint: ['birddogcmsetup'],
@@ -1778,7 +1871,7 @@ module.exports = {
 			],
 		},
 		cm_mag_hue: {
-			camera: ['P100', 'PF120', 'P200A2A3', 'P200A4A5', 'A200GEN1', 'A200GEN2', 'A300GEN1', 'A300GEN2'],
+			camera: ['P100', 'P110', 'P120', 'PF120', 'P200A2A3', 'P200A4A5', 'A200GEN1', 'A200GEN2', 'A300GEN1', 'A300GEN2'],
 			firmware: ['4', '5'],
 			store_state: true,
 			api_endpoint: ['birddogcmsetup'],
@@ -1793,7 +1886,7 @@ module.exports = {
 			],
 		},
 		cm_red_gain: {
-			camera: ['P100', 'PF120', 'P200A2A3', 'P200A4A5', 'A200GEN1', 'A200GEN2', 'A300GEN1', 'A300GEN2'],
+			camera: ['P100', 'P110', 'P120', 'PF120', 'P200A2A3', 'P200A4A5', 'A200GEN1', 'A200GEN2', 'A300GEN1', 'A300GEN2'],
 			firmware: ['4', '5'],
 			store_state: true,
 			api_endpoint: ['birddogcmsetup'],
@@ -1808,7 +1901,7 @@ module.exports = {
 			],
 		},
 		cm_red_hue: {
-			camera: ['P100', 'PF120', 'P200A2A3', 'P200A4A5', 'A200GEN1', 'A200GEN2', 'A300GEN1', 'A300GEN2'],
+			camera: ['P100', 'P110', 'P120', 'PF120', 'P200A2A3', 'P200A4A5', 'A200GEN1', 'A200GEN2', 'A300GEN1', 'A300GEN2'],
 			firmware: ['4', '5'],
 			store_state: true,
 			api_endpoint: ['birddogcmsetup'],
@@ -1823,7 +1916,7 @@ module.exports = {
 			],
 		},
 		cm_yellow_gain: {
-			camera: ['P100', 'PF120', 'P200A2A3', 'P200A4A5', 'A200GEN1', 'A200GEN2', 'A300GEN1', 'A300GEN2'],
+			camera: ['P100', 'P110', 'P120', 'PF120', 'P200A2A3', 'P200A4A5', 'A200GEN1', 'A200GEN2', 'A300GEN1', 'A300GEN2'],
 			firmware: ['4', '5'],
 			store_state: true,
 			api_endpoint: ['birddogcmsetup'],
@@ -1838,7 +1931,7 @@ module.exports = {
 			],
 		},
 		cm_yellow_hue: {
-			camera: ['P100', 'PF120', 'P200A2A3', 'P200A4A5', 'A200GEN1', 'A200GEN2', 'A300GEN1', 'A300GEN2'],
+			camera: ['P100', 'P110', 'P120', 'PF120', 'P200A2A3', 'P200A4A5', 'A200GEN1', 'A200GEN2', 'A300GEN1', 'A300GEN2'],
 			firmware: ['4', '5'],
 			store_state: true,
 			api_endpoint: ['birddogcmsetup'],
