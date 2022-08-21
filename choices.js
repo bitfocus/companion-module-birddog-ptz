@@ -628,4 +628,22 @@ module.exports = {
 		{ id: 'STANDARD', label: 'Standard' },
 		{ id: 'STRAIGHT', label: 'Straight' },
 	],
+
+	// ############
+	// BirdDog Scope Settings Look Ups
+	// ############
+
+	SCOPE_MODE: [
+		{ id: 'Histogram', label: 'Histogram' },
+		{ id: 'Waveform', label: 'Waveform' },
+		{ id: 'RGBParade', label: 'RGB Parade' },
+		{ id: 'Vectorscope', label: 'Vectorscope' },
+	],
+
+	SCOPE_POSITION: [
+		{ id: 'TopLeft', label: 'Top Left' },
+		{ id: 'TopRight', label: 'Top Right' },
+		{ id: 'BottomLeft', label: 'Bottom Left' },
+		{ id: 'BottomRight', label: 'Bottom Right' },
+	],
 }

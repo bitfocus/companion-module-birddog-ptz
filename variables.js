@@ -629,4 +629,34 @@ exports.updateVariables = function () {
 	if (MODEL_VARIABLES.some((variable) => variable.name === 'visibility_enhancer')) {
 		this.setVariable('visibility_enhancer', this.camera.visibility_enhancer)
 	}
+
+	// BirdDog Scope Variables
+
+	if (MODEL_VARIABLES.some((variable) => variable.name === 'scope_size')) {
+		this.setVariable('scope_size', this.camera.scope_size)
+	}
+
+	if (MODEL_VARIABLES.some((variable) => variable.name === 'scope_gamma_gain')) {
+		this.setVariable('scope_gamma_gain', this.camera.scope_gamma_gain)
+	}
+
+	if (MODEL_VARIABLES.some((variable) => variable.name === 'scope_mode')) {
+		this.setVariable('scope_mode', this.camera.scope_mode)
+	}
+
+	if (MODEL_VARIABLES.some((variable) => variable.name === 'scope_position')) {
+		this.setVariable('scope_position', this.camera.scope_position)
+	}
+
+	if (MODEL_VARIABLES.some((variable) => variable.name === 'scope_preview')) {
+		this.setVariable('scope_preview', this.camera.scope_preview)
+	}
+
+	if (MODEL_VARIABLES.some((variable) => variable.name === 'scope_program')) {
+		this.setVariable('scope_program', this.camera.scope_program)
+	}
+
+	if (MODEL_VARIABLES.some((variable) => variable.name === 'scope_transparency')) {
+		this.setVariable('scope_transparency', this.camera.scope_transparency)
+	}
 }

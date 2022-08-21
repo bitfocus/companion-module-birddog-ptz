@@ -1873,6 +1873,73 @@ class instance extends instance_skel {
 				this.sendCommand('birddoggammasetup', 'POST', body)
 				break
 
+			// BirdDog Scope Actions
+
+			case 'scope_size':
+				body = {
+					DoubleSizeEnable: String(opt.val),
+				}
+				this.sendCommand('birddogscope', 'POST', body)
+				break
+
+			case 'scope_gamma_gain':
+				let scope_gamma_gain = this.camera?.scope_gamma_gain
+					? this.camera.scope_gamma_gain
+					: MODEL_ACTIONS.scope_gamma_gain.range.default
+				switch (opt.val) {
+					case 'up':
+						newValue =
+							scope_gamma_gain < MODEL_ACTIONS.scope_gamma_gain.range.max ? ++scope_gamma_gain : scope_gamma_gain
+						break
+					case 'down':
+						newValue =
+							scope_gamma_gain > MODEL_ACTIONS.scope_gamma_gain.range.max ? --scope_gamma_gain : scope_gamma_gain
+						break
+					case 'value':
+						newValue = opt.value
+						break
+				}
+				body = {
+					GammaGain: String(newValue),
+				}
+				this.sendCommand('birddogscope', 'POST', body)
+				break
+
+			case 'scope_mode':
+				body = {
+					Mode: String(opt.val),
+				}
+				this.sendCommand('birddogscope', 'POST', body)
+				break
+
+			case 'scope_position':
+				body = {
+					Position: String(opt.val),
+				}
+				this.sendCommand('birddogscope', 'POST', body)
+				break
+
+			case 'scope_preview':
+				body = {
+					PreviewEnable: String(opt.val),
+				}
+				this.sendCommand('birddogscope', 'POST', body)
+				break
+
+			case 'scope_program':
+				body = {
+					ProgramEnable: String(opt.val),
+				}
+				this.sendCommand('birddogscope', 'POST', body)
+				break
+
+			case 'scope_transparency':
+				body = {
+					TransparencyEnable: String(opt.val),
+				}
+				this.sendCommand('birddogscope', 'POST', body)
+				break
+
 			// Other Actions
 
 			case 'defog':
@@ -2076,6 +2143,10 @@ class instance extends instance_skel {
 			case 'birddoggammasetup':
 				changed = this.storeState(data, 'birddoggammasetup')
 				this.camera.gammasetup = data
+				break
+			case 'birddogscope':
+				changed = this.storeState(data, 'birddogscope')
+				this.camera.birddogscope = data
 				break
 		}
 		this.updateVariables()
@@ -2289,6 +2360,9 @@ class instance extends instance_skel {
 		if (MODEL_QRY?.birddoggammasetup) {
 			this.sendCommand('birddoggammasetup', 'GET')
 		}
+		if (MODEL_QRY?.birddogscope) {
+			this.sendCommand('birddogscope', 'GET')
+		}
 		if (MODEL_QRY?.pt_pos) {
 			this.sendVISCACommand(VISCA.MSG_QRY_OPERATION + VISCA.OP_PAN_POS + VISCA.END_MSG, '\x5d') // Query Pan/Tilt Position
 		}
@@ -2491,8 +2565,8 @@ class instance extends instance_skel {
 			if (!stored) {
 				if (!this.camera.unknown.includes(element[0])) {
 					//Only warn about unknown API variables once
-					this.log('warn', `Unknown API variable:  ${element[0]}`)
-					this.debug('---- Unknown API variable: ' + element[0])
+					this.log('warn', `Unknown API variable returned from ${endpoint}: ${element[0]}`)
+					this.debug('---- Unknown API variable returned from ' + endpoint + ': ' + element[0])
 					this.camera.unknown.push(element[0])
 				}
 			} else if (this.camera[stored[0]] !== element[1]) {

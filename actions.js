@@ -2485,6 +2485,127 @@ module.exports = {
 			}
 		}
 
+		// BirdDog Scope Actions
+
+		if (MODEL_ACTIONS?.scope_size) {
+			actions['scope_size'] = {
+				label: 'Scope - Size',
+				options: [
+					{
+						type: 'dropdown',
+						label: 'On/Off',
+						id: 'val',
+						choices: MODEL_ACTIONS.scope_size.choices,
+						default: MODEL_ACTIONS.scope_size.default,
+					},
+				],
+			}
+		}
+
+		if (MODEL_ACTIONS?.scope_gamma_gain) {
+			actions['scope_gamma_gain'] = {
+				label: 'Scope - Gamma Gain',
+				options: [
+					{
+						type: 'dropdown',
+						label: 'Gamma Gain',
+						id: 'val',
+						choices: MODEL_ACTIONS.scope_gamma_gain.choices,
+						default: MODEL_ACTIONS.scope_gamma_gain.default,
+					},
+					{
+						type: 'number',
+						label:
+							'Value (' +
+							MODEL_ACTIONS.scope_gamma_gain.range.min +
+							' to ' +
+							MODEL_ACTIONS.scope_gamma_gain.range.max +
+							')',
+						id: 'value',
+						min: MODEL_ACTIONS.scope_gamma_gain.range.min,
+						max: MODEL_ACTIONS.scope_gamma_gain.range.max,
+						default: MODEL_ACTIONS.scope_gamma_gain.range.default,
+						isVisible: (action) => action.options.val === 'value',
+					},
+				],
+			}
+		}
+
+		if (MODEL_ACTIONS?.scope_mode) {
+			actions['scope_mode'] = {
+				label: 'Scope - Mode',
+				options: [
+					{
+						type: 'dropdown',
+						label: 'Mode',
+						id: 'val',
+						choices: MODEL_ACTIONS.scope_mode.choices,
+						default: MODEL_ACTIONS.scope_mode.default,
+					},
+				],
+			}
+		}
+
+		if (MODEL_ACTIONS?.scope_position) {
+			actions['scope_position'] = {
+				label: 'Scope - Position',
+				options: [
+					{
+						type: 'dropdown',
+						label: 'Position',
+						id: 'val',
+						choices: MODEL_ACTIONS.scope_position.choices,
+						default: MODEL_ACTIONS.scope_position.default,
+					},
+				],
+			}
+		}
+
+		if (MODEL_ACTIONS?.scope_preview) {
+			actions['scope_preview'] = {
+				label: 'Scope - Preview',
+				options: [
+					{
+						type: 'dropdown',
+						label: 'On/Off',
+						id: 'val',
+						choices: MODEL_ACTIONS.scope_preview.choices,
+						default: MODEL_ACTIONS.scope_preview.default,
+					},
+				],
+			}
+		}
+
+		if (MODEL_ACTIONS?.scope_program) {
+			actions['scope_program'] = {
+				label: 'Scope - Program',
+				options: [
+					{
+						type: 'dropdown',
+						label: 'On/Off',
+						id: 'val',
+						choices: MODEL_ACTIONS.scope_program.choices,
+						default: MODEL_ACTIONS.scope_program.default,
+					},
+				],
+			}
+		}
+
+		if (MODEL_ACTIONS?.scope_transparency) {
+			actions['scope_transparency'] = {
+				label: 'Scope - Transparency',
+				options: [
+					{
+						type: 'dropdown',
+						label: 'On/Off',
+						id: 'val',
+						choices: MODEL_ACTIONS.scope_transparency.choices,
+						default: MODEL_ACTIONS.scope_transparency.default,
+					},
+				],
+			}
+		}
+
 		// Other Actions
 
 		actions['custom'] = {

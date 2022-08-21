@@ -3034,6 +3034,182 @@ exports.initFeedbacks = function () {
 		}
 	}
 
+	// BirdDog Scope Feedback
+
+	if (MODEL_ACTIONS?.scope_size) {
+		feedbacks.scope_size = {
+			type: 'boolean',
+			label: 'Scope - Size',
+			description: 'If the camera matches the selected Scope Size, change the style of the button',
+			style: {
+				color: ColorBlack,
+				bgcolor: ColorGreen,
+			},
+			options: [
+				{
+					type: 'dropdown',
+					label: 'On/Off',
+					id: 'val',
+					choices: MODEL_ACTIONS.scope_size.choices,
+					default: MODEL_ACTIONS.scope_size.default,
+				},
+			],
+			callback: (feedback) => {
+				return this.camera?.scope_size == feedback.options.value
+			},
+		}
+	}
+
+	if (MODEL_ACTIONS?.scope_gamma_gain) {
+		feedbacks.scope_gamma_gain = {
+			type: 'boolean',
+			label: 'Scope - Gamma Gain',
+			description: 'If the camera matches the selected Scope Gamma Gain, change the style of the button',
+			style: {
+				color: ColorBlack,
+				bgcolor: ColorGreen,
+			},
+			options: [
+				{
+					type: 'number',
+					label:
+						'Value (' +
+						MODEL_ACTIONS.scope_gamma_gain.range.min +
+						' to ' +
+						MODEL_ACTIONS.scope_gamma_gain.range.max +
+						')',
+					id: 'value',
+					min: MODEL_ACTIONS.scope_gamma_gain.range.min,
+					max: MODEL_ACTIONS.scope_gamma_gain.range.max,
+					default: MODEL_ACTIONS.scope_gamma_gain.range.default,
+				},
+			],
+			callback: (feedback) => {
+				return this.camera?.scope_gamma_gain == feedback.options.value
+			},
+		}
+	}
+
+	if (MODEL_ACTIONS?.scope_mode) {
+		feedbacks.scope_mode = {
+			type: 'boolean',
+			label: 'Scope - Mode',
+			description: 'If the camera matches the selected Scope Mode, change the style of the button',
+			style: {
+				color: ColorBlack,
+				bgcolor: ColorGreen,
+			},
+			options: [
+				{
+					type: 'dropdown',
+					label: 'Mode',
+					id: 'val',
+					choices: MODEL_ACTIONS.scope_mode.choices,
+					default: MODEL_ACTIONS.scope_mode.default,
+				},
+			],
+			callback: (feedback) => {
+				return this.camera?.scope_mode == feedback.options.value
+			},
+		}
+	}
+
+	if (MODEL_ACTIONS?.scope_position) {
+		feedbacks.scope_position = {
+			type: 'boolean',
+			label: 'Scope - Position',
+			description: 'If the camera matches the selected scope position, change the style of the button',
+			style: {
+				color: ColorBlack,
+				bgcolor: ColorGreen,
+			},
+			options: [
+				{
+					type: 'dropdown',
+					label: 'Position',
+					id: 'val',
+					choices: MODEL_ACTIONS.scope_position.choices,
+					default: MODEL_ACTIONS.scope_position.default,
+				},
+			],
+			callback: (feedback) => {
+				return this.camera?.scope_position == feedback.options.value
+			},
+		}
+	}
+
+	if (MODEL_ACTIONS?.scope_preview) {
+		feedbacks.scope_preview = {
+			type: 'boolean',
+			label: 'Scope - Preview',
+			description: 'If the camera matches the selected scope preview mode, change the style of the button',
+			style: {
+				color: ColorBlack,
+				bgcolor: ColorGreen,
+			},
+			options: [
+				{
+					type: 'dropdown',
+					label: 'On/Off',
+					id: 'val',
+					choices: MODEL_ACTIONS.scope_preview.choices,
+					default: MODEL_ACTIONS.scope_preview.default,
+				},
+			],
+			callback: (feedback) => {
+				return this.camera?.scope_preview == feedback.options.value
+			},
+		}
+	}
+
+	if (MODEL_ACTIONS?.scope_program) {
+		feedbacks.scope_program = {
+			type: 'boolean',
+			label: 'Scope - Program',
+			description: 'If the camera matches the selected scope program mode, change the style of the button',
+			style: {
+				color: ColorBlack,
+				bgcolor: ColorGreen,
+			},
+			options: [
+				{
+					type: 'dropdown',
+					label: 'On/Off',
+					id: 'val',
+					choices: MODEL_ACTIONS.scope_program.choices,
+					default: MODEL_ACTIONS.scope_program.default,
+				},
+			],
+			callback: (feedback) => {
+				return this.camera?.scope_program == feedback.options.value
+			},
+		}
+	}
+
+	if (MODEL_ACTIONS?.scope_transparency) {
+		feedbacks.scope_transparency = {
+			type: 'boolean',
+			label: 'Scope - Transparency',
+			description: 'If the camera matches the selected scope transparency mode, change the style of the button',
+			style: {
+				color: ColorBlack,
+				bgcolor: ColorGreen,
+			},
+			options: [
+				{
+					type: 'dropdown',
+					label: 'On/Off',
+					id: 'val',
+					choices: MODEL_ACTIONS.scope_transparency.choices,
+					default: MODEL_ACTIONS.scope_transparency.default,
+				},
+			],
+			callback: (feedback) => {
+				return this.camera?.scope_transparency == feedback.options.value
+			},
+		}
+	}
+
 	// Other Feedback
 
 	this.setFeedbackDefinitions(feedbacks)

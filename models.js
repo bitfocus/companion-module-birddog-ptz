@@ -52,8 +52,11 @@ module.exports = {
 		//Detail Settings
 		birddogdetsetup: { camera: ['P400', 'P4K'], firmware: ['4', '5'] },
 
-		//Gamma Settins
+		//Gamma Settings
 		birddoggammasetup: { camera: ['P400', 'P4K'], firmware: ['4', '5'] },
+
+		//Scope Settings
+		birddogscope: { camera: ['All'], firmware: ['5'] },
 	},
 
 	MODEL_SPECS: {
@@ -2255,6 +2258,113 @@ module.exports = {
 			api_variable: ['VisibilityEnhancer'],
 			variable_name: 'visibility_enhancer',
 			variable_label: `Gamma Setup - Visibilty Enhancer`,
+			action: [
+				{
+					camera: ['common'],
+					action: { choices: CHOICES.ON_OFF, default: 'Off' },
+				},
+			],
+		},
+
+		// BirdDog Scope
+		scope_size: {
+			camera: ['All'],
+			firmware: ['5'],
+			store_state: true,
+			api_endpoint: ['birddogscope'],
+			api_variable: ['DoubleSizeEnable'],
+			variable_name: 'scope_size',
+			variable_label: `Scope - Size`,
+			action: [
+				{
+					camera: ['common'],
+					action: { choices: CHOICES.ON_OFF, default: 'Off' },
+				},
+			],
+		},
+		scope_gamma_gain: {
+			camera: ['All'],
+			firmware: ['5'],
+			store_state: true,
+			api_endpoint: ['birddogscope'],
+			api_variable: ['GammaGain'],
+			variable_name: 'scope_gamma_gain',
+			variable_label: `Scope - Gamma Gain`,
+			action: [
+				{
+					camera: ['common'],
+					action: { choices: CHOICES.UP_DOWN_VALUE, default: 'up', range: { min: 0, max: 7, default: 4 } },
+				},
+			],
+		},
+		scope_mode: {
+			camera: ['All'],
+			firmware: ['5'],
+			store_state: true,
+			api_endpoint: ['birddogscope'],
+			api_variable: ['Mode'],
+			variable_name: 'scope_mode',
+			variable_label: `Scope - Mode`,
+			action: [
+				{
+					camera: ['common'],
+					action: { choices: CHOICES.SCOPE_MODE, default: 'Histogram' },
+				},
+			],
+		},
+		scope_position: {
+			camera: ['All'],
+			firmware: ['5'],
+			store_state: true,
+			api_endpoint: ['birddogscope'],
+			api_variable: ['Position'],
+			variable_name: 'scope_position',
+			variable_label: `Scope - Position`,
+			action: [
+				{
+					camera: ['common'],
+					action: { choices: CHOICES.SCOPE_POSITION, default: 'TopLeft' },
+				},
+			],
+		},
+		scope_preview: {
+			camera: ['All'],
+			firmware: ['5'],
+			store_state: true,
+			api_endpoint: ['birddogscope'],
+			api_variable: ['PreviewEnable'],
+			variable_name: 'scope_preview',
+			variable_label: `Scope - Preview`,
+			action: [
+				{
+					camera: ['common'],
+					action: { choices: CHOICES.ON_OFF, default: 'Off' },
+				},
+			],
+		},
+		scope_program: {
+			camera: ['All'],
+			firmware: ['5'],
+			store_state: true,
+			api_endpoint: ['birddogscope'],
+			api_variable: ['ProgramEnable'],
+			variable_name: 'scope_program',
+			variable_label: `Scope - Program`,
+			action: [
+				{
+					camera: ['common'],
+					action: { choices: CHOICES.ON_OFF, default: 'Off' },
+				},
+			],
+		},
+		scope_transparency: {
+			camera: ['All'],
+			firmware: ['5'],
+			store_state: true,
+			api_endpoint: ['birddogscope'],
+			api_variable: ['TransparencyEnable'],
+			variable_name: 'scope_transparency',
+			variable_label: `Scope - Transparency`,
 			action: [
 				{
 					camera: ['common'],
