@@ -2321,19 +2321,26 @@ class instance extends instance_skel {
 		this.ws = new WebSocket(`ws://${this.config.host}:6790/`)
 
 		this.ws.on('open', () => {
-			this.log('debug', `WebSocket connection opened to ${this.camera?.HostName}`)
+			this.log('debug', `WebSocket connection opened to BirdDog PTZ camera`)
 		})
 
 		this.ws.on('close', (code) => {
 			this.log('debug', `WebSocket Connection closed with code ${code}`)
 			this.debug(`---- WebSocket Connection closed with code ${code}`)
-			this.timers.ws_reconnect = setInterval(this.init_ws_listener.bind(this), 500)
+			if (code !== 1000) {
+				this.timers.ws_reconnect = setInterval(this.init_ws_listener.bind(this), 500)
+			}
 		})
 
 		this.ws.on('message', (message) => {
-			let data = JSON.parse(message.toString())
+			let data
+			try {
+				data = JSON.parse(message.toString())
+				this.storeState(data, 'WebSocket')
+			} catch (e) {
+				this.debug('JSON Error:' + e)
+			}
 			this.debug('---- WebSocket received: ', data)
-			let changed = this.storeState(data, 'WebSocket')
 		})
 
 		this.ws.on('error', (data) => {
