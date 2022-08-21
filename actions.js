@@ -1007,6 +1007,14 @@ module.exports = {
 						choices: MODEL_ACTIONS.color_temp.choices,
 						default: MODEL_ACTIONS.color_temp.default,
 					},
+					{
+						type: 'dropdown',
+						label: 'Value',
+						id: 'value',
+						choices: MODEL_ACTIONS.color_temp.value.choices,
+						default: MODEL_ACTIONS.color_temp.value.default,
+						isVisible: (action) => action.options.val === 'value',
+					},
 				],
 			}
 		}

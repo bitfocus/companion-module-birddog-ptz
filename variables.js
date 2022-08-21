@@ -739,5 +739,4 @@ exports.updateVariables = function () {
 	if (MODEL_VARIABLES.some((variable) => variable.name === 'vid_str_name')) {
 		this.setVariable('vid_str_name', this.camera.vid_str_name)
 	}
-
 }

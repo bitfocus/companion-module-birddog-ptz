@@ -37,8 +37,11 @@ class instance extends instance_skel {
 		}
 	}
 
+	// Make sure to NOT commit this line uncommented
+	//static DEVELOPER_forceStartupUpgradeScript = 2
+
 	static GetUpgradeScripts() {
-		return [upgradeScripts.choicesUpgrade, upgradeScripts.autoDetectDefault]
+		return [upgradeScripts.choicesUpgrade, upgradeScripts.autoDetectDefault, upgradeScripts.colorTempChange]
 	}
 
 	config_fields() {
@@ -879,8 +882,24 @@ class instance extends instance_skel {
 				break
 
 			case 'color_temp':
+				let color_temp = this.camera?.color_temp
+					? this.camera.color_temp.slice(0, 2)
+					: MODEL_ACTIONS.color_temp.range.default
+				switch (opt.val) {
+					case 'up':
+						newValue = color_temp < MODEL_ACTIONS.color_temp.range.max ? ++color_temp : color_temp
+						newValue = newValue + '00'
+						break
+					case 'down':
+						newValue = color_temp > MODEL_ACTIONS.color_temp.range.min ? --color_temp : color_temp
+						newValue + '00'
+						break
+					case 'value':
+						newValue = opt.value
+						break
+				}
 				body = {
-					ColorTemp: String(opt.val),
+					ColorTemp: String(newValue),
 				}
 				this.sendCommand('birddogwbsetup', 'POST', body)
 				break
@@ -2535,7 +2554,6 @@ class instance extends instance_skel {
 			if (this.camera.firmware.major === '5') {
 				this.init_ws_listener()
 			}
-
 		} else {
 			this.status(this.STATUS_ERROR)
 			this.log('error', `Unable to connect to ${hostname}`)

@@ -1213,7 +1213,12 @@ module.exports = {
 			action: [
 				{
 					camera: ['common'],
-					action: { choices: CHOICES.COLOR_TEMP, default: '6500' },
+					action: {
+						choices: CHOICES.UP_DOWN_VALUE,
+						default: 'up',
+						value: { choices: CHOICES.COLOR_TEMP, default: '4200' },
+						range: { min: 28, max: 65, default: 42 },
+					},
 				},
 			],
 		},
@@ -2467,7 +2472,7 @@ module.exports = {
 		},
 
 		// WebSocket Variables
-		
+
 		avbr: {
 			camera: ['All'],
 			firmware: ['5'],
