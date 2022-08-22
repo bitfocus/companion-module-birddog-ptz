@@ -453,6 +453,16 @@ module.exports = {
 			variable_name: 'transmit_ttl',
 			variable_label: 'Encode Transport - Transmit TTL',
 		},
+		capture: {
+			camera: ['All'],
+			firmware: ['5'],
+			action: [
+				{
+					camera: ['common'],
+					action: true,
+				},
+			],
+		},
 
 		// NDI Discovery
 		ndi_discovery_server: {

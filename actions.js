@@ -248,6 +248,12 @@ module.exports = {
 			}
 		}
 
+		if (MODEL_ACTIONS?.capture) {
+			actions['capture'] = {
+				label: 'Encode - Capture Screensaver',
+			}
+		}
+
 		// NDI Discovery Actions
 
 		if (MODEL_ACTIONS?.ndi_discovery_server) {

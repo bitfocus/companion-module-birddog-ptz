@@ -279,6 +279,10 @@ class instance extends instance_skel {
 				this.sendCommand('encodeTransport', 'POST', body)
 				break
 
+			case 'capture':
+				this.sendCommand('capture?ChNum=1&status=Encode', 'GET')
+				break
+
 			// NDI Discovery Server Actions
 
 			case 'ndi_discovery_server':
