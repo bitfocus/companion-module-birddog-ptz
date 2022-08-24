@@ -41,7 +41,7 @@ class instance extends instance_skel {
 	//static DEVELOPER_forceStartupUpgradeScript = 2
 
 	static GetUpgradeScripts() {
-		return [upgradeScripts.choicesUpgrade, upgradeScripts.autoDetectDefault, upgradeScripts.colorTempChange]
+		return [upgradeScripts.choicesUpgrade, upgradeScripts.autoDetectDefault, upgradeScripts.colorTempChange, upgradeScripts.tallyMode]
 	}
 
 	config_fields() {
@@ -218,7 +218,7 @@ class instance extends instance_skel {
 
 			// Encode Setup Actions
 
-			case 'tally':
+			case 'tally_mode':
 				body = {
 					TallyMode: String(opt.val),
 				}

@@ -348,16 +348,22 @@ module.exports = {
 		let changed = false
 		actions.forEach((action) => {
 			if (action.action === 'color_temp') {
-				console.log('--- checking uprade for color_temp')
-				console.log('--- options are', action.options)
 				if (!['up', 'down', 'value'].includes(action.options.val)) {
-					console.log('--- upgrading color_temp')
 					let val = action.options.val
 					action.options.val = 'value'
 					action.options.value = val
-					console.log('--- options now are', action.options)
 					changed = true
 				}
+			}
+		})
+		return changed
+	},
+
+	tallyMode: function (context, config, actions, feedbacks) {
+		let changed = false
+		actions.forEach((action) => {
+			if (action.action === 'tally') {
+				action.action = 'tally_mode'
 			}
 		})
 		return changed

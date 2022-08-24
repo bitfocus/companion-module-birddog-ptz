@@ -216,16 +216,16 @@ module.exports = {
 			}
 		}
 
-		if (MODEL_ACTIONS?.tally) {
-			actions['tally'] = {
+		if (MODEL_ACTIONS?.tally_mode) {
+			actions['tally_mode'] = {
 				label: 'Encode Setup - Tally Mode',
 				options: [
 					{
 						type: 'dropdown',
 						label: 'On / Off',
 						id: 'val',
-						choices: MODEL_ACTIONS.tally.choices,
-						default: MODEL_ACTIONS.tally.default,
+						choices: MODEL_ACTIONS.tally_mode.choices,
+						default: MODEL_ACTIONS.tally_mode.default,
 					},
 				],
 			}

@@ -367,7 +367,7 @@ module.exports = {
 				},
 			],
 		},
-		tally: {
+		tally_mode: {
 			camera: ['P110', 'P120', 'PF120', 'P200A2A3', 'P200A4A5', 'P400', 'P4K'],
 			firmware: ['4', '5'],
 			store_state: true,

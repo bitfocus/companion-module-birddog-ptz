@@ -124,7 +124,7 @@ exports.updateVariables = function () {
 	}
 
 	if (MODEL_VARIABLES.some((variable) => variable.name === 'tally_mode')) {
-		this.setVariable('tally_mode', this.camera.tally)
+		this.setVariable('tally_mode', this.camera.tally_mode)
 	}
 
 	if (MODEL_VARIABLES.some((variable) => variable.name === 'video_csc')) {

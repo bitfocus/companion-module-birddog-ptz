@@ -296,8 +296,8 @@ exports.initFeedbacks = function () {
 		}
 	}
 
-	if (MODEL_ACTIONS?.tally) {
-		feedbacks.tally = {
+	if (MODEL_ACTIONS?.tally_mode) {
+		feedbacks.tally_mode = {
 			type: 'boolean',
 			label: 'Encode Setup - Tally Mode',
 			description: 'If the camera tally matches the selected mode, change the style of the button',
@@ -310,12 +310,12 @@ exports.initFeedbacks = function () {
 					type: 'dropdown',
 					label: 'Mode',
 					id: 'mode',
-					choices: MODEL_ACTIONS.tally.choices,
-					default: MODEL_ACTIONS.tally.default,
+					choices: MODEL_ACTIONS.tally_mode.choices,
+					default: MODEL_ACTIONS.tally_mode.default,
 				},
 			],
 			callback: (feedback) => {
-				return this.camera?.tally == feedback.options.mode
+				return this.camera?.tally_mode == feedback.options.mode
 			},
 		}
 	}
