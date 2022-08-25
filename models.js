@@ -280,7 +280,7 @@ module.exports = {
 				},
 			],
 		},
-		capture: {
+		capture_screensaver: {
 			camera: ['All'],
 			firmware: ['5'],
 			action: [

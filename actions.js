@@ -248,8 +248,8 @@ module.exports = {
 			}
 		}
 
-		if (MODEL_ACTIONS?.capture) {
-			actions['capture'] = {
+		if (MODEL_ACTIONS?.capture_screensaver) {
+			actions['capture_screensaver'] = {
 				label: 'Encode - Capture Screensaver',
 			}
 		}
