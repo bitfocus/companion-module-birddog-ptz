@@ -4,13 +4,14 @@ const presets = require('./presets')
 const { updateVariableDefinitions, updateVariables } = require('./variables')
 const { initFeedbacks } = require('./feedbacks')
 const upgradeScripts = require('./upgrades')
-const { addStringToBinary, strToPQRS } = require('./utils')
+const { addStringToBinary, strToPQRS, getModelActions, getModelQueries } = require('./utils')
 const VISCA = require('./constants')
 const CHOICES = require('./choices.js')
-var { MODELS } = require('./models.js')
+var { MODEL_QUERIES, MODEL_SPECS } = require('./models.js')
 
 const udp = require('../../udp')
 const fetch = require('node-fetch')
+const WebSocket = require('ws')
 
 let debug
 let log
@@ -29,17 +30,23 @@ class instance extends instance_skel {
 		this.addStringToBinary = addStringToBinary
 		this.strToPQRS = strToPQRS
 
-		this.camera = {}
-
-		// Initialise Inital Camera Objects
-
-		this.camera.position = { pan: '0000', tilt: '0000', zoom: '0000' }
-		this.camera.framerate = 50
-		this.camera.firmware = {}
+		// Keep track of setInterval
+		this.timers = {
+			pollCameraConfig: null, // ID of setInterval for Camera Config polling
+			pollCameraStatus: null, // ID of setInterval for Camera Status polling
+		}
 	}
 
+	// Make sure to NOT commit this line uncommented
+	//static DEVELOPER_forceStartupUpgradeScript = 2
+
 	static GetUpgradeScripts() {
-		return [upgradeScripts.choicesUpgrade, upgradeScripts.autoDetectDefault]
+		return [
+			upgradeScripts.choicesUpgrade,
+			upgradeScripts.autoDetectDefault,
+			upgradeScripts.colorTempChange,
+			upgradeScripts.tallyMode,
+		]
 	}
 
 	config_fields() {
@@ -63,7 +70,7 @@ class instance extends instance_skel {
 				id: 'model',
 				label: 'BirdDog Model',
 				default: 'Auto',
-				choices: CHOICES.CAMERA,
+				choices: CHOICES.CAMERAS,
 			},
 		]
 	}
@@ -85,12 +92,29 @@ class instance extends instance_skel {
 	}
 
 	destroy() {
+		// Clear open connections
 		if (this.udp !== undefined) {
 			this.udp.destroy()
 		}
-		if (this.poll_interval !== undefined) {
-			clearInterval(this.poll_interval)
+
+		if (this.ws !== undefined) {
+			this.ws.close(1000)
+			delete this.ws
 		}
+
+		// Clear polling timers
+		if (this.timers.pollCameraStatus !== undefined) {
+			clearInterval(this.timers.pollCameraStatus)
+		}
+		if (this.timers.pollCameraConfig) {
+			clearInterval(this.timers.pollCameraConfig)
+			this.timers.pollCameraConfig = null
+		}
+
+		if (this.timers.ws_reconnect) {
+			clearInterval(this.timers.ws_reconnect)
+		}
+
 		debug('destroy', this.id)
 	}
 
@@ -128,11 +152,12 @@ class instance extends instance_skel {
 		let cmd = ''
 		let fb = ''
 
-		let MODEL_VALUES = MODELS.find((MODELS) => MODELS.id == this.camera.model).actions
+		let MODEL_ACTIONS = getModelActions(MODEL_SPECS, this.camera.firmware.major, this.camera.model)
 
-		let panSpeed = this.camera?.ptz?.PanSpeed ? this.camera.ptz.PanSpeed : 11
-		let tiltSpeed = this.camera?.ptz?.PanSpeed ? this.camera.ptz.TiltSpeed : 9
-		let zoomSpeed = this.camera?.ptz?.ZoomSpeed ? this.camera.ptz.ZoomSpeed : 4
+		let panSpeed = this.camera?.panSpeed ? this.camera.PanSpeed : 11
+		let tiltSpeed = this.camera?.tiltSpeed ? this.camera.tiltSpeed : 9
+		let zoomSpeed = this.camera?.zoomSpeed ? this.camera.zoomSpeed : 4
+		let preset_speed = this.camera?.preset_speed ? this.camera.preset_speed : 11
 		let gainLimit
 		let newValue
 		let body = {}
@@ -198,7 +223,7 @@ class instance extends instance_skel {
 
 			// Encode Setup Actions
 
-			case 'tally':
+			case 'tally_mode':
 				body = {
 					TallyMode: String(opt.val),
 				}
@@ -236,6 +261,20 @@ class instance extends instance_skel {
 				this.sendCommand('encodesetup', 'POST', body)
 				break
 
+			case 'screensaver_mode':
+				body = {
+					ScreenSaverMode: String(opt.val),
+				}
+				this.sendCommand('encodesetup', 'POST', body)
+				break
+
+			case 'stream_to_network':
+				body = {
+					StreamToNetwork: String(opt.val),
+				}
+				this.sendCommand('encodesetup', 'POST', body)
+				break
+
 			// Encode Transport Actions
 
 			case 'transmit_method':
@@ -243,6 +282,10 @@ class instance extends instance_skel {
 					txpm: String(opt.val),
 				}
 				this.sendCommand('encodeTransport', 'POST', body)
+				break
+
+			case 'capture':
+				this.sendCommand('capture?ChNum=1&status=Encode', 'GET')
 				break
 
 			// NDI Discovery Server Actions
@@ -370,10 +413,10 @@ class instance extends instance_skel {
 			case 'panSpeed':
 				switch (opt.type) {
 					case 'up':
-						newValue = panSpeed < MODEL_VALUES.panSpeed.range.max ? ++panSpeed : MODEL_VALUES.panSpeed.range.max
+						newValue = panSpeed < MODEL_ACTIONS.panSpeed.range.max ? ++panSpeed : MODEL_ACTIONS.panSpeed.range.max
 						break
 					case 'down':
-						newValue = panSpeed > MODEL_VALUES.panSpeed.range.min ? --panSpeed : MODEL_VALUES.panSpeed.range.min
+						newValue = panSpeed > MODEL_ACTIONS.panSpeed.range.min ? --panSpeed : MODEL_ACTIONS.panSpeed.range.min
 						break
 					case 'value':
 						newValue = opt.value
@@ -385,13 +428,44 @@ class instance extends instance_skel {
 				this.sendCommand('birddogptzsetup', 'POST', body)
 				break
 
+			case 'preset':
+				body = {
+					Preset: String(opt.val),
+				}
+				this.sendCommand('birddogptzsetup', 'POST', body)
+				break
+
+			case 'preset_speed':
+				switch (opt.type) {
+					case 'up':
+						newValue =
+							preset_speed < MODEL_ACTIONS.preset_speed.range.max
+								? ++preset_speed
+								: MODEL_ACTIONS.preset_speed.range.max
+						break
+					case 'down':
+						newValue =
+							preset_speed > MODEL_ACTIONS.preset_speed.range.min
+								? --preset_speed
+								: MODEL_ACTIONS.preset_speed.range.min
+						break
+					case 'value':
+						newValue = opt.value
+						break
+				}
+				body = {
+					PresetSpeed: String(newValue),
+				}
+				this.sendCommand('birddogptzsetup', 'POST', body)
+				break
+
 			case 'tiltSpeed':
 				switch (opt.type) {
 					case 'up':
-						newValue = tiltSpeed < MODEL_VALUES.tiltSpeed.range.max ? ++tiltSpeed : MODEL_VALUES.tiltSpeed.range.max
+						newValue = tiltSpeed < MODEL_ACTIONS.tiltSpeed.range.max ? ++tiltSpeed : MODEL_ACTIONS.tiltSpeed.range.max
 						break
 					case 'down':
-						newValue = tiltSpeed > MODEL_VALUES.tiltSpeed.range.min ? --tiltSpeed : MODEL_VALUES.tiltSpeed.range.min
+						newValue = tiltSpeed > MODEL_ACTIONS.tiltSpeed.range.min ? --tiltSpeed : MODEL_ACTIONS.tiltSpeed.range.min
 					case 'value':
 						newValue = opt.value
 						break
@@ -405,10 +479,10 @@ class instance extends instance_skel {
 			case 'zoomSpeed':
 				switch (opt.type) {
 					case 'up':
-						newValue = zoomSpeed < MODEL_VALUES.zoomSpeed.range.max ? ++zoomSpeed : MODEL_VALUES.zoomSpeed.range.max
+						newValue = zoomSpeed < MODEL_ACTIONS.zoomSpeed.range.max ? ++zoomSpeed : MODEL_ACTIONS.zoomSpeed.range.max
 						break
 					case 'down':
-						newValue = zoomSpeed > MODEL_VALUES.zoomSpeed.range.min ? --zoomSpeed : MODEL_VALUES.zoomSpeed.range.min
+						newValue = zoomSpeed > MODEL_ACTIONS.zoomSpeed.range.min ? --zoomSpeed : MODEL_ACTIONS.zoomSpeed.range.min
 						break
 					case 'value':
 						newValue = opt.value
@@ -544,14 +618,14 @@ class instance extends instance_skel {
 				break
 
 			case 'gain':
-				let gain = this.camera?.expsetup?.GainLevel ? this.camera.expsetup.GainLevel : MODEL_VALUES.gain.default
-				gainLimit = this.camera?.expsetup?.GainLimit ? this.camera.expsetup.GainLimit : MODEL_VALUES.gain.choices.length
+				let gain = this.camera?.gain ? this.camera.gain : MODEL_ACTIONS.gain.default
+				gainLimit = this.camera?.gain_limit ? this.camera.gain_limit : MODEL_ACTIONS.gain.choices.length
 				switch (opt.val) {
 					case 'up':
 						newValue = gain < gainLimit ? ++gain : gain
 						break
 					case 'down':
-						newValue = gain > MODEL_VALUES.gain.choices[0]?.id ? --gain : gain
+						newValue = gain > MODEL_ACTIONS.gain.choices[0]?.id ? --gain : gain
 						break
 					case 'value':
 						newValue = parseFloat(opt.value) <= gainLimit ? opt.value : gainLimit
@@ -564,15 +638,13 @@ class instance extends instance_skel {
 				break
 
 			case 'gainLimit':
-				gainLimit = this.camera?.expsetup?.GainLimit
-					? this.camera.expsetup.GainLimit
-					: MODEL_VALUES.gain_limit.range.default
+				gainLimit = this.camera?.gain_limit ? this.camera.gain_limit : MODEL_ACTIONS.gain_limit.range.default
 				switch (opt.val) {
 					case 'up':
-						newValue = gainLimit < MODEL_VALUES.gain_limit.range.max ? ++gainLimit : gainLimit
+						newValue = gainLimit < MODEL_ACTIONS.gain_limit.range.max ? ++gainLimit : gainLimit
 						break
 					case 'down':
-						newValue = gainLimit > MODEL_VALUES.gain_limit.range.min ? --gainLimit : gainLimit
+						newValue = gainLimit > MODEL_ACTIONS.gain_limit.range.min ? --gainLimit : gainLimit
 						break
 					case 'value':
 						newValue = opt.value
@@ -592,16 +664,16 @@ class instance extends instance_skel {
 				break
 
 			case 'gainPointPosition':
-				let gainPointPosition = this.camera?.expsetup?.GainPointPosition
-					? this.camera.expsetup.GainPointPosition
-					: MODEL_VALUES.gain.default
+				let gainPointPosition = this.camera?.gain_point_position
+					? this.camera.gain_point_position
+					: MODEL_ACTIONS.gain.default
 				switch (opt.val) {
 					case 'up':
 						newValue =
 							gainPointPosition < this.camera.expsetup.GainLimit ? ++gainPointPosition : this.camera.expsetup.GainLimit
 						break
 					case 'down':
-						newValue = gainPointPosition > MODEL_VALUES.gain[0] ? --gainPointPosition : gainPointPosition
+						newValue = gainPointPosition > MODEL_ACTIONS.gain[0] ? --gainPointPosition : gainPointPosition
 						break
 					case 'value':
 						newValue = opt.value
@@ -621,23 +693,23 @@ class instance extends instance_skel {
 				break
 
 			case 'iris':
-				let iris = this.camera?.expsetup?.IrisLevel ? this.camera.expsetup.IrisLevel : MODEL_VALUES.iris.default
+				let iris = this.camera?.iris ? this.camera.iris : MODEL_ACTIONS.iris.default
 				switch (opt.val) {
 					case 'up':
 						newValue =
-							iris === MODEL_VALUES.iris.range.closed
-								? MODEL_VALUES.iris.range.min
-								: iris < MODEL_VALUES.iris.range.max
+							iris === MODEL_ACTIONS.iris.range.closed
+								? MODEL_ACTIONS.iris.range.min
+								: iris < MODEL_ACTIONS.iris.range.max
 								? ++iris
-								: MODEL_VALUES.iris.range.max
+								: MODEL_ACTIONS.iris.range.max
 						break
 					case 'down':
 						newValue =
-							iris === MODEL_VALUES.iris.range.min
-								? MODEL_VALUES.iris.range.closed
-								: iris > MODEL_VALUES.iris.range.min
+							iris === MODEL_ACTIONS.iris.range.min
+								? MODEL_ACTIONS.iris.range.closed
+								: iris > MODEL_ACTIONS.iris.range.min
 								? --iris
-								: MODEL_VALUES.iris.range.closed
+								: MODEL_ACTIONS.iris.range.closed
 						break
 					case 'value':
 						newValue = opt.value
@@ -657,21 +729,19 @@ class instance extends instance_skel {
 				break
 
 			case 'shut':
-				let shutter_speed = this.camera?.expsetup?.ShutterSpeed
-					? this.camera.expsetup.ShutterSpeed
-					: MODEL_VALUES.shutter_speed.default
+				let shutter_speed = this.camera?.shutter_speed ? this.camera.shutter_speed : MODEL_ACTIONS.shutter_speed.default
 				switch (opt.val) {
 					case 'up':
 						newValue =
-							shutter_speed < MODEL_VALUES.shutter_speed.range.max
+							shutter_speed < MODEL_ACTIONS.shutter_speed.range.max
 								? ++shutter_speed
-								: MODEL_VALUES.shutter_speed.range.max
+								: MODEL_ACTIONS.shutter_speed.range.max
 						break
 					case 'down':
 						newValue =
-							shutter_speed > MODEL_VALUES.shutter_speed.range.min
+							shutter_speed > MODEL_ACTIONS.shutter_speed.range.min
 								? --shutter_speed
-								: MODEL_VALUES.shutter_speed.range.min
+								: MODEL_ACTIONS.shutter_speed.range.min
 						break
 					case 'value':
 						newValue = opt.value
@@ -684,21 +754,21 @@ class instance extends instance_skel {
 				break
 
 			case 'shutter_max_speed':
-				let shutter_max_speed = this.camera?.expsetup?.ShutterMaxSpeed
-					? this.camera.expsetup.ShutterMaxSpeed
-					: MODEL_VALUES.shutter_max_speed.range.default
+				let shutter_max_speed = this.camera?.shutter_max_speed
+					? this.camera.shutter_max_speed
+					: MODEL_ACTIONS.shutter_max_speed.range.default
 				switch (opt.val) {
 					case 'up':
 						newValue =
-							shutter_max_speed < MODEL_VALUES.shutter_max_speed.range.max
+							shutter_max_speed < MODEL_ACTIONS.shutter_max_speed.range.max
 								? ++shutter_max_speed
-								: MODEL_VALUES.shutter_max_speed.range.max
+								: MODEL_ACTIONS.shutter_max_speed.range.max
 						break
 					case 'down':
 						newValue =
-							shutter_max_speed > MODEL_VALUES.shutter_max_speed.range.min
+							shutter_max_speed > MODEL_ACTIONS.shutter_max_speed.range.min
 								? --shutter_max_speed
-								: MODEL_VALUES.shutter_max_speed.range.min
+								: MODEL_ACTIONS.shutter_max_speed.range.min
 						break
 					case 'value':
 						newValue = opt.value
@@ -711,9 +781,9 @@ class instance extends instance_skel {
 				break
 
 			case 'shutter_min_speed':
-				let shutter_min_speed = this.camera?.expsetup?.ShutterMinSpeed
-					? this.camera.expsetup.ShutterMinSpeed
-					: MODEL_VALUES.shutter_min_speed.range.default
+				let shutter_min_speed = this.camera?.shutter_min_speed
+					? this.camera.shutter_min_speed
+					: MODEL_ACTIONS.shutter_min_speed.range.default
 				switch (opt.val) {
 					case 'up':
 						newValue =
@@ -723,9 +793,9 @@ class instance extends instance_skel {
 						break
 					case 'down':
 						newValue =
-							shutter_min_speed > MODEL_VALUES.shutter_min_speed.range.min
+							shutter_min_speed > MODEL_ACTIONS.shutter_min_speed.range.min
 								? --shutter_min_speed
-								: MODEL_VALUES.shutter_min_speed.range.min
+								: MODEL_ACTIONS.shutter_min_speed.range.min
 						break
 					case 'value':
 						newValue = opt.value
@@ -752,21 +822,21 @@ class instance extends instance_skel {
 				break
 
 			case 'slow_shutter_limit':
-				let slow_shutter_limit = this.camera?.expsetup?.SlowShutterLimit
-					? this.camera.expsetup.SlowShutterLimit
-					: MODEL_VALUES.slow_shutter_limit.range.default
+				let slow_shutter_limit = this.camera?.slow_shutter_limit
+					? this.camera.slow_shutter_limit
+					: MODEL_ACTIONS.slow_shutter_limit.range.default
 				switch (opt.val) {
 					case 'up':
 						newValue =
-							slow_shutter_limit < MODEL_VALUES.slow_shutter_limit.range.max
+							slow_shutter_limit < MODEL_ACTIONS.slow_shutter_limit.range.max
 								? ++slow_shutter_limit
-								: MODEL_VALUES.slow_shutter_limit.range.max
+								: MODEL_ACTIONS.slow_shutter_limit.range.max
 						break
 					case 'down':
 						newValue =
-							slow_shutter_limit > MODEL_VALUES.slow_shutter_limit.range.min
+							slow_shutter_limit > MODEL_ACTIONS.slow_shutter_limit.range.min
 								? --slow_shutter_limit
-								: MODEL_VALUES.slow_shutter_limit.range.min
+								: MODEL_ACTIONS.slow_shutter_limit.range.min
 						break
 					case 'value':
 						newValue = opt.value
@@ -802,15 +872,13 @@ class instance extends instance_skel {
 				break
 
 			case 'blue_gain':
-				let blue_gain = this.camera?.wbsetup?.BlueGain
-					? this.camera.wbsetup.BlueGain
-					: MODEL_VALUES.blue_gain.range.default
+				let blue_gain = this.camera?.blue_gain ? this.camera.blue_gain : MODEL_ACTIONS.blue_gain.range.default
 				switch (opt.val) {
 					case 'up':
-						newValue = blue_gain < MODEL_VALUES.blue_gain.range.max ? ++blue_gain : blue_gain
+						newValue = blue_gain < MODEL_ACTIONS.blue_gain.range.max ? ++blue_gain : blue_gain
 						break
 					case 'down':
-						newValue = blue_gain > MODEL_VALUES.blue_gain.range.min ? --blue_gain : blue_gain
+						newValue = blue_gain > MODEL_ACTIONS.blue_gain.range.min ? --blue_gain : blue_gain
 						break
 					case 'value':
 						newValue = opt.value
@@ -823,8 +891,24 @@ class instance extends instance_skel {
 				break
 
 			case 'color_temp':
+				let color_temp = this.camera?.color_temp
+					? this.camera.color_temp.slice(0, 2)
+					: MODEL_ACTIONS.color_temp.range.default
+				switch (opt.val) {
+					case 'up':
+						newValue = color_temp < MODEL_ACTIONS.color_temp.range.max ? ++color_temp : color_temp
+						newValue = newValue + '00'
+						break
+					case 'down':
+						newValue = color_temp > MODEL_ACTIONS.color_temp.range.min ? --color_temp : color_temp
+						newValue + '00'
+						break
+					case 'value':
+						newValue = opt.value
+						break
+				}
 				body = {
-					ColorTemp: String(opt.val),
+					ColorTemp: String(newValue),
 				}
 				this.sendCommand('birddogwbsetup', 'POST', body)
 				break
@@ -886,13 +970,13 @@ class instance extends instance_skel {
 				break
 
 			case 'red_gain':
-				let red_gain = this.camera?.wbsetup?.RedGain ? this.camera.wbsetup.RedGain : MODEL_VALUES.red_gain.range.default
+				let red_gain = this.camera?.red_gain ? this.camera.red_gain : MODEL_ACTIONS.red_gain.range.default
 				switch (opt.val) {
 					case 'up':
-						newValue = red_gain < MODEL_VALUES.red_gain.range.max ? ++red_gain : red_gain
+						newValue = red_gain < MODEL_ACTIONS.red_gain.range.max ? ++red_gain : red_gain
 						break
 					case 'down':
-						newValue = red_gain > MODEL_VALUES.red_gain.range.min ? --red_gain : red_gain
+						newValue = red_gain > MODEL_ACTIONS.red_gain.range.min ? --red_gain : red_gain
 						break
 					case 'value':
 						newValue = opt.value
@@ -947,13 +1031,13 @@ class instance extends instance_skel {
 				break
 
 			case 'color':
-				let color = this.camera?.picsetup?.Color ? this.camera.picsetup.Color : MODEL_VALUES.color.range.default
+				let color = this.camera?.color ? this.camera.color : MODEL_ACTIONS.color.range.default
 				switch (opt.val) {
 					case 'up':
-						newValue = color < MODEL_VALUES.color.range.max ? ++color : color
+						newValue = color < MODEL_ACTIONS.color.range.max ? ++color : color
 						break
 					case 'down':
-						newValue = color > MODEL_VALUES.color.range.min ? --color : color
+						newValue = color > MODEL_ACTIONS.color.range.min ? --color : color
 						break
 					case 'value':
 						newValue = opt.value
@@ -966,15 +1050,13 @@ class instance extends instance_skel {
 				break
 
 			case 'contrast':
-				let contrast = this.camera?.picsetup?.Contrast
-					? this.camera.picsetup.Contrast
-					: MODEL_VALUES.contrast.range.default
+				let contrast = this.camera?.contrast ? this.camera.contrast : MODEL_ACTIONS.contrast.range.default
 				switch (opt.val) {
 					case 'up':
-						newValue = contrast < MODEL_VALUES.contrast.range.max ? ++contrast : contrast
+						newValue = contrast < MODEL_ACTIONS.contrast.range.max ? ++contrast : contrast
 						break
 					case 'down':
-						newValue = contrast > MODEL_VALUES.contrast.range.min ? --contrast : contrast
+						newValue = contrast > MODEL_ACTIONS.contrast.range.min ? --contrast : contrast
 						break
 					case 'value':
 						newValue = opt.value
@@ -1001,13 +1083,13 @@ class instance extends instance_skel {
 				break
 
 			case 'gamma':
-				let gamma = this.camera?.picsetup?.Gamma ? this.camera.picsetup.Gamma : MODEL_VALUES.gamma.range.default
+				let gamma = this.camera?.gamma ? this.camera.gamma : MODEL_ACTIONS.gamma.range.default
 				switch (opt.val) {
 					case 'up':
-						newValue = gamma < MODEL_VALUES.gamma.range.max ? ++gamma : gamma
+						newValue = gamma < MODEL_ACTIONS.gamma.range.max ? ++gamma : gamma
 						break
 					case 'down':
-						newValue = gamma > MODEL_VALUES.gamma.range.min ? --gamma : gamma
+						newValue = gamma > MODEL_ACTIONS.gamma.range.min ? --gamma : gamma
 						break
 					case 'value':
 						newValue = opt.value
@@ -1027,19 +1109,19 @@ class instance extends instance_skel {
 				break
 
 			case 'highlight_comp_mask':
-				let highlight_comp_mask = this.camera?.picsetup?.HighlightCompMask
-					? this.camera.picsetup.HighlightCompMask
-					: MODEL_VALUES.highlight_comp_mask.range.default
+				let highlight_comp_mask = this.camera?.highlight_comp_mask
+					? this.camera.highlight_comp_mask
+					: MODEL_ACTIONS.highlight_comp_mask.range.default
 				switch (opt.val) {
 					case 'up':
 						newValue =
-							highlight_comp_mask < MODEL_VALUES.highlight_comp_mask.range.max
+							highlight_comp_mask < MODEL_ACTIONS.highlight_comp_mask.range.max
 								? ++highlight_comp_mask
 								: highlight_comp_mask
 						break
 					case 'down':
 						newValue =
-							highlight_comp_mask > MODEL_VALUES.highlight_comp_mask.range.min
+							highlight_comp_mask > MODEL_ACTIONS.highlight_comp_mask.range.min
 								? --highlight_comp_mask
 								: highlight_comp_mask
 						break
@@ -1054,13 +1136,13 @@ class instance extends instance_skel {
 				break
 
 			case 'hue':
-				let hue = this.camera?.picsetup?.Hue ? this.camera.picsetup.Hue : MODEL_VALUES.hue.range.default
+				let hue = this.camera?.hue ? this.camera.hue : MODEL_ACTIONS.hue.range.default
 				switch (opt.val) {
 					case 'up':
-						newValue = hue < MODEL_VALUES.hue.range.max ? ++hue : hue
+						newValue = hue < MODEL_ACTIONS.hue.range.max ? ++hue : hue
 						break
 					case 'down':
-						newValue = hue > MODEL_VALUES.hue.range.min ? --hue : hue
+						newValue = hue > MODEL_ACTIONS.hue.range.min ? --hue : hue
 						break
 					case 'value':
 						newValue = opt.value
@@ -1094,15 +1176,13 @@ class instance extends instance_skel {
 				break
 
 			case 'nd_filter':
-				let nd_filter = this.camera?.picsetup?.NDFilter
-					? this.camera.picsetup.NDFilter
-					: MODEL_VALUES.nd_filter.range.default
+				let nd_filter = this.camera?.nd_filter ? this.camera.nd_filter : MODEL_ACTIONS.nd_filter.range.default
 				switch (opt.val) {
 					case 'up':
-						newValue = nd_filter < MODEL_VALUES.nd_filter.range.max ? ++nd_filter : nd_filter
+						newValue = nd_filter < MODEL_ACTIONS.nd_filter.range.max ? ++nd_filter : nd_filter
 						break
 					case 'down':
-						newValue = nd_filter > MODEL_VALUES.nd_filter.range.min ? --nd_filter : nd_filter
+						newValue = nd_filter > MODEL_ACTIONS.nd_filter.range.min ? --nd_filter : nd_filter
 						break
 					case 'value':
 						newValue = opt.value
@@ -1122,15 +1202,13 @@ class instance extends instance_skel {
 				break
 
 			case 'sharpness':
-				let sharpness = this.camera?.picsetup?.Sharpness
-					? this.camera.picsetup.Sharpness
-					: MODEL_VALUES.sharpness.range.default
+				let sharpness = this.camera?.sharpness ? this.camera.sharpness : MODEL_ACTIONS.sharpness.range.default
 				switch (opt.val) {
 					case 'up':
-						newValue = sharpness < MODEL_VALUES.sharpness.range.max ? ++sharpness : sharpness
+						newValue = sharpness < MODEL_ACTIONS.sharpness.range.max ? ++sharpness : sharpness
 						break
 					case 'down':
-						newValue = sharpness > MODEL_VALUES.sharpness.range.min ? --sharpness : sharpness
+						newValue = sharpness > MODEL_ACTIONS.sharpness.range.min ? --sharpness : sharpness
 						break
 					case 'value':
 						newValue = opt.value
@@ -1173,15 +1251,15 @@ class instance extends instance_skel {
 			// Color Matrix Actions
 
 			case 'cm_blue_gain':
-				let cm_blue_gain = this.camera?.cmsetup?.BlueGain
-					? this.camera.cmsetup.BlueGain
-					: MODEL_VALUES.cm_blue_gain.range.default
+				let cm_blue_gain = this.camera?.cm_blue_gain
+					? this.camera.cm_blue_gain
+					: MODEL_ACTIONS.cm_blue_gain.range.default
 				switch (opt.val) {
 					case 'up':
-						newValue = cm_blue_gain < MODEL_VALUES.cm_blue_gain.range.max ? ++cm_blue_gain : cm_blue_gain
+						newValue = cm_blue_gain < MODEL_ACTIONS.cm_blue_gain.range.max ? ++cm_blue_gain : cm_blue_gain
 						break
 					case 'down':
-						newValue = cm_blue_gain > MODEL_VALUES.cm_blue_gain.range.min ? --cm_blue_gain : cm_blue_gain
+						newValue = cm_blue_gain > MODEL_ACTIONS.cm_blue_gain.range.min ? --cm_blue_gain : cm_blue_gain
 						break
 					case 'value':
 						newValue = opt.value
@@ -1194,15 +1272,13 @@ class instance extends instance_skel {
 				break
 
 			case 'cm_blue_hue':
-				let cm_blue_hue = this.camera?.cmsetup?.BlueHue
-					? this.camera.cmsetup.BlueHue
-					: MODEL_VALUES.cm_blue_hue.range.default
+				let cm_blue_hue = this.camera?.cm_blue_hue ? this.camera.cm_blue_hue : MODEL_ACTIONS.cm_blue_hue.range.default
 				switch (opt.val) {
 					case 'up':
-						newValue = cm_blue_hue < MODEL_VALUES.cm_blue_hue.range.max ? ++cm_blue_hue : cm_blue_hue
+						newValue = cm_blue_hue < MODEL_ACTIONS.cm_blue_hue.range.max ? ++cm_blue_hue : cm_blue_hue
 						break
 					case 'down':
-						newValue = cm_blue_hue > MODEL_VALUES.cm_blue_hue.range.min ? --cm_blue_hue : cm_blue_hue
+						newValue = cm_blue_hue > MODEL_ACTIONS.cm_blue_hue.range.min ? --cm_blue_hue : cm_blue_hue
 						break
 					case 'value':
 						newValue = opt.value
@@ -1215,15 +1291,15 @@ class instance extends instance_skel {
 				break
 
 			case 'cm_color_gain':
-				let cm_color_gain = this.camera?.cmsetup?.ColorGain
-					? this.camera.cmsetup.ColorGain
-					: MODEL_VALUES.cm_color_gain.range.default
+				let cm_color_gain = this.camera?.cm_color_gain
+					? this.camera.cm_color_gain
+					: MODEL_ACTIONS.cm_color_gain.range.default
 				switch (opt.val) {
 					case 'up':
-						newValue = cm_color_gain < MODEL_VALUES.cm_color_gain.range.max ? ++cm_color_gain : cm_color_gain
+						newValue = cm_color_gain < MODEL_ACTIONS.cm_color_gain.range.max ? ++cm_color_gain : cm_color_gain
 						break
 					case 'down':
-						newValue = cm_color_gain > MODEL_VALUES.cm_color_gain.range.min ? --cm_color_gain : cm_color_gain
+						newValue = cm_color_gain > MODEL_ACTIONS.cm_color_gain.range.min ? --cm_color_gain : cm_color_gain
 						break
 					case 'value':
 						newValue = opt.value
@@ -1236,15 +1312,15 @@ class instance extends instance_skel {
 				break
 
 			case 'cm_cyan_gain':
-				let cm_cyan_gain = this.camera?.cmsetup?.CyanGain
-					? this.camera.cmsetup.CyanGain
-					: MODEL_VALUES.cm_cyan_gain.range.default
+				let cm_cyan_gain = this.camera?.cm_cyan_gain
+					? this.camera.cm_cyan_gain
+					: MODEL_ACTIONS.cm_cyan_gain.range.default
 				switch (opt.val) {
 					case 'up':
-						newValue = cm_cyan_gain < MODEL_VALUES.cm_cyan_gain.range.max ? ++cm_cyan_gain : cm_cyan_gain
+						newValue = cm_cyan_gain < MODEL_ACTIONS.cm_cyan_gain.range.max ? ++cm_cyan_gain : cm_cyan_gain
 						break
 					case 'down':
-						newValue = cm_cyan_gain > MODEL_VALUES.cm_cyan_gain.range.min ? --cm_cyan_gain : cm_cyan_gain
+						newValue = cm_cyan_gain > MODEL_ACTIONS.cm_cyan_gain.range.min ? --cm_cyan_gain : cm_cyan_gain
 						break
 					case 'value':
 						newValue = opt.value
@@ -1257,15 +1333,13 @@ class instance extends instance_skel {
 				break
 
 			case 'cm_cyan_hue':
-				let cm_cyan_hue = this.camera?.cmsetup?.CyanHue
-					? this.camera.cmsetup.CyanHue
-					: MODEL_VALUES.cm_cyan_hue.range.default
+				let cm_cyan_hue = this.camera?.cm_cyan_hue ? this.camera.cm_cyan_hue : MODEL_ACTIONS.cm_cyan_hue.range.default
 				switch (opt.val) {
 					case 'up':
-						newValue = cm_cyan_hue < MODEL_VALUES.cm_cyan_hue.range.max ? ++cm_cyan_hue : cm_cyan_hue
+						newValue = cm_cyan_hue < MODEL_ACTIONS.cm_cyan_hue.range.max ? ++cm_cyan_hue : cm_cyan_hue
 						break
 					case 'down':
-						newValue = cm_cyan_hue > MODEL_VALUES.cm_cyan_hue.range.min ? --cm_cyan_hue : cm_cyan_hue
+						newValue = cm_cyan_hue > MODEL_ACTIONS.cm_cyan_hue.range.min ? --cm_cyan_hue : cm_cyan_hue
 						break
 					case 'value':
 						newValue = opt.value
@@ -1278,15 +1352,15 @@ class instance extends instance_skel {
 				break
 
 			case 'cm_green_gain':
-				let cm_green_gain = this.camera?.cmsetup?.GreenGain
-					? this.camera.cmsetup.GreenGain
-					: MODEL_VALUES.cm_green_gain.range.default
+				let cm_green_gain = this.camera?.cm_green_gain
+					? this.camera.cm_green_gain
+					: MODEL_ACTIONS.cm_green_gain.range.default
 				switch (opt.val) {
 					case 'up':
-						newValue = cm_green_gain < MODEL_VALUES.cm_green_gain.range.max ? ++cm_green_gain : cm_green_gain
+						newValue = cm_green_gain < MODEL_ACTIONS.cm_green_gain.range.max ? ++cm_green_gain : cm_green_gain
 						break
 					case 'down':
-						newValue = cm_green_gain > MODEL_VALUES.cm_green_gain.range.min ? --cm_green_gain : cm_green_gain
+						newValue = cm_green_gain > MODEL_ACTIONS.cm_green_gain.range.min ? --cm_green_gain : cm_green_gain
 						break
 					case 'value':
 						newValue = opt.value
@@ -1299,15 +1373,15 @@ class instance extends instance_skel {
 				break
 
 			case 'cm_green_hue':
-				let cm_green_hue = this.camera?.cmsetup?.GreenHue
-					? this.camera.cmsetup.GreenHue
-					: MODEL_VALUES.cm_green_hue.range.default
+				let cm_green_hue = this.camera?.cm_green_hue
+					? this.camera.cm_green_hue
+					: MODEL_ACTIONS.cm_green_hue.range.default
 				switch (opt.val) {
 					case 'up':
-						newValue = cm_green_hue < MODEL_VALUES.cm_green_hue.range.max ? ++cm_green_hue : cm_green_hue
+						newValue = cm_green_hue < MODEL_ACTIONS.cm_green_hue.range.max ? ++cm_green_hue : cm_green_hue
 						break
 					case 'down':
-						newValue = cm_green_hue > MODEL_VALUES.cm_green_hue.range.min ? --cm_green_hue : cm_green_hue
+						newValue = cm_green_hue > MODEL_ACTIONS.cm_green_hue.range.min ? --cm_green_hue : cm_green_hue
 						break
 					case 'value':
 						newValue = opt.value
@@ -1320,15 +1394,15 @@ class instance extends instance_skel {
 				break
 
 			case 'cm_hue_phase':
-				let cm_hue_phase = this.camera?.cmsetup?.HuePhase
-					? this.camera.cmsetup.HuePhase
-					: MODEL_VALUES.cm_hue_phase.range.default
+				let cm_hue_phase = this.camera?.cm_hue_phase
+					? this.camera.cm_hue_phase
+					: MODEL_ACTIONS.cm_hue_phase.range.default
 				switch (opt.val) {
 					case 'up':
-						newValue = cm_hue_phase < MODEL_VALUES.cm_hue_phase.range.max ? ++cm_hue_phase : cm_hue_phase
+						newValue = cm_hue_phase < MODEL_ACTIONS.cm_hue_phase.range.max ? ++cm_hue_phase : cm_hue_phase
 						break
 					case 'down':
-						newValue = cm_hue_phase > MODEL_VALUES.cm_hue_phase.range.min ? --cm_hue_phase : cm_hue_phase
+						newValue = cm_hue_phase > MODEL_ACTIONS.cm_hue_phase.range.min ? --cm_hue_phase : cm_hue_phase
 						break
 					case 'value':
 						newValue = opt.value
@@ -1341,15 +1415,13 @@ class instance extends instance_skel {
 				break
 
 			case 'cm_mag_gain':
-				let cm_mag_gain = this.camera?.cmsetup?.MagGain
-					? this.camera.cmsetup.MagGain
-					: MODEL_VALUES.cm_mag_gain.range.default
+				let cm_mag_gain = this.camera?.cm_mag_gain ? this.camera.cm_mag_gain : MODEL_ACTIONS.cm_mag_gain.range.default
 				switch (opt.val) {
 					case 'up':
-						newValue = cm_mag_gain < MODEL_VALUES.cm_mag_gain.range.max ? ++cm_mag_gain : cm_mag_gain
+						newValue = cm_mag_gain < MODEL_ACTIONS.cm_mag_gain.range.max ? ++cm_mag_gain : cm_mag_gain
 						break
 					case 'down':
-						newValue = cm_mag_gain > MODEL_VALUES.cm_mag_gain.range.min ? --cm_mag_gain : cm_mag_gain
+						newValue = cm_mag_gain > MODEL_ACTIONS.cm_mag_gain.range.min ? --cm_mag_gain : cm_mag_gain
 						break
 					case 'value':
 						newValue = opt.value
@@ -1362,15 +1434,13 @@ class instance extends instance_skel {
 				break
 
 			case 'cm_mag_hue':
-				let cm_mag_hue = this.camera?.cmsetup?.MagHue
-					? this.camera.cmsetup.MagHue
-					: MODEL_VALUES.cm_mag_hue.range.default
+				let cm_mag_hue = this.camera?.cm_mag_hue ? this.camera.cm_mag_hue : MODEL_ACTIONS.cm_mag_hue.range.default
 				switch (opt.val) {
 					case 'up':
-						newValue = cm_mag_hue < MODEL_VALUES.cm_mag_hue.range.max ? ++cm_mag_hue : cm_mag_hue
+						newValue = cm_mag_hue < MODEL_ACTIONS.cm_mag_hue.range.max ? ++cm_mag_hue : cm_mag_hue
 						break
 					case 'down':
-						newValue = cm_mag_hue > MODEL_VALUES.cm_mag_hue.range.min ? --cm_mag_hue : cm_mag_hue
+						newValue = cm_mag_hue > MODEL_ACTIONS.cm_mag_hue.range.min ? --cm_mag_hue : cm_mag_hue
 						break
 					case 'value':
 						newValue = opt.value
@@ -1383,15 +1453,13 @@ class instance extends instance_skel {
 				break
 
 			case 'cm_red_gain':
-				let cm_red_gain = this.camera?.cmsetup?.RedGain
-					? this.camera.cmsetup.RedGain
-					: MODEL_VALUES.cm_red_gain.range.default
+				let cm_red_gain = this.camera?.cm_red_gain ? this.camera.cm_red_gain : MODEL_ACTIONS.cm_red_gain.range.default
 				switch (opt.val) {
 					case 'up':
-						newValue = cm_red_gain < MODEL_VALUES.cm_red_gain.range.max ? ++cm_red_gain : cm_red_gain
+						newValue = cm_red_gain < MODEL_ACTIONS.cm_red_gain.range.max ? ++cm_red_gain : cm_red_gain
 						break
 					case 'down':
-						newValue = cm_red_gain > MODEL_VALUES.cm_red_gain.range.min ? --cm_red_gain : cm_red_gain
+						newValue = cm_red_gain > MODEL_ACTIONS.cm_red_gain.range.min ? --cm_red_gain : cm_red_gain
 						break
 					case 'value':
 						newValue = opt.value
@@ -1404,15 +1472,13 @@ class instance extends instance_skel {
 				break
 
 			case 'cm_red_hue':
-				let cm_red_hue = this.camera?.cmsetup?.RedHue
-					? this.camera.cmsetup.RedHue
-					: MODEL_VALUES.cm_red_hue.range.default
+				let cm_red_hue = this.camera?.cm_red_hue ? this.camera.cm_red_hue : MODEL_ACTIONS.cm_red_hue.range.default
 				switch (opt.val) {
 					case 'up':
-						newValue = cm_red_hue < MODEL_VALUES.cm_red_hue.range.max ? ++cm_red_hue : cm_red_hue
+						newValue = cm_red_hue < MODEL_ACTIONS.cm_red_hue.range.max ? ++cm_red_hue : cm_red_hue
 						break
 					case 'down':
-						newValue = cm_red_hue > MODEL_VALUES.cm_red_hue.range.min ? --cm_red_hue : cm_red_hue
+						newValue = cm_red_hue > MODEL_ACTIONS.cm_red_hue.range.min ? --cm_red_hue : cm_red_hue
 						break
 					case 'value':
 						newValue = opt.value
@@ -1425,15 +1491,15 @@ class instance extends instance_skel {
 				break
 
 			case 'cm_yellow_gain':
-				let cm_yellow_gain = this.camera?.cmsetup?.YellowGain
-					? this.camera.cmsetup.YellowGain
-					: MODEL_VALUES.cm_yellow_gain.range.default
+				let cm_yellow_gain = this.camera?.cm_yellow_gain
+					? this.camera.cm_yellow_gain
+					: MODEL_ACTIONS.cm_yellow_gain.range.default
 				switch (opt.val) {
 					case 'up':
-						newValue = cm_yellow_gain < MODEL_VALUES.cm_yellow_gain.range.max ? ++cm_yellow_gain : cm_yellow_gain
+						newValue = cm_yellow_gain < MODEL_ACTIONS.cm_yellow_gain.range.max ? ++cm_yellow_gain : cm_yellow_gain
 						break
 					case 'down':
-						newValue = cm_yellow_gain > MODEL_VALUES.cm_yellow_gain.range.min ? --cm_yellow_gain : cm_yellow_gain
+						newValue = cm_yellow_gain > MODEL_ACTIONS.cm_yellow_gain.range.min ? --cm_yellow_gain : cm_yellow_gain
 						break
 					case 'value':
 						newValue = opt.value
@@ -1446,15 +1512,15 @@ class instance extends instance_skel {
 				break
 
 			case 'cm_yellow_hue':
-				let cm_yellow_hue = this.camera?.cmsetup?.YellowHue
-					? this.camera.cmsetup.YellowHue
-					: MODEL_VALUES.cm_yellow_hue.range.default
+				let cm_yellow_hue = this.camera?.cm_yellow_hue
+					? this.camera.cm_yellow_hue
+					: MODEL_ACTIONS.cm_yellow_hue.range.default
 				switch (opt.val) {
 					case 'up':
-						newValue = cm_yellow_hue < MODEL_VALUES.cm_yellow_hue.range.max ? ++cm_yellow_hue : cm_yellow_hue
+						newValue = cm_yellow_hue < MODEL_ACTIONS.cm_yellow_hue.range.max ? ++cm_yellow_hue : cm_yellow_hue
 						break
 					case 'down':
-						newValue = cm_yellow_hue > MODEL_VALUES.cm_yellow_hue.range.min ? --cm_yellow_hue : cm_yellow_hue
+						newValue = cm_yellow_hue > MODEL_ACTIONS.cm_yellow_hue.range.min ? --cm_yellow_hue : cm_yellow_hue
 						break
 					case 'value':
 						newValue = opt.value
@@ -1469,15 +1535,13 @@ class instance extends instance_skel {
 			// Advanced Setup Actions
 
 			case 'brightness':
-				let brightness = this.camera?.advancesetup?.Brightness
-					? this.camera.advancesetup.Brightness
-					: MODEL_VALUES.brightness.range.default
+				let brightness = this.camera?.brightness ? this.camera.brightness : MODEL_ACTIONS.brightness.range.default
 				switch (opt.val) {
 					case 'up':
-						newValue = brightness < MODEL_VALUES.brightness.range.max ? ++brightness : brightness
+						newValue = brightness < MODEL_ACTIONS.brightness.range.max ? ++brightness : brightness
 						break
 					case 'down':
-						newValue = brightness > MODEL_VALUES.brightness.range.min ? --brightness : brightness
+						newValue = brightness > MODEL_ACTIONS.brightness.range.min ? --brightness : brightness
 						break
 					case 'value':
 						newValue = opt.value
@@ -1504,15 +1568,15 @@ class instance extends instance_skel {
 				break
 
 			case 'gamma_offset':
-				let gamma_offset = this.camera?.advancesetup?.GammaOffset
-					? this.camera.advancesetup.GammaOffset
-					: MODEL_VALUES.gamma_offset.range.default
+				let gamma_offset = this.camera?.gamma_offset
+					? this.camera.gamma_offset
+					: MODEL_ACTIONS.gamma_offset.range.default
 				switch (opt.val) {
 					case 'up':
-						newValue = gamma_offset < MODEL_VALUES.gamma_offset.range.max ? ++gamma_offset : gamma_offset
+						newValue = gamma_offset < MODEL_ACTIONS.gamma_offset.range.max ? ++gamma_offset : gamma_offset
 						break
 					case 'down':
-						newValue = gamma_offset > MODEL_VALUES.gamma_offset.range.min ? --gamma_offset : gamma_offset
+						newValue = gamma_offset > MODEL_ACTIONS.gamma_offset.range.min ? --gamma_offset : gamma_offset
 						break
 					case 'value':
 						newValue = opt.value
@@ -1578,15 +1642,13 @@ class instance extends instance_skel {
 				break
 
 			case 'crispening':
-				let crispening = this.camera?.detail?.Crispening
-					? this.camera.detail.Crispening
-					: MODEL_VALUES.crispening.range.default
+				let crispening = this.camera?.crispening ? this.camera.crispening : MODEL_ACTIONS.crispening.range.default
 				switch (opt.val) {
 					case 'up':
-						newValue = crispening < MODEL_VALUES.crispening.range.max ? ++crispening : crispening
+						newValue = crispening < MODEL_ACTIONS.crispening.range.max ? ++crispening : crispening
 						break
 					case 'down':
-						newValue = crispening > MODEL_VALUES.crispening.range.min ? --crispening : crispening
+						newValue = crispening > MODEL_ACTIONS.crispening.range.min ? --crispening : crispening
 						break
 					case 'value':
 						newValue = opt.value
@@ -1606,17 +1668,17 @@ class instance extends instance_skel {
 				break
 
 			case 'highlight_detail':
-				let highlight_detail = this.camera?.detail?.HighlightDetail
-					? this.camera.detail.HighlightDetail
-					: MODEL_VALUES.highlight_detail.range.default
+				let highlight_detail = this.camera?.highlight_detail
+					? this.camera.highlight_detail
+					: MODEL_ACTIONS.highlight_detail.range.default
 				switch (opt.val) {
 					case 'up':
 						newValue =
-							highlight_detail < MODEL_VALUES.highlight_detail.range.max ? ++highlight_detail : highlight_detail
+							highlight_detail < MODEL_ACTIONS.highlight_detail.range.max ? ++highlight_detail : highlight_detail
 						break
 					case 'down':
 						newValue =
-							highlight_detail > MODEL_VALUES.highlight_detail.range.min ? --highlight_detail : highlight_detail
+							highlight_detail > MODEL_ACTIONS.highlight_detail.range.min ? --highlight_detail : highlight_detail
 						break
 					case 'value':
 						newValue = opt.value
@@ -1629,15 +1691,13 @@ class instance extends instance_skel {
 				break
 
 			case 'hv_balance':
-				let hv_balance = this.camera?.detail?.HvBalance
-					? this.camera.detail.HvBalance
-					: MODEL_VALUES.hv_balance.range.default
+				let hv_balance = this.camera?.hv_balance ? this.camera.hv_balance : MODEL_ACTIONS.hv_balance.range.default
 				switch (opt.val) {
 					case 'up':
-						newValue = hv_balance < MODEL_VALUES.hv_balance.range.max ? ++hv_balance : hv_balance
+						newValue = hv_balance < MODEL_ACTIONS.hv_balance.range.max ? ++hv_balance : hv_balance
 						break
 					case 'down':
-						newValue = hv_balance > MODEL_VALUES.hv_balance.range.min ? --hv_balance : hv_balance
+						newValue = hv_balance > MODEL_ACTIONS.hv_balance.range.min ? --hv_balance : hv_balance
 						break
 					case 'value':
 						newValue = opt.value
@@ -1650,13 +1710,13 @@ class instance extends instance_skel {
 				break
 
 			case 'limit':
-				let limit = this.camera?.detail?.Limit ? this.camera.detail.Limit : MODEL_VALUES.limit.range.default
+				let limit = this.camera?.limit ? this.camera.limit : MODEL_ACTIONS.limit.range.default
 				switch (opt.val) {
 					case 'up':
-						newValue = limit < MODEL_VALUES.limit.range.max ? ++limit : limit
+						newValue = limit < MODEL_ACTIONS.limit.range.max ? ++limit : limit
 						break
 					case 'down':
-						newValue = limit > MODEL_VALUES.limit.range.min ? --limit : limit
+						newValue = limit > MODEL_ACTIONS.limit.range.min ? --limit : limit
 						break
 					case 'value':
 						newValue = opt.value
@@ -1669,15 +1729,13 @@ class instance extends instance_skel {
 				break
 
 			case 'super_low':
-				let super_low = this.camera?.detail?.SuperLow
-					? this.camera.detail.SuperLow
-					: MODEL_VALUES.super_low.range.default
+				let super_low = this.camera?.super_low ? this.camera.super_low : MODEL_ACTIONS.super_low.range.default
 				switch (opt.val) {
 					case 'up':
-						newValue = super_low < MODEL_VALUES.super_low.range.max ? ++super_low : super_low
+						newValue = super_low < MODEL_ACTIONS.super_low.range.max ? ++super_low : super_low
 						break
 					case 'down':
-						newValue = super_low > MODEL_VALUES.super_low.range.min ? --super_low : super_low
+						newValue = super_low > MODEL_ACTIONS.super_low.range.min ? --super_low : super_low
 						break
 					case 'value':
 						newValue = opt.value
@@ -1692,17 +1750,17 @@ class instance extends instance_skel {
 			// Gamma Setup Actions
 
 			case 'black_gamma_level':
-				let black_gamma_level = this.camera?.gammasetup?.BlackGammaLevel
-					? this.camera.gammasetup.BlackGammaLevel
-					: MODEL_VALUES.black_gamma_level.range.default
+				let black_gamma_level = this.camera?.black_gamma_level
+					? this.camera.black_gamma_level
+					: MODEL_ACTIONS.black_gamma_level.range.default
 				switch (opt.val) {
 					case 'up':
 						newValue =
-							black_gamma_level < MODEL_VALUES.black_gamma_level.range.max ? ++black_gamma_level : black_gamma_level
+							black_gamma_level < MODEL_ACTIONS.black_gamma_level.range.max ? ++black_gamma_level : black_gamma_level
 						break
 					case 'down':
 						newValue =
-							black_gamma_level > MODEL_VALUES.black_gamma_level.range.max ? --black_gamma_level : black_gamma_level
+							black_gamma_level > MODEL_ACTIONS.black_gamma_level.range.max ? --black_gamma_level : black_gamma_level
 						break
 					case 'value':
 						newValue = opt.value
@@ -1715,15 +1773,13 @@ class instance extends instance_skel {
 				break
 
 			case 'black_level':
-				let black_level = this.camera?.gammasetup?.BlackLevel
-					? this.camera.gammasetup.BlackLevel
-					: MODEL_VALUES.black_level.range.default
+				let black_level = this.camera?.black_level ? this.camera.black_level : MODEL_ACTIONS.black_level.range.default
 				switch (opt.val) {
 					case 'up':
-						newValue = black_level < MODEL_VALUES.black_level.range.max ? ++black_level : black_level
+						newValue = black_level < MODEL_ACTIONS.black_level.range.max ? ++black_level : black_level
 						break
 					case 'down':
-						newValue = black_level > MODEL_VALUES.black_level.range.max ? --black_level : black_level
+						newValue = black_level > MODEL_ACTIONS.black_level.range.max ? --black_level : black_level
 						break
 					case 'value':
 						newValue = opt.value
@@ -1743,13 +1799,13 @@ class instance extends instance_skel {
 				break
 
 			case 'effect':
-				let effect = this.camera?.gammasetup?.Effect ? this.camera.gammasetup.Effect : MODEL_VALUES.effect.range.default
+				let effect = this.camera?.effect ? this.camera.effect : MODEL_ACTIONS.effect.range.default
 				switch (opt.val) {
 					case 'up':
-						newValue = effect < MODEL_VALUES.effect.range.max ? ++effect : effect
+						newValue = effect < MODEL_ACTIONS.effect.range.max ? ++effect : effect
 						break
 					case 'down':
-						newValue = effect > MODEL_VALUES.effect.range.max ? --effect : effect
+						newValue = effect > MODEL_ACTIONS.effect.range.max ? --effect : effect
 						break
 					case 'value':
 						newValue = opt.value
@@ -1762,13 +1818,13 @@ class instance extends instance_skel {
 				break
 
 			case 'level':
-				let level = this.camera?.gammasetup?.Level ? this.camera.gammasetup.Level : MODEL_VALUES.level.range.default
+				let level = this.camera?.level ? this.camera.level : MODEL_ACTIONS.level.range.default
 				switch (opt.val) {
 					case 'up':
-						newValue = level < MODEL_VALUES.level.range.max ? ++level : level
+						newValue = level < MODEL_ACTIONS.level.range.max ? ++level : level
 						break
 					case 'down':
-						newValue = level > MODEL_VALUES.level.range.max ? --level : level
+						newValue = level > MODEL_ACTIONS.level.range.max ? --level : level
 						break
 					case 'value':
 						newValue = opt.value
@@ -1781,13 +1837,13 @@ class instance extends instance_skel {
 				break
 
 			case 'offset':
-				let offset = this.camera?.gammasetup?.Offset ? this.camera.gammasetup.Offset : MODEL_VALUES.offset.range.default
+				let offset = this.camera?.offset ? this.camera.offset : MODEL_ACTIONS.offset.range.default
 				switch (opt.val) {
 					case 'up':
-						newValue = offset < MODEL_VALUES.offset.range.max ? ++offset : offset
+						newValue = offset < MODEL_ACTIONS.offset.range.max ? ++offset : offset
 						break
 					case 'down':
-						newValue = offset > MODEL_VALUES.offset.range.max ? --offset : offset
+						newValue = offset > MODEL_ACTIONS.offset.range.max ? --offset : offset
 						break
 					case 'value':
 						newValue = opt.value
@@ -1800,15 +1856,13 @@ class instance extends instance_skel {
 				break
 
 			case 'pattern':
-				let pattern = this.camera?.gammasetup?.Pattern
-					? this.camera.gammasetup.Pattern
-					: MODEL_VALUES.pattern.range.default
+				let pattern = this.camera?.pattern ? this.camera.pattern : MODEL_ACTIONS.pattern.range.default
 				switch (opt.val) {
 					case 'up':
-						newValue = pattern < MODEL_VALUES.pattern.range.max ? ++pattern : pattern
+						newValue = pattern < MODEL_ACTIONS.pattern.range.max ? ++pattern : pattern
 						break
 					case 'down':
-						newValue = pattern > MODEL_VALUES.pattern.range.max ? --pattern : pattern
+						newValue = pattern > MODEL_ACTIONS.pattern.range.max ? --pattern : pattern
 						break
 					case 'value':
 						newValue = opt.value
@@ -1821,15 +1875,15 @@ class instance extends instance_skel {
 				break
 
 			case 'pattern_fine':
-				let pattern_fine = this.camera?.gammasetup?.PatternFine
-					? this.camera.gammasetup.PatternFine
-					: MODEL_VALUES.pattern_fine.range.default
+				let pattern_fine = this.camera?.pattern_fine
+					? this.camera.pattern_fine
+					: MODEL_ACTIONS.pattern_fine.range.default
 				switch (opt.val) {
 					case 'up':
-						newValue = pattern_fine < MODEL_VALUES.pattern_fine.range.max ? ++pattern_fine : pattern_fine
+						newValue = pattern_fine < MODEL_ACTIONS.pattern_fine.range.max ? ++pattern_fine : pattern_fine
 						break
 					case 'down':
-						newValue = pattern_fine > MODEL_VALUES.pattern_fine.range.max ? --pattern_fine : pattern_fine
+						newValue = pattern_fine > MODEL_ACTIONS.pattern_fine.range.max ? --pattern_fine : pattern_fine
 						break
 					case 'value':
 						newValue = opt.value
@@ -1853,6 +1907,73 @@ class instance extends instance_skel {
 					VisibilityEnhancer: String(opt.val),
 				}
 				this.sendCommand('birddoggammasetup', 'POST', body)
+				break
+
+			// BirdDog Scope Actions
+
+			case 'scope_size':
+				body = {
+					DoubleSizeEnable: String(opt.val),
+				}
+				this.sendCommand('birddogscope', 'POST', body)
+				break
+
+			case 'scope_gamma_gain':
+				let scope_gamma_gain = this.camera?.scope_gamma_gain
+					? this.camera.scope_gamma_gain
+					: MODEL_ACTIONS.scope_gamma_gain.range.default
+				switch (opt.val) {
+					case 'up':
+						newValue =
+							scope_gamma_gain < MODEL_ACTIONS.scope_gamma_gain.range.max ? ++scope_gamma_gain : scope_gamma_gain
+						break
+					case 'down':
+						newValue =
+							scope_gamma_gain > MODEL_ACTIONS.scope_gamma_gain.range.max ? --scope_gamma_gain : scope_gamma_gain
+						break
+					case 'value':
+						newValue = opt.value
+						break
+				}
+				body = {
+					GammaGain: String(newValue),
+				}
+				this.sendCommand('birddogscope', 'POST', body)
+				break
+
+			case 'scope_mode':
+				body = {
+					Mode: String(opt.val),
+				}
+				this.sendCommand('birddogscope', 'POST', body)
+				break
+
+			case 'scope_position':
+				body = {
+					Position: String(opt.val),
+				}
+				this.sendCommand('birddogscope', 'POST', body)
+				break
+
+			case 'scope_preview':
+				body = {
+					PreviewEnable: String(opt.val),
+				}
+				this.sendCommand('birddogscope', 'POST', body)
+				break
+
+			case 'scope_program':
+				body = {
+					ProgramEnable: String(opt.val),
+				}
+				this.sendCommand('birddogscope', 'POST', body)
+				break
+
+			case 'scope_transparency':
+				body = {
+					TransparencyEnable: String(opt.val),
+				}
+				this.sendCommand('birddogscope', 'POST', body)
 				break
 
 			// Other Actions
@@ -1942,7 +2063,7 @@ class instance extends instance_skel {
 						this.status(this.STATUS_ERROR)
 						this.log(
 							'error',
-							`Connection lost to ${this.camera?.about?.HostName ? this.camera.about.HostName : 'BirdDog PTZ camera'}`
+							`Connection lost to ${this.camera?.HostName ? this.camera.HostName : 'BirdDog PTZ camera'}`
 						)
 					}
 				}
@@ -1950,69 +2071,123 @@ class instance extends instance_skel {
 	}
 
 	processData(cmd, data) {
-		if (cmd.match('/about')) {
-			if (this.currentStatus != 0 && data.FirmwareVersion && this.camera.model) {
-				this.status(this.STATUS_OK)
-				this.log('info', `Connected to ${data.HostName}`)
+		let changed
+		switch (cmd.slice(cmd.lastIndexOf('/') + 1)) {
+			case 'about':
+				changed = this.storeState(data, 'about')
 				this.camera.about = data
-				if (!this.camera.firmware.major) {
-					this.camera.firmware = {}
-					this.camera.firmware.major = FirmwareVersion.substring(FirmwareVersion.lastIndexOf(' ') + 1).substring(0, 1)
-					this.camera.firmware.minor = FirmwareVersion.substring(FirmwareVersion.lastIndexOf(' ') + 2).substring(1)
+				break
+			case 'analogaudiosetup':
+				changed = this.storeState(data, 'analogaudiosetup')
+				this.camera.audio = data
+				break
+			case 'devicesettings':
+				changed = this.storeState(data, 'devicesettings')
+				this.camera.devicesettings = data
+				break
+			case 'videooutputinterface':
+				changed = this.storeState(data, 'videooutputinterface')
+				this.camera.video = data
+				break
+			case 'encodesetup':
+				changed = this.storeState(data, 'encodesetup')
+				let match = data.VideoFormat.match(/\d+\D(\S*)/) // match the framerate
+				if (this.camera?.shutter_table) {
+					switch (match[1]) {
+						// If the current stored framerate doesn't match the camera framerate, change the stored framerate and repopulate actions
+						case '23.98':
+						case '24':
+							if (!(this.camera.shutter_table === '24')) {
+								this.camera.shutter_table = '24'
+								this.actions()
+							}
+							break
+						case '25':
+						case '50':
+							if (!(this.camera.shutter_table === '50')) {
+								this.camera.shutter_table = '50'
+								this.actions()
+							}
+							break
+						default:
+							if (!(this.camera.shutter_table === '60')) {
+								this.camera.shutter_table = '60'
+								this.actions()
+							}
+							break
+					}
 				}
-			}
-		} else if (cmd.match('/analogaudiosetup')) {
-			this.camera.audio = data
-		} else if (cmd.match('/videooutputinterface')) {
-			this.camera.video = data
-		} else if (cmd.match('/encodetransport')) {
-			this.camera.transport = data
-		} else if (cmd.match('/encodesetup')) {
-			if (!this.camera?.encode || this.camera?.encode?.VideoFormat !== data.VideoFormat) {
-				if (data.VideoFormat.match('24')) {
-					this.camera.framerate = 24
-				} else if (data.VideoFormat.match('25') || data.VideoFormat.match('50')) {
-					this.camera.framerate = 50
-				} else {
-					this.camera.framerate = 60
+				if (this.camera?.framerate) {
+					this.camera.framerate = match[1]
 				}
-				this.actions()
-			}
-			this.camera.encode = data
-		} else if (cmd.match('/NDIDisServer')) {
-			this.camera.ndiserver = data
-		} else if (cmd.match('/birddogptzsetup')) {
-			this.camera.ptz = data
-		} else if (cmd.match('/birddogexpsetup')) {
-			if (this.camera.expsetup?.GainLimit && this.camera.expsetup.GainLimit !== data.GainLimit) {
-				// rebuild actions if GainLimit has changed
-				console.log('-----Gain Limit changed')
-				this.camera.expsetup.GainLimit = data.GainLimit
-				this.actions()
-			} else if (
-				this.camera.expsetup?.ShutterMaxSpeed &&
-				this.camera.expsetup.ShutterMaxSpeed !== data.ShutterMaxSpeed
-			) {
-				// rebuild actions if ShutterMaxSpeed has changed
-				console.log('-----ShutterMaxSpeed changed')
-				this.camera.expsetup.ShutterMaxSpeed = data.ShutterMaxSpeed
-				this.actions()
-			}
-			this.camera.expsetup = data
-		} else if (cmd.match('/birddogwbsetup')) {
-			this.camera.wbsetup = data
-		} else if (cmd.match('/birddogpicsetup')) {
-			this.camera.picsetup = data
-		} else if (cmd.match('/birddogcmsetup')) {
-			this.camera.cmsetup = data
-		} else if (cmd.match('/birddogadvancesetup')) {
-			this.camera.advancesetup = data
-		} else if (cmd.match('/birddogexternalsetup')) {
-			this.camera.externalsetup = data
-		} else if (cmd.match('/birddogdetsetup')) {
-			this.camera.detsetup = data
-		} else if (cmd.match('/birddoggammasetup')) {
-			this.camera.gammasetup = data
+				this.camera.encode = data
+				break
+			case 'encodetransport':
+				changed = this.storeState(data, 'encodetransport')
+				this.camera.transport = data
+				break
+			case 'NDIDisServer':
+				changed = this.storeState(data, 'NDIDisServer')
+				this.camera.ndiserver = data
+				break
+			case 'birddogptzsetup':
+				changed = this.storeState(data, 'birddogptzsetup')
+				this.camera.ptz = data
+				break
+			case 'birddogexpsetup':
+				changed = this.storeState(data, 'birddogexpsetup')
+
+				if (changed.includes('gain_limit')) {
+					// rebuild actions as GainLimit has changed
+					console.log('-----Gain Limit changed')
+					this.actions()
+				}
+
+				if (changed.includes('shutter_max_speed')) {
+					// rebuild actions as GainLimit has changed
+					console.log('-----ShutterMaxSpeed changed')
+					this.actions()
+				}
+
+				if (changed.includes('shutter_min_speed')) {
+					// rebuild actions as GainLimit has changed
+					console.log('-----ShutterMinSpeed changed')
+					this.actions()
+				}
+				this.camera.expsetup = data
+				break
+			case 'birddogwbsetup':
+				changed = this.storeState(data, 'birddogwbsetup')
+				this.camera.wbsetup = data
+				break
+			case 'birddogpicsetup':
+				changed = this.storeState(data, 'birddogpicsetup')
+				this.camera.picsetup = data
+				break
+			case 'birddogcmsetup':
+				changed = this.storeState(data, 'birddogcmsetup')
+				this.camera.cmsetup = data
+				break
+			case 'birddogadvancesetup':
+				changed = this.storeState(data, 'birddogadvancesetup')
+				this.camera.advancesetup = data
+				break
+			case 'birddogexternalsetup':
+				changed = this.storeState(data, 'birddogexternalsetup')
+				this.camera.externalsetup = data
+				break
+			case 'birddogdetsetup':
+				changed = this.storeState(data, 'birddogdetsetup')
+				this.camera.detsetup = data
+				break
+			case 'birddoggammasetup':
+				changed = this.storeState(data, 'birddoggammasetup')
+				this.camera.gammasetup = data
+				break
+			case 'birddogscope':
+				changed = this.storeState(data, 'birddogscope')
+				this.camera.birddogscope = data
+				break
 		}
 		this.updateVariables()
 		this.checkFeedbacks()
@@ -2058,9 +2233,9 @@ class instance extends instance_skel {
 				break
 			case '5a': // Query Auto Focus mode
 				if (data[8] == 0x90 && data[9] == 0x50 && data[10] == 0x02 && data[11] == 0xff) {
-					this.camera.focus = JSON.parse('{"mode":"Auto"}')
+					this.camera.focusM = 'Auto'
 				} else if (data[8] == 0x90 && data[9] == 0x50 && data[10] == 0x03 && data[11] == 0xff) {
-					this.camera.focus = JSON.parse('{"mode":"Manual"}')
+					this.camera.focusM = 'Manual'
 				}
 				break
 			case '5b': // Query Freeze Status
@@ -2072,15 +2247,15 @@ class instance extends instance_skel {
 				break
 			case '5c': // Query Zoom Position
 				if (data[8] == 0x90 && data[9] == 0x50 && data[14] == 0xff) {
-					this.camera.position.zoom =
+					this.camera.zoom_position =
 						data[10].toString(16) + data[11].toString(16) + data[12].toString(16) + data[13].toString(16)
 				}
 				break
 			case '5d': // Query Pan/Tilt Position
 				if (data[8] == 0x90 && data[9] == 0x50 && data[18] == 0xff) {
-					this.camera.position.pan =
+					this.camera.pan_position =
 						data[10].toString(16) + data[11].toString(16) + data[12].toString(16) + data[13].toString(16)
-					this.camera.position.tilt =
+					this.camera.tilt_position =
 						data[14].toString(16) + data[15].toString(16) + data[16].toString(16) + data[17].toString(16)
 				}
 				break
@@ -2118,8 +2293,8 @@ class instance extends instance_skel {
 			this.udp.destroy()
 			delete this.udp
 		}
-		if (this.poll_interval !== undefined) {
-			clearInterval(this.poll_interval)
+		if (this.timers.pollCameraStatus !== undefined) {
+			clearInterval(this.timers.pollCameraStatus)
 		}
 		if (this.config.host !== undefined) {
 			this.udp = new udp(this.config.host, this.port)
@@ -2128,8 +2303,7 @@ class instance extends instance_skel {
 			this.sendControlCommand('\x01')
 			this.packet_counter = 0
 
-			this.poll_interval = setInterval(this.poll.bind(this), 3000) //ms for poll
-			this.poll()
+			this.startPolling()
 
 			this.udp.on('status_change', (status, message) => {
 				//this.status(status, message)
@@ -2144,42 +2318,134 @@ class instance extends instance_skel {
 		}
 	}
 
-	poll() {
-		let MODEL_API = MODELS.find((MODELS) => MODELS.id == this.camera.model)?.apicalls
-		// Common Device Info
-		this.sendCommand('about', 'GET')
-		this.sendCommand('analogaudiosetup', 'GET')
-		this.sendCommand('encodetransport', 'GET')
-		//this.sendCommand('encodesetup', 'GET') Temporary skip to avoid BirdDog API bug
-		this.sendCommand('NDIDisServer', 'GET')
-		this.sendCommand('birddogptzsetup', 'GET')
-		this.sendCommand('birddogexpsetup', 'GET')
-		this.sendCommand('birddogwbsetup', 'GET')
-		this.sendCommand('birddogpicsetup', 'GET')
+	init_ws_listener() {
+		this.debug('----init webscoket')
+		clearInterval(this.timers.ws_reconnect)
+
+		if (this.ws !== undefined) {
+			this.ws.close(1000)
+			delete this.ws
+		}
+
+		this.ws = new WebSocket(`ws://${this.config.host}:6790/`)
+
+		this.ws.on('open', () => {
+			this.log('debug', `WebSocket connection opened to BirdDog PTZ camera`)
+		})
+
+		this.ws.on('close', (code) => {
+			this.log('debug', `WebSocket Connection closed with code ${code}`)
+			this.debug(`---- WebSocket Connection closed with code ${code}`)
+			if (code !== 1000) {
+				this.timers.ws_reconnect = setInterval(this.init_ws_listener.bind(this), 500)
+			}
+		})
+
+		this.ws.on('message', (message) => {
+			let data
+			try {
+				data = JSON.parse(message.toString())
+				this.storeState(data, 'WebSocket')
+			} catch (e) {
+				this.debug('JSON Error:' + e)
+			}
+			this.debug('---- WebSocket received: ', data)
+		})
+
+		this.ws.on('error', (data) => {
+			this.log('error', `WebSocket error: ${data}`)
+		})
+	}
+
+	// Poll for BirdDog camera configuration/status
+	startPolling() {
+		//Immediately do the poll
+		this.pollCameraConfig()
+		this.pollCameraStatus()
+
+		// Repeat the poll at set intervals
+		this.timers.pollCameraConfig = setInterval(this.pollCameraConfig.bind(this), 10000) // No need to poll frequently
+		this.timers.pollCameraStatus = setInterval(this.pollCameraStatus.bind(this), 3000) // This will be used to get status of the camera
+	}
+
+	stopPolling() {
+		if (this.timers.pollCameraConfig) {
+			clearInterval(this.timers.pollCameraConfig)
+			this.timers.pollCameraConfig = null
+		}
+		if (this.timers.pollCameraStatus) {
+			clearInterval(this.timers.pollCameraStatus)
+			this.timers.pollCameraStatus = null
+		}
+	}
+
+	// Get Camera configuration
+	pollCameraConfig() {
+		let MODEL_QRY = getModelQueries(MODEL_QUERIES, this.camera.model, this.camera.firmware.major)
+
+		if (MODEL_QRY?.about) {
+			this.sendCommand('about', 'GET')
+		}
+		if (MODEL_QRY?.encodesetup) {
+			this.sendCommand('encodesetup', 'GET')
+		}
+		if (MODEL_QRY?.analogaudiosetup) {
+			this.sendCommand('analogaudiosetup', 'GET')
+		}
+		if (MODEL_QRY?.devicesettings) {
+			this.sendCommand('NDIDisServer', 'GET')
+		}
+		if (MODEL_QRY?.videooutputinterface) {
+			this.sendCommand('videooutputinterface', 'GET')
+		}
+		if (MODEL_QRY?.encodetransport) {
+			this.sendCommand('encodetransport', 'GET')
+		}
+		if (MODEL_QRY?.NDIDisServer) {
+			this.sendCommand('NDIDisServer', 'GET')
+		}
+	}
+
+	// Get Camera Status
+	pollCameraStatus() {
+		let MODEL_QRY = getModelQueries(MODEL_QUERIES, this.camera.model, this.camera.firmware.major)
+
+		if (MODEL_QRY?.birddogptzsetup) {
+			this.sendCommand('birddogptzsetup', 'GET')
+		}
+		if (MODEL_QRY?.birddogexpsetup) {
+			this.sendCommand('birddogexpsetup', 'GET')
+		}
+		if (MODEL_QRY?.birddogwbsetup) {
+			this.sendCommand('birddogwbsetup', 'GET')
+		}
+		if (MODEL_QRY?.birddogpicsetup) {
+			this.sendCommand('birddogpicsetup', 'GET')
+		}
 		this.sendVISCACommand(VISCA.MSG_QRY + VISCA.CAM_POWER + VISCA.END_MSG, '\x4a') // Query Standby status
 		this.sendVISCACommand(VISCA.MSG_QRY + VISCA.CAM_FOCUS_AUTO + VISCA.END_MSG, '\x5a') // Query Auto Focus Mode
 		this.sendVISCACommand(VISCA.MSG_QRY + VISCA.CAM_FREEZE + VISCA.END_MSG, '\x5b') // Query Freeze
 		this.sendVISCACommand(VISCA.MSG_QRY + VISCA.CAM_ZOOM_DIRECT + VISCA.END_MSG, '\x5c') // Query Zoom Position
-		// Specific Model Info
-		if (MODEL_API?.videooutputinterface) {
-			this.sendCommand('videooutputinterface', 'GET')
-		}
-		if (MODEL_API?.birddogcmsetup) {
+
+		if (MODEL_QRY?.birddogcmsetup) {
 			this.sendCommand('birddogcmsetup', 'GET')
 		}
-		if (MODEL_API?.birddogadvancesetup) {
+		if (MODEL_QRY?.birddogadvancesetup) {
 			this.sendCommand('birddogadvancesetup', 'GET')
 		}
-		if (MODEL_API?.birddogexternalsetup) {
+		if (MODEL_QRY?.birddogexternalsetup) {
 			this.sendCommand('birddogexternalsetup', 'GET')
 		}
-		if (MODEL_API?.birddogdetsetup) {
+		if (MODEL_QRY?.birddogdetsetup) {
 			this.sendCommand('birddogdetsetup', 'GET')
 		}
-		if (MODEL_API?.birddoggammasetup) {
+		if (MODEL_QRY?.birddoggammasetup) {
 			this.sendCommand('birddoggammasetup', 'GET')
 		}
-		if (MODEL_API?.pt_pos) {
+		if (MODEL_QRY?.birddogscope) {
+			this.sendCommand('birddogscope', 'GET')
+		}
+		if (MODEL_QRY?.pt_pos) {
 			this.sendVISCACommand(VISCA.MSG_QRY_OPERATION + VISCA.OP_PAN_POS + VISCA.END_MSG, '\x5d') // Query Pan/Tilt Position
 		}
 
@@ -2197,7 +2463,7 @@ class instance extends instance_skel {
 			fetch(url, options)
 				.then((res) => {
 					if (res.status == 200) {
-						this.debug(res)
+						//this.debug(res)
 						return res.text()
 					}
 				})
@@ -2205,12 +2471,14 @@ class instance extends instance_skel {
 					let model = data
 					if (model) {
 						model = model.replace(/BirdDog| |_/g, '')
-						this.initializeCamera(model)
+						//this.debug('---- Model returned from call to "/version" is ', model, ' - now running checkCameraModel')
+						//this.camera.model = this.checkCameraModel(model)
+						this.getCameraFW(this.checkCameraModel(model))
 					} else if (!model && this.currentStatus != 2) {
 						this.log('error', 'Please upgrade your BirdDog camera to the latest LTS firmware to use this module')
 						this.status(this.STATUS_ERROR)
-						if (this.poll_interval !== undefined) {
-							clearInterval(this.poll_interval)
+						if (this.timers.pollCameraStatus !== undefined) {
+							clearInterval(this.timers.pollCameraStatus)
 						}
 					}
 				})
@@ -2230,27 +2498,170 @@ class instance extends instance_skel {
 					}
 				})
 		} else {
-			this.initializeCamera(this.config.model)
+			//this.camera.model = this.config.model
+			this.getCameraFW(this.config.model)
 		}
 	}
 
-	initializeCamera(model) {
-		if (MODELS.find((MODELS) => MODELS.id == model)) {
-			this.camera.model = model
+	getCameraFW(model) {
+		let url = `http://${this.config.host}:8080/about`
+		let options = {
+			method: 'GET',
+			headers: { 'Content-Type': 'application/json' },
+		}
+		fetch(url, options)
+			.then((res) => {
+				if (res.status == 200) {
+					//this.debug(res)
+					return res.json()
+				}
+			})
+			.then((data) => {
+				if (data.FirmwareVersion) {
+					let FW_major = data.FirmwareVersion.substring(data.FirmwareVersion.lastIndexOf(' ') + 1).substring(0, 1)
+					let FW_minor = data.FirmwareVersion.substring(data.FirmwareVersion.lastIndexOf(' ') + 2).substring(1)
+					//this.debug('---- Camera FW Major:' + FW_major)
+					//this.debug('---- Camera FW Minor:' + FW_minor)
 
-			this.sendCommand('about', 'GET')
-			this.sendCommand('encodesetup', 'GET') // allow an initial query to this API to collect camera info
+					// Set Initial State for Camera
+					this.intializeState(model, FW_major, FW_minor)
 
-			this.init_udp()
+					// InitializeCamera
+					this.initializeCamera(data.HostName)
+				} else if (data.Version === '1.0' && this.currentStatus != 2) {
+					this.log('error', 'Please upgrade your BirdDog camera to the latest LTS firmware to use this module')
+					this.status(this.STATUS_ERROR)
+					if (this.timers.pollCameraStatus !== undefined) {
+						clearInterval(this.timers.pollCameraStatus)
+					}
+				}
+			})
+			.catch((err) => {
+				this.debug(err)
+				let errorText = String(err)
+				if (
+					errorText.match('ECONNREFUSED') ||
+					errorText.match('ENOTFOUND') ||
+					errorText.match('EHOSTDOWN') ||
+					errorText.match('ETIMEDOUT')
+				) {
+					if (this.currentStatus != 2) {
+						this.status(this.STATUS_ERROR)
+						this.log('error', `Unable to connect to BirdDog PTZ Camera (Error: ${errorText?.split('reason:')[1]})`)
+					}
+				}
+			})
+	}
 
-			this.updateVariables()
+	initializeCamera(hostname) {
+		// this.debug('---- in initializeCamera')
+		if (this.currentStatus != 0 && this.camera.firmware.major && this.camera.model) {
+			this.status(this.STATUS_OK)
+			this.log('info', `Connected to ${hostname}`)
+			this.debug('---- Connected to', hostname)
+
 			this.actions()
 			this.initPresets()
 			this.initVariables()
 			this.initFeedbacks()
+
+			this.init_udp()
+
+			if (this.camera.firmware.major === '5') {
+				this.init_ws_listener()
+			}
 		} else {
-			this.log('error', `Could not connect, unrecognized camera model: ${model}`)
+			this.status(this.STATUS_ERROR)
+			this.log('error', `Unable to connect to ${hostname}`)
 		}
 	}
+
+	checkCameraModel(detectedModel) {
+		this.debug('---- In checkCameraModel with detectedModel as', detectedModel)
+		var model = CHOICES.CAMERAS.find((element) => {
+			this.debug('---- Checking element ', element)
+			if (element.id === detectedModel) {
+				return detectedModel
+			} else if (element?.other) {
+				var tempArray = Object.entries(element)
+				return tempArray[2][1].includes(detectedModel)
+			} else {
+				this.debug('---- Returning False for ', element)
+				return false
+			}
+		})
+		if (model) {
+			this.log('info', `Detected camera model: ${model.id}`)
+			this.debug('---- Detected camera model: ' + model.id)
+			return model.id
+		} else {
+			this.log('error', `Unrecognized camera model: ${detectedModel}. Using "Default" camera profile`)
+			this.debug(`Unrecognized camera model: ${detectedModel}. Using "Default" camera profile`)
+			return 'Default'
+		}
+	}
+
+	intializeState(model, FW_major, FW_minor) {
+		// Take all level 1 elements from MODEL_SPECS filtered by;
+		// - All cameras or model matches
+		// - FW matches
+		// - 'store_state' is true
+		// and add them to this.camera object
+
+		this.camera = {}
+
+		let filteredArray = Object.entries(MODEL_SPECS).filter(
+			(array) =>
+				// filter array based on: All cameras or Model matches, and FW matches & has 'store_state' object
+				(array[1].camera.includes(model) || array[1].camera.includes('All')) &&
+				array[1].firmware.includes(FW_major) &&
+				array[1].store_state === true
+		)
+
+		Object.keys(Object.fromEntries(filteredArray))
+			.sort()
+			.map((element) => (this.camera[element] = {}))
+
+		// Set some defaults
+		this.camera.model = model
+		this.camera.firmware.major = FW_major
+		this.camera.firmware.minor = FW_minor
+		this.camera.shutter_table = 60 // Camera defaults to 59.94 on startup
+		this.camera.unknown = [] // Array to store unknown API variables
+
+		// Old defaults
+		//this.camera.position = { pan: '0000', tilt: '0000', zoom: '0000' }
+
+		this.debug('---- Initial State for camera', this.camera)
+	}
+
+	storeState(data, endpoint) {
+		// Returns an array of this.camera keys that have been changed
+		let changed = []
+		Object.entries(data).forEach((element) => {
+			let stored = Object.entries(MODEL_SPECS).find(
+				(array) =>
+					// find location in this.camera to store API variable
+					// based on: All cameras or Model matches, FW matches, api_endpoint matches & api_variable matches API element
+					(array[1].camera.includes(this.camera.model) || array[1].camera.includes('All')) &&
+					array[1].firmware.includes(this.camera.firmware.major) &&
+					array[1]?.api_endpoint?.includes(endpoint) &&
+					array[1]?.api_variable?.includes(element[0])
+			)
+			if (!stored) {
+				if (!this.camera.unknown.includes(element[0])) {
+					//Only warn about unknown API variables once
+					this.log('warn', `Unknown API variable returned from ${endpoint}: ${element[0]}`)
+					this.debug('---- Unknown API variable returned from ' + endpoint + ': ' + element[0])
+					this.camera.unknown.push(element[0])
+				}
+			} else if (this.camera[stored[0]] !== element[1]) {
+				changed.push(stored[0])
+				this.camera[stored[0]] = element[1]
+			}
+		})
+		return changed
+	}
 }
+
 exports = module.exports = instance

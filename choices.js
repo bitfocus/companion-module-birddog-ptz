@@ -1,10 +1,12 @@
 const { createPositionArray, createZoomArray } = require('./utils')
-var COLOR_TEMP = []
 
+// Create Color Temp Array
+var COLOR_TEMP = []
 for (let i = 28; i <= 65; i++) {
 	COLOR_TEMP.push({ id: i + '00', label: i + '00k' })
 }
 
+// Create Postion Arrays with Max degress, Min degrees, step degree, & Hex vlaue of MAx degrees
 POS_PAN_P100 = createPositionArray(175, -175, 5, 0x08da)
 POS_PAN_P200 = createPositionArray(175, -175, 5, 0x067b)
 POS_TILT = createPositionArray(90, -30, 5, 0x049d)
@@ -18,18 +20,20 @@ module.exports = {
 	// Basic Look Ups
 	// ############
 
-	CAMERA: [
-		{id: 'Auto', label: 'Auto Detect'},
-		{id: 'P100', label: 'P100'},
-		{id: 'PF120', label: 'PF120'},
-		{id: 'P200A2A3', label: 'P200 A2_A3'},
-		{id: 'P200A4A5', label: 'P200 A4_A5'},
-		{id: 'A200GEN1', label: 'A200 GEN1'},
-		{id: 'A200GEN2', label: 'A200 GEN2'},
-		{id: 'A300GEN1', label: 'A300 GEN1'},
-		{id: 'A300GEN2', label: 'A300 GEN2'},
-		{id: 'P400', label: 'P400'},
-		{id: 'P4K', label: 'P4K'},
+	CAMERAS: [
+		{ id: 'Auto', label: 'Auto Detect' },
+		{ id: 'P100', label: 'P100' },
+		{ id: 'P110', label: 'P110' },
+		{ id: 'P120', label: 'P120' },
+		{ id: 'PF120', label: 'PF120' },
+		{ id: 'P200A2A3', label: 'P200 A2_A3', other: ['P200A2_A3'] },
+		{ id: 'P200A4A5', label: 'P200 A4_A5', other: ['P200A4_A5'] },
+		{ id: 'A200GEN1', label: 'A200 GEN1' },
+		{ id: 'A200GEN2', label: 'A200 GEN2' },
+		{ id: 'A300GEN1', label: 'A300 GEN1' },
+		{ id: 'A300GEN2', label: 'A300 GEN2' },
+		{ id: 'P400', label: 'P400', other: ['EYES P400', 'EYESP400'] },
+		{ id: 'P4K', label: 'P4K', other: ['EYES P4K', 'EYESP4K'] },
 	],
 
 	ON_OFF: [
@@ -417,6 +421,11 @@ module.exports = {
 	POS_ZOOM_20,
 	POS_ZOOM_30,
 
+	PRESET_MODE: [
+		{ id: 'Camera', label: 'Camera' },
+		{ id: 'Birddog', label: 'BirdDog' },
+	],
+
 	// ############
 	// Focus Look Ups
 	// ############
@@ -476,6 +485,12 @@ module.exports = {
 	TALLY_MODE: [
 		{ id: 'TallyOn', label: 'Tally On' },
 		{ id: 'TallyOff', label: 'Tally Off' },
+	],
+
+	SCREEN_SAVER_MODE: [
+		{ id: 'BirdDogSS', label: 'BirdDog Screensaver' },
+		{ id: 'BlackSS', label: 'Black Screensaver' },
+		{ id: 'CaptureSS', label: 'Capture Screensaver' },
 	],
 
 	// ############
@@ -614,5 +629,23 @@ module.exports = {
 		{ id: 'PATTERN', label: 'Pattern' },
 		{ id: 'STANDARD', label: 'Standard' },
 		{ id: 'STRAIGHT', label: 'Straight' },
+	],
+
+	// ############
+	// BirdDog Scope Settings Look Ups
+	// ############
+
+	SCOPE_MODE: [
+		{ id: 'Histogram', label: 'Histogram' },
+		{ id: 'Waveform', label: 'Waveform' },
+		{ id: 'RGBParade', label: 'RGB Parade' },
+		{ id: 'Vectorscope', label: 'Vectorscope' },
+	],
+
+	SCOPE_POSITION: [
+		{ id: 'TopLeft', label: 'Top Left' },
+		{ id: 'TopRight', label: 'Top Right' },
+		{ id: 'BottomLeft', label: 'Bottom Left' },
+		{ id: 'BottomRight', label: 'Bottom Right' },
 	],
 }

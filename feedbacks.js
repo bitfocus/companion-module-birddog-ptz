@@ -1,5 +1,5 @@
-const { sortByLabel } = require('./utils')
-var { MODELS } = require('./models.js')
+const { getModelActions, sortByLabel } = require('./utils')
+var { MODEL_SPECS } = require('./models.js')
 const CHOICES = require('./choices.js')
 
 exports.initFeedbacks = function () {
@@ -9,13 +9,13 @@ exports.initFeedbacks = function () {
 	const ColorGreen = this.rgb(0, 255, 0) // Green
 	const ColorOrange = this.rgb(255, 102, 0) // Orange
 
-	MODEL_VALUES = MODELS.find((MODELS) => MODELS.id == this.camera.model)?.actions
+	MODEL_ACTIONS = getModelActions(MODEL_SPECS, this.camera.firmware.major, this.camera.model)
 
 	const feedbacks = {}
 
 	// General Camera Feedback
 
-	if (MODEL_VALUES?.standby) {
+	if (MODEL_ACTIONS?.standby) {
 		feedbacks.standby_status = {
 			type: 'boolean',
 			label: 'VISCA - Standby On/Off',
@@ -29,8 +29,8 @@ exports.initFeedbacks = function () {
 					type: 'dropdown',
 					label: 'On/Standby',
 					id: 'val',
-					choices: MODEL_VALUES.standby.choices,
-					default: MODEL_VALUES.standby.default,
+					choices: MODEL_ACTIONS.standby.choices,
+					default: MODEL_ACTIONS.standby.default,
 				},
 			],
 			callback: (feedback) => {
@@ -39,7 +39,7 @@ exports.initFeedbacks = function () {
 		}
 	}
 
-	if (MODEL_VALUES?.freeze) {
+	if (MODEL_ACTIONS?.freeze) {
 		feedbacks.freeze_status = {
 			type: 'boolean',
 			label: 'VISCA - Freeze',
@@ -53,8 +53,8 @@ exports.initFeedbacks = function () {
 					type: 'dropdown',
 					label: 'On / Off',
 					id: 'val',
-					choices: MODEL_VALUES.freeze.choices,
-					default: MODEL_VALUES.freeze.default,
+					choices: MODEL_ACTIONS.freeze.choices,
+					default: MODEL_ACTIONS.freeze.default,
 				},
 			],
 			callback: (feedback) => {
@@ -64,7 +64,7 @@ exports.initFeedbacks = function () {
 	}
 	// Analog Audio Feedback
 
-	if (MODEL_VALUES?.analogAudioInGain) {
+	if (MODEL_ACTIONS?.analogAudioInGain) {
 		feedbacks.analogAudioInGain = {
 			type: 'boolean',
 			label: 'Analog Audio - Analog Audio In Gain',
@@ -78,23 +78,23 @@ exports.initFeedbacks = function () {
 					type: 'number',
 					label:
 						'Analog Audio In Gain (dB) (' +
-						MODEL_VALUES.analogAudioInGain.range.min +
+						MODEL_ACTIONS.analogAudioInGain.range.min +
 						' to ' +
-						MODEL_VALUES.analogAudioInGain.range.max +
+						MODEL_ACTIONS.analogAudioInGain.range.max +
 						')',
 					id: 'val',
-					default: MODEL_VALUES.analogAudioInGain.range.default,
-					min: MODEL_VALUES.analogAudioInGain.range.min,
-					max: MODEL_VALUES.analogAudioInGain.range.max,
+					default: MODEL_ACTIONS.analogAudioInGain.range.default,
+					min: MODEL_ACTIONS.analogAudioInGain.range.min,
+					max: MODEL_ACTIONS.analogAudioInGain.range.max,
 				},
 			],
 			callback: (feedback) => {
-				return this.camera?.audio?.AnalogAudioInGain == feedback.options.val
+				return this.camera?.analogAudioInGain == feedback.options.val
 			},
 		}
 	}
 
-	if (MODEL_VALUES?.analogAudioOutGain) {
+	if (MODEL_ACTIONS?.analogAudioOutGain) {
 		feedbacks.analogAudioOutGain = {
 			type: 'boolean',
 			label: 'Analog Audio - Analog Audio Out Gain',
@@ -108,23 +108,23 @@ exports.initFeedbacks = function () {
 					type: 'number',
 					label:
 						'Analog Audio Out Gain (dB) (' +
-						MODEL_VALUES.analogAudioOutGain.range.min +
+						MODEL_ACTIONS.analogAudioOutGain.range.min +
 						' to ' +
-						MODEL_VALUES.analogAudioOutGain.range.max +
+						MODEL_ACTIONS.analogAudioOutGain.range.max +
 						')',
 					id: 'val',
-					default: MODEL_VALUES.analogAudioOutGain.range.default,
-					min: MODEL_VALUES.analogAudioOutGain.range.min,
-					max: MODEL_VALUES.analogAudioOutGain.range.max,
+					default: MODEL_ACTIONS.analogAudioOutGain.range.default,
+					min: MODEL_ACTIONS.analogAudioOutGain.range.min,
+					max: MODEL_ACTIONS.analogAudioOutGain.range.max,
 				},
 			],
 			callback: (feedback) => {
-				return this.camera?.audio?.AnalogAudioOutGain == feedback.options.val
+				return this.camera?.analogAudioOutGain == feedback.options.val
 			},
 		}
 	}
 
-	if (MODEL_VALUES?.analogAudioOutput) {
+	if (MODEL_ACTIONS?.analogAudioOutput) {
 		feedbacks.analogAudioOutput = {
 			type: 'boolean',
 			label: 'Analog Audio - Analog Audio Output Select',
@@ -138,19 +138,19 @@ exports.initFeedbacks = function () {
 					type: 'dropdown',
 					label: 'Decode Comms / Decode Loop',
 					id: 'val',
-					choices: MODEL_VALUES.analogAudioOutput.choices,
-					default: MODEL_VALUES.analogAudioOutput.default,
+					choices: MODEL_ACTIONS.analogAudioOutput.choices,
+					default: MODEL_ACTIONS.analogAudioOutput.default,
 				},
 			],
 			callback: (feedback) => {
-				return this.camera?.audio?.AnalogAudiooutputselect == feedback.options.val
+				return this.camera?.analogAudioOutput == feedback.options.val
 			},
 		}
 	}
 
 	// Video Output Interface Feedback
 
-	if (MODEL_VALUES?.video_output) {
+	if (MODEL_ACTIONS?.video_output) {
 		feedbacks.video_output = {
 			type: 'boolean',
 			label: 'Video Output - Video Mode',
@@ -164,19 +164,19 @@ exports.initFeedbacks = function () {
 					type: 'dropdown',
 					label: 'Mode',
 					id: 'val',
-					choices: MODEL_VALUES.video_output.choices,
-					default: MODEL_VALUES.video_output.default,
+					choices: MODEL_ACTIONS.video_output.choices,
+					default: MODEL_ACTIONS.video_output.default,
 				},
 			],
 			callback: (feedback) => {
-				return this.camera?.video?.videooutput == feedback.options.val
+				return this.camera?.video_output == feedback.options.val
 			},
 		}
 	}
 
 	// Encode Setup Feedback
 
-	if (MODEL_VALUES?.bandwidth_mode) {
+	if (MODEL_ACTIONS?.bandwidth_mode) {
 		feedbacks.bandwidth_mode = {
 			type: 'boolean',
 			label: 'Encode Setup - Bandwidth Mode',
@@ -190,17 +190,17 @@ exports.initFeedbacks = function () {
 					type: 'dropdown',
 					label: 'Manual / NDI Managed',
 					id: 'val',
-					choices: MODEL_VALUES.bandwidth_mode.choices,
-					default: MODEL_VALUES.bandwidth_mode.default,
+					choices: MODEL_ACTIONS.bandwidth_mode.choices,
+					default: MODEL_ACTIONS.bandwidth_mode.default,
 				},
 			],
 			callback: (feedback) => {
-				return this.camera?.encode?.BandwidthMode == feedback.options.val
+				return this.camera?.bandwidth_mode == feedback.options.val
 			},
 		}
 	}
 
-	if (MODEL_VALUES?.ndiAudio) {
+	if (MODEL_ACTIONS?.ndiAudio) {
 		feedbacks.ndiAudio = {
 			type: 'boolean',
 			label: 'Encode Setup - NDI Audio',
@@ -214,17 +214,17 @@ exports.initFeedbacks = function () {
 					type: 'dropdown',
 					label: 'Analog / Mute',
 					id: 'val',
-					choices: MODEL_VALUES.ndiAudio.choices,
-					default: MODEL_VALUES.ndiAudio.default,
+					choices: MODEL_ACTIONS.ndiAudio.choices,
+					default: MODEL_ACTIONS.ndiAudio.default,
 				},
 			],
 			callback: (feedback) => {
-				return this.camera?.encode?.NDIAudio == feedback.options.val
+				return this.camera?.ndiAudio == feedback.options.val
 			},
 		}
 	}
 
-	if (MODEL_VALUES?.ndiGroupEnable) {
+	if (MODEL_ACTIONS?.ndiGroupEnable) {
 		feedbacks.ndiGroupEnable = {
 			type: 'boolean',
 			label: 'Encode Setup - NDI Group Enable',
@@ -238,18 +238,66 @@ exports.initFeedbacks = function () {
 					type: 'dropdown',
 					label: 'NDI Group Enable',
 					id: 'val',
-					choices: MODEL_VALUES.ndiGroupEnable.choices,
-					default: MODEL_VALUES.ndiGroupEnable.default,
+					choices: MODEL_ACTIONS.ndiGroupEnable.choices,
+					default: MODEL_ACTIONS.ndiGroupEnable.default,
 				},
 			],
 			callback: (feedback) => {
-				return this.camera?.encode?.NDIGroup == feedback.options.val
+				return this.camera?.ndiGroupEnable == feedback.options.val
 			},
 		}
 	}
 
-	if (MODEL_VALUES?.tally) {
-		feedbacks.tally = {
+	if (MODEL_ACTIONS?.screensaver_mode) {
+		feedbacks.screensaver_mode = {
+			type: 'boolean',
+			label: 'Encode Setup - Screensaver Mode',
+			description: 'If the camera matches the selected ScreenSaver Mode, change the style of the button',
+			style: {
+				color: ColorBlack,
+				bgcolor: ColorGreen,
+			},
+			options: [
+				{
+					type: 'dropdown',
+					label: 'ScreenSaver Mode',
+					id: 'val',
+					choices: MODEL_ACTIONS.screensaver_mode.choices,
+					default: MODEL_ACTIONS.screensaver_mode.default,
+				},
+			],
+			callback: (feedback) => {
+				return this.camera?.screensaver_mode == feedback.options.val
+			},
+		}
+	}
+
+	if (MODEL_ACTIONS?.stream_to_network) {
+		feedbacks.stream_to_network = {
+			type: 'boolean',
+			label: 'Encode Setup - Stream to Network',
+			description: 'If the camera matches the selected Stream to Network state, change the style of the button',
+			style: {
+				color: ColorBlack,
+				bgcolor: ColorGreen,
+			},
+			options: [
+				{
+					type: 'dropdown',
+					label: 'On/Off',
+					id: 'val',
+					choices: MODEL_ACTIONS.stream_to_network.choices,
+					default: MODEL_ACTIONS.stream_to_network.default,
+				},
+			],
+			callback: (feedback) => {
+				return this.camera?.stream_to_network == feedback.options.val
+			},
+		}
+	}
+
+	if (MODEL_ACTIONS?.tally_mode) {
+		feedbacks.tally_mode = {
 			type: 'boolean',
 			label: 'Encode Setup - Tally Mode',
 			description: 'If the camera tally matches the selected mode, change the style of the button',
@@ -262,19 +310,19 @@ exports.initFeedbacks = function () {
 					type: 'dropdown',
 					label: 'Mode',
 					id: 'mode',
-					choices: MODEL_VALUES.tally.choices,
-					default: MODEL_VALUES.tally.default,
+					choices: MODEL_ACTIONS.tally_mode.choices,
+					default: MODEL_ACTIONS.tally_mode.default,
 				},
 			],
 			callback: (feedback) => {
-				return this.camera?.encode?.TallyMode == feedback.options.mode
+				return this.camera?.tally_mode == feedback.options.mode
 			},
 		}
 	}
 
 	// Encode Transport Feedback
 
-	if (MODEL_VALUES?.transmit_method) {
+	if (MODEL_ACTIONS?.transmit_method) {
 		feedbacks.transmit_method = {
 			type: 'boolean',
 			label: 'Encode Transport - Transmit Method',
@@ -288,19 +336,19 @@ exports.initFeedbacks = function () {
 					type: 'dropdown',
 					label: 'Method',
 					id: 'val',
-					choices: MODEL_VALUES.transmit_method.choices,
-					default: MODEL_VALUES.transmit_method.default,
+					choices: MODEL_ACTIONS.transmit_method.choices,
+					default: MODEL_ACTIONS.transmit_method.default,
 				},
 			],
 			callback: (feedback) => {
-				return this.camera?.transport?.txpm == feedback.options.val
+				return this.camera?.transmit_method == feedback.options.val
 			},
 		}
 	}
 
 	// NDI Discovery Server Feedback
 
-	if (MODEL_VALUES?.ndi_discovery_server) {
+	if (MODEL_ACTIONS?.ndi_discovery_server) {
 		feedbacks.ndi_discovery_server = {
 			type: 'boolean',
 			label: 'NDI Discovery - Server',
@@ -314,19 +362,19 @@ exports.initFeedbacks = function () {
 					type: 'dropdown',
 					label: 'Enabled / Disabled',
 					id: 'val',
-					choices: MODEL_VALUES.ndi_discovery_server.choices,
-					default: MODEL_VALUES.ndi_discovery_server.default,
+					choices: MODEL_ACTIONS.ndi_discovery_server.choices,
+					default: MODEL_ACTIONS.ndi_discovery_server.default,
 				},
 			],
 			callback: (feedback) => {
-				return this.camera?.ndiserver?.NDIDisServ == feedback.options.val
+				return this.camera?.ndi_discovery_server == feedback.options.val
 			},
 		}
 	}
 
 	// PTZ Feedback
 
-	if (MODEL_VALUES?.pt) {
+	if (MODEL_ACTIONS?.pt) {
 		feedbacks.posPan = {
 			type: 'boolean',
 			label: 'PTZ - Pan Position',
@@ -340,12 +388,12 @@ exports.initFeedbacks = function () {
 					type: 'dropdown',
 					label: 'Pan Position',
 					id: 'posPan',
-					choices: MODEL_VALUES.pt.posPanChoices,
-					default: MODEL_VALUES.pt.posPanDefault,
+					choices: MODEL_ACTIONS.pt.posPanChoices,
+					default: MODEL_ACTIONS.pt.posPanDefault,
 				},
 			],
 			callback: (feedback) => {
-				return this.camera?.position?.pan == feedback.options.posPan
+				return this.camera?.pan_position == feedback.options.posPan
 			},
 		}
 
@@ -362,17 +410,17 @@ exports.initFeedbacks = function () {
 					type: 'dropdown',
 					label: 'Tilt Position',
 					id: 'posTilt',
-					choices: MODEL_VALUES.pt.posTiltChoices,
-					default: MODEL_VALUES.pt.posTiltDefault,
+					choices: MODEL_ACTIONS.pt.posTiltChoices,
+					default: MODEL_ACTIONS.pt.posTiltDefault,
 				},
 			],
 			callback: (feedback) => {
-				return this.camera?.position?.tilt == feedback.options.posTilt
+				return this.camera?.tilt_position == feedback.options.posTilt
 			},
 		}
 	}
 
-	if (MODEL_VALUES?.zoom) {
+	if (MODEL_ACTIONS?.zoom) {
 		feedbacks.posZoom = {
 			type: 'boolean',
 			label: 'PTZ - Zoom Position',
@@ -386,17 +434,17 @@ exports.initFeedbacks = function () {
 					type: 'dropdown',
 					label: 'Zoom Position',
 					id: 'posZoom',
-					choices: MODEL_VALUES.zoom.posZoomChoices,
-					default: MODEL_VALUES.zoom.posZoomDefault,
+					choices: MODEL_ACTIONS.zoom.posZoomChoices,
+					default: MODEL_ACTIONS.zoom.posZoomDefault,
 				},
 			],
 			callback: (feedback) => {
-				return this.camera?.position?.zoom == feedback.options.posZoom
+				return this.camera?.zoom_position == feedback.options.posZoom
 			},
 		}
 	}
 
-	if (MODEL_VALUES?.panSpeed) {
+	if (MODEL_ACTIONS?.panSpeed) {
 		feedbacks.panSpeed = {
 			type: 'boolean',
 			label: 'PTZ - Pan Speed',
@@ -408,20 +456,69 @@ exports.initFeedbacks = function () {
 			options: [
 				{
 					type: 'number',
-					label: 'Speed (' + MODEL_VALUES.panSpeed.range.min + ' to ' + MODEL_VALUES.panSpeed.range.max + ')',
+					label: 'Speed (' + MODEL_ACTIONS.panSpeed.range.min + ' to ' + MODEL_ACTIONS.panSpeed.range.max + ')',
 					id: 'value',
-					default: MODEL_VALUES.panSpeed.range.default,
-					min: MODEL_VALUES.panSpeed.range.min,
-					max: MODEL_VALUES.panSpeed.range.max,
+					default: MODEL_ACTIONS.panSpeed.range.default,
+					min: MODEL_ACTIONS.panSpeed.range.min,
+					max: MODEL_ACTIONS.panSpeed.range.max,
 				},
 			],
 			callback: (feedback) => {
-				return this.camera?.ptz?.PanSpeed == feedback.options.value
+				return this.camera?.panSpeed == feedback.options.value
 			},
 		}
 	}
 
-	if (MODEL_VALUES?.tiltSpeed) {
+	if (MODEL_ACTIONS?.preset) {
+		feedbacks.preset = {
+			type: 'boolean',
+			label: 'PTZ - Preset Mode',
+			description: 'If the camera matches the selected Preset Mode, change the style of the button',
+			style: {
+				color: ColorBlack,
+				bgcolor: ColorGreen,
+			},
+			options: [
+				{
+					type: 'dropdown',
+					label: 'Preset Mode',
+					id: 'val',
+					choices: MODEL_ACTIONS.preset.choices,
+					default: MODEL_ACTIONS.preset.default,
+				},
+			],
+			callback: (feedback) => {
+				return this.camera?.preset == feedback.options.val
+			},
+		}
+	}
+
+	if (MODEL_ACTIONS?.preset_speed) {
+		feedbacks.preset_speed = {
+			type: 'boolean',
+			label: 'PTZ - Preset Speed',
+			description: 'If the camera matches the selected Preset Speed, change the style of the button',
+			style: {
+				color: ColorBlack,
+				bgcolor: ColorGreen,
+			},
+			options: [
+				{
+					type: 'number',
+					label: 'Speed (' + MODEL_ACTIONS.preset_speed.range.min + ' to ' + MODEL_ACTIONS.preset_speed.range.max + ')',
+					id: 'value',
+					default: MODEL_ACTIONS.preset_speed.range.default,
+					min: MODEL_ACTIONS.preset_speed.range.min,
+					max: MODEL_ACTIONS.preset_speed.range.max,
+				},
+			],
+			callback: (feedback) => {
+				return this.camera?.preset_speed == feedback.options.value
+			},
+		}
+	}
+
+	if (MODEL_ACTIONS?.tiltSpeed) {
 		feedbacks.tiltSpeed = {
 			type: 'boolean',
 			label: 'PTZ - Tilt Speed',
@@ -433,20 +530,20 @@ exports.initFeedbacks = function () {
 			options: [
 				{
 					type: 'number',
-					label: 'Speed (' + MODEL_VALUES.tiltSpeed.range.min + ' to ' + MODEL_VALUES.tiltSpeed.range.max + ')',
+					label: 'Speed (' + MODEL_ACTIONS.tiltSpeed.range.min + ' to ' + MODEL_ACTIONS.tiltSpeed.range.max + ')',
 					id: 'value',
-					default: MODEL_VALUES.tiltSpeed.range.default,
-					min: MODEL_VALUES.tiltSpeed.range.min,
-					max: MODEL_VALUES.tiltSpeed.range.max,
+					default: MODEL_ACTIONS.tiltSpeed.range.default,
+					min: MODEL_ACTIONS.tiltSpeed.range.min,
+					max: MODEL_ACTIONS.tiltSpeed.range.max,
 				},
 			],
 			callback: (feedback) => {
-				return this.camera?.ptz?.PanSpeed == feedback.options.value
+				return this.camera?.tiltSpeed == feedback.options.value
 			},
 		}
 	}
 
-	if (MODEL_VALUES?.zoomSpeed) {
+	if (MODEL_ACTIONS?.zoomSpeed) {
 		feedbacks.zoomSpeed = {
 			type: 'boolean',
 			label: 'PTZ - Zoom Speed',
@@ -458,22 +555,22 @@ exports.initFeedbacks = function () {
 			options: [
 				{
 					type: 'number',
-					label: 'Speed (' + MODEL_VALUES.zoomSpeed.range.min + ' to ' + MODEL_VALUES.zoomSpeed.range.max + ')',
+					label: 'Speed (' + MODEL_ACTIONS.zoomSpeed.range.min + ' to ' + MODEL_ACTIONS.zoomSpeed.range.max + ')',
 					id: 'value',
-					default: MODEL_VALUES.zoomSpeed.range.default,
-					min: MODEL_VALUES.zoomSpeed.range.min,
-					max: MODEL_VALUES.zoomSpeed.range.max,
+					default: MODEL_ACTIONS.zoomSpeed.range.default,
+					min: MODEL_ACTIONS.zoomSpeed.range.min,
+					max: MODEL_ACTIONS.zoomSpeed.range.max,
 				},
 			],
 			callback: (feedback) => {
-				return this.camera?.ptz?.PanSpeed == feedback.options.value
+				return this.camera?.zoomSpeed == feedback.options.value
 			},
 		}
 	}
 
 	// Focus Feedback
 
-	if (MODEL_VALUES?.focusM) {
+	if (MODEL_ACTIONS?.focusM) {
 		feedbacks.focusMode = {
 			type: 'boolean',
 			label: 'Focus - Focus Mode',
@@ -487,19 +584,19 @@ exports.initFeedbacks = function () {
 					type: 'dropdown',
 					label: 'Mode',
 					id: 'val',
-					choices: MODEL_VALUES.focusM.choices,
-					default: MODEL_VALUES.focusM.default,
+					choices: MODEL_ACTIONS.focusM.choices,
+					default: MODEL_ACTIONS.focusM.default,
 				},
 			],
 			callback: (feedback) => {
-				return this.camera?.focus?.mode == feedback.options.mode
+				return this.camera?.focusM == feedback.options.mode
 			},
 		}
 	}
 
 	// Exposure Feedback
 
-	if (MODEL_VALUES?.ae_response) {
+	if (MODEL_ACTIONS?.ae_response) {
 		feedbacks.ae_response = {
 			type: 'boolean',
 			label: 'Exposure - Ae Response Level',
@@ -512,20 +609,20 @@ exports.initFeedbacks = function () {
 				{
 					type: 'number',
 					label:
-						'Ae Response (' + MODEL_VALUES.ae_response.range.min + ' to ' + MODEL_VALUES.ae_response.range.max + ')',
+						'Ae Response (' + MODEL_ACTIONS.ae_response.range.min + ' to ' + MODEL_ACTIONS.ae_response.range.max + ')',
 					id: 'level',
-					default: MODEL_VALUES.ae_response.range.default,
-					min: MODEL_VALUES.ae_response.range.min,
-					max: MODEL_VALUES.ae_response.range.max,
+					default: MODEL_ACTIONS.ae_response.range.default,
+					min: MODEL_ACTIONS.ae_response.range.min,
+					max: MODEL_ACTIONS.ae_response.range.max,
 				},
 			],
 			callback: (feedback) => {
-				return this.camera?.expsetup?.AeResponse == feedback.options.level
+				return this.camera?.ae_response == feedback.options.level
 			},
 		}
 	}
 
-	if (MODEL_VALUES?.backlight) {
+	if (MODEL_ACTIONS?.backlight) {
 		feedbacks.backlight = {
 			type: 'boolean',
 			label: 'Exposure - Backlight',
@@ -539,17 +636,17 @@ exports.initFeedbacks = function () {
 					type: 'dropdown',
 					label: 'On / Off',
 					id: 'mode',
-					choices: MODEL_VALUES.backlight.choices,
-					default: MODEL_VALUES.backlight.default,
+					choices: MODEL_ACTIONS.backlight.choices,
+					default: MODEL_ACTIONS.backlight.default,
 				},
 			],
 			callback: (feedback) => {
-				return this.camera?.expsetup?.BackLight == feedback.options.mode
+				return this.camera?.backlight == feedback.options.mode
 			},
 		}
 	}
 
-	if (MODEL_VALUES?.bright_level) {
+	if (MODEL_ACTIONS?.bright_level) {
 		feedbacks.bright_level = {
 			type: 'boolean',
 			label: 'Exposure - Bright Level',
@@ -561,20 +658,20 @@ exports.initFeedbacks = function () {
 			options: [
 				{
 					type: 'number',
-					label: 'Level (' + MODEL_VALUES.bright_level.range.min + ' to ' + MODEL_VALUES.bright_level.range.max + ')',
+					label: 'Level (' + MODEL_ACTIONS.bright_level.range.min + ' to ' + MODEL_ACTIONS.bright_level.range.max + ')',
 					id: 'level',
-					default: MODEL_VALUES.bright_level.range.default,
-					min: MODEL_VALUES.bright_level.range.min,
-					max: MODEL_VALUES.bright_level.range.max,
+					default: MODEL_ACTIONS.bright_level.range.default,
+					min: MODEL_ACTIONS.bright_level.range.min,
+					max: MODEL_ACTIONS.bright_level.range.max,
 				},
 			],
 			callback: (feedback) => {
-				return this.camera?.expsetup?.BrightLevel == feedback.options.level
+				return this.camera?.bright_level == feedback.options.level
 			},
 		}
 	}
 
-	if (MODEL_VALUES?.expComp) {
+	if (MODEL_ACTIONS?.expComp) {
 		feedbacks.exposureCompEn = {
 			type: 'boolean',
 			label: 'Exposure - Exposure Compensation',
@@ -588,17 +685,17 @@ exports.initFeedbacks = function () {
 					type: 'dropdown',
 					label: 'On / Off',
 					id: 'mode',
-					choices: MODEL_VALUES.expComp.choices,
-					default: MODEL_VALUES.expComp.default,
+					choices: MODEL_ACTIONS.expComp.choices,
+					default: MODEL_ACTIONS.expComp.default,
 				},
 			],
 			callback: (feedback) => {
-				return this.camera?.expsetup?.ExpCompEn == feedback.options.mode
+				return this.camera?.expComp == feedback.options.mode
 			},
 		}
 	}
 
-	if (MODEL_VALUES?.expCompLvl) {
+	if (MODEL_ACTIONS?.expCompLvl) {
 		feedbacks.exposureCompLvl = {
 			type: 'boolean',
 			label: 'Exposure - Exposure Compensation Level',
@@ -612,23 +709,23 @@ exports.initFeedbacks = function () {
 					type: 'number',
 					label:
 						'Exposure Compensation Level (' +
-						MODEL_VALUES.expCompLvl.range.min +
+						MODEL_ACTIONS.expCompLvl.range.min +
 						' to ' +
-						MODEL_VALUES.expCompLvl.range.max +
+						MODEL_ACTIONS.expCompLvl.range.max +
 						')',
 					id: 'level',
-					default: MODEL_VALUES.expCompLvl.range.default,
-					min: MODEL_VALUES.expCompLvl.range.min,
-					max: MODEL_VALUES.expCompLvl.range.max,
+					default: MODEL_ACTIONS.expCompLvl.range.default,
+					min: MODEL_ACTIONS.expCompLvl.range.min,
+					max: MODEL_ACTIONS.expCompLvl.range.max,
 				},
 			],
 			callback: (feedback) => {
-				return this.camera?.expsetup?.ExpCompLvl == feedback.options.level
+				return this.camera?.expCompLvl == feedback.options.level
 			},
 		}
 	}
 
-	if (MODEL_VALUES?.exposure_mode) {
+	if (MODEL_ACTIONS?.exposure_mode) {
 		feedbacks.exposureMode = {
 			type: 'boolean',
 			label: 'Exposure - Exposure Mode',
@@ -642,17 +739,17 @@ exports.initFeedbacks = function () {
 					type: 'dropdown',
 					label: 'Mode',
 					id: 'mode',
-					choices: MODEL_VALUES.exposure_mode.choices,
-					default: MODEL_VALUES.exposure_mode.default,
+					choices: MODEL_ACTIONS.exposure_mode.choices,
+					default: MODEL_ACTIONS.exposure_mode.default,
 				},
 			],
 			callback: (feedback) => {
-				return this.camera?.expsetup?.ExpMode == feedback.options.mode
+				return this.camera?.exposure_mode == feedback.options.mode
 			},
 		}
 	}
 
-	if (MODEL_VALUES?.gain) {
+	if (MODEL_ACTIONS?.gain) {
 		feedbacks.gain = {
 			type: 'boolean',
 			label: 'Exposure - Gain',
@@ -666,17 +763,17 @@ exports.initFeedbacks = function () {
 					type: 'dropdown',
 					label: 'Gain (dB)',
 					id: 'gain',
-					choices: MODEL_VALUES.gain.choices,
-					default: MODEL_VALUES.gain.default,
+					choices: MODEL_ACTIONS.gain.choices,
+					default: MODEL_ACTIONS.gain.default,
 				},
 			],
 			callback: (feedback) => {
-				return this.camera?.expsetup?.GainLevel == feedback.options.gain
+				return this.camera?.gain == feedback.options.gain
 			},
 		}
 	}
 
-	if (MODEL_VALUES?.gain_limit) {
+	if (MODEL_ACTIONS?.gain_limit) {
 		feedbacks.gain_limit = {
 			type: 'boolean',
 			label: 'Exposure - Gain Limit',
@@ -690,20 +787,20 @@ exports.initFeedbacks = function () {
 					type: 'dropdown',
 					label: 'Gain Limit (dB)',
 					id: 'gain',
-					choices: MODEL_VALUES.gain.choices.slice(
-						MODEL_VALUES.gain_limit.range.min - 1,
-						MODEL_VALUES.gain_limit.range.max + 1
+					choices: MODEL_ACTIONS.gain.choices.slice(
+						MODEL_ACTIONS.gain_limit.range.min - 1,
+						MODEL_ACTIONS.gain_limit.range.max + 1
 					),
-					default: MODEL_VALUES.gain_limit.range.default,
+					default: MODEL_ACTIONS.gain_limit.range.default,
 				},
 			],
 			callback: (feedback) => {
-				return this.camera?.expsetup?.GainLimit == feedback.options.gain
+				return this.camera?.gain_limit == feedback.options.gain
 			},
 		}
 	}
 
-	if (MODEL_VALUES?.gain_point) {
+	if (MODEL_ACTIONS?.gain_point) {
 		feedbacks.gain_point = {
 			type: 'boolean',
 			label: 'Exposure - Gain Point',
@@ -722,12 +819,12 @@ exports.initFeedbacks = function () {
 				},
 			],
 			callback: (feedback) => {
-				return this.camera?.expsetup?.GainPoint == feedback.options.val
+				return this.camera?.gain_point == feedback.options.val
 			},
 		}
 	}
 
-	if (MODEL_VALUES?.gain_point) {
+	if (MODEL_ACTIONS?.gain_point_position) {
 		feedbacks.gain_point_position = {
 			type: 'boolean',
 			label: 'Exposure - Gain Point Position',
@@ -741,17 +838,17 @@ exports.initFeedbacks = function () {
 					type: 'dropdown',
 					label: 'Gain Point (dB)',
 					id: 'gain',
-					choices: MODEL_VALUES.gain.choices,
-					default: MODEL_VALUES.gain.default,
+					choices: MODEL_ACTIONS.gain.choices,
+					default: MODEL_ACTIONS.gain.default,
 				},
 			],
 			callback: (feedback) => {
-				return this.camera?.expsetup?.GainPointPosition == feedback.options.gain
+				return this.camera?.gain_point_position == feedback.options.gain
 			},
 		}
 	}
 
-	if (MODEL_VALUES?.high_sensitivity) {
+	if (MODEL_ACTIONS?.high_sensitivity) {
 		feedbacks.high_sensitivity = {
 			type: 'boolean',
 			label: 'Exposure - High Sensitivity Mode',
@@ -765,17 +862,17 @@ exports.initFeedbacks = function () {
 					type: 'dropdown',
 					label: 'On / Off',
 					id: 'val',
-					choices: MODEL_VALUES.high_sensitivity.choices,
-					default: MODEL_VALUES.high_sensitivity.default,
+					choices: MODEL_ACTIONS.high_sensitivity.choices,
+					default: MODEL_ACTIONS.high_sensitivity.default,
 				},
 			],
 			callback: (feedback) => {
-				return this.camera?.expsetup?.high_sensitivity == feedback.options.val
+				return this.camera?.high_sensitivity == feedback.options.val
 			},
 		}
 	}
 
-	if (MODEL_VALUES?.iris) {
+	if (MODEL_ACTIONS?.iris) {
 		feedbacks.iris = {
 			type: 'boolean',
 			label: 'Exposure - Iris',
@@ -789,17 +886,17 @@ exports.initFeedbacks = function () {
 					type: 'dropdown',
 					label: 'Iris',
 					id: 'val',
-					choices: MODEL_VALUES.iris.choices,
-					default: MODEL_VALUES.iris.default,
+					choices: MODEL_ACTIONS.iris.choices,
+					default: MODEL_ACTIONS.iris.default,
 				},
 			],
 			callback: (feedback) => {
-				return this.camera?.expsetup?.IrisLevel == feedback.options.val
+				return this.camera?.iris == feedback.options.val
 			},
 		}
 	}
 
-	if (MODEL_VALUES?.shutter_control_overwrite) {
+	if (MODEL_ACTIONS?.shutter_control_overwrite) {
 		feedbacks.shutter_control_overwrite = {
 			type: 'boolean',
 			label: 'Exposure - Shutter Control Overwrite',
@@ -813,17 +910,17 @@ exports.initFeedbacks = function () {
 					type: 'dropdown',
 					label: 'On/Off',
 					id: 'val',
-					choices: MODEL_VALUES.shutter_control_overwrite.choices,
-					default: MODEL_VALUES.shutter_control_overwrite.default,
+					choices: MODEL_ACTIONS.shutter_control_overwrite.choices,
+					default: MODEL_ACTIONS.shutter_control_overwrite.default,
 				},
 			],
 			callback: (feedback) => {
-				return this.camera?.expsetup?.ShutterControlOverwrite == feedback.options.val
+				return this.camera?.shutter_control_overwrite == feedback.options.val
 			},
 		}
 	}
 
-	if (MODEL_VALUES?.shutter_max_speed) {
+	if (MODEL_ACTIONS?.shutter_max_speed) {
 		feedbacks.shushutter_max_speedt = {
 			type: 'boolean',
 			label: 'Exposure - Shutter Max Speed',
@@ -837,20 +934,20 @@ exports.initFeedbacks = function () {
 					type: 'dropdown',
 					label: 'Shutter Speed',
 					id: 'val',
-					choices: MODEL_VALUES.shut?.['shutter_' + [this.camera.framerate]].slice(
-						MODEL_VALUES.shutter_max_speed.range.min,
-						MODEL_VALUES.shutter_max_speed.range.max + 1
+					choices: MODEL_ACTIONS.shut?.['shutter_' + [this.camera.shutter_table]].slice(
+						MODEL_ACTIONS.shutter_max_speed.range.min,
+						MODEL_ACTIONS.shutter_max_speed.range.max + 1
 					),
-					default: MODEL_VALUES.shutter_max_speed.range.default,
+					default: MODEL_ACTIONS.shutter_max_speed.range.default,
 				},
 			],
 			callback: (feedback) => {
-				return this.camera?.expsetup?.ShutterMaxSpeed == feedback.options.val
+				return this.camera?.shutter_max_speed == feedback.options.val
 			},
 		}
 	}
 
-	if (MODEL_VALUES?.shutter_min_speed) {
+	if (MODEL_ACTIONS?.shutter_min_speed) {
 		feedbacks.shushutter_min_speedt = {
 			type: 'boolean',
 			label: 'Exposure - Shutter Min Speed',
@@ -864,20 +961,20 @@ exports.initFeedbacks = function () {
 					type: 'dropdown',
 					label: 'Shutter Speed',
 					id: 'val',
-					choices: MODEL_VALUES.shut?.['shutter_' + [this.camera.framerate]].slice(
-						MODEL_VALUES.shutter_min_speed.range.min,
-						MODEL_VALUES.shutter_min_speed.range.max + 1
+					choices: MODEL_ACTIONS.shut?.['shutter_' + [this.camera.shutter_table]].slice(
+						MODEL_ACTIONS.shutter_min_speed.range.min,
+						MODEL_ACTIONS.shutter_min_speed.range.max + 1
 					),
-					default: MODEL_VALUES.shutter_min_speed.range.default,
+					default: MODEL_ACTIONS.shutter_min_speed.range.default,
 				},
 			],
 			callback: (feedback) => {
-				return this.camera?.expsetup?.ShutterMinSpeed == feedback.options.val
+				return this.camera?.shutter_min_speed == feedback.options.val
 			},
 		}
 	}
 
-	if (MODEL_VALUES?.shutter_speed) {
+	if (MODEL_ACTIONS?.shutter_speed) {
 		feedbacks.shut = {
 			type: 'boolean',
 			label: 'Exposure - Shutter Speed',
@@ -891,17 +988,17 @@ exports.initFeedbacks = function () {
 					type: 'dropdown',
 					label: 'Shutter Speed',
 					id: 'val',
-					choices: MODEL_VALUES.shutter_speed?.['shutter_' + [this.camera.framerate]],
-					default: MODEL_VALUES.shutter_speed.default,
+					choices: MODEL_ACTIONS.shutter_speed?.['shutter_' + [this.camera.shutter_table]],
+					default: MODEL_ACTIONS.shutter_speed.default,
 				},
 			],
 			callback: (feedback) => {
-				return this.camera?.expsetup?.ShutterSpeed == feedback.options.val
+				return this.camera?.shutter_speed == feedback.options.val
 			},
 		}
 	}
 
-	if (MODEL_VALUES?.shutter_speed_overwrite) {
+	if (MODEL_ACTIONS?.shutter_speed_overwrite) {
 		feedbacks.shutter_speed_overwrite = {
 			type: 'boolean',
 			label: 'Exposure - Shutter Speed Overwrite',
@@ -915,23 +1012,23 @@ exports.initFeedbacks = function () {
 					type: 'number',
 					label:
 						'Hz (' +
-						MODEL_VALUES.shutter_speed_overwrite.range.min +
+						MODEL_ACTIONS.shutter_speed_overwrite.range.min +
 						' to ' +
-						MODEL_VALUES.shutter_speed_overwrite.range.max +
+						MODEL_ACTIONS.shutter_speed_overwrite.range.max +
 						')',
 					id: 'level',
-					default: MODEL_VALUES.shutter_speed_overwrite.range.default,
-					min: MODEL_VALUES.shutter_speed_overwrite.range.min,
-					max: MODEL_VALUES.shutter_speed_overwrite.range.max,
+					default: MODEL_ACTIONS.shutter_speed_overwrite.range.default,
+					min: MODEL_ACTIONS.shutter_speed_overwrite.range.min,
+					max: MODEL_ACTIONS.shutter_speed_overwrite.range.max,
 				},
 			],
 			callback: (feedback) => {
-				return this.camera?.expsetup?.ShutterSpeedOverwrite == feedback.options.level
+				return this.camera?.shutter_speed_overwrite == feedback.options.level
 			},
 		}
 	}
 
-	if (MODEL_VALUES?.slow_shutter_en) {
+	if (MODEL_ACTIONS?.slow_shutter_en) {
 		feedbacks.slow_shutter_en = {
 			type: 'boolean',
 			label: 'Exposure - Slow Shutter Enable',
@@ -945,17 +1042,17 @@ exports.initFeedbacks = function () {
 					type: 'dropdown',
 					label: 'On/Off',
 					id: 'val',
-					choices: MODEL_VALUES.slow_shutter_en.choices,
-					default: MODEL_VALUES.slow_shutter_en.default,
+					choices: MODEL_ACTIONS.slow_shutter_en.choices,
+					default: MODEL_ACTIONS.slow_shutter_en.default,
 				},
 			],
 			callback: (feedback) => {
-				return this.camera?.expsetup?.SlowShutterEn == feedback.options.val
+				return this.camera?.slow_shutter_en == feedback.options.val
 			},
 		}
 	}
 
-	if (MODEL_VALUES?.slow_shutter_limit) {
+	if (MODEL_ACTIONS?.slow_shutter_limit) {
 		feedbacks.slow_shutter_limit = {
 			type: 'boolean',
 			label: 'Exposure - Slow Shutter Limit',
@@ -969,20 +1066,20 @@ exports.initFeedbacks = function () {
 					type: 'dropdown',
 					label: 'Shutter Speed',
 					id: 'val',
-					choices: MODEL_VALUES.shutter_speed?.['shutter_' + [this.camera.framerate]].slice(
-						MODEL_VALUES.slow_shutter_limit.range.min,
-						MODEL_VALUES.slow_shutter_limit.range.max + 1
+					choices: MODEL_ACTIONS.shutter_speed?.['shutter_' + [this.camera.shutter_table]].slice(
+						MODEL_ACTIONS.slow_shutter_limit.range.min,
+						MODEL_ACTIONS.slow_shutter_limit.range.max + 1
 					),
-					default: MODEL_VALUES.slow_shutter_limit.range.default,
+					default: MODEL_ACTIONS.slow_shutter_limit.range.default,
 				},
 			],
 			callback: (feedback) => {
-				return this.camera?.expsetup?.SlowShutterLimit == feedback.options.val
+				return this.camera?.slow_shutter_limit == feedback.options.val
 			},
 		}
 	}
 
-	if (MODEL_VALUES?.spotlight) {
+	if (MODEL_ACTIONS?.spotlight) {
 		feedbacks.spotlight = {
 			type: 'boolean',
 			label: 'Exposure - Spotlight',
@@ -996,19 +1093,19 @@ exports.initFeedbacks = function () {
 					type: 'dropdown',
 					label: 'On/Off',
 					id: 'val',
-					choices: MODEL_VALUES.spotlight.choices,
-					default: MODEL_VALUES.spotlight.default,
+					choices: MODEL_ACTIONS.spotlight.choices,
+					default: MODEL_ACTIONS.spotlight.default,
 				},
 			],
 			callback: (feedback) => {
-				return this.camera?.expsetup?.Spotlight == feedback.options.val
+				return this.camera?.spotlight == feedback.options.val
 			},
 		}
 	}
 
 	// White Balance Feedback
 
-	if (MODEL_VALUES?.bg) {
+	if (MODEL_ACTIONS?.bg) {
 		feedbacks.bg = {
 			type: 'boolean',
 			label: 'White Balance - BG',
@@ -1020,20 +1117,20 @@ exports.initFeedbacks = function () {
 			options: [
 				{
 					type: 'number',
-					label: 'Value (' + MODEL_VALUES.bg.range.min + ' to ' + MODEL_VALUES.bg.range.max + ')',
+					label: 'Value (' + MODEL_ACTIONS.bg.range.min + ' to ' + MODEL_ACTIONS.bg.range.max + ')',
 					id: 'level',
-					default: MODEL_VALUES.bg.range.default,
-					min: MODEL_VALUES.bg.range.min,
-					max: MODEL_VALUES.bg.range.max,
+					default: MODEL_ACTIONS.bg.range.default,
+					min: MODEL_ACTIONS.bg.range.min,
+					max: MODEL_ACTIONS.bg.range.max,
 				},
 			],
 			callback: (feedback) => {
-				return this.camera?.wbsetup?.BG == feedback.options.level
+				return this.camera?.bg == feedback.options.level
 			},
 		}
 	}
 
-	if (MODEL_VALUES?.br) {
+	if (MODEL_ACTIONS?.br) {
 		feedbacks.br = {
 			type: 'boolean',
 			label: 'White Balance - BR',
@@ -1045,20 +1142,20 @@ exports.initFeedbacks = function () {
 			options: [
 				{
 					type: 'number',
-					label: 'Value (' + MODEL_VALUES.br.range.min + ' to ' + MODEL_VALUES.br.range.max + ')',
+					label: 'Value (' + MODEL_ACTIONS.br.range.min + ' to ' + MODEL_ACTIONS.br.range.max + ')',
 					id: 'level',
-					default: MODEL_VALUES.br.range.default,
-					min: MODEL_VALUES.br.range.min,
-					max: MODEL_VALUES.br.range.max,
+					default: MODEL_ACTIONS.br.range.default,
+					min: MODEL_ACTIONS.br.range.min,
+					max: MODEL_ACTIONS.br.range.max,
 				},
 			],
 			callback: (feedback) => {
-				return this.camera?.wbsetup?.BR == feedback.options.level
+				return this.camera?.br == feedback.options.level
 			},
 		}
 	}
 
-	if (MODEL_VALUES?.blue_gain) {
+	if (MODEL_ACTIONS?.blue_gain) {
 		feedbacks.blue_gain = {
 			type: 'boolean',
 			label: 'White Balance - Blue Gain',
@@ -1070,20 +1167,20 @@ exports.initFeedbacks = function () {
 			options: [
 				{
 					type: 'number',
-					label: 'Value (' + MODEL_VALUES.blue_gain.range.min + ' to ' + MODEL_VALUES.blue_gain.range.max + ')',
+					label: 'Value (' + MODEL_ACTIONS.blue_gain.range.min + ' to ' + MODEL_ACTIONS.blue_gain.range.max + ')',
 					id: 'level',
-					default: MODEL_VALUES.blue_gain.range.default,
-					min: MODEL_VALUES.blue_gain.range.min,
-					max: MODEL_VALUES.blue_gain.range.max,
+					default: MODEL_ACTIONS.blue_gain.range.default,
+					min: MODEL_ACTIONS.blue_gain.range.min,
+					max: MODEL_ACTIONS.blue_gain.range.max,
 				},
 			],
 			callback: (feedback) => {
-				return this.camera?.wbsetup?.BlueGain == feedback.options.level
+				return this.camera?.blue_gain == feedback.options.level
 			},
 		}
 	}
 
-	if (MODEL_VALUES?.color_temp) {
+	if (MODEL_ACTIONS?.color_temp) {
 		feedbacks.color_temp = {
 			type: 'boolean',
 			label: 'White Balance - Color Temp',
@@ -1098,17 +1195,17 @@ exports.initFeedbacks = function () {
 					type: 'dropdown',
 					label: 'Color Temperature (k)',
 					id: 'val',
-					choices: MODEL_VALUES.color_temp.choices,
-					default: MODEL_VALUES.color_temp.default,
+					choices: MODEL_ACTIONS.color_temp.choices,
+					default: MODEL_ACTIONS.color_temp.default,
 				},
 			],
 			callback: (feedback) => {
-				return this.camera?.wbsetup?.ColorTemp == feedback.options.val
+				return this.camera?.color_temp == feedback.options.val
 			},
 		}
 	}
 
-	if (MODEL_VALUES?.gb) {
+	if (MODEL_ACTIONS?.gb) {
 		feedbacks.gb = {
 			type: 'boolean',
 			label: 'White Balance - GB',
@@ -1120,20 +1217,20 @@ exports.initFeedbacks = function () {
 			options: [
 				{
 					type: 'number',
-					label: 'Value (' + MODEL_VALUES.gb.range.min + ' to ' + MODEL_VALUES.gb.range.max + ')',
+					label: 'Value (' + MODEL_ACTIONS.gb.range.min + ' to ' + MODEL_ACTIONS.gb.range.max + ')',
 					id: 'level',
-					default: MODEL_VALUES.gb.range.default,
-					min: MODEL_VALUES.gb.range.min,
-					max: MODEL_VALUES.gb.range.max,
+					default: MODEL_ACTIONS.gb.range.default,
+					min: MODEL_ACTIONS.gb.range.min,
+					max: MODEL_ACTIONS.gb.range.max,
 				},
 			],
 			callback: (feedback) => {
-				return this.camera?.wbsetup?.GB == feedback.options.level
+				return this.camera?.gb == feedback.options.level
 			},
 		}
 	}
 
-	if (MODEL_VALUES?.gr) {
+	if (MODEL_ACTIONS?.gr) {
 		feedbacks.gr = {
 			type: 'boolean',
 			label: 'White Balance - GR',
@@ -1145,20 +1242,20 @@ exports.initFeedbacks = function () {
 			options: [
 				{
 					type: 'number',
-					label: 'Value (' + MODEL_VALUES.gr.range.min + ' to ' + MODEL_VALUES.gr.range.max + ')',
+					label: 'Value (' + MODEL_ACTIONS.gr.range.min + ' to ' + MODEL_ACTIONS.gr.range.max + ')',
 					id: 'level',
-					default: MODEL_VALUES.gr.range.default,
-					min: MODEL_VALUES.gr.range.min,
-					max: MODEL_VALUES.gr.range.max,
+					default: MODEL_ACTIONS.gr.range.default,
+					min: MODEL_ACTIONS.gr.range.min,
+					max: MODEL_ACTIONS.gr.range.max,
 				},
 			],
 			callback: (feedback) => {
-				return this.camera?.wbsetup?.GR == feedback.options.level
+				return this.camera?.gr == feedback.options.level
 			},
 		}
 	}
 
-	if (MODEL_VALUES?.level) {
+	if (MODEL_ACTIONS?.level) {
 		feedbacks.level = {
 			type: 'boolean',
 			label: 'White Balance - Level',
@@ -1170,20 +1267,20 @@ exports.initFeedbacks = function () {
 			options: [
 				{
 					type: 'number',
-					label: 'Value (' + MODEL_VALUES.level.range.min + ' to ' + MODEL_VALUES.level.range.max + ')',
+					label: 'Value (' + MODEL_ACTIONS.level.range.min + ' to ' + MODEL_ACTIONS.level.range.max + ')',
 					id: 'level',
-					default: MODEL_VALUES.level.range.default,
-					min: MODEL_VALUES.level.range.min,
-					max: MODEL_VALUES.level.range.max,
+					default: MODEL_ACTIONS.level.range.default,
+					min: MODEL_ACTIONS.level.range.min,
+					max: MODEL_ACTIONS.level.range.max,
 				},
 			],
 			callback: (feedback) => {
-				return this.camera?.wbsetup?.Level == feedback.options.level
+				return this.camera?.level == feedback.options.level
 			},
 		}
 	}
 
-	if (MODEL_VALUES?.matrix) {
+	if (MODEL_ACTIONS?.matrix) {
 		feedbacks.matrix = {
 			type: 'boolean',
 			label: 'White Balance - Matrix',
@@ -1197,17 +1294,17 @@ exports.initFeedbacks = function () {
 					type: 'dropdown',
 					label: 'On/Off',
 					id: 'val',
-					choices: MODEL_VALUES.matrix.choices,
-					default: MODEL_VALUES.matrix.default,
+					choices: MODEL_ACTIONS.matrix.choices,
+					default: MODEL_ACTIONS.matrix.default,
 				},
 			],
 			callback: (feedback) => {
-				return this.camera?.wbsetup?.Matrix == feedback.options.white_balance
+				return this.camera?.matrix == feedback.options.white_balance
 			},
 		}
 	}
 
-	if (MODEL_VALUES?.offset) {
+	if (MODEL_ACTIONS?.offset) {
 		feedbacks.offset = {
 			type: 'boolean',
 			label: 'White Balance - Offset',
@@ -1219,20 +1316,20 @@ exports.initFeedbacks = function () {
 			options: [
 				{
 					type: 'number',
-					label: 'Value (' + MODEL_VALUES.offset.range.min + ' to ' + MODEL_VALUES.offset.range.max + ')',
+					label: 'Value (' + MODEL_ACTIONS.offset.range.min + ' to ' + MODEL_ACTIONS.offset.range.max + ')',
 					id: 'value',
-					default: MODEL_VALUES.offset.range.default,
-					min: MODEL_VALUES.offset.range.min,
-					max: MODEL_VALUES.offset.range.max,
+					default: MODEL_ACTIONS.offset.range.default,
+					min: MODEL_ACTIONS.offset.range.min,
+					max: MODEL_ACTIONS.offset.range.max,
 				},
 			],
 			callback: (feedback) => {
-				return this.camera?.wbsetup?.Offset == feedback.options.level
+				return this.camera?.offset == feedback.options.level
 			},
 		}
 	}
 
-	if (MODEL_VALUES?.phase) {
+	if (MODEL_ACTIONS?.phase) {
 		feedbacks.phase = {
 			type: 'boolean',
 			label: 'White Balance - Phase',
@@ -1244,20 +1341,20 @@ exports.initFeedbacks = function () {
 			options: [
 				{
 					type: 'number',
-					label: 'Value (' + MODEL_VALUES.phase.range.min + ' to ' + MODEL_VALUES.phase.range.max + ')',
+					label: 'Value (' + MODEL_ACTIONS.phase.range.min + ' to ' + MODEL_ACTIONS.phase.range.max + ')',
 					id: 'value',
-					default: MODEL_VALUES.phase.range.default,
-					min: MODEL_VALUES.phase.range.min,
-					max: MODEL_VALUES.phase.range.max,
+					default: MODEL_ACTIONS.phase.range.default,
+					min: MODEL_ACTIONS.phase.range.min,
+					max: MODEL_ACTIONS.phase.range.max,
 				},
 			],
 			callback: (feedback) => {
-				return this.camera?.wbsetup?.Phase == feedback.options.level
+				return this.camera?.phase == feedback.options.level
 			},
 		}
 	}
 
-	if (MODEL_VALUES?.rb) {
+	if (MODEL_ACTIONS?.rb) {
 		feedbacks.rb = {
 			type: 'boolean',
 			label: 'White Balance - RB',
@@ -1269,20 +1366,20 @@ exports.initFeedbacks = function () {
 			options: [
 				{
 					type: 'number',
-					label: 'Value (' + MODEL_VALUES.rb.range.min + ' to ' + MODEL_VALUES.rb.range.max + ')',
+					label: 'Value (' + MODEL_ACTIONS.rb.range.min + ' to ' + MODEL_ACTIONS.rb.range.max + ')',
 					id: 'value',
-					default: MODEL_VALUES.rb.range.default,
-					min: MODEL_VALUES.rb.range.min,
-					max: MODEL_VALUES.rb.range.max,
+					default: MODEL_ACTIONS.rb.range.default,
+					min: MODEL_ACTIONS.rb.range.min,
+					max: MODEL_ACTIONS.rb.range.max,
 				},
 			],
 			callback: (feedback) => {
-				return this.camera?.wbsetup?.RB == feedback.options.level
+				return this.camera?.rb == feedback.options.level
 			},
 		}
 	}
 
-	if (MODEL_VALUES?.rg) {
+	if (MODEL_ACTIONS?.rg) {
 		feedbacks.rg = {
 			type: 'boolean',
 			label: 'White Balance - RG',
@@ -1294,20 +1391,20 @@ exports.initFeedbacks = function () {
 			options: [
 				{
 					type: 'number',
-					label: 'Value (' + MODEL_VALUES.rg.range.min + ' to ' + MODEL_VALUES.rg.range.max + ')',
+					label: 'Value (' + MODEL_ACTIONS.rg.range.min + ' to ' + MODEL_ACTIONS.rg.range.max + ')',
 					id: 'value',
-					default: MODEL_VALUES.rg.range.default,
-					min: MODEL_VALUES.rg.range.min,
-					max: MODEL_VALUES.rg.range.max,
+					default: MODEL_ACTIONS.rg.range.default,
+					min: MODEL_ACTIONS.rg.range.min,
+					max: MODEL_ACTIONS.rg.range.max,
 				},
 			],
 			callback: (feedback) => {
-				return this.camera?.wbsetup?.RG == feedback.options.level
+				return this.camera?.rg == feedback.options.level
 			},
 		}
 	}
 
-	if (MODEL_VALUES?.red_gain) {
+	if (MODEL_ACTIONS?.red_gain) {
 		feedbacks.red_gain = {
 			type: 'boolean',
 			label: 'White Balance - Red Gain',
@@ -1319,20 +1416,20 @@ exports.initFeedbacks = function () {
 			options: [
 				{
 					type: 'number',
-					label: 'Value (' + MODEL_VALUES.red_gain.range.min + ' to ' + MODEL_VALUES.red_gain.range.max + ')',
+					label: 'Value (' + MODEL_ACTIONS.red_gain.range.min + ' to ' + MODEL_ACTIONS.red_gain.range.max + ')',
 					id: 'level',
-					default: MODEL_VALUES.red_gain.range.default,
-					min: MODEL_VALUES.red_gain.range.min,
-					max: MODEL_VALUES.red_gain.range.max,
+					default: MODEL_ACTIONS.red_gain.range.default,
+					min: MODEL_ACTIONS.red_gain.range.min,
+					max: MODEL_ACTIONS.red_gain.range.max,
 				},
 			],
 			callback: (feedback) => {
-				return this.camera?.wbsetup?.RedGain == feedback.options.level
+				return this.camera?.red_gain == feedback.options.level
 			},
 		}
 	}
 
-	if (MODEL_VALUES?.select) {
+	if (MODEL_ACTIONS?.select) {
 		feedbacks.select = {
 			type: 'boolean',
 			label: 'White Balance - Select',
@@ -1346,17 +1443,17 @@ exports.initFeedbacks = function () {
 					type: 'dropdown',
 					label: 'On/Off',
 					id: 'val',
-					choices: MODEL_VALUES.select.choices,
-					default: MODEL_VALUES.select.default,
+					choices: MODEL_ACTIONS.select.choices,
+					default: MODEL_ACTIONS.select.default,
 				},
 			],
 			callback: (feedback) => {
-				return this.camera?.wbsetup?.Select == feedback.options.val
+				return this.camera?.select == feedback.options.val
 			},
 		}
 	}
 
-	if (MODEL_VALUES?.speed) {
+	if (MODEL_ACTIONS?.speed) {
 		feedbacks.speed = {
 			type: 'boolean',
 			label: 'White Balance - Speed',
@@ -1368,20 +1465,20 @@ exports.initFeedbacks = function () {
 			options: [
 				{
 					type: 'number',
-					label: 'Value (' + MODEL_VALUES.speed.range.min + ' to ' + MODEL_VALUES.speed.range.max + ')',
+					label: 'Value (' + MODEL_ACTIONS.speed.range.min + ' to ' + MODEL_ACTIONS.speed.range.max + ')',
 					id: 'value',
-					default: MODEL_VALUES.speed.range.default,
-					min: MODEL_VALUES.speed.range.min,
-					max: MODEL_VALUES.speed.range.max,
+					default: MODEL_ACTIONS.speed.range.default,
+					min: MODEL_ACTIONS.speed.range.min,
+					max: MODEL_ACTIONS.speed.range.max,
 				},
 			],
 			callback: (feedback) => {
-				return this.camera?.wbsetup?.Speed == feedback.options.level
+				return this.camera?.speed == feedback.options.level
 			},
 		}
 	}
 
-	if (MODEL_VALUES?.wb_mode) {
+	if (MODEL_ACTIONS?.wb_mode) {
 		feedbacks.wb_mode = {
 			type: 'boolean',
 			label: 'White Balance - White Balance Mode',
@@ -1395,19 +1492,19 @@ exports.initFeedbacks = function () {
 					type: 'dropdown',
 					label: 'White Balance Mode',
 					id: 'white_balance',
-					choices: MODEL_VALUES.wb_mode.choices,
-					default: MODEL_VALUES.wb_mode.default,
+					choices: MODEL_ACTIONS.wb_mode.choices,
+					default: MODEL_ACTIONS.wb_mode.default,
 				},
 			],
 			callback: (feedback) => {
-				return this.camera?.wbsetup?.WbMode == feedback.options.white_balance
+				return this.camera?.wb_mode == feedback.options.white_balance
 			},
 		}
 	}
 
 	// Picture Setup Feedback
 
-	if (MODEL_VALUES?.backlight_com) {
+	if (MODEL_ACTIONS?.backlight_com) {
 		feedbacks.backlight_com = {
 			type: 'boolean',
 			label: 'Picture Setup - Backlight Compensation',
@@ -1421,17 +1518,17 @@ exports.initFeedbacks = function () {
 					type: 'dropdown',
 					label: 'On/Off',
 					id: 'val',
-					choices: MODEL_VALUES.backlight_com.choices,
-					default: MODEL_VALUES.backlight_com.default,
+					choices: MODEL_ACTIONS.backlight_com.choices,
+					default: MODEL_ACTIONS.backlight_com.default,
 				},
 			],
 			callback: (feedback) => {
-				return this.camera?.picsetup?.BackLightCom == feedback.options.val
+				return this.camera?.backlight_com == feedback.options.val
 			},
 		}
 	}
 
-	if (MODEL_VALUES?.chroma_suppress) {
+	if (MODEL_ACTIONS?.chroma_suppress) {
 		feedbacks.chroma_suppress = {
 			type: 'boolean',
 			label: 'Picture Setup - Chroma Suppress',
@@ -1445,17 +1542,17 @@ exports.initFeedbacks = function () {
 					type: 'dropdown',
 					label: 'Mode',
 					id: 'val',
-					choices: MODEL_VALUES.chroma_suppress.choices,
-					default: MODEL_VALUES.chroma_suppress.default,
+					choices: MODEL_ACTIONS.chroma_suppress.choices,
+					default: MODEL_ACTIONS.chroma_suppress.default,
 				},
 			],
 			callback: (feedback) => {
-				return this.camera?.picsetup?.ChromeSuppress == feedback.options.val
+				return this.camera?.chroma_suppress == feedback.options.val
 			},
 		}
 	}
 
-	if (MODEL_VALUES?.color) {
+	if (MODEL_ACTIONS?.color) {
 		feedbacks.color = {
 			type: 'boolean',
 			label: 'Picture Setup - Color',
@@ -1467,20 +1564,20 @@ exports.initFeedbacks = function () {
 			options: [
 				{
 					type: 'number',
-					label: 'Value (' + MODEL_VALUES.color.range.min + ' to ' + MODEL_VALUES.color.range.max + ')',
+					label: 'Value (' + MODEL_ACTIONS.color.range.min + ' to ' + MODEL_ACTIONS.color.range.max + ')',
 					id: 'value',
-					min: MODEL_VALUES.color.range.min,
-					max: MODEL_VALUES.color.range.max,
-					default: MODEL_VALUES.color.range.default,
+					min: MODEL_ACTIONS.color.range.min,
+					max: MODEL_ACTIONS.color.range.max,
+					default: MODEL_ACTIONS.color.range.default,
 				},
 			],
 			callback: (feedback) => {
-				return this.camera?.picsetup?.Color == feedback.options.value
+				return this.camera?.color == feedback.options.value
 			},
 		}
 	}
 
-	if (MODEL_VALUES?.contrast) {
+	if (MODEL_ACTIONS?.contrast) {
 		feedbacks.contrast = {
 			type: 'boolean',
 			label: 'Picture Setup - Contrast',
@@ -1492,21 +1589,21 @@ exports.initFeedbacks = function () {
 			options: [
 				{
 					type: 'number',
-					label: 'Value (' + MODEL_VALUES.contrast.range.min + ' to ' + MODEL_VALUES.contrast.range.max + ')',
+					label: 'Value (' + MODEL_ACTIONS.contrast.range.min + ' to ' + MODEL_ACTIONS.contrast.range.max + ')',
 					id: 'value',
-					min: MODEL_VALUES.contrast.range.min,
-					max: MODEL_VALUES.contrast.range.max,
-					default: MODEL_VALUES.contrast.range.default,
+					min: MODEL_ACTIONS.contrast.range.min,
+					max: MODEL_ACTIONS.contrast.range.max,
+					default: MODEL_ACTIONS.contrast.range.default,
 					isVisible: (action) => action.options.val === 'value',
 				},
 			],
 			callback: (feedback) => {
-				return this.camera?.picsetup?.Contrast == feedback.options.value
+				return this.camera?.contrast == feedback.options.value
 			},
 		}
 	}
 
-	if (MODEL_VALUES?.pictureEffect) {
+	if (MODEL_ACTIONS?.pictureEffect) {
 		feedbacks.pictureEffect = {
 			type: 'boolean',
 			label: 'Picture Setup - Effect',
@@ -1520,17 +1617,17 @@ exports.initFeedbacks = function () {
 					type: 'dropdown',
 					label: 'Effect',
 					id: 'val',
-					choices: MODEL_VALUES.pictureEffect.choices,
-					default: MODEL_VALUES.pictureEffect.default,
+					choices: MODEL_ACTIONS.pictureEffect.choices,
+					default: MODEL_ACTIONS.pictureEffect.default,
 				},
 			],
 			callback: (feedback) => {
-				return this.camera?.picsetup?.Effect == feedback.options.val
+				return this.camera?.pictureEffect == feedback.options.val
 			},
 		}
 	}
 
-	if (MODEL_VALUES?.picFlip) {
+	if (MODEL_ACTIONS?.picFlip) {
 		feedbacks.picFlip = {
 			type: 'boolean',
 			label: 'Picture Setup - Flip',
@@ -1544,17 +1641,17 @@ exports.initFeedbacks = function () {
 					type: 'dropdown',
 					label: 'On / Off',
 					id: 'val',
-					choices: MODEL_VALUES.picFlip.choices,
-					default: MODEL_VALUES.picFlip.default,
+					choices: MODEL_ACTIONS.picFlip.choices,
+					default: MODEL_ACTIONS.picFlip.default,
 				},
 			],
 			callback: (feedback) => {
-				return this.camera?.picsetup?.Flip == feedback.options.val
+				return this.camera?.picFlip == feedback.options.val
 			},
 		}
 	}
 
-	if (MODEL_VALUES?.gamma) {
+	if (MODEL_ACTIONS?.gamma) {
 		feedbacks.gamma = {
 			type: 'boolean',
 			label: 'Picture Setup - Gamma',
@@ -1566,20 +1663,20 @@ exports.initFeedbacks = function () {
 			options: [
 				{
 					type: 'number',
-					label: 'Value (' + MODEL_VALUES.gamma.range.min + ' to ' + MODEL_VALUES.gamma.range.max + ')',
+					label: 'Value (' + MODEL_ACTIONS.gamma.range.min + ' to ' + MODEL_ACTIONS.gamma.range.max + ')',
 					id: 'value',
-					min: MODEL_VALUES.gamma.range.min,
-					max: MODEL_VALUES.gamma.range.max,
-					default: MODEL_VALUES.gamma.range.default,
+					min: MODEL_ACTIONS.gamma.range.min,
+					max: MODEL_ACTIONS.gamma.range.max,
+					default: MODEL_ACTIONS.gamma.range.default,
 				},
 			],
 			callback: (feedback) => {
-				return this.camera?.picsetup?.Gamma == feedback.options.value
+				return this.camera?.gamma == feedback.options.value
 			},
 		}
 	}
 
-	if (MODEL_VALUES?.highlight_comp) {
+	if (MODEL_ACTIONS?.highlight_comp) {
 		feedbacks.highlight_comp = {
 			type: 'boolean',
 			label: 'Picture Setup - Highlight Compensation',
@@ -1593,17 +1690,17 @@ exports.initFeedbacks = function () {
 					type: 'dropdown',
 					label: 'Highlight Compensation',
 					id: 'val',
-					choices: MODEL_VALUES.highlight_comp.choices,
-					default: MODEL_VALUES.highlight_comp.default,
+					choices: MODEL_ACTIONS.highlight_comp.choices,
+					default: MODEL_ACTIONS.highlight_comp.default,
 				},
 			],
 			callback: (feedback) => {
-				return this.camera?.picsetup?.HighlightComp == feedback.options.val
+				return this.camera?.highlight_comp == feedback.options.val
 			},
 		}
 	}
 
-	if (MODEL_VALUES?.highlight_comp_mask) {
+	if (MODEL_ACTIONS?.highlight_comp_mask) {
 		feedbacks.highlight_comp_mask = {
 			type: 'boolean',
 			label: 'Picture Setup - Highlight Compensation Mask',
@@ -1618,23 +1715,23 @@ exports.initFeedbacks = function () {
 					type: 'number',
 					label:
 						'Value (' +
-						MODEL_VALUES.highlight_comp_mask.range.min +
+						MODEL_ACTIONS.highlight_comp_mask.range.min +
 						' to ' +
-						MODEL_VALUES.highlight_comp_mask.range.max +
+						MODEL_ACTIONS.highlight_comp_mask.range.max +
 						')',
 					id: 'value',
-					min: MODEL_VALUES.highlight_comp_mask.range.min,
-					max: MODEL_VALUES.highlight_comp_mask.range.max,
-					default: MODEL_VALUES.highlight_comp_mask.range.default,
+					min: MODEL_ACTIONS.highlight_comp_mask.range.min,
+					max: MODEL_ACTIONS.highlight_comp_mask.range.max,
+					default: MODEL_ACTIONS.highlight_comp_mask.range.default,
 				},
 			],
 			callback: (feedback) => {
-				return this.camera?.picsetup?.HighlightCompMask == feedback.options.value
+				return this.camera?.highlight_comp_mask == feedback.options.value
 			},
 		}
 	}
 
-	if (MODEL_VALUES?.hue) {
+	if (MODEL_ACTIONS?.hue) {
 		feedbacks.hue = {
 			type: 'boolean',
 			label: 'Picture Setup - Hue',
@@ -1646,20 +1743,20 @@ exports.initFeedbacks = function () {
 			options: [
 				{
 					type: 'number',
-					label: 'Value (' + MODEL_VALUES.hue.range.min + ' to ' + MODEL_VALUES.hue.range.max + ')',
+					label: 'Value (' + MODEL_ACTIONS.hue.range.min + ' to ' + MODEL_ACTIONS.hue.range.max + ')',
 					id: 'value',
-					min: MODEL_VALUES.hue.range.min,
-					max: MODEL_VALUES.hue.range.max,
-					default: MODEL_VALUES.hue.range.default,
+					min: MODEL_ACTIONS.hue.range.min,
+					max: MODEL_ACTIONS.hue.range.max,
+					default: MODEL_ACTIONS.hue.range.default,
 				},
 			],
 			callback: (feedback) => {
-				return this.camera?.picsetup?.Hue == feedback.options.value
+				return this.camera?.hue == feedback.options.value
 			},
 		}
 	}
 
-	if (MODEL_VALUES?.ir_cutfilter) {
+	if (MODEL_ACTIONS?.ir_cutfilter) {
 		feedbacks.ir_cutfilter = {
 			type: 'boolean',
 			label: 'Picture Setup - IR Cut Filter',
@@ -1673,17 +1770,17 @@ exports.initFeedbacks = function () {
 					type: 'dropdown',
 					label: 'Mode',
 					id: 'val',
-					choices: MODEL_VALUES.ir_cutfilter.choices,
-					default: MODEL_VALUES.ir_cutfilter.default,
+					choices: MODEL_ACTIONS.ir_cutfilter.choices,
+					default: MODEL_ACTIONS.ir_cutfilter.default,
 				},
 			],
 			callback: (feedback) => {
-				return this.camera?.picsetup?.IRCutFilter == feedback.options.val
+				return this.camera?.ir_cutfilter == feedback.options.val
 			},
 		}
 	}
 
-	if (MODEL_VALUES?.low_latency) {
+	if (MODEL_ACTIONS?.low_latency) {
 		feedbacks.low_latency = {
 			type: 'boolean',
 			label: 'Picture Setup - Low Latency',
@@ -1697,17 +1794,17 @@ exports.initFeedbacks = function () {
 					type: 'dropdown',
 					label: 'On / Off',
 					id: 'val',
-					choices: MODEL_VALUES.low_latency.choices,
-					default: MODEL_VALUES.low_latency.default,
+					choices: MODEL_ACTIONS.low_latency.choices,
+					default: MODEL_ACTIONS.low_latency.default,
 				},
 			],
 			callback: (feedback) => {
-				return this.camera?.picsetup?.LowLatency == feedback.options.val
+				return this.camera?.low_latency == feedback.options.val
 			},
 		}
 	}
 
-	if (MODEL_VALUES?.picMirror) {
+	if (MODEL_ACTIONS?.picMirror) {
 		feedbacks.picMirror = {
 			type: 'boolean',
 			label: 'Picture Setup - Mirror',
@@ -1721,17 +1818,17 @@ exports.initFeedbacks = function () {
 					type: 'dropdown',
 					label: 'On / Off',
 					id: 'val',
-					choices: MODEL_VALUES.picMirror.choices,
-					default: MODEL_VALUES.picMirror.default,
+					choices: MODEL_ACTIONS.picMirror.choices,
+					default: MODEL_ACTIONS.picMirror.default,
 				},
 			],
 			callback: (feedback) => {
-				return this.camera?.picsetup?.Mirror == feedback.options.val
+				return this.camera?.picMirror == feedback.options.val
 			},
 		}
 	}
 
-	if (MODEL_VALUES?.nd_filter) {
+	if (MODEL_ACTIONS?.nd_filter) {
 		feedbacks.nd_filter = {
 			type: 'boolean',
 			label: 'Picture Setup - ND Filter',
@@ -1743,20 +1840,20 @@ exports.initFeedbacks = function () {
 			options: [
 				{
 					type: 'number',
-					label: 'Value (' + MODEL_VALUES.nd_filter.range.min + ' to ' + MODEL_VALUES.nd_filter.range.max + ')',
+					label: 'Value (' + MODEL_ACTIONS.nd_filter.range.min + ' to ' + MODEL_ACTIONS.nd_filter.range.max + ')',
 					id: 'value',
-					min: MODEL_VALUES.nd_filter.range.min,
-					max: MODEL_VALUES.nd_filter.range.max,
-					default: MODEL_VALUES.nd_filter.range.default,
+					min: MODEL_ACTIONS.nd_filter.range.min,
+					max: MODEL_ACTIONS.nd_filter.range.max,
+					default: MODEL_ACTIONS.nd_filter.range.default,
 				},
 			],
 			callback: (feedback) => {
-				return this.camera?.picsetup?.NDFilter == feedback.options.value
+				return this.camera?.nd_filter == feedback.options.value
 			},
 		}
 	}
 
-	if (MODEL_VALUES?.noise_reduction) {
+	if (MODEL_ACTIONS?.noise_reduction) {
 		feedbacks.noise_reduction = {
 			type: 'boolean',
 			label: 'Picture Setup - Noise Reduction',
@@ -1770,17 +1867,17 @@ exports.initFeedbacks = function () {
 					type: 'dropdown',
 					label: 'Noise Reduction',
 					id: 'val',
-					choices: MODEL_VALUES.noise_reduction.choices,
-					default: MODEL_VALUES.noise_reduction.default,
+					choices: MODEL_ACTIONS.noise_reduction.choices,
+					default: MODEL_ACTIONS.noise_reduction.default,
 				},
 			],
 			callback: (feedback) => {
-				return this.camera?.picsetup?.NoiseReduction == feedback.options.val
+				return this.camera?.noise_reduction == feedback.options.val
 			},
 		}
 	}
 
-	if (MODEL_VALUES?.sharpness) {
+	if (MODEL_ACTIONS?.sharpness) {
 		feedbacks.sharpness = {
 			type: 'boolean',
 			label: 'Picture Setup - Sharpness',
@@ -1792,20 +1889,20 @@ exports.initFeedbacks = function () {
 			options: [
 				{
 					type: 'number',
-					label: 'Value (' + MODEL_VALUES.sharpness.range.min + ' to ' + MODEL_VALUES.sharpness.range.max + ')',
+					label: 'Value (' + MODEL_ACTIONS.sharpness.range.min + ' to ' + MODEL_ACTIONS.sharpness.range.max + ')',
 					id: 'value',
-					min: MODEL_VALUES.sharpness.range.min,
-					max: MODEL_VALUES.sharpness.range.max,
-					default: MODEL_VALUES.sharpness.range.default,
+					min: MODEL_ACTIONS.sharpness.range.min,
+					max: MODEL_ACTIONS.sharpness.range.max,
+					default: MODEL_ACTIONS.sharpness.range.default,
 				},
 			],
 			callback: (feedback) => {
-				return this.camera?.picsetup?.Sharpness == feedback.options.value
+				return this.camera?.sharpness == feedback.options.value
 			},
 		}
 	}
 
-	if (MODEL_VALUES?.stabilizer) {
+	if (MODEL_ACTIONS?.stabilizer) {
 		feedbacks.stabilizer = {
 			type: 'boolean',
 			label: 'Picture Setup - Stabilizer',
@@ -1819,17 +1916,17 @@ exports.initFeedbacks = function () {
 					type: 'dropdown',
 					label: 'On / Off',
 					id: 'val',
-					choices: MODEL_VALUES.stabilizer.choices,
-					default: MODEL_VALUES.stabilizer.default,
+					choices: MODEL_ACTIONS.stabilizer.choices,
+					default: MODEL_ACTIONS.stabilizer.default,
 				},
 			],
 			callback: (feedback) => {
-				return this.camera?.picsetup?.Stabilizer == feedback.options.val
+				return this.camera?.stabilizer == feedback.options.val
 			},
 		}
 	}
 
-	if (MODEL_VALUES?.threed_nr) {
+	if (MODEL_ACTIONS?.threed_nr) {
 		feedbacks.threed_nr = {
 			type: 'boolean',
 			label: 'Picture Setup - 3D Noise Reduction',
@@ -1843,17 +1940,17 @@ exports.initFeedbacks = function () {
 					type: 'dropdown',
 					label: '3D NR',
 					id: 'val',
-					choices: MODEL_VALUES.threed_nr.choices,
-					default: MODEL_VALUES.threed_nr.default,
+					choices: MODEL_ACTIONS.threed_nr.choices,
+					default: MODEL_ACTIONS.threed_nr.default,
 				},
 			],
 			callback: (feedback) => {
-				return this.camera?.picsetup?.ThreeDNR == feedback.options.val
+				return this.camera?.threed_nr == feedback.options.val
 			},
 		}
 	}
 
-	if (MODEL_VALUES?.twod_nr) {
+	if (MODEL_ACTIONS?.twod_nr) {
 		feedbacks.twod_nr = {
 			type: 'boolean',
 			label: 'Picture Setup - 2D Noise Reduction',
@@ -1867,17 +1964,17 @@ exports.initFeedbacks = function () {
 					type: 'dropdown',
 					label: '2D NR',
 					id: 'val',
-					choices: MODEL_VALUES.twod_nr.choices,
-					default: MODEL_VALUES.twod_nr.default,
+					choices: MODEL_ACTIONS.twod_nr.choices,
+					default: MODEL_ACTIONS.twod_nr.default,
 				},
 			],
 			callback: (feedback) => {
-				return this.camera?.picsetup?.TWODNR == feedback.options.val
+				return this.camera?.twod_nr == feedback.options.val
 			},
 		}
 	}
 
-	if (MODEL_VALUES?.wide_dynamic_range) {
+	if (MODEL_ACTIONS?.wide_dynamic_range) {
 		feedbacks.wide_dynamic_range = {
 			type: 'boolean',
 			label: 'Picture Setup - Wide Dynamic Range',
@@ -1891,19 +1988,19 @@ exports.initFeedbacks = function () {
 					type: 'dropdown',
 					label: 'Wide Dynamic Range',
 					id: 'val',
-					choices: MODEL_VALUES.wide_dynamic_range.choices,
-					default: MODEL_VALUES.wide_dynamic_range.default,
+					choices: MODEL_ACTIONS.wide_dynamic_range.choices,
+					default: MODEL_ACTIONS.wide_dynamic_range.default,
 				},
 			],
 			callback: (feedback) => {
-				return this.camera?.picsetup?.WideDynamicRange == feedback.options.val
+				return this.camera?.wide_dynamic_range == feedback.options.val
 			},
 		}
 	}
 
 	// Color Matrix Feedback
 
-	if (MODEL_VALUES?.cm_blue_gain) {
+	if (MODEL_ACTIONS?.cm_blue_gain) {
 		feedbacks.cm_blue_gain = {
 			type: 'boolean',
 			label: 'Color Matrix - Blue Gain',
@@ -1915,20 +2012,20 @@ exports.initFeedbacks = function () {
 			options: [
 				{
 					type: 'number',
-					label: 'Value (' + MODEL_VALUES.cm_blue_gain.range.min + ' to ' + MODEL_VALUES.cm_blue_gain.range.max + ')',
+					label: 'Value (' + MODEL_ACTIONS.cm_blue_gain.range.min + ' to ' + MODEL_ACTIONS.cm_blue_gain.range.max + ')',
 					id: 'value',
-					min: MODEL_VALUES.cm_blue_gain.range.min,
-					max: MODEL_VALUES.cm_blue_gain.range.max,
-					default: MODEL_VALUES.cm_blue_gain.range.default,
+					min: MODEL_ACTIONS.cm_blue_gain.range.min,
+					max: MODEL_ACTIONS.cm_blue_gain.range.max,
+					default: MODEL_ACTIONS.cm_blue_gain.range.default,
 				},
 			],
 			callback: (feedback) => {
-				return this.camera?.cmsetup?.BlueGain == feedback.options.value
+				return this.camera?.cm_blue_gain == feedback.options.value
 			},
 		}
 	}
 
-	if (MODEL_VALUES?.cm_blue_hue) {
+	if (MODEL_ACTIONS?.cm_blue_hue) {
 		feedbacks.cm_blue_hue = {
 			type: 'boolean',
 			label: 'Color Matrix - Blue Hue',
@@ -1940,20 +2037,20 @@ exports.initFeedbacks = function () {
 			options: [
 				{
 					type: 'number',
-					label: 'Value (' + MODEL_VALUES.cm_blue_hue.range.min + ' to ' + MODEL_VALUES.cm_blue_hue.range.max + ')',
+					label: 'Value (' + MODEL_ACTIONS.cm_blue_hue.range.min + ' to ' + MODEL_ACTIONS.cm_blue_hue.range.max + ')',
 					id: 'value',
-					min: MODEL_VALUES.cm_blue_hue.range.min,
-					max: MODEL_VALUES.cm_blue_hue.range.max,
-					default: MODEL_VALUES.cm_blue_hue.range.default,
+					min: MODEL_ACTIONS.cm_blue_hue.range.min,
+					max: MODEL_ACTIONS.cm_blue_hue.range.max,
+					default: MODEL_ACTIONS.cm_blue_hue.range.default,
 				},
 			],
 			callback: (feedback) => {
-				return this.camera?.cmsetup?.BlueHue == feedback.options.value
+				return this.camera?.cm_blue_hue == feedback.options.value
 			},
 		}
 	}
 
-	if (MODEL_VALUES?.cm_color_gain) {
+	if (MODEL_ACTIONS?.cm_color_gain) {
 		feedbacks.cm_color_gain = {
 			type: 'boolean',
 			label: 'Color Matrix - Color Gain',
@@ -1965,20 +2062,21 @@ exports.initFeedbacks = function () {
 			options: [
 				{
 					type: 'number',
-					label: 'Value (' + MODEL_VALUES.cm_color_gain.range.min + ' to ' + MODEL_VALUES.cm_color_gain.range.max + ')',
+					label:
+						'Value (' + MODEL_ACTIONS.cm_color_gain.range.min + ' to ' + MODEL_ACTIONS.cm_color_gain.range.max + ')',
 					id: 'value',
-					min: MODEL_VALUES.cm_color_gain.range.min,
-					max: MODEL_VALUES.cm_color_gain.range.max,
-					default: MODEL_VALUES.cm_color_gain.range.default,
+					min: MODEL_ACTIONS.cm_color_gain.range.min,
+					max: MODEL_ACTIONS.cm_color_gain.range.max,
+					default: MODEL_ACTIONS.cm_color_gain.range.default,
 				},
 			],
 			callback: (feedback) => {
-				return this.camera?.cmsetup?.ColourGain == feedback.options.value
+				return this.camera?.cm_color_gain == feedback.options.value
 			},
 		}
 	}
 
-	if (MODEL_VALUES?.cm_cyan_gain) {
+	if (MODEL_ACTIONS?.cm_cyan_gain) {
 		feedbacks.cm_cyan_gain = {
 			type: 'boolean',
 			label: 'Color Matrix - Cyan Gain',
@@ -1990,20 +2088,20 @@ exports.initFeedbacks = function () {
 			options: [
 				{
 					type: 'number',
-					label: 'Value (' + MODEL_VALUES.cm_cyan_gain.range.min + ' to ' + MODEL_VALUES.cm_cyan_gain.range.max + ')',
+					label: 'Value (' + MODEL_ACTIONS.cm_cyan_gain.range.min + ' to ' + MODEL_ACTIONS.cm_cyan_gain.range.max + ')',
 					id: 'value',
-					min: MODEL_VALUES.cm_cyan_gain.range.min,
-					max: MODEL_VALUES.cm_cyan_gain.range.max,
-					default: MODEL_VALUES.cm_cyan_gain.range.default,
+					min: MODEL_ACTIONS.cm_cyan_gain.range.min,
+					max: MODEL_ACTIONS.cm_cyan_gain.range.max,
+					default: MODEL_ACTIONS.cm_cyan_gain.range.default,
 				},
 			],
 			callback: (feedback) => {
-				return this.camera?.cmsetup?.CyanGain == feedback.options.value
+				return this.camera?.cm_cyan_gain == feedback.options.value
 			},
 		}
 	}
 
-	if (MODEL_VALUES?.cm_cyan_hue) {
+	if (MODEL_ACTIONS?.cm_cyan_hue) {
 		feedbacks.cm_cyan_hue = {
 			type: 'boolean',
 			label: 'Color Matrix - Cyan Hue',
@@ -2015,20 +2113,20 @@ exports.initFeedbacks = function () {
 			options: [
 				{
 					type: 'number',
-					label: 'Value (' + MODEL_VALUES.cm_cyan_hue.range.min + ' to ' + MODEL_VALUES.cm_cyan_hue.range.max + ')',
+					label: 'Value (' + MODEL_ACTIONS.cm_cyan_hue.range.min + ' to ' + MODEL_ACTIONS.cm_cyan_hue.range.max + ')',
 					id: 'value',
-					min: MODEL_VALUES.cm_cyan_hue.range.min,
-					max: MODEL_VALUES.cm_cyan_hue.range.max,
-					default: MODEL_VALUES.cm_cyan_hue.range.default,
+					min: MODEL_ACTIONS.cm_cyan_hue.range.min,
+					max: MODEL_ACTIONS.cm_cyan_hue.range.max,
+					default: MODEL_ACTIONS.cm_cyan_hue.range.default,
 				},
 			],
 			callback: (feedback) => {
-				return this.camera?.cmsetup?.CyanHue == feedback.options.value
+				return this.camera?.cm_cyan_hue == feedback.options.value
 			},
 		}
 	}
 
-	if (MODEL_VALUES?.cm_green_gain) {
+	if (MODEL_ACTIONS?.cm_green_gain) {
 		feedbacks.cm_green_gain = {
 			type: 'boolean',
 			label: 'Color Matrix - Green Gain',
@@ -2040,20 +2138,21 @@ exports.initFeedbacks = function () {
 			options: [
 				{
 					type: 'number',
-					label: 'Value (' + MODEL_VALUES.cm_green_gain.range.min + ' to ' + MODEL_VALUES.cm_green_gain.range.max + ')',
+					label:
+						'Value (' + MODEL_ACTIONS.cm_green_gain.range.min + ' to ' + MODEL_ACTIONS.cm_green_gain.range.max + ')',
 					id: 'value',
-					min: MODEL_VALUES.cm_green_gain.range.min,
-					max: MODEL_VALUES.cm_green_gain.range.max,
-					default: MODEL_VALUES.cm_green_gain.range.default,
+					min: MODEL_ACTIONS.cm_green_gain.range.min,
+					max: MODEL_ACTIONS.cm_green_gain.range.max,
+					default: MODEL_ACTIONS.cm_green_gain.range.default,
 				},
 			],
 			callback: (feedback) => {
-				return this.camera?.cmsetup?.GreenGain == feedback.options.value
+				return this.camera?.cm_green_gain == feedback.options.value
 			},
 		}
 	}
 
-	if (MODEL_VALUES?.cm_green_hue) {
+	if (MODEL_ACTIONS?.cm_green_hue) {
 		feedbacks.cm_green_hue = {
 			type: 'boolean',
 			label: 'Color Matrix - Green Hue',
@@ -2065,20 +2164,20 @@ exports.initFeedbacks = function () {
 			options: [
 				{
 					type: 'number',
-					label: 'Value (' + MODEL_VALUES.cm_green_hue.range.min + ' to ' + MODEL_VALUES.cm_green_hue.range.max + ')',
+					label: 'Value (' + MODEL_ACTIONS.cm_green_hue.range.min + ' to ' + MODEL_ACTIONS.cm_green_hue.range.max + ')',
 					id: 'value',
-					min: MODEL_VALUES.cm_green_hue.range.min,
-					max: MODEL_VALUES.cm_green_hue.range.max,
-					default: MODEL_VALUES.cm_green_hue.range.default,
+					min: MODEL_ACTIONS.cm_green_hue.range.min,
+					max: MODEL_ACTIONS.cm_green_hue.range.max,
+					default: MODEL_ACTIONS.cm_green_hue.range.default,
 				},
 			],
 			callback: (feedback) => {
-				return this.camera?.cmsetup?.GreenHue == feedback.options.value
+				return this.camera?.cm_green_hue == feedback.options.value
 			},
 		}
 	}
 
-	if (MODEL_VALUES?.cm_hue_phase) {
+	if (MODEL_ACTIONS?.cm_hue_phase) {
 		feedbacks.cm_hue_phase = {
 			type: 'boolean',
 			label: 'Color Matrix - Hue Phase',
@@ -2090,20 +2189,20 @@ exports.initFeedbacks = function () {
 			options: [
 				{
 					type: 'number',
-					label: 'Value (' + MODEL_VALUES.cm_hue_phase.range.min + ' to ' + MODEL_VALUES.cm_hue_phase.range.max + ')',
+					label: 'Value (' + MODEL_ACTIONS.cm_hue_phase.range.min + ' to ' + MODEL_ACTIONS.cm_hue_phase.range.max + ')',
 					id: 'value',
-					min: MODEL_VALUES.cm_hue_phase.range.min,
-					max: MODEL_VALUES.cm_hue_phase.range.max,
-					default: MODEL_VALUES.cm_hue_phase.range.default,
+					min: MODEL_ACTIONS.cm_hue_phase.range.min,
+					max: MODEL_ACTIONS.cm_hue_phase.range.max,
+					default: MODEL_ACTIONS.cm_hue_phase.range.default,
 				},
 			],
 			callback: (feedback) => {
-				return this.camera?.cmsetup?.HuePhase == feedback.options.value
+				return this.camera?.cm_hue_phase == feedback.options.value
 			},
 		}
 	}
 
-	if (MODEL_VALUES?.cm_mag_gain) {
+	if (MODEL_ACTIONS?.cm_mag_gain) {
 		feedbacks.cm_mag_gain = {
 			type: 'boolean',
 			label: 'Color Matrix - Magenta Gain',
@@ -2115,20 +2214,20 @@ exports.initFeedbacks = function () {
 			options: [
 				{
 					type: 'number',
-					label: 'Value (' + MODEL_VALUES.cm_mag_gain.range.min + ' to ' + MODEL_VALUES.cm_mag_gain.range.max + ')',
+					label: 'Value (' + MODEL_ACTIONS.cm_mag_gain.range.min + ' to ' + MODEL_ACTIONS.cm_mag_gain.range.max + ')',
 					id: 'value',
-					min: MODEL_VALUES.cm_mag_gain.range.min,
-					max: MODEL_VALUES.cm_mag_gain.range.max,
-					default: MODEL_VALUES.cm_mag_gain.range.default,
+					min: MODEL_ACTIONS.cm_mag_gain.range.min,
+					max: MODEL_ACTIONS.cm_mag_gain.range.max,
+					default: MODEL_ACTIONS.cm_mag_gain.range.default,
 				},
 			],
 			callback: (feedback) => {
-				return this.camera?.cmsetup?.MagGain == feedback.options.value
+				return this.camera?.cm_mag_gain == feedback.options.value
 			},
 		}
 	}
 
-	if (MODEL_VALUES?.cm_mag_hue) {
+	if (MODEL_ACTIONS?.cm_mag_hue) {
 		feedbacks.cm_mag_hue = {
 			type: 'boolean',
 			label: 'Color Matrix - Magenta Hue',
@@ -2140,20 +2239,20 @@ exports.initFeedbacks = function () {
 			options: [
 				{
 					type: 'number',
-					label: 'Value (' + MODEL_VALUES.cm_mag_hue.range.min + ' to ' + MODEL_VALUES.cm_mag_hue.range.max + ')',
+					label: 'Value (' + MODEL_ACTIONS.cm_mag_hue.range.min + ' to ' + MODEL_ACTIONS.cm_mag_hue.range.max + ')',
 					id: 'value',
-					min: MODEL_VALUES.cm_mag_hue.range.min,
-					max: MODEL_VALUES.cm_mag_hue.range.max,
-					default: MODEL_VALUES.cm_mag_hue.range.default,
+					min: MODEL_ACTIONS.cm_mag_hue.range.min,
+					max: MODEL_ACTIONS.cm_mag_hue.range.max,
+					default: MODEL_ACTIONS.cm_mag_hue.range.default,
 				},
 			],
 			callback: (feedback) => {
-				return this.camera?.cmsetup?.MagHue == feedback.options.value
+				return this.camera?.cm_mag_hue == feedback.options.value
 			},
 		}
 	}
 
-	if (MODEL_VALUES?.cm_red_gain) {
+	if (MODEL_ACTIONS?.cm_red_gain) {
 		feedbacks.cm_red_gain = {
 			type: 'boolean',
 			label: 'Color Matrix - Red Gain',
@@ -2165,20 +2264,20 @@ exports.initFeedbacks = function () {
 			options: [
 				{
 					type: 'number',
-					label: 'Value (' + MODEL_VALUES.cm_red_gain.range.min + ' to ' + MODEL_VALUES.cm_red_gain.range.max + ')',
+					label: 'Value (' + MODEL_ACTIONS.cm_red_gain.range.min + ' to ' + MODEL_ACTIONS.cm_red_gain.range.max + ')',
 					id: 'value',
-					min: MODEL_VALUES.cm_red_gain.range.min,
-					max: MODEL_VALUES.cm_red_gain.range.max,
-					default: MODEL_VALUES.cm_red_gain.range.default,
+					min: MODEL_ACTIONS.cm_red_gain.range.min,
+					max: MODEL_ACTIONS.cm_red_gain.range.max,
+					default: MODEL_ACTIONS.cm_red_gain.range.default,
 				},
 			],
 			callback: (feedback) => {
-				return this.camera?.cmsetup?.RedGain == feedback.options.value
+				return this.camera?.cm_red_gain == feedback.options.value
 			},
 		}
 	}
 
-	if (MODEL_VALUES?.cm_red_hue) {
+	if (MODEL_ACTIONS?.cm_red_hue) {
 		feedbacks.cm_red_hue = {
 			type: 'boolean',
 			label: 'Color Matrix - Red Hue',
@@ -2190,20 +2289,20 @@ exports.initFeedbacks = function () {
 			options: [
 				{
 					type: 'number',
-					label: 'Value (' + MODEL_VALUES.cm_red_hue.range.min + ' to ' + MODEL_VALUES.cm_red_hue.range.max + ')',
+					label: 'Value (' + MODEL_ACTIONS.cm_red_hue.range.min + ' to ' + MODEL_ACTIONS.cm_red_hue.range.max + ')',
 					id: 'value',
-					min: MODEL_VALUES.cm_red_hue.range.min,
-					max: MODEL_VALUES.cm_red_hue.range.max,
-					default: MODEL_VALUES.cm_red_hue.range.default,
+					min: MODEL_ACTIONS.cm_red_hue.range.min,
+					max: MODEL_ACTIONS.cm_red_hue.range.max,
+					default: MODEL_ACTIONS.cm_red_hue.range.default,
 				},
 			],
 			callback: (feedback) => {
-				return this.camera?.cmsetup?.RedHue == feedback.options.value
+				return this.camera?.cm_red_hue == feedback.options.value
 			},
 		}
 	}
 
-	if (MODEL_VALUES?.cm_yellow_gain) {
+	if (MODEL_ACTIONS?.cm_yellow_gain) {
 		feedbacks.cm_yellow_gain = {
 			type: 'boolean',
 			label: 'Color Matrix - Yellow Gain',
@@ -2216,20 +2315,20 @@ exports.initFeedbacks = function () {
 				{
 					type: 'number',
 					label:
-						'Value (' + MODEL_VALUES.cm_yellow_gain.range.min + ' to ' + MODEL_VALUES.cm_yellow_gain.range.max + ')',
+						'Value (' + MODEL_ACTIONS.cm_yellow_gain.range.min + ' to ' + MODEL_ACTIONS.cm_yellow_gain.range.max + ')',
 					id: 'value',
-					min: MODEL_VALUES.cm_yellow_gain.range.min,
-					max: MODEL_VALUES.cm_yellow_gain.range.max,
-					default: MODEL_VALUES.cm_yellow_gain.range.default,
+					min: MODEL_ACTIONS.cm_yellow_gain.range.min,
+					max: MODEL_ACTIONS.cm_yellow_gain.range.max,
+					default: MODEL_ACTIONS.cm_yellow_gain.range.default,
 				},
 			],
 			callback: (feedback) => {
-				return this.camera?.cmsetup?.YellowGain == feedback.options.value
+				return this.camera?.cm_yellow_gain == feedback.options.value
 			},
 		}
 	}
 
-	if (MODEL_VALUES?.cm_yellow_hue) {
+	if (MODEL_ACTIONS?.cm_yellow_hue) {
 		feedbacks.cm_yellow_hue = {
 			type: 'boolean',
 			label: 'Color Matrix - Yellow Hue',
@@ -2241,22 +2340,23 @@ exports.initFeedbacks = function () {
 			options: [
 				{
 					type: 'number',
-					label: 'Value (' + MODEL_VALUES.cm_yellow_hue.range.min + ' to ' + MODEL_VALUES.cm_yellow_hue.range.max + ')',
+					label:
+						'Value (' + MODEL_ACTIONS.cm_yellow_hue.range.min + ' to ' + MODEL_ACTIONS.cm_yellow_hue.range.max + ')',
 					id: 'value',
-					min: MODEL_VALUES.cm_yellow_hue.range.min,
-					max: MODEL_VALUES.cm_yellow_hue.range.max,
-					default: MODEL_VALUES.cm_yellow_hue.range.default,
+					min: MODEL_ACTIONS.cm_yellow_hue.range.min,
+					max: MODEL_ACTIONS.cm_yellow_hue.range.max,
+					default: MODEL_ACTIONS.cm_yellow_hue.range.default,
 				},
 			],
 			callback: (feedback) => {
-				return this.camera?.cmsetup?.YellowHue == feedback.options.value
+				return this.camera?.cm_yellow_hue == feedback.options.value
 			},
 		}
 	}
 
 	// Advanced Setup Feedback
 
-	if (MODEL_VALUES?.brightness) {
+	if (MODEL_ACTIONS?.brightness) {
 		feedbacks.brightness = {
 			type: 'boolean',
 			label: 'Advanced Setup - Brightness',
@@ -2268,20 +2368,20 @@ exports.initFeedbacks = function () {
 			options: [
 				{
 					type: 'number',
-					label: 'Value (' + MODEL_VALUES.brightness.range.min + ' to ' + MODEL_VALUES.brightness.range.max + ')',
+					label: 'Value (' + MODEL_ACTIONS.brightness.range.min + ' to ' + MODEL_ACTIONS.brightness.range.max + ')',
 					id: 'value',
-					min: MODEL_VALUES.brightness.range.min,
-					max: MODEL_VALUES.brightness.range.max,
-					default: MODEL_VALUES.brightness.range.default,
+					min: MODEL_ACTIONS.brightness.range.min,
+					max: MODEL_ACTIONS.brightness.range.max,
+					default: MODEL_ACTIONS.brightness.range.default,
 				},
 			],
 			callback: (feedback) => {
-				return this.camera?.advancesetup?.Brightness == feedback.options.value
+				return this.camera?.brightness == feedback.options.value
 			},
 		}
 	}
 
-	if (MODEL_VALUES?.brightness_comp) {
+	if (MODEL_ACTIONS?.brightness_comp) {
 		feedbacks.brightness_comp = {
 			type: 'boolean',
 			label: 'Advanced Setup - Brightness Compensation',
@@ -2295,17 +2395,17 @@ exports.initFeedbacks = function () {
 					type: 'dropdown',
 					label: 'Mode',
 					id: 'val',
-					choices: MODEL_VALUES.brightness_comp.choices,
-					default: MODEL_VALUES.brightness_comp.default,
+					choices: MODEL_ACTIONS.brightness_comp.choices,
+					default: MODEL_ACTIONS.brightness_comp.default,
 				},
 			],
 			callback: (feedback) => {
-				return this.camera?.advancesetup?.BrightnessComp == feedback.options.val
+				return this.camera?.brightness_comp == feedback.options.val
 			},
 		}
 	}
 
-	if (MODEL_VALUES?.comp_level) {
+	if (MODEL_ACTIONS?.comp_level) {
 		feedbacks.comp_level = {
 			type: 'boolean',
 			label: 'Advanced Setup - Compensation Level',
@@ -2319,17 +2419,17 @@ exports.initFeedbacks = function () {
 					type: 'dropdown',
 					label: 'Level',
 					id: 'val',
-					choices: MODEL_VALUES.comp_level.choices,
-					default: MODEL_VALUES.comp_level.default,
+					choices: MODEL_ACTIONS.comp_level.choices,
+					default: MODEL_ACTIONS.comp_level.default,
 				},
 			],
 			callback: (feedback) => {
-				return this.camera?.advancesetup?.CompLevel == feedback.options.val
+				return this.camera?.comp_level == feedback.options.val
 			},
 		}
 	}
 
-	if (MODEL_VALUES?.gamma_offset) {
+	if (MODEL_ACTIONS?.gamma_offset) {
 		feedbacks.gamma_offset = {
 			type: 'boolean',
 			label: 'Advanced Setup - Gamma Offset',
@@ -2341,20 +2441,20 @@ exports.initFeedbacks = function () {
 			options: [
 				{
 					type: 'number',
-					label: 'Value (' + MODEL_VALUES.gamma_offset.range.min + ' to ' + MODEL_VALUES.gamma_offset.range.max + ')',
+					label: 'Value (' + MODEL_ACTIONS.gamma_offset.range.min + ' to ' + MODEL_ACTIONS.gamma_offset.range.max + ')',
 					id: 'value',
-					min: MODEL_VALUES.gamma_offset.range.min,
-					max: MODEL_VALUES.gamma_offset.range.max,
-					default: MODEL_VALUES.gamma_offset.range.default,
+					min: MODEL_ACTIONS.gamma_offset.range.min,
+					max: MODEL_ACTIONS.gamma_offset.range.max,
+					default: MODEL_ACTIONS.gamma_offset.range.default,
 				},
 			],
 			callback: (feedback) => {
-				return this.camera?.advancesetup?.GammaOffset == feedback.options.value
+				return this.camera?.gamma_offset == feedback.options.value
 			},
 		}
 	}
 
-	if (MODEL_VALUES?.high_resolution) {
+	if (MODEL_ACTIONS?.high_resolution) {
 		feedbacks.high_resolution = {
 			type: 'boolean',
 			label: 'Advanced Setup - High Resolution',
@@ -2368,17 +2468,17 @@ exports.initFeedbacks = function () {
 					type: 'dropdown',
 					label: 'On / Off',
 					id: 'val',
-					choices: MODEL_VALUES.high_resolution.choices,
-					default: MODEL_VALUES.high_resolution.default,
+					choices: MODEL_ACTIONS.high_resolution.choices,
+					default: MODEL_ACTIONS.high_resolution.default,
 				},
 			],
 			callback: (feedback) => {
-				return this.camera?.advancesetup?.HighResolution == feedback.options.val
+				return this.camera?.high_resolution == feedback.options.val
 			},
 		}
 	}
 
-	if (MODEL_VALUES?.video_enhancement) {
+	if (MODEL_ACTIONS?.video_enhancement) {
 		feedbacks.video_enhancement = {
 			type: 'boolean',
 			label: 'Advanced Setup - Video Enhancement',
@@ -2392,19 +2492,19 @@ exports.initFeedbacks = function () {
 					type: 'dropdown',
 					label: 'On / Off',
 					id: 'val',
-					choices: MODEL_VALUES.video_enhancement.choices,
-					default: MODEL_VALUES.video_enhancement.default,
+					choices: MODEL_ACTIONS.video_enhancement.choices,
+					default: MODEL_ACTIONS.video_enhancement.default,
 				},
 			],
 			callback: (feedback) => {
-				return this.camera?.advancesetup?.VideoEnhancement == feedback.options.val
+				return this.camera?.video_enhancement == feedback.options.val
 			},
 		}
 	}
 
 	// External Setup Feedback
 
-	if (MODEL_VALUES?.aux) {
+	if (MODEL_ACTIONS?.aux) {
 		feedbacks.aux = {
 			type: 'boolean',
 			label: 'External Setup - Aux',
@@ -2418,17 +2518,17 @@ exports.initFeedbacks = function () {
 					type: 'dropdown',
 					label: 'On / Off',
 					id: 'val',
-					choices: MODEL_VALUES.aux.choices,
-					default: MODEL_VALUES.aux.default,
+					choices: MODEL_ACTIONS.aux.choices,
+					default: MODEL_ACTIONS.aux.default,
 				},
 			],
 			callback: (feedback) => {
-				return this.camera?.externalsetup?.Aux == feedback.options.val
+				return this.camera?.aux == feedback.options.val
 			},
 		}
 	}
 
-	if (MODEL_VALUES?.rain_wiper) {
+	if (MODEL_ACTIONS?.rain_wiper) {
 		feedbacks.rain_wiper = {
 			type: 'boolean',
 			label: 'External Setup - Rain Wiper',
@@ -2442,17 +2542,17 @@ exports.initFeedbacks = function () {
 					type: 'dropdown',
 					label: 'On / Off',
 					id: 'val',
-					choices: MODEL_VALUES.rain_wiper.choices,
-					default: MODEL_VALUES.rain_wiper.default,
+					choices: MODEL_ACTIONS.rain_wiper.choices,
+					default: MODEL_ACTIONS.rain_wiper.default,
 				},
 			],
 			callback: (feedback) => {
-				return this.camera?.externalsetup?.RainWiper == feedback.options.val
+				return this.camera?.rain_wiper == feedback.options.val
 			},
 		}
 	}
 
-	if (MODEL_VALUES?.v12vout) {
+	if (MODEL_ACTIONS?.v12vout) {
 		feedbacks.v12vout = {
 			type: 'boolean',
 			label: 'External Setup - 12v Out',
@@ -2466,19 +2566,19 @@ exports.initFeedbacks = function () {
 					type: 'dropdown',
 					label: 'On / Off',
 					id: 'val',
-					choices: MODEL_VALUES.v12vout.choices,
-					default: MODEL_VALUES.v12vout.default,
+					choices: MODEL_ACTIONS.v12vout.choices,
+					default: MODEL_ACTIONS.v12vout.default,
 				},
 			],
 			callback: (feedback) => {
-				return this.camera?.externalsetup?.V12vOut == feedback.options.val
+				return this.camera?.v12vout == feedback.options.val
 			},
 		}
 	}
 
 	// Detail Setup Feedback
 
-	if (MODEL_VALUES?.bandwidth) {
+	if (MODEL_ACTIONS?.bandwidth) {
 		feedbacks.bandwidth = {
 			type: 'boolean',
 			label: 'Detail Setup - Bandwidth',
@@ -2492,17 +2592,17 @@ exports.initFeedbacks = function () {
 					type: 'dropdown',
 					label: 'Mode',
 					id: 'val',
-					choices: MODEL_VALUES.bandwidth.choices,
-					default: MODEL_VALUES.bandwidth.default,
+					choices: MODEL_ACTIONS.bandwidth.choices,
+					default: MODEL_ACTIONS.bandwidth.default,
 				},
 			],
 			callback: (feedback) => {
-				return this.camera?.detsetup?.Bandwidth == feedback.options.val
+				return this.camera?.bandwidth == feedback.options.val
 			},
 		}
 	}
 
-	if (MODEL_VALUES?.bw_balance) {
+	if (MODEL_ACTIONS?.bw_balance) {
 		feedbacks.bw_balance = {
 			type: 'boolean',
 			label: 'Detail Setup - BW Bandwidth',
@@ -2516,17 +2616,17 @@ exports.initFeedbacks = function () {
 					type: 'dropdown',
 					label: 'Mode',
 					id: 'val',
-					choices: MODEL_VALUES.bw_balance.choices,
-					default: MODEL_VALUES.bw_balance.default,
+					choices: MODEL_ACTIONS.bw_balance.choices,
+					default: MODEL_ACTIONS.bw_balance.default,
 				},
 			],
 			callback: (feedback) => {
-				return this.camera?.detsetup?.BwBalance == feedback.options.val
+				return this.camera?.bw_balance == feedback.options.val
 			},
 		}
 	}
 
-	if (MODEL_VALUES?.crispening) {
+	if (MODEL_ACTIONS?.crispening) {
 		feedbacks.crispening = {
 			type: 'boolean',
 			label: 'Detail Setup - Crispening',
@@ -2538,20 +2638,20 @@ exports.initFeedbacks = function () {
 			options: [
 				{
 					type: 'number',
-					label: 'Value (' + MODEL_VALUES.crispening.range.min + ' to ' + MODEL_VALUES.crispening.range.max + ')',
+					label: 'Value (' + MODEL_ACTIONS.crispening.range.min + ' to ' + MODEL_ACTIONS.crispening.range.max + ')',
 					id: 'value',
-					min: MODEL_VALUES.crispening.range.min,
-					max: MODEL_VALUES.crispening.range.max,
-					default: MODEL_VALUES.crispening.range.default,
+					min: MODEL_ACTIONS.crispening.range.min,
+					max: MODEL_ACTIONS.crispening.range.max,
+					default: MODEL_ACTIONS.crispening.range.default,
 				},
 			],
 			callback: (feedback) => {
-				return this.camera?.detsetup?.Crispening == feedback.options.value
+				return this.camera?.crispening == feedback.options.value
 			},
 		}
 	}
 
-	if (MODEL_VALUES?.detail) {
+	if (MODEL_ACTIONS?.detail) {
 		feedbacks.detail = {
 			type: 'boolean',
 			label: 'Detail Setup - Detail',
@@ -2565,17 +2665,17 @@ exports.initFeedbacks = function () {
 					type: 'dropdown',
 					label: 'On / Off',
 					id: 'val',
-					choices: MODEL_VALUES.detail.choices,
-					default: MODEL_VALUES.detail.default,
+					choices: MODEL_ACTIONS.detail.choices,
+					default: MODEL_ACTIONS.detail.default,
 				},
 			],
 			callback: (feedback) => {
-				return this.camera?.detsetup?.Detail == feedback.options.val
+				return this.camera?.detail == feedback.options.val
 			},
 		}
 	}
 
-	if (MODEL_VALUES?.highlight_detail) {
+	if (MODEL_ACTIONS?.highlight_detail) {
 		feedbacks.highlight_detail = {
 			type: 'boolean',
 			label: 'Detail Setup - Highlight Detail',
@@ -2589,23 +2689,23 @@ exports.initFeedbacks = function () {
 					type: 'number',
 					label:
 						'Value (' +
-						MODEL_VALUES.highlight_detail.range.min +
+						MODEL_ACTIONS.highlight_detail.range.min +
 						' to ' +
-						MODEL_VALUES.highlight_detail.range.max +
+						MODEL_ACTIONS.highlight_detail.range.max +
 						')',
 					id: 'value',
-					min: MODEL_VALUES.highlight_detail.range.min,
-					max: MODEL_VALUES.highlight_detail.range.max,
-					default: MODEL_VALUES.highlight_detail.range.default,
+					min: MODEL_ACTIONS.highlight_detail.range.min,
+					max: MODEL_ACTIONS.highlight_detail.range.max,
+					default: MODEL_ACTIONS.highlight_detail.range.default,
 				},
 			],
 			callback: (feedback) => {
-				return this.camera?.detsetup?.HighLightDetail == feedback.options.value
+				return this.camera?.highlight_detail == feedback.options.value
 			},
 		}
 	}
 
-	if (MODEL_VALUES?.hv_balance) {
+	if (MODEL_ACTIONS?.hv_balance) {
 		feedbacks.hv_balance = {
 			type: 'boolean',
 			label: 'Detail Setup - Hv Balance',
@@ -2617,20 +2717,20 @@ exports.initFeedbacks = function () {
 			options: [
 				{
 					type: 'number',
-					label: 'Value (' + MODEL_VALUES.hv_balance.range.min + ' to ' + MODEL_VALUES.hv_balance.range.max + ')',
+					label: 'Value (' + MODEL_ACTIONS.hv_balance.range.min + ' to ' + MODEL_ACTIONS.hv_balance.range.max + ')',
 					id: 'value',
-					min: MODEL_VALUES.hv_balance.range.min,
-					max: MODEL_VALUES.hv_balance.range.max,
-					default: MODEL_VALUES.hv_balance.range.default,
+					min: MODEL_ACTIONS.hv_balance.range.min,
+					max: MODEL_ACTIONS.hv_balance.range.max,
+					default: MODEL_ACTIONS.hv_balance.range.default,
 				},
 			],
 			callback: (feedback) => {
-				return this.camera?.detsetup?.HvBalance == feedback.options.value
+				return this.camera?.hv_balance == feedback.options.value
 			},
 		}
 	}
 
-	if (MODEL_VALUES?.limit) {
+	if (MODEL_ACTIONS?.limit) {
 		feedbacks.limit = {
 			type: 'boolean',
 			label: 'Detail Setup - Limit',
@@ -2642,20 +2742,20 @@ exports.initFeedbacks = function () {
 			options: [
 				{
 					type: 'number',
-					label: 'Value (' + MODEL_VALUES.limit.range.min + ' to ' + MODEL_VALUES.limit.range.max + ')',
+					label: 'Value (' + MODEL_ACTIONS.limit.range.min + ' to ' + MODEL_ACTIONS.limit.range.max + ')',
 					id: 'value',
-					min: MODEL_VALUES.limit.range.min,
-					max: MODEL_VALUES.limit.range.max,
-					default: MODEL_VALUES.limit.range.default,
+					min: MODEL_ACTIONS.limit.range.min,
+					max: MODEL_ACTIONS.limit.range.max,
+					default: MODEL_ACTIONS.limit.range.default,
 				},
 			],
 			callback: (feedback) => {
-				return this.camera?.detsetup?.Limit == feedback.options.value
+				return this.camera?.limit == feedback.options.value
 			},
 		}
 	}
 
-	if (MODEL_VALUES?.super_low) {
+	if (MODEL_ACTIONS?.super_low) {
 		feedbacks.super_low = {
 			type: 'boolean',
 			label: 'Detail Setup - Super Low',
@@ -2667,22 +2767,22 @@ exports.initFeedbacks = function () {
 			options: [
 				{
 					type: 'number',
-					label: 'Value (' + MODEL_VALUES.super_low.range.min + ' to ' + MODEL_VALUES.super_low.range.max + ')',
+					label: 'Value (' + MODEL_ACTIONS.super_low.range.min + ' to ' + MODEL_ACTIONS.super_low.range.max + ')',
 					id: 'value',
-					min: MODEL_VALUES.super_low.range.min,
-					max: MODEL_VALUES.super_low.range.max,
-					default: MODEL_VALUES.super_low.range.default,
+					min: MODEL_ACTIONS.super_low.range.min,
+					max: MODEL_ACTIONS.super_low.range.max,
+					default: MODEL_ACTIONS.super_low.range.default,
 				},
 			],
 			callback: (feedback) => {
-				return this.camera?.detsetup?.SuperLow == feedback.options.value
+				return this.camera?.super_low == feedback.options.value
 			},
 		}
 	}
 
 	// Gamma Setup Feedback
 
-	if (MODEL_VALUES?.black_gamma_level) {
+	if (MODEL_ACTIONS?.black_gamma_level) {
 		feedbacks.black_gamma_level = {
 			type: 'boolean',
 			label: 'Gamma Setup - Black Gamma Level',
@@ -2696,23 +2796,23 @@ exports.initFeedbacks = function () {
 					type: 'number',
 					label:
 						'Level (' +
-						MODEL_VALUES.black_gamma_level.range.min +
+						MODEL_ACTIONS.black_gamma_level.range.min +
 						' to ' +
-						MODEL_VALUES.black_gamma_level.range.max +
+						MODEL_ACTIONS.black_gamma_level.range.max +
 						')',
 					id: 'value',
-					min: MODEL_VALUES.black_gamma_level.range.min,
-					max: MODEL_VALUES.black_gamma_level.range.max,
-					default: MODEL_VALUES.black_gamma_level.range.default,
+					min: MODEL_ACTIONS.black_gamma_level.range.min,
+					max: MODEL_ACTIONS.black_gamma_level.range.max,
+					default: MODEL_ACTIONS.black_gamma_level.range.default,
 				},
 			],
 			callback: (feedback) => {
-				return this.camera?.gammasetup?.BlackGammaLevel == feedback.options.value
+				return this.camera?.black_gamma_level == feedback.options.value
 			},
 		}
 	}
 
-	if (MODEL_VALUES?.black_level) {
+	if (MODEL_ACTIONS?.black_level) {
 		feedbacks.black_level = {
 			type: 'boolean',
 			label: 'Gamma Setup - Black Gamma Level',
@@ -2724,20 +2824,20 @@ exports.initFeedbacks = function () {
 			options: [
 				{
 					type: 'number',
-					label: 'Level (' + MODEL_VALUES.black_level.range.min + ' to ' + MODEL_VALUES.black_level.range.max + ')',
+					label: 'Level (' + MODEL_ACTIONS.black_level.range.min + ' to ' + MODEL_ACTIONS.black_level.range.max + ')',
 					id: 'value',
-					min: MODEL_VALUES.black_level.range.min,
-					max: MODEL_VALUES.black_level.range.max,
-					default: MODEL_VALUES.black_level.range.default,
+					min: MODEL_ACTIONS.black_level.range.min,
+					max: MODEL_ACTIONS.black_level.range.max,
+					default: MODEL_ACTIONS.black_level.range.default,
 				},
 			],
 			callback: (feedback) => {
-				return this.camera?.gammasetup?.BlackLevel == feedback.options.value
+				return this.camera?.black_level == feedback.options.value
 			},
 		}
 	}
 
-	if (MODEL_VALUES?.black_level_range) {
+	if (MODEL_ACTIONS?.black_level_range) {
 		feedbacks.black_level_range = {
 			type: 'boolean',
 			label: 'Gamma Setup - Black Level Range',
@@ -2751,17 +2851,17 @@ exports.initFeedbacks = function () {
 					type: 'dropdown',
 					label: 'Black Level Range',
 					id: 'val',
-					choices: MODEL_VALUES.black_level_range.choices,
-					default: MODEL_VALUES.black_level_range.default,
+					choices: MODEL_ACTIONS.black_level_range.choices,
+					default: MODEL_ACTIONS.black_level_range.default,
 				},
 			],
 			callback: (feedback) => {
-				return this.camera?.gammasetup?.BlackLevelRange == feedback.options.value
+				return this.camera?.black_level_range == feedback.options.value
 			},
 		}
 	}
 
-	if (MODEL_VALUES?.effect) {
+	if (MODEL_ACTIONS?.effect) {
 		feedbacks.effect = {
 			type: 'boolean',
 			label: 'Gamma Setup - Effect',
@@ -2773,20 +2873,20 @@ exports.initFeedbacks = function () {
 			options: [
 				{
 					type: 'number',
-					label: 'Value (' + MODEL_VALUES.effect.range.min + ' to ' + MODEL_VALUES.effect.range.max + ')',
+					label: 'Value (' + MODEL_ACTIONS.effect.range.min + ' to ' + MODEL_ACTIONS.effect.range.max + ')',
 					id: 'value',
-					min: MODEL_VALUES.effect.range.min,
-					max: MODEL_VALUES.effect.range.max,
-					default: MODEL_VALUES.effect.range.default,
+					min: MODEL_ACTIONS.effect.range.min,
+					max: MODEL_ACTIONS.effect.range.max,
+					default: MODEL_ACTIONS.effect.range.default,
 				},
 			],
 			callback: (feedback) => {
-				return this.camera?.gammasetup?.Effect == feedback.options.value
+				return this.camera?.effect == feedback.options.value
 			},
 		}
 	}
 
-	if (MODEL_VALUES?.level) {
+	if (MODEL_ACTIONS?.level) {
 		feedbacks.level = {
 			type: 'boolean',
 			label: 'Gamma Setup - Level',
@@ -2798,20 +2898,20 @@ exports.initFeedbacks = function () {
 			options: [
 				{
 					type: 'number',
-					label: 'Value (' + MODEL_VALUES.level.range.min + ' to ' + MODEL_VALUES.level.range.max + ')',
+					label: 'Value (' + MODEL_ACTIONS.level.range.min + ' to ' + MODEL_ACTIONS.level.range.max + ')',
 					id: 'value',
-					min: MODEL_VALUES.level.range.min,
-					max: MODEL_VALUES.level.range.max,
-					default: MODEL_VALUES.level.range.default,
+					min: MODEL_ACTIONS.level.range.min,
+					max: MODEL_ACTIONS.level.range.max,
+					default: MODEL_ACTIONS.level.range.default,
 				},
 			],
 			callback: (feedback) => {
-				return this.camera?.gammasetup?.Level == feedback.options.value
+				return this.camera?.level == feedback.options.value
 			},
 		}
 	}
 
-	if (MODEL_VALUES?.offset) {
+	if (MODEL_ACTIONS?.offset) {
 		feedbacks.offset = {
 			type: 'boolean',
 			label: 'Gamma Setup - Offset',
@@ -2823,20 +2923,20 @@ exports.initFeedbacks = function () {
 			options: [
 				{
 					type: 'number',
-					label: 'Value (' + MODEL_VALUES.offset.range.min + ' to ' + MODEL_VALUES.offset.range.max + ')',
+					label: 'Value (' + MODEL_ACTIONS.offset.range.min + ' to ' + MODEL_ACTIONS.offset.range.max + ')',
 					id: 'value',
-					min: MODEL_VALUES.offset.range.min,
-					max: MODEL_VALUES.offset.range.max,
-					default: MODEL_VALUES.offset.range.default,
+					min: MODEL_ACTIONS.offset.range.min,
+					max: MODEL_ACTIONS.offset.range.max,
+					default: MODEL_ACTIONS.offset.range.default,
 				},
 			],
 			callback: (feedback) => {
-				return this.camera?.gammasetup?.Offset == feedback.options.value
+				return this.camera?.offset == feedback.options.value
 			},
 		}
 	}
 
-	if (MODEL_VALUES?.pattern) {
+	if (MODEL_ACTIONS?.pattern) {
 		feedbacks.pattern = {
 			type: 'boolean',
 			label: 'Gamma Setup - Pattern',
@@ -2848,20 +2948,20 @@ exports.initFeedbacks = function () {
 			options: [
 				{
 					type: 'number',
-					label: 'Value (' + MODEL_VALUES.pattern.range.min + ' to ' + MODEL_VALUES.pattern.range.max + ')',
+					label: 'Value (' + MODEL_ACTIONS.pattern.range.min + ' to ' + MODEL_ACTIONS.pattern.range.max + ')',
 					id: 'value',
-					min: MODEL_VALUES.pattern.range.min,
-					max: MODEL_VALUES.pattern.range.max,
-					default: MODEL_VALUES.pattern.range.default,
+					min: MODEL_ACTIONS.pattern.range.min,
+					max: MODEL_ACTIONS.pattern.range.max,
+					default: MODEL_ACTIONS.pattern.range.default,
 				},
 			],
 			callback: (feedback) => {
-				return this.camera?.gammasetup?.Pattern == feedback.options.value
+				return this.camera?.pattern == feedback.options.value
 			},
 		}
 	}
 
-	if (MODEL_VALUES?.pattern_fine) {
+	if (MODEL_ACTIONS?.pattern_fine) {
 		feedbacks.pattern_fine = {
 			type: 'boolean',
 			label: 'Gamma Setup - Pattern Fine',
@@ -2873,20 +2973,20 @@ exports.initFeedbacks = function () {
 			options: [
 				{
 					type: 'number',
-					label: 'Value (' + MODEL_VALUES.pattern_fine.range.min + ' to ' + MODEL_VALUES.pattern_fine.range.max + ')',
+					label: 'Value (' + MODEL_ACTIONS.pattern_fine.range.min + ' to ' + MODEL_ACTIONS.pattern_fine.range.max + ')',
 					id: 'value',
-					min: MODEL_VALUES.pattern_fine.range.min,
-					max: MODEL_VALUES.pattern_fine.range.max,
-					default: MODEL_VALUES.pattern_fine.range.default,
+					min: MODEL_ACTIONS.pattern_fine.range.min,
+					max: MODEL_ACTIONS.pattern_fine.range.max,
+					default: MODEL_ACTIONS.pattern_fine.range.default,
 				},
 			],
 			callback: (feedback) => {
-				return this.camera?.gammasetup?.PatternFine == feedback.options.value
+				return this.camera?.pattern_fine == feedback.options.value
 			},
 		}
 	}
 
-	if (MODEL_VALUES?.settings) {
+	if (MODEL_ACTIONS?.settings) {
 		feedbacks.settings = {
 			type: 'boolean',
 			label: 'Gamma Setup - Settings',
@@ -2900,17 +3000,17 @@ exports.initFeedbacks = function () {
 					type: 'dropdown',
 					label: 'Settings',
 					id: 'val',
-					choices: MODEL_VALUES.settings.choices,
-					default: MODEL_VALUES.settings.default,
+					choices: MODEL_ACTIONS.settings.choices,
+					default: MODEL_ACTIONS.settings.default,
 				},
 			],
 			callback: (feedback) => {
-				return this.camera?.gammasetup?.Settings == feedback.options.value
+				return this.camera?.settings == feedback.options.value
 			},
 		}
 	}
 
-	if (MODEL_VALUES?.visibility_enhancer) {
+	if (MODEL_ACTIONS?.visibility_enhancer) {
 		feedbacks.visibility_enhancer = {
 			type: 'boolean',
 			label: 'Gamma Setup - Visibility Enhancer',
@@ -2924,12 +3024,188 @@ exports.initFeedbacks = function () {
 					type: 'dropdown',
 					label: 'Settings',
 					id: 'val',
-					choices: MODEL_VALUES.visibility_enhancer.choices,
-					default: MODEL_VALUES.visibility_enhancer.default,
+					choices: MODEL_ACTIONS.visibility_enhancer.choices,
+					default: MODEL_ACTIONS.visibility_enhancer.default,
 				},
 			],
 			callback: (feedback) => {
-				return this.camera?.gammasetup?.VisibilityEnhancer == feedback.options.value
+				return this.camera?.visibility_enhancer == feedback.options.value
+			},
+		}
+	}
+
+	// BirdDog Scope Feedback
+
+	if (MODEL_ACTIONS?.scope_size) {
+		feedbacks.scope_size = {
+			type: 'boolean',
+			label: 'Scope - Size',
+			description: 'If the camera matches the selected Scope Size, change the style of the button',
+			style: {
+				color: ColorBlack,
+				bgcolor: ColorGreen,
+			},
+			options: [
+				{
+					type: 'dropdown',
+					label: 'On/Off',
+					id: 'val',
+					choices: MODEL_ACTIONS.scope_size.choices,
+					default: MODEL_ACTIONS.scope_size.default,
+				},
+			],
+			callback: (feedback) => {
+				return this.camera?.scope_size == feedback.options.value
+			},
+		}
+	}
+
+	if (MODEL_ACTIONS?.scope_gamma_gain) {
+		feedbacks.scope_gamma_gain = {
+			type: 'boolean',
+			label: 'Scope - Gamma Gain',
+			description: 'If the camera matches the selected Scope Gamma Gain, change the style of the button',
+			style: {
+				color: ColorBlack,
+				bgcolor: ColorGreen,
+			},
+			options: [
+				{
+					type: 'number',
+					label:
+						'Value (' +
+						MODEL_ACTIONS.scope_gamma_gain.range.min +
+						' to ' +
+						MODEL_ACTIONS.scope_gamma_gain.range.max +
+						')',
+					id: 'value',
+					min: MODEL_ACTIONS.scope_gamma_gain.range.min,
+					max: MODEL_ACTIONS.scope_gamma_gain.range.max,
+					default: MODEL_ACTIONS.scope_gamma_gain.range.default,
+				},
+			],
+			callback: (feedback) => {
+				return this.camera?.scope_gamma_gain == feedback.options.value
+			},
+		}
+	}
+
+	if (MODEL_ACTIONS?.scope_mode) {
+		feedbacks.scope_mode = {
+			type: 'boolean',
+			label: 'Scope - Mode',
+			description: 'If the camera matches the selected Scope Mode, change the style of the button',
+			style: {
+				color: ColorBlack,
+				bgcolor: ColorGreen,
+			},
+			options: [
+				{
+					type: 'dropdown',
+					label: 'Mode',
+					id: 'val',
+					choices: MODEL_ACTIONS.scope_mode.choices,
+					default: MODEL_ACTIONS.scope_mode.default,
+				},
+			],
+			callback: (feedback) => {
+				return this.camera?.scope_mode == feedback.options.value
+			},
+		}
+	}
+
+	if (MODEL_ACTIONS?.scope_position) {
+		feedbacks.scope_position = {
+			type: 'boolean',
+			label: 'Scope - Position',
+			description: 'If the camera matches the selected scope position, change the style of the button',
+			style: {
+				color: ColorBlack,
+				bgcolor: ColorGreen,
+			},
+			options: [
+				{
+					type: 'dropdown',
+					label: 'Position',
+					id: 'val',
+					choices: MODEL_ACTIONS.scope_position.choices,
+					default: MODEL_ACTIONS.scope_position.default,
+				},
+			],
+			callback: (feedback) => {
+				return this.camera?.scope_position == feedback.options.value
+			},
+		}
+	}
+
+	if (MODEL_ACTIONS?.scope_preview) {
+		feedbacks.scope_preview = {
+			type: 'boolean',
+			label: 'Scope - Preview',
+			description: 'If the camera matches the selected scope preview mode, change the style of the button',
+			style: {
+				color: ColorBlack,
+				bgcolor: ColorGreen,
+			},
+			options: [
+				{
+					type: 'dropdown',
+					label: 'On/Off',
+					id: 'val',
+					choices: MODEL_ACTIONS.scope_preview.choices,
+					default: MODEL_ACTIONS.scope_preview.default,
+				},
+			],
+			callback: (feedback) => {
+				return this.camera?.scope_preview == feedback.options.value
+			},
+		}
+	}
+
+	if (MODEL_ACTIONS?.scope_program) {
+		feedbacks.scope_program = {
+			type: 'boolean',
+			label: 'Scope - Program',
+			description: 'If the camera matches the selected scope program mode, change the style of the button',
+			style: {
+				color: ColorBlack,
+				bgcolor: ColorGreen,
+			},
+			options: [
+				{
+					type: 'dropdown',
+					label: 'On/Off',
+					id: 'val',
+					choices: MODEL_ACTIONS.scope_program.choices,
+					default: MODEL_ACTIONS.scope_program.default,
+				},
+			],
+			callback: (feedback) => {
+				return this.camera?.scope_program == feedback.options.value
+			},
+		}
+	}
+
+	if (MODEL_ACTIONS?.scope_transparency) {
+		feedbacks.scope_transparency = {
+			type: 'boolean',
+			label: 'Scope - Transparency',
+			description: 'If the camera matches the selected scope transparency mode, change the style of the button',
+			style: {
+				color: ColorBlack,
+				bgcolor: ColorGreen,
+			},
+			options: [
+				{
+					type: 'dropdown',
+					label: 'On/Off',
+					id: 'val',
+					choices: MODEL_ACTIONS.scope_transparency.choices,
+					default: MODEL_ACTIONS.scope_transparency.default,
+				},
+			],
+			callback: (feedback) => {
+				return this.camera?.scope_transparency == feedback.options.value
 			},
 		}
 	}

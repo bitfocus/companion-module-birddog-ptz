@@ -343,4 +343,29 @@ module.exports = {
 			changed = true
 		}
 	},
+
+	colorTempChange: function (context, config, actions, feedbacks) {
+		let changed = false
+		actions.forEach((action) => {
+			if (action.action === 'color_temp') {
+				if (!['up', 'down', 'value'].includes(action.options.val)) {
+					let val = action.options.val
+					action.options.val = 'value'
+					action.options.value = val
+					changed = true
+				}
+			}
+		})
+		return changed
+	},
+
+	tallyMode: function (context, config, actions, feedbacks) {
+		let changed = false
+		actions.forEach((action) => {
+			if (action.action === 'tally') {
+				action.action = 'tally_mode'
+			}
+		})
+		return changed
+	},
 }
