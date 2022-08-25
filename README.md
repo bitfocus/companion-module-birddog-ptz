@@ -8,6 +8,33 @@ See [HELP.md](https://github.com/bitfocus/companion-module-birddog-ptz/blob/main
 
 ## Changes
 
+### v2.2.0
+
+- Changes
+
+  - Added v5 FW API calls
+  - Added Realtime variables from Camera dashboard
+  - Added P110 & P120 model cameras
+  - Improved model detection and initialization
+  - Seperated polling of camera config from camera status
+  - Filter Actions / Feedback / Variables based on Model & FW
+  - Improved backend to handle mulitple models and firmware, and for storing device status
+
+  New Actions
+
+  - Capture Screensaver
+  - Preset Mode
+  - Preset Speed
+  - Scope Size
+  - Scope Gamma Gain
+  - Scope Mode
+  - Scope Position
+  - Scope Preview
+  - Scope Program
+  - Scope Transparency
+  - Screensaver Mode
+  - Stream to Network
+
 ### v2.1.3
 
 - Changes

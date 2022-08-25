@@ -280,6 +280,16 @@ module.exports = {
 				},
 			],
 		},
+		capture: {
+			camera: ['All'],
+			firmware: ['5'],
+			action: [
+				{
+					camera: ['common'],
+					action: true,
+				},
+			],
+		},
 		color_bitdepth: {
 			camera: ['All'],
 			firmware: ['5'],
@@ -452,16 +462,6 @@ module.exports = {
 			api_variable: ['txmcttl', 'Txmcttl'],
 			variable_name: 'transmit_ttl',
 			variable_label: 'Encode Transport - Transmit TTL',
-		},
-		capture: {
-			camera: ['All'],
-			firmware: ['5'],
-			action: [
-				{
-					camera: ['common'],
-					action: true,
-				},
-			],
 		},
 
 		// NDI Discovery

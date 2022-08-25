@@ -41,7 +41,12 @@ class instance extends instance_skel {
 	//static DEVELOPER_forceStartupUpgradeScript = 2
 
 	static GetUpgradeScripts() {
-		return [upgradeScripts.choicesUpgrade, upgradeScripts.autoDetectDefault, upgradeScripts.colorTempChange, upgradeScripts.tallyMode]
+		return [
+			upgradeScripts.choicesUpgrade,
+			upgradeScripts.autoDetectDefault,
+			upgradeScripts.colorTempChange,
+			upgradeScripts.tallyMode,
+		]
 	}
 
 	config_fields() {
