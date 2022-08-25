@@ -284,7 +284,7 @@ class instance extends instance_skel {
 				this.sendCommand('encodeTransport', 'POST', body)
 				break
 
-			case 'capture':
+			case 'capture_screensaver':
 				this.sendCommand('capture?ChNum=1&status=Encode', 'GET')
 				break
 
@@ -2471,8 +2471,6 @@ class instance extends instance_skel {
 					let model = data
 					if (model) {
 						model = model.replace(/BirdDog| |_/g, '')
-						//this.debug('---- Model returned from call to "/version" is ', model, ' - now running checkCameraModel')
-						//this.camera.model = this.checkCameraModel(model)
 						this.getCameraFW(this.checkCameraModel(model))
 					} else if (!model && this.currentStatus != 2) {
 						this.log('error', 'Please upgrade your BirdDog camera to the latest LTS firmware to use this module')
@@ -2520,8 +2518,6 @@ class instance extends instance_skel {
 				if (data.FirmwareVersion) {
 					let FW_major = data.FirmwareVersion.substring(data.FirmwareVersion.lastIndexOf(' ') + 1).substring(0, 1)
 					let FW_minor = data.FirmwareVersion.substring(data.FirmwareVersion.lastIndexOf(' ') + 2).substring(1)
-					//this.debug('---- Camera FW Major:' + FW_major)
-					//this.debug('---- Camera FW Minor:' + FW_minor)
 
 					// Set Initial State for Camera
 					this.intializeState(model, FW_major, FW_minor)
@@ -2577,16 +2573,16 @@ class instance extends instance_skel {
 	}
 
 	checkCameraModel(detectedModel) {
-		this.debug('---- In checkCameraModel with detectedModel as', detectedModel)
+		//this.debug('---- In checkCameraModel with detectedModel as', detectedModel)
 		var model = CHOICES.CAMERAS.find((element) => {
-			this.debug('---- Checking element ', element)
+			// this.debug('---- Checking element ', element)
 			if (element.id === detectedModel) {
 				return detectedModel
 			} else if (element?.other) {
 				var tempArray = Object.entries(element)
 				return tempArray[2][1].includes(detectedModel)
 			} else {
-				this.debug('---- Returning False for ', element)
+				// this.debug('---- Returning False for ', element)
 				return false
 			}
 		})
