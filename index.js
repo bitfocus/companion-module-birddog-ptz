@@ -901,7 +901,7 @@ class instance extends instance_skel {
 						break
 					case 'down':
 						newValue = color_temp > MODEL_ACTIONS.color_temp.range.min ? --color_temp : color_temp
-						newValue + '00'
+						newValue = newValue + '00'
 						break
 					case 'value':
 						newValue = opt.value
