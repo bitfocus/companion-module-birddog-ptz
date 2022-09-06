@@ -47,7 +47,7 @@ module.exports = {
 		//Picture Settings
 		birddogpicsetup: { camera: ['All'], firmware: ['4', '5'] },
 		birddogcmsetup: {
-			camera: ['P100','P110', 'P120','PF120', 'P200A2A3', 'P200A4A5', 'A200GEN1', 'A200GEN2', 'A300GEN1', 'A300GEN2'],
+			camera: ['P100', 'P110', 'P120', 'PF120', 'P200A2A3', 'P200A4A5', 'A200GEN1', 'A200GEN2', 'A300GEN1', 'A300GEN2'],
 			firmware: ['4', '5'],
 		},
 
@@ -1679,7 +1679,7 @@ module.exports = {
 					action: { choices: CHOICES.UP_DOWN_VALUE, default: 'up' },
 				},
 				{
-					camera: ['P100','P110', 'P120', 'PF120'],
+					camera: ['P100', 'P110', 'P120', 'PF120'],
 					action: { range: { min: 0, max: 15, default: 8 } },
 				},
 				{
