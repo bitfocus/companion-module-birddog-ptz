@@ -270,13 +270,13 @@ class instance extends instance_skel {
 				}
 
 				if (changed.includes('shutter_max_speed')) {
-					// rebuild actions as GainLimit has changed
+					// rebuild actions as Shutter Max speed has changed
 					console.log('-----ShutterMaxSpeed changed')
 					this.actions()
 				}
 
 				if (changed.includes('shutter_min_speed')) {
-					// rebuild actions as GainLimit has changed
+					// rebuild actions as Shutter Min speed has changed
 					console.log('-----ShutterMinSpeed changed')
 					this.actions()
 				}
