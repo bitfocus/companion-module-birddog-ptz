@@ -1,9 +1,14 @@
 const { sortByAction, getModelActions } = require('./utils')
 var { MODEL_SPECS } = require('./models.js')
+const VISCA = require('./constants')
 const CHOICES = require('./choices.js')
 
 module.exports = {
 	getActions() {
+		let cmd = ''
+		let newValue
+		let body = {}
+
 		MODEL_ACTIONS = getModelActions(MODEL_SPECS, this.camera.firmware.major, this.camera.model)
 
 		if (!MODEL_ACTIONS && this.currentStatus != 2) {
@@ -31,6 +36,17 @@ module.exports = {
 						default: MODEL_ACTIONS.standby.default,
 					},
 				],
+				callback: (action) => {
+					switch (action.options.val) {
+						case 'on':
+							cmd = VISCA.MSG_CAM + VISCA.CAM_POWER + VISCA.DATA_ONVAL + VISCA.END_MSG
+							break
+						case 'standby':
+							cmd = VISCA.MSG_CAM + VISCA.CAM_POWER + VISCA.DATA_OFFVAL + VISCA.END_MSG
+							break
+					}
+					this.sendVISCACommand(cmd)
+				},
 			}
 		}
 
@@ -46,6 +62,17 @@ module.exports = {
 						default: MODEL_ACTIONS.freeze.default,
 					},
 				],
+				callback: (action) => {
+					switch (action.options.val) {
+						case 'On':
+							cmd = VISCA.MSG_CAM + VISCA.CAM_FREEZE + VISCA.DATA_ONVAL + VISCA.END_MSG
+							break
+						case 'Off':
+							cmd = VISCA.MSG_CAM + VISCA.CAM_FREEZE + VISCA.DATA_OFFVAL + VISCA.END_MSG
+							break
+					}
+					this.sendVISCACommand(cmd)
+				},
 			}
 		}
 
@@ -69,6 +96,12 @@ module.exports = {
 						max: MODEL_ACTIONS.analogAudioInGain.range.max,
 					},
 				],
+				callback: (action) => {
+					body = {
+						AnalogAudioInGain: String(action.options.val + 50), //Convert action range to API range
+					}
+					this.sendCommand('analogaudiosetup', 'POST', body)
+				},
 			}
 		}
 
@@ -90,6 +123,12 @@ module.exports = {
 						max: MODEL_ACTIONS.analogAudioOutGain.range.max,
 					},
 				],
+				callback: (action) => {
+					body = {
+						AnalogAudioOutGain: String(action.options.val + 50), //Convert action range to API range
+					}
+					this.sendCommand('analogaudiosetup', 'POST', body)
+				},
 			}
 		}
 
@@ -105,6 +144,12 @@ module.exports = {
 						default: MODEL_ACTIONS.analogAudioOutput.default,
 					},
 				],
+				callback: (action) => {
+					body = {
+						AnalogAudiooutputselect: String(action.options.val),
+					}
+					this.sendCommand('analogaudiosetup', 'POST', body)
+				},
 			}
 		}
 
@@ -122,6 +167,12 @@ module.exports = {
 						default: MODEL_ACTIONS.video_output.default,
 					},
 				],
+				callback: (action) => {
+					body = {
+						videooutput: String(action.options.val),
+					}
+					this.sendCommand('videooutputinterface', 'POST', body)
+				},
 			}
 		}
 
@@ -153,6 +204,22 @@ module.exports = {
 						isVisible: (action) => action.options.val === 'Manual',
 					},
 				],
+				callback: (action) => {
+					switch (action.options.val) {
+						case 'NDIManaged':
+							body = {
+								BandwidthMode: String(action.options.val),
+							}
+							break
+						case 'Manual':
+							body = {
+								BandwidthMode: String(action.options.val),
+								BandwidthSelect: String(action.options.bandwidth),
+							}
+							break
+					}
+					this.sendCommand('encodesetup', 'POST', body)
+				},
 			}
 		}
 
@@ -168,6 +235,12 @@ module.exports = {
 						default: MODEL_ACTIONS.ndiAudio.default,
 					},
 				],
+				callback: (action) => {
+					body = {
+						NDIAudio: String(action.options.val),
+					}
+					this.sendCommand('encodesetup', 'POST', body)
+				},
 			}
 		}
 
@@ -183,6 +256,12 @@ module.exports = {
 						default: MODEL_ACTIONS.ndiGroupEnable.default,
 					},
 				],
+				callback: (action) => {
+					body = {
+						NDIGroup: String(action.options.val),
+					}
+					this.sendCommand('encodesetup', 'POST', body)
+				},
 			}
 		}
 
@@ -198,6 +277,12 @@ module.exports = {
 						default: MODEL_ACTIONS.screensaver_mode.default,
 					},
 				],
+				callback: (action) => {
+					body = {
+						ScreenSaverMode: String(action.options.val),
+					}
+					this.sendCommand('encodesetup', 'POST', body)
+				},
 			}
 		}
 
@@ -213,6 +298,12 @@ module.exports = {
 						default: MODEL_ACTIONS.stream_to_network.default,
 					},
 				],
+				callback: (action) => {
+					body = {
+						StreamToNetwork: String(action.options.val),
+					}
+					this.sendCommand('encodesetup', 'POST', body)
+				},
 			}
 		}
 
@@ -228,6 +319,12 @@ module.exports = {
 						default: MODEL_ACTIONS.tally_mode.default,
 					},
 				],
+				callback: (action) => {
+					body = {
+						TallyMode: String(action.options.val),
+					}
+					this.sendCommand('encodesetup', 'POST', body)
+				},
 			}
 		}
 
@@ -245,12 +342,21 @@ module.exports = {
 						default: MODEL_ACTIONS.transmit_method.default,
 					},
 				],
+				callback: (action) => {
+					body = {
+						txpm: String(action.options.val),
+					}
+					this.sendCommand('encodeTransport', 'POST', body)
+				},
 			}
 		}
 
 		if (MODEL_ACTIONS?.capture_screensaver) {
 			actions['capture_screensaver'] = {
 				label: 'Encode - Capture Screensaver',
+				callback: (action) => {
+					this.sendCommand('capture?ChNum=1&status=Encode', 'GET')
+				},
 			}
 		}
 
@@ -268,6 +374,12 @@ module.exports = {
 						default: MODEL_ACTIONS.ndi_discovery_server.default,
 					},
 				],
+				callback: (action) => {
+					body = {
+						NDIDisServ: String(action.options.val),
+					}
+					this.sendCommand('NDIDisServer', 'POST', body)
+				},
 			}
 		}
 
@@ -327,6 +439,318 @@ module.exports = {
 						isVisible: (action) => action.options.override === true || action.options.val === 'direct',
 					},
 				],
+				callback: (action) => {
+					let panSpeed = this.camera?.panSpeed ? this.camera.PanSpeed : MODEL_ACTIONS.panSpeed.range.default
+					let tiltSpeed = this.camera?.tiltSpeed ? this.camera.tiltSpeed : MODEL_ACTIONS.tiltSpeed.range.default
+
+					panSpeed = action.options.override === true ? action.options.panSpeed : panSpeed
+					tiltSpeed = action.options.override === true ? action.options.tiltSpeed : tiltSpeed
+					switch (action.options.val) {
+						case 'left':
+							cmd =
+								VISCA.MSG_OPERATION +
+								VISCA.OP_PAN_DRIVE +
+								String.fromCharCode(panSpeed) +
+								String.fromCharCode(tiltSpeed) +
+								VISCA.DATA_PANLEFT +
+								VISCA.DATA_NOTILT +
+								VISCA.END_MSG
+							break
+						case 'right':
+							cmd =
+								VISCA.MSG_OPERATION +
+								VISCA.OP_PAN_DRIVE +
+								String.fromCharCode(panSpeed) +
+								String.fromCharCode(tiltSpeed) +
+								VISCA.DATA_PANRIGHT +
+								VISCA.DATA_NOTILT +
+								VISCA.END_MSG
+							break
+						case 'up':
+							cmd =
+								VISCA.MSG_OPERATION +
+								VISCA.OP_PAN_DRIVE +
+								String.fromCharCode(panSpeed) +
+								String.fromCharCode(tiltSpeed) +
+								VISCA.DATA_NOPAN +
+								VISCA.DATA_TILTUP +
+								VISCA.END_MSG
+							break
+						case 'down':
+							cmd =
+								VISCA.MSG_OPERATION +
+								VISCA.OP_PAN_DRIVE +
+								String.fromCharCode(panSpeed) +
+								String.fromCharCode(tiltSpeed) +
+								VISCA.DATA_NOPAN +
+								VISCA.DATA_TILTDOWN +
+								VISCA.END_MSG
+							break
+						case 'up_left':
+							cmd =
+								VISCA.MSG_OPERATION +
+								VISCA.OP_PAN_DRIVE +
+								String.fromCharCode(panSpeed) +
+								String.fromCharCode(tiltSpeed) +
+								VISCA.DATA_PANLEFT +
+								VISCA.DATA_TILTUP +
+								VISCA.END_MSG
+							break
+						case 'up_right':
+							cmd =
+								VISCA.MSG_OPERATION +
+								VISCA.OP_PAN_DRIVE +
+								String.fromCharCode(panSpeed) +
+								String.fromCharCode(tiltSpeed) +
+								VISCA.DATA_PANRIGHT +
+								VISCA.DATA_TILTUP +
+								VISCA.END_MSG
+							break
+						case 'down_left':
+							cmd =
+								VISCA.MSG_OPERATION +
+								VISCA.OP_PAN_DRIVE +
+								String.fromCharCode(panSpeed) +
+								String.fromCharCode(tiltSpeed) +
+								VISCA.DATA_PANLEFT +
+								VISCA.DATA_TILTDOWN +
+								VISCA.END_MSG
+							break
+						case 'down_right':
+							cmd =
+								VISCA.MSG_OPERATION +
+								VISCA.OP_PAN_DRIVE +
+								String.fromCharCode(panSpeed) +
+								String.fromCharCode(tiltSpeed) +
+								VISCA.DATA_PANRIGHT +
+								VISCA.DATA_TILTDOWN +
+								VISCA.END_MSG
+							break
+						case 'stop':
+							cmd =
+								VISCA.MSG_OPERATION +
+								VISCA.OP_PAN_DRIVE +
+								String.fromCharCode(panSpeed) +
+								String.fromCharCode(tiltSpeed) +
+								VISCA.DATA_NOPAN +
+								VISCA.DATA_NOTILT +
+								VISCA.END_MSG
+							break
+						case 'home':
+							cmd = VISCA.MSG_OPERATION + VISCA.OP_PAN_HOME + VISCA.END_MSG
+							break
+						case 'direct':
+							cmd =
+								VISCA.MSG_OPERATION +
+								VISCA.OP_PAN_ABSOLUTE +
+								String.fromCharCode(action.options.panSpeed) +
+								String.fromCharCode(action.options.tiltSpeed) +
+								this.strToPQRS(action.options.posPan) +
+								this.strToPQRS(action.options.posTilt) +
+								VISCA.END_MSG
+							break
+					}
+					this.sendVISCACommand(cmd)
+				},
+			}
+		}
+
+		if (MODEL_ACTIONS?.panSpeed) {
+			actions['panSpeed'] = {
+				label: 'PTZ - Pan Speed',
+				options: [
+					{
+						type: 'dropdown',
+						label: 'Action',
+						id: 'type',
+						choices: MODEL_ACTIONS.panSpeed.choices,
+						default: MODEL_ACTIONS.panSpeed.default,
+					},
+					{
+						type: 'number',
+						label: 'Speed (' + MODEL_ACTIONS.panSpeed.range.min + ' to ' + MODEL_ACTIONS.panSpeed.range.max + ')',
+						id: 'value',
+						default: MODEL_ACTIONS.panSpeed.range.default,
+						min: MODEL_ACTIONS.panSpeed.range.min,
+						max: MODEL_ACTIONS.panSpeed.range.max,
+						isVisible: (action) => action.options.type === 'value',
+					},
+				],
+				callback: (action) => {
+					let panSpeed = this.camera?.panSpeed ? this.camera.PanSpeed : MODEL_ACTIONS.panSpeed.range.default
+					switch (action.options.type) {
+						case 'up':
+							newValue = panSpeed < MODEL_ACTIONS.panSpeed.range.max ? ++panSpeed : MODEL_ACTIONS.panSpeed.range.max
+							break
+						case 'down':
+							newValue = panSpeed > MODEL_ACTIONS.panSpeed.range.min ? --panSpeed : MODEL_ACTIONS.panSpeed.range.min
+							break
+						case 'value':
+							newValue = opt.value
+							break
+					}
+					body = {
+						PanSpeed: String(newValue),
+					}
+					this.sendCommand('birddogptzsetup', 'POST', body)
+				},
+			}
+		}
+
+		if (MODEL_ACTIONS?.preset) {
+			actions['preset'] = {
+				label: 'PTZ - Preset Mode',
+				options: [
+					{
+						type: 'dropdown',
+						label: 'Preset Mode',
+						id: 'val',
+						choices: MODEL_ACTIONS.preset.choices,
+						default: MODEL_ACTIONS.preset.default,
+					},
+				],
+				callback: (action) => {
+					body = {
+						Preset: String(action.options.val),
+					}
+					this.sendCommand('birddogptzsetup', 'POST', body)
+				},
+			}
+		}
+
+		if (MODEL_ACTIONS?.preset_speed) {
+			actions['preset_speed'] = {
+				label: 'PTZ - Preset Speed',
+				options: [
+					{
+						type: 'dropdown',
+						label: 'Action',
+						id: 'type',
+						choices: MODEL_ACTIONS.preset_speed.choices,
+						default: MODEL_ACTIONS.preset_speed.default,
+					},
+					{
+						type: 'number',
+						label:
+							'Speed (' + MODEL_ACTIONS.preset_speed.range.min + ' to ' + MODEL_ACTIONS.preset_speed.range.max + ')',
+						id: 'value',
+						default: MODEL_ACTIONS.preset_speed.range.default,
+						min: MODEL_ACTIONS.preset_speed.range.min,
+						max: MODEL_ACTIONS.preset_speed.range.max,
+						isVisible: (action) => action.options.type === 'value',
+					},
+				],
+				callback: (action) => {
+					let preset_speed = this.camera?.preset_speed ? this.camera.preset_speed : MODEL_ACTIONS.preset_speed.default
+					switch (action.options.type) {
+						case 'up':
+							newValue =
+								preset_speed < MODEL_ACTIONS.preset_speed.range.max
+									? ++preset_speed
+									: MODEL_ACTIONS.preset_speed.range.max
+							break
+						case 'down':
+							newValue =
+								preset_speed > MODEL_ACTIONS.preset_speed.range.min
+									? --preset_speed
+									: MODEL_ACTIONS.preset_speed.range.min
+							break
+						case 'value':
+							newValue = opt.value
+							break
+					}
+					body = {
+						PresetSpeed: String(newValue),
+					}
+					this.sendCommand('birddogptzsetup', 'POST', body)
+				},
+			}
+		}
+
+		if (MODEL_ACTIONS?.recallPset) {
+			actions['recallPset'] = {
+				label: 'PTZ - Recall Preset',
+				options: [
+					{
+						type: 'number',
+						label:
+							'Preset Number (' + MODEL_ACTIONS.savePset.range.min + ' to ' + MODEL_ACTIONS.savePset.range.max + ')',
+						id: 'val',
+						default: MODEL_ACTIONS.savePset.range.default,
+						min: MODEL_ACTIONS.savePset.range.min,
+						max: MODEL_ACTIONS.savePset.range.max,
+					},
+				],
+				callback: (action) => {
+					body = {
+						Preset: String('Preset-' + action.options.val),
+					}
+					this.sendCommand('recall', 'POST', body)
+				},
+			}
+		}
+
+		if (MODEL_ACTIONS?.savePset) {
+			actions['savePset'] = {
+				label: 'PTZ - Save Preset',
+				options: [
+					{
+						type: 'number',
+						label:
+							'Preset Number (' + MODEL_ACTIONS.savePset.range.min + ' to ' + MODEL_ACTIONS.savePset.range.max + ')',
+						id: 'val',
+						default: MODEL_ACTIONS.savePset.range.default,
+						min: MODEL_ACTIONS.savePset.range.min,
+						max: MODEL_ACTIONS.savePset.range.max,
+					},
+				],
+				callback: (action) => {
+					body = {
+						Preset: String('Preset-' + action.options.val),
+					}
+					this.sendCommand('save', 'POST', body)
+				},
+			}
+		}
+
+		if (MODEL_ACTIONS?.tiltSpeed) {
+			actions['tiltSpeed'] = {
+				label: 'PTZ - Tilt Speed',
+				options: [
+					{
+						type: 'dropdown',
+						label: 'Action',
+						id: 'type',
+						choices: MODEL_ACTIONS.tiltSpeed.choices,
+						default: MODEL_ACTIONS.tiltSpeed.default,
+					},
+					{
+						type: 'number',
+						label: 'Speed (' + MODEL_ACTIONS.tiltSpeed.range.min + ' to ' + MODEL_ACTIONS.tiltSpeed.range.max + ')',
+						id: 'value',
+						default: MODEL_ACTIONS.tiltSpeed.range.default,
+						min: MODEL_ACTIONS.tiltSpeed.range.min,
+						max: MODEL_ACTIONS.tiltSpeed.range.max,
+						isVisible: (action) => action.options.type === 'value',
+					},
+				],
+				callback: (action) => {
+					let tiltSpeed = this.camera?.tiltSpeed ? this.camera.tiltSpeed : MODEL_ACTIONS.tiltSpeed.range.default
+					switch (action.options.type) {
+						case 'up':
+							newValue = tiltSpeed < MODEL_ACTIONS.tiltSpeed.range.max ? ++tiltSpeed : MODEL_ACTIONS.tiltSpeed.range.max
+							break
+						case 'down':
+							newValue = tiltSpeed > MODEL_ACTIONS.tiltSpeed.range.min ? --tiltSpeed : MODEL_ACTIONS.tiltSpeed.range.min
+						case 'value':
+							newValue = opt.value
+							break
+					}
+					body = {
+						TiltSpeed: String(newValue),
+					}
+					this.sendCommand('birddogptzsetup', 'POST', body)
+				},
 			}
 		}
 
@@ -366,94 +790,33 @@ module.exports = {
 						isVisible: (action) => action.options.override === true,
 					},
 				],
-			}
-		}
-
-		if (MODEL_ACTIONS?.panSpeed) {
-			actions['panSpeed'] = {
-				label: 'PTZ - Pan Speed',
-				options: [
-					{
-						type: 'dropdown',
-						label: 'Action',
-						id: 'type',
-						choices: MODEL_ACTIONS.panSpeed.choices,
-						default: MODEL_ACTIONS.panSpeed.default,
-					},
-					{
-						type: 'number',
-						label: 'Speed (' + MODEL_ACTIONS.panSpeed.range.min + ' to ' + MODEL_ACTIONS.panSpeed.range.max + ')',
-						id: 'value',
-						default: MODEL_ACTIONS.panSpeed.range.default,
-						min: MODEL_ACTIONS.panSpeed.range.min,
-						max: MODEL_ACTIONS.panSpeed.range.max,
-						isVisible: (action) => action.options.type === 'value',
-					},
-				],
-			}
-		}
-
-		if (MODEL_ACTIONS?.preset) {
-			actions['preset'] = {
-				label: 'PTZ - Preset Mode',
-				options: [
-					{
-						type: 'dropdown',
-						label: 'Preset Mode',
-						id: 'val',
-						choices: MODEL_ACTIONS.preset.choices,
-						default: MODEL_ACTIONS.preset.default,
-					},
-				],
-			}
-		}
-
-		if (MODEL_ACTIONS?.preset_speed) {
-			actions['preset_speed'] = {
-				label: 'PTZ - Preset Speed',
-				options: [
-					{
-						type: 'dropdown',
-						label: 'Action',
-						id: 'type',
-						choices: MODEL_ACTIONS.preset_speed.choices,
-						default: MODEL_ACTIONS.preset_speed.default,
-					},
-					{
-						type: 'number',
-						label:
-							'Speed (' + MODEL_ACTIONS.preset_speed.range.min + ' to ' + MODEL_ACTIONS.preset_speed.range.max + ')',
-						id: 'value',
-						default: MODEL_ACTIONS.preset_speed.range.default,
-						min: MODEL_ACTIONS.preset_speed.range.min,
-						max: MODEL_ACTIONS.preset_speed.range.max,
-						isVisible: (action) => action.options.type === 'value',
-					},
-				],
-			}
-		}
-
-		if (MODEL_ACTIONS?.tiltSpeed) {
-			actions['tiltSpeed'] = {
-				label: 'PTZ - Tilt Speed',
-				options: [
-					{
-						type: 'dropdown',
-						label: 'Action',
-						id: 'type',
-						choices: MODEL_ACTIONS.tiltSpeed.choices,
-						default: MODEL_ACTIONS.tiltSpeed.default,
-					},
-					{
-						type: 'number',
-						label: 'Speed (' + MODEL_ACTIONS.tiltSpeed.range.min + ' to ' + MODEL_ACTIONS.tiltSpeed.range.max + ')',
-						id: 'value',
-						default: MODEL_ACTIONS.tiltSpeed.range.default,
-						min: MODEL_ACTIONS.tiltSpeed.range.min,
-						max: MODEL_ACTIONS.tiltSpeed.range.max,
-						isVisible: (action) => action.options.type === 'value',
-					},
-				],
+				callback: (action) => {
+					let zoomSpeed = this.camera?.zoomSpeed ? this.camera.zoomSpeed : MODEL_ACTIONS.zoomSpeed.range.default
+					zoomSpeed = opt.override === true ? opt.speed : zoomSpeed
+					switch (action.options.val) {
+						case 'in':
+							cmd =
+								VISCA.MSG_CAM +
+								VISCA.CAM_ZOOM +
+								this.addStringToBinary(VISCA.CMD_CAM_ZOOM_TELE_WITH_SPEED, zoomSpeed) +
+								VISCA.END_MSG
+							break
+						case 'out':
+							cmd =
+								VISCA.MSG_CAM +
+								VISCA.CAM_ZOOM +
+								this.addStringToBinary(VISCA.CMD_CAM_ZOOM_WIDE_WITH_SPEED, zoomSpeed) +
+								VISCA.END_MSG
+							break
+						case 'direct':
+							cmd = VISCA.MSG_CAM + VISCA.CAM_ZOOM_DIRECT + this.strToPQRS(opt.posZoom) + VISCA.END_MSG
+							break
+						case 'stop':
+							cmd = VISCA.MSG_CAM + VISCA.CAM_ZOOM + VISCA.CMD_CAM_ZOOM_STOP + VISCA.END_MSG
+							break
+					}
+					this.sendVISCACommand(cmd)
+				},
 			}
 		}
 
@@ -478,40 +841,24 @@ module.exports = {
 						isVisible: (action) => action.options.type === 'value',
 					},
 				],
-			}
-		}
-
-		if (MODEL_ACTIONS?.savePset) {
-			actions['savePset'] = {
-				label: 'PTZ - Save Preset',
-				options: [
-					{
-						type: 'number',
-						label:
-							'Preset Number (' + MODEL_ACTIONS.savePset.range.min + ' to ' + MODEL_ACTIONS.savePset.range.max + ')',
-						id: 'val',
-						default: MODEL_ACTIONS.savePset.range.default,
-						min: MODEL_ACTIONS.savePset.range.min,
-						max: MODEL_ACTIONS.savePset.range.max,
-					},
-				],
-			}
-		}
-
-		if (MODEL_ACTIONS?.recallPset) {
-			actions['recallPset'] = {
-				label: 'PTZ - Recall Preset',
-				options: [
-					{
-						type: 'number',
-						label:
-							'Preset Number (' + MODEL_ACTIONS.savePset.range.min + ' to ' + MODEL_ACTIONS.savePset.range.max + ')',
-						id: 'val',
-						default: MODEL_ACTIONS.savePset.range.default,
-						min: MODEL_ACTIONS.savePset.range.min,
-						max: MODEL_ACTIONS.savePset.range.max,
-					},
-				],
+				callback: (action) => {
+					let zoomSpeed = this.camera?.zoomSpeed ? this.camera.zoomSpeed : MODEL_ACTIONS.zoomSpeed.range.default
+					switch (action.options.type) {
+						case 'up':
+							newValue = zoomSpeed < MODEL_ACTIONS.zoomSpeed.range.max ? ++zoomSpeed : MODEL_ACTIONS.zoomSpeed.range.max
+							break
+						case 'down':
+							newValue = zoomSpeed > MODEL_ACTIONS.zoomSpeed.range.min ? --zoomSpeed : MODEL_ACTIONS.zoomSpeed.range.min
+							break
+						case 'value':
+							newValue = opt.value
+							break
+					}
+					body = {
+						ZoomSpeed: String(newValue),
+					}
+					this.sendCommand('birddogptzsetup', 'POST', body)
+				},
 			}
 		}
 
@@ -529,6 +876,23 @@ module.exports = {
 						default: MODEL_ACTIONS.focus.default,
 					},
 				],
+				callback: (action) => {
+					switch (action.options.val) {
+						case 'near':
+							cmd = VISCA.MSG_CAM + VISCA.CAM_FOCUS + VISCA.CMD_CAM_FOCUS_NEAR + VISCA.END_MSG
+							break
+						case 'far':
+							cmd = VISCA.MSG_CAM + VISCA.CAM_FOCUS + VISCA.CMD_CAM_FOCUS_FAR + VISCA.END_MSG
+							break
+						case 'stop':
+							cmd = VISCA.MSG_CAM + VISCA.CAM_FOCUS + VISCA.CMD_CAM_FOCUS_STOP + VISCA.END_MSG
+							break
+						case 'trigger':
+							cmd = VISCA.MSG_CAM + VISCA.CAM_FOCUS_TRIGGER + VISCA.CMD_CAM_FOCUS_TRIGGER_NOW + VISCA.END_MSG
+							break
+					}
+					this.sendVISCACommand(cmd)
+				},
 			}
 		}
 
@@ -544,6 +908,17 @@ module.exports = {
 						default: MODEL_ACTIONS.focusM.default,
 					},
 				],
+				callback: (action) => {
+					switch (action.options.val) {
+						case 'Auto':
+							cmd = VISCA.MSG_CAM + VISCA.CAM_FOCUS_AUTO + VISCA.DATA_ONVAL + VISCA.END_MSG
+							break
+						case 'Manual':
+							cmd = VISCA.MSG_CAM + VISCA.CAM_FOCUS_AUTO + VISCA.DATA_OFFVAL + VISCA.END_MSG
+							break
+					}
+					this.sendVISCACommand(cmd)
+				},
 			}
 		}
 
@@ -567,6 +942,12 @@ module.exports = {
 						max: MODEL_ACTIONS.ae_response.range.max,
 					},
 				],
+				callback: (action) => {
+					body = {
+						AeResponse: String(action.options.level),
+					}
+					this.sendCommand('birddogexpsetup', 'POST', body)
+				},
 			}
 		}
 
@@ -582,6 +963,12 @@ module.exports = {
 						default: MODEL_ACTIONS.backlight.default,
 					},
 				],
+				callback: (action) => {
+					body = {
+						Backlight: String(action.options.mode),
+					}
+					this.sendCommand('birddogexpsetup', 'POST', body)
+				},
 			}
 		}
 
@@ -599,6 +986,12 @@ module.exports = {
 						max: MODEL_ACTIONS.bright_level.range.max,
 					},
 				],
+				callback: (action) => {
+					body = {
+						BrightLevel: String(action.options.level),
+					}
+					this.sendCommand('birddogexpsetup', 'POST', body)
+				},
 			}
 		}
 
@@ -628,6 +1021,27 @@ module.exports = {
 						isVisible: (action) => action.options.val === 'On',
 					},
 				],
+				callback: (action) => {
+					switch (action.options.val) {
+						case 'Off':
+							body = {
+								ExpCompEn: String(action.options.val),
+							}
+							break
+						case 'On':
+							//Convert action range to API range for P100 & PF120
+							let level =
+								this.camera.model === 'P100' || this.camera.model === 'PF120'
+									? String(action.options.level + 7)
+									: String(action.options.level)
+							body = {
+								ExpCompEn: String(action.options.val),
+								ExpCompLvl: String(level),
+							}
+							break
+					}
+					this.sendCommand('birddogexpsetup', 'POST', body)
+				},
 			}
 		}
 
@@ -643,6 +1057,12 @@ module.exports = {
 						default: MODEL_ACTIONS.exposure_mode.default,
 					},
 				],
+				callback: (action) => {
+					body = {
+						ExpMode: String(action.options.val),
+					}
+					this.sendCommand('birddogexpsetup', 'POST', body)
+				},
 			}
 		}
 
@@ -666,6 +1086,25 @@ module.exports = {
 						isVisible: (action) => action.options.val === 'value',
 					},
 				],
+				callback: (action) => {
+					let gain = this.camera?.gain ? this.camera.gain : MODEL_ACTIONS.gain.default
+					let gainLimit = this.camera?.gain_limit ? this.camera.gain_limit : MODEL_ACTIONS.gain_limit.range.default
+					switch (action.options.val) {
+						case 'up':
+							newValue = gain < gainLimit ? ++gain : gain
+							break
+						case 'down':
+							newValue = gain > MODEL_ACTIONS.gain.choices[0]?.id ? --gain : gain
+							break
+						case 'value':
+							newValue = parseFloat(action.options.value) <= gainLimit ? action.options.value : gainLimit
+							break
+					}
+					body = {
+						GainLevel: String(newValue),
+					}
+					this.sendCommand('birddogexpsetup', 'POST', body)
+				},
 			}
 		}
 
@@ -692,6 +1131,24 @@ module.exports = {
 						isVisible: (action) => action.options.val === 'value',
 					},
 				],
+				callback: (action) => {
+					let gainLimit = this.camera?.gain_limit ? this.camera.gain_limit : MODEL_ACTIONS.gain_limit.range.default
+					switch (action.options.val) {
+						case 'up':
+							newValue = gainLimit < MODEL_ACTIONS.gain_limit.range.max ? ++gainLimit : gainLimit
+							break
+						case 'down':
+							newValue = gainLimit > MODEL_ACTIONS.gain_limit.range.min ? --gainLimit : gainLimit
+							break
+						case 'value':
+							newValue = action.options.value
+							break
+					}
+					body = {
+						GainLimit: String(newValue),
+					}
+					this.sendCommand('birddogexpsetup', 'POST', body)
+				},
 			}
 		}
 
@@ -707,10 +1164,16 @@ module.exports = {
 						default: 'On',
 					},
 				],
+				callback: (action) => {
+					body = {
+						GainPoint: String(action.options.val),
+					}
+					this.sendCommand('birddogexpsetup', 'POST', body)
+				},
 			}
 		}
 
-		if (MODEL_ACTIONS?.gain_point) {
+		if (MODEL_ACTIONS?.gain_point_position) {
 			actions['gainPointPosition'] = {
 				label: 'Exposure - Gain Point Position',
 				options: [
@@ -736,6 +1199,29 @@ module.exports = {
 						isVisible: (action) => action.options.val === 'value',
 					},
 				],
+				callback: (action) => {
+					let gainPointPosition = this.camera?.gain_point_position
+						? this.camera.gain_point_position
+						: MODEL_ACTIONS.gain.default
+					switch (action.options.val) {
+						case 'up':
+							newValue =
+								gainPointPosition < this.camera.expsetup.GainLimit
+									? ++gainPointPosition
+									: this.camera.expsetup.GainLimit
+							break
+						case 'down':
+							newValue = gainPointPosition > MODEL_ACTIONS.gain[0] ? --gainPointPosition : gainPointPosition
+							break
+						case 'value':
+							newValue = action.options.value
+							break
+					}
+					body = {
+						GainPointPosition: String(newValue),
+					}
+					this.sendCommand('birddogexpsetup', 'POST', body)
+				},
 			}
 		}
 
@@ -751,6 +1237,12 @@ module.exports = {
 						default: MODEL_ACTIONS.high_sensitivity.default,
 					},
 				],
+				callback: (action) => {
+					body = {
+						HighSensitivity: String(action.options.val),
+					}
+					this.sendCommand('birddogexpsetup', 'POST', body)
+				},
 			}
 		}
 
@@ -774,6 +1266,34 @@ module.exports = {
 						isVisible: (action) => action.options.val === 'value',
 					},
 				],
+				callback: (action) => {
+					let iris = this.camera?.iris ? this.camera.iris : MODEL_ACTIONS.iris.default
+					switch (action.options.val) {
+						case 'up':
+							newValue =
+								iris === MODEL_ACTIONS.iris.range.closed
+									? MODEL_ACTIONS.iris.range.min
+									: iris < MODEL_ACTIONS.iris.range.max
+									? ++iris
+									: MODEL_ACTIONS.iris.range.max
+							break
+						case 'down':
+							newValue =
+								iris === MODEL_ACTIONS.iris.range.min
+									? MODEL_ACTIONS.iris.range.closed
+									: iris > MODEL_ACTIONS.iris.range.min
+									? --iris
+									: MODEL_ACTIONS.iris.range.closed
+							break
+						case 'value':
+							newValue = action.options.value
+							break
+					}
+					body = {
+						IrisLevel: String(newValue),
+					}
+					this.sendCommand('birddogexpsetup', 'POST', body)
+				},
 			}
 		}
 
@@ -789,6 +1309,12 @@ module.exports = {
 						default: MODEL_ACTIONS.shutter_control_overwrite.default,
 					},
 				],
+				callback: (action) => {
+					body = {
+						ShutterControlOverwrite: String(action.options.val),
+					}
+					this.sendCommand('birddogexpsetup', 'POST', body)
+				},
 			}
 		}
 
@@ -815,6 +1341,32 @@ module.exports = {
 						isVisible: (action) => action.options.val === 'value',
 					},
 				],
+				callback: (action) => {
+					let shutter_max_speed = this.camera?.shutter_max_speed
+						? this.camera.shutter_max_speed
+						: MODEL_ACTIONS.shutter_max_speed.range.default
+					switch (action.options.val) {
+						case 'up':
+							newValue =
+								shutter_max_speed < MODEL_ACTIONS.shutter_max_speed.range.max
+									? ++shutter_max_speed
+									: MODEL_ACTIONS.shutter_max_speed.range.max
+							break
+						case 'down':
+							newValue =
+								shutter_max_speed > MODEL_ACTIONS.shutter_max_speed.range.min
+									? --shutter_max_speed
+									: MODEL_ACTIONS.shutter_max_speed.range.min
+							break
+						case 'value':
+							newValue = action.options.value
+							break
+					}
+					body = {
+						ShutterMaxSpeed: String(newValue),
+					}
+					this.sendCommand('birddogexpsetup', 'POST', body)
+				},
 			}
 		}
 
@@ -841,6 +1393,32 @@ module.exports = {
 						isVisible: (action) => action.options.val === 'value',
 					},
 				],
+				callback: (action) => {
+					let shutter_min_speed = this.camera?.shutter_min_speed
+						? this.camera.shutter_min_speed
+						: MODEL_ACTIONS.shutter_min_speed.range.default
+					switch (action.options.val) {
+						case 'up':
+							newValue =
+								shutter_min_speed < this.camera.expsetup.ShutterMaxSpeed
+									? ++shutter_min_speed
+									: this.camera.expsetup.ShutterMaxSpeed
+							break
+						case 'down':
+							newValue =
+								shutter_min_speed > MODEL_ACTIONS.shutter_min_speed.range.min
+									? --shutter_min_speed
+									: MODEL_ACTIONS.shutter_min_speed.range.min
+							break
+						case 'value':
+							newValue = action.options.value
+							break
+					}
+					body = {
+						ShutterMinSpeed: String(newValue),
+					}
+					this.sendCommand('birddogexpsetup', 'POST', body)
+				},
 			}
 		}
 
@@ -864,6 +1442,32 @@ module.exports = {
 						isVisible: (action) => action.options.val === 'value',
 					},
 				],
+				callback: (action) => {
+					let shutter_speed = this.camera?.shutter_speed
+						? this.camera.shutter_speed
+						: MODEL_ACTIONS.shutter_speed.default
+					switch (action.options.val) {
+						case 'up':
+							newValue =
+								shutter_speed < MODEL_ACTIONS.shutter_speed.range.max
+									? ++shutter_speed
+									: MODEL_ACTIONS.shutter_speed.range.max
+							break
+						case 'down':
+							newValue =
+								shutter_speed > MODEL_ACTIONS.shutter_speed.range.min
+									? --shutter_speed
+									: MODEL_ACTIONS.shutter_speed.range.min
+							break
+						case 'value':
+							newValue = action.options.value
+							break
+					}
+					body = {
+						ShutterSpeed: String(newValue),
+					}
+					this.sendCommand('birddogexpsetup', 'POST', body)
+				},
 			}
 		}
 
@@ -885,6 +1489,12 @@ module.exports = {
 						max: MODEL_ACTIONS.shutter_speed_overwrite.range.max,
 					},
 				],
+				callback: (action) => {
+					body = {
+						ShutterSpeedOverwrite: String(action.options.val),
+					}
+					this.sendCommand('birddogexpsetup', 'POST', body)
+				},
 			}
 		}
 
@@ -900,6 +1510,12 @@ module.exports = {
 						default: MODEL_ACTIONS.slow_shutter_en.default,
 					},
 				],
+				callback: (action) => {
+					body = {
+						SlowShutterEn: String(action.options.val),
+					}
+					this.sendCommand('birddogexpsetup', 'POST', body)
+				},
 			}
 		}
 
@@ -926,6 +1542,32 @@ module.exports = {
 						isVisible: (action) => action.options.val === 'value',
 					},
 				],
+				callback: (action) => {
+					let slow_shutter_limit = this.camera?.slow_shutter_limit
+						? this.camera.slow_shutter_limit
+						: MODEL_ACTIONS.slow_shutter_limit.range.default
+					switch (action.options.val) {
+						case 'up':
+							newValue =
+								slow_shutter_limit < MODEL_ACTIONS.slow_shutter_limit.range.max
+									? ++slow_shutter_limit
+									: MODEL_ACTIONS.slow_shutter_limit.range.max
+							break
+						case 'down':
+							newValue =
+								slow_shutter_limit > MODEL_ACTIONS.slow_shutter_limit.range.min
+									? --slow_shutter_limit
+									: MODEL_ACTIONS.slow_shutter_limit.range.min
+							break
+						case 'value':
+							newValue = action.options.value
+							break
+					}
+					body = {
+						SlowShutterLimit: String(newValue),
+					}
+					this.sendCommand('birddogexpsetup', 'POST', body)
+				},
 			}
 		}
 
@@ -941,6 +1583,12 @@ module.exports = {
 						default: MODEL_ACTIONS.spotlight.default,
 					},
 				],
+				callback: (action) => {
+					body = {
+						Spotlight: String(action.options.val),
+					}
+					this.sendCommand('birddogexpsetup', 'POST', body)
+				},
 			}
 		}
 
@@ -959,6 +1607,12 @@ module.exports = {
 						max: MODEL_ACTIONS.bg.range.max,
 					},
 				],
+				callback: (action) => {
+					body = {
+						BG: String(action.options.val),
+					}
+					this.sendCommand('birddogwbsetup', 'POST', body)
+				},
 			}
 		}
 
@@ -975,6 +1629,12 @@ module.exports = {
 						max: MODEL_ACTIONS.br.range.max,
 					},
 				],
+				callback: (action) => {
+					body = {
+						BR: String(action.options.val),
+					}
+					this.sendCommand('birddogwbsetup', 'POST', body)
+				},
 			}
 		}
 
@@ -999,6 +1659,24 @@ module.exports = {
 						isVisible: (action) => action.options.val === 'value',
 					},
 				],
+				callback: (action) => {
+					let blue_gain = this.camera?.blue_gain ? this.camera.blue_gain : MODEL_ACTIONS.blue_gain.range.default
+					switch (action.options.val) {
+						case 'up':
+							newValue = blue_gain < MODEL_ACTIONS.blue_gain.range.max ? ++blue_gain : blue_gain
+							break
+						case 'down':
+							newValue = blue_gain > MODEL_ACTIONS.blue_gain.range.min ? --blue_gain : blue_gain
+							break
+						case 'value':
+							newValue = action.options.value
+							break
+					}
+					body = {
+						BlueGain: String(newValue),
+					}
+					this.sendCommand('birddogwbsetup', 'POST', body)
+				},
 			}
 		}
 
@@ -1022,6 +1700,28 @@ module.exports = {
 						isVisible: (action) => action.options.val === 'value',
 					},
 				],
+				callback: (action) => {
+					let color_temp = this.camera?.color_temp
+						? this.camera.color_temp.slice(0, 2)
+						: MODEL_ACTIONS.color_temp.range.default
+					switch (action.options.val) {
+						case 'up':
+							newValue = color_temp < MODEL_ACTIONS.color_temp.range.max ? ++color_temp : color_temp
+							newValue = newValue + '00'
+							break
+						case 'down':
+							newValue = color_temp > MODEL_ACTIONS.color_temp.range.min ? --color_temp : color_temp
+							newValue = newValue + '00'
+							break
+						case 'value':
+							newValue = action.options.value
+							break
+					}
+					body = {
+						ColorTemp: String(newValue),
+					}
+					this.sendCommand('birddogwbsetup', 'POST', body)
+				},
 			}
 		}
 
@@ -1038,6 +1738,12 @@ module.exports = {
 						max: MODEL_ACTIONS.gr.range.max,
 					},
 				],
+				callback: (action) => {
+					body = {
+						GB: String(action.options.val),
+					}
+					this.sendCommand('birddogwbsetup', 'POST', body)
+				},
 			}
 		}
 
@@ -1054,6 +1760,12 @@ module.exports = {
 						max: MODEL_ACTIONS.gr.range.max,
 					},
 				],
+				callback: (action) => {
+					body = {
+						GR: String(action.options.val),
+					}
+					this.sendCommand('birddogwbsetup', 'POST', body)
+				},
 			}
 		}
 
@@ -1070,6 +1782,12 @@ module.exports = {
 						max: MODEL_ACTIONS.level.range.max,
 					},
 				],
+				callback: (action) => {
+					body = {
+						Level: String(action.options.val),
+					}
+					this.sendCommand('birddogwbsetup', 'POST', body)
+				},
 			}
 		}
 
@@ -1085,6 +1803,12 @@ module.exports = {
 						default: MODEL_ACTIONS.matrix.default,
 					},
 				],
+				callback: (action) => {
+					body = {
+						Matrix: String(action.options.val),
+					}
+					this.sendCommand('birddogwbsetup', 'POST', body)
+				},
 			}
 		}
 
@@ -1101,6 +1825,12 @@ module.exports = {
 						max: MODEL_ACTIONS.offset.range.max,
 					},
 				],
+				callback: (action) => {
+					body = {
+						Offset: String(action.options.val),
+					}
+					this.sendCommand('birddogwbsetup', 'POST', body)
+				},
 			}
 		}
 
@@ -1117,6 +1847,12 @@ module.exports = {
 						max: MODEL_ACTIONS.phase.range.max,
 					},
 				],
+				callback: (action) => {
+					body = {
+						Phase: String(action.options.val),
+					}
+					this.sendCommand('birddogwbsetup', 'POST', body)
+				},
 			}
 		}
 
@@ -1133,6 +1869,12 @@ module.exports = {
 						max: MODEL_ACTIONS.rb.range.max,
 					},
 				],
+				callback: (action) => {
+					body = {
+						RB: String(action.options.val),
+					}
+					this.sendCommand('birddogwbsetup', 'POST', body)
+				},
 			}
 		}
 
@@ -1149,6 +1891,12 @@ module.exports = {
 						max: MODEL_ACTIONS.rg.range.max,
 					},
 				],
+				callback: (action) => {
+					body = {
+						RG: String(action.options.val),
+					}
+					this.sendCommand('birddogwbsetup', 'POST', body)
+				},
 			}
 		}
 
@@ -1173,6 +1921,24 @@ module.exports = {
 						isVisible: (action) => action.options.val === 'value',
 					},
 				],
+				callback: (action) => {
+					let red_gain = this.camera?.red_gain ? this.camera.red_gain : MODEL_ACTIONS.red_gain.range.default
+					switch (action.options.val) {
+						case 'up':
+							newValue = red_gain < MODEL_ACTIONS.red_gain.range.max ? ++red_gain : red_gain
+							break
+						case 'down':
+							newValue = red_gain > MODEL_ACTIONS.red_gain.range.min ? --red_gain : red_gain
+							break
+						case 'value':
+							newValue = action.options.value
+							break
+					}
+					body = {
+						RedGain: String(newValue),
+					}
+					this.sendCommand('birddogwbsetup', 'POST', body)
+				},
 			}
 		}
 
@@ -1188,6 +1954,12 @@ module.exports = {
 						default: MODEL_ACTIONS.select.default,
 					},
 				],
+				callback: (action) => {
+					body = {
+						Select: String(action.options.val),
+					}
+					this.sendCommand('birddogwbsetup', 'POST', body)
+				},
 			}
 		}
 
@@ -1204,6 +1976,12 @@ module.exports = {
 						max: MODEL_ACTIONS.speed.range.max,
 					},
 				],
+				callback: (action) => {
+					body = {
+						Speed: String(action.options.val),
+					}
+					this.sendCommand('birddogwbsetup', 'POST', body)
+				},
 			}
 		}
 
@@ -1219,12 +1997,22 @@ module.exports = {
 						default: MODEL_ACTIONS.wb_mode.default,
 					},
 				],
+				callback: (action) => {
+					body = {
+						WbMode: String(action.options.val),
+					}
+					this.sendCommand('birddogwbsetup', 'POST', body)
+				},
 			}
 		}
 		if (MODEL_ACTIONS?.wbOnePush) {
 			actions['wbOnePush'] = {
 				label: 'White Balance - One Push Trigger',
 				description: 'Camera must be in One Push mode in order to use this action',
+				callback: (action) => {
+					cmd = VISCA.MSG_CAM + VISCA.CAM_WB_TRIGGER + VISCA.CMD_CAM_WB_TRIGGER_NOW + VISCA.END_MSG
+					this.sendVISCACommand(cmd)
+				},
 			}
 		}
 
@@ -1242,6 +2030,12 @@ module.exports = {
 						default: MODEL_ACTIONS.backlight_com.default,
 					},
 				],
+				callback: (action) => {
+					body = {
+						BackLightCom: String(action.options.val),
+					}
+					this.sendCommand('birddogpicsetup', 'POST', body)
+				},
 			}
 		}
 
@@ -1257,6 +2051,12 @@ module.exports = {
 						default: MODEL_ACTIONS.chroma_suppress.default,
 					},
 				],
+				callback: (action) => {
+					body = {
+						ChromeSuppress: String(action.options.val),
+					}
+					this.sendCommand('birddogpicsetup', 'POST', body)
+				},
 			}
 		}
 
@@ -1281,6 +2081,24 @@ module.exports = {
 						isVisible: (action) => action.options.val === 'value',
 					},
 				],
+				callback: (action) => {
+					let color = this.camera?.color ? this.camera.color : MODEL_ACTIONS.color.range.default
+					switch (action.options.val) {
+						case 'up':
+							newValue = color < MODEL_ACTIONS.color.range.max ? ++color : color
+							break
+						case 'down':
+							newValue = color > MODEL_ACTIONS.color.range.min ? --color : color
+							break
+						case 'value':
+							newValue = action.options.value
+							break
+					}
+					body = {
+						Color: String(newValue),
+					}
+					this.sendCommand('birddogpicsetup', 'POST', body)
+				},
 			}
 		}
 
@@ -1305,6 +2123,24 @@ module.exports = {
 						isVisible: (action) => action.options.val === 'value',
 					},
 				],
+				callback: (action) => {
+					let contrast = this.camera?.contrast ? this.camera.contrast : MODEL_ACTIONS.contrast.range.default
+					switch (action.options.val) {
+						case 'up':
+							newValue = contrast < MODEL_ACTIONS.contrast.range.max ? ++contrast : contrast
+							break
+						case 'down':
+							newValue = contrast > MODEL_ACTIONS.contrast.range.min ? --contrast : contrast
+							break
+						case 'value':
+							newValue = action.options.value
+							break
+					}
+					body = {
+						Contrast: String(newValue),
+					}
+					this.sendCommand('birddogpicsetup', 'POST', body)
+				},
 			}
 		}
 
@@ -1320,6 +2156,12 @@ module.exports = {
 						default: MODEL_ACTIONS.pictureEffect.default,
 					},
 				],
+				callback: (action) => {
+					body = {
+						Effect: String(action.options.val),
+					}
+					this.sendCommand('birddogpicsetup', 'POST', body)
+				},
 			}
 		}
 
@@ -1335,6 +2177,12 @@ module.exports = {
 						default: MODEL_ACTIONS.picFlip.default,
 					},
 				],
+				callback: (action) => {
+					body = {
+						Flip: String(action.options.val),
+					}
+					this.sendCommand('birddogpicsetup', 'POST', body)
+				},
 			}
 		}
 
@@ -1359,6 +2207,24 @@ module.exports = {
 						isVisible: (action) => action.options.val === 'value',
 					},
 				],
+				callback: (action) => {
+					let gamma = this.camera?.gamma ? this.camera.gamma : MODEL_ACTIONS.gamma.range.default
+					switch (action.options.val) {
+						case 'up':
+							newValue = gamma < MODEL_ACTIONS.gamma.range.max ? ++gamma : gamma
+							break
+						case 'down':
+							newValue = gamma > MODEL_ACTIONS.gamma.range.min ? --gamma : gamma
+							break
+						case 'value':
+							newValue = action.options.value
+							break
+					}
+					body = {
+						Gamma: String(newValue),
+					}
+					this.sendCommand('birddogpicsetup', 'POST', body)
+				},
 			}
 		}
 
@@ -1374,6 +2240,12 @@ module.exports = {
 						default: MODEL_ACTIONS.highlight_comp.default,
 					},
 				],
+				callback: (action) => {
+					body = {
+						HighlightComp: String(action.options.val),
+					}
+					this.sendCommand('birddogpicsetup', 'POST', body)
+				},
 			}
 		}
 
@@ -1403,6 +2275,32 @@ module.exports = {
 						isVisible: (action) => action.options.val === 'value',
 					},
 				],
+				callback: (action) => {
+					let highlight_comp_mask = this.camera?.highlight_comp_mask
+						? this.camera.highlight_comp_mask
+						: MODEL_ACTIONS.highlight_comp_mask.range.default
+					switch (action.options.val) {
+						case 'up':
+							newValue =
+								highlight_comp_mask < MODEL_ACTIONS.highlight_comp_mask.range.max
+									? ++highlight_comp_mask
+									: highlight_comp_mask
+							break
+						case 'down':
+							newValue =
+								highlight_comp_mask > MODEL_ACTIONS.highlight_comp_mask.range.min
+									? --highlight_comp_mask
+									: highlight_comp_mask
+							break
+						case 'value':
+							newValue = action.options.value
+							break
+					}
+					body = {
+						HighlightCompMask: String(newValue),
+					}
+					this.sendCommand('birddogpicsetup', 'POST', body)
+				},
 			}
 		}
 
@@ -1427,6 +2325,24 @@ module.exports = {
 						isVisible: (action) => action.options.val === 'value',
 					},
 				],
+				callback: (action) => {
+					let hue = this.camera?.hue ? this.camera.hue : MODEL_ACTIONS.hue.range.default
+					switch (action.options.val) {
+						case 'up':
+							newValue = hue < MODEL_ACTIONS.hue.range.max ? ++hue : hue
+							break
+						case 'down':
+							newValue = hue > MODEL_ACTIONS.hue.range.min ? --hue : hue
+							break
+						case 'value':
+							newValue = action.options.value
+							break
+					}
+					body = {
+						Hue: String(newValue),
+					}
+					this.sendCommand('birddogpicsetup', 'POST', body)
+				},
 			}
 		}
 
@@ -1442,6 +2358,12 @@ module.exports = {
 						default: MODEL_ACTIONS.ir_cutfilter.default,
 					},
 				],
+				callback: (action) => {
+					body = {
+						IRCutFilter: String(action.options.val),
+					}
+					this.sendCommand('birddogpicsetup', 'POST', body)
+				},
 			}
 		}
 
@@ -1457,6 +2379,12 @@ module.exports = {
 						default: MODEL_ACTIONS.low_latency.default,
 					},
 				],
+				callback: (action) => {
+					body = {
+						LowLatency: String(action.options.val),
+					}
+					this.sendCommand('birddogpicsetup', 'POST', body)
+				},
 			}
 		}
 
@@ -1472,6 +2400,12 @@ module.exports = {
 						default: MODEL_ACTIONS.picMirror.default,
 					},
 				],
+				callback: (action) => {
+					body = {
+						Mirror: String(action.options.val),
+					}
+					this.sendCommand('birddogpicsetup', 'POST', body)
+				},
 			}
 		}
 
@@ -1496,6 +2430,24 @@ module.exports = {
 						isVisible: (action) => action.options.val === 'value',
 					},
 				],
+				callback: (action) => {
+					let nd_filter = this.camera?.nd_filter ? this.camera.nd_filter : MODEL_ACTIONS.nd_filter.range.default
+					switch (action.options.val) {
+						case 'up':
+							newValue = nd_filter < MODEL_ACTIONS.nd_filter.range.max ? ++nd_filter : nd_filter
+							break
+						case 'down':
+							newValue = nd_filter > MODEL_ACTIONS.nd_filter.range.min ? --nd_filter : nd_filter
+							break
+						case 'value':
+							newValue = action.options.value
+							break
+					}
+					body = {
+						NDFilter: String(newValue),
+					}
+					this.sendCommand('birddogpicsetup', 'POST', body)
+				},
 			}
 		}
 
@@ -1511,6 +2463,12 @@ module.exports = {
 						default: MODEL_ACTIONS.noise_reduction.default,
 					},
 				],
+				callback: (action) => {
+					body = {
+						NoiseReduction: String(action.options.val),
+					}
+					this.sendCommand('birddogpicsetup', 'POST', body)
+				},
 			}
 		}
 
@@ -1535,6 +2493,24 @@ module.exports = {
 						isVisible: (action) => action.options.val === 'value',
 					},
 				],
+				callback: (action) => {
+					let sharpness = this.camera?.sharpness ? this.camera.sharpness : MODEL_ACTIONS.sharpness.range.default
+					switch (action.options.val) {
+						case 'up':
+							newValue = sharpness < MODEL_ACTIONS.sharpness.range.max ? ++sharpness : sharpness
+							break
+						case 'down':
+							newValue = sharpness > MODEL_ACTIONS.sharpness.range.min ? --sharpness : sharpness
+							break
+						case 'value':
+							newValue = action.options.value
+							break
+					}
+					body = {
+						Sharpness: String(newValue),
+					}
+					this.sendCommand('birddogpicsetup', 'POST', body)
+				},
 			}
 		}
 
@@ -1550,6 +2526,12 @@ module.exports = {
 						default: MODEL_ACTIONS.stabilizer.default,
 					},
 				],
+				callback: (action) => {
+					body = {
+						Stabilizer: String(action.options.val),
+					}
+					this.sendCommand('birddogpicsetup', 'POST', body)
+				},
 			}
 		}
 
@@ -1565,6 +2547,12 @@ module.exports = {
 						default: MODEL_ACTIONS.threed_nr.default,
 					},
 				],
+				callback: (action) => {
+					body = {
+						ThreeDNR: String(action.options.val),
+					}
+					this.sendCommand('birddogpicsetup', 'POST', body)
+				},
 			}
 		}
 
@@ -1580,6 +2568,12 @@ module.exports = {
 						default: MODEL_ACTIONS.twod_nr.default,
 					},
 				],
+				callback: (action) => {
+					body = {
+						TWODNR: String(action.options.val),
+					}
+					this.sendCommand('birddogpicsetup', 'POST', body)
+				},
 			}
 		}
 
@@ -1595,6 +2589,12 @@ module.exports = {
 						default: MODEL_ACTIONS.wide_dynamic_range.default,
 					},
 				],
+				callback: (action) => {
+					body = {
+						WideDynamicRange: String(action.options.val),
+					}
+					this.sendCommand('birddogpicsetup', 'POST', body)
+				},
 			}
 		}
 
@@ -1622,6 +2622,26 @@ module.exports = {
 						isVisible: (action) => action.options.val == 'value',
 					},
 				],
+				callback: (action) => {
+					let cm_blue_gain = this.camera?.cm_blue_gain
+						? this.camera.cm_blue_gain
+						: MODEL_ACTIONS.cm_blue_gain.range.default
+					switch (action.options.val) {
+						case 'up':
+							newValue = cm_blue_gain < MODEL_ACTIONS.cm_blue_gain.range.max ? ++cm_blue_gain : cm_blue_gain
+							break
+						case 'down':
+							newValue = cm_blue_gain > MODEL_ACTIONS.cm_blue_gain.range.min ? --cm_blue_gain : cm_blue_gain
+							break
+						case 'value':
+							newValue = action.options.value
+							break
+					}
+					body = {
+						BlueGain: String(newValue),
+					}
+					this.sendCommand('birddogcmsetup', 'POST', body)
+				},
 			}
 		}
 
@@ -1646,6 +2666,24 @@ module.exports = {
 						isVisible: (action) => action.options.val == 'value',
 					},
 				],
+				callback: (action) => {
+					let cm_blue_hue = this.camera?.cm_blue_hue ? this.camera.cm_blue_hue : MODEL_ACTIONS.cm_blue_hue.range.default
+					switch (action.options.val) {
+						case 'up':
+							newValue = cm_blue_hue < MODEL_ACTIONS.cm_blue_hue.range.max ? ++cm_blue_hue : cm_blue_hue
+							break
+						case 'down':
+							newValue = cm_blue_hue > MODEL_ACTIONS.cm_blue_hue.range.min ? --cm_blue_hue : cm_blue_hue
+							break
+						case 'value':
+							newValue = action.options.value
+							break
+					}
+					body = {
+						BlueHue: String(newValue),
+					}
+					this.sendCommand('birddogcmsetup', 'POST', body)
+				},
 			}
 		}
 
@@ -1671,6 +2709,26 @@ module.exports = {
 						isVisible: (action) => action.options.val == 'value',
 					},
 				],
+				callback: (action) => {
+					let cm_color_gain = this.camera?.cm_color_gain
+						? this.camera.cm_color_gain
+						: MODEL_ACTIONS.cm_color_gain.range.default
+					switch (action.options.val) {
+						case 'up':
+							newValue = cm_color_gain < MODEL_ACTIONS.cm_color_gain.range.max ? ++cm_color_gain : cm_color_gain
+							break
+						case 'down':
+							newValue = cm_color_gain > MODEL_ACTIONS.cm_color_gain.range.min ? --cm_color_gain : cm_color_gain
+							break
+						case 'value':
+							newValue = action.options.value
+							break
+					}
+					body = {
+						ColorGain: String(newValue),
+					}
+					this.sendCommand('birddogcmsetup', 'POST', body)
+				},
 			}
 		}
 
@@ -1696,6 +2754,26 @@ module.exports = {
 						isVisible: (action) => action.options.val == 'value',
 					},
 				],
+				callback: (action) => {
+					let cm_cyan_gain = this.camera?.cm_cyan_gain
+						? this.camera.cm_cyan_gain
+						: MODEL_ACTIONS.cm_cyan_gain.range.default
+					switch (action.options.val) {
+						case 'up':
+							newValue = cm_cyan_gain < MODEL_ACTIONS.cm_cyan_gain.range.max ? ++cm_cyan_gain : cm_cyan_gain
+							break
+						case 'down':
+							newValue = cm_cyan_gain > MODEL_ACTIONS.cm_cyan_gain.range.min ? --cm_cyan_gain : cm_cyan_gain
+							break
+						case 'value':
+							newValue = action.options.value
+							break
+					}
+					body = {
+						CyanGain: String(newValue),
+					}
+					this.sendCommand('birddogcmsetup', 'POST', body)
+				},
 			}
 		}
 
@@ -1720,6 +2798,24 @@ module.exports = {
 						isVisible: (action) => action.options.val == 'value',
 					},
 				],
+				callback: (action) => {
+					let cm_cyan_hue = this.camera?.cm_cyan_hue ? this.camera.cm_cyan_hue : MODEL_ACTIONS.cm_cyan_hue.range.default
+					switch (action.options.val) {
+						case 'up':
+							newValue = cm_cyan_hue < MODEL_ACTIONS.cm_cyan_hue.range.max ? ++cm_cyan_hue : cm_cyan_hue
+							break
+						case 'down':
+							newValue = cm_cyan_hue > MODEL_ACTIONS.cm_cyan_hue.range.min ? --cm_cyan_hue : cm_cyan_hue
+							break
+						case 'value':
+							newValue = action.options.value
+							break
+					}
+					body = {
+						CyanHue: String(newValue),
+					}
+					this.sendCommand('birddogcmsetup', 'POST', body)
+				},
 			}
 		}
 
@@ -1745,6 +2841,26 @@ module.exports = {
 						isVisible: (action) => action.options.val == 'value',
 					},
 				],
+				callback: (action) => {
+					let cm_green_gain = this.camera?.cm_green_gain
+						? this.camera.cm_green_gain
+						: MODEL_ACTIONS.cm_green_gain.range.default
+					switch (action.options.val) {
+						case 'up':
+							newValue = cm_green_gain < MODEL_ACTIONS.cm_green_gain.range.max ? ++cm_green_gain : cm_green_gain
+							break
+						case 'down':
+							newValue = cm_green_gain > MODEL_ACTIONS.cm_green_gain.range.min ? --cm_green_gain : cm_green_gain
+							break
+						case 'value':
+							newValue = action.options.value
+							break
+					}
+					body = {
+						GreenGain: String(newValue),
+					}
+					this.sendCommand('birddogcmsetup', 'POST', body)
+				},
 			}
 		}
 
@@ -1770,6 +2886,26 @@ module.exports = {
 						isVisible: (action) => action.options.val == 'value',
 					},
 				],
+				callback: (action) => {
+					let cm_green_hue = this.camera?.cm_green_hue
+						? this.camera.cm_green_hue
+						: MODEL_ACTIONS.cm_green_hue.range.default
+					switch (action.options.val) {
+						case 'up':
+							newValue = cm_green_hue < MODEL_ACTIONS.cm_green_hue.range.max ? ++cm_green_hue : cm_green_hue
+							break
+						case 'down':
+							newValue = cm_green_hue > MODEL_ACTIONS.cm_green_hue.range.min ? --cm_green_hue : cm_green_hue
+							break
+						case 'value':
+							newValue = action.options.value
+							break
+					}
+					body = {
+						GreenHue: String(newValue),
+					}
+					this.sendCommand('birddogcmsetup', 'POST', body)
+				},
 			}
 		}
 
@@ -1795,6 +2931,26 @@ module.exports = {
 						isVisible: (action) => action.options.val == 'value',
 					},
 				],
+				callback: (action) => {
+					let cm_hue_phase = this.camera?.cm_hue_phase
+						? this.camera.cm_hue_phase
+						: MODEL_ACTIONS.cm_hue_phase.range.default
+					switch (action.options.val) {
+						case 'up':
+							newValue = cm_hue_phase < MODEL_ACTIONS.cm_hue_phase.range.max ? ++cm_hue_phase : cm_hue_phase
+							break
+						case 'down':
+							newValue = cm_hue_phase > MODEL_ACTIONS.cm_hue_phase.range.min ? --cm_hue_phase : cm_hue_phase
+							break
+						case 'value':
+							newValue = action.options.value
+							break
+					}
+					body = {
+						HuePhase: String(newValue),
+					}
+					this.sendCommand('birddogcmsetup', 'POST', body)
+				},
 			}
 		}
 
@@ -1819,6 +2975,24 @@ module.exports = {
 						isVisible: (action) => action.options.val == 'value',
 					},
 				],
+				callback: (action) => {
+					let cm_mag_gain = this.camera?.cm_mag_gain ? this.camera.cm_mag_gain : MODEL_ACTIONS.cm_mag_gain.range.default
+					switch (action.options.val) {
+						case 'up':
+							newValue = cm_mag_gain < MODEL_ACTIONS.cm_mag_gain.range.max ? ++cm_mag_gain : cm_mag_gain
+							break
+						case 'down':
+							newValue = cm_mag_gain > MODEL_ACTIONS.cm_mag_gain.range.min ? --cm_mag_gain : cm_mag_gain
+							break
+						case 'value':
+							newValue = action.options.value
+							break
+					}
+					body = {
+						MagGain: String(newValue),
+					}
+					this.sendCommand('birddogcmsetup', 'POST', body)
+				},
 			}
 		}
 
@@ -1843,6 +3017,24 @@ module.exports = {
 						isVisible: (action) => action.options.val == 'value',
 					},
 				],
+				callback: (action) => {
+					let cm_mag_hue = this.camera?.cm_mag_hue ? this.camera.cm_mag_hue : MODEL_ACTIONS.cm_mag_hue.range.default
+					switch (action.options.val) {
+						case 'up':
+							newValue = cm_mag_hue < MODEL_ACTIONS.cm_mag_hue.range.max ? ++cm_mag_hue : cm_mag_hue
+							break
+						case 'down':
+							newValue = cm_mag_hue > MODEL_ACTIONS.cm_mag_hue.range.min ? --cm_mag_hue : cm_mag_hue
+							break
+						case 'value':
+							newValue = action.options.value
+							break
+					}
+					body = {
+						MagHue: String(newValue),
+					}
+					this.sendCommand('birddogcmsetup', 'POST', body)
+				},
 			}
 		}
 
@@ -1867,6 +3059,24 @@ module.exports = {
 						isVisible: (action) => action.options.val == 'value',
 					},
 				],
+				callback: (action) => {
+					let cm_red_gain = this.camera?.cm_red_gain ? this.camera.cm_red_gain : MODEL_ACTIONS.cm_red_gain.range.default
+					switch (action.options.val) {
+						case 'up':
+							newValue = cm_red_gain < MODEL_ACTIONS.cm_red_gain.range.max ? ++cm_red_gain : cm_red_gain
+							break
+						case 'down':
+							newValue = cm_red_gain > MODEL_ACTIONS.cm_red_gain.range.min ? --cm_red_gain : cm_red_gain
+							break
+						case 'value':
+							newValue = action.options.value
+							break
+					}
+					body = {
+						RedGain: String(newValue),
+					}
+					this.sendCommand('birddogcmsetup', 'POST', body)
+				},
 			}
 		}
 
@@ -1891,6 +3101,24 @@ module.exports = {
 						isVisible: (action) => action.options.val == 'value',
 					},
 				],
+				callback: (action) => {
+					let cm_red_hue = this.camera?.cm_red_hue ? this.camera.cm_red_hue : MODEL_ACTIONS.cm_red_hue.range.default
+					switch (action.options.val) {
+						case 'up':
+							newValue = cm_red_hue < MODEL_ACTIONS.cm_red_hue.range.max ? ++cm_red_hue : cm_red_hue
+							break
+						case 'down':
+							newValue = cm_red_hue > MODEL_ACTIONS.cm_red_hue.range.min ? --cm_red_hue : cm_red_hue
+							break
+						case 'value':
+							newValue = action.options.value
+							break
+					}
+					body = {
+						RedHue: String(newValue),
+					}
+					this.sendCommand('birddogcmsetup', 'POST', body)
+				},
 			}
 		}
 
@@ -1920,6 +3148,26 @@ module.exports = {
 						isVisible: (action) => action.options.val == 'value',
 					},
 				],
+				callback: (action) => {
+					let cm_yellow_gain = this.camera?.cm_yellow_gain
+						? this.camera.cm_yellow_gain
+						: MODEL_ACTIONS.cm_yellow_gain.range.default
+					switch (action.options.val) {
+						case 'up':
+							newValue = cm_yellow_gain < MODEL_ACTIONS.cm_yellow_gain.range.max ? ++cm_yellow_gain : cm_yellow_gain
+							break
+						case 'down':
+							newValue = cm_yellow_gain > MODEL_ACTIONS.cm_yellow_gain.range.min ? --cm_yellow_gain : cm_yellow_gain
+							break
+						case 'value':
+							newValue = action.options.value
+							break
+					}
+					body = {
+						YellowGain: String(newValue),
+					}
+					this.sendCommand('birddogcmsetup', 'POST', body)
+				},
 			}
 		}
 
@@ -1945,6 +3193,26 @@ module.exports = {
 						isVisible: (action) => action.options.val == 'value',
 					},
 				],
+				callback: (action) => {
+					let cm_yellow_hue = this.camera?.cm_yellow_hue
+						? this.camera.cm_yellow_hue
+						: MODEL_ACTIONS.cm_yellow_hue.range.default
+					switch (action.options.val) {
+						case 'up':
+							newValue = cm_yellow_hue < MODEL_ACTIONS.cm_yellow_hue.range.max ? ++cm_yellow_hue : cm_yellow_hue
+							break
+						case 'down':
+							newValue = cm_yellow_hue > MODEL_ACTIONS.cm_yellow_hue.range.min ? --cm_yellow_hue : cm_yellow_hue
+							break
+						case 'value':
+							newValue = action.options.value
+							break
+					}
+					body = {
+						YellowHue: String(newValue),
+					}
+					this.sendCommand('birddogcmsetup', 'POST', body)
+				},
 			}
 		}
 
@@ -1971,6 +3239,24 @@ module.exports = {
 						isVisible: (action) => action.options.val === 'value',
 					},
 				],
+				callback: (action) => {
+					let brightness = this.camera?.brightness ? this.camera.brightness : MODEL_ACTIONS.brightness.range.default
+					switch (action.options.val) {
+						case 'up':
+							newValue = brightness < MODEL_ACTIONS.brightness.range.max ? ++brightness : brightness
+							break
+						case 'down':
+							newValue = brightness > MODEL_ACTIONS.brightness.range.min ? --brightness : brightness
+							break
+						case 'value':
+							newValue = action.options.value
+							break
+					}
+					body = {
+						Brightness: String(newValue),
+					}
+					this.sendCommand('birddogadvancesetup', 'POST', body)
+				},
 			}
 		}
 
@@ -1986,6 +3272,12 @@ module.exports = {
 						default: MODEL_ACTIONS.brightness_comp.default,
 					},
 				],
+				callback: (action) => {
+					body = {
+						BrightnessComp: String(action.options.val),
+					}
+					this.sendCommand('birddogadvancesetup', 'POST', body)
+				},
 			}
 		}
 
@@ -2001,6 +3293,12 @@ module.exports = {
 						default: MODEL_ACTIONS.comp_level.default,
 					},
 				],
+				callback: (action) => {
+					body = {
+						CompLevel: String(action.options.val),
+					}
+					this.sendCommand('birddogadvancesetup', 'POST', body)
+				},
 			}
 		}
 
@@ -2026,6 +3324,26 @@ module.exports = {
 						isVisible: (action) => action.options.val === 'value',
 					},
 				],
+				callback: (action) => {
+					let gamma_offset = this.camera?.gamma_offset
+						? this.camera.gamma_offset
+						: MODEL_ACTIONS.gamma_offset.range.default
+					switch (action.options.val) {
+						case 'up':
+							newValue = gamma_offset < MODEL_ACTIONS.gamma_offset.range.max ? ++gamma_offset : gamma_offset
+							break
+						case 'down':
+							newValue = gamma_offset > MODEL_ACTIONS.gamma_offset.range.min ? --gamma_offset : gamma_offset
+							break
+						case 'value':
+							newValue = action.options.value
+							break
+					}
+					body = {
+						GammaOffset: String(newValue),
+					}
+					this.sendCommand('birddogadvancesetup', 'POST', body)
+				},
 			}
 		}
 
@@ -2041,6 +3359,12 @@ module.exports = {
 						default: MODEL_ACTIONS.high_resolution.default,
 					},
 				],
+				callback: (action) => {
+					body = {
+						HighResolution: String(action.options.val),
+					}
+					this.sendCommand('birddogadvancesetup', 'POST', body)
+				},
 			}
 		}
 
@@ -2056,6 +3380,12 @@ module.exports = {
 						default: MODEL_ACTIONS.video_enhancement.default,
 					},
 				],
+				callback: (action) => {
+					body = {
+						VideoEnhancement: String(action.options.val),
+					}
+					this.sendCommand('birddogadvancesetup', 'POST', body)
+				},
 			}
 		}
 
@@ -2073,6 +3403,12 @@ module.exports = {
 						default: MODEL_ACTIONS.aux.default,
 					},
 				],
+				callback: (action) => {
+					body = {
+						Aux: String(action.options.val),
+					}
+					this.sendCommand('birddogexternalsetup', 'POST', body)
+				},
 			}
 		}
 
@@ -2088,6 +3424,12 @@ module.exports = {
 						default: MODEL_ACTIONS.rain_wiper.default,
 					},
 				],
+				callback: (action) => {
+					body = {
+						RainWiper: String(action.options.val),
+					}
+					this.sendCommand('birddogexternalsetup', 'POST', body)
+				},
 			}
 		}
 
@@ -2103,6 +3445,12 @@ module.exports = {
 						default: MODEL_ACTIONS.v12vout.default,
 					},
 				],
+				callback: (action) => {
+					body = {
+						V12vOut: String(action.options.val),
+					}
+					this.sendCommand('birddogexternalsetup', 'POST', body)
+				},
 			}
 		}
 
@@ -2120,6 +3468,12 @@ module.exports = {
 						default: MODEL_ACTIONS.bandwidth.default,
 					},
 				],
+				callback: (action) => {
+					body = {
+						Bandwidth: String(action.options.val),
+					}
+					this.sendCommand('birddogdetsetup', 'POST', body)
+				},
 			}
 		}
 
@@ -2135,6 +3489,12 @@ module.exports = {
 						default: MODEL_ACTIONS.bw_balance.default,
 					},
 				],
+				callback: (action) => {
+					body = {
+						BwBandwidth: String(action.options.val),
+					}
+					this.sendCommand('birddogdetsetup', 'POST', body)
+				},
 			}
 		}
 
@@ -2159,6 +3519,24 @@ module.exports = {
 						isVisible: (action) => action.options.val === 'value',
 					},
 				],
+				callback: (action) => {
+					let crispening = this.camera?.crispening ? this.camera.crispening : MODEL_ACTIONS.crispening.range.default
+					switch (action.options.val) {
+						case 'up':
+							newValue = crispening < MODEL_ACTIONS.crispening.range.max ? ++crispening : crispening
+							break
+						case 'down':
+							newValue = crispening > MODEL_ACTIONS.crispening.range.min ? --crispening : crispening
+							break
+						case 'value':
+							newValue = action.options.value
+							break
+					}
+					body = {
+						Crispening: String(newValue),
+					}
+					this.sendCommand('birddogdetsetup', 'POST', body)
+				},
 			}
 		}
 
@@ -2174,6 +3552,12 @@ module.exports = {
 						default: MODEL_ACTIONS.detail.default,
 					},
 				],
+				callback: (action) => {
+					body = {
+						Detail: String(action.options.val),
+					}
+					this.sendCommand('birddogdetsetup', 'POST', body)
+				},
 			}
 		}
 
@@ -2203,6 +3587,28 @@ module.exports = {
 						isVisible: (action) => action.options.val === 'value',
 					},
 				],
+				callback: (action) => {
+					let highlight_detail = this.camera?.highlight_detail
+						? this.camera.highlight_detail
+						: MODEL_ACTIONS.highlight_detail.range.default
+					switch (action.options.val) {
+						case 'up':
+							newValue =
+								highlight_detail < MODEL_ACTIONS.highlight_detail.range.max ? ++highlight_detail : highlight_detail
+							break
+						case 'down':
+							newValue =
+								highlight_detail > MODEL_ACTIONS.highlight_detail.range.min ? --highlight_detail : highlight_detail
+							break
+						case 'value':
+							newValue = action.options.value
+							break
+					}
+					body = {
+						HighlightDetail: String(newValue),
+					}
+					this.sendCommand('birddogdetsetup', 'POST', body)
+				},
 			}
 		}
 
@@ -2227,6 +3633,24 @@ module.exports = {
 						isVisible: (action) => action.options.val === 'value',
 					},
 				],
+				callback: (action) => {
+					let hv_balance = this.camera?.hv_balance ? this.camera.hv_balance : MODEL_ACTIONS.hv_balance.range.default
+					switch (action.options.val) {
+						case 'up':
+							newValue = hv_balance < MODEL_ACTIONS.hv_balance.range.max ? ++hv_balance : hv_balance
+							break
+						case 'down':
+							newValue = hv_balance > MODEL_ACTIONS.hv_balance.range.min ? --hv_balance : hv_balance
+							break
+						case 'value':
+							newValue = action.options.value
+							break
+					}
+					body = {
+						HvBalance: String(newValue),
+					}
+					this.sendCommand('birddogdetsetup', 'POST', body)
+				},
 			}
 		}
 
@@ -2251,6 +3675,24 @@ module.exports = {
 						isVisible: (action) => action.options.val === 'value',
 					},
 				],
+				callback: (action) => {
+					let limit = this.camera?.limit ? this.camera.limit : MODEL_ACTIONS.limit.range.default
+					switch (action.options.val) {
+						case 'up':
+							newValue = limit < MODEL_ACTIONS.limit.range.max ? ++limit : limit
+							break
+						case 'down':
+							newValue = limit > MODEL_ACTIONS.limit.range.min ? --limit : limit
+							break
+						case 'value':
+							newValue = action.options.value
+							break
+					}
+					body = {
+						Limit: String(newValue),
+					}
+					this.sendCommand('birddogdetsetup', 'POST', body)
+				},
 			}
 		}
 
@@ -2275,6 +3717,24 @@ module.exports = {
 						isVisible: (action) => action.options.val === 'value',
 					},
 				],
+				callback: (action) => {
+					let super_low = this.camera?.super_low ? this.camera.super_low : MODEL_ACTIONS.super_low.range.default
+					switch (action.options.val) {
+						case 'up':
+							newValue = super_low < MODEL_ACTIONS.super_low.range.max ? ++super_low : super_low
+							break
+						case 'down':
+							newValue = super_low > MODEL_ACTIONS.super_low.range.min ? --super_low : super_low
+							break
+						case 'value':
+							newValue = action.options.value
+							break
+					}
+					body = {
+						SuperLow: String(newValue),
+					}
+					this.sendCommand('birddogdetsetup', 'POST', body)
+				},
 			}
 		}
 
@@ -2306,6 +3766,28 @@ module.exports = {
 						isVisible: (action) => action.options.val === 'value',
 					},
 				],
+				callback: (action) => {
+					let black_gamma_level = this.camera?.black_gamma_level
+						? this.camera.black_gamma_level
+						: MODEL_ACTIONS.black_gamma_level.range.default
+					switch (action.options.val) {
+						case 'up':
+							newValue =
+								black_gamma_level < MODEL_ACTIONS.black_gamma_level.range.max ? ++black_gamma_level : black_gamma_level
+							break
+						case 'down':
+							newValue =
+								black_gamma_level > MODEL_ACTIONS.black_gamma_level.range.max ? --black_gamma_level : black_gamma_level
+							break
+						case 'value':
+							newValue = action.options.value
+							break
+					}
+					body = {
+						BlackGammaLevel: String(newValue),
+					}
+					this.sendCommand('birddoggammasetup', 'POST', body)
+				},
 			}
 		}
 
@@ -2330,6 +3812,24 @@ module.exports = {
 						isVisible: (action) => action.options.val === 'value',
 					},
 				],
+				callback: (action) => {
+					let black_level = this.camera?.black_level ? this.camera.black_level : MODEL_ACTIONS.black_level.range.default
+					switch (action.options.val) {
+						case 'up':
+							newValue = black_level < MODEL_ACTIONS.black_level.range.max ? ++black_level : black_level
+							break
+						case 'down':
+							newValue = black_level > MODEL_ACTIONS.black_level.range.max ? --black_level : black_level
+							break
+						case 'value':
+							newValue = action.options.value
+							break
+					}
+					body = {
+						BlackLevel: String(newValue),
+					}
+					this.sendCommand('birddoggammasetup', 'POST', body)
+				},
 			}
 		}
 
@@ -2345,6 +3845,12 @@ module.exports = {
 						default: MODEL_ACTIONS.black_level_range.default,
 					},
 				],
+				callback: (action) => {
+					body = {
+						BlackLevelRange: String(action.options.val),
+					}
+					this.sendCommand('birddoggammasetup', 'POST', body)
+				},
 			}
 		}
 
@@ -2369,6 +3875,24 @@ module.exports = {
 						isVisible: (action) => action.options.val === 'value',
 					},
 				],
+				callback: (action) => {
+					let effect = this.camera?.effect ? this.camera.effect : MODEL_ACTIONS.effect.range.default
+					switch (action.options.val) {
+						case 'up':
+							newValue = effect < MODEL_ACTIONS.effect.range.max ? ++effect : effect
+							break
+						case 'down':
+							newValue = effect > MODEL_ACTIONS.effect.range.max ? --effect : effect
+							break
+						case 'value':
+							newValue = action.options.value
+							break
+					}
+					body = {
+						Effect: String(newValue),
+					}
+					this.sendCommand('birddoggammasetup', 'POST', body)
+				},
 			}
 		}
 
@@ -2393,6 +3917,24 @@ module.exports = {
 						isVisible: (action) => action.options.val === 'value',
 					},
 				],
+				callback: (action) => {
+					let level = this.camera?.level ? this.camera.level : MODEL_ACTIONS.level.range.default
+					switch (action.options.val) {
+						case 'up':
+							newValue = level < MODEL_ACTIONS.level.range.max ? ++level : level
+							break
+						case 'down':
+							newValue = level > MODEL_ACTIONS.level.range.max ? --level : level
+							break
+						case 'value':
+							newValue = action.options.value
+							break
+					}
+					body = {
+						Level: String(newValue),
+					}
+					this.sendCommand('birddoggammasetup', 'POST', body)
+				},
 			}
 		}
 
@@ -2417,6 +3959,24 @@ module.exports = {
 						isVisible: (action) => action.options.val === 'value',
 					},
 				],
+				callback: (action) => {
+					let offset = this.camera?.offset ? this.camera.offset : MODEL_ACTIONS.offset.range.default
+					switch (action.options.val) {
+						case 'up':
+							newValue = offset < MODEL_ACTIONS.offset.range.max ? ++offset : offset
+							break
+						case 'down':
+							newValue = offset > MODEL_ACTIONS.offset.range.max ? --offset : offset
+							break
+						case 'value':
+							newValue = action.options.value
+							break
+					}
+					body = {
+						Offset: String(newValue),
+					}
+					this.sendCommand('birddoggammasetup', 'POST', body)
+				},
 			}
 		}
 
@@ -2441,6 +4001,24 @@ module.exports = {
 						isVisible: (action) => action.options.val === 'value',
 					},
 				],
+				callback: (action) => {
+					let pattern = this.camera?.pattern ? this.camera.pattern : MODEL_ACTIONS.pattern.range.default
+					switch (action.options.val) {
+						case 'up':
+							newValue = pattern < MODEL_ACTIONS.pattern.range.max ? ++pattern : pattern
+							break
+						case 'down':
+							newValue = pattern > MODEL_ACTIONS.pattern.range.max ? --pattern : pattern
+							break
+						case 'value':
+							newValue = action.options.value
+							break
+					}
+					body = {
+						Pattern: String(newValue),
+					}
+					this.sendCommand('birddoggammasetup', 'POST', body)
+				},
 			}
 		}
 
@@ -2466,6 +4044,26 @@ module.exports = {
 						isVisible: (action) => action.options.val === 'value',
 					},
 				],
+				callback: (action) => {
+					let pattern_fine = this.camera?.pattern_fine
+						? this.camera.pattern_fine
+						: MODEL_ACTIONS.pattern_fine.range.default
+					switch (action.options.val) {
+						case 'up':
+							newValue = pattern_fine < MODEL_ACTIONS.pattern_fine.range.max ? ++pattern_fine : pattern_fine
+							break
+						case 'down':
+							newValue = pattern_fine > MODEL_ACTIONS.pattern_fine.range.max ? --pattern_fine : pattern_fine
+							break
+						case 'value':
+							newValue = action.options.value
+							break
+					}
+					body = {
+						PatternFine: String(newValue),
+					}
+					this.sendCommand('birddoggammasetup', 'POST', body)
+				},
 			}
 		}
 
@@ -2481,6 +4079,12 @@ module.exports = {
 						default: MODEL_ACTIONS.settings.default,
 					},
 				],
+				callback: (action) => {
+					body = {
+						Settings: String(action.options.val),
+					}
+					this.sendCommand('birddoggammasetup', 'POST', body)
+				},
 			}
 		}
 
@@ -2496,6 +4100,12 @@ module.exports = {
 						default: MODEL_ACTIONS.visibility_enhancer.default,
 					},
 				],
+				callback: (action) => {
+					body = {
+						VisibilityEnhancer: String(action.options.val),
+					}
+					this.sendCommand('birddoggammasetup', 'POST', body)
+				},
 			}
 		}
 
@@ -2513,6 +4123,12 @@ module.exports = {
 						default: MODEL_ACTIONS.scope_size.default,
 					},
 				],
+				callback: (action) => {
+					body = {
+						DoubleSizeEnable: String(action.options.val),
+					}
+					this.sendCommand('birddogscope', 'POST', body)
+				},
 			}
 		}
 
@@ -2542,6 +4158,28 @@ module.exports = {
 						isVisible: (action) => action.options.val === 'value',
 					},
 				],
+				callback: (action) => {
+					let scope_gamma_gain = this.camera?.scope_gamma_gain
+						? this.camera.scope_gamma_gain
+						: MODEL_ACTIONS.scope_gamma_gain.range.default
+					switch (action.options.val) {
+						case 'up':
+							newValue =
+								scope_gamma_gain < MODEL_ACTIONS.scope_gamma_gain.range.max ? ++scope_gamma_gain : scope_gamma_gain
+							break
+						case 'down':
+							newValue =
+								scope_gamma_gain > MODEL_ACTIONS.scope_gamma_gain.range.max ? --scope_gamma_gain : scope_gamma_gain
+							break
+						case 'value':
+							newValue = action.options.value
+							break
+					}
+					body = {
+						GammaGain: String(newValue),
+					}
+					this.sendCommand('birddogscope', 'POST', body)
+				},
 			}
 		}
 
@@ -2557,6 +4195,12 @@ module.exports = {
 						default: MODEL_ACTIONS.scope_mode.default,
 					},
 				],
+				callback: (action) => {
+					body = {
+						Mode: String(action.options.val),
+					}
+					this.sendCommand('birddogscope', 'POST', body)
+				},
 			}
 		}
 
@@ -2572,6 +4216,12 @@ module.exports = {
 						default: MODEL_ACTIONS.scope_position.default,
 					},
 				],
+				callback: (action) => {
+					body = {
+						Position: String(action.options.val),
+					}
+					this.sendCommand('birddogscope', 'POST', body)
+				},
 			}
 		}
 
@@ -2587,6 +4237,12 @@ module.exports = {
 						default: MODEL_ACTIONS.scope_preview.default,
 					},
 				],
+				callback: (action) => {
+					body = {
+						PreviewEnable: String(action.options.val),
+					}
+					this.sendCommand('birddogscope', 'POST', body)
+				},
 			}
 		}
 
@@ -2602,6 +4258,12 @@ module.exports = {
 						default: MODEL_ACTIONS.scope_program.default,
 					},
 				],
+				callback: (action) => {
+					body = {
+						ProgramEnable: String(action.options.val),
+					}
+					this.sendCommand('birddogscope', 'POST', body)
+				},
 			}
 		}
 
@@ -2617,6 +4279,12 @@ module.exports = {
 						default: MODEL_ACTIONS.scope_transparency.default,
 					},
 				],
+				callback: (action) => {
+					body = {
+						TransparencyEnable: String(action.options.val),
+					}
+					this.sendCommand('birddogscope', 'POST', body)
+				},
 			}
 		}
 
@@ -2633,7 +4301,18 @@ module.exports = {
 					width: 6,
 				},
 			],
+			callback: (action) => {
+				let hexData = action.options.custom.replace(/\s+/g, '')
+				let tempBuffer = Buffer.from(hexData, 'hex')
+				cmd = tempBuffer.toString('binary')
+				if ((tempBuffer[0] & 0xf0) === 0x80) {
+					this.sendVISCACommand(cmd)
+				} else {
+					this.log('error', 'Error, command "' + action.options.custom + '" does not start with 8')
+				}
+			},
 		}
+
 		if (MODEL_ACTIONS?.defog) {
 			actions['defog'] = {
 				label: 'VISCA - Defog',
@@ -2651,6 +4330,23 @@ module.exports = {
 						default: '0',
 					},
 				],
+				callback: (action) => {
+					switch (action.options.val) {
+						case '0':
+							cmd = VISCA.MSG_CAM + '\x37\x03\xFF'
+							break
+						case '1':
+							cmd = VISCA.MSG_CAM + '\x37\x01\xFF'
+							break
+						case '2':
+							cmd = VISCA.MSG_CAM + '\x37\x02\xFF'
+							break
+						case '3':
+							cmd = VISCA.MSG_CAM + '\x37\x03\xFF'
+							break
+					}
+					this.sendVISCACommand(cmd)
+				},
 			}
 		}
 		if (MODEL_ACTIONS?.hrMode) {
@@ -2665,6 +4361,17 @@ module.exports = {
 						default: 'On',
 					},
 				],
+				callback: (action) => {
+					switch (action.options.val) {
+						case 'On':
+							cmd = VISCA.MSG_CAM + '\x52\x02\xFF'
+							break
+						case 'Off':
+							cmd = VISCA.MSG_CAM + '\x52\x03\xFF'
+							break
+					}
+					this.sendVISCACommand(cmd)
+				},
 			}
 		}
 		return Object.fromEntries(Object.entries(actions).sort(sortByAction))
