@@ -1088,7 +1088,7 @@ module.exports = {
 				],
 				callback: (action) => {
 					let gain = this.camera?.gain ? this.camera.gain : MODEL_ACTIONS.gain.default
-					let gainLimit = this.camera?.gain_limit ? this.camera.gain_limit : MODEL_ACTIONS.gain_limit.range.default
+					let gainLimit = this.camera?.gain_limit ? this.camera.gain_limit : MODEL_ACTIONS.gain.choices[MODEL_ACTIONS.gain.choices.length-1].id // If no GainLimit then use max Gain
 					switch (action.options.val) {
 						case 'up':
 							newValue = gain < gainLimit ? ++gain : gain
