@@ -276,7 +276,7 @@ module.exports = {
 			action: [
 				{
 					camera: ['common'],
-					action: { choices: CHOICES.UP_DOWN_VALUE, default: 'up', range: { min: 80, max: 120, default: 80 } },
+					action: { choices: CHOICES.UP_DOWN_VALUE, default: 'up', range: { min: 80, max: 180, default: 80 } },
 				},
 			],
 		},
