@@ -70,7 +70,7 @@ exports.updateVariables = function () {
 	}
 
 	if (MODEL_VARIABLES.some((variable) => variable.name === 'audio_output')) {
-		this.setVariable('audio_output', this.camera.analogAudioOutput)
+		this.setVariable('audio_output', MODEL_ACTIONS.analogAudioOutput.choices.find((o) => o.id == this.camera.analogAudioOutput)?.label)
 	}
 
 	// Device Settings Variables
