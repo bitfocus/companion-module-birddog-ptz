@@ -381,7 +381,7 @@ module.exports = {
 				action.options.val = 'value'
 				changed = true
 			}
-			
+
 			if (action.action === 'noise_reduction') {
 				action.options.val = 'value'
 				changed = true

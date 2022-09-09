@@ -106,7 +106,9 @@ module.exports = {
 					},
 				],
 				callback: (action) => {
-					let audio_in = this.camera?.analogAudioInGain ? this.camera.analogAudioInGain : MODEL_ACTIONS.analogAudioInGain.range.default
+					let audio_in = this.camera?.analogAudioInGain
+						? this.camera.analogAudioInGain
+						: MODEL_ACTIONS.analogAudioInGain.range.default
 					switch (action.options.val) {
 						case 'up':
 							newValue = audio_in < MODEL_ACTIONS.analogAudioInGain.range.max ? ++audio_in : audio_in
@@ -119,7 +121,7 @@ module.exports = {
 							break
 					}
 					body = {
-						AnalogAudioInGain: String(newValue), 
+						AnalogAudioInGain: String(newValue),
 					}
 					this.sendCommand('analogaudiosetup', 'POST', body)
 				},
@@ -136,7 +138,8 @@ module.exports = {
 						id: 'val',
 						choices: MODEL_ACTIONS.analogAudioOutGain.choices,
 						default: MODEL_ACTIONS.analogAudioOutGain.default,
-					},{
+					},
+					{
 						type: 'number',
 						label:
 							'Analog Audio Out Gain (dB) (' +
@@ -153,7 +156,9 @@ module.exports = {
 					},
 				],
 				callback: (action) => {
-					let audio_out = this.camera?.analogAudioOutGain ? this.camera.analogAudioOutGain : MODEL_ACTIONS.analogAudioOutGain.range.default
+					let audio_out = this.camera?.analogAudioOutGain
+						? this.camera.analogAudioOutGain
+						: MODEL_ACTIONS.analogAudioOutGain.range.default
 					switch (action.options.val) {
 						case 'up':
 							newValue = audio_out < MODEL_ACTIONS.analogAudioOutGain.range.max ? ++audio_out : audio_out
@@ -2525,19 +2530,19 @@ module.exports = {
 				],
 				callback: (action) => {
 					let nr = this.camera?.noise_reduction
-					? this.camera.noise_reduction
-					: MODEL_ACTIONS.noise_reduction.value.default
-				switch (action.options.val) {
-					case 'up':
-						newValue = nr < MODEL_ACTIONS.noise_reduction.range.max ? ++nr : nr
-						break
-					case 'down':
-						newValue = nr > MODEL_ACTIONS.noise_reduction.range.min ? --nr : nr
-						break
-					case 'value':
-						newValue = action.options.value
-						break
-				}
+						? this.camera.noise_reduction
+						: MODEL_ACTIONS.noise_reduction.value.default
+					switch (action.options.val) {
+						case 'up':
+							newValue = nr < MODEL_ACTIONS.noise_reduction.range.max ? ++nr : nr
+							break
+						case 'down':
+							newValue = nr > MODEL_ACTIONS.noise_reduction.range.min ? --nr : nr
+							break
+						case 'value':
+							newValue = action.options.value
+							break
+					}
 					body = {
 						NoiseReduction: String(newValue),
 					}
@@ -2673,19 +2678,19 @@ module.exports = {
 				],
 				callback: (action) => {
 					let wdr = this.camera?.wide_dynamic_range
-					? this.camera.wide_dynamic_range
-					: MODEL_ACTIONS.wide_dynamic_range.value.default
-				switch (action.options.val) {
-					case 'up':
-						newValue = wdr < MODEL_ACTIONS.wide_dynamic_range.range.max ? ++wdr : wdr
-						break
-					case 'down':
-						newValue = wdr > MODEL_ACTIONS.wide_dynamic_range.range.min ? --wdr : wdr
-						break
-					case 'value':
-						newValue = action.options.value
-						break
-				}
+						? this.camera.wide_dynamic_range
+						: MODEL_ACTIONS.wide_dynamic_range.value.default
+					switch (action.options.val) {
+						case 'up':
+							newValue = wdr < MODEL_ACTIONS.wide_dynamic_range.range.max ? ++wdr : wdr
+							break
+						case 'down':
+							newValue = wdr > MODEL_ACTIONS.wide_dynamic_range.range.min ? --wdr : wdr
+							break
+						case 'value':
+							newValue = action.options.value
+							break
+					}
 					body = {
 						WideDynamicRange: String(newValue),
 					}

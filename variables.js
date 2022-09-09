@@ -447,7 +447,10 @@ exports.updateVariables = function () {
 	}
 
 	if (MODEL_VARIABLES.some((variable) => variable.name === 'noise_reduction')) {
-		this.setVariable('noise_reduction', MODEL_ACTIONS.noise_reduction.value.choices.find((o) => o.id == this.camera.noise_reduction)?.label)
+		this.setVariable(
+			'noise_reduction',
+			MODEL_ACTIONS.noise_reduction.value.choices.find((o) => o.id == this.camera.noise_reduction)?.label
+		)
 	}
 
 	if (MODEL_VARIABLES.some((variable) => variable.name === 'saturation')) {
@@ -471,7 +474,10 @@ exports.updateVariables = function () {
 	}
 
 	if (MODEL_VARIABLES.some((variable) => variable.name === 'wide_dynamic_range')) {
-		this.setVariable('wide_dynamic_range', MODEL_ACTIONS.wide_dynamic_range.value.choices.find((o) => o.id == this.camera.wide_dynamic_range)?.label)
+		this.setVariable(
+			'wide_dynamic_range',
+			MODEL_ACTIONS.wide_dynamic_range.value.choices.find((o) => o.id == this.camera.wide_dynamic_range)?.label
+		)
 	}
 
 	// Color Matrix Variables
