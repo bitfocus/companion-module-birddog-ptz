@@ -368,4 +368,35 @@ module.exports = {
 		})
 		return changed
 	},
+
+	actionsValueUpgrade: function (context, config, actions, feedbacks) {
+		let changed = false
+		actions.forEach((action) => {
+			if (action.action === 'analogAudioInGain') {
+				action.options.val = 'value'
+				changed = true
+			}
+
+			if (action.action === 'analogAudioOutGain') {
+				action.options.val = 'value'
+				changed = true
+			}
+			
+			if (action.action === 'noise_reduction') {
+				action.options.val = 'value'
+				changed = true
+			}
+
+			if (action.action === 'wide_dynamic_range') {
+				action.options.val = 'value'
+				changed = true
+			}
+
+			if (action.action === 'color') {
+				action.action = 'saturation'
+				changed = true
+			}
+		})
+		return changed
+	},
 }

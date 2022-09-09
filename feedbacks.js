@@ -1552,31 +1552,6 @@ exports.initFeedbacks = function () {
 		}
 	}
 
-	if (MODEL_ACTIONS?.color) {
-		feedbacks.color = {
-			type: 'boolean',
-			label: 'Picture Setup - Color',
-			description: 'If the camera matches the selected Color level, change the style of the button',
-			style: {
-				color: ColorBlack,
-				bgcolor: ColorGreen,
-			},
-			options: [
-				{
-					type: 'number',
-					label: 'Value (' + MODEL_ACTIONS.color.range.min + ' to ' + MODEL_ACTIONS.color.range.max + ')',
-					id: 'value',
-					min: MODEL_ACTIONS.color.range.min,
-					max: MODEL_ACTIONS.color.range.max,
-					default: MODEL_ACTIONS.color.range.default,
-				},
-			],
-			callback: (feedback) => {
-				return this.camera?.color == feedback.options.value
-			},
-		}
-	}
-
 	if (MODEL_ACTIONS?.contrast) {
 		feedbacks.contrast = {
 			type: 'boolean',
@@ -1873,6 +1848,31 @@ exports.initFeedbacks = function () {
 			],
 			callback: (feedback) => {
 				return this.camera?.noise_reduction == feedback.options.val
+			},
+		}
+	}
+
+	if (MODEL_ACTIONS?.saturation) {
+		feedbacks.saturation = {
+			type: 'boolean',
+			label: 'Picture Setup - Saturation',
+			description: 'If the camera matches the selected saturation level, change the style of the button',
+			style: {
+				color: ColorBlack,
+				bgcolor: ColorGreen,
+			},
+			options: [
+				{
+					type: 'number',
+					label: 'Value (' + MODEL_ACTIONS.saturation.range.min + ' to ' + MODEL_ACTIONS.saturation.range.max + ')',
+					id: 'value',
+					min: MODEL_ACTIONS.saturation.range.min,
+					max: MODEL_ACTIONS.saturation.range.max,
+					default: MODEL_ACTIONS.saturation.range.default,
+				},
+			],
+			callback: (feedback) => {
+				return this.camera?.saturation == feedback.options.value
 			},
 		}
 	}

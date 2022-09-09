@@ -83,6 +83,13 @@ module.exports = {
 				label: 'Analog Audio - Analog Audio In Gain',
 				options: [
 					{
+						type: 'dropdown',
+						label: 'Action',
+						id: 'val',
+						choices: MODEL_ACTIONS.analogAudioInGain.choices,
+						default: MODEL_ACTIONS.analogAudioInGain.default,
+					},
+					{
 						type: 'number',
 						label:
 							'Analog Audio In Gain (dB) (' +
@@ -90,15 +97,29 @@ module.exports = {
 							' to ' +
 							MODEL_ACTIONS.analogAudioInGain.range.max +
 							')',
-						id: 'val',
+						id: 'value',
 						default: MODEL_ACTIONS.analogAudioInGain.range.default,
 						min: MODEL_ACTIONS.analogAudioInGain.range.min,
 						max: MODEL_ACTIONS.analogAudioInGain.range.max,
+						range: true,
+						isVisible: (action) => action.options.val === 'value',
 					},
 				],
 				callback: (action) => {
+					let audio_in = this.camera?.analogAudioInGain ? this.camera.analogAudioInGain : MODEL_ACTIONS.analogAudioInGain.range.default
+					switch (action.options.val) {
+						case 'up':
+							newValue = audio_in < MODEL_ACTIONS.analogAudioInGain.range.max ? ++audio_in : audio_in
+							break
+						case 'down':
+							newValue = audio_in > MODEL_ACTIONS.analogAudioInGain.range.min ? --audio_in : audio_in
+							break
+						case 'value':
+							newValue = action.options.value + 50 //Convert value to API range
+							break
+					}
 					body = {
-						AnalogAudioInGain: String(action.options.val + 50), //Convert action range to API range
+						AnalogAudioInGain: String(newValue), 
 					}
 					this.sendCommand('analogaudiosetup', 'POST', body)
 				},
@@ -110,6 +131,12 @@ module.exports = {
 				label: 'Analog Audio - Analog Audio Out Gain',
 				options: [
 					{
+						type: 'dropdown',
+						label: 'Action',
+						id: 'val',
+						choices: MODEL_ACTIONS.analogAudioOutGain.choices,
+						default: MODEL_ACTIONS.analogAudioOutGain.default,
+					},{
 						type: 'number',
 						label:
 							'Analog Audio Out Gain (dB) (' +
@@ -121,11 +148,25 @@ module.exports = {
 						default: MODEL_ACTIONS.analogAudioOutGain.range.default,
 						min: MODEL_ACTIONS.analogAudioOutGain.range.min,
 						max: MODEL_ACTIONS.analogAudioOutGain.range.max,
+						range: true,
+						isVisible: (action) => action.options.val === 'value',
 					},
 				],
 				callback: (action) => {
+					let audio_out = this.camera?.analogAudioOutGain ? this.camera.analogAudioOutGain : MODEL_ACTIONS.analogAudioOutGain.range.default
+					switch (action.options.val) {
+						case 'up':
+							newValue = audio_out < MODEL_ACTIONS.analogAudioOutGain.range.max ? ++audio_out : audio_out
+							break
+						case 'down':
+							newValue = audio_out > MODEL_ACTIONS.analogAudioOutGain.range.min ? --audio_out : audio_out
+							break
+						case 'value':
+							newValue = action.options.value + 50 //Convert value to API range
+							break
+					}
 					body = {
-						AnalogAudioOutGain: String(action.options.val + 50), //Convert action range to API range
+						AnalogAudioOutGain: String(newValue), //Convert action range to API range
 					}
 					this.sendCommand('analogaudiosetup', 'POST', body)
 				},
@@ -343,8 +384,14 @@ module.exports = {
 					},
 				],
 				callback: (action) => {
-					body = {
-						txpm: String(action.options.val),
+					if (this.camera.firmware.major === '4') {
+						body = {
+							txpm: String(action.options.val),
+						}
+					} else {
+						body = {
+							Txpm: String(action.options.val),
+						}
 					}
 					this.sendCommand('encodeTransport', 'POST', body)
 				},
@@ -440,7 +487,7 @@ module.exports = {
 					},
 				],
 				callback: (action) => {
-					let panSpeed = this.camera?.panSpeed ? this.camera.PanSpeed : MODEL_ACTIONS.panSpeed.range.default
+					let panSpeed = this.camera?.panSpeed ? this.camera.panSpeed : MODEL_ACTIONS.panSpeed.range.default
 					let tiltSpeed = this.camera?.tiltSpeed ? this.camera.tiltSpeed : MODEL_ACTIONS.tiltSpeed.range.default
 
 					panSpeed = action.options.override === true ? action.options.panSpeed : panSpeed
@@ -577,7 +624,9 @@ module.exports = {
 					},
 				],
 				callback: (action) => {
-					let panSpeed = this.camera?.panSpeed ? this.camera.PanSpeed : MODEL_ACTIONS.panSpeed.range.default
+					this.debug('--- In panSpeed action')
+					let panSpeed = this.camera?.panSpeed ? this.camera.panSpeed : MODEL_ACTIONS.panSpeed.range.default
+					this.debug('--- panSpeed is ', panSpeed)
 					switch (action.options.type) {
 						case 'up':
 							newValue = panSpeed < MODEL_ACTIONS.panSpeed.range.max ? ++panSpeed : MODEL_ACTIONS.panSpeed.range.max
@@ -586,7 +635,7 @@ module.exports = {
 							newValue = panSpeed > MODEL_ACTIONS.panSpeed.range.min ? --panSpeed : MODEL_ACTIONS.panSpeed.range.min
 							break
 						case 'value':
-							newValue = opt.value
+							newValue = action.options.value
 							break
 					}
 					body = {
@@ -656,7 +705,7 @@ module.exports = {
 									: MODEL_ACTIONS.preset_speed.range.min
 							break
 						case 'value':
-							newValue = opt.value
+							newValue = action.options.value
 							break
 					}
 					body = {
@@ -742,8 +791,9 @@ module.exports = {
 							break
 						case 'down':
 							newValue = tiltSpeed > MODEL_ACTIONS.tiltSpeed.range.min ? --tiltSpeed : MODEL_ACTIONS.tiltSpeed.range.min
+							break
 						case 'value':
-							newValue = opt.value
+							newValue = action.options.value
 							break
 					}
 					body = {
@@ -792,7 +842,7 @@ module.exports = {
 				],
 				callback: (action) => {
 					let zoomSpeed = this.camera?.zoomSpeed ? this.camera.zoomSpeed : MODEL_ACTIONS.zoomSpeed.range.default
-					zoomSpeed = opt.override === true ? opt.speed : zoomSpeed
+					zoomSpeed = action.options.override === true ? action.options.speed : zoomSpeed
 					switch (action.options.val) {
 						case 'in':
 							cmd =
@@ -809,7 +859,7 @@ module.exports = {
 								VISCA.END_MSG
 							break
 						case 'direct':
-							cmd = VISCA.MSG_CAM + VISCA.CAM_ZOOM_DIRECT + this.strToPQRS(opt.posZoom) + VISCA.END_MSG
+							cmd = VISCA.MSG_CAM + VISCA.CAM_ZOOM_DIRECT + this.strToPQRS(action.options.posZoom) + VISCA.END_MSG
 							break
 						case 'stop':
 							cmd = VISCA.MSG_CAM + VISCA.CAM_ZOOM + VISCA.CMD_CAM_ZOOM_STOP + VISCA.END_MSG
@@ -851,7 +901,7 @@ module.exports = {
 							newValue = zoomSpeed > MODEL_ACTIONS.zoomSpeed.range.min ? --zoomSpeed : MODEL_ACTIONS.zoomSpeed.range.min
 							break
 						case 'value':
-							newValue = opt.value
+							newValue = action.options.value
 							break
 					}
 					body = {
@@ -1088,7 +1138,9 @@ module.exports = {
 				],
 				callback: (action) => {
 					let gain = this.camera?.gain ? this.camera.gain : MODEL_ACTIONS.gain.default
-					let gainLimit = this.camera?.gain_limit ? this.camera.gain_limit : MODEL_ACTIONS.gain.choices[MODEL_ACTIONS.gain.choices.length-1].id // If no GainLimit then use max Gain
+					let gainLimit = this.camera?.gain_limit
+						? this.camera.gain_limit
+						: MODEL_ACTIONS.gain.choices[MODEL_ACTIONS.gain.choices.length - 1].id // If no GainLimit then use max Gain
 					switch (action.options.val) {
 						case 'up':
 							newValue = gain < gainLimit ? ++gain : gain
@@ -1483,7 +1535,7 @@ module.exports = {
 							' to ' +
 							MODEL_ACTIONS.shutter_speed_overwrite.range.max +
 							')',
-						id: 'level',
+						id: 'value',
 						default: MODEL_ACTIONS.shutter_speed_overwrite.range.default,
 						min: MODEL_ACTIONS.shutter_speed_overwrite.range.min,
 						max: MODEL_ACTIONS.shutter_speed_overwrite.range.max,
@@ -1491,7 +1543,7 @@ module.exports = {
 				],
 				callback: (action) => {
 					body = {
-						ShutterSpeedOverwrite: String(action.options.val),
+						ShutterSpeedOverwrite: String(action.options.value),
 					}
 					this.sendCommand('birddogexpsetup', 'POST', body)
 				},
@@ -2060,35 +2112,35 @@ module.exports = {
 			}
 		}
 
-		if (MODEL_ACTIONS?.color) {
-			actions['color'] = {
-				label: 'Picture Setup - Color',
+		if (MODEL_ACTIONS?.saturation) {
+			actions['saturation'] = {
+				label: 'Picture Setup - Saturation',
 				options: [
 					{
 						type: 'dropdown',
-						label: 'Color',
+						label: 'Saturation',
 						id: 'val',
-						choices: MODEL_ACTIONS.color.choices,
-						default: MODEL_ACTIONS.color.default,
+						choices: MODEL_ACTIONS.saturation.choices,
+						default: MODEL_ACTIONS.saturation.default,
 					},
 					{
 						type: 'number',
-						label: 'Value (' + MODEL_ACTIONS.color.range.min + ' to ' + MODEL_ACTIONS.color.range.max + ')',
+						label: 'Value (' + MODEL_ACTIONS.saturation.range.min + ' to ' + MODEL_ACTIONS.saturation.range.max + ')',
 						id: 'value',
-						min: MODEL_ACTIONS.color.range.min,
-						max: MODEL_ACTIONS.color.range.max,
-						default: MODEL_ACTIONS.color.range.default,
+						min: MODEL_ACTIONS.saturation.range.min,
+						max: MODEL_ACTIONS.saturation.range.max,
+						default: MODEL_ACTIONS.saturation.range.default,
 						isVisible: (action) => action.options.val === 'value',
 					},
 				],
 				callback: (action) => {
-					let color = this.camera?.color ? this.camera.color : MODEL_ACTIONS.color.range.default
+					let saturation = this.camera?.saturation ? this.camera.saturation : MODEL_ACTIONS.saturation.range.default
 					switch (action.options.val) {
 						case 'up':
-							newValue = color < MODEL_ACTIONS.color.range.max ? ++color : color
+							newValue = saturation < MODEL_ACTIONS.saturation.range.max ? ++saturation : saturation
 							break
 						case 'down':
-							newValue = color > MODEL_ACTIONS.color.range.min ? --color : color
+							newValue = saturation > MODEL_ACTIONS.saturation.range.min ? --saturation : saturation
 							break
 						case 'value':
 							newValue = action.options.value
@@ -2462,10 +2514,32 @@ module.exports = {
 						choices: MODEL_ACTIONS.noise_reduction.choices,
 						default: MODEL_ACTIONS.noise_reduction.default,
 					},
+					{
+						type: 'dropdown',
+						label: 'Value',
+						id: 'value',
+						choices: MODEL_ACTIONS.noise_reduction.value.choices,
+						default: MODEL_ACTIONS.noise_reduction.value.default,
+						isVisible: (action) => action.options.val === 'value',
+					},
 				],
 				callback: (action) => {
+					let nr = this.camera?.noise_reduction
+					? this.camera.noise_reduction
+					: MODEL_ACTIONS.noise_reduction.value.default
+				switch (action.options.val) {
+					case 'up':
+						newValue = nr < MODEL_ACTIONS.noise_reduction.range.max ? ++nr : nr
+						break
+					case 'down':
+						newValue = nr > MODEL_ACTIONS.noise_reduction.range.min ? --nr : nr
+						break
+					case 'value':
+						newValue = action.options.value
+						break
+				}
 					body = {
-						NoiseReduction: String(action.options.val),
+						NoiseReduction: String(newValue),
 					}
 					this.sendCommand('birddogpicsetup', 'POST', body)
 				},
@@ -2588,10 +2662,32 @@ module.exports = {
 						choices: MODEL_ACTIONS.wide_dynamic_range.choices,
 						default: MODEL_ACTIONS.wide_dynamic_range.default,
 					},
+					{
+						type: 'dropdown',
+						label: 'Value',
+						id: 'value',
+						choices: MODEL_ACTIONS.wide_dynamic_range.value.choices,
+						default: MODEL_ACTIONS.wide_dynamic_range.value.default,
+						isVisible: (action) => action.options.val === 'value',
+					},
 				],
 				callback: (action) => {
+					let wdr = this.camera?.wide_dynamic_range
+					? this.camera.wide_dynamic_range
+					: MODEL_ACTIONS.wide_dynamic_range.value.default
+				switch (action.options.val) {
+					case 'up':
+						newValue = wdr < MODEL_ACTIONS.wide_dynamic_range.range.max ? ++wdr : wdr
+						break
+					case 'down':
+						newValue = wdr > MODEL_ACTIONS.wide_dynamic_range.range.min ? --wdr : wdr
+						break
+					case 'value':
+						newValue = action.options.value
+						break
+				}
 					body = {
-						WideDynamicRange: String(action.options.val),
+						WideDynamicRange: String(newValue),
 					}
 					this.sendCommand('birddogpicsetup', 'POST', body)
 				},
@@ -4111,27 +4207,6 @@ module.exports = {
 
 		// BirdDog Scope Actions
 
-		if (MODEL_ACTIONS?.scope_size) {
-			actions['scope_size'] = {
-				label: 'Scope - Size',
-				options: [
-					{
-						type: 'dropdown',
-						label: 'On/Off',
-						id: 'val',
-						choices: MODEL_ACTIONS.scope_size.choices,
-						default: MODEL_ACTIONS.scope_size.default,
-					},
-				],
-				callback: (action) => {
-					body = {
-						DoubleSizeEnable: String(action.options.val),
-					}
-					this.sendCommand('birddogscope', 'POST', body)
-				},
-			}
-		}
-
 		if (MODEL_ACTIONS?.scope_gamma_gain) {
 			actions['scope_gamma_gain'] = {
 				label: 'Scope - Gamma Gain',
@@ -4261,6 +4336,27 @@ module.exports = {
 				callback: (action) => {
 					body = {
 						ProgramEnable: String(action.options.val),
+					}
+					this.sendCommand('birddogscope', 'POST', body)
+				},
+			}
+		}
+
+		if (MODEL_ACTIONS?.scope_size) {
+			actions['scope_size'] = {
+				label: 'Scope - Size',
+				options: [
+					{
+						type: 'dropdown',
+						label: 'On/Off',
+						id: 'val',
+						choices: MODEL_ACTIONS.scope_size.choices,
+						default: MODEL_ACTIONS.scope_size.default,
+					},
+				],
+				callback: (action) => {
+					body = {
+						DoubleSizeEnable: String(action.options.val),
 					}
 					this.sendCommand('birddogscope', 'POST', body)
 				},

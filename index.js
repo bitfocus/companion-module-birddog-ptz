@@ -46,6 +46,7 @@ class instance extends instance_skel {
 			upgradeScripts.autoDetectDefault,
 			upgradeScripts.colorTempChange,
 			upgradeScripts.tallyMode,
+			upgradeScripts.actionsValueUpgrade,
 		]
 	}
 

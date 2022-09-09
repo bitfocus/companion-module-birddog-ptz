@@ -186,7 +186,7 @@ module.exports = {
 			action: [
 				{
 					camera: ['common'],
-					action: { range: { min: -50, max: 50, default: 0 } },
+					action: { choices: CHOICES.UP_DOWN_VALUE, default: 'up', range: { min: -50, max: 50, default: 0 } },
 				},
 			],
 		},
@@ -201,7 +201,7 @@ module.exports = {
 			action: [
 				{
 					camera: ['common'],
-					action: { range: { min: -50, max: 50, default: 0 } },
+					action: { choices: CHOICES.UP_DOWN_VALUE, default: 'up', range: { min: -50, max: 50, default: 0 } },
 				},
 			],
 		},
@@ -432,7 +432,7 @@ module.exports = {
 			action: [
 				{
 					camera: ['common'],
-					action: { choices: CHOICES.ENCODE_TXPM, default: 'UDP' },
+					action: { choices: CHOICES.ENCODE_TXPM, default: 'RUDP' },
 				},
 			],
 		},
@@ -1462,21 +1462,6 @@ module.exports = {
 				},
 			],
 		},
-		color: {
-			camera: ['P100', 'P110', 'P120', 'PF120'],
-			firmware: ['4', '5'],
-			store_state: true,
-			api_endpoint: ['birddogpicsetup'],
-			api_variable: ['Color'],
-			variable_name: 'color',
-			variable_label: `Picture Setup - Saturation`,
-			action: [
-				{
-					camera: ['common'],
-					action: { choices: CHOICES.UP_DOWN_VALUE, default: 'up', range: { min: 0, max: 15, default: 8 } },
-				},
-			],
-		},
 		contrast: {
 			camera: ['P100', 'P110', 'P120', 'PF120'],
 			firmware: ['4', '5'],
@@ -1616,7 +1601,12 @@ module.exports = {
 			action: [
 				{
 					camera: ['common'],
-					action: { choices: CHOICES.OFF_1_to_5, default: 'Off' },
+					action: {
+						choices: CHOICES.UP_DOWN_VALUE,
+						default: 'up',
+						value: { choices: CHOICES.OFF_1_to_5, default: '0' },
+						range: { min: 0, max: 5 },
+					},
 				},
 			],
 		},
@@ -1662,6 +1652,21 @@ module.exports = {
 				{
 					camera: ['common'],
 					action: { choices: CHOICES.PICTURE_EFFECT, default: 'BW' },
+				},
+			],
+		},
+		saturation: {
+			camera: ['P100', 'P110', 'P120', 'PF120'],
+			firmware: ['4', '5'],
+			store_state: true,
+			api_endpoint: ['birddogpicsetup'],
+			api_variable: ['Color'],
+			variable_name: 'saturation',
+			variable_label: `Picture Setup - Saturation`,
+			action: [
+				{
+					camera: ['common'],
+					action: { choices: CHOICES.UP_DOWN_VALUE, default: 'up', range: { min: 0, max: 15, default: 8 } },
 				},
 			],
 		},
@@ -1744,7 +1749,12 @@ module.exports = {
 			action: [
 				{
 					camera: ['common'],
-					action: { choices: CHOICES.OFF_1_to_6, default: 'Off' },
+					action: {
+						choices: CHOICES.UP_DOWN_VALUE,
+						default: 'up',
+						value: { choices: CHOICES.OFF_1_to_6, default: '0' },
+						range: { min: 0, max: 6 },
+					},
 				},
 			],
 		},
@@ -2375,21 +2385,6 @@ module.exports = {
 		},
 
 		// BirdDog Scope
-		scope_size: {
-			camera: ['All'],
-			firmware: ['5'],
-			store_state: true,
-			api_endpoint: ['birddogscope'],
-			api_variable: ['DoubleSizeEnable'],
-			variable_name: 'scope_size',
-			variable_label: `Scope - Size`,
-			action: [
-				{
-					camera: ['common'],
-					action: { choices: CHOICES.ON_OFF, default: 'Off' },
-				},
-			],
-		},
 		scope_gamma_gain: {
 			camera: ['All'],
 			firmware: ['5'],
@@ -2462,6 +2457,21 @@ module.exports = {
 				{
 					camera: ['common'],
 					action: { choices: CHOICES.ON_OFF, default: 'Off' },
+				},
+			],
+		},
+		scope_size: {
+			camera: ['All'],
+			firmware: ['5'],
+			store_state: true,
+			api_endpoint: ['birddogscope'],
+			api_variable: ['DoubleSizeEnable'],
+			variable_name: 'scope_size',
+			variable_label: `Scope - Size`,
+			action: [
+				{
+					camera: ['common'],
+					action: { choices: CHOICES.SCOPE_SIZE, default: 'Off' },
 				},
 			],
 		},
