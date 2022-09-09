@@ -26,7 +26,7 @@ module.exports = {
 		// VISCA Actions
 		if (MODEL_ACTIONS?.standby) {
 			actions['standby'] = {
-				label: 'VISCA - Standby On/Off',
+				label: MODEL_ACTIONS.standby.name,
 				options: [
 					{
 						type: 'dropdown',
@@ -52,7 +52,7 @@ module.exports = {
 
 		if (MODEL_ACTIONS?.freeze) {
 			actions['freeze'] = {
-				label: 'VISCA - Freeze',
+				label: MODEL_ACTIONS.freeze.name,
 				options: [
 					{
 						type: 'dropdown',
@@ -80,7 +80,7 @@ module.exports = {
 
 		if (MODEL_ACTIONS?.analogAudioInGain) {
 			actions['analogAudioInGain'] = {
-				label: 'Analog Audio - Analog Audio In Gain',
+				label: MODEL_ACTIONS.analogAudioInGain.name,
 				options: [
 					{
 						type: 'dropdown',
@@ -128,7 +128,7 @@ module.exports = {
 
 		if (MODEL_ACTIONS?.analogAudioOutGain) {
 			actions['analogAudioOutGain'] = {
-				label: 'Analog Audio - Analog Audio Out Gain',
+				label: MODEL_ACTIONS.analogAudioOutGain.name,
 				options: [
 					{
 						type: 'dropdown',
@@ -175,7 +175,7 @@ module.exports = {
 
 		if (MODEL_ACTIONS?.analogAudioOutput) {
 			actions['analogAudioOutput'] = {
-				label: 'Analog Audio - Analog Audio Output Select',
+				label: MODEL_ACTIONS.analogAudioOutput.name,
 				options: [
 					{
 						type: 'dropdown',
@@ -198,7 +198,7 @@ module.exports = {
 
 		if (MODEL_ACTIONS?.video_output) {
 			actions['video_output'] = {
-				label: 'Video Output - Video Mode',
+				label: MODEL_ACTIONS.video_output.name,
 				options: [
 					{
 						type: 'dropdown',
@@ -221,7 +221,7 @@ module.exports = {
 
 		if (MODEL_ACTIONS?.bandwidth_mode) {
 			actions['bandwidth_mode'] = {
-				label: 'Encode Setup - Encode Bandwidth',
+				label: MODEL_ACTIONS.bandwidth_mode.name,
 				options: [
 					{
 						type: 'dropdown',
@@ -266,7 +266,7 @@ module.exports = {
 
 		if (MODEL_ACTIONS?.ndiAudio) {
 			actions['ndiAudio'] = {
-				label: 'Encode Setup - NDI Audio',
+				label: MODEL_ACTIONS.ndiAudio.name,
 				options: [
 					{
 						type: 'dropdown',
@@ -287,7 +287,7 @@ module.exports = {
 
 		if (MODEL_ACTIONS?.ndiGroupEnable) {
 			actions['ndiGroupEnable'] = {
-				label: 'Encode Setup - NDI Group Enable',
+				label: MODEL_ACTIONS.ndiGroupEnable.name,
 				options: [
 					{
 						type: 'dropdown',
@@ -308,7 +308,7 @@ module.exports = {
 
 		if (MODEL_ACTIONS?.screensaver_mode) {
 			actions['screensaver_mode'] = {
-				label: 'Encode Setup - ScreenSaver Mode',
+				label: MODEL_ACTIONS.screensaver_mode.name,
 				options: [
 					{
 						type: 'dropdown',
@@ -329,7 +329,7 @@ module.exports = {
 
 		if (MODEL_ACTIONS?.stream_to_network) {
 			actions['stream_to_network'] = {
-				label: 'Encode Setup - Stream to Network',
+				label: MODEL_ACTIONS.stream_to_network.name,
 				options: [
 					{
 						type: 'dropdown',
@@ -350,7 +350,7 @@ module.exports = {
 
 		if (MODEL_ACTIONS?.tally_mode) {
 			actions['tally_mode'] = {
-				label: 'Encode Setup - Tally Mode',
+				label: MODEL_ACTIONS.tally_mode.name,
 				options: [
 					{
 						type: 'dropdown',
@@ -373,7 +373,7 @@ module.exports = {
 
 		if (MODEL_ACTIONS?.transmit_method) {
 			actions['transmit_method'] = {
-				label: 'Encode Transport - Transmit Method',
+				label: MODEL_ACTIONS.transmit_method.name,
 				options: [
 					{
 						type: 'dropdown',
@@ -400,7 +400,7 @@ module.exports = {
 
 		if (MODEL_ACTIONS?.capture_screensaver) {
 			actions['capture_screensaver'] = {
-				label: 'Encode - Capture Screensaver',
+				label: MODEL_ACTIONS.capture_screensaver.name,
 				callback: (action) => {
 					this.sendCommand('capture?ChNum=1&status=Encode', 'GET')
 				},
@@ -411,7 +411,7 @@ module.exports = {
 
 		if (MODEL_ACTIONS?.ndi_discovery_server) {
 			actions['ndi_discovery_server'] = {
-				label: 'NDI Discovery - Server',
+				label: MODEL_ACTIONS.ndi_discovery_server.name,
 				options: [
 					{
 						type: 'dropdown',
@@ -434,7 +434,7 @@ module.exports = {
 
 		if (MODEL_ACTIONS?.pt) {
 			actions['pt'] = {
-				label: 'PTZ - Pan/Tilt',
+				label: MODEL_ACTIONS.pt.name,
 				options: [
 					{
 						type: 'dropdown',
@@ -604,7 +604,7 @@ module.exports = {
 
 		if (MODEL_ACTIONS?.panSpeed) {
 			actions['panSpeed'] = {
-				label: 'PTZ - Pan Speed',
+				label: MODEL_ACTIONS.panSpeed.name,
 				options: [
 					{
 						type: 'dropdown',
@@ -648,7 +648,7 @@ module.exports = {
 
 		if (MODEL_ACTIONS?.preset) {
 			actions['preset'] = {
-				label: 'PTZ - Preset Mode',
+				label: MODEL_ACTIONS.preset.name,
 				options: [
 					{
 						type: 'dropdown',
@@ -669,7 +669,7 @@ module.exports = {
 
 		if (MODEL_ACTIONS?.preset_speed) {
 			actions['preset_speed'] = {
-				label: 'PTZ - Preset Speed',
+				label: MODEL_ACTIONS.preset_speed.name,
 				options: [
 					{
 						type: 'dropdown',
@@ -718,7 +718,7 @@ module.exports = {
 
 		if (MODEL_ACTIONS?.recallPset) {
 			actions['recallPset'] = {
-				label: 'PTZ - Recall Preset',
+				label: MODEL_ACTIONS.recallPset.name,
 				options: [
 					{
 						type: 'number',
@@ -741,7 +741,7 @@ module.exports = {
 
 		if (MODEL_ACTIONS?.savePset) {
 			actions['savePset'] = {
-				label: 'PTZ - Save Preset',
+				label: MODEL_ACTIONS.savePset.name,
 				options: [
 					{
 						type: 'number',
@@ -764,7 +764,7 @@ module.exports = {
 
 		if (MODEL_ACTIONS?.tiltSpeed) {
 			actions['tiltSpeed'] = {
-				label: 'PTZ - Tilt Speed',
+				label: MODEL_ACTIONS.tiltSpeed.name,
 				options: [
 					{
 						type: 'dropdown',
@@ -806,7 +806,7 @@ module.exports = {
 
 		if (MODEL_ACTIONS?.zoom) {
 			actions['zoom'] = {
-				label: 'PTZ - Zoom',
+				label: MODEL_ACTIONS.zoom.name,
 				options: [
 					{
 						type: 'dropdown',
@@ -872,7 +872,7 @@ module.exports = {
 
 		if (MODEL_ACTIONS?.zoomSpeed) {
 			actions['zoomSpeed'] = {
-				label: 'PTZ - Zoom Speed',
+				label: MODEL_ACTIONS.zoomSpeed.name,
 				options: [
 					{
 						type: 'dropdown',
@@ -916,7 +916,7 @@ module.exports = {
 
 		if (MODEL_ACTIONS?.focus) {
 			actions['focus'] = {
-				label: 'Focus - Focus Action',
+				label: MODEL_ACTIONS.focus.name,
 				options: [
 					{
 						type: 'dropdown',
@@ -948,7 +948,7 @@ module.exports = {
 
 		if (MODEL_ACTIONS?.focusM) {
 			actions['focusM'] = {
-				label: 'Focus - Focus Mode',
+				label: MODEL_ACTIONS.focusM.name,
 				options: [
 					{
 						type: 'dropdown',
@@ -976,7 +976,7 @@ module.exports = {
 
 		if (MODEL_ACTIONS?.ae_response) {
 			actions['ae_response'] = {
-				label: 'Exposure - Ae Repsonse',
+				label: MODEL_ACTIONS.ae_response.name,
 				options: [
 					{
 						type: 'number',
@@ -1003,7 +1003,7 @@ module.exports = {
 
 		if (MODEL_ACTIONS?.backlight) {
 			actions['backlight'] = {
-				label: 'Exposure - Backlight',
+				label: MODEL_ACTIONS.backlight.name,
 				options: [
 					{
 						type: 'dropdown',
@@ -1024,7 +1024,7 @@ module.exports = {
 
 		if (MODEL_ACTIONS?.bright_level) {
 			actions['bright_level'] = {
-				label: 'Exposure - Bright Level',
+				label: MODEL_ACTIONS.bright_level.name,
 				options: [
 					{
 						type: 'number',
@@ -1047,7 +1047,7 @@ module.exports = {
 
 		if (MODEL_ACTIONS?.expComp) {
 			actions['expComp'] = {
-				label: 'Exposure - Exposure Compensation',
+				label: MODEL_ACTIONS.expComp.name,
 				options: [
 					{
 						type: 'dropdown',
@@ -1097,7 +1097,7 @@ module.exports = {
 
 		if (MODEL_ACTIONS?.exposure_mode) {
 			actions['expM'] = {
-				label: 'Exposure - Exposure Mode',
+				label: MODEL_ACTIONS.exposure_mode.name,
 				options: [
 					{
 						type: 'dropdown',
@@ -1118,7 +1118,7 @@ module.exports = {
 
 		if (MODEL_ACTIONS?.gain) {
 			actions['gain'] = {
-				label: 'Exposure - Gain',
+				label: MODEL_ACTIONS.gain.name,
 				options: [
 					{
 						type: 'dropdown',
@@ -1162,7 +1162,7 @@ module.exports = {
 
 		if (MODEL_ACTIONS?.gain_limit) {
 			actions['gainLimit'] = {
-				label: 'Exposure - Gain Limit',
+				label: MODEL_ACTIONS.gain_limit.name,
 				options: [
 					{
 						type: 'dropdown',
@@ -1206,7 +1206,7 @@ module.exports = {
 
 		if (MODEL_ACTIONS?.gain_point) {
 			actions['gainPoint'] = {
-				label: 'Exposure - Gain Point',
+				label: MODEL_ACTIONS.gain_point.name,
 				options: [
 					{
 						type: 'dropdown',
@@ -1227,7 +1227,7 @@ module.exports = {
 
 		if (MODEL_ACTIONS?.gain_point_position) {
 			actions['gainPointPosition'] = {
-				label: 'Exposure - Gain Point Position',
+				label: MODEL_ACTIONS.gain_point_position.name,
 				options: [
 					{
 						type: 'dropdown',
@@ -1279,7 +1279,7 @@ module.exports = {
 
 		if (MODEL_ACTIONS?.high_sensitivity) {
 			actions['highSensitivity'] = {
-				label: 'Exposure - High Sensitivity Mode',
+				label: MODEL_ACTIONS.high_sensitivity.name,
 				options: [
 					{
 						type: 'dropdown',
@@ -1300,7 +1300,7 @@ module.exports = {
 
 		if (MODEL_ACTIONS?.iris) {
 			actions['iris'] = {
-				label: 'Exposure - Iris',
+				label: MODEL_ACTIONS.iris.name,
 				options: [
 					{
 						type: 'dropdown',
@@ -1351,7 +1351,7 @@ module.exports = {
 
 		if (MODEL_ACTIONS?.shutter_control_overwrite) {
 			actions['shutter_control_overwrite'] = {
-				label: 'Exposure - Shutter Control Overwrite',
+				label: MODEL_ACTIONS.shutter_control_overwrite.name,
 				options: [
 					{
 						type: 'dropdown',
@@ -1372,7 +1372,7 @@ module.exports = {
 
 		if (MODEL_ACTIONS?.shutter_max_speed) {
 			actions['shutter_max_speed'] = {
-				label: 'Exposure - Shutter Max Speed',
+				label: MODEL_ACTIONS.shutter_max_speed.name,
 				options: [
 					{
 						type: 'dropdown',
@@ -1424,7 +1424,7 @@ module.exports = {
 
 		if (MODEL_ACTIONS?.shutter_min_speed) {
 			actions['shutter_min_speed'] = {
-				label: 'Exposure - Shutter Min Speed',
+				label: MODEL_ACTIONS.shutter_min_speed.name,
 				options: [
 					{
 						type: 'dropdown',
@@ -1476,7 +1476,7 @@ module.exports = {
 
 		if (MODEL_ACTIONS?.shutter_speed) {
 			actions['shut'] = {
-				label: 'Exposure - Shutter Speed',
+				label: MODEL_ACTIONS.shutter_speed.name,
 				options: [
 					{
 						type: 'dropdown',
@@ -1525,7 +1525,7 @@ module.exports = {
 
 		if (MODEL_ACTIONS?.shutter_speed_overwrite) {
 			actions['shutter_speed_overwrite'] = {
-				label: 'Exposure - Shutter Speed Overwrite',
+				label: MODEL_ACTIONS.shutter_speed_overwrite.name,
 				options: [
 					{
 						type: 'number',
@@ -1552,7 +1552,7 @@ module.exports = {
 
 		if (MODEL_ACTIONS?.slow_shutter_en) {
 			actions['slow_shutter_en'] = {
-				label: 'Exposure - Slow Shutter Enable',
+				label: MODEL_ACTIONS.slow_shutter_en.name,
 				options: [
 					{
 						type: 'dropdown',
@@ -1573,7 +1573,7 @@ module.exports = {
 
 		if (MODEL_ACTIONS?.slow_shutter_limit) {
 			actions['slow_shutter_limit'] = {
-				label: 'Exposure - Slow Shutter Limit',
+				label: MODEL_ACTIONS.slow_shutter_limit.name,
 				options: [
 					{
 						type: 'dropdown',
@@ -1625,7 +1625,7 @@ module.exports = {
 
 		if (MODEL_ACTIONS?.spotlight) {
 			actions['spotlight'] = {
-				label: 'Exposure - Spotlight',
+				label: MODEL_ACTIONS.spotlight.name,
 				options: [
 					{
 						type: 'dropdown',
@@ -1648,7 +1648,7 @@ module.exports = {
 
 		if (MODEL_ACTIONS?.bg) {
 			actions['bg'] = {
-				label: 'White Balance - BG',
+				label: MODEL_ACTIONS.bg.name,
 				options: [
 					{
 						type: 'number',
@@ -1670,7 +1670,7 @@ module.exports = {
 
 		if (MODEL_ACTIONS?.br) {
 			actions['br'] = {
-				label: 'White Balance - BR',
+				label: MODEL_ACTIONS.br.name,
 				options: [
 					{
 						type: 'number',
@@ -1692,7 +1692,7 @@ module.exports = {
 
 		if (MODEL_ACTIONS?.blue_gain) {
 			actions['blue_gain'] = {
-				label: 'White Balance - Blue Gain',
+				label: MODEL_ACTIONS.blue_gain.name,
 				options: [
 					{
 						type: 'dropdown',
@@ -1734,7 +1734,7 @@ module.exports = {
 
 		if (MODEL_ACTIONS?.color_temp) {
 			actions['color_temp'] = {
-				label: 'White Balance - Color Temperature',
+				label: MODEL_ACTIONS.color_temp.name,
 				options: [
 					{
 						type: 'dropdown',
@@ -1779,7 +1779,7 @@ module.exports = {
 
 		if (MODEL_ACTIONS?.gb) {
 			actions['gb'] = {
-				label: 'White Balance - GB',
+				label: MODEL_ACTIONS.gb.name,
 				options: [
 					{
 						type: 'number',
@@ -1801,7 +1801,7 @@ module.exports = {
 
 		if (MODEL_ACTIONS?.gr) {
 			actions['gr'] = {
-				label: 'White Balance - GR',
+				label: MODEL_ACTIONS.gr.name,
 				options: [
 					{
 						type: 'number',
@@ -1823,7 +1823,7 @@ module.exports = {
 
 		if (MODEL_ACTIONS?.level) {
 			actions['level'] = {
-				label: 'White Balance - Level',
+				label: MODEL_ACTIONS.level.name,
 				options: [
 					{
 						type: 'number',
@@ -1845,7 +1845,7 @@ module.exports = {
 
 		if (MODEL_ACTIONS?.matrix) {
 			actions['matrix'] = {
-				label: 'White Balance - Matrix',
+				label: MODEL_ACTIONS.matrix.name,
 				options: [
 					{
 						type: 'dropdown',
@@ -1866,7 +1866,7 @@ module.exports = {
 
 		if (MODEL_ACTIONS?.offset) {
 			actions['offset'] = {
-				label: 'White Balance - Offset',
+				label: MODEL_ACTIONS.offset.name,
 				options: [
 					{
 						type: 'number',
@@ -1888,7 +1888,7 @@ module.exports = {
 
 		if (MODEL_ACTIONS?.phase) {
 			actions['phase'] = {
-				label: 'White Balance - Phase',
+				label: MODEL_ACTIONS.phase.name,
 				options: [
 					{
 						type: 'number',
@@ -1910,7 +1910,7 @@ module.exports = {
 
 		if (MODEL_ACTIONS?.rb) {
 			actions['rb'] = {
-				label: 'White Balance - RB',
+				label: MODEL_ACTIONS.rb.name,
 				options: [
 					{
 						type: 'number',
@@ -1932,7 +1932,7 @@ module.exports = {
 
 		if (MODEL_ACTIONS?.rg) {
 			actions['rg'] = {
-				label: 'White Balance - RG',
+				label: MODEL_ACTIONS.rg.name,
 				options: [
 					{
 						type: 'number',
@@ -1954,7 +1954,7 @@ module.exports = {
 
 		if (MODEL_ACTIONS?.red_gain) {
 			actions['red_gain'] = {
-				label: 'White Balance - Red Gain',
+				label: MODEL_ACTIONS.red_gain.name,
 				options: [
 					{
 						type: 'dropdown',
@@ -1996,7 +1996,7 @@ module.exports = {
 
 		if (MODEL_ACTIONS?.select) {
 			actions['select'] = {
-				label: 'White Balance - Select',
+				label: MODEL_ACTIONS.select.name,
 				options: [
 					{
 						type: 'dropdown',
@@ -2017,7 +2017,7 @@ module.exports = {
 
 		if (MODEL_ACTIONS?.speed) {
 			actions['speed'] = {
-				label: 'White Balance - Speed',
+				label: MODEL_ACTIONS.speed.name,
 				options: [
 					{
 						type: 'number',
@@ -2039,7 +2039,7 @@ module.exports = {
 
 		if (MODEL_ACTIONS?.wb_mode) {
 			actions['wb_mode'] = {
-				label: 'White Balance - White Balance Mode',
+				label: MODEL_ACTIONS.wb_mode.name,
 				options: [
 					{
 						type: 'dropdown',
@@ -2059,7 +2059,7 @@ module.exports = {
 		}
 		if (MODEL_ACTIONS?.wbOnePush) {
 			actions['wbOnePush'] = {
-				label: 'White Balance - One Push Trigger',
+				label: MODEL_ACTIONS.wbOnePush.name,
 				description: 'Camera must be in One Push mode in order to use this action',
 				callback: (action) => {
 					cmd = VISCA.MSG_CAM + VISCA.CAM_WB_TRIGGER + VISCA.CMD_CAM_WB_TRIGGER_NOW + VISCA.END_MSG
@@ -2072,7 +2072,7 @@ module.exports = {
 
 		if (MODEL_ACTIONS?.backlight_com) {
 			actions['backlight_com'] = {
-				label: 'Picture Setup - Backlight Compensation',
+				label: MODEL_ACTIONS.backlight_com.name,
 				options: [
 					{
 						type: 'dropdown',
@@ -2093,7 +2093,7 @@ module.exports = {
 
 		if (MODEL_ACTIONS?.chroma_suppress) {
 			actions['chroma_suppress'] = {
-				label: 'Picture Setup - Chroma Suppress',
+				label: MODEL_ACTIONS.chroma_suppress.name,
 				options: [
 					{
 						type: 'dropdown',
@@ -2114,7 +2114,7 @@ module.exports = {
 
 		if (MODEL_ACTIONS?.saturation) {
 			actions['saturation'] = {
-				label: 'Picture Setup - Saturation',
+				label: MODEL_ACTIONS.saturation.name,
 				options: [
 					{
 						type: 'dropdown',
@@ -2156,7 +2156,7 @@ module.exports = {
 
 		if (MODEL_ACTIONS?.contrast) {
 			actions['contrast'] = {
-				label: 'Picture Setup - Contrast',
+				label: MODEL_ACTIONS.contrast.name,
 				options: [
 					{
 						type: 'dropdown',
@@ -2198,7 +2198,7 @@ module.exports = {
 
 		if (MODEL_ACTIONS?.pictureEffect) {
 			actions['pictureEffect'] = {
-				label: 'Picture Setup - Effect',
+				label: MODEL_ACTIONS.pictureEffect.name,
 				options: [
 					{
 						type: 'dropdown',
@@ -2219,7 +2219,7 @@ module.exports = {
 
 		if (MODEL_ACTIONS?.picFlip) {
 			actions['picFlip'] = {
-				label: 'Picture Setup - Flip',
+				label: MODEL_ACTIONS.picFlip.name,
 				options: [
 					{
 						type: 'dropdown',
@@ -2240,7 +2240,7 @@ module.exports = {
 
 		if (MODEL_ACTIONS?.gamma) {
 			actions['gamma'] = {
-				label: 'Picture Setup - Gamma',
+				label: MODEL_ACTIONS.gamma.name,
 				options: [
 					{
 						type: 'dropdown',
@@ -2282,7 +2282,7 @@ module.exports = {
 
 		if (MODEL_ACTIONS?.highlight_comp) {
 			actions['highlight_comp'] = {
-				label: 'Picture Setup - Highlight Compensation',
+				label: MODEL_ACTIONS.highlight_comp.name,
 				options: [
 					{
 						type: 'dropdown',
@@ -2303,7 +2303,7 @@ module.exports = {
 
 		if (MODEL_ACTIONS?.highlight_comp_mask) {
 			actions['highlight_comp_mask'] = {
-				label: 'Picture Setup - Highlight Compensation Mask',
+				label: MODEL_ACTIONS.highlight_comp_mask.name,
 				options: [
 					{
 						type: 'dropdown',
@@ -2358,7 +2358,7 @@ module.exports = {
 
 		if (MODEL_ACTIONS?.hue) {
 			actions['hue'] = {
-				label: 'Picture Setup - Hue',
+				label: MODEL_ACTIONS.hue.name,
 				options: [
 					{
 						type: 'dropdown',
@@ -2400,7 +2400,7 @@ module.exports = {
 
 		if (MODEL_ACTIONS?.ir_cutfilter) {
 			actions['ir_cutfilter'] = {
-				label: 'Picture Setup - IR Cut Filter',
+				label: MODEL_ACTIONS.ir_cutfilter.name,
 				options: [
 					{
 						type: 'dropdown',
@@ -2421,7 +2421,7 @@ module.exports = {
 
 		if (MODEL_ACTIONS?.low_latency) {
 			actions['low_latency'] = {
-				label: 'Picture Setup - Low Latency',
+				label: MODEL_ACTIONS.low_latency.name,
 				options: [
 					{
 						type: 'dropdown',
@@ -2442,7 +2442,7 @@ module.exports = {
 
 		if (MODEL_ACTIONS?.picMirror) {
 			actions['picMirror'] = {
-				label: 'Picture Setup - Mirror',
+				label: MODEL_ACTIONS.picMirror.name,
 				options: [
 					{
 						type: 'dropdown',
@@ -2463,7 +2463,7 @@ module.exports = {
 
 		if (MODEL_ACTIONS?.nd_filter) {
 			actions['nd_filter'] = {
-				label: 'Picture Setup - ND Filter',
+				label: MODEL_ACTIONS.nd_filter.name,
 				options: [
 					{
 						type: 'dropdown',
@@ -2505,7 +2505,7 @@ module.exports = {
 
 		if (MODEL_ACTIONS?.noise_reduction) {
 			actions['noise_reduction'] = {
-				label: 'Picture Setup - Noise Reduction',
+				label: MODEL_ACTIONS.noise_reduction.name,
 				options: [
 					{
 						type: 'dropdown',
@@ -2548,7 +2548,7 @@ module.exports = {
 
 		if (MODEL_ACTIONS?.sharpness) {
 			actions['sharpness'] = {
-				label: 'Picture Setup - Sharpness',
+				label: MODEL_ACTIONS.sharpness.name,
 				options: [
 					{
 						type: 'dropdown',
@@ -2590,7 +2590,7 @@ module.exports = {
 
 		if (MODEL_ACTIONS?.stabilizer) {
 			actions['stabilizer'] = {
-				label: 'Picture Setup - Stabilizer',
+				label: MODEL_ACTIONS.stabilizer.name,
 				options: [
 					{
 						type: 'dropdown',
@@ -2611,7 +2611,7 @@ module.exports = {
 
 		if (MODEL_ACTIONS?.threed_nr) {
 			actions['threed_nr'] = {
-				label: 'Picture Setup - 3D Noise Reduction',
+				label: MODEL_ACTIONS.threed_nr.name,
 				options: [
 					{
 						type: 'dropdown',
@@ -2632,7 +2632,7 @@ module.exports = {
 
 		if (MODEL_ACTIONS?.twod_nr) {
 			actions['twod_nr'] = {
-				label: 'Picture Setup - 2D Noise Reduction',
+				label: MODEL_ACTIONS.twod_nr.name,
 				options: [
 					{
 						type: 'dropdown',
@@ -2653,7 +2653,7 @@ module.exports = {
 
 		if (MODEL_ACTIONS?.wide_dynamic_range) {
 			actions['wide_dynamic_range'] = {
-				label: 'Picture Setup - Wide Dynamic Range',
+				label: MODEL_ACTIONS.wide_dynamic_range.name,
 				options: [
 					{
 						type: 'dropdown',
@@ -2698,7 +2698,7 @@ module.exports = {
 
 		if (MODEL_ACTIONS?.cm_blue_gain) {
 			actions['cm_blue_gain'] = {
-				label: 'Color Matrix - Blue Gain',
+				label: MODEL_ACTIONS.cm_blue_gain.name,
 				options: [
 					{
 						type: 'dropdown',
@@ -2743,7 +2743,7 @@ module.exports = {
 
 		if (MODEL_ACTIONS?.cm_blue_hue) {
 			actions['cm_blue_hue'] = {
-				label: 'Color Matrix - Blue Hue',
+				label: MODEL_ACTIONS.cm_blue_hue.name,
 				options: [
 					{
 						type: 'dropdown',
@@ -2785,7 +2785,7 @@ module.exports = {
 
 		if (MODEL_ACTIONS?.cm_color_gain) {
 			actions['cm_color_gain'] = {
-				label: 'Color Matrix - Color Gain',
+				label: MODEL_ACTIONS.cm_color_gain.name,
 				options: [
 					{
 						type: 'dropdown',
@@ -2830,7 +2830,7 @@ module.exports = {
 
 		if (MODEL_ACTIONS?.cm_cyan_gain) {
 			actions['cm_cyan_gain'] = {
-				label: 'Color Matrix - Cyan Gain',
+				label: MODEL_ACTIONS.cm_cyan_gain.name,
 				options: [
 					{
 						type: 'dropdown',
@@ -2875,7 +2875,7 @@ module.exports = {
 
 		if (MODEL_ACTIONS?.cm_cyan_hue) {
 			actions['cm_cyan_hue'] = {
-				label: 'Color Matrix - Cyan Hue',
+				label: MODEL_ACTIONS.cm_cyan_hue.name,
 				options: [
 					{
 						type: 'dropdown',
@@ -2917,7 +2917,7 @@ module.exports = {
 
 		if (MODEL_ACTIONS?.cm_green_gain) {
 			actions['cm_green_gain'] = {
-				label: 'Color Matrix - Green Gain',
+				label: MODEL_ACTIONS.cm_green_gain.name,
 				options: [
 					{
 						type: 'dropdown',
@@ -2962,7 +2962,7 @@ module.exports = {
 
 		if (MODEL_ACTIONS?.cm_green_hue) {
 			actions['cm_green_hue'] = {
-				label: 'Color Matrix - Green Hue',
+				label: MODEL_ACTIONS.cm_green_hue.name,
 				options: [
 					{
 						type: 'dropdown',
@@ -3007,7 +3007,7 @@ module.exports = {
 
 		if (MODEL_ACTIONS?.cm_hue_phase) {
 			actions['cm_hue_phase'] = {
-				label: 'Color Matrix - Hue Phase',
+				label: MODEL_ACTIONS.cm_hue_phase.name,
 				options: [
 					{
 						type: 'dropdown',
@@ -3052,7 +3052,7 @@ module.exports = {
 
 		if (MODEL_ACTIONS?.cm_mag_gain) {
 			actions['cm_mag_gain'] = {
-				label: 'Color Matrix - Magenta Gain',
+				label: MODEL_ACTIONS.cm_mag_gain.name,
 				options: [
 					{
 						type: 'dropdown',
@@ -3094,7 +3094,7 @@ module.exports = {
 
 		if (MODEL_ACTIONS?.cm_mag_hue) {
 			actions['cm_mag_hue'] = {
-				label: 'Color Matrix - Magenta Hue',
+				label: MODEL_ACTIONS.cm_mag_hue.name,
 				options: [
 					{
 						type: 'dropdown',
@@ -3136,7 +3136,7 @@ module.exports = {
 
 		if (MODEL_ACTIONS?.cm_red_gain) {
 			actions['cm_red_gain'] = {
-				label: 'Color Matrix - Red Gain',
+				label: MODEL_ACTIONS.cm_red_gain.name,
 				options: [
 					{
 						type: 'dropdown',
@@ -3178,7 +3178,7 @@ module.exports = {
 
 		if (MODEL_ACTIONS?.cm_red_hue) {
 			actions['cm_red_hue'] = {
-				label: 'Color Matrix - Red Hue',
+				label: MODEL_ACTIONS.cm_red_hue.name,
 				options: [
 					{
 						type: 'dropdown',
@@ -3220,7 +3220,7 @@ module.exports = {
 
 		if (MODEL_ACTIONS?.cm_yellow_gain) {
 			actions['cm_yellow_gain'] = {
-				label: 'Color Matrix - Yellow Gain',
+				label: MODEL_ACTIONS.cm_yellow_gain.name,
 				options: [
 					{
 						type: 'dropdown',
@@ -3269,7 +3269,7 @@ module.exports = {
 
 		if (MODEL_ACTIONS?.cm_yellow_hue) {
 			actions['cm_yellow_hue'] = {
-				label: 'Color Matrix - Yellow Hue',
+				label: MODEL_ACTIONS.cm_yellow_hue.name,
 				options: [
 					{
 						type: 'dropdown',
@@ -3316,7 +3316,7 @@ module.exports = {
 
 		if (MODEL_ACTIONS?.brightness) {
 			actions['brightness'] = {
-				label: 'Advanced Setup - Brightness',
+				label: MODEL_ACTIONS.brightness.name,
 				options: [
 					{
 						type: 'dropdown',
@@ -3358,7 +3358,7 @@ module.exports = {
 
 		if (MODEL_ACTIONS?.brightness_comp) {
 			actions['brightness_comp'] = {
-				label: 'Advanced Setup - Brightness Compensation',
+				label: MODEL_ACTIONS.brightness_comp.name,
 				options: [
 					{
 						type: 'dropdown',
@@ -3379,7 +3379,7 @@ module.exports = {
 
 		if (MODEL_ACTIONS?.comp_level) {
 			actions['comp_level'] = {
-				label: 'Advanced Setup - Compensation Level',
+				label: MODEL_ACTIONS.comp_level.name,
 				options: [
 					{
 						type: 'dropdown',
@@ -3400,7 +3400,7 @@ module.exports = {
 
 		if (MODEL_ACTIONS?.gamma_offset) {
 			actions['gamma_offset'] = {
-				label: 'Advanced Setup - Gamma Offset',
+				label: MODEL_ACTIONS.gamma_offset.name,
 				options: [
 					{
 						type: 'dropdown',
@@ -3445,7 +3445,7 @@ module.exports = {
 
 		if (MODEL_ACTIONS?.high_resolution) {
 			actions['high_resolution'] = {
-				label: 'Advanced Setup - High Resolution',
+				label: MODEL_ACTIONS.high_resolution.name,
 				options: [
 					{
 						type: 'dropdown',
@@ -3466,7 +3466,7 @@ module.exports = {
 
 		if (MODEL_ACTIONS?.video_enhancement) {
 			actions['video_enhancement'] = {
-				label: 'Advanced Setup - Video Enhancement',
+				label: MODEL_ACTIONS.video_enhancement.name,
 				options: [
 					{
 						type: 'dropdown',
@@ -3489,7 +3489,7 @@ module.exports = {
 
 		if (MODEL_ACTIONS?.aux) {
 			actions['aux'] = {
-				label: 'External Setup - Aux',
+				label: MODEL_ACTIONS.aux.name,
 				options: [
 					{
 						type: 'dropdown',
@@ -3510,7 +3510,7 @@ module.exports = {
 
 		if (MODEL_ACTIONS?.rain_wiper) {
 			actions['rain_wiper'] = {
-				label: 'External Setup - Rain Wiper',
+				label: MODEL_ACTIONS.rain_wiper.name,
 				options: [
 					{
 						type: 'dropdown',
@@ -3531,7 +3531,7 @@ module.exports = {
 
 		if (MODEL_ACTIONS?.v12vout) {
 			actions['v12vout'] = {
-				label: 'External Setup - 12v Out',
+				label: MODEL_ACTIONS.v12vout.name,
 				options: [
 					{
 						type: 'dropdown',
@@ -3554,7 +3554,7 @@ module.exports = {
 
 		if (MODEL_ACTIONS?.bandwidth) {
 			actions['bandwidth'] = {
-				label: 'Detail Setup - Bandwidth',
+				label: MODEL_ACTIONS.bandwidth.name,
 				options: [
 					{
 						type: 'dropdown',
@@ -3575,7 +3575,7 @@ module.exports = {
 
 		if (MODEL_ACTIONS?.bw_balance) {
 			actions['bw_balance'] = {
-				label: 'Detail Setup - BW Balance',
+				label: MODEL_ACTIONS.bw_balance.name,
 				options: [
 					{
 						type: 'dropdown',
@@ -3596,7 +3596,7 @@ module.exports = {
 
 		if (MODEL_ACTIONS?.crispening) {
 			actions['crispening'] = {
-				label: 'Detail Setup - Crispening',
+				label: MODEL_ACTIONS.crispening.name,
 				options: [
 					{
 						type: 'dropdown',
@@ -3638,7 +3638,7 @@ module.exports = {
 
 		if (MODEL_ACTIONS?.detail) {
 			actions['detail'] = {
-				label: 'Detail Setup - Detail',
+				label: MODEL_ACTIONS.detail.name,
 				options: [
 					{
 						type: 'dropdown',
@@ -3659,7 +3659,7 @@ module.exports = {
 
 		if (MODEL_ACTIONS?.highlight_detail) {
 			actions['highlight_detail'] = {
-				label: 'Detail Setup - Highlight Detail',
+				label: MODEL_ACTIONS.highlight_detail.name,
 				options: [
 					{
 						type: 'dropdown',
@@ -3710,7 +3710,7 @@ module.exports = {
 
 		if (MODEL_ACTIONS?.hv_balance) {
 			actions['hv_balance'] = {
-				label: 'Detail Setup - Hv Balance',
+				label: MODEL_ACTIONS.hv_balance.name,
 				options: [
 					{
 						type: 'dropdown',
@@ -3752,7 +3752,7 @@ module.exports = {
 
 		if (MODEL_ACTIONS?.limit) {
 			actions['limit'] = {
-				label: 'Detail Setup - Limit',
+				label: MODEL_ACTIONS.limit.name,
 				options: [
 					{
 						type: 'dropdown',
@@ -3794,7 +3794,7 @@ module.exports = {
 
 		if (MODEL_ACTIONS?.super_low) {
 			actions['super_low'] = {
-				label: 'Detail Setup - Super Low',
+				label: MODEL_ACTIONS.super_low.name,
 				options: [
 					{
 						type: 'dropdown',
@@ -3838,7 +3838,7 @@ module.exports = {
 
 		if (MODEL_ACTIONS?.black_gamma_level) {
 			actions['black_gamma_level'] = {
-				label: 'Gamma Setup - Black Gamma Level',
+				label: MODEL_ACTIONS.black_gamma_level.name,
 				options: [
 					{
 						type: 'dropdown',
@@ -3889,7 +3889,7 @@ module.exports = {
 
 		if (MODEL_ACTIONS?.black_level) {
 			actions['black_level'] = {
-				label: 'Gamma Setup - Black Level',
+				label: MODEL_ACTIONS.black_level.name,
 				options: [
 					{
 						type: 'dropdown',
@@ -3931,7 +3931,7 @@ module.exports = {
 
 		if (MODEL_ACTIONS?.black_level_range) {
 			actions['black_level_range'] = {
-				label: 'Gamma Setup - Black Level Range',
+				label: MODEL_ACTIONS.black_level_range.name,
 				options: [
 					{
 						type: 'dropdown',
@@ -3952,7 +3952,7 @@ module.exports = {
 
 		if (MODEL_ACTIONS?.effect) {
 			actions['effect'] = {
-				label: 'Gamma Setup - Effect',
+				label: MODEL_ACTIONS.effect.name,
 				options: [
 					{
 						type: 'dropdown',
@@ -3994,7 +3994,7 @@ module.exports = {
 
 		if (MODEL_ACTIONS?.level) {
 			actions['level'] = {
-				label: 'Gamma Setup - Level',
+				label: MODEL_ACTIONS.level.name,
 				options: [
 					{
 						type: 'dropdown',
@@ -4036,7 +4036,7 @@ module.exports = {
 
 		if (MODEL_ACTIONS?.offset) {
 			actions['offset'] = {
-				label: 'Gamma Setup - Offset',
+				label: MODEL_ACTIONS.offset.name,
 				options: [
 					{
 						type: 'dropdown',
@@ -4078,7 +4078,7 @@ module.exports = {
 
 		if (MODEL_ACTIONS?.pattern) {
 			actions['pattern'] = {
-				label: 'Gamma Setup - Pattern',
+				label: MODEL_ACTIONS.pattern.name,
 				options: [
 					{
 						type: 'dropdown',
@@ -4120,7 +4120,7 @@ module.exports = {
 
 		if (MODEL_ACTIONS?.pattern_fine) {
 			actions['pattern_fine'] = {
-				label: 'Gamma Setup - Pattern Fine',
+				label: MODEL_ACTIONS.pattern_fine.name,
 				options: [
 					{
 						type: 'dropdown',
@@ -4165,7 +4165,7 @@ module.exports = {
 
 		if (MODEL_ACTIONS?.settings) {
 			actions['settings'] = {
-				label: 'Gamma Setup - Settings',
+				label: MODEL_ACTIONS.settings.name,
 				options: [
 					{
 						type: 'dropdown',
@@ -4186,7 +4186,7 @@ module.exports = {
 
 		if (MODEL_ACTIONS?.visibility_enhancer) {
 			actions['visibility_enhancer'] = {
-				label: 'Gamma Setup - Visibility Enhancer',
+				label: MODEL_ACTIONS.visibility_enhancer.name,
 				options: [
 					{
 						type: 'dropdown',
@@ -4209,7 +4209,7 @@ module.exports = {
 
 		if (MODEL_ACTIONS?.scope_gamma_gain) {
 			actions['scope_gamma_gain'] = {
-				label: 'Scope - Gamma Gain',
+				label: MODEL_ACTIONS.scope_gamma_gain.name,
 				options: [
 					{
 						type: 'dropdown',
@@ -4260,7 +4260,7 @@ module.exports = {
 
 		if (MODEL_ACTIONS?.scope_mode) {
 			actions['scope_mode'] = {
-				label: 'Scope - Mode',
+				label: MODEL_ACTIONS.scope_mode.name,
 				options: [
 					{
 						type: 'dropdown',
@@ -4281,7 +4281,7 @@ module.exports = {
 
 		if (MODEL_ACTIONS?.scope_position) {
 			actions['scope_position'] = {
-				label: 'Scope - Position',
+				label: MODEL_ACTIONS.scope_position.name,
 				options: [
 					{
 						type: 'dropdown',
@@ -4302,7 +4302,7 @@ module.exports = {
 
 		if (MODEL_ACTIONS?.scope_preview) {
 			actions['scope_preview'] = {
-				label: 'Scope - Preview',
+				label: MODEL_ACTIONS.scope_preview.name,
 				options: [
 					{
 						type: 'dropdown',
@@ -4323,7 +4323,7 @@ module.exports = {
 
 		if (MODEL_ACTIONS?.scope_program) {
 			actions['scope_program'] = {
-				label: 'Scope - Program',
+				label: MODEL_ACTIONS.scope_program.name,
 				options: [
 					{
 						type: 'dropdown',
@@ -4344,7 +4344,7 @@ module.exports = {
 
 		if (MODEL_ACTIONS?.scope_size) {
 			actions['scope_size'] = {
-				label: 'Scope - Size',
+				label: MODEL_ACTIONS.scope_size.name,
 				options: [
 					{
 						type: 'dropdown',
@@ -4365,7 +4365,7 @@ module.exports = {
 
 		if (MODEL_ACTIONS?.scope_transparency) {
 			actions['scope_transparency'] = {
-				label: 'Scope - Transparency',
+				label: MODEL_ACTIONS.scope_transparency.name,
 				options: [
 					{
 						type: 'dropdown',
@@ -4387,7 +4387,7 @@ module.exports = {
 		// Other Actions
 
 		actions['custom'] = {
-			label: 'Custom Visca Command',
+			label: MODEL_ACTIONS.custom.name,
 			options: [
 				{
 					type: 'textinput',

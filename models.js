@@ -76,8 +76,8 @@ module.exports = {
 			camera: ['All'],
 			firmware: ['4', '5'],
 			store_state: true,
-			variable_name: 'firmware',
-			variable_label: 'General - Firmware',
+			variableId: 'firmware',
+			name: 'General - Firmware',
 		},
 		framerate: {
 			camera: ['All'],
@@ -90,8 +90,8 @@ module.exports = {
 			store_state: true,
 			api_endpoint: ['about'],
 			api_variable: ['HostName'],
-			variable_name: 'hostname',
-			variable_label: 'General - Name',
+			variableId: 'hostname',
+			name: 'General - Name',
 		},
 		ipaddress: {
 			camera: ['All'],
@@ -99,15 +99,15 @@ module.exports = {
 			store_state: true,
 			api_endpoint: ['about'],
 			api_variable: ['IPAddress'],
-			variable_name: 'ipaddress',
-			variable_label: 'General - IP Address',
+			variableId: 'ipaddress',
+			name: 'General - IP Address',
 		},
 		model: {
 			camera: ['All'],
 			firmware: ['4', '5'],
 			store_state: true,
-			variable_name: 'model',
-			variable_label: 'General - Model',
+			variableId: 'model',
+			name: 'General - Model',
 		},
 		netmask: {
 			camera: ['All'],
@@ -115,8 +115,8 @@ module.exports = {
 			store_state: true,
 			api_endpoint: ['about'],
 			api_variable: ['NetworkMask'],
-			variable_name: 'netmask',
-			variable_label: 'General - Network Mask',
+			variableId: 'netmask',
+			name: 'General - Network Mask',
 		},
 		network_config: {
 			camera: ['All'],
@@ -124,8 +124,8 @@ module.exports = {
 			store_state: true,
 			api_endpoint: ['about'],
 			api_variable: ['NetworkConfigMethod'],
-			variable_name: 'network_config',
-			variable_label: 'General - Network Config Method',
+			variableId: 'network_config',
+			name: 'General - Network Config Method',
 		},
 		serial_number: {
 			camera: ['All'],
@@ -133,8 +133,8 @@ module.exports = {
 			store_state: true,
 			api_endpoint: ['about'],
 			api_variable: ['SerialNumber'],
-			variable_name: 'serial_number',
-			variable_label: 'General - Serial Number',
+			variableId: 'serial_number',
+			name: 'General - Serial Number',
 		},
 		status: {
 			camera: ['All'],
@@ -142,8 +142,8 @@ module.exports = {
 			store_state: true,
 			api_endpoint: ['about'],
 			api_variable: ['Status'],
-			variable_name: 'status',
-			variable_label: 'General - Status',
+			variableId: 'status',
+			name: 'General - Status',
 		},
 
 		// VISCA
@@ -151,8 +151,8 @@ module.exports = {
 			camera: ['All'],
 			firmware: ['4'], //v5 is returning incorrectly formatted VISCA msg
 			store_state: true,
-			variable_name: 'freeze',
-			variable_label: 'VISCA - Freeze',
+			variableId: 'freeze',
+			name: 'VISCA - Freeze',
 			action: [
 				{
 					camera: ['common'],
@@ -164,8 +164,8 @@ module.exports = {
 			camera: ['All'],
 			firmware: ['4', '5'],
 			store_state: true,
-			variable_name: 'standby',
-			variable_label: 'VISCA - Standby',
+			variableId: 'standby',
+			name: 'VISCA - Standby',
 			action: [
 				{
 					camera: ['common'],
@@ -181,8 +181,8 @@ module.exports = {
 			store_state: true,
 			api_endpoint: ['analogaudiosetup'],
 			api_variable: ['AnalogAudioInGain'],
-			variable_name: 'audio_in_gain',
-			variable_label: 'Analog Audio - Audio In Gain',
+			variableId: 'audio_in_gain',
+			name: 'Analog Audio - Audio In Gain',
 			action: [
 				{
 					camera: ['common'],
@@ -196,8 +196,8 @@ module.exports = {
 			store_state: true,
 			api_endpoint: ['analogaudiosetup'],
 			api_variable: ['AnalogAudioOutGain'],
-			variable_name: 'audio_out_gain',
-			variable_label: 'Analog Audio - Audio Out Gain',
+			variableId: 'audio_out_gain',
+			name: 'Analog Audio - Audio Out Gain',
 			action: [
 				{
 					camera: ['common'],
@@ -211,8 +211,8 @@ module.exports = {
 			store_state: true,
 			api_endpoint: ['analogaudiosetup'],
 			api_variable: ['AnalogAudiooutputselect'],
-			variable_name: 'audio_output',
-			variable_label: 'Analog Audio - Audio Output',
+			variableId: 'audio_output',
+			name: 'Analog Audio - Audio Output',
 			action: [
 				{
 					camera: ['common'],
@@ -228,8 +228,8 @@ module.exports = {
 			store_state: true,
 			api_endpoint: ['devicesettings'],
 			api_variable: ['Oled'],
-			variable_name: 'oled',
-			variable_label: 'Device Settings - OLED',
+			variableId: 'oled',
+			name: 'Device Settings - OLED',
 		},
 
 		// Video Output Interface
@@ -239,8 +239,8 @@ module.exports = {
 			store_state: true,
 			api_endpoint: ['videooutputinterface'],
 			api_variable: ['videooutput'],
-			variable_name: 'video_output',
-			variable_label: `Video Output - Video Mode`,
+			variableId: 'video_output',
+			name: `Video Output - Video Mode`,
 			action: [
 				{
 					camera: ['common'],
@@ -256,8 +256,8 @@ module.exports = {
 			store_state: true,
 			api_endpoint: ['encodesetup'],
 			api_variable: ['BandwidthMode'],
-			variable_name: 'bandwidth_mode',
-			variable_label: 'Encode Setup - Bandwidth Mode',
+			variableId: 'bandwidth_mode',
+			name: 'Encode Setup - Bandwidth Mode',
 			action: [
 				{
 					camera: ['common'],
@@ -271,8 +271,8 @@ module.exports = {
 			store_state: true,
 			api_endpoint: ['encodesetup'],
 			api_variable: ['BandwidthSelect'],
-			variable_name: 'bandwidth_select',
-			variable_label: 'Encode Setup - Bandwidth Select',
+			variableId: 'bandwidth_select',
+			name: 'Encode Setup - Bandwidth Select',
 			action: [
 				{
 					camera: ['common'],
@@ -283,6 +283,7 @@ module.exports = {
 		capture_screensaver: {
 			camera: ['All'],
 			firmware: ['5'],
+			name: 'Encode - Capture Screensaver',
 			action: [
 				{
 					camera: ['common'],
@@ -296,8 +297,8 @@ module.exports = {
 			store_state: true,
 			api_endpoint: ['encodesetup'],
 			api_variable: ['ColorBitDepth'],
-			variable_name: 'color_bitdepth',
-			variable_label: 'Encode Setup - Color Bit Depth',
+			variableId: 'color_bitdepth',
+			name: 'Encode Setup - Color Bit Depth',
 		},
 		ndiAudio: {
 			camera: ['All'],
@@ -305,8 +306,8 @@ module.exports = {
 			store_state: true,
 			api_endpoint: ['encodesetup'],
 			api_variable: ['NDIAudio'],
-			variable_name: 'ndi_audio',
-			variable_label: `Encode Setup - NDI Audio`,
+			variableId: 'ndi_audio',
+			name: `Encode Setup - NDI Audio`,
 			action: [
 				{
 					camera: ['common'],
@@ -320,8 +321,8 @@ module.exports = {
 			store_state: true,
 			api_endpoint: ['encodesetup'],
 			api_variable: ['NDIGroup'],
-			variable_name: 'ndi_group',
-			variable_label: `Encode Setup - NDI Group`,
+			variableId: 'ndi_group',
+			name: `Encode Setup - NDI Group`,
 			action: [
 				{
 					camera: ['common'],
@@ -335,8 +336,8 @@ module.exports = {
 			store_state: true,
 			api_endpoint: ['encodesetup'],
 			api_variable: ['NDIGroupName'],
-			variable_name: 'ndi_group_name',
-			variable_label: `Encode Setup - NDI Group Name`,
+			variableId: 'ndi_group_name',
+			name: `Encode Setup - NDI Group Name`,
 		},
 		screensaver_mode: {
 			camera: ['All'],
@@ -344,8 +345,8 @@ module.exports = {
 			store_state: true,
 			api_endpoint: ['encodesetup'],
 			api_variable: ['ScreenSaverMode'],
-			variable_name: 'screensaver_mode',
-			variable_label: `Encode Setup - Screensaver Mode`,
+			variableId: 'screensaver_mode',
+			name: `Encode Setup - Screensaver Mode`,
 			action: [
 				{
 					camera: ['common'],
@@ -359,8 +360,8 @@ module.exports = {
 			store_state: true,
 			api_endpoint: ['encodesetup'],
 			api_variable: ['StreamName'],
-			variable_name: 'stream_name',
-			variable_label: `Encode Setup - Stream Name`,
+			variableId: 'stream_name',
+			name: `Encode Setup - Stream Name`,
 		},
 		stream_to_network: {
 			camera: ['All'],
@@ -368,8 +369,8 @@ module.exports = {
 			store_state: true,
 			api_endpoint: ['encodesetup'],
 			api_variable: ['StreamToNetwork'],
-			variable_name: 'stream_to_network',
-			variable_label: `Encode Setup - Stream to Network`,
+			variableId: 'stream_to_network',
+			name: `Encode Setup - Stream to Network`,
 			action: [
 				{
 					camera: ['common'],
@@ -383,8 +384,8 @@ module.exports = {
 			store_state: true,
 			api_endpoint: ['encodesetup'],
 			api_variable: ['TallyMode'],
-			variable_name: 'tally_mode',
-			variable_label: `Encode Setup - Tally Mode`,
+			variableId: 'tally_mode',
+			name: `Encode Setup - Tally Mode`,
 			action: [
 				{
 					camera: ['common'],
@@ -398,8 +399,8 @@ module.exports = {
 			store_state: true,
 			api_endpoint: ['encodesetup'],
 			api_variable: ['VideoCSC'],
-			variable_name: 'video_csc',
-			variable_label: `Encode Setup - Video CSC`,
+			variableId: 'video_csc',
+			name: `Encode Setup - Video CSC`,
 		},
 		video_format: {
 			camera: ['All'],
@@ -407,8 +408,8 @@ module.exports = {
 			store_state: true,
 			api_endpoint: ['encodesetup'],
 			api_variable: ['VideoFormat'],
-			variable_name: 'video_format',
-			variable_label: `Encode Setup - Video Format`,
+			variableId: 'video_format',
+			name: `Encode Setup - Video Format`,
 		},
 		video_sample_rate: {
 			camera: ['All'],
@@ -416,8 +417,8 @@ module.exports = {
 			store_state: true,
 			api_endpoint: ['encodesetup'],
 			api_variable: ['VideoSampleRate'],
-			variable_name: 'video_sample_rate',
-			variable_label: `Encode Setup - Video Sample Rate`,
+			variableId: 'video_sample_rate',
+			name: `Encode Setup - Video Sample Rate`,
 		},
 
 		// Encode Transport
@@ -427,8 +428,8 @@ module.exports = {
 			store_state: true,
 			api_endpoint: ['encodetransport'],
 			api_variable: ['txpm', 'Txpm'],
-			variable_name: 'transmit_method',
-			variable_label: `Encode Transport - Transmit Method`,
+			variableId: 'transmit_method',
+			name: `Encode Transport - Transmit Method`,
 			action: [
 				{
 					camera: ['common'],
@@ -442,8 +443,8 @@ module.exports = {
 			store_state: true,
 			api_endpoint: ['encodetransport'],
 			api_variable: ['txnetprefix', 'Txnetprefix'],
-			variable_name: 'transmit_netprefix',
-			variable_label: 'Encode Transport - Transmit Net Prefix',
+			variableId: 'transmit_netprefix',
+			name: 'Encode Transport - Transmit Net Prefix',
 		},
 		transmit_netmask: {
 			camera: ['All'],
@@ -451,8 +452,8 @@ module.exports = {
 			store_state: true,
 			api_endpoint: ['encodetransport'],
 			api_variable: ['txnetmask', 'Txnetmask'],
-			variable_name: 'transmit_netmask',
-			variable_label: 'Encode Transport - Transmit Netmask',
+			variableId: 'transmit_netmask',
+			name: 'Encode Transport - Transmit Netmask',
 		},
 		transmit_ttl: {
 			camera: ['All'],
@@ -460,8 +461,8 @@ module.exports = {
 			store_state: true,
 			api_endpoint: ['encodetransport'],
 			api_variable: ['txmcttl', 'Txmcttl'],
-			variable_name: 'transmit_ttl',
-			variable_label: 'Encode Transport - Transmit TTL',
+			variableId: 'transmit_ttl',
+			name: 'Encode Transport - Transmit TTL',
 		},
 
 		// NDI Discovery
@@ -471,8 +472,8 @@ module.exports = {
 			store_state: true,
 			api_endpoint: ['NDIDisServer'],
 			api_variable: ['NDIDisServ'],
-			variable_name: 'ndi_discovery_server',
-			variable_label: `NDI Discovery - Server`,
+			variableId: 'ndi_discovery_server',
+			name: `NDI Discovery - Server`,
 			action: [
 				{
 					camera: ['common'],
@@ -486,8 +487,8 @@ module.exports = {
 			store_state: true,
 			api_endpoint: ['NDIDisServer'],
 			api_variable: ['NDIDisServIP'],
-			variable_name: 'ndi_discovery_server_ip',
-			variable_label: `NDI Discovery - Server IP`,
+			variableId: 'ndi_discovery_server_ip',
+			name: `NDI Discovery - Server IP`,
 		},
 
 		// PTZ
@@ -497,8 +498,8 @@ module.exports = {
 			store_state: true,
 			api_endpoint: ['birddogptzsetup'],
 			api_variable: ['Freed'],
-			variable_name: 'freed',
-			variable_label: `PTZ - FreeD`,
+			variableId: 'freed',
+			name: `PTZ - FreeD`,
 		},
 		freed_ip_address: {
 			camera: ['All'],
@@ -506,8 +507,8 @@ module.exports = {
 			store_state: true,
 			api_endpoint: ['birddogptzsetup'],
 			api_variable: ['FreedIpAddr'],
-			variable_name: 'freed_ip_address',
-			variable_label: `PTZ - FreeD IP Address`,
+			variableId: 'freed_ip_address',
+			name: `PTZ - FreeD IP Address`,
 		},
 		freed_port: {
 			camera: ['All'],
@@ -515,8 +516,8 @@ module.exports = {
 			store_state: true,
 			api_endpoint: ['birddogptzsetup'],
 			api_variable: ['FreedPort'],
-			variable_name: 'freed_port',
-			variable_label: `PTZ - FreeD Port`,
+			variableId: 'freed_port',
+			name: `PTZ - FreeD Port`,
 		},
 		pt: {
 			camera: [
@@ -534,6 +535,7 @@ module.exports = {
 			],
 			firmware: ['4', '5'],
 			store_state: false,
+			name: 'PTZ - Pan/Tilt',
 			action: [
 				{
 					camera: ['common'],
@@ -571,8 +573,8 @@ module.exports = {
 			],
 			firmware: ['4', '5'],
 			store_state: true,
-			variable_name: 'pan_position',
-			variable_label: `PTZ - Pan Position`,
+			variableId: 'pan_position',
+			name: `PTZ - Pan Position`,
 		},
 		panSpeed: {
 			camera: [
@@ -592,8 +594,8 @@ module.exports = {
 			store_state: true,
 			api_endpoint: ['birddogptzsetup'],
 			api_variable: ['PanSpeed'],
-			variable_name: 'pan_speed',
-			variable_label: `PTZ - Pan Speed`,
+			variableId: 'pan_speed',
+			name: `PTZ - Pan Speed`,
 			action: [
 				{
 					camera: ['common'],
@@ -607,8 +609,8 @@ module.exports = {
 			store_state: true,
 			api_endpoint: ['birddogptzsetup'],
 			api_variable: ['Preset'],
-			variable_name: 'preset',
-			variable_label: `PTZ - Preset`,
+			variableId: 'preset',
+			name: `PTZ - Preset`,
 			action: [
 				{
 					camera: ['common'],
@@ -622,8 +624,8 @@ module.exports = {
 			store_state: true,
 			api_endpoint: ['birddogptzsetup'],
 			api_variable: ['PresetSpeed'],
-			variable_name: 'preset_speed',
-			variable_label: `PTZ - Preset Speed`,
+			variableId: 'preset_speed',
+			name: `PTZ - Preset Speed`,
 			action: [
 				{
 					camera: ['common'],
@@ -635,6 +637,7 @@ module.exports = {
 			camera: ['All'],
 			firmware: ['4', '5'],
 			store_state: false,
+			name: 'PTZ - Recall Preset',
 			action: [
 				{
 					camera: ['common'],
@@ -646,6 +649,7 @@ module.exports = {
 			camera: ['All'],
 			firmware: ['4', '5'],
 			store_state: false,
+			name: 'PTZ - Save Preset',
 			action: [
 				{
 					camera: ['common'],
@@ -669,8 +673,8 @@ module.exports = {
 			],
 			firmware: ['4', '5'],
 			store_state: true,
-			variable_name: 'tilt_position',
-			variable_label: `PTZ - Tilt Position`,
+			variableId: 'tilt_position',
+			name: `PTZ - Tilt Position`,
 		},
 		tiltSpeed: {
 			camera: [
@@ -690,8 +694,8 @@ module.exports = {
 			store_state: true,
 			api_endpoint: ['birddogptzsetup'],
 			api_variable: ['TiltSpeed'],
-			variable_name: 'tilt_speed',
-			variable_label: `PTZ - Tilt Speed`,
+			variableId: 'tilt_speed',
+			name: `PTZ - Tilt Speed`,
 			action: [
 				{
 					camera: ['common'],
@@ -703,6 +707,7 @@ module.exports = {
 			camera: ['All'],
 			firmware: ['4', '5'],
 			store_state: false,
+			name: 'PTZ - Zoom',
 			action: [
 				{
 					camera: ['common'],
@@ -734,8 +739,8 @@ module.exports = {
 			camera: ['All'],
 			firmware: ['4', '5'],
 			store_state: true,
-			variable_name: 'zoom_position',
-			variable_label: `PTZ - Zoom Position`,
+			variableId: 'zoom_position',
+			name: `PTZ - Zoom Position`,
 		},
 		zoomSpeed: {
 			camera: ['All'],
@@ -743,8 +748,8 @@ module.exports = {
 			store_state: true,
 			api_endpoint: ['birddogptzsetup'],
 			api_variable: ['ZoomSpeed'],
-			variable_name: 'zoom_speed',
-			variable_label: `PTZ - Zoom Speed`,
+			variableId: 'zoom_speed',
+			name: `PTZ - Zoom Speed`,
 			action: [
 				{
 					camera: ['common'],
@@ -758,6 +763,7 @@ module.exports = {
 			camera: ['All'],
 			firmware: ['4', '5'],
 			store_state: false,
+			name: 'Focus - Focus Action',
 			action: [
 				{
 					camera: ['common'],
@@ -769,8 +775,8 @@ module.exports = {
 			camera: ['All'],
 			firmware: ['4', '5'],
 			store_state: true,
-			variable_name: 'focus_mode',
-			variable_label: `Focus - Focus Mode`,
+			variableId: 'focus_mode',
+			name: `Focus - Focus Mode`,
 			action: [
 				{
 					camera: ['common'],
@@ -786,8 +792,8 @@ module.exports = {
 			store_state: true,
 			api_endpoint: ['birddogexpsetup'],
 			api_variable: ['AeResponse'],
-			variable_name: 'ae_response',
-			variable_label: `Exposure - Ae Response`,
+			variableId: 'ae_response',
+			name: `Exposure - Ae Response`,
 			action: [
 				{
 					camera: ['common'],
@@ -801,8 +807,8 @@ module.exports = {
 			store_state: true,
 			api_endpoint: ['birddogexpsetup'],
 			api_variable: ['BackLight'],
-			variable_name: 'backlight',
-			variable_label: `Exposure - Backlight`,
+			variableId: 'backlight',
+			name: `Exposure - Backlight`,
 			action: [
 				{
 					camera: ['common'],
@@ -816,8 +822,8 @@ module.exports = {
 			store_state: true,
 			api_endpoint: ['birddogexpsetup'],
 			api_variable: ['BrightLevel'],
-			variable_name: 'bright_level',
-			variable_label: `Exposure - Bright Level`,
+			variableId: 'bright_level',
+			name: `Exposure - Bright Level`,
 			action: [
 				{
 					camera: ['P100', 'P110', 'P120', 'PF120'],
@@ -843,8 +849,8 @@ module.exports = {
 			store_state: true,
 			api_endpoint: ['birddogexpsetup'],
 			api_variable: ['ExpCompEn'],
-			variable_name: 'exposure_comp',
-			variable_label: `Exposure - Exposure Compensation`,
+			variableId: 'exposure_comp',
+			name: `Exposure - Exposure Compensation`,
 			action: [
 				{
 					camera: ['common'],
@@ -858,8 +864,8 @@ module.exports = {
 			store_state: true,
 			api_endpoint: ['birddogexpsetup'],
 			api_variable: ['ExpCompLvl'],
-			variable_name: 'exposure_comp_level',
-			variable_label: `Exposure - Exposure Compensation Level`,
+			variableId: 'exposure_comp_level',
+			name: `Exposure - Exposure Compensation Level`,
 			action: [
 				{
 					camera: ['common'],
@@ -881,8 +887,8 @@ module.exports = {
 			store_state: true,
 			api_endpoint: ['birddogexpsetup'],
 			api_variable: ['ExpMode'],
-			variable_name: 'exposure_mode',
-			variable_label: `Exposure - Exposure Mode`,
+			variableId: 'exposure_mode',
+			name: `Exposure - Exposure Mode`,
 			action: [
 				{
 					camera: ['common'],
@@ -908,8 +914,8 @@ module.exports = {
 			store_state: true,
 			api_endpoint: ['birddogexpsetup'],
 			api_variable: ['GainLevel'],
-			variable_name: 'gain',
-			variable_label: `Exposure - Gain`,
+			variableId: 'gain',
+			name: `Exposure - Gain`,
 			action: [
 				{
 					camera: ['P100', 'P110', 'P120', 'PF120'],
@@ -931,8 +937,8 @@ module.exports = {
 			store_state: true,
 			api_endpoint: ['birddogexpsetup'],
 			api_variable: ['GainLimit'],
-			variable_name: 'gain_limit',
-			variable_label: `Exposure - Gain Limit`,
+			variableId: 'gain_limit',
+			name: `Exposure - Gain Limit`,
 			action: [
 				{
 					camera: ['P200A2A3', 'P200A4A5', 'A200GEN1', 'A200GEN2', 'A300GEN1', 'A300GEN2'],
@@ -950,8 +956,8 @@ module.exports = {
 			store_state: true,
 			api_endpoint: ['birddogexpsetup'],
 			api_variable: ['GainPoint'],
-			variable_name: 'gain_point',
-			variable_label: `Exposure - Gain Point`,
+			variableId: 'gain_point',
+			name: `Exposure - Gain Point`,
 			action: [
 				{
 					camera: ['common'],
@@ -965,8 +971,8 @@ module.exports = {
 			store_state: true,
 			api_endpoint: ['birddogexpsetup'],
 			api_variable: ['GainPointPosition'],
-			variable_name: 'gain_point_position',
-			variable_label: `Exposure - Gain Point Position `,
+			variableId: 'gain_point_position',
+			name: `Exposure - Gain Point Position `,
 		},
 		high_sensitivity: {
 			camera: ['P200A2A3', 'P200A4A5', 'A200GEN1', 'A200GEN2', 'A300GEN1', 'A300GEN2', 'P400', 'P4K'],
@@ -974,8 +980,8 @@ module.exports = {
 			store_state: true,
 			api_endpoint: ['birddogexpsetup'],
 			api_variable: ['HighSensitivity'],
-			variable_name: 'high_sensitivity',
-			variable_label: `Exposure - High Sensitivity`,
+			variableId: 'high_sensitivity',
+			name: `Exposure - High Sensitivity`,
 			action: [
 				{
 					camera: ['common'],
@@ -989,8 +995,8 @@ module.exports = {
 			store_state: true,
 			api_endpoint: ['birddogexpsetup'],
 			api_variable: ['IrisLevel'],
-			variable_name: 'iris',
-			variable_label: `Exposure - Iris`,
+			variableId: 'iris',
+			name: `Exposure - Iris`,
 			action: [
 				{
 					camera: ['P100', 'P110', 'P120', 'PF120'],
@@ -1016,8 +1022,8 @@ module.exports = {
 			store_state: true,
 			api_endpoint: ['birddogexpsetup'],
 			api_variable: ['ShutterControlOverwrite'],
-			variable_name: 'shutter_control_overwrite',
-			variable_label: `Exposure - Shutter Control Overwrite`,
+			variableId: 'shutter_control_overwrite',
+			name: `Exposure - Shutter Control Overwrite`,
 			action: [
 				{
 					camera: ['common'],
@@ -1031,8 +1037,8 @@ module.exports = {
 			store_state: true,
 			api_endpoint: ['birddogexpsetup'],
 			api_variable: ['ShutterMaxSpeed'],
-			variable_name: 'shutter_max_speed',
-			variable_label: `Exposure - Shutter Max Speed`,
+			variableId: 'shutter_max_speed',
+			name: `Exposure - Shutter Max Speed`,
 			action: [
 				{
 					camera: ['common'],
@@ -1046,8 +1052,8 @@ module.exports = {
 			store_state: true,
 			api_endpoint: ['birddogexpsetup'],
 			api_variable: ['ShutterMinSpeed'],
-			variable_name: 'shutter_min_speed',
-			variable_label: `Exposure - Shutter Min Speed`,
+			variableId: 'shutter_min_speed',
+			name: `Exposure - Shutter Min Speed`,
 			action: [
 				{
 					camera: ['common'],
@@ -1061,8 +1067,8 @@ module.exports = {
 			store_state: true,
 			api_endpoint: ['birddogexpsetup'],
 			api_variable: ['ShutterSpeed'],
-			variable_name: 'shutter_speed',
-			variable_label: `Exposure - Shutter Speed`,
+			variableId: 'shutter_speed',
+			name: `Exposure - Shutter Speed`,
 			action: [
 				{
 					camera: [
@@ -1102,8 +1108,8 @@ module.exports = {
 			store_state: true,
 			api_endpoint: ['birddogexpsetup'],
 			api_variable: ['ShutterSpeedOverwrite'],
-			variable_name: 'shutter_speed_overwrite',
-			variable_label: `Exposure - Shutter Speed Overwrite`,
+			variableId: 'shutter_speed_overwrite',
+			name: `Exposure - Shutter Speed Overwrite`,
 			action: [
 				{
 					camera: ['common'],
@@ -1122,8 +1128,8 @@ module.exports = {
 			store_state: true,
 			api_endpoint: ['birddogexpsetup'],
 			api_variable: ['SlowShutterEn'],
-			variable_name: 'slow_shutter_en',
-			variable_label: `Exposure - Slow Shutter Enable`,
+			variableId: 'slow_shutter_en',
+			name: `Exposure - Slow Shutter Enable`,
 			action: [
 				{
 					camera: ['common'],
@@ -1137,8 +1143,8 @@ module.exports = {
 			store_state: true,
 			api_endpoint: ['birddogexpsetup'],
 			api_variable: ['SlowShutterLimit'],
-			variable_name: 'slow_shutter_limit',
-			variable_label: `Exposure - Slow Shutter Limit`,
+			variableId: 'slow_shutter_limit',
+			name: `Exposure - Slow Shutter Limit`,
 			action: [
 				{
 					camera: ['P200A2A3', 'P200A4A5', 'A200GEN1', 'A200GEN2', 'A300GEN1', 'A300GEN2'],
@@ -1156,8 +1162,8 @@ module.exports = {
 			store_state: true,
 			api_endpoint: ['birddogexpsetup'],
 			api_variable: ['Spotlight'],
-			variable_name: 'spotlight',
-			variable_label: `Exposure - Spotlight`,
+			variableId: 'spotlight',
+			name: `Exposure - Spotlight`,
 			action: [
 				{
 					camera: ['common'],
@@ -1173,8 +1179,8 @@ module.exports = {
 			store_state: true,
 			api_endpoint: ['birddogwbsetup'],
 			api_variable: ['BG'],
-			variable_name: 'bg',
-			variable_label: `White Balance - BG`,
+			variableId: 'bg',
+			name: `White Balance - BG`,
 			action: [
 				{
 					camera: ['common'],
@@ -1188,8 +1194,8 @@ module.exports = {
 			store_state: true,
 			api_endpoint: ['birddogwbsetup'],
 			api_variable: ['BlueGain'],
-			variable_name: 'blue_gain',
-			variable_label: `White Balance - Blue Gain`,
+			variableId: 'blue_gain',
+			name: `White Balance - Blue Gain`,
 			action: [
 				{
 					camera: ['common'],
@@ -1203,8 +1209,8 @@ module.exports = {
 			store_state: true,
 			api_endpoint: ['birddogwbsetup'],
 			api_variable: ['BR'],
-			variable_name: 'br',
-			variable_label: `White Balance - BR`,
+			variableId: 'br',
+			name: `White Balance - BR`,
 			action: [
 				{
 					camera: ['common'],
@@ -1218,8 +1224,8 @@ module.exports = {
 			store_state: true,
 			api_endpoint: ['birddogwbsetup'],
 			api_variable: ['ColorTemp'],
-			variable_name: 'color_temp',
-			variable_label: `White Balance - Color Temp`,
+			variableId: 'color_temp',
+			name: `White Balance - Color Temp`,
 			action: [
 				{
 					camera: ['common'],
@@ -1238,8 +1244,8 @@ module.exports = {
 			store_state: true,
 			api_endpoint: ['birddogwbsetup'],
 			api_variable: ['GB'],
-			variable_name: 'gb',
-			variable_label: `White Balance - GB`,
+			variableId: 'gb',
+			name: `White Balance - GB`,
 			action: [
 				{
 					camera: ['common'],
@@ -1253,8 +1259,8 @@ module.exports = {
 			store_state: true,
 			api_endpoint: ['birddogwbsetup'],
 			api_variable: ['GR'],
-			variable_name: 'gr',
-			variable_label: `White Balance - GR`,
+			variableId: 'gr',
+			name: `White Balance - GR`,
 			action: [
 				{
 					camera: ['common'],
@@ -1268,8 +1274,8 @@ module.exports = {
 			store_state: true,
 			api_endpoint: ['birddogwbsetup'],
 			api_variable: ['Level'],
-			variable_name: 'level',
-			variable_label: `White Balance - Level`,
+			variableId: 'level',
+			name: `White Balance - Level`,
 			action: [
 				{
 					camera: ['common'],
@@ -1283,8 +1289,8 @@ module.exports = {
 			store_state: true,
 			api_endpoint: ['birddogwbsetup'],
 			api_variable: ['Matrix'],
-			variable_name: 'matrix',
-			variable_label: `White Balance - Matrix`,
+			variableId: 'matrix',
+			name: `White Balance - Matrix`,
 			action: [
 				{
 					camera: ['common'],
@@ -1298,8 +1304,8 @@ module.exports = {
 			store_state: true,
 			api_endpoint: ['birddogwbsetup'],
 			api_variable: ['Offset'],
-			variable_name: 'offset',
-			variable_label: `White Balance - Offset`,
+			variableId: 'offset',
+			name: `White Balance - Offset`,
 			action: [
 				{
 					camera: ['common'],
@@ -1313,8 +1319,8 @@ module.exports = {
 			store_state: true,
 			api_endpoint: ['birddogwbsetup'],
 			api_variable: ['Phase'],
-			variable_name: 'phase',
-			variable_label: `White Balance - Phase`,
+			variableId: 'phase',
+			name: `White Balance - Phase`,
 			action: [
 				{
 					camera: ['common'],
@@ -1328,8 +1334,8 @@ module.exports = {
 			store_state: true,
 			api_endpoint: ['birddogwbsetup'],
 			api_variable: ['RB'],
-			variable_name: 'rb',
-			variable_label: `White Balance - RB`,
+			variableId: 'rb',
+			name: `White Balance - RB`,
 			action: [
 				{
 					camera: ['common'],
@@ -1343,8 +1349,8 @@ module.exports = {
 			store_state: true,
 			api_endpoint: ['birddogwbsetup'],
 			api_variable: ['RedGain'],
-			variable_name: 'red_gain',
-			variable_label: `White Balance - Red Gain`,
+			variableId: 'red_gain',
+			name: `White Balance - Red Gain`,
 			action: [
 				{
 					camera: ['common'],
@@ -1358,8 +1364,8 @@ module.exports = {
 			store_state: true,
 			api_endpoint: ['birddogwbsetup'],
 			api_variable: ['RG'],
-			variable_name: 'rg',
-			variable_label: `White Balance - RG`,
+			variableId: 'rg',
+			name: `White Balance - RG`,
 			action: [
 				{
 					camera: ['common'],
@@ -1373,8 +1379,8 @@ module.exports = {
 			store_state: true,
 			api_endpoint: ['birddogwbsetup'],
 			api_variable: ['Select'],
-			variable_name: 'select',
-			variable_label: `White Balance - Select`,
+			variableId: 'select',
+			name: `White Balance - Select`,
 			action: [
 				{
 					camera: ['common'],
@@ -1388,8 +1394,8 @@ module.exports = {
 			store_state: true,
 			api_endpoint: ['birddogwbsetup'],
 			api_variable: ['Speed'],
-			variable_name: 'speed',
-			variable_label: `White Balance - Speed`,
+			variableId: 'speed',
+			name: `White Balance - Speed`,
 			action: [
 				{
 					camera: ['common'],
@@ -1400,6 +1406,7 @@ module.exports = {
 		wbOnePush: {
 			camera: ['All'],
 			firmware: ['4', '5'],
+			name: 'White Balance - One Push Trigger',
 			action: [
 				{
 					camera: ['common'],
@@ -1413,8 +1420,8 @@ module.exports = {
 			store_state: true,
 			api_endpoint: ['birddogwbsetup'],
 			api_variable: ['WbMode'],
-			variable_name: 'wb_mode',
-			variable_label: `White Balance - White Balance Mode`,
+			variableId: 'wb_mode',
+			name: `White Balance - White Balance Mode`,
 			action: [
 				{
 					camera: ['common'],
@@ -1438,8 +1445,8 @@ module.exports = {
 			store_state: true,
 			api_endpoint: ['birddogpicsetup'],
 			api_variable: ['BackLightCom'],
-			variable_name: 'backlight_com',
-			variable_label: `Picture Setup - Backlight Compensation`,
+			variableId: 'backlight_com',
+			name: `Picture Setup - Backlight Compensation`,
 			action: [
 				{
 					camera: ['common'],
@@ -1453,8 +1460,8 @@ module.exports = {
 			store_state: true,
 			api_endpoint: ['birddogpicsetup'],
 			api_variable: ['ChromeSuppress'],
-			variable_name: 'chroma_suppress',
-			variable_label: `Picture Setup - Chroma Suppress`,
+			variableId: 'chroma_suppress',
+			name: `Picture Setup - Chroma Suppress`,
 			action: [
 				{
 					camera: ['common'],
@@ -1468,8 +1475,8 @@ module.exports = {
 			store_state: true,
 			api_endpoint: ['birddogpicsetup'],
 			api_variable: ['Contrast'],
-			variable_name: 'contrast',
-			variable_label: `Picture Setup - Contrast`,
+			variableId: 'contrast',
+			name: `Picture Setup - Contrast`,
 			action: [
 				{
 					camera: ['common'],
@@ -1483,8 +1490,8 @@ module.exports = {
 			store_state: true,
 			api_endpoint: ['birddogpicsetup'],
 			api_variable: ['Gamma'],
-			variable_name: 'gamma',
-			variable_label: `Picture Setup - Gamma`,
+			variableId: 'gamma',
+			name: `Picture Setup - Gamma`,
 			action: [
 				{
 					camera: ['common'],
@@ -1498,8 +1505,8 @@ module.exports = {
 			store_state: true,
 			api_endpoint: ['birddogpicsetup'],
 			api_variable: ['HighlightComp'],
-			variable_name: 'highlight_comp',
-			variable_label: `Picture Setup - Highlight Compensation`,
+			variableId: 'highlight_comp',
+			name: `Picture Setup - Highlight Compensation`,
 			action: [
 				{
 					camera: ['common'],
@@ -1513,8 +1520,8 @@ module.exports = {
 			store_state: true,
 			api_endpoint: ['birddogpicsetup'],
 			api_variable: ['HighlightCompMask'],
-			variable_name: 'highlight_comp_mask',
-			variable_label: `Picture Setup - Highlight Compensation Mask`,
+			variableId: 'highlight_comp_mask',
+			name: `Picture Setup - Highlight Compensation Mask`,
 			action: [
 				{
 					camera: ['common'],
@@ -1528,8 +1535,8 @@ module.exports = {
 			store_state: true,
 			api_endpoint: ['birddogpicsetup'],
 			api_variable: ['Hue'],
-			variable_name: 'hue',
-			variable_label: `Picture Setup - Hue`,
+			variableId: 'hue',
+			name: `Picture Setup - Hue`,
 			action: [
 				{
 					camera: ['common'],
@@ -1543,8 +1550,8 @@ module.exports = {
 			store_state: true,
 			api_endpoint: ['birddogpicsetup'],
 			api_variable: ['IRCutFilter'],
-			variable_name: 'ir_cutfilter',
-			variable_label: `Picture Setup - IR Cut Filter`,
+			variableId: 'ir_cutfilter',
+			name: `Picture Setup - IR Cut Filter`,
 			action: [
 				{
 					camera: ['P200A4A5', 'A200GEN1', 'A200GEN2', 'A300GEN1', 'A300GEN2'],
@@ -1566,8 +1573,8 @@ module.exports = {
 			store_state: true,
 			api_endpoint: ['birddogpicsetup'],
 			api_variable: ['LowLatency'],
-			variable_name: 'low_latency',
-			variable_label: 'Picture Setup - Low Latency',
+			variableId: 'low_latency',
+			name: 'Picture Setup - Low Latency',
 			action: [
 				{
 					camera: ['common'],
@@ -1581,8 +1588,8 @@ module.exports = {
 			store_state: true,
 			api_endpoint: ['birddogpicsetup'],
 			api_variable: ['NDFilter'],
-			variable_name: 'nd_filter',
-			variable_label: 'Picture Setup - ND Filter',
+			variableId: 'nd_filter',
+			name: 'Picture Setup - ND Filter',
 			action: [
 				{
 					camera: ['common'],
@@ -1596,8 +1603,8 @@ module.exports = {
 			store_state: true,
 			api_endpoint: ['birddogpicsetup'],
 			api_variable: ['NoiseReduction'],
-			variable_name: 'noise_reduction',
-			variable_label: `Picture Setup - Noise Reduction`,
+			variableId: 'noise_reduction',
+			name: `Picture Setup - Noise Reduction`,
 			action: [
 				{
 					camera: ['common'],
@@ -1616,8 +1623,8 @@ module.exports = {
 			store_state: true,
 			api_endpoint: ['birddogpicsetup'],
 			api_variable: ['Flip'],
-			variable_name: 'flip',
-			variable_label: `Picture Setup - Flip`,
+			variableId: 'flip',
+			name: `Picture Setup - Flip`,
 			action: [
 				{
 					camera: ['common'],
@@ -1631,8 +1638,8 @@ module.exports = {
 			store_state: true,
 			api_endpoint: ['birddogpicsetup'],
 			api_variable: ['Mirror'],
-			variable_name: 'mirror',
-			variable_label: `Picture Setup - Mirror`,
+			variableId: 'mirror',
+			name: `Picture Setup - Mirror`,
 			action: [
 				{
 					camera: ['common'],
@@ -1646,8 +1653,8 @@ module.exports = {
 			store_state: true,
 			api_endpoint: ['birddogpicsetup'],
 			api_variable: ['Effect'],
-			variable_name: 'bw_effect',
-			variable_label: `Picture Setup - BW Effect`,
+			variableId: 'bw_effect',
+			name: `Picture Setup - BW Effect`,
 			action: [
 				{
 					camera: ['common'],
@@ -1661,8 +1668,8 @@ module.exports = {
 			store_state: true,
 			api_endpoint: ['birddogpicsetup'],
 			api_variable: ['Color'],
-			variable_name: 'saturation',
-			variable_label: `Picture Setup - Saturation`,
+			variableId: 'saturation',
+			name: `Picture Setup - Saturation`,
 			action: [
 				{
 					camera: ['common'],
@@ -1676,8 +1683,8 @@ module.exports = {
 			store_state: true,
 			api_endpoint: ['birddogpicsetup'],
 			api_variable: ['Sharpness'],
-			variable_name: 'sharpness',
-			variable_label: `Picture Setup - Sharpness`,
+			variableId: 'sharpness',
+			name: `Picture Setup - Sharpness`,
 			action: [
 				{
 					camera: ['common'],
@@ -1699,8 +1706,8 @@ module.exports = {
 			store_state: true,
 			api_endpoint: ['birddogpicsetup'],
 			api_variable: ['Stabilizer'],
-			variable_name: 'stabilizer',
-			variable_label: `Picture Setup - Stabilizer`,
+			variableId: 'stabilizer',
+			name: `Picture Setup - Stabilizer`,
 			action: [
 				{
 					camera: ['common'],
@@ -1714,8 +1721,8 @@ module.exports = {
 			store_state: true,
 			api_endpoint: ['birddogpicsetup'],
 			api_variable: ['ThreeDNR'],
-			variable_name: 'threed_nr',
-			variable_label: `Picture Setup - 3D Noise Reduction`,
+			variableId: 'threed_nr',
+			name: `Picture Setup - 3D Noise Reduction`,
 			action: [
 				{
 					camera: ['common'],
@@ -1729,8 +1736,8 @@ module.exports = {
 			store_state: true,
 			api_endpoint: ['birddogpicsetup'],
 			api_variable: ['TWODNR'],
-			variable_name: 'twod_nr',
-			variable_label: `Picture Setup - 2D Noise Reduction`,
+			variableId: 'twod_nr',
+			name: `Picture Setup - 2D Noise Reduction`,
 			action: [
 				{
 					camera: ['common'],
@@ -1744,8 +1751,8 @@ module.exports = {
 			store_state: true,
 			api_endpoint: ['birddogpicsetup'],
 			api_variable: ['WideDynamicRange'],
-			variable_name: 'wide_dynamic_range',
-			variable_label: `Picture Setup - Wide Dynamic Range`,
+			variableId: 'wide_dynamic_range',
+			name: `Picture Setup - Wide Dynamic Range`,
 			action: [
 				{
 					camera: ['common'],
@@ -1766,8 +1773,8 @@ module.exports = {
 			store_state: true,
 			api_endpoint: ['birddogcmsetup'],
 			api_variable: ['cam_cm_blu_gain', 'BlueGain'],
-			variable_name: 'cm_blue_gain',
-			variable_label: 'Color Matrix - Blue Gain',
+			variableId: 'cm_blue_gain',
+			name: 'Color Matrix - Blue Gain',
 			action: [
 				{
 					camera: ['common'],
@@ -1781,8 +1788,8 @@ module.exports = {
 			store_state: true,
 			api_endpoint: ['birddogcmsetup'],
 			api_variable: ['cam_cm_blu_hue', 'BlueHue'],
-			variable_name: 'cm_blue_hue',
-			variable_label: 'Color Matrix - Blue Hue',
+			variableId: 'cm_blue_hue',
+			name: 'Color Matrix - Blue Hue',
 			action: [
 				{
 					camera: ['common'],
@@ -1796,8 +1803,8 @@ module.exports = {
 			store_state: true,
 			api_endpoint: ['birddogcmsetup'],
 			api_variable: ['ColourGain'],
-			variable_name: 'cm_color_gain',
-			variable_label: 'Color Matrix - Color Gain',
+			variableId: 'cm_color_gain',
+			name: 'Color Matrix - Color Gain',
 			action: [
 				{
 					camera: ['common'],
@@ -1811,8 +1818,8 @@ module.exports = {
 			store_state: true,
 			api_endpoint: ['birddogcmsetup'],
 			api_variable: ['cam_cm_cya_gain', 'CyanGain'],
-			variable_name: 'cm_cyan_gain',
-			variable_label: 'Color Matrix - Cyan Gain',
+			variableId: 'cm_cyan_gain',
+			name: 'Color Matrix - Cyan Gain',
 			action: [
 				{
 					camera: ['common'],
@@ -1826,8 +1833,8 @@ module.exports = {
 			store_state: true,
 			api_endpoint: ['birddogcmsetup'],
 			api_variable: ['cam_cm_cya_hue', 'CyanHue'],
-			variable_name: 'cm_cyan_hue',
-			variable_label: 'Color Matrix - Cyan Hue',
+			variableId: 'cm_cyan_hue',
+			name: 'Color Matrix - Cyan Hue',
 			action: [
 				{
 					camera: ['common'],
@@ -1841,8 +1848,8 @@ module.exports = {
 			store_state: true,
 			api_endpoint: ['birddogcmsetup'],
 			api_variable: ['cam_cm_gre_gain', 'GreenGain'],
-			variable_name: 'cm_green_gain',
-			variable_label: 'Color Matrix - Green Gain',
+			variableId: 'cm_green_gain',
+			name: 'Color Matrix - Green Gain',
 			action: [
 				{
 					camera: ['common'],
@@ -1856,8 +1863,8 @@ module.exports = {
 			store_state: true,
 			api_endpoint: ['birddogcmsetup'],
 			api_variable: ['cam_cm_gre_hue', 'GreenHue'],
-			variable_name: 'cm_green_hue',
-			variable_label: 'Color Matrix - Green Hue',
+			variableId: 'cm_green_hue',
+			name: 'Color Matrix - Green Hue',
 			action: [
 				{
 					camera: ['common'],
@@ -1871,8 +1878,8 @@ module.exports = {
 			store_state: true,
 			api_endpoint: ['birddogcmsetup'],
 			api_variable: ['HuePhase'],
-			variable_name: 'cm_hue_phase',
-			variable_label: 'Color Matrix - Hue Phase',
+			variableId: 'cm_hue_phase',
+			name: 'Color Matrix - Hue Phase',
 			action: [
 				{
 					camera: ['common'],
@@ -1886,8 +1893,8 @@ module.exports = {
 			store_state: true,
 			api_endpoint: ['birddogcmsetup'],
 			api_variable: ['cam_cm_mag_gain', 'MagGain'],
-			variable_name: 'cm_mag_gain',
-			variable_label: 'Color Matrix - Magenta Gain',
+			variableId: 'cm_mag_gain',
+			name: 'Color Matrix - Magenta Gain',
 			action: [
 				{
 					camera: ['common'],
@@ -1901,8 +1908,8 @@ module.exports = {
 			store_state: true,
 			api_endpoint: ['birddogcmsetup'],
 			api_variable: ['cam_cm_mag_hue', 'MagHue'],
-			variable_name: 'cm_mag_hue',
-			variable_label: 'Color Matrix - Magenta Hue',
+			variableId: 'cm_mag_hue',
+			name: 'Color Matrix - Magenta Hue',
 			action: [
 				{
 					camera: ['common'],
@@ -1916,8 +1923,8 @@ module.exports = {
 			store_state: true,
 			api_endpoint: ['birddogcmsetup'],
 			api_variable: ['cam_cm_red_gain', 'RedGain'],
-			variable_name: 'cm_red_gain',
-			variable_label: 'Color Matrix - Red Gain',
+			variableId: 'cm_red_gain',
+			name: 'Color Matrix - Red Gain',
 			action: [
 				{
 					camera: ['common'],
@@ -1931,8 +1938,8 @@ module.exports = {
 			store_state: true,
 			api_endpoint: ['birddogcmsetup'],
 			api_variable: ['cam_cm_red_hue', 'RedHue'],
-			variable_name: 'cm_red_hue',
-			variable_label: 'Color Matrix - Red Hue',
+			variableId: 'cm_red_hue',
+			name: 'Color Matrix - Red Hue',
 			action: [
 				{
 					camera: ['common'],
@@ -1946,8 +1953,8 @@ module.exports = {
 			store_state: true,
 			api_endpoint: ['birddogcmsetup'],
 			api_variable: ['cam_cm_yel_gain', 'YellowGain'],
-			variable_name: 'cm_yellow_gain',
-			variable_label: 'Color Matrix - Yellow Gain',
+			variableId: 'cm_yellow_gain',
+			name: 'Color Matrix - Yellow Gain',
 			action: [
 				{
 					camera: ['common'],
@@ -1961,8 +1968,8 @@ module.exports = {
 			store_state: true,
 			api_endpoint: ['birddogcmsetup'],
 			api_variable: ['cam_cm_yel_hue', 'YellowHue'],
-			variable_name: 'cm_yellow_hue',
-			variable_label: 'Color Matrix - Yellow Hue',
+			variableId: 'cm_yellow_hue',
+			name: 'Color Matrix - Yellow Hue',
 			action: [
 				{
 					camera: ['common'],
@@ -1978,8 +1985,8 @@ module.exports = {
 			store_state: true,
 			api_endpoint: ['birddogadvancesetup'],
 			api_variable: ['Brightness'],
-			variable_name: 'brightness',
-			variable_label: 'Advanced Setup - Brightness',
+			variableId: 'brightness',
+			name: 'Advanced Setup - Brightness',
 			action: [
 				{
 					camera: ['common'],
@@ -1993,8 +2000,8 @@ module.exports = {
 			store_state: true,
 			api_endpoint: ['birddogadvancesetup'],
 			api_variable: ['BrightnessComp'],
-			variable_name: 'brightness_comp',
-			variable_label: 'Advanced Setup - Brightness Comp',
+			variableId: 'brightness_comp',
+			name: 'Advanced Setup - Brightness Comp',
 			action: [
 				{
 					camera: ['common'],
@@ -2008,8 +2015,8 @@ module.exports = {
 			store_state: true,
 			api_endpoint: ['birddogadvancesetup'],
 			api_variable: ['CompLevel'],
-			variable_name: 'comp_level',
-			variable_label: 'Advanced Setup - Comp Level',
+			variableId: 'comp_level',
+			name: 'Advanced Setup - Comp Level',
 			action: [
 				{
 					camera: ['common'],
@@ -2023,8 +2030,8 @@ module.exports = {
 			store_state: true,
 			api_endpoint: ['birddogadvancesetup'],
 			api_variable: ['GammaOffset'],
-			variable_name: 'gamma_offset',
-			variable_label: 'Advanced Setup - Gamma Offset',
+			variableId: 'gamma_offset',
+			name: 'Advanced Setup - Gamma Offset',
 			action: [
 				{
 					camera: ['common'],
@@ -2038,8 +2045,8 @@ module.exports = {
 			store_state: true,
 			api_endpoint: ['birddogadvancesetup'],
 			api_variable: ['HighResolution'],
-			variable_name: 'high_resolution',
-			variable_label: 'Advanced Setup - High Resolution',
+			variableId: 'high_resolution',
+			name: 'Advanced Setup - High Resolution',
 			action: [
 				{
 					camera: ['common'],
@@ -2053,8 +2060,8 @@ module.exports = {
 			store_state: true,
 			api_endpoint: ['birddogadvancesetup'],
 			api_variable: ['VideoEnhancement'],
-			variable_name: 'video_enhancement',
-			variable_label: 'Advanced Setup - Video Enhancement',
+			variableId: 'video_enhancement',
+			name: 'Advanced Setup - Video Enhancement',
 			action: [
 				{
 					camera: ['common'],
@@ -2070,8 +2077,8 @@ module.exports = {
 			store_state: true,
 			api_endpoint: ['birddogexternalsetup'],
 			api_variable: ['Aux'],
-			variable_name: 'aux',
-			variable_label: 'External Setup - Aux',
+			variableId: 'aux',
+			name: 'External Setup - Aux',
 			action: [
 				{
 					camera: ['common'],
@@ -2085,8 +2092,8 @@ module.exports = {
 			store_state: true,
 			api_endpoint: ['birddogexternalsetup'],
 			api_variable: ['RainWiper'],
-			variable_name: 'rain_wiper',
-			variable_label: 'External Setup - Rain Wiper',
+			variableId: 'rain_wiper',
+			name: 'External Setup - Rain Wiper',
 			action: [
 				{
 					camera: ['common'],
@@ -2100,8 +2107,8 @@ module.exports = {
 			store_state: true,
 			api_endpoint: ['birddogexternalsetup'],
 			api_variable: ['V12vOut'],
-			variable_name: 'v12vout',
-			variable_label: 'External Setup - 12v Out',
+			variableId: 'v12vout',
+			name: 'External Setup - 12v Out',
 			action: [
 				{
 					camera: ['common'],
@@ -2117,8 +2124,8 @@ module.exports = {
 			store_state: true,
 			api_endpoint: ['birddogdetsetup'],
 			api_variable: ['Bandwidth'],
-			variable_name: 'bandwidth',
-			variable_label: `Detail Setup - Bandwidth`,
+			variableId: 'bandwidth',
+			name: `Detail Setup - Bandwidth`,
 			action: [
 				{
 					camera: ['common'],
@@ -2132,8 +2139,8 @@ module.exports = {
 			store_state: true,
 			api_endpoint: ['birddogdetsetup'],
 			api_variable: ['BwBalance'],
-			variable_name: 'bw_balance',
-			variable_label: `Detail Setup - BW Balance`,
+			variableId: 'bw_balance',
+			name: `Detail Setup - BW Balance`,
 			action: [
 				{
 					camera: ['common'],
@@ -2147,8 +2154,8 @@ module.exports = {
 			store_state: true,
 			api_endpoint: ['birddogdetsetup'],
 			api_variable: ['Crispening'],
-			variable_name: 'crispening',
-			variable_label: `Detail Setup - Crispening`,
+			variableId: 'crispening',
+			name: `Detail Setup - Crispening`,
 			action: [
 				{
 					camera: ['common'],
@@ -2162,8 +2169,8 @@ module.exports = {
 			store_state: true,
 			api_endpoint: ['birddogdetsetup'],
 			api_variable: ['Detail'],
-			variable_name: 'detail',
-			variable_label: `Detail Setup - Detail`,
+			variableId: 'detail',
+			name: `Detail Setup - Detail`,
 			action: [
 				{
 					camera: ['common'],
@@ -2177,8 +2184,8 @@ module.exports = {
 			store_state: true,
 			api_endpoint: ['birddogdetsetup'],
 			api_variable: ['HighLightDetail'],
-			variable_name: 'highlight_detail',
-			variable_label: `Detail Setup - Highlight Detail`,
+			variableId: 'highlight_detail',
+			name: `Detail Setup - Highlight Detail`,
 			action: [
 				{
 					camera: ['common'],
@@ -2192,8 +2199,8 @@ module.exports = {
 			store_state: true,
 			api_endpoint: ['birddogdetsetup'],
 			api_variable: ['HvBalance'],
-			variable_name: 'hv_balance',
-			variable_label: `Detail Setup - Hv Balance`,
+			variableId: 'hv_balance',
+			name: `Detail Setup - Hv Balance`,
 			action: [
 				{
 					camera: ['common'],
@@ -2207,8 +2214,8 @@ module.exports = {
 			store_state: true,
 			api_endpoint: ['birddogdetsetup'],
 			api_variable: ['Limit'],
-			variable_name: 'limit',
-			variable_label: `Detail Setup - Limit`,
+			variableId: 'limit',
+			name: `Detail Setup - Limit`,
 			action: [
 				{
 					camera: ['common'],
@@ -2222,8 +2229,8 @@ module.exports = {
 			store_state: true,
 			api_endpoint: ['birddogdetsetup'],
 			api_variable: ['SuperLow'],
-			variable_name: 'super_low',
-			variable_label: `Detail Setup - Super Low`,
+			variableId: 'super_low',
+			name: `Detail Setup - Super Low`,
 			action: [
 				{
 					camera: ['common'],
@@ -2239,8 +2246,8 @@ module.exports = {
 			store_state: true,
 			api_endpoint: ['birddoggammasetup'],
 			api_variable: ['BlackGammaLevel'],
-			variable_name: 'black_gamma_level',
-			variable_label: `Gamma Setup - Black Gamma Level`,
+			variableId: 'black_gamma_level',
+			name: `Gamma Setup - Black Gamma Level`,
 			action: [
 				{
 					camera: ['common'],
@@ -2254,8 +2261,8 @@ module.exports = {
 			store_state: true,
 			api_endpoint: ['birddoggammasetup'],
 			api_variable: ['BlackLevel'],
-			variable_name: 'black_level',
-			variable_label: `Gamma Setup - Black Level`,
+			variableId: 'black_level',
+			name: `Gamma Setup - Black Level`,
 			action: [
 				{
 					camera: ['common'],
@@ -2269,8 +2276,8 @@ module.exports = {
 			store_state: true,
 			api_endpoint: ['birddoggammasetup'],
 			api_variable: ['BlackLevelRange'],
-			variable_name: 'black_level_range',
-			variable_label: `Gamma Setup - Black Level Range`,
+			variableId: 'black_level_range',
+			name: `Gamma Setup - Black Level Range`,
 			action: [
 				{
 					camera: ['common'],
@@ -2284,8 +2291,8 @@ module.exports = {
 			store_state: true,
 			api_endpoint: ['birddoggammasetup'],
 			api_variable: ['Effect'],
-			variable_name: 'effect',
-			variable_label: `Gamma Setup - Effect`,
+			variableId: 'effect',
+			name: `Gamma Setup - Effect`,
 			action: [
 				{
 					camera: ['common'],
@@ -2299,8 +2306,8 @@ module.exports = {
 			store_state: true,
 			api_endpoint: ['birddoggammasetup'],
 			api_variable: ['Level'],
-			variable_name: 'level',
-			variable_label: `Gamma Setup - Level`,
+			variableId: 'level',
+			name: `Gamma Setup - Level`,
 			action: [
 				{
 					camera: ['common'],
@@ -2314,8 +2321,8 @@ module.exports = {
 			store_state: true,
 			api_endpoint: ['birddoggammasetup'],
 			api_variable: ['Offset'],
-			variable_name: 'offset',
-			variable_label: `Gamma Setup - Offset`,
+			variableId: 'offset',
+			name: `Gamma Setup - Offset`,
 			action: [
 				{
 					camera: ['common'],
@@ -2329,8 +2336,8 @@ module.exports = {
 			store_state: true,
 			api_endpoint: ['birddoggammasetup'],
 			api_variable: ['Pattern'],
-			variable_name: 'pattern',
-			variable_label: `Gamma Setup - Pattern`,
+			variableId: 'pattern',
+			name: `Gamma Setup - Pattern`,
 			action: [
 				{
 					camera: ['common'],
@@ -2344,8 +2351,8 @@ module.exports = {
 			store_state: true,
 			api_endpoint: ['birddoggammasetup'],
 			api_variable: ['PatternFine'],
-			variable_name: 'pattern_fine',
-			variable_label: `Gamma Setup - Pattern Fine`,
+			variableId: 'pattern_fine',
+			name: `Gamma Setup - Pattern Fine`,
 			action: [
 				{
 					camera: ['common'],
@@ -2359,8 +2366,8 @@ module.exports = {
 			store_state: true,
 			api_endpoint: ['birddoggammasetup'],
 			api_variable: ['Settings'],
-			variable_name: 'settings',
-			variable_label: `Gamma Setup - Settings`,
+			variableId: 'settings',
+			name: `Gamma Setup - Settings`,
 			action: [
 				{
 					camera: ['common'],
@@ -2374,8 +2381,8 @@ module.exports = {
 			store_state: true,
 			api_endpoint: ['birddoggammasetup'],
 			api_variable: ['VisibilityEnhancer'],
-			variable_name: 'visibility_enhancer',
-			variable_label: `Gamma Setup - Visibilty Enhancer`,
+			variableId: 'visibility_enhancer',
+			name: `Gamma Setup - Visibilty Enhancer`,
 			action: [
 				{
 					camera: ['common'],
@@ -2391,8 +2398,8 @@ module.exports = {
 			store_state: true,
 			api_endpoint: ['birddogscope'],
 			api_variable: ['GammaGain'],
-			variable_name: 'scope_gamma_gain',
-			variable_label: `Scope - Gamma Gain`,
+			variableId: 'scope_gamma_gain',
+			name: `Scope - Gamma Gain`,
 			action: [
 				{
 					camera: ['common'],
@@ -2406,8 +2413,8 @@ module.exports = {
 			store_state: true,
 			api_endpoint: ['birddogscope'],
 			api_variable: ['Mode'],
-			variable_name: 'scope_mode',
-			variable_label: `Scope - Mode`,
+			variableId: 'scope_mode',
+			name: `Scope - Mode`,
 			action: [
 				{
 					camera: ['common'],
@@ -2421,8 +2428,8 @@ module.exports = {
 			store_state: true,
 			api_endpoint: ['birddogscope'],
 			api_variable: ['Position'],
-			variable_name: 'scope_position',
-			variable_label: `Scope - Position`,
+			variableId: 'scope_position',
+			name: `Scope - Position`,
 			action: [
 				{
 					camera: ['common'],
@@ -2436,8 +2443,8 @@ module.exports = {
 			store_state: true,
 			api_endpoint: ['birddogscope'],
 			api_variable: ['PreviewEnable'],
-			variable_name: 'scope_preview',
-			variable_label: `Scope - Preview`,
+			variableId: 'scope_preview',
+			name: `Scope - Preview`,
 			action: [
 				{
 					camera: ['common'],
@@ -2451,8 +2458,8 @@ module.exports = {
 			store_state: true,
 			api_endpoint: ['birddogscope'],
 			api_variable: ['ProgramEnable'],
-			variable_name: 'scope_program',
-			variable_label: `Scope - Program`,
+			variableId: 'scope_program',
+			name: `Scope - Program`,
 			action: [
 				{
 					camera: ['common'],
@@ -2466,8 +2473,8 @@ module.exports = {
 			store_state: true,
 			api_endpoint: ['birddogscope'],
 			api_variable: ['DoubleSizeEnable'],
-			variable_name: 'scope_size',
-			variable_label: `Scope - Size`,
+			variableId: 'scope_size',
+			name: `Scope - Size`,
 			action: [
 				{
 					camera: ['common'],
@@ -2481,8 +2488,8 @@ module.exports = {
 			store_state: true,
 			api_endpoint: ['birddogscope'],
 			api_variable: ['TransparencyEnable'],
-			variable_name: 'scope_transparency',
-			variable_label: `Scope - Transparency`,
+			variableId: 'scope_transparency',
+			name: `Scope - Transparency`,
 			action: [
 				{
 					camera: ['common'],
@@ -2499,8 +2506,8 @@ module.exports = {
 			store_state: true,
 			api_endpoint: ['WebSocket'],
 			api_variable: ['avbr'],
-			variable_name: 'avbr',
-			variable_label: `Dashboard - Average Bitrate`,
+			variableId: 'avbr',
+			name: `Dashboard - Average Bitrate`,
 		},
 
 		aud_ch: {
@@ -2509,8 +2516,8 @@ module.exports = {
 			store_state: true,
 			api_endpoint: ['WebSocket'],
 			api_variable: ['aud_ch'],
-			variable_name: 'aud_ch',
-			variable_label: `Dashboard - Audio Channels`,
+			variableId: 'aud_ch',
+			name: `Dashboard - Audio Channels`,
 		},
 
 		aud_sr: {
@@ -2519,8 +2526,8 @@ module.exports = {
 			store_state: true,
 			api_endpoint: ['WebSocket'],
 			api_variable: ['aud_sr'],
-			variable_name: 'aud_sr',
-			variable_label: `Dashboard - Audio Sample Rate`,
+			variableId: 'aud_sr',
+			name: `Dashboard - Audio Sample Rate`,
 		},
 
 		aud_stat: {
@@ -2529,8 +2536,8 @@ module.exports = {
 			store_state: true,
 			api_endpoint: ['WebSocket'],
 			api_variable: ['aud_stat'],
-			variable_name: 'aud_stat',
-			variable_label: `Dashboard - Audio Status`,
+			variableId: 'aud_stat',
+			name: `Dashboard - Audio Status`,
 		},
 
 		dashboard_vid_status: {
@@ -2539,8 +2546,8 @@ module.exports = {
 			store_state: true,
 			api_endpoint: ['WebSocket'],
 			api_variable: ['dashboard_vid_status'],
-			variable_name: 'dashboard_vid_status',
-			variable_label: `Dashboard - Status`,
+			variableId: 'dashboard_vid_status',
+			name: `Dashboard - Status`,
 		},
 
 		dev_mode: {
@@ -2549,8 +2556,8 @@ module.exports = {
 			store_state: true,
 			api_endpoint: ['WebSocket'],
 			api_variable: ['dev_mode'],
-			variable_name: 'dev_mode',
-			variable_label: `Dashboard - Device Mode`,
+			variableId: 'dev_mode',
+			name: `Dashboard - Device Mode`,
 		},
 
 		gen_status: {
@@ -2559,8 +2566,8 @@ module.exports = {
 			store_state: true,
 			api_endpoint: ['WebSocket'],
 			api_variable: ['gen_status'],
-			variable_name: 'gen_status',
-			variable_label: `Dashboard - Genlock Status`,
+			variableId: 'gen_status',
+			name: `Dashboard - Genlock Status`,
 		},
 
 		mcu_ver: {
@@ -2569,8 +2576,8 @@ module.exports = {
 			store_state: true,
 			api_endpoint: ['WebSocket'],
 			api_variable: ['mcu_ver'],
-			variable_name: 'mcu_ver',
-			variable_label: `Dashboard - MCU Version`,
+			variableId: 'mcu_ver',
+			name: `Dashboard - MCU Version`,
 		},
 
 		net_band_perc: {
@@ -2579,8 +2586,8 @@ module.exports = {
 			store_state: true,
 			api_endpoint: ['WebSocket'],
 			api_variable: ['net_band_perc'],
-			variable_name: 'net_band_perc',
-			variable_label: `Dashboard - Network Bandwidth`,
+			variableId: 'net_band_perc',
+			name: `Dashboard - Network Bandwidth`,
 		},
 
 		net_mode: {
@@ -2589,8 +2596,8 @@ module.exports = {
 			store_state: true,
 			api_endpoint: ['WebSocket'],
 			api_variable: ['net_mode'],
-			variable_name: 'net_mode',
-			variable_label: `Dashboard - Network Mode`,
+			variableId: 'net_mode',
+			name: `Dashboard - Network Mode`,
 		},
 
 		net_speed: {
@@ -2599,8 +2606,8 @@ module.exports = {
 			store_state: true,
 			api_endpoint: ['WebSocket'],
 			api_variable: ['net_speed'],
-			variable_name: 'net_speed',
-			variable_label: `Dashboard - Network Speed`,
+			variableId: 'net_speed',
+			name: `Dashboard - Network Speed`,
 		},
 
 		src_stat: {
@@ -2609,8 +2616,8 @@ module.exports = {
 			store_state: true,
 			api_endpoint: ['WebSocket'],
 			api_variable: ['src_stat'],
-			variable_name: 'src_stat',
-			variable_label: `Dashboard - Source Status`,
+			variableId: 'src_stat',
+			name: `Dashboard - Source Status`,
 		},
 
 		sys_info_perc: {
@@ -2619,8 +2626,8 @@ module.exports = {
 			store_state: true,
 			api_endpoint: ['WebSocket'],
 			api_variable: ['sys_info_perc'],
-			variable_name: 'sys_info_perc',
-			variable_label: `Dashboard - CPU Usage`,
+			variableId: 'sys_info_perc',
+			name: `Dashboard - CPU Usage`,
 		},
 
 		vid_fmt: {
@@ -2629,8 +2636,8 @@ module.exports = {
 			store_state: true,
 			api_endpoint: ['WebSocket'],
 			api_variable: ['vid_fmt'],
-			variable_name: 'vid_fmt',
-			variable_label: `Dashboard - Video Format`,
+			variableId: 'vid_fmt',
+			name: `Dashboard - Video Format`,
 		},
 
 		vid_fr: {
@@ -2639,8 +2646,8 @@ module.exports = {
 			store_state: true,
 			api_endpoint: ['WebSocket'],
 			api_variable: ['vid_fr'],
-			variable_name: 'vid_fr',
-			variable_label: `Dashboard - Video Frame Rate`,
+			variableId: 'vid_fr',
+			name: `Dashboard - Video Frame Rate`,
 		},
 
 		vid_res: {
@@ -2649,8 +2656,8 @@ module.exports = {
 			store_state: true,
 			api_endpoint: ['WebSocket'],
 			api_variable: ['vid_res'],
-			variable_name: 'vid_res',
-			variable_label: `Dashboard - Video Resolution`,
+			variableId: 'vid_res',
+			name: `Dashboard - Video Resolution`,
 		},
 
 		vid_sra: {
@@ -2659,8 +2666,8 @@ module.exports = {
 			store_state: true,
 			api_endpoint: ['WebSocket'],
 			api_variable: ['vid_sra'],
-			variable_name: 'vid_sra',
-			variable_label: `Dashboard - Video Sample Rate`,
+			variableId: 'vid_sra',
+			name: `Dashboard - Video Sample Rate`,
 		},
 
 		vid_str_name: {
@@ -2669,14 +2676,15 @@ module.exports = {
 			store_state: true,
 			api_endpoint: ['WebSocket'],
 			api_variable: ['vid_str_name'],
-			variable_name: 'vid_str_name',
-			variable_label: `Dashboard - NDI Video Stream Name`,
+			variableId: 'vid_str_name',
+			name: `Dashboard - NDI Video Stream Name`,
 		},
 
 		// Other Actions
 		custom: {
 			camera: ['All'],
 			firmware: ['4', '5'],
+			name: 'Custom Visca Command',
 			action: [
 				{
 					camera: ['common'],
