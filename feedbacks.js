@@ -377,7 +377,7 @@ exports.initFeedbacks = function () {
 	if (MODEL_ACTIONS?.pt) {
 		feedbacks.posPan = {
 			type: 'boolean',
-			label: MODEL_ACTIONS.pan_position.name,
+			name: `PTZ - Pan Position`,
 			description: 'If the camera matches the selected Pan Position, change the style of the button',
 			style: {
 				color: ColorBlack,
@@ -399,7 +399,7 @@ exports.initFeedbacks = function () {
 
 		feedbacks.posTilt = {
 			type: 'boolean',
-			label: MODEL_ACTIONS.tilt_position.name,
+			name: `PTZ - Tilt Position`,
 			description: 'If the camera matches the selected Tilt Position, change the style of the button',
 			style: {
 				color: ColorBlack,
@@ -423,7 +423,7 @@ exports.initFeedbacks = function () {
 	if (MODEL_ACTIONS?.zoom) {
 		feedbacks.posZoom = {
 			type: 'boolean',
-			label: MODEL_ACTIONS.zoom_position.name,
+			name: `PTZ - Zoom Position`,
 			description: 'If the camera matches the selected Zoom Position, change the style of the button',
 			style: {
 				color: ColorBlack,
