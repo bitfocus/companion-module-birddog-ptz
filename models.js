@@ -797,7 +797,7 @@ module.exports = {
 			action: [
 				{
 					camera: ['common'],
-					action: { range: { min: 1, max: 48, default: 1 } },
+					action: { choices: CHOICES.UP_DOWN_VALUE, default: 'up', range: { min: 1, max: 48, default: 1 } },
 				},
 			],
 		},
@@ -825,6 +825,10 @@ module.exports = {
 			variableId: 'bright_level',
 			name: `Exposure - Bright Level`,
 			action: [
+				{
+					camera: ['common'],
+					action: { choices: CHOICES.UP_DOWN_VALUE, default: 'up' },
+				},
 				{
 					camera: ['P100', 'P110', 'P120', 'PF120'],
 					action: { range: { min: 0, max: 27, default: 14 } },
@@ -918,16 +922,20 @@ module.exports = {
 			name: `Exposure - Gain`,
 			action: [
 				{
+					camera: ['common'],
+					action: { choices: CHOICES.UP_DOWN_VALUE, default: 'up' },
+				},
+				{
 					camera: ['P100', 'P110', 'P120', 'PF120'],
-					action: { choices: CHOICES.GAIN_1, default: 0 },
+					action: { value: { choices: CHOICES.GAIN_1, default: 0 } },
 				},
 				{
 					camera: ['P200A2A3', 'P200A4A5', 'A200GEN1', 'A200GEN2', 'A300GEN1', 'A300GEN2'],
-					action: { choices: CHOICES.GAIN_2, default: 1 },
+					action: { value: { choices: CHOICES.GAIN_2, default: 1 } },
 				},
 				{
 					camera: ['P400', 'P4K'],
-					action: { choices: CHOICES.GAIN_3, default: 1 },
+					action: { value: { choices: CHOICES.GAIN_3, default: 1 } },
 				},
 			],
 		},
@@ -940,6 +948,10 @@ module.exports = {
 			variableId: 'gain_limit',
 			name: `Exposure - Gain Limit`,
 			action: [
+				{
+					camera: ['common'],
+					action: { choices: CHOICES.UP_DOWN_VALUE, default: 'up' },
+				},
 				{
 					camera: ['P200A2A3', 'P200A4A5', 'A200GEN1', 'A200GEN2', 'A300GEN1', 'A300GEN2'],
 					action: { range: { min: 4, max: 15, default: 15 } },
@@ -999,20 +1011,24 @@ module.exports = {
 			name: `Exposure - Iris`,
 			action: [
 				{
+					camera: ['common'],
+					action: { choices: CHOICES.UP_DOWN_VALUE, default: 'up' },
+				},
+				{
 					camera: ['P100', 'P110', 'P120', 'PF120'],
-					action: { choices: CHOICES.IRIS_1, default: 8, range: { closed: 0, min: 1, max: 13 } },
+					action: { value: { choices: CHOICES.IRIS_1, default: 8, range: { closed: 0, min: 1, max: 13 } } },
 				},
 				{
 					camera: ['P200A2A3', 'P200A4A5', 'A200GEN1', 'A200GEN2', 'A300GEN1', 'A300GEN2'],
-					action: { choices: CHOICES.IRIS_2, default: 12, range: { closed: 0, min: 5, max: 17 } },
+					action: { value: { choices: CHOICES.IRIS_2, default: 12, range: { closed: 0, min: 5, max: 17 } } },
 				},
 				{
 					camera: ['P400'],
-					action: { choices: CHOICES.IRIS_3, default: 17, range: { closed: 0, min: 5, max: 21 } },
+					action: { value: { choices: CHOICES.IRIS_3, default: 17, range: { closed: 0, min: 5, max: 21 } } },
 				},
 				{
 					camera: ['P4K'],
-					action: { choices: CHOICES.IRIS_4, default: 1, range: { closed: 5, min: 6, max: 21 } },
+					action: { value: { choices: CHOICES.IRIS_4, default: 1, range: { closed: 5, min: 6, max: 21 } } },
 				},
 			],
 		},
@@ -1042,7 +1058,7 @@ module.exports = {
 			action: [
 				{
 					camera: ['common'],
-					action: { range: { min: 20, max: 33, default: 20 } },
+					action: { choices: CHOICES.UP_DOWN_VALUE, default: 'up', range: { min: 20, max: 33, default: 20 } },
 				},
 			],
 		},
@@ -1057,7 +1073,7 @@ module.exports = {
 			action: [
 				{
 					camera: ['common'],
-					action: { range: { min: 16, max: 33, default: 16 } },
+					action: { choices: CHOICES.UP_DOWN_VALUE, default: 'up', range: { min: 16, max: 33, default: 16 } },
 				},
 			],
 		},
@@ -1070,6 +1086,10 @@ module.exports = {
 			variableId: 'shutter_speed',
 			name: `Exposure - Shutter Speed`,
 			action: [
+				{
+					camera: ['common'],
+					action: { choices: CHOICES.UP_DOWN_VALUE, default: 'up' },
+				},
 				{
 					camera: [
 						'P100',
@@ -1086,7 +1106,7 @@ module.exports = {
 					action: {
 						shutter_50: CHOICES.SHUTTER_50,
 						shutter_60: CHOICES.SHUTTER_60,
-						default: 6,
+						shutter_default: 6,
 						range: { min: 0, max: 21 },
 					},
 				},
@@ -1096,7 +1116,7 @@ module.exports = {
 						shutter_24: CHOICES.SHUTTER_4K_24,
 						shutter_50: CHOICES.SHUTTER_4K_50,
 						shutter_60: CHOICES.SHUTTER_4K_60,
-						default: 18,
+						shutter_default: 18,
 						range: { min: 6, max: 33 },
 					},
 				},
@@ -1113,7 +1133,7 @@ module.exports = {
 			action: [
 				{
 					camera: ['common'],
-					action: { range: { min: 30, max: 110, default: 60 } },
+					action: { choices: CHOICES.UP_DOWN_VALUE, default: 'up', range: { min: 30, max: 110, default: 60 } },
 				},
 			],
 		},
@@ -1146,6 +1166,10 @@ module.exports = {
 			variableId: 'slow_shutter_limit',
 			name: `Exposure - Slow Shutter Limit`,
 			action: [
+				{
+					camera: ['common'],
+					action: { choices: CHOICES.UP_DOWN_VALUE, default: 'up' },
+				},
 				{
 					camera: ['P200A2A3', 'P200A4A5', 'A200GEN1', 'A200GEN2', 'A300GEN1', 'A300GEN2'],
 					action: { range: { min: 1, max: 6, default: 3 } },
@@ -1184,7 +1208,7 @@ module.exports = {
 			action: [
 				{
 					camera: ['common'],
-					action: { range: { min: -99, max: 99, default: 0 } },
+					action: { choices: CHOICES.UP_DOWN_VALUE, default: 'up', range: { min: -99, max: 99, default: 0 } },
 				},
 			],
 		},
@@ -1214,7 +1238,7 @@ module.exports = {
 			action: [
 				{
 					camera: ['common'],
-					action: { range: { min: -99, max: 99, default: 0 } },
+					action: { choices: CHOICES.UP_DOWN_VALUE, default: 'up', range: { min: -99, max: 99, default: 0 } },
 				},
 			],
 		},
@@ -1249,7 +1273,7 @@ module.exports = {
 			action: [
 				{
 					camera: ['common'],
-					action: { range: { min: -99, max: 99, default: 0 } },
+					action: { choices: CHOICES.UP_DOWN_VALUE, default: 'up', range: { min: -99, max: 99, default: 0 } },
 				},
 			],
 		},
@@ -1264,7 +1288,7 @@ module.exports = {
 			action: [
 				{
 					camera: ['common'],
-					action: { range: { min: -99, max: 99, default: 0 } },
+					action: { choices: CHOICES.UP_DOWN_VALUE, default: 'up', range: { min: -99, max: 99, default: 0 } },
 				},
 			],
 		},
@@ -1279,7 +1303,7 @@ module.exports = {
 			action: [
 				{
 					camera: ['common'],
-					action: { range: { min: 0, max: 14, default: 7 } },
+					action: { choices: CHOICES.UP_DOWN_VALUE, default: 'up', range: { min: 0, max: 14, default: 7 } },
 				},
 			],
 		},
@@ -1309,7 +1333,7 @@ module.exports = {
 			action: [
 				{
 					camera: ['common'],
-					action: { range: { min: 0, max: 14, default: 7 } },
+					action: { choices: CHOICES.UP_DOWN_VALUE, default: 'up', range: { min: 0, max: 14, default: 7 } },
 				},
 			],
 		},
@@ -1324,7 +1348,7 @@ module.exports = {
 			action: [
 				{
 					camera: ['common'],
-					action: { range: { min: 0, max: 14, default: 7 } },
+					action: { choices: CHOICES.UP_DOWN_VALUE, default: 'up', range: { min: 0, max: 14, default: 7 } },
 				},
 			],
 		},
@@ -1339,7 +1363,7 @@ module.exports = {
 			action: [
 				{
 					camera: ['common'],
-					action: { range: { min: -99, max: 99, default: 0 } },
+					action: { choices: CHOICES.UP_DOWN_VALUE, default: 'up', range: { min: -99, max: 99, default: 0 } },
 				},
 			],
 		},
@@ -1354,7 +1378,11 @@ module.exports = {
 			action: [
 				{
 					camera: ['common'],
-					action: { choices: CHOICES.UP_DOWN_VALUE, default: 'up', range: { min: 0, max: 255, default: 128 } },
+					action: {
+						choices: CHOICES.UP_DOWN_VALUE,
+						default: 'up',
+						range: { min: 0, max: 255, default: 128 },
+					},
 				},
 			],
 		},
@@ -1369,7 +1397,7 @@ module.exports = {
 			action: [
 				{
 					camera: ['common'],
-					action: { range: { min: -99, max: 99, default: 0 } },
+					action: { choices: CHOICES.UP_DOWN_VALUE, default: 'up', range: { min: -99, max: 99, default: 0 } },
 				},
 			],
 		},
@@ -1399,7 +1427,7 @@ module.exports = {
 			action: [
 				{
 					camera: ['common'],
-					action: { range: { min: 1, max: 5, default: 3 } },
+					action: { choices: CHOICES.UP_DOWN_VALUE, default: 'up', range: { min: 1, max: 5, default: 3 } },
 				},
 			],
 		},
@@ -1593,7 +1621,7 @@ module.exports = {
 			action: [
 				{
 					camera: ['common'],
-					action: { range: { min: 0, max: 3, default: 2 } },
+					action: { choices: CHOICES.UP_DOWN_VALUE, default: 'up', range: { min: 0, max: 3, default: 2 } },
 				},
 			],
 		},
@@ -1726,7 +1754,12 @@ module.exports = {
 			action: [
 				{
 					camera: ['common'],
-					action: { choices: CHOICES.OFF_1_to_5, default: 'Off' },
+					action: {
+						choices: CHOICES.UP_DOWN_VALUE,
+						default: 'up',
+						value: { choices: CHOICES.OFF_1_to_5, default: '0' },
+						range: { min: 0, max: 5 },
+					},
 				},
 			],
 		},
@@ -1741,7 +1774,12 @@ module.exports = {
 			action: [
 				{
 					camera: ['common'],
-					action: { choices: CHOICES.OFF_1_to_5, default: 'Off' },
+					action: {
+						choices: CHOICES.UP_DOWN_VALUE,
+						default: 'up',
+						value: { choices: CHOICES.OFF_1_to_5, default: '0' },
+						range: { min: 0, max: 5 },
+					},
 				},
 			],
 		},

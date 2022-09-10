@@ -7,6 +7,7 @@ module.exports = {
 	getActions() {
 		let cmd = ''
 		let newValue
+		currentValue
 		let body = {}
 
 		MODEL_ACTIONS = getModelActions(MODEL_SPECS, this.camera.firmware.major, this.camera.model)
@@ -106,15 +107,21 @@ module.exports = {
 					},
 				],
 				callback: (action) => {
-					let audio_in = this.camera?.analogAudioInGain
+					currentValue = this.camera?.analogAudioInGain
 						? this.camera.analogAudioInGain
 						: MODEL_ACTIONS.analogAudioInGain.range.default
 					switch (action.options.val) {
 						case 'up':
-							newValue = audio_in < MODEL_ACTIONS.analogAudioInGain.range.max + 50 ? ++audio_in : audio_in
+							newValue =
+								currentValue < MODEL_ACTIONS.analogAudioInGain.range.max + 50
+									? ++currentValue
+									: MODEL_ACTIONS.analogAudioInGain.range.max
 							break
 						case 'down':
-							newValue = audio_in > MODEL_ACTIONS.analogAudioInGain.range.min + 50 ? --audio_in : audio_in
+							newValue =
+								currentValue > MODEL_ACTIONS.analogAudioInGain.range.min + 50
+									? --currentValue
+									: MODEL_ACTIONS.analogAudioInGain.range.min
 							break
 						case 'value':
 							newValue = action.options.value + 50 //Convert value to API range
@@ -156,15 +163,21 @@ module.exports = {
 					},
 				],
 				callback: (action) => {
-					let audio_out = this.camera?.analogAudioOutGain
+					currentValue = this.camera?.analogAudioOutGain
 						? this.camera.analogAudioOutGain
 						: MODEL_ACTIONS.analogAudioOutGain.range.default
 					switch (action.options.val) {
 						case 'up':
-							newValue = audio_out < MODEL_ACTIONS.analogAudioOutGain.range.max + 50 ? ++audio_out : audio_out
+							newValue =
+								currentValue < MODEL_ACTIONS.analogAudioOutGain.range.max + 50
+									? ++currentValue
+									: MODEL_ACTIONS.analogAudioOutGain.range.max
 							break
 						case 'down':
-							newValue = audio_out > MODEL_ACTIONS.analogAudioOutGain.range.min + 50 ? --audio_out : audio_out
+							newValue =
+								currentValue > MODEL_ACTIONS.analogAudioOutGain.range.min + 50
+									? --currentValue
+									: MODEL_ACTIONS.analogAudioOutGain.range.min
 							break
 						case 'value':
 							newValue = action.options.value + 50 //Convert value to API range
@@ -629,15 +642,15 @@ module.exports = {
 					},
 				],
 				callback: (action) => {
-					this.debug('--- In panSpeed action')
-					let panSpeed = this.camera?.panSpeed ? this.camera.panSpeed : MODEL_ACTIONS.panSpeed.range.default
-					this.debug('--- panSpeed is ', panSpeed)
+					currentValue = this.camera?.panSpeed ? this.camera.panSpeed : MODEL_ACTIONS.panSpeed.range.default
 					switch (action.options.type) {
 						case 'up':
-							newValue = panSpeed < MODEL_ACTIONS.panSpeed.range.max ? ++panSpeed : MODEL_ACTIONS.panSpeed.range.max
+							newValue =
+								currentValue < MODEL_ACTIONS.panSpeed.range.max ? ++currentValue : MODEL_ACTIONS.panSpeed.range.max
 							break
 						case 'down':
-							newValue = panSpeed > MODEL_ACTIONS.panSpeed.range.min ? --panSpeed : MODEL_ACTIONS.panSpeed.range.min
+							newValue =
+								currentValue > MODEL_ACTIONS.panSpeed.range.min ? --currentValue : MODEL_ACTIONS.panSpeed.range.min
 							break
 						case 'value':
 							newValue = action.options.value
@@ -695,18 +708,18 @@ module.exports = {
 					},
 				],
 				callback: (action) => {
-					let preset_speed = this.camera?.preset_speed ? this.camera.preset_speed : MODEL_ACTIONS.preset_speed.default
+					currentValue = this.camera?.preset_speed ? this.camera.preset_speed : MODEL_ACTIONS.preset_speed.default
 					switch (action.options.type) {
 						case 'up':
 							newValue =
-								preset_speed < MODEL_ACTIONS.preset_speed.range.max
-									? ++preset_speed
+								currentValue < MODEL_ACTIONS.preset_speed.range.max
+									? ++currentValue
 									: MODEL_ACTIONS.preset_speed.range.max
 							break
 						case 'down':
 							newValue =
-								preset_speed > MODEL_ACTIONS.preset_speed.range.min
-									? --preset_speed
+								currentValue > MODEL_ACTIONS.preset_speed.range.min
+									? --currentValue
 									: MODEL_ACTIONS.preset_speed.range.min
 							break
 						case 'value':
@@ -789,13 +802,15 @@ module.exports = {
 					},
 				],
 				callback: (action) => {
-					let tiltSpeed = this.camera?.tiltSpeed ? this.camera.tiltSpeed : MODEL_ACTIONS.tiltSpeed.range.default
+					currentValue = this.camera?.tiltSpeed ? this.camera.tiltSpeed : MODEL_ACTIONS.tiltSpeed.range.default
 					switch (action.options.type) {
 						case 'up':
-							newValue = tiltSpeed < MODEL_ACTIONS.tiltSpeed.range.max ? ++tiltSpeed : MODEL_ACTIONS.tiltSpeed.range.max
+							newValue =
+								currentValue < MODEL_ACTIONS.tiltSpeed.range.max ? ++currentValue : MODEL_ACTIONS.tiltSpeed.range.max
 							break
 						case 'down':
-							newValue = tiltSpeed > MODEL_ACTIONS.tiltSpeed.range.min ? --tiltSpeed : MODEL_ACTIONS.tiltSpeed.range.min
+							newValue =
+								currentValue > MODEL_ACTIONS.tiltSpeed.range.min ? --currentValue : MODEL_ACTIONS.tiltSpeed.range.min
 							break
 						case 'value':
 							newValue = action.options.value
@@ -897,13 +912,15 @@ module.exports = {
 					},
 				],
 				callback: (action) => {
-					let zoomSpeed = this.camera?.zoomSpeed ? this.camera.zoomSpeed : MODEL_ACTIONS.zoomSpeed.range.default
+					currentValue = this.camera?.zoomSpeed ? this.camera.zoomSpeed : MODEL_ACTIONS.zoomSpeed.range.default
 					switch (action.options.type) {
 						case 'up':
-							newValue = zoomSpeed < MODEL_ACTIONS.zoomSpeed.range.max ? ++zoomSpeed : MODEL_ACTIONS.zoomSpeed.range.max
+							newValue =
+								currentValue < MODEL_ACTIONS.zoomSpeed.range.max ? ++currentValue : MODEL_ACTIONS.zoomSpeed.range.max
 							break
 						case 'down':
-							newValue = zoomSpeed > MODEL_ACTIONS.zoomSpeed.range.min ? --zoomSpeed : MODEL_ACTIONS.zoomSpeed.range.min
+							newValue =
+								currentValue > MODEL_ACTIONS.zoomSpeed.range.min ? --currentValue : MODEL_ACTIONS.zoomSpeed.range.min
 							break
 						case 'value':
 							newValue = action.options.value
@@ -984,6 +1001,13 @@ module.exports = {
 				label: MODEL_ACTIONS.ae_response.name,
 				options: [
 					{
+						type: 'dropdown',
+						label: 'Ae Response',
+						id: 'val',
+						hoices: MODEL_ACTIONS.ae_response.choices,
+						default: MODEL_ACTIONS.ae_response.default,
+					},
+					{
 						type: 'number',
 						label:
 							'Ae Response (' +
@@ -991,15 +1015,34 @@ module.exports = {
 							' to ' +
 							MODEL_ACTIONS.ae_response.range.max +
 							')',
-						id: 'level',
+						id: 'value',
 						default: MODEL_ACTIONS.ae_response.range.default,
 						min: MODEL_ACTIONS.ae_response.range.min,
 						max: MODEL_ACTIONS.ae_response.range.max,
+						isVisible: (action) => action.options.val === 'value',
 					},
 				],
 				callback: (action) => {
+					currentValue = this.camera?.ae_response ? this.camera.ae_response : MODEL_ACTIONS.ae_response.range.default
+					switch (action.options.val) {
+						case 'up':
+							newValue =
+								currentValue < MODEL_ACTIONS.ae_response.range.max
+									? ++currentValue
+									: MODEL_ACTIONS.ae_response.range.max
+							break
+						case 'down':
+							newValue =
+								currentValue > MODEL_ACTIONS.ae_response.range.min
+									? --currentValue
+									: MODEL_ACTIONS.ae_response.range.min
+							break
+						case 'value':
+							newValue = action.options.value
+							break
+					}
 					body = {
-						AeResponse: String(action.options.level),
+						AeResponse: String(newValue),
 					}
 					this.sendCommand('birddogexpsetup', 'POST', body)
 				},
@@ -1032,18 +1075,44 @@ module.exports = {
 				label: MODEL_ACTIONS.bright_level.name,
 				options: [
 					{
+						type: 'dropdown',
+						label: 'Bright Level',
+						id: 'val',
+						choices: MODEL_ACTIONS.bright_level.choices,
+						default: MODEL_ACTIONS.bright_level.default,
+					},
+					{
 						type: 'number',
 						label:
 							'Level (' + MODEL_ACTIONS.bright_level.range.min + ' to ' + MODEL_ACTIONS.bright_level.range.max + ')',
-						id: 'level',
+						id: 'value',
 						default: MODEL_ACTIONS.bright_level.range.default,
 						min: MODEL_ACTIONS.bright_level.range.min,
 						max: MODEL_ACTIONS.bright_level.range.max,
+						isVisible: (action) => action.options.val === 'value',
 					},
 				],
 				callback: (action) => {
+					currentValue = this.camera?.bright_level ? this.camera.bright_level : MODEL_ACTIONS.bright_level.range.default
+					switch (action.options.val) {
+						case 'up':
+							newValue =
+								currentValue < MODEL_ACTIONS.bright_level.range.max
+									? ++currentValue
+									: MODEL_ACTIONS.bright_level.range.max
+							break
+						case 'down':
+							newValue =
+								currentValue > MODEL_ACTIONS.bright_level.range.min
+									? --currentValue
+									: MODEL_ACTIONS.bright_level.range.min
+							break
+						case 'value':
+							newValue = action.options.value
+							break
+					}
 					body = {
-						BrightLevel: String(action.options.level),
+						BrightLevel: String(newValue),
 					}
 					this.sendCommand('birddogexpsetup', 'POST', body)
 				},
@@ -1129,15 +1198,15 @@ module.exports = {
 						type: 'dropdown',
 						label: 'Gain',
 						id: 'val',
-						choices: CHOICES.UP_DOWN_VALUE,
-						default: 'up',
+						choices: MODEL_ACTIONS.gain.choices,
+						default: MODEL_ACTIONS.gain.default,
 					},
 					{
 						type: 'dropdown',
 						label: 'Value',
 						id: 'value',
-						choices: MODEL_ACTIONS.gain.choices,
-						default: MODEL_ACTIONS.gain.default,
+						choices: MODEL_ACTIONS.gain.value.choices,
+						default: MODEL_ACTIONS.gain.value.default,
 						isVisible: (action) => action.options.val === 'value',
 					},
 				],
@@ -1145,13 +1214,14 @@ module.exports = {
 					let gain = this.camera?.gain ? this.camera.gain : MODEL_ACTIONS.gain.default
 					let gainLimit = this.camera?.gain_limit
 						? this.camera.gain_limit
-						: MODEL_ACTIONS.gain.choices[MODEL_ACTIONS.gain.choices.length - 1].id // If no GainLimit then use max Gain
+						: MODEL_ACTIONS.gain.value.choices[MODEL_ACTIONS.gain.value.choices.length - 1].id // If no GainLimit then use max Gain
 					switch (action.options.val) {
 						case 'up':
-							newValue = parseInt(gain) < parseInt(gainLimit) ? ++gain : gain
+							newValue = parseInt(gain) < parseInt(gainLimit) ? ++gain : gainLimit
 							break
 						case 'down':
-							newValue = gain > MODEL_ACTIONS.gain.choices[0]?.id ? --gain : gain
+							newValue =
+								gain > MODEL_ACTIONS.gain.value.choices[0]?.id ? --gain : MODEL_ACTIONS.gain.value.choices[0].id
 							break
 						case 'value':
 							newValue = parseFloat(action.options.value) <= gainLimit ? action.options.value : gainLimit
@@ -1173,14 +1243,14 @@ module.exports = {
 						type: 'dropdown',
 						label: 'Gain Limit',
 						id: 'val',
-						choices: CHOICES.UP_DOWN_VALUE,
-						default: 'up',
+						choices: MODEL_ACTIONS.gain_limit.choices,
+						default: MODEL_ACTIONS.gain_limit.default,
 					},
 					{
 						type: 'dropdown',
 						label: 'Value',
 						id: 'value',
-						choices: MODEL_ACTIONS.gain.choices.slice(
+						choices: MODEL_ACTIONS.gain.value.choices.slice(
 							MODEL_ACTIONS.gain_limit.range.min - 1,
 							MODEL_ACTIONS.gain_limit.range.max + 1
 						),
@@ -1189,13 +1259,15 @@ module.exports = {
 					},
 				],
 				callback: (action) => {
-					let gainLimit = this.camera?.gain_limit ? this.camera.gain_limit : MODEL_ACTIONS.gain_limit.range.default
+					currentValue = this.camera?.gain_limit ? this.camera.gain_limit : MODEL_ACTIONS.gain_limit.range.default
 					switch (action.options.val) {
 						case 'up':
-							newValue = gainLimit < MODEL_ACTIONS.gain_limit.range.max ? ++gainLimit : gainLimit
+							newValue =
+								currentValue < MODEL_ACTIONS.gain_limit.range.max ? ++currentValue : MODEL_ACTIONS.gain_limit.range.max
 							break
 						case 'down':
-							newValue = gainLimit > MODEL_ACTIONS.gain_limit.range.min ? --gainLimit : gainLimit
+							newValue =
+								currentValue > MODEL_ACTIONS.gain_limit.range.min ? --currentValue : MODEL_ACTIONS.gain_limit.range.min
 							break
 						case 'value':
 							newValue = action.options.value
@@ -1217,8 +1289,8 @@ module.exports = {
 						type: 'dropdown',
 						label: 'Gain Point',
 						id: 'val',
-						choices: CHOICES.ON_OFF,
-						default: 'On',
+						choices: MODEL_ACTIONS.gain_point.choices,
+						default: MODEL_ACTIONS.gain_point.default,
 					},
 				],
 				callback: (action) => {
@@ -1238,37 +1310,35 @@ module.exports = {
 						type: 'dropdown',
 						label: 'Gain Point',
 						id: 'val',
-						choices: CHOICES.UP_DOWN_VALUE,
-						default: 'up',
+						choices: MODEL_ACTIONS.gain_point_position.choices,
+						default: MODEL_ACTIONS.gain_point_position.default,
 					},
 					{
 						type: 'dropdown',
 						label: 'Value',
 						id: 'value',
-						choices: MODEL_ACTIONS.gain.choices.slice(
+						choices: MODEL_ACTIONS.gain.value.choices.slice(
 							0,
 							parseInt(
-								this.camera.expsetup?.GainLimit ? this.camera.expsetup?.GainLimit : MODEL_ACTIONS.gain.default,
+								this.camera.expsetup?.GainLimit ? this.camera.expsetup?.GainLimit : MODEL_ACTIONS.gain.value.default,
 								10
 							) + 1
 						),
-						default: MODEL_ACTIONS.gain.default,
+						default: MODEL_ACTIONS.gain.value.default,
 						isVisible: (action) => action.options.val === 'value',
 					},
 				],
 				callback: (action) => {
-					let gainPointPosition = this.camera?.gain_point_position
-						? this.camera.gain_point_position
-						: MODEL_ACTIONS.gain.default
+					currentValue = this.camera?.gain_point_position ? this.camera.gain_point_position : MODEL_ACTIONS.gain.default
 					switch (action.options.val) {
 						case 'up':
-							newValue =
-								gainPointPosition < this.camera.expsetup.GainLimit
-									? ++gainPointPosition
-									: this.camera.expsetup.GainLimit
+							newValue = currentValue < this.camera.gain_limit ? ++currentValue : this.camera.gain_limit
 							break
 						case 'down':
-							newValue = gainPointPosition > MODEL_ACTIONS.gain[0] ? --gainPointPosition : gainPointPosition
+							newValue =
+								currentValue > MODEL_ACTIONS.gain.value.choices[0].id
+									? --currentValue
+									: MODEL_ACTIONS.gain.value.choices[0].id
 							break
 						case 'value':
 							newValue = action.options.value
@@ -1311,36 +1381,36 @@ module.exports = {
 						type: 'dropdown',
 						label: 'Iris',
 						id: 'val',
-						choices: CHOICES.UP_DOWN_VALUE,
-						default: 'up',
+						choices: MODEL_ACTIONS.iris.choices,
+						default: MODEL_ACTIONS.iris.default,
 					},
 					{
 						type: 'dropdown',
 						label: 'Value',
 						id: 'value',
-						choices: MODEL_ACTIONS.iris.choices,
-						default: MODEL_ACTIONS.iris.default,
+						choices: MODEL_ACTIONS.iris.value.choices,
+						default: MODEL_ACTIONS.iris.value.default,
 						isVisible: (action) => action.options.val === 'value',
 					},
 				],
 				callback: (action) => {
-					let iris = this.camera?.iris ? this.camera.iris : MODEL_ACTIONS.iris.default
+					currentValue = this.camera?.iris ? this.camera.iris : MODEL_ACTIONS.iris.default
 					switch (action.options.val) {
 						case 'up':
 							newValue =
-								iris === MODEL_ACTIONS.iris.range.closed
-									? MODEL_ACTIONS.iris.range.min
-									: iris < MODEL_ACTIONS.iris.range.max
-									? ++iris
-									: MODEL_ACTIONS.iris.range.max
+								currentValue === MODEL_ACTIONS.iris.value.range.closed
+									? MODEL_ACTIONS.iris.value.range.min
+									: iris < MODEL_ACTIONS.iris.value.range.max
+									? ++currentValue
+									: MODEL_ACTIONS.iris.value.range.max
 							break
 						case 'down':
 							newValue =
-								iris === MODEL_ACTIONS.iris.range.min
-									? MODEL_ACTIONS.iris.range.closed
-									: iris > MODEL_ACTIONS.iris.range.min
-									? --iris
-									: MODEL_ACTIONS.iris.range.closed
+								currentValue === MODEL_ACTIONS.iris.value.range.min
+									? MODEL_ACTIONS.iris.value.range.closed
+									: iris > MODEL_ACTIONS.iris.value.range.min
+									? --currentValue
+									: MODEL_ACTIONS.iris.value.range.closed
 							break
 						case 'value':
 							newValue = action.options.value
@@ -1383,8 +1453,8 @@ module.exports = {
 						type: 'dropdown',
 						label: 'Shutter Max Speed',
 						id: 'val',
-						choices: CHOICES.UP_DOWN_VALUE,
-						default: 'up',
+						choices: MODEL_ACTIONS.shutter_control_overwrite.choices,
+						default: MODEL_ACTIONS.shutter_control_overwrite.default,
 					},
 					{
 						type: 'dropdown',
@@ -1399,20 +1469,20 @@ module.exports = {
 					},
 				],
 				callback: (action) => {
-					let shutter_max_speed = this.camera?.shutter_max_speed
+					currentValue = this.camera?.shutter_max_speed
 						? this.camera.shutter_max_speed
 						: MODEL_ACTIONS.shutter_max_speed.range.default
 					switch (action.options.val) {
 						case 'up':
 							newValue =
-								shutter_max_speed < MODEL_ACTIONS.shutter_max_speed.range.max
-									? ++shutter_max_speed
+								currentValue < MODEL_ACTIONS.shutter_max_speed.range.max
+									? ++currentValue
 									: MODEL_ACTIONS.shutter_max_speed.range.max
 							break
 						case 'down':
 							newValue =
-								shutter_max_speed > MODEL_ACTIONS.shutter_max_speed.range.min
-									? --shutter_max_speed
+								currentValue > MODEL_ACTIONS.shutter_max_speed.range.min
+									? --currentValue
 									: MODEL_ACTIONS.shutter_max_speed.range.min
 							break
 						case 'value':
@@ -1435,8 +1505,8 @@ module.exports = {
 						type: 'dropdown',
 						label: 'Shutter Min Speed',
 						id: 'val',
-						choices: CHOICES.UP_DOWN_VALUE,
-						default: 'up',
+						choices: MODEL_ACTIONS.shutter_control_overwrite.choices,
+						default: MODEL_ACTIONS.shutter_control_overwrite.default,
 					},
 					{
 						type: 'dropdown',
@@ -1451,20 +1521,20 @@ module.exports = {
 					},
 				],
 				callback: (action) => {
-					let shutter_min_speed = this.camera?.shutter_min_speed
+					currentValue = this.camera?.shutter_min_speed
 						? this.camera.shutter_min_speed
 						: MODEL_ACTIONS.shutter_min_speed.range.default
 					switch (action.options.val) {
 						case 'up':
 							newValue =
-								shutter_min_speed < this.camera.expsetup.ShutterMaxSpeed
-									? ++shutter_min_speed
+								currentValue < this.camera.expsetup.ShutterMaxSpeed
+									? ++currentValue
 									: this.camera.expsetup.ShutterMaxSpeed
 							break
 						case 'down':
 							newValue =
-								shutter_min_speed > MODEL_ACTIONS.shutter_min_speed.range.min
-									? --shutter_min_speed
+								currentValue > MODEL_ACTIONS.shutter_min_speed.range.min
+									? --currentValue
 									: MODEL_ACTIONS.shutter_min_speed.range.min
 							break
 						case 'value':
@@ -1487,33 +1557,33 @@ module.exports = {
 						type: 'dropdown',
 						label: 'Shutter',
 						id: 'val',
-						choices: CHOICES.UP_DOWN_VALUE,
-						default: 'up',
+						choices: MODEL_ACTIONS.shutter_speed.choices,
+						default: MODEL_ACTIONS.shutter_speed.default,
 					},
 					{
 						type: 'dropdown',
 						label: 'Value',
 						id: 'value',
 						choices: MODEL_ACTIONS.shutter_speed?.['shutter_' + [this.camera.shutter_table]],
-						default: MODEL_ACTIONS.shutter_speed.default,
+						default: MODEL_ACTIONS.shutter_speed.shutter_default,
 						isVisible: (action) => action.options.val === 'value',
 					},
 				],
 				callback: (action) => {
-					let shutter_speed = this.camera?.shutter_speed
+					currentValue = this.camera?.shutter_speed
 						? this.camera.shutter_speed
-						: MODEL_ACTIONS.shutter_speed.default
+						: MODEL_ACTIONS.shutter_speed.shutter_default
 					switch (action.options.val) {
 						case 'up':
 							newValue =
-								shutter_speed < MODEL_ACTIONS.shutter_speed.range.max
-									? ++shutter_speed
+								currentValue < MODEL_ACTIONS.shutter_speed.range.max
+									? ++currentValue
 									: MODEL_ACTIONS.shutter_speed.range.max
 							break
 						case 'down':
 							newValue =
-								shutter_speed > MODEL_ACTIONS.shutter_speed.range.min
-									? --shutter_speed
+								currentValue > MODEL_ACTIONS.shutter_speed.range.min
+									? --currentValue
 									: MODEL_ACTIONS.shutter_speed.range.min
 							break
 						case 'value':
@@ -1533,6 +1603,13 @@ module.exports = {
 				label: MODEL_ACTIONS.shutter_speed_overwrite.name,
 				options: [
 					{
+						type: 'dropdown',
+						label: 'Shutter Speed Overwrite',
+						id: 'val',
+						choices: MODEL_ACTIONS.shutter_speed.choices,
+						default: MODEL_ACTIONS.shutter_speed.default,
+					},
+					{
 						type: 'number',
 						label:
 							'Hz (' +
@@ -1544,11 +1621,32 @@ module.exports = {
 						default: MODEL_ACTIONS.shutter_speed_overwrite.range.default,
 						min: MODEL_ACTIONS.shutter_speed_overwrite.range.min,
 						max: MODEL_ACTIONS.shutter_speed_overwrite.range.max,
+						isVisible: (action) => action.options.val === 'value',
 					},
 				],
 				callback: (action) => {
+					currentValue = this.camera?.shutter_speed_overwrite
+						? this.camera.shutter_speed_overwrite
+						: MODEL_ACTIONS.shutter_speed_overwrite.shutter_default
+					switch (action.options.val) {
+						case 'up':
+							newValue =
+								currentValue < MODEL_ACTIONS.shutter_speed_overwrite.range.max
+									? ++currentValue
+									: MODEL_ACTIONS.shutter_speed_overwrite.range.max
+							break
+						case 'down':
+							newValue =
+								currentValue > MODEL_ACTIONS.shutter_speed_overwrite.range.min
+									? --currentValue
+									: MODEL_ACTIONS.shutter_speed_overwrite.range.min
+							break
+						case 'value':
+							newValue = action.options.value
+							break
+					}
 					body = {
-						ShutterSpeedOverwrite: String(action.options.value),
+						ShutterSpeedOverwrite: String(newValue),
 					}
 					this.sendCommand('birddogexpsetup', 'POST', body)
 				},
@@ -1584,8 +1682,8 @@ module.exports = {
 						type: 'dropdown',
 						label: 'Slow Shutter Limit',
 						id: 'val',
-						choices: CHOICES.UP_DOWN_VALUE,
-						default: 'up',
+						choices: MODEL_ACTIONS.shutter_speed.choices,
+						default: MODEL_ACTIONS.shutter_speed.default,
 					},
 					{
 						type: 'dropdown',
@@ -1600,20 +1698,20 @@ module.exports = {
 					},
 				],
 				callback: (action) => {
-					let slow_shutter_limit = this.camera?.slow_shutter_limit
+					currentValue = this.camera?.slow_shutter_limit
 						? this.camera.slow_shutter_limit
 						: MODEL_ACTIONS.slow_shutter_limit.range.default
 					switch (action.options.val) {
 						case 'up':
 							newValue =
-								slow_shutter_limit < MODEL_ACTIONS.slow_shutter_limit.range.max
-									? ++slow_shutter_limit
+								currentValue < MODEL_ACTIONS.slow_shutter_limit.range.max
+									? ++currentValue
 									: MODEL_ACTIONS.slow_shutter_limit.range.max
 							break
 						case 'down':
 							newValue =
-								slow_shutter_limit > MODEL_ACTIONS.slow_shutter_limit.range.min
-									? --slow_shutter_limit
+								currentValue > MODEL_ACTIONS.slow_shutter_limit.range.min
+									? --currentValue
 									: MODEL_ACTIONS.slow_shutter_limit.range.min
 							break
 						case 'value':
@@ -1656,17 +1754,37 @@ module.exports = {
 				label: MODEL_ACTIONS.bg.name,
 				options: [
 					{
+						type: 'dropdown',
+						label: 'BG',
+						id: 'val',
+						choices: MODEL_ACTIONS.bg.choices,
+						default: MODEL_ACTIONS.bg.default,
+					},
+					{
 						type: 'number',
 						label: 'Value (' + MODEL_ACTIONS.bg.range.min + ' to ' + MODEL_ACTIONS.bg.range.max + ')',
 						id: 'value',
 						default: MODEL_ACTIONS.bg.range.default,
 						min: MODEL_ACTIONS.bg.range.min,
 						max: MODEL_ACTIONS.bg.range.max,
+						isVisible: (action) => action.options.val === 'value',
 					},
 				],
 				callback: (action) => {
+					currentValue = this.camera?.bg ? this.camera.bg : MODEL_ACTIONS.bg.range.default
+					switch (action.options.val) {
+						case 'up':
+							newValue = currentValue < MODEL_ACTIONS.bg.range.max ? ++currentValue : MODEL_ACTIONS.bg.range.max
+							break
+						case 'down':
+							newValue = currentValue > MODEL_ACTIONS.bg.range.min ? --currentValue : MODEL_ACTIONS.bg.range.min
+							break
+						case 'value':
+							newValue = action.options.value
+							break
+					}
 					body = {
-						BG: String(action.options.val),
+						BG: String(newValue),
 					}
 					this.sendCommand('birddogwbsetup', 'POST', body)
 				},
@@ -1678,17 +1796,37 @@ module.exports = {
 				label: MODEL_ACTIONS.br.name,
 				options: [
 					{
+						type: 'dropdown',
+						label: 'BR',
+						id: 'val',
+						choices: MODEL_ACTIONS.br.choices,
+						default: MODEL_ACTIONS.br.default,
+					},
+					{
 						type: 'number',
 						label: 'Value (' + MODEL_ACTIONS.br.range.min + ' to ' + MODEL_ACTIONS.br.range.max + ')',
 						id: 'value',
 						default: MODEL_ACTIONS.br.range.default,
 						min: MODEL_ACTIONS.br.range.min,
 						max: MODEL_ACTIONS.br.range.max,
+						isVisible: (action) => action.options.val === 'value',
 					},
 				],
 				callback: (action) => {
+					currentValue = this.camera?.br ? this.camera.br : MODEL_ACTIONS.br.range.default
+					switch (action.options.val) {
+						case 'up':
+							newValue = currentValue < MODEL_ACTIONS.br.range.max ? ++currentValue : MODEL_ACTIONS.br.range.max
+							break
+						case 'down':
+							newValue = currentValue > MODEL_ACTIONS.br.range.min ? --currentValue : MODEL_ACTIONS.br.range.min
+							break
+						case 'value':
+							newValue = action.options.value
+							break
+					}
 					body = {
-						BR: String(action.options.val),
+						BR: String(newValue),
 					}
 					this.sendCommand('birddogwbsetup', 'POST', body)
 				},
@@ -1717,13 +1855,15 @@ module.exports = {
 					},
 				],
 				callback: (action) => {
-					let blue_gain = this.camera?.blue_gain ? this.camera.blue_gain : MODEL_ACTIONS.blue_gain.range.default
+					currentValue = this.camera?.blue_gain ? this.camera.blue_gain : MODEL_ACTIONS.blue_gain.range.default
 					switch (action.options.val) {
 						case 'up':
-							newValue = blue_gain < MODEL_ACTIONS.blue_gain.range.max ? ++blue_gain : blue_gain
+							newValue =
+								currentValue < MODEL_ACTIONS.blue_gain.range.max ? ++currentValue : MODEL_ACTIONS.blue_gain.range.max
 							break
 						case 'down':
-							newValue = blue_gain > MODEL_ACTIONS.blue_gain.range.min ? --blue_gain : blue_gain
+							newValue =
+								currentValue > MODEL_ACTIONS.blue_gain.range.min ? --currentValue : MODEL_ACTIONS.blue_gain.range.min
 							break
 						case 'value':
 							newValue = action.options.value
@@ -1758,16 +1898,18 @@ module.exports = {
 					},
 				],
 				callback: (action) => {
-					let color_temp = this.camera?.color_temp
+					currentValue = this.camera?.color_temp
 						? this.camera.color_temp.slice(0, 2)
 						: MODEL_ACTIONS.color_temp.range.default
 					switch (action.options.val) {
 						case 'up':
-							newValue = color_temp < MODEL_ACTIONS.color_temp.range.max ? ++color_temp : color_temp
+							newValue =
+								currentValue < MODEL_ACTIONS.color_temp.range.max ? ++currentValue : MODEL_ACTIONS.color_temp.range.max
 							newValue = newValue + '00'
 							break
 						case 'down':
-							newValue = color_temp > MODEL_ACTIONS.color_temp.range.min ? --color_temp : color_temp
+							newValue =
+								currentValue > MODEL_ACTIONS.color_temp.range.min ? --currentValue : MODEL_ACTIONS.color_temp.range.min
 							newValue = newValue + '00'
 							break
 						case 'value':
@@ -1787,17 +1929,37 @@ module.exports = {
 				label: MODEL_ACTIONS.gb.name,
 				options: [
 					{
+						type: 'dropdown',
+						label: 'GB',
+						id: 'val',
+						choices: MODEL_ACTIONS.gb.choices,
+						default: MODEL_ACTIONS.gb.default,
+					},
+					{
 						type: 'number',
 						label: 'Value (' + MODEL_ACTIONS.gb.range.min + ' to ' + MODEL_ACTIONS.gb.range.max + ')',
 						id: 'value',
 						default: MODEL_ACTIONS.gb.range.default,
 						min: MODEL_ACTIONS.gb.range.min,
 						max: MODEL_ACTIONS.gr.range.max,
+						isVisible: (action) => action.options.val === 'value',
 					},
 				],
 				callback: (action) => {
+					currentValue = this.camera?.gb ? this.camera.gb : MODEL_ACTIONS.gb.range.default
+					switch (action.options.val) {
+						case 'up':
+							newValue = currentValue < MODEL_ACTIONS.gb.range.max ? ++currentValue : MODEL_ACTIONS.gb.range.max
+							break
+						case 'down':
+							newValue = currentValue > MODEL_ACTIONS.gb.range.min ? --currentValue : MODEL_ACTIONS.gb.range.min
+							break
+						case 'value':
+							newValue = action.options.value
+							break
+					}
 					body = {
-						GB: String(action.options.val),
+						GB: String(newValue),
 					}
 					this.sendCommand('birddogwbsetup', 'POST', body)
 				},
@@ -1809,17 +1971,37 @@ module.exports = {
 				label: MODEL_ACTIONS.gr.name,
 				options: [
 					{
+						type: 'dropdown',
+						label: 'GR',
+						id: 'val',
+						choices: MODEL_ACTIONS.gr.choices,
+						default: MODEL_ACTIONS.gr.default,
+					},
+					{
 						type: 'number',
 						label: 'Value (' + MODEL_ACTIONS.gr.range.min + ' to ' + MODEL_ACTIONS.gr.range.max + ')',
 						id: 'value',
 						default: MODEL_ACTIONS.gr.range.default,
 						min: MODEL_ACTIONS.gr.range.min,
 						max: MODEL_ACTIONS.gr.range.max,
+						isVisible: (action) => action.options.val === 'value',
 					},
 				],
 				callback: (action) => {
+					currentValue = this.camera?.gr ? this.camera.gr : MODEL_ACTIONS.gr.range.default
+					switch (action.options.val) {
+						case 'up':
+							newValue = currentValue < MODEL_ACTIONS.gr.range.max ? ++currentValue : MODEL_ACTIONS.gr.range.max
+							break
+						case 'down':
+							newValue = currentValue > MODEL_ACTIONS.gr.range.min ? --currentValue : MODEL_ACTIONS.gr.range.min
+							break
+						case 'value':
+							newValue = action.options.value
+							break
+					}
 					body = {
-						GR: String(action.options.val),
+						GR: String(newValue),
 					}
 					this.sendCommand('birddogwbsetup', 'POST', body)
 				},
@@ -1831,17 +2013,37 @@ module.exports = {
 				label: MODEL_ACTIONS.level.name,
 				options: [
 					{
+						type: 'dropdown',
+						label: 'Level',
+						id: 'val',
+						choices: MODEL_ACTIONS.level.choices,
+						default: MODEL_ACTIONS.level.default,
+					},
+					{
 						type: 'number',
 						label: 'Level (' + MODEL_ACTIONS.level.range.min + ' to ' + MODEL_ACTIONS.level.range.max + ')',
 						id: 'value',
 						default: MODEL_ACTIONS.level.range.default,
 						min: MODEL_ACTIONS.level.range.min,
 						max: MODEL_ACTIONS.level.range.max,
+						isVisible: (action) => action.options.val === 'value',
 					},
 				],
 				callback: (action) => {
+					currentValue = this.camera?.level ? this.camera.level : MODEL_ACTIONS.level.range.default
+					switch (action.options.val) {
+						case 'up':
+							newValue = currentValue < MODEL_ACTIONS.level.range.max ? ++currentValue : MODEL_ACTIONS.level.range.max
+							break
+						case 'down':
+							newValue = currentValue > MODEL_ACTIONS.level.range.min ? --currentValue : MODEL_ACTIONS.level.range.min
+							break
+						case 'value':
+							newValue = action.options.value
+							break
+					}
 					body = {
-						Level: String(action.options.val),
+						Level: String(newValue),
 					}
 					this.sendCommand('birddogwbsetup', 'POST', body)
 				},
@@ -1874,17 +2076,37 @@ module.exports = {
 				label: MODEL_ACTIONS.offset.name,
 				options: [
 					{
+						type: 'dropdown',
+						label: 'Offset',
+						id: 'val',
+						choices: MODEL_ACTIONS.level.choices,
+						default: MODEL_ACTIONS.level.default,
+					},
+					{
 						type: 'number',
 						label: 'Value (' + MODEL_ACTIONS.offset.range.min + ' to ' + MODEL_ACTIONS.offset.range.max + ')',
 						id: 'value',
 						default: MODEL_ACTIONS.offset.range.default,
 						min: MODEL_ACTIONS.offset.range.min,
 						max: MODEL_ACTIONS.offset.range.max,
+						isVisible: (action) => action.options.val === 'value',
 					},
 				],
 				callback: (action) => {
+					currentValue = this.camera?.offset ? this.camera.offset : MODEL_ACTIONS.offset.range.default
+					switch (action.options.val) {
+						case 'up':
+							newValue = currentValue < MODEL_ACTIONS.offset.range.max ? ++currentValue : MODEL_ACTIONS.offset.range.max
+							break
+						case 'down':
+							newValue = currentValue > MODEL_ACTIONS.offset.range.min ? --currentValue : MODEL_ACTIONS.offset.range.min
+							break
+						case 'value':
+							newValue = action.options.value
+							break
+					}
 					body = {
-						Offset: String(action.options.val),
+						Offset: String(newValue),
 					}
 					this.sendCommand('birddogwbsetup', 'POST', body)
 				},
@@ -1896,17 +2118,37 @@ module.exports = {
 				label: MODEL_ACTIONS.phase.name,
 				options: [
 					{
+						type: 'dropdown',
+						label: 'Phase',
+						id: 'val',
+						choices: MODEL_ACTIONS.level.choices,
+						default: MODEL_ACTIONS.level.default,
+					},
+					{
 						type: 'number',
 						label: 'Value (' + MODEL_ACTIONS.phase.range.min + ' to ' + MODEL_ACTIONS.phase.range.max + ')',
 						id: 'value',
 						default: MODEL_ACTIONS.phase.range.default,
 						min: MODEL_ACTIONS.phase.range.min,
 						max: MODEL_ACTIONS.phase.range.max,
+						isVisible: (action) => action.options.val === 'value',
 					},
 				],
 				callback: (action) => {
+					currentValue = this.camera?.phase ? this.camera.phase : MODEL_ACTIONS.phase.range.default
+					switch (action.options.val) {
+						case 'up':
+							newValue = currentValue < MODEL_ACTIONS.phase.range.max ? ++currentValue : MODEL_ACTIONS.phase.range.max
+							break
+						case 'down':
+							newValue = currentValue > MODEL_ACTIONS.phase.range.min ? --currentValue : MODEL_ACTIONS.phase.range.min
+							break
+						case 'value':
+							newValue = action.options.value
+							break
+					}
 					body = {
-						Phase: String(action.options.val),
+						Phase: String(newValue),
 					}
 					this.sendCommand('birddogwbsetup', 'POST', body)
 				},
@@ -1918,17 +2160,37 @@ module.exports = {
 				label: MODEL_ACTIONS.rb.name,
 				options: [
 					{
+						type: 'dropdown',
+						label: 'RB',
+						id: 'val',
+						choices: MODEL_ACTIONS.level.choices,
+						default: MODEL_ACTIONS.level.default,
+					},
+					{
 						type: 'number',
 						label: 'Value (' + MODEL_ACTIONS.rb.range.min + ' to ' + MODEL_ACTIONS.rb.range.max + ')',
 						id: 'value',
 						default: MODEL_ACTIONS.rb.range.default,
 						min: MODEL_ACTIONS.rb.range.min,
 						max: MODEL_ACTIONS.rb.range.max,
+						isVisible: (action) => action.options.val === 'value',
 					},
 				],
 				callback: (action) => {
+					currentValue = this.camera?.rb ? this.camera.rb : MODEL_ACTIONS.rb.range.default
+					switch (action.options.val) {
+						case 'up':
+							newValue = currentValue < MODEL_ACTIONS.rb.range.max ? ++currentValue : MODEL_ACTIONS.rb.range.max
+							break
+						case 'down':
+							newValue = currentValue > MODEL_ACTIONS.rb.range.min ? --currentValue : MODEL_ACTIONS.rb.range.min
+							break
+						case 'value':
+							newValue = action.options.value
+							break
+					}
 					body = {
-						RB: String(action.options.val),
+						RB: String(newValue),
 					}
 					this.sendCommand('birddogwbsetup', 'POST', body)
 				},
@@ -1940,17 +2202,37 @@ module.exports = {
 				label: MODEL_ACTIONS.rg.name,
 				options: [
 					{
+						type: 'dropdown',
+						label: 'RG',
+						id: 'val',
+						choices: MODEL_ACTIONS.level.choices,
+						default: MODEL_ACTIONS.level.default,
+					},
+					{
 						type: 'number',
 						label: 'Value (' + MODEL_ACTIONS.rg.range.min + ' to ' + MODEL_ACTIONS.rg.range.max + ')',
 						id: 'value',
 						default: MODEL_ACTIONS.rg.range.default,
 						min: MODEL_ACTIONS.rg.range.min,
 						max: MODEL_ACTIONS.rg.range.max,
+						isVisible: (action) => action.options.val === 'value',
 					},
 				],
 				callback: (action) => {
+					currentValue = this.camera?.rg ? this.camera.rg : MODEL_ACTIONS.rg.range.default
+					switch (action.options.val) {
+						case 'up':
+							newValue = currentValue < MODEL_ACTIONS.rg.range.max ? ++currentValue : MODEL_ACTIONS.rg.range.max
+							break
+						case 'down':
+							newValue = currentValue > MODEL_ACTIONS.rg.range.min ? --currentValue : MODEL_ACTIONS.rg.range.min
+							break
+						case 'value':
+							newValue = action.options.value
+							break
+					}
 					body = {
-						RG: String(action.options.val),
+						RG: String(newValue),
 					}
 					this.sendCommand('birddogwbsetup', 'POST', body)
 				},
@@ -1979,13 +2261,15 @@ module.exports = {
 					},
 				],
 				callback: (action) => {
-					let red_gain = this.camera?.red_gain ? this.camera.red_gain : MODEL_ACTIONS.red_gain.range.default
+					currentValue = this.camera?.red_gain ? this.camera.red_gain : MODEL_ACTIONS.red_gain.range.default
 					switch (action.options.val) {
 						case 'up':
-							newValue = red_gain < MODEL_ACTIONS.red_gain.range.max ? ++red_gain : red_gain
+							newValue =
+								currentValue < MODEL_ACTIONS.red_gain.range.max ? ++currentValue : MODEL_ACTIONS.red_gain.range.max
 							break
 						case 'down':
-							newValue = red_gain > MODEL_ACTIONS.red_gain.range.min ? --red_gain : red_gain
+							newValue =
+								currentValue > MODEL_ACTIONS.red_gain.range.min ? --currentValue : MODEL_ACTIONS.red_gain.range.min
 							break
 						case 'value':
 							newValue = action.options.value
@@ -2025,17 +2309,37 @@ module.exports = {
 				label: MODEL_ACTIONS.speed.name,
 				options: [
 					{
+						type: 'dropdown',
+						label: 'Speed',
+						id: 'val',
+						choices: MODEL_ACTIONS.level.choices,
+						default: MODEL_ACTIONS.level.default,
+					},
+					{
 						type: 'number',
 						label: 'Value (' + MODEL_ACTIONS.speed.range.min + ' to ' + MODEL_ACTIONS.speed.range.max + ')',
 						id: 'value',
 						default: MODEL_ACTIONS.speed.range.default,
 						min: MODEL_ACTIONS.speed.range.min,
 						max: MODEL_ACTIONS.speed.range.max,
+						isVisible: (action) => action.options.val === 'value',
 					},
 				],
 				callback: (action) => {
+					currentValue = this.camera?.speed ? this.camera.speed : MODEL_ACTIONS.speed.range.default
+					switch (action.options.val) {
+						case 'up':
+							newValue = currentValue < MODEL_ACTIONS.speed.range.max ? ++currentValue : MODEL_ACTIONS.speed.range.max
+							break
+						case 'down':
+							newValue = currentValue > MODEL_ACTIONS.speed.range.min ? --currentValue : MODEL_ACTIONS.speed.range.min
+							break
+						case 'value':
+							newValue = action.options.value
+							break
+					}
 					body = {
-						Speed: String(action.options.val),
+						Speed: String(newValue),
 					}
 					this.sendCommand('birddogwbsetup', 'POST', body)
 				},
@@ -2139,13 +2443,15 @@ module.exports = {
 					},
 				],
 				callback: (action) => {
-					let saturation = this.camera?.saturation ? this.camera.saturation : MODEL_ACTIONS.saturation.range.default
+					currentValue = this.camera?.saturation ? this.camera.saturation : MODEL_ACTIONS.saturation.range.default
 					switch (action.options.val) {
 						case 'up':
-							newValue = saturation < MODEL_ACTIONS.saturation.range.max ? ++saturation : saturation
+							newValue =
+								currentValue < MODEL_ACTIONS.saturation.range.max ? ++currentValue : MODEL_ACTIONS.saturation.range.max
 							break
 						case 'down':
-							newValue = saturation > MODEL_ACTIONS.saturation.range.min ? --saturation : saturation
+							newValue =
+								currentValue > MODEL_ACTIONS.saturation.range.min ? --currentValue : MODEL_ACTIONS.saturation.range.min
 							break
 						case 'value':
 							newValue = action.options.value
@@ -2181,13 +2487,15 @@ module.exports = {
 					},
 				],
 				callback: (action) => {
-					let contrast = this.camera?.contrast ? this.camera.contrast : MODEL_ACTIONS.contrast.range.default
+					currentValue = this.camera?.contrast ? this.camera.contrast : MODEL_ACTIONS.contrast.range.default
 					switch (action.options.val) {
 						case 'up':
-							newValue = contrast < MODEL_ACTIONS.contrast.range.max ? ++contrast : contrast
+							newValue =
+								currentValue < MODEL_ACTIONS.contrast.range.max ? ++currentValue : MODEL_ACTIONS.contrast.range.max
 							break
 						case 'down':
-							newValue = contrast > MODEL_ACTIONS.contrast.range.min ? --contrast : contrast
+							newValue =
+								currentValue > MODEL_ACTIONS.contrast.range.min ? --currentValue : MODEL_ACTIONS.contrast.range.min
 							break
 						case 'value':
 							newValue = action.options.value
@@ -2265,13 +2573,13 @@ module.exports = {
 					},
 				],
 				callback: (action) => {
-					let gamma = this.camera?.gamma ? this.camera.gamma : MODEL_ACTIONS.gamma.range.default
+					currentValue = this.camera?.gamma ? this.camera.gamma : MODEL_ACTIONS.gamma.range.default
 					switch (action.options.val) {
 						case 'up':
-							newValue = gamma < MODEL_ACTIONS.gamma.range.max ? ++gamma : gamma
+							newValue = currentValue < MODEL_ACTIONS.gamma.range.max ? ++currentValue : MODEL_ACTIONS.gamma.range.max
 							break
 						case 'down':
-							newValue = gamma > MODEL_ACTIONS.gamma.range.min ? --gamma : gamma
+							newValue = currentValue > MODEL_ACTIONS.gamma.range.min ? --currentValue : MODEL_ACTIONS.gamma.range.min
 							break
 						case 'value':
 							newValue = action.options.value
@@ -2333,21 +2641,21 @@ module.exports = {
 					},
 				],
 				callback: (action) => {
-					let highlight_comp_mask = this.camera?.highlight_comp_mask
+					currentValue = this.camera?.highlight_comp_mask
 						? this.camera.highlight_comp_mask
 						: MODEL_ACTIONS.highlight_comp_mask.range.default
 					switch (action.options.val) {
 						case 'up':
 							newValue =
-								highlight_comp_mask < MODEL_ACTIONS.highlight_comp_mask.range.max
-									? ++highlight_comp_mask
-									: highlight_comp_mask
+								currentValue < MODEL_ACTIONS.highlight_comp_mask.range.max
+									? ++currentValue
+									: MODEL_ACTIONS.highlight_comp_mask.range.max
 							break
 						case 'down':
 							newValue =
-								highlight_comp_mask > MODEL_ACTIONS.highlight_comp_mask.range.min
-									? --highlight_comp_mask
-									: highlight_comp_mask
+								currentValue > MODEL_ACTIONS.highlight_comp_mask.range.min
+									? --currentValue
+									: MODEL_ACTIONS.highlight_comp_mask.range.min
 							break
 						case 'value':
 							newValue = action.options.value
@@ -2383,13 +2691,13 @@ module.exports = {
 					},
 				],
 				callback: (action) => {
-					let hue = this.camera?.hue ? this.camera.hue : MODEL_ACTIONS.hue.range.default
+					currentValue = this.camera?.hue ? this.camera.hue : MODEL_ACTIONS.hue.range.default
 					switch (action.options.val) {
 						case 'up':
-							newValue = hue < MODEL_ACTIONS.hue.range.max ? ++hue : hue
+							newValue = currentValue < MODEL_ACTIONS.hue.range.max ? ++currentValue : MODEL_ACTIONS.hue.range.max
 							break
 						case 'down':
-							newValue = hue > MODEL_ACTIONS.hue.range.min ? --hue : hue
+							newValue = currentValue > MODEL_ACTIONS.hue.range.min ? --currentValue : MODEL_ACTIONS.hue.range.min
 							break
 						case 'value':
 							newValue = action.options.value
@@ -2488,13 +2796,15 @@ module.exports = {
 					},
 				],
 				callback: (action) => {
-					let nd_filter = this.camera?.nd_filter ? this.camera.nd_filter : MODEL_ACTIONS.nd_filter.range.default
+					currentValue = this.camera?.nd_filter ? this.camera.nd_filter : MODEL_ACTIONS.nd_filter.range.default
 					switch (action.options.val) {
 						case 'up':
-							newValue = nd_filter < MODEL_ACTIONS.nd_filter.range.max ? ++nd_filter : nd_filter
+							newValue =
+								currentValue < MODEL_ACTIONS.nd_filter.range.max ? ++currentValue : MODEL_ACTIONS.nd_filter.range.max
 							break
 						case 'down':
-							newValue = nd_filter > MODEL_ACTIONS.nd_filter.range.min ? --nd_filter : nd_filter
+							newValue =
+								currentValue > MODEL_ACTIONS.nd_filter.range.min ? --currentValue : MODEL_ACTIONS.nd_filter.range.min
 							break
 						case 'value':
 							newValue = action.options.value
@@ -2529,15 +2839,21 @@ module.exports = {
 					},
 				],
 				callback: (action) => {
-					let nr = this.camera?.noise_reduction
+					currentValue = this.camera?.noise_reduction
 						? this.camera.noise_reduction
 						: MODEL_ACTIONS.noise_reduction.value.default
 					switch (action.options.val) {
 						case 'up':
-							newValue = nr < MODEL_ACTIONS.noise_reduction.range.max ? ++nr : nr
+							newValue =
+								currentValue < MODEL_ACTIONS.noise_reduction.range.max
+									? ++currentValue
+									: MODEL_ACTIONS.noise_reduction.range.max
 							break
 						case 'down':
-							newValue = nr > MODEL_ACTIONS.noise_reduction.range.min ? --nr : nr
+							newValue =
+								currentValue > MODEL_ACTIONS.noise_reduction.range.min
+									? --currentValue
+									: MODEL_ACTIONS.noise_reduction.range.min
 							break
 						case 'value':
 							newValue = action.options.value
@@ -2573,13 +2889,15 @@ module.exports = {
 					},
 				],
 				callback: (action) => {
-					let sharpness = this.camera?.sharpness ? this.camera.sharpness : MODEL_ACTIONS.sharpness.range.default
+					currentValue = this.camera?.sharpness ? this.camera.sharpness : MODEL_ACTIONS.sharpness.range.default
 					switch (action.options.val) {
 						case 'up':
-							newValue = sharpness < MODEL_ACTIONS.sharpness.range.max ? ++sharpness : sharpness
+							newValue =
+								currentValue < MODEL_ACTIONS.sharpness.range.max ? ++currentValue : MODEL_ACTIONS.sharpness.range.max
 							break
 						case 'down':
-							newValue = sharpness > MODEL_ACTIONS.sharpness.range.min ? --sharpness : sharpness
+							newValue =
+								currentValue > MODEL_ACTIONS.sharpness.range.min ? --currentValue : MODEL_ACTIONS.sharpness.range.min
 							break
 						case 'value':
 							newValue = action.options.value
@@ -2625,10 +2943,32 @@ module.exports = {
 						choices: MODEL_ACTIONS.threed_nr.choices,
 						default: MODEL_ACTIONS.threed_nr.default,
 					},
+					{
+						type: 'dropdown',
+						label: 'Value',
+						id: 'val',
+						choices: MODEL_ACTIONS.threed_nr.value.choices,
+						default: MODEL_ACTIONS.threed_nr.value.default,
+						isVisible: (action) => action.options.val === 'value',
+					},
 				],
 				callback: (action) => {
+					currentValue = this.camera?.threed_nr ? this.camera.threed_nr : MODEL_ACTIONS.threed_nr.value.default
+					switch (action.options.val) {
+						case 'up':
+							newValue =
+								currentValue < MODEL_ACTIONS.threed_nr.range.max ? ++currentValue : MODEL_ACTIONS.threed_nr.range.max
+							break
+						case 'down':
+							newValue =
+								currentValue > MODEL_ACTIONS.threed_nr.range.min ? --currentValue : MODEL_ACTIONS.threed_nr.range.min
+							break
+						case 'value':
+							newValue = action.options.value
+							break
+					}
 					body = {
-						ThreeDNR: String(action.options.val),
+						ThreeDNR: String(newValue),
 					}
 					this.sendCommand('birddogpicsetup', 'POST', body)
 				},
@@ -2646,10 +2986,32 @@ module.exports = {
 						choices: MODEL_ACTIONS.twod_nr.choices,
 						default: MODEL_ACTIONS.twod_nr.default,
 					},
+					{
+						type: 'dropdown',
+						label: 'Value',
+						id: 'val',
+						choices: MODEL_ACTIONS.twod_nr.value.choices,
+						default: MODEL_ACTIONS.twod_nr.value.default,
+						isVisible: (action) => action.options.val === 'value',
+					},
 				],
 				callback: (action) => {
+					currentValue = this.camera?.twod_nr ? this.camera.twod_nr : MODEL_ACTIONS.twod_nr.value.default
+					switch (action.options.val) {
+						case 'up':
+							newValue =
+								currentValue < MODEL_ACTIONS.twod_nr.range.max ? ++currentValue : MODEL_ACTIONS.twod_nr.range.max
+							break
+						case 'down':
+							newValue =
+								currentValue > MODEL_ACTIONS.twod_nr.range.min ? --currentValue : MODEL_ACTIONS.twod_nr.range.min
+							break
+						case 'value':
+							newValue = action.options.value
+							break
+					}
 					body = {
-						TWODNR: String(action.options.val),
+						TWODNR: String(newValue),
 					}
 					this.sendCommand('birddogpicsetup', 'POST', body)
 				},
@@ -2677,15 +3039,21 @@ module.exports = {
 					},
 				],
 				callback: (action) => {
-					let wdr = this.camera?.wide_dynamic_range
+					currentValue = this.camera?.wide_dynamic_range
 						? this.camera.wide_dynamic_range
 						: MODEL_ACTIONS.wide_dynamic_range.value.default
 					switch (action.options.val) {
 						case 'up':
-							newValue = wdr < MODEL_ACTIONS.wide_dynamic_range.range.max ? ++wdr : wdr
+							newValue =
+								currentValue < MODEL_ACTIONS.wide_dynamic_range.range.max
+									? ++currentValue
+									: MODEL_ACTIONS.wide_dynamic_range.range.max
 							break
 						case 'down':
-							newValue = wdr > MODEL_ACTIONS.wide_dynamic_range.range.min ? --wdr : wdr
+							newValue =
+								currentValue > MODEL_ACTIONS.wide_dynamic_range.range.min
+									? --currentValue
+									: MODEL_ACTIONS.wide_dynamic_range.range.min
 							break
 						case 'value':
 							newValue = action.options.value
@@ -2724,15 +3092,19 @@ module.exports = {
 					},
 				],
 				callback: (action) => {
-					let cm_blue_gain = this.camera?.cm_blue_gain
-						? this.camera.cm_blue_gain
-						: MODEL_ACTIONS.cm_blue_gain.range.default
+					currentValue = this.camera?.cm_blue_gain ? this.camera.cm_blue_gain : MODEL_ACTIONS.cm_blue_gain.range.default
 					switch (action.options.val) {
 						case 'up':
-							newValue = cm_blue_gain < MODEL_ACTIONS.cm_blue_gain.range.max ? ++cm_blue_gain : cm_blue_gain
+							newValue =
+								currentValue < MODEL_ACTIONS.cm_blue_gain.range.max
+									? ++currentValue
+									: MODEL_ACTIONS.cm_blue_gain.range.max
 							break
 						case 'down':
-							newValue = cm_blue_gain > MODEL_ACTIONS.cm_blue_gain.range.min ? --cm_blue_gain : cm_blue_gain
+							newValue =
+								currentValue > MODEL_ACTIONS.cm_blue_gain.range.min
+									? --currentValue
+									: MODEL_ACTIONS.cm_blue_gain.range.min
 							break
 						case 'value':
 							newValue = action.options.value
@@ -2768,13 +3140,19 @@ module.exports = {
 					},
 				],
 				callback: (action) => {
-					let cm_blue_hue = this.camera?.cm_blue_hue ? this.camera.cm_blue_hue : MODEL_ACTIONS.cm_blue_hue.range.default
+					currentValue = this.camera?.cm_blue_hue ? this.camera.cm_blue_hue : MODEL_ACTIONS.cm_blue_hue.range.default
 					switch (action.options.val) {
 						case 'up':
-							newValue = cm_blue_hue < MODEL_ACTIONS.cm_blue_hue.range.max ? ++cm_blue_hue : cm_blue_hue
+							newValue =
+								currentValue < MODEL_ACTIONS.cm_blue_hue.range.max
+									? ++currentValue
+									: MODEL_ACTIONS.cm_blue_hue.range.max
 							break
 						case 'down':
-							newValue = cm_blue_hue > MODEL_ACTIONS.cm_blue_hue.range.min ? --cm_blue_hue : cm_blue_hue
+							newValue =
+								currentValue > MODEL_ACTIONS.cm_blue_hue.range.min
+									? --currentValue
+									: MODEL_ACTIONS.cm_blue_hue.range.min
 							break
 						case 'value':
 							newValue = action.options.value
@@ -2811,15 +3189,21 @@ module.exports = {
 					},
 				],
 				callback: (action) => {
-					let cm_color_gain = this.camera?.cm_color_gain
+					currentValue = this.camera?.cm_color_gain
 						? this.camera.cm_color_gain
 						: MODEL_ACTIONS.cm_color_gain.range.default
 					switch (action.options.val) {
 						case 'up':
-							newValue = cm_color_gain < MODEL_ACTIONS.cm_color_gain.range.max ? ++cm_color_gain : cm_color_gain
+							newValue =
+								currentValue < MODEL_ACTIONS.cm_color_gain.range.max
+									? ++currentValue
+									: MODEL_ACTIONS.cm_color_gain.range.max
 							break
 						case 'down':
-							newValue = cm_color_gain > MODEL_ACTIONS.cm_color_gain.range.min ? --cm_color_gain : cm_color_gain
+							newValue =
+								currentValue > MODEL_ACTIONS.cm_color_gain.range.min
+									? --currentValue
+									: MODEL_ACTIONS.cm_color_gain.range.min
 							break
 						case 'value':
 							newValue = action.options.value
@@ -2856,15 +3240,19 @@ module.exports = {
 					},
 				],
 				callback: (action) => {
-					let cm_cyan_gain = this.camera?.cm_cyan_gain
-						? this.camera.cm_cyan_gain
-						: MODEL_ACTIONS.cm_cyan_gain.range.default
+					currentValue = this.camera?.cm_cyan_gain ? this.camera.cm_cyan_gain : MODEL_ACTIONS.cm_cyan_gain.range.default
 					switch (action.options.val) {
 						case 'up':
-							newValue = cm_cyan_gain < MODEL_ACTIONS.cm_cyan_gain.range.max ? ++cm_cyan_gain : cm_cyan_gain
+							newValue =
+								currentValue < MODEL_ACTIONS.cm_cyan_gain.range.max
+									? ++currentValue
+									: MODEL_ACTIONS.cm_cyan_gain.range.max
 							break
 						case 'down':
-							newValue = cm_cyan_gain > MODEL_ACTIONS.cm_cyan_gain.range.min ? --cm_cyan_gain : cm_cyan_gain
+							newValue =
+								currentValue > MODEL_ACTIONS.cm_cyan_gain.range.min
+									? --currentValue
+									: MODEL_ACTIONS.cm_cyan_gain.range.min
 							break
 						case 'value':
 							newValue = action.options.value
@@ -2900,13 +3288,19 @@ module.exports = {
 					},
 				],
 				callback: (action) => {
-					let cm_cyan_hue = this.camera?.cm_cyan_hue ? this.camera.cm_cyan_hue : MODEL_ACTIONS.cm_cyan_hue.range.default
+					currentValue = this.camera?.cm_cyan_hue ? this.camera.cm_cyan_hue : MODEL_ACTIONS.cm_cyan_hue.range.default
 					switch (action.options.val) {
 						case 'up':
-							newValue = cm_cyan_hue < MODEL_ACTIONS.cm_cyan_hue.range.max ? ++cm_cyan_hue : cm_cyan_hue
+							newValue =
+								currentValue < MODEL_ACTIONS.cm_cyan_hue.range.max
+									? ++currentValue
+									: MODEL_ACTIONS.cm_cyan_hue.range.max
 							break
 						case 'down':
-							newValue = cm_cyan_hue > MODEL_ACTIONS.cm_cyan_hue.range.min ? --cm_cyan_hue : cm_cyan_hue
+							newValue =
+								currentValue > MODEL_ACTIONS.cm_cyan_hue.range.min
+									? --currentValue
+									: MODEL_ACTIONS.cm_cyan_hue.range.min
 							break
 						case 'value':
 							newValue = action.options.value
@@ -2943,15 +3337,21 @@ module.exports = {
 					},
 				],
 				callback: (action) => {
-					let cm_green_gain = this.camera?.cm_green_gain
+					currentValue = this.camera?.cm_green_gain
 						? this.camera.cm_green_gain
 						: MODEL_ACTIONS.cm_green_gain.range.default
 					switch (action.options.val) {
 						case 'up':
-							newValue = cm_green_gain < MODEL_ACTIONS.cm_green_gain.range.max ? ++cm_green_gain : cm_green_gain
+							newValue =
+								currentValue < MODEL_ACTIONS.cm_green_gain.range.max
+									? ++currentValue
+									: MODEL_ACTIONS.cm_green_gain.range.max
 							break
 						case 'down':
-							newValue = cm_green_gain > MODEL_ACTIONS.cm_green_gain.range.min ? --cm_green_gain : cm_green_gain
+							newValue =
+								currentValue > MODEL_ACTIONS.cm_green_gain.range.min
+									? --currentValue
+									: MODEL_ACTIONS.cm_green_gain.range.min
 							break
 						case 'value':
 							newValue = action.options.value
@@ -2988,15 +3388,19 @@ module.exports = {
 					},
 				],
 				callback: (action) => {
-					let cm_green_hue = this.camera?.cm_green_hue
-						? this.camera.cm_green_hue
-						: MODEL_ACTIONS.cm_green_hue.range.default
+					currentValue = this.camera?.cm_green_hue ? this.camera.cm_green_hue : MODEL_ACTIONS.cm_green_hue.range.default
 					switch (action.options.val) {
 						case 'up':
-							newValue = cm_green_hue < MODEL_ACTIONS.cm_green_hue.range.max ? ++cm_green_hue : cm_green_hue
+							newValue =
+								currentValue < MODEL_ACTIONS.cm_green_hue.range.max
+									? ++currentValue
+									: MODEL_ACTIONS.cm_green_hue.range.max
 							break
 						case 'down':
-							newValue = cm_green_hue > MODEL_ACTIONS.cm_green_hue.range.min ? --cm_green_hue : cm_green_hue
+							newValue =
+								currentValue > MODEL_ACTIONS.cm_green_hue.range.min
+									? --currentValue
+									: MODEL_ACTIONS.cm_green_hue.range.min
 							break
 						case 'value':
 							newValue = action.options.value
@@ -3033,15 +3437,19 @@ module.exports = {
 					},
 				],
 				callback: (action) => {
-					let cm_hue_phase = this.camera?.cm_hue_phase
-						? this.camera.cm_hue_phase
-						: MODEL_ACTIONS.cm_hue_phase.range.default
+					currentValue = this.camera?.cm_hue_phase ? this.camera.cm_hue_phase : MODEL_ACTIONS.cm_hue_phase.range.default
 					switch (action.options.val) {
 						case 'up':
-							newValue = cm_hue_phase < MODEL_ACTIONS.cm_hue_phase.range.max ? ++cm_hue_phase : cm_hue_phase
+							newValue =
+								currentValue < MODEL_ACTIONS.cm_hue_phase.range.max
+									? ++currentValue
+									: MODEL_ACTIONS.cm_hue_phase.range.max
 							break
 						case 'down':
-							newValue = cm_hue_phase > MODEL_ACTIONS.cm_hue_phase.range.min ? --cm_hue_phase : cm_hue_phase
+							newValue =
+								currentValue > MODEL_ACTIONS.cm_hue_phase.range.min
+									? --currentValue
+									: MODEL_ACTIONS.cm_hue_phase.range.min
 							break
 						case 'value':
 							newValue = action.options.value
@@ -3077,13 +3485,19 @@ module.exports = {
 					},
 				],
 				callback: (action) => {
-					let cm_mag_gain = this.camera?.cm_mag_gain ? this.camera.cm_mag_gain : MODEL_ACTIONS.cm_mag_gain.range.default
+					currentValue = this.camera?.cm_mag_gain ? this.camera.cm_mag_gain : MODEL_ACTIONS.cm_mag_gain.range.default
 					switch (action.options.val) {
 						case 'up':
-							newValue = cm_mag_gain < MODEL_ACTIONS.cm_mag_gain.range.max ? ++cm_mag_gain : cm_mag_gain
+							newValue =
+								currentValue < MODEL_ACTIONS.cm_mag_gain.range.max
+									? ++currentValue
+									: MODEL_ACTIONS.cm_mag_gain.range.max
 							break
 						case 'down':
-							newValue = cm_mag_gain > MODEL_ACTIONS.cm_mag_gain.range.min ? --cm_mag_gain : cm_mag_gain
+							newValue =
+								currentValue > MODEL_ACTIONS.cm_mag_gain.range.min
+									? --currentValue
+									: MODEL_ACTIONS.cm_mag_gain.range.min
 							break
 						case 'value':
 							newValue = action.options.value
@@ -3119,13 +3533,15 @@ module.exports = {
 					},
 				],
 				callback: (action) => {
-					let cm_mag_hue = this.camera?.cm_mag_hue ? this.camera.cm_mag_hue : MODEL_ACTIONS.cm_mag_hue.range.default
+					currentValue = this.camera?.cm_mag_hue ? this.camera.cm_mag_hue : MODEL_ACTIONS.cm_mag_hue.range.default
 					switch (action.options.val) {
 						case 'up':
-							newValue = cm_mag_hue < MODEL_ACTIONS.cm_mag_hue.range.max ? ++cm_mag_hue : cm_mag_hue
+							newValue =
+								currentValue < MODEL_ACTIONS.cm_mag_hue.range.max ? ++currentValue : MODEL_ACTIONS.cm_mag_hue.range.max
 							break
 						case 'down':
-							newValue = cm_mag_hue > MODEL_ACTIONS.cm_mag_hue.range.min ? --cm_mag_hue : cm_mag_hue
+							newValue =
+								currentValue > MODEL_ACTIONS.cm_mag_hue.range.min ? --currentValue : MODEL_ACTIONS.cm_mag_hue.range.min
 							break
 						case 'value':
 							newValue = action.options.value
@@ -3161,13 +3577,19 @@ module.exports = {
 					},
 				],
 				callback: (action) => {
-					let cm_red_gain = this.camera?.cm_red_gain ? this.camera.cm_red_gain : MODEL_ACTIONS.cm_red_gain.range.default
+					currentValue = this.camera?.cm_red_gain ? this.camera.cm_red_gain : MODEL_ACTIONS.cm_red_gain.range.default
 					switch (action.options.val) {
 						case 'up':
-							newValue = cm_red_gain < MODEL_ACTIONS.cm_red_gain.range.max ? ++cm_red_gain : cm_red_gain
+							newValue =
+								currentValue < MODEL_ACTIONS.cm_red_gain.range.max
+									? ++currentValue
+									: MODEL_ACTIONS.cm_red_gain.range.max
 							break
 						case 'down':
-							newValue = cm_red_gain > MODEL_ACTIONS.cm_red_gain.range.min ? --cm_red_gain : cm_red_gain
+							newValue =
+								currentValue > MODEL_ACTIONS.cm_red_gain.range.min
+									? --currentValue
+									: MODEL_ACTIONS.cm_red_gain.range.min
 							break
 						case 'value':
 							newValue = action.options.value
@@ -3203,13 +3625,15 @@ module.exports = {
 					},
 				],
 				callback: (action) => {
-					let cm_red_hue = this.camera?.cm_red_hue ? this.camera.cm_red_hue : MODEL_ACTIONS.cm_red_hue.range.default
+					currentValue = this.camera?.cm_red_hue ? this.camera.cm_red_hue : MODEL_ACTIONS.cm_red_hue.range.default
 					switch (action.options.val) {
 						case 'up':
-							newValue = cm_red_hue < MODEL_ACTIONS.cm_red_hue.range.max ? ++cm_red_hue : cm_red_hue
+							newValue =
+								currentValue < MODEL_ACTIONS.cm_red_hue.range.max ? ++currentValue : ODEL_ACTIONS.cm_red_hue.range.max
 							break
 						case 'down':
-							newValue = cm_red_hue > MODEL_ACTIONS.cm_red_hue.range.min ? --cm_red_hue : cm_red_hue
+							newValue =
+								currentValue > MODEL_ACTIONS.cm_red_hue.range.min ? --currentValue : ODEL_ACTIONS.cm_red_hue.range.min
 							break
 						case 'value':
 							newValue = action.options.value
@@ -3250,15 +3674,21 @@ module.exports = {
 					},
 				],
 				callback: (action) => {
-					let cm_yellow_gain = this.camera?.cm_yellow_gain
+					currentValue = this.camera?.cm_yellow_gain
 						? this.camera.cm_yellow_gain
 						: MODEL_ACTIONS.cm_yellow_gain.range.default
 					switch (action.options.val) {
 						case 'up':
-							newValue = cm_yellow_gain < MODEL_ACTIONS.cm_yellow_gain.range.max ? ++cm_yellow_gain : cm_yellow_gain
+							newValue =
+								currentValue < MODEL_ACTIONS.cm_yellow_gain.range.max
+									? ++currentValue
+									: MODEL_ACTIONS.cm_yellow_gain.range.max
 							break
 						case 'down':
-							newValue = cm_yellow_gain > MODEL_ACTIONS.cm_yellow_gain.range.min ? --cm_yellow_gain : cm_yellow_gain
+							newValue =
+								currentValue > MODEL_ACTIONS.cm_yellow_gain.range.min
+									? --currentValue
+									: MODEL_ACTIONS.cm_yellow_gain.range.min
 							break
 						case 'value':
 							newValue = action.options.value
@@ -3295,15 +3725,21 @@ module.exports = {
 					},
 				],
 				callback: (action) => {
-					let cm_yellow_hue = this.camera?.cm_yellow_hue
+					currentValue = this.camera?.cm_yellow_hue
 						? this.camera.cm_yellow_hue
 						: MODEL_ACTIONS.cm_yellow_hue.range.default
 					switch (action.options.val) {
 						case 'up':
-							newValue = cm_yellow_hue < MODEL_ACTIONS.cm_yellow_hue.range.max ? ++cm_yellow_hue : cm_yellow_hue
+							newValue =
+								currentValue < MODEL_ACTIONS.cm_yellow_hue.range.max
+									? ++currentValue
+									: MODEL_ACTIONS.cm_yellow_hue.range.max
 							break
 						case 'down':
-							newValue = cm_yellow_hue > MODEL_ACTIONS.cm_yellow_hue.range.min ? --cm_yellow_hue : cm_yellow_hue
+							newValue =
+								currentValue > MODEL_ACTIONS.cm_yellow_hue.range.min
+									? --currentValue
+									: MODEL_ACTIONS.cm_yellow_hue.range.min
 							break
 						case 'value':
 							newValue = action.options.value
@@ -3341,13 +3777,15 @@ module.exports = {
 					},
 				],
 				callback: (action) => {
-					let brightness = this.camera?.brightness ? this.camera.brightness : MODEL_ACTIONS.brightness.range.default
+					currentValue = this.camera?.brightness ? this.camera.brightness : MODEL_ACTIONS.brightness.range.default
 					switch (action.options.val) {
 						case 'up':
-							newValue = brightness < MODEL_ACTIONS.brightness.range.max ? ++brightness : brightness
+							newValue =
+								currentValue < MODEL_ACTIONS.brightness.range.max ? ++currentValue : MODEL_ACTIONS.brightness.range.max
 							break
 						case 'down':
-							newValue = brightness > MODEL_ACTIONS.brightness.range.min ? --brightness : brightness
+							newValue =
+								currentValue > MODEL_ACTIONS.brightness.range.min ? --currentValue : MODEL_ACTIONS.brightness.range.min
 							break
 						case 'value':
 							newValue = action.options.value
@@ -3426,15 +3864,19 @@ module.exports = {
 					},
 				],
 				callback: (action) => {
-					let gamma_offset = this.camera?.gamma_offset
-						? this.camera.gamma_offset
-						: MODEL_ACTIONS.gamma_offset.range.default
+					currentValue = this.camera?.gamma_offset ? this.camera.gamma_offset : MODEL_ACTIONS.gamma_offset.range.default
 					switch (action.options.val) {
 						case 'up':
-							newValue = gamma_offset < MODEL_ACTIONS.gamma_offset.range.max ? ++gamma_offset : gamma_offset
+							newValue =
+								currentValue < MODEL_ACTIONS.gamma_offset.range.max
+									? ++currentValue
+									: MODEL_ACTIONS.gamma_offset.range.max
 							break
 						case 'down':
-							newValue = gamma_offset > MODEL_ACTIONS.gamma_offset.range.min ? --gamma_offset : gamma_offset
+							newValue =
+								currentValue > MODEL_ACTIONS.gamma_offset.range.min
+									? --currentValue
+									: MODEL_ACTIONS.gamma_offset.range.min
 							break
 						case 'value':
 							newValue = action.options.value
@@ -3621,13 +4063,15 @@ module.exports = {
 					},
 				],
 				callback: (action) => {
-					let crispening = this.camera?.crispening ? this.camera.crispening : MODEL_ACTIONS.crispening.range.default
+					currentValue = this.camera?.crispening ? this.camera.crispening : MODEL_ACTIONS.crispening.range.default
 					switch (action.options.val) {
 						case 'up':
-							newValue = crispening < MODEL_ACTIONS.crispening.range.max ? ++crispening : crispening
+							newValue =
+								currentValue < MODEL_ACTIONS.crispening.range.max ? ++currentValue : MODEL_ACTIONS.crispening.range.max
 							break
 						case 'down':
-							newValue = crispening > MODEL_ACTIONS.crispening.range.min ? --crispening : crispening
+							newValue =
+								currentValue > MODEL_ACTIONS.crispening.range.min ? --currentValue : MODEL_ACTIONS.crispening.range.min
 							break
 						case 'value':
 							newValue = action.options.value
@@ -3689,17 +4133,21 @@ module.exports = {
 					},
 				],
 				callback: (action) => {
-					let highlight_detail = this.camera?.highlight_detail
+					currentValue = this.camera?.highlight_detail
 						? this.camera.highlight_detail
 						: MODEL_ACTIONS.highlight_detail.range.default
 					switch (action.options.val) {
 						case 'up':
 							newValue =
-								highlight_detail < MODEL_ACTIONS.highlight_detail.range.max ? ++highlight_detail : highlight_detail
+								currentValue < MODEL_ACTIONS.highlight_detail.range.max
+									? ++currentValue
+									: MODEL_ACTIONS.highlight_detail.range.max
 							break
 						case 'down':
 							newValue =
-								highlight_detail > MODEL_ACTIONS.highlight_detail.range.min ? --highlight_detail : highlight_detail
+								currentValue > MODEL_ACTIONS.highlight_detail.range.min
+									? --currentValue
+									: MODEL_ACTIONS.highlight_detail.range.min
 							break
 						case 'value':
 							newValue = action.options.value
@@ -3735,13 +4183,15 @@ module.exports = {
 					},
 				],
 				callback: (action) => {
-					let hv_balance = this.camera?.hv_balance ? this.camera.hv_balance : MODEL_ACTIONS.hv_balance.range.default
+					currentValue = this.camera?.hv_balance ? this.camera.hv_balance : MODEL_ACTIONS.hv_balance.range.default
 					switch (action.options.val) {
 						case 'up':
-							newValue = hv_balance < MODEL_ACTIONS.hv_balance.range.max ? ++hv_balance : hv_balance
+							newValue =
+								currentValue < MODEL_ACTIONS.hv_balance.range.max ? ++currentValue : MODEL_ACTIONS.hv_balance.range.max
 							break
 						case 'down':
-							newValue = hv_balance > MODEL_ACTIONS.hv_balance.range.min ? --hv_balance : hv_balance
+							newValue =
+								currentValue > MODEL_ACTIONS.hv_balance.range.min ? --currentValue : MODEL_ACTIONS.hv_balance.range.min
 							break
 						case 'value':
 							newValue = action.options.value
@@ -3777,13 +4227,13 @@ module.exports = {
 					},
 				],
 				callback: (action) => {
-					let limit = this.camera?.limit ? this.camera.limit : MODEL_ACTIONS.limit.range.default
+					currentValue = this.camera?.limit ? this.camera.limit : MODEL_ACTIONS.limit.range.default
 					switch (action.options.val) {
 						case 'up':
-							newValue = limit < MODEL_ACTIONS.limit.range.max ? ++limit : limit
+							newValue = currentValue < MODEL_ACTIONS.limit.range.max ? ++currentValue : MODEL_ACTIONS.limit.range.max
 							break
 						case 'down':
-							newValue = limit > MODEL_ACTIONS.limit.range.min ? --limit : limit
+							newValue = currentValue > MODEL_ACTIONS.limit.range.min ? --currentValue : MODEL_ACTIONS.limit.range.min
 							break
 						case 'value':
 							newValue = action.options.value
@@ -3819,13 +4269,17 @@ module.exports = {
 					},
 				],
 				callback: (action) => {
-					let super_low = this.camera?.super_low ? this.camera.super_low : MODEL_ACTIONS.super_low.range.default
+					currentValue = this.camera?.super_low ? this.camera.super_low : MODEL_ACTIONS.super_low.range.default
 					switch (action.options.val) {
 						case 'up':
-							newValue = super_low < MODEL_ACTIONS.super_low.range.max ? ++super_low : super_low
+							newValue =
+								currentValue < MODEL_ACTIONS.super_low.range.max
+									? ++sucurrentValueper_low
+									: MODEL_ACTIONS.super_low.range.max
 							break
 						case 'down':
-							newValue = super_low > MODEL_ACTIONS.super_low.range.min ? --super_low : super_low
+							newValue =
+								currentValue > MODEL_ACTIONS.super_low.range.min ? --currentValue : MODEL_ACTIONS.super_low.range.min
 							break
 						case 'value':
 							newValue = action.options.value
@@ -3868,17 +4322,21 @@ module.exports = {
 					},
 				],
 				callback: (action) => {
-					let black_gamma_level = this.camera?.black_gamma_level
+					currentValue = this.camera?.black_gamma_level
 						? this.camera.black_gamma_level
 						: MODEL_ACTIONS.black_gamma_level.range.default
 					switch (action.options.val) {
 						case 'up':
 							newValue =
-								black_gamma_level < MODEL_ACTIONS.black_gamma_level.range.max ? ++black_gamma_level : black_gamma_level
+								currentValue < MODEL_ACTIONS.black_gamma_level.range.max
+									? ++currentValue
+									: MODEL_ACTIONS.black_gamma_level.range.max
 							break
 						case 'down':
 							newValue =
-								black_gamma_level > MODEL_ACTIONS.black_gamma_level.range.max ? --black_gamma_level : black_gamma_level
+								currentValue > MODEL_ACTIONS.black_gamma_level.range.max
+									? --currentValue
+									: MODEL_ACTIONS.black_gamma_level.range.min
 							break
 						case 'value':
 							newValue = action.options.value
@@ -3914,13 +4372,19 @@ module.exports = {
 					},
 				],
 				callback: (action) => {
-					let black_level = this.camera?.black_level ? this.camera.black_level : MODEL_ACTIONS.black_level.range.default
+					currentValue = this.camera?.black_level ? this.camera.black_level : MODEL_ACTIONS.black_level.range.default
 					switch (action.options.val) {
 						case 'up':
-							newValue = black_level < MODEL_ACTIONS.black_level.range.max ? ++black_level : black_level
+							newValue =
+								currentValue < MODEL_ACTIONS.black_level.range.max
+									? ++currentValue
+									: MODEL_ACTIONS.black_level.range.max
 							break
 						case 'down':
-							newValue = black_level > MODEL_ACTIONS.black_level.range.max ? --black_level : black_level
+							newValue =
+								currentValue > MODEL_ACTIONS.black_level.range.max
+									? --currentValue
+									: MODEL_ACTIONS.black_level.range.min
 							break
 						case 'value':
 							newValue = action.options.value
@@ -3977,13 +4441,13 @@ module.exports = {
 					},
 				],
 				callback: (action) => {
-					let effect = this.camera?.effect ? this.camera.effect : MODEL_ACTIONS.effect.range.default
+					currentValue = this.camera?.effect ? this.camera.effect : MODEL_ACTIONS.effect.range.default
 					switch (action.options.val) {
 						case 'up':
-							newValue = effect < MODEL_ACTIONS.effect.range.max ? ++effect : effect
+							newValue = currentValue < MODEL_ACTIONS.effect.range.max ? ++currentValue : MODEL_ACTIONS.effect.range.max
 							break
 						case 'down':
-							newValue = effect > MODEL_ACTIONS.effect.range.max ? --effect : effect
+							newValue = currentValue > MODEL_ACTIONS.effect.range.max ? --currentValue : MODEL_ACTIONS.effect.range.min
 							break
 						case 'value':
 							newValue = action.options.value
@@ -4019,13 +4483,13 @@ module.exports = {
 					},
 				],
 				callback: (action) => {
-					let level = this.camera?.level ? this.camera.level : MODEL_ACTIONS.level.range.default
+					currentValue = this.camera?.level ? this.camera.level : MODEL_ACTIONS.level.range.default
 					switch (action.options.val) {
 						case 'up':
-							newValue = level < MODEL_ACTIONS.level.range.max ? ++level : level
+							newValue = currentValue < MODEL_ACTIONS.level.range.max ? ++currentValue : MODEL_ACTIONS.level.range.max
 							break
 						case 'down':
-							newValue = level > MODEL_ACTIONS.level.range.max ? --level : level
+							newValue = currentValue > MODEL_ACTIONS.level.range.max ? --currentValue : MODEL_ACTIONS.level.range.min
 							break
 						case 'value':
 							newValue = action.options.value
@@ -4061,13 +4525,13 @@ module.exports = {
 					},
 				],
 				callback: (action) => {
-					let offset = this.camera?.offset ? this.camera.offset : MODEL_ACTIONS.offset.range.default
+					currentValue = this.camera?.offset ? this.camera.offset : MODEL_ACTIONS.offset.range.default
 					switch (action.options.val) {
 						case 'up':
-							newValue = offset < MODEL_ACTIONS.offset.range.max ? ++offset : offset
+							newValue = currentValue < MODEL_ACTIONS.offset.range.max ? ++currentValue : MODEL_ACTIONS.offset.range.max
 							break
 						case 'down':
-							newValue = offset > MODEL_ACTIONS.offset.range.max ? --offset : offset
+							newValue = currentValue > MODEL_ACTIONS.offset.range.max ? --currentValue : MODEL_ACTIONS.offset.range.min
 							break
 						case 'value':
 							newValue = action.options.value
@@ -4103,13 +4567,15 @@ module.exports = {
 					},
 				],
 				callback: (action) => {
-					let pattern = this.camera?.pattern ? this.camera.pattern : MODEL_ACTIONS.pattern.range.default
+					currentValue = this.camera?.pattern ? this.camera.pattern : MODEL_ACTIONS.pattern.range.default
 					switch (action.options.val) {
 						case 'up':
-							newValue = pattern < MODEL_ACTIONS.pattern.range.max ? ++pattern : pattern
+							newValue =
+								currentValue < MODEL_ACTIONS.pattern.range.max ? ++currentValue : MODEL_ACTIONS.pattern.range.max
 							break
 						case 'down':
-							newValue = pattern > MODEL_ACTIONS.pattern.range.max ? --pattern : pattern
+							newValue =
+								currentValue > MODEL_ACTIONS.pattern.range.max ? --currentValue : MODEL_ACTIONS.pattern.range.min
 							break
 						case 'value':
 							newValue = action.options.value
@@ -4146,15 +4612,19 @@ module.exports = {
 					},
 				],
 				callback: (action) => {
-					let pattern_fine = this.camera?.pattern_fine
-						? this.camera.pattern_fine
-						: MODEL_ACTIONS.pattern_fine.range.default
+					currentValue = this.camera?.pattern_fine ? this.camera.pattern_fine : MODEL_ACTIONS.pattern_fine.range.default
 					switch (action.options.val) {
 						case 'up':
-							newValue = pattern_fine < MODEL_ACTIONS.pattern_fine.range.max ? ++pattern_fine : pattern_fine
+							newValue =
+								currentValue < MODEL_ACTIONS.pattern_fine.range.max
+									? ++currentValue
+									: MODEL_ACTIONS.pattern_fine.range.max
 							break
 						case 'down':
-							newValue = pattern_fine > MODEL_ACTIONS.pattern_fine.range.max ? --pattern_fine : pattern_fine
+							newValue =
+								currentValue > MODEL_ACTIONS.pattern_fine.range.max
+									? --currentValue
+									: MODEL_ACTIONS.pattern_fine.range.min
 							break
 						case 'value':
 							newValue = action.options.value
@@ -4239,17 +4709,21 @@ module.exports = {
 					},
 				],
 				callback: (action) => {
-					let scope_gamma_gain = this.camera?.scope_gamma_gain
+					currentValue = this.camera?.scope_gamma_gain
 						? this.camera.scope_gamma_gain
 						: MODEL_ACTIONS.scope_gamma_gain.range.default
 					switch (action.options.val) {
 						case 'up':
 							newValue =
-								scope_gamma_gain < MODEL_ACTIONS.scope_gamma_gain.range.max ? ++scope_gamma_gain : scope_gamma_gain
+								currentValue < MODEL_ACTIONS.scope_gamma_gain.range.max
+									? ++currentValue
+									: MODEL_ACTIONS.scope_gamma_gain.range.max
 							break
 						case 'down':
 							newValue =
-								scope_gamma_gain > MODEL_ACTIONS.scope_gamma_gain.range.max ? --scope_gamma_gain : scope_gamma_gain
+								currentValue > MODEL_ACTIONS.scope_gamma_gain.range.max
+									? --currentValue
+									: MODEL_ACTIONS.scope_gamma_gain.range.min
 							break
 						case 'value':
 							newValue = action.options.value

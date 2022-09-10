@@ -400,6 +400,90 @@ module.exports = {
 				action.action = 'saturation'
 				changed = true
 			}
+
+			if (action.action === 'ae_response') {
+				action.options.value = action.options.level
+				action.options.val = 'value'
+				changed = true
+			}
+
+			if (action.action === 'bright_level') {
+				action.options.value = action.options.level
+				action.options.val = 'value'
+				changed = true
+			}
+
+			if (action.action === 'shutter_speed_overwrite') {
+				action.options.value = action.options.val
+				action.options.val = 'value'
+				changed = true
+			}
+
+			if (action.action === 'bg') {
+				action.options.value = action.options.val
+				action.options.val = 'value'
+				changed = true
+			}
+
+			if (action.action === 'br') {
+				action.options.value = action.options.val
+				action.options.val = 'value'
+				changed = true
+			}
+
+			if (action.action === 'gb') {
+				action.options.value = action.options.val
+				action.options.val = 'value'
+				changed = true
+			}
+
+			if (action.action === 'level') {
+				action.options.value = action.options.val
+				action.options.val = 'value'
+				changed = true
+			}
+
+			if (action.action === 'offset') {
+				action.options.value = action.options.val
+				action.options.val = 'value'
+				changed = true
+			}
+
+			if (action.action === 'phase') {
+				action.options.value = action.options.val
+				action.options.val = 'value'
+				changed = true
+			}
+
+			if (action.action === 'rb') {
+				action.options.value = action.options.val
+				action.options.val = 'value'
+				changed = true
+			}
+
+			if (action.action === 'rg') {
+				action.options.value = action.options.val
+				action.options.val = 'value'
+				changed = true
+			}
+
+			if (action.action === 'speed') {
+				action.options.value = action.options.val
+				action.options.val = 'value'
+				changed = true
+			}
+
+			if (action.action === 'threed_nr') {
+				action.options.value = action.options.val
+				action.options.val = 'value'
+				changed = true
+			}
+
+			if (action.action === 'twod_nr') {
+				action.options.value = action.options.val
+				action.options.val = 'value'
+				changed = true
+			}
 		})
 		return changed
 	},
