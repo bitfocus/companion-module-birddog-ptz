@@ -111,10 +111,10 @@ module.exports = {
 						: MODEL_ACTIONS.analogAudioInGain.range.default
 					switch (action.options.val) {
 						case 'up':
-							newValue = audio_in < MODEL_ACTIONS.analogAudioInGain.range.max ? ++audio_in : audio_in
+							newValue = audio_in < MODEL_ACTIONS.analogAudioInGain.range.max + 50 ? ++audio_in : audio_in
 							break
 						case 'down':
-							newValue = audio_in > MODEL_ACTIONS.analogAudioInGain.range.min ? --audio_in : audio_in
+							newValue = audio_in > MODEL_ACTIONS.analogAudioInGain.range.min + 50 ? --audio_in : audio_in
 							break
 						case 'value':
 							newValue = action.options.value + 50 //Convert value to API range
@@ -147,7 +147,7 @@ module.exports = {
 							' to ' +
 							MODEL_ACTIONS.analogAudioOutGain.range.max +
 							')',
-						id: 'val',
+						id: 'value',
 						default: MODEL_ACTIONS.analogAudioOutGain.range.default,
 						min: MODEL_ACTIONS.analogAudioOutGain.range.min,
 						max: MODEL_ACTIONS.analogAudioOutGain.range.max,
@@ -161,10 +161,10 @@ module.exports = {
 						: MODEL_ACTIONS.analogAudioOutGain.range.default
 					switch (action.options.val) {
 						case 'up':
-							newValue = audio_out < MODEL_ACTIONS.analogAudioOutGain.range.max ? ++audio_out : audio_out
+							newValue = audio_out < MODEL_ACTIONS.analogAudioOutGain.range.max + 50 ? ++audio_out : audio_out
 							break
 						case 'down':
-							newValue = audio_out > MODEL_ACTIONS.analogAudioOutGain.range.min ? --audio_out : audio_out
+							newValue = audio_out > MODEL_ACTIONS.analogAudioOutGain.range.min + 50 ? --audio_out : audio_out
 							break
 						case 'value':
 							newValue = action.options.value + 50 //Convert value to API range
@@ -1148,7 +1148,7 @@ module.exports = {
 						: MODEL_ACTIONS.gain.choices[MODEL_ACTIONS.gain.choices.length - 1].id // If no GainLimit then use max Gain
 					switch (action.options.val) {
 						case 'up':
-							newValue = gain < gainLimit ? ++gain : gain
+							newValue = parseInt(gain) < parseInt(gainLimit) ? ++gain : gain
 							break
 						case 'down':
 							newValue = gain > MODEL_ACTIONS.gain.choices[0]?.id ? --gain : gain
@@ -2826,7 +2826,7 @@ module.exports = {
 							break
 					}
 					body = {
-						ColorGain: String(newValue),
+						ColourGain: String(newValue),
 					}
 					this.sendCommand('birddogcmsetup', 'POST', body)
 				},
@@ -4353,7 +4353,7 @@ module.exports = {
 				options: [
 					{
 						type: 'dropdown',
-						label: 'On/Off',
+						label: 'Small/Large',
 						id: 'val',
 						choices: MODEL_ACTIONS.scope_size.choices,
 						default: MODEL_ACTIONS.scope_size.default,

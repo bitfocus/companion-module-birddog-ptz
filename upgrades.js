@@ -373,21 +373,25 @@ module.exports = {
 		let changed = false
 		actions.forEach((action) => {
 			if (action.action === 'analogAudioInGain') {
+				action.options.value = action.options.val
 				action.options.val = 'value'
 				changed = true
 			}
 
 			if (action.action === 'analogAudioOutGain') {
+				action.options.value = action.options.val
 				action.options.val = 'value'
 				changed = true
 			}
 
 			if (action.action === 'noise_reduction') {
+				action.options.value = action.options.val
 				action.options.val = 'value'
 				changed = true
 			}
 
 			if (action.action === 'wide_dynamic_range') {
+				action.options.value = action.options.val
 				action.options.val = 'value'
 				changed = true
 			}

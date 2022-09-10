@@ -1465,7 +1465,7 @@ module.exports = {
 			action: [
 				{
 					camera: ['common'],
-					action: { choices: CHOICES.OFF_L_M_H, default: 'Off' },
+					action: { choices: CHOICES.OFF_L_M_H, default: 'OFF' },
 				},
 			],
 		},
@@ -1525,7 +1525,7 @@ module.exports = {
 			action: [
 				{
 					camera: ['common'],
-					action: { choices: CHOICES.UP_DOWN_VALUE, default: 'up', range: { min: 0, max: 3, default: 1 } },
+					action: { choices: CHOICES.UP_DOWN_VALUE, default: 'up', range: { min: 0, max: 15, default: 1 } },
 				},
 			],
 		},
