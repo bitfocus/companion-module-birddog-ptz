@@ -7,7 +7,7 @@ module.exports = {
 	getActions() {
 		let cmd = ''
 		let newValue
-		currentValue
+		let currentValue
 		let body = {}
 
 		MODEL_ACTIONS = getModelActions(MODEL_SPECS, this.camera.firmware.major, this.camera.model)
