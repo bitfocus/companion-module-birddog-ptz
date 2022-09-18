@@ -368,4 +368,123 @@ module.exports = {
 		})
 		return changed
 	},
+
+	actionsValueUpgrade: function (context, config, actions, feedbacks) {
+		let changed = false
+		actions.forEach((action) => {
+			if (action.action === 'analogAudioInGain') {
+				action.options.value = action.options.val
+				action.options.val = 'value'
+				changed = true
+			}
+
+			if (action.action === 'analogAudioOutGain') {
+				action.options.value = action.options.val
+				action.options.val = 'value'
+				changed = true
+			}
+
+			if (action.action === 'noise_reduction') {
+				action.options.value = action.options.val
+				action.options.val = 'value'
+				changed = true
+			}
+
+			if (action.action === 'wide_dynamic_range') {
+				action.options.value = action.options.val
+				action.options.val = 'value'
+				changed = true
+			}
+
+			if (action.action === 'color') {
+				action.action = 'saturation'
+				changed = true
+			}
+
+			if (action.action === 'ae_response') {
+				action.options.value = action.options.level
+				action.options.val = 'value'
+				changed = true
+			}
+
+			if (action.action === 'bright_level') {
+				action.options.value = action.options.level
+				action.options.val = 'value'
+				changed = true
+			}
+
+			if (action.action === 'shutter_speed_overwrite') {
+				action.options.value = action.options.val
+				action.options.val = 'value'
+				changed = true
+			}
+
+			if (action.action === 'bg') {
+				action.options.value = action.options.val
+				action.options.val = 'value'
+				changed = true
+			}
+
+			if (action.action === 'br') {
+				action.options.value = action.options.val
+				action.options.val = 'value'
+				changed = true
+			}
+
+			if (action.action === 'gb') {
+				action.options.value = action.options.val
+				action.options.val = 'value'
+				changed = true
+			}
+
+			if (action.action === 'level') {
+				action.options.value = action.options.val
+				action.options.val = 'value'
+				changed = true
+			}
+
+			if (action.action === 'offset') {
+				action.options.value = action.options.val
+				action.options.val = 'value'
+				changed = true
+			}
+
+			if (action.action === 'phase') {
+				action.options.value = action.options.val
+				action.options.val = 'value'
+				changed = true
+			}
+
+			if (action.action === 'rb') {
+				action.options.value = action.options.val
+				action.options.val = 'value'
+				changed = true
+			}
+
+			if (action.action === 'rg') {
+				action.options.value = action.options.val
+				action.options.val = 'value'
+				changed = true
+			}
+
+			if (action.action === 'speed') {
+				action.options.value = action.options.val
+				action.options.val = 'value'
+				changed = true
+			}
+
+			if (action.action === 'threed_nr') {
+				action.options.value = action.options.val
+				action.options.val = 'value'
+				changed = true
+			}
+
+			if (action.action === 'twod_nr') {
+				action.options.value = action.options.val
+				action.options.val = 'value'
+				changed = true
+			}
+		})
+		return changed
+	},
 }

@@ -8,6 +8,23 @@ See [HELP.md](https://github.com/bitfocus/companion-module-birddog-ptz/blob/main
 
 ## Changes
 
+### v2.2.2
+
+- Changes
+
+  - Refactored actions to use callbacks in prep for v3
+  - Added Up/Down/Value to all appropriate actions
+
+- Fixes
+  - Tidy & corrected a number of actions
+
+### v2.2.1
+
+- Fixes
+  - Correct P110 & P120 actions
+  - Updated Color Temparature action
+  - Removed unneeded logging
+
 ### v2.2.0
 
 - Changes

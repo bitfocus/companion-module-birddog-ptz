@@ -62,15 +62,18 @@ exports.updateVariables = function () {
 	// Analog Audio Variables
 
 	if (MODEL_VARIABLES.some((variable) => variable.name === 'audio_in_gain')) {
-		this.setVariable('audio_in_gain', this.camera.analogAudioInGain - 50 + 'DB') //Convert API range to action range
+		this.setVariable('audio_in_gain', this.camera.analogAudioInGain - 50 + 'dB') //Convert API range to action range
 	}
 
 	if (MODEL_VARIABLES.some((variable) => variable.name === 'audio_out_gain')) {
-		this.setVariable('audio_out_gain', this.camera.analogAudioOutGain - 50 + 'DB') //Convert API range to action range
+		this.setVariable('audio_out_gain', this.camera.analogAudioOutGain - 50 + 'dB') //Convert API range to action range
 	}
 
 	if (MODEL_VARIABLES.some((variable) => variable.name === 'audio_output')) {
-		this.setVariable('audio_output', this.camera.analogAudioOutput)
+		this.setVariable(
+			'audio_output',
+			MODEL_ACTIONS.analogAudioOutput.choices.find((o) => o.id == this.camera.analogAudioOutput)?.label
+		)
 	}
 
 	// Device Settings Variables
@@ -88,7 +91,10 @@ exports.updateVariables = function () {
 	// Encode Setup Variables
 
 	if (MODEL_VARIABLES.some((variable) => variable.name === 'bandwidth_mode')) {
-		this.setVariable('bandwidth_mode', this.camera.bandwidth_mode)
+		this.setVariable(
+			'bandwidth_mode',
+			MODEL_ACTIONS.bandwidth_mode.choices.find((o) => o.id == this.camera.bandwidth_mode)?.label
+		)
 	}
 
 	if (MODEL_VARIABLES.some((variable) => variable.name === 'bandwidth_select')) {
@@ -100,11 +106,14 @@ exports.updateVariables = function () {
 	}
 
 	if (MODEL_VARIABLES.some((variable) => variable.name === 'ndi_audio')) {
-		this.setVariable('ndi_audio', this.camera.ndiAudio)
+		this.setVariable('ndi_audio', MODEL_ACTIONS.ndiAudio.choices.find((o) => o.id == this.camera.ndiAudio)?.label)
 	}
 
 	if (MODEL_VARIABLES.some((variable) => variable.name === 'ndi_group')) {
-		this.setVariable('ndi_group', this.camera.ndiGroupEnable === 'NDIGroupEn' ? 'Enabled' : 'Disabled')
+		this.setVariable(
+			'ndi_group',
+			MODEL_ACTIONS.ndiGroupEnable.choices.find((o) => o.id == this.camera.ndiGroupEnable)?.label
+		)
 	}
 
 	if (MODEL_VARIABLES.some((variable) => variable.name === 'ndi_group_name')) {
@@ -112,7 +121,10 @@ exports.updateVariables = function () {
 	}
 
 	if (MODEL_VARIABLES.some((variable) => variable.name === 'screensaver_mode')) {
-		this.setVariable('screensaver_mode', this.camera.screensaver_mode)
+		this.setVariable(
+			'screensaver_mode',
+			MODEL_ACTIONS.screensaver_mode.choices.find((o) => o.id == this.camera.screensaver_mode)?.label
+		)
 	}
 
 	if (MODEL_VARIABLES.some((variable) => variable.name === 'stream_name')) {
@@ -162,7 +174,7 @@ exports.updateVariables = function () {
 	if (MODEL_VARIABLES.some((variable) => variable.name === 'ndi_discovery_server')) {
 		this.setVariable(
 			'ndi_discovery_server',
-			this.camera.ndi_discovery_server === 'NDIDisServEn' ? 'Enabled' : 'Disabled'
+			MODEL_ACTIONS.ndi_discovery_server.choices.find((o) => o.id == this.camera.ndi_discovery_server)?.label
 		)
 	}
 
@@ -189,7 +201,7 @@ exports.updateVariables = function () {
 	}
 
 	if (MODEL_VARIABLES.some((variable) => variable.name === 'preset')) {
-		this.setVariable('preset', this.camera.preset)
+		this.setVariable('preset', MODEL_ACTIONS.preset.choices.find((o) => o.id == this.camera.preset)?.label)
 	}
 
 	if (MODEL_VARIABLES.some((variable) => variable.name === 'preset_speed')) {
@@ -390,10 +402,6 @@ exports.updateVariables = function () {
 		this.setVariable('chroma_suppress', this.camera.chroma_suppress)
 	}
 
-	if (MODEL_VARIABLES.some((variable) => variable.name === 'color')) {
-		this.setVariable('color', this.camera.color)
-	}
-
 	if (MODEL_VARIABLES.some((variable) => variable.name === 'contrast')) {
 		this.setVariable('contrast', this.camera.contrast)
 	}
@@ -439,7 +447,14 @@ exports.updateVariables = function () {
 	}
 
 	if (MODEL_VARIABLES.some((variable) => variable.name === 'noise_reduction')) {
-		this.setVariable('noise_reduction', this.camera.noise_reduction)
+		this.setVariable(
+			'noise_reduction',
+			MODEL_ACTIONS.noise_reduction.value.choices.find((o) => o.id == this.camera.noise_reduction)?.label
+		)
+	}
+
+	if (MODEL_VARIABLES.some((variable) => variable.name === 'saturation')) {
+		this.setVariable('saturation', this.camera.saturation)
 	}
 
 	if (MODEL_VARIABLES.some((variable) => variable.name === 'sharpness')) {
@@ -459,7 +474,10 @@ exports.updateVariables = function () {
 	}
 
 	if (MODEL_VARIABLES.some((variable) => variable.name === 'wide_dynamic_range')) {
-		this.setVariable('wide_dynamic_range', this.camera.wide_dynamic_range)
+		this.setVariable(
+			'wide_dynamic_range',
+			MODEL_ACTIONS.wide_dynamic_range.value.choices.find((o) => o.id == this.camera.wide_dynamic_range)?.label
+		)
 	}
 
 	// Color Matrix Variables
@@ -638,10 +656,6 @@ exports.updateVariables = function () {
 
 	// BirdDog Scope Variables
 
-	if (MODEL_VARIABLES.some((variable) => variable.name === 'scope_size')) {
-		this.setVariable('scope_size', this.camera.scope_size)
-	}
-
 	if (MODEL_VARIABLES.some((variable) => variable.name === 'scope_gamma_gain')) {
 		this.setVariable('scope_gamma_gain', this.camera.scope_gamma_gain)
 	}
@@ -660,6 +674,10 @@ exports.updateVariables = function () {
 
 	if (MODEL_VARIABLES.some((variable) => variable.name === 'scope_program')) {
 		this.setVariable('scope_program', this.camera.scope_program)
+	}
+
+	if (MODEL_VARIABLES.some((variable) => variable.name === 'scope_size')) {
+		this.setVariable('scope_size', MODEL_ACTIONS.scope_size.choices.find((o) => o.id == this.camera.scope_size)?.label)
 	}
 
 	if (MODEL_VARIABLES.some((variable) => variable.name === 'scope_transparency')) {

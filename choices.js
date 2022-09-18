@@ -79,7 +79,7 @@ module.exports = {
 	],
 
 	OFF_1_to_5: [
-		{ id: 'Off', label: 'Off' },
+		{ id: '0', label: 'Off' },
 		{ id: '1', label: '1' },
 		{ id: '2', label: '2' },
 		{ id: '3', label: '3' },
@@ -88,7 +88,7 @@ module.exports = {
 	],
 
 	OFF_1_to_6: [
-		{ id: 'Off', label: 'Off' },
+		{ id: '0', label: 'Off' },
 		{ id: '1', label: '1' },
 		{ id: '2', label: '2' },
 		{ id: '3', label: '3' },
@@ -423,7 +423,7 @@ module.exports = {
 
 	PRESET_MODE: [
 		{ id: 'Camera', label: 'Camera' },
-		{ id: 'Birddog', label: 'BirdDog' },
+		{ id: 'Birddog', label: 'PTZ Only' },
 	],
 
 	// ############
@@ -465,11 +465,12 @@ module.exports = {
 		{ id: 'TCP', label: 'TCP' },
 		{ id: 'Multi-TCP', label: 'Multi-TCP' },
 		{ id: 'UDP', label: 'UDP' },
+		{ id: 'RUDP', label: 'RUDP' },
 	],
 
 	ENCODE_NDI_AUDIO: [
-		{ id: 'NDIAudioAnalog', label: 'NDI Audio Analog' },
-		{ id: 'NDIAudioMute', label: 'NDI Audio Mute' },
+		{ id: 'NDIAudioAnalog', label: 'Analog' },
+		{ id: 'NDIAudioMute', label: 'Mute' },
 	],
 
 	ENCODE_BANDWIDTH_MODE: [
@@ -488,9 +489,9 @@ module.exports = {
 	],
 
 	SCREEN_SAVER_MODE: [
-		{ id: 'BirdDogSS', label: 'BirdDog Screensaver' },
-		{ id: 'BlackSS', label: 'Black Screensaver' },
-		{ id: 'CaptureSS', label: 'Capture Screensaver' },
+		{ id: 'BirdDogSS', label: 'BirdDog' },
+		{ id: 'BlackSS', label: 'Black' },
+		{ id: 'CaptureSS', label: 'Capture' },
 	],
 
 	// ############
@@ -498,8 +499,8 @@ module.exports = {
 	// ############
 
 	NDI_DIS_SVR: [
-		{ id: 'NDIDisServEn', label: 'Enabled' },
-		{ id: 'NDIDisServDis', label: 'Disabled' },
+		{ id: 'NDIDisServEn', label: 'On' },
+		{ id: 'NDIDisServDis', label: 'Off' },
 	],
 
 	// ############
@@ -573,7 +574,7 @@ module.exports = {
 	// ############
 
 	PICTURE_EFFECT: [
-		{ id: 'BW', label: 'Black & White' },
+		{ id: 'BW', label: 'B&W' },
 		{ id: 'Off', label: 'Off' },
 	],
 
@@ -647,5 +648,10 @@ module.exports = {
 		{ id: 'TopRight', label: 'Top Right' },
 		{ id: 'BottomLeft', label: 'Bottom Left' },
 		{ id: 'BottomRight', label: 'Bottom Right' },
+	],
+
+	SCOPE_SIZE: [
+		{ id: 'Off', label: 'Small' },
+		{ id: 'On', label: 'Large' },
 	],
 }

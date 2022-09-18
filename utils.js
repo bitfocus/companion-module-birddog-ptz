@@ -62,8 +62,8 @@ function strToPQRS(string) {
 }
 
 function sortByLabel(a, b) {
-	labelA = a[1].variable_label
-	labelB = b[1].variable_label
+	labelA = a[1].name
+	labelB = b[1].name
 	if (labelA < labelB) {
 		return -1
 	}
@@ -95,13 +95,13 @@ function getModelVariables(array, FW, model) {
 			// filter array based on: All cameras or Model matches, and FW matches & has 'variable_name' object
 			(array[1].camera.includes(model) || array[1].camera.includes('All')) &&
 			array[1].firmware.includes(FW) &&
-			array[1]?.variable_name
+			array[1]?.variableId
 	)
 	filteredArray.sort(sortByLabel)
 	filteredArray.forEach((array) =>
 		variables.push({
-			label: array[1].variable_label,
-			name: array[1].variable_name,
+			label: array[1].name,
+			name: array[1].variableId,
 		})
 	)
 	return variables
@@ -121,7 +121,8 @@ function getModelActions(array, FW, model) {
 	filteredArray.sort(sortByLabel)
 	filteredArray.forEach((array) =>
 		actions.push({
-			[array[0]]: getModelActionDetails(array[1].action, FW, model),
+			// Create array of objects containing the action, with it's name and all relevant action options
+			[array[0]]: merge({ name: array[1].name }, getModelActionDetails(array[1].action, FW, model)),
 		})
 	)
 	return merge(...actions)
