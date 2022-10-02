@@ -266,7 +266,7 @@ exports.updateVariables = function () {
 	}
 
 	if (MODEL_VARIABLES.some((variable) => variable.name === 'gain')) {
-		this.setVariable('gain', MODEL_ACTIONS.gain.choices.find((o) => o.id == this.camera.gain)?.label)
+		this.setVariable('gain', MODEL_ACTIONS.gain.value.choices.find((o) => o.id == this.camera.gain)?.label)
 	}
 
 	if (MODEL_VARIABLES.some((variable) => variable.name === 'gain_limit')) {
@@ -286,7 +286,7 @@ exports.updateVariables = function () {
 	}
 
 	if (MODEL_VARIABLES.some((variable) => variable.name === 'iris')) {
-		this.setVariable('iris', MODEL_ACTIONS.iris.choices.find((o) => o.id == this.camera.iris)?.label)
+		this.setVariable('iris', MODEL_ACTIONS.iris.value.choices.find((o) => o.id == this.camera.iris)?.label)
 	}
 
 	if (MODEL_VARIABLES.some((variable) => variable.name === 'shutter_control_overwrite')) {
