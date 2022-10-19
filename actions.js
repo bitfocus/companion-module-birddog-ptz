@@ -1400,7 +1400,7 @@ module.exports = {
 							newValue =
 								currentValue === MODEL_ACTIONS.iris.value.range.closed
 									? MODEL_ACTIONS.iris.value.range.min
-									: iris < MODEL_ACTIONS.iris.value.range.max
+									: currentValue < MODEL_ACTIONS.iris.value.range.max
 									? ++currentValue
 									: MODEL_ACTIONS.iris.value.range.max
 							break
@@ -1408,7 +1408,7 @@ module.exports = {
 							newValue =
 								currentValue === MODEL_ACTIONS.iris.value.range.min
 									? MODEL_ACTIONS.iris.value.range.closed
-									: iris > MODEL_ACTIONS.iris.value.range.min
+									: currentValue > MODEL_ACTIONS.iris.value.range.min
 									? --currentValue
 									: MODEL_ACTIONS.iris.value.range.closed
 							break
