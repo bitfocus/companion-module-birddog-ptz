@@ -11,6 +11,11 @@ See [HELP.md](https://github.com/bitfocus/companion-module-birddog-ptz/blob/main
 ### v2.3.1
 
 - Fixes
+  - Fixed Iris action
+ 
+### v2.3.1
+
+- Fixes
   - Fixed Gain and Iris variables
 
 ### v2.3.0
