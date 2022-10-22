@@ -81,7 +81,7 @@ module.exports = {
 			actions['onScreenMenu'] = {
 				label: MODEL_ACTIONS.onScreenMenu.name,
 				callback: (action) => {
-					cmd = VISCA.MSG_OPERATION + VISCA.CAM_MENU + VISCA.DATA_ONVAL + VISCA.END_MSG
+					cmd = VISCA.MSG_OPERATION + VISCA.CAM_MENU + VISCA.DATA_TOGGLEVAL + VISCA.END_MSG
 					this.sendVISCACommand(cmd)
 				},
 			}
