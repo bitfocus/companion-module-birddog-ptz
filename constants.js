@@ -69,6 +69,7 @@ module.exports = {
 	CAM_FOCUS_DIRECT: '\x48', // (can inquire) pqrs
 	CAM_WB_TRIGGER: '\x10', // when followed by 0x05
 	CAM_FREEZE: '\x62',
+	CAM_MENU: '\x06', //Toggle only, on/off not working
 
 	// ############
 	// OPERATIONAL SETTINGS

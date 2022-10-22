@@ -173,6 +173,18 @@ module.exports = {
 				},
 			],
 		},
+		onScreenMenu: {
+			camera: ['All'],
+			firmware: ['4', '5'],
+			store_state: false,
+			name: 'VISCA - Toggle On-Screen Menu',
+			action: [
+				{
+					camera: ['common'],
+					action: {},
+				},
+			],
+		},
 
 		// Analog Audio
 		analogAudioInGain: {
