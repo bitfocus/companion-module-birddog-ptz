@@ -747,6 +747,7 @@ class instance extends instance_skel {
 
 		// Set some defaults
 		this.camera.model = model
+		this.camera.firmware = {}
 		this.camera.firmware.major = FW_major
 		this.camera.firmware.minor = FW_minor
 		this.camera.shutter_table = 60 // Camera defaults to 59.94 on startup
