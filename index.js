@@ -202,19 +202,19 @@ class instance extends instance_skel {
 		switch (cmd.slice(cmd.lastIndexOf('/') + 1)) {
 			case 'about':
 				changed = this.storeState(data, 'about')
-				this.camera.about = data
+				//this.camera.about = data
 				break
 			case 'analogaudiosetup':
 				changed = this.storeState(data, 'analogaudiosetup')
-				this.camera.audio = data
+				//this.camera.audio = data
 				break
 			case 'devicesettings':
 				changed = this.storeState(data, 'devicesettings')
-				this.camera.devicesettings = data
+				//this.camera.devicesettings = data
 				break
 			case 'videooutputinterface':
 				changed = this.storeState(data, 'videooutputinterface')
-				this.camera.video = data
+				//this.camera.video = data
 				break
 			case 'encodesetup':
 				changed = this.storeState(data, 'encodesetup')
@@ -247,19 +247,19 @@ class instance extends instance_skel {
 				if (this.camera?.framerate) {
 					this.camera.framerate = match[1]
 				}
-				this.camera.encode = data
+				//this.camera.encode = data
 				break
 			case 'encodetransport':
 				changed = this.storeState(data, 'encodetransport')
-				this.camera.transport = data
+				//this.camera.transport = data
 				break
 			case 'NDIDisServer':
 				changed = this.storeState(data, 'NDIDisServer')
-				this.camera.ndiserver = data
+				//this.camera.ndiserver = data
 				break
 			case 'birddogptzsetup':
 				changed = this.storeState(data, 'birddogptzsetup')
-				this.camera.ptz = data
+				//this.camera.ptz = data
 				break
 			case 'birddogexpsetup':
 				changed = this.storeState(data, 'birddogexpsetup')
@@ -268,52 +268,55 @@ class instance extends instance_skel {
 					// rebuild actions as GainLimit has changed
 					this.debug('-----Gain Limit changed')
 					this.actions()
+					this.initFeedbacks()
 				}
 
 				if (changed.includes('shutter_max_speed')) {
 					// rebuild actions as Shutter Max speed has changed
 					this.debug('-----ShutterMaxSpeed changed')
 					this.actions()
+					this.initFeedbacks()
 				}
 
 				if (changed.includes('shutter_min_speed')) {
 					// rebuild actions as Shutter Min speed has changed
 					this.debug('-----ShutterMinSpeed changed')
 					this.actions()
+					this.initFeedbacks()
 				}
-				this.camera.expsetup = data
+				//this.camera.expsetup = data
 				break
 			case 'birddogwbsetup':
 				changed = this.storeState(data, 'birddogwbsetup')
-				this.camera.wbsetup = data
+				//this.camera.wbsetup = data
 				break
 			case 'birddogpicsetup':
 				changed = this.storeState(data, 'birddogpicsetup')
-				this.camera.picsetup = data
+				//this.camera.picsetup = data
 				break
 			case 'birddogcmsetup':
 				changed = this.storeState(data, 'birddogcmsetup')
-				this.camera.cmsetup = data
+				//this.camera.cmsetup = data
 				break
 			case 'birddogadvancesetup':
 				changed = this.storeState(data, 'birddogadvancesetup')
-				this.camera.advancesetup = data
+				//this.camera.advancesetup = data
 				break
 			case 'birddogexternalsetup':
 				changed = this.storeState(data, 'birddogexternalsetup')
-				this.camera.externalsetup = data
+				//this.camera.externalsetup = data
 				break
 			case 'birddogdetsetup':
 				changed = this.storeState(data, 'birddogdetsetup')
-				this.camera.detsetup = data
+				//this.camera.detsetup = data
 				break
 			case 'birddoggammasetup':
 				changed = this.storeState(data, 'birddoggammasetup')
-				this.camera.gammasetup = data
+				//this.camera.gammasetup = data
 				break
 			case 'birddogscope':
 				changed = this.storeState(data, 'birddogscope')
-				this.camera.birddogscope = data
+				//this.camera.birddogscope = data
 				break
 		}
 		this.updateVariables()
@@ -752,9 +755,6 @@ class instance extends instance_skel {
 		this.camera.firmware.minor = FW_minor
 		this.camera.shutter_table = 60 // Camera defaults to 59.94 on startup
 		this.camera.unknown = [] // Array to store unknown API variables
-
-		// Old defaults
-		//this.camera.position = { pan: '0000', tilt: '0000', zoom: '0000' }
 
 		this.debug('---- Initial State for camera', this.camera)
 	}
