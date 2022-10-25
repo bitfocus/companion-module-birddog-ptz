@@ -593,6 +593,7 @@ module.exports = {
 	PICTURE_EFFECT: [
 		{ id: 'BW', label: 'B&W' },
 		{ id: 'Off', label: 'Off' },
+		{ id: 'Toggle', label: 'Toggle' },
 	],
 
 	IR_CUT_FILTER_1: [
@@ -670,5 +671,6 @@ module.exports = {
 	SCOPE_SIZE: [
 		{ id: 'Off', label: 'Small' },
 		{ id: 'On', label: 'Large' },
+		{ id: 'Toggle', label: 'Toggle' },
 	],
 }

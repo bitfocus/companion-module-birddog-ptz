@@ -2564,8 +2564,12 @@ module.exports = {
 					},
 				],
 				callback: (action) => {
+					let value = action.options.val
+					if (value == 'Toggle') {
+						value = toggleVal(this.camera.pictureEffect, MODEL_ACTIONS.pictureEffect.choices)
+					}
 					body = {
-						Effect: String(action.options.val),
+						Effect: String(value),
 					}
 					this.sendCommand('birddogpicsetup', 'POST', body)
 				},
@@ -4928,8 +4932,12 @@ module.exports = {
 					},
 				],
 				callback: (action) => {
+					let value = action.options.val
+					if (value == 'Toggle') {
+						value = toggleVal(this.camera.scope_size, MODEL_ACTIONS.scope_size.choices)
+					}
 					body = {
-						DoubleSizeEnable: String(action.options.val),
+						DoubleSizeEnable: String(value),
 					}
 					this.sendCommand('birddogscope', 'POST', body)
 				},
