@@ -41,6 +41,12 @@ module.exports = {
 		{ id: 'Off', label: 'Off' },
 	],
 
+	ON_OFF_TOGGLE: [
+		{ id: 'On', label: 'On' },
+		{ id: 'Off', label: 'Off' },
+		{ id: 'Toggle', label: 'Toggle' },
+	],
+
 	STANDBY: [
 		{ id: 'on', label: 'Cam On' },
 		{ id: 'standby', label: 'Standby' },
@@ -543,6 +549,16 @@ module.exports = {
 		{ id: 'ONEPUSH', label: 'One Push Mode' },
 		{ id: 'ATW', label: 'ATW' },
 		{ id: 'MANUAL1', label: 'Manual 1' },
+		{ id: 'MANUAL2', label: 'Manual 2' },
+	],
+
+	WB_MODE_1b: [
+		{ id: 'AUTO', label: 'Auto' },
+		{ id: 'INDOOR', label: 'Indoor' },
+		{ id: 'OUTDOOR', label: 'Outdoor' },
+		{ id: 'ONEPUSH', label: 'One Push Mode' },
+		{ id: 'ATW', label: 'ATW' },
+		{ id: 'USER', label: 'User' },
 		{ id: 'MANUAL2', label: 'Manual 2' },
 	],
 
