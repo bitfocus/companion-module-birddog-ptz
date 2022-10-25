@@ -1,4 +1,4 @@
-const { sortByAction, getModelActions } = require('./utils')
+const { sortByAction, getModelActions, toggleVal } = require('./utils')
 var { MODEL_SPECS } = require('./models.js')
 const VISCA = require('./constants')
 const CHOICES = require('./choices.js')
@@ -70,6 +70,9 @@ module.exports = {
 							break
 						case 'Off':
 							cmd = VISCA.MSG_CAM + VISCA.CAM_FREEZE + VISCA.DATA_OFFVAL + VISCA.END_MSG
+							break
+						case 'Toggle':
+							cmd = VISCA.MSG_CAM + VISCA.CAM_FREEZE + VISCA.DATA_TOGGLEVAL + VISCA.END_MSG
 							break
 					}
 					this.sendVISCACommand(cmd)
@@ -358,8 +361,12 @@ module.exports = {
 					},
 				],
 				callback: (action) => {
+					let value = action.options.val
+					if (value == 'Toggle') {
+						value = toggleVal(this.camera.stream_to_network, MODEL_ACTIONS.stream_to_network.choices)
+					}
 					body = {
-						StreamToNetwork: String(action.options.val),
+						StreamToNetwork: String(value),
 					}
 					this.sendCommand('encodesetup', 'POST', body)
 				},
@@ -1065,8 +1072,12 @@ module.exports = {
 					},
 				],
 				callback: (action) => {
+					let value = action.options.mode
+					if (value == 'Toggle') {
+						value = toggleVal(this.camera.backlight, MODEL_ACTIONS.backlight.choices)
+					}
 					body = {
-						Backlight: String(action.options.mode),
+						Backlight: String(value),
 					}
 					this.sendCommand('birddogexpsetup', 'POST', body)
 				},
@@ -1297,8 +1308,12 @@ module.exports = {
 					},
 				],
 				callback: (action) => {
+					let value = action.options.val
+					if (value == 'Toggle') {
+						value = toggleVal(this.camera.gain_point, MODEL_ACTIONS.gain_point.choices)
+					}
 					body = {
-						GainPoint: String(action.options.val),
+						GainPoint: String(value),
 					}
 					this.sendCommand('birddogexpsetup', 'POST', body)
 				},
@@ -1368,8 +1383,12 @@ module.exports = {
 					},
 				],
 				callback: (action) => {
+					let value = action.options.val
+					if (value == 'Toggle') {
+						value = toggleVal(this.camera.high_sensitivity, MODEL_ACTIONS.high_sensitivity.choices)
+					}
 					body = {
-						HighSensitivity: String(action.options.val),
+						HighSensitivity: String(value),
 					}
 					this.sendCommand('birddogexpsetup', 'POST', body)
 				},
@@ -1440,8 +1459,12 @@ module.exports = {
 					},
 				],
 				callback: (action) => {
+					let value = action.options.val
+					if (value == 'Toggle') {
+						value = toggleVal(this.camera.shutter_control_overwrite, MODEL_ACTIONS.shutter_control_overwrite.choices)
+					}
 					body = {
-						ShutterControlOverwrite: String(action.options.val),
+						ShutterControlOverwrite: String(value),
 					}
 					this.sendCommand('birddogexpsetup', 'POST', body)
 				},
@@ -1669,8 +1692,12 @@ module.exports = {
 					},
 				],
 				callback: (action) => {
+					let value = action.options.val
+					if (value == 'Toggle') {
+						value = toggleVal(this.camera.slow_shutter_en, MODEL_ACTIONS.slow_shutter_en.choices)
+					}
 					body = {
-						SlowShutterEn: String(action.options.val),
+						SlowShutterEn: String(value),
 					}
 					this.sendCommand('birddogexpsetup', 'POST', body)
 				},
@@ -1742,8 +1769,12 @@ module.exports = {
 					},
 				],
 				callback: (action) => {
+					let value = action.options.val
+					if (value == 'Toggle') {
+						value = toggleVal(this.camera.spotlight, MODEL_ACTIONS.spotlight.choices)
+					}
 					body = {
-						Spotlight: String(action.options.val),
+						Spotlight: String(value),
 					}
 					this.sendCommand('birddogexpsetup', 'POST', body)
 				},
@@ -2066,8 +2097,12 @@ module.exports = {
 					},
 				],
 				callback: (action) => {
+					let value = action.options.val
+					if (value == 'Toggle') {
+						value = toggleVal(this.camera.matrix, MODEL_ACTIONS.matrix.choices)
+					}
 					body = {
-						Matrix: String(action.options.val),
+						Matrix: String(value),
 					}
 					this.sendCommand('birddogwbsetup', 'POST', body)
 				},
@@ -2395,8 +2430,12 @@ module.exports = {
 					},
 				],
 				callback: (action) => {
+					let value = action.options.val
+					if (value == 'Toggle') {
+						value = toggleVal(this.camera.backlight_com, MODEL_ACTIONS.backlight_com.choices)
+					}
 					body = {
-						BackLightCom: String(action.options.val),
+						BackLightCom: String(value),
 					}
 					this.sendCommand('birddogpicsetup', 'POST', body)
 				},
@@ -2546,8 +2585,12 @@ module.exports = {
 					},
 				],
 				callback: (action) => {
+					let value = action.options.val
+					if (value == 'Toggle') {
+						value = toggleVal(this.camera.picFlip, MODEL_ACTIONS.picFlip.choices)
+					}
 					body = {
-						Flip: String(action.options.val),
+						Flip: String(value),
 					}
 					this.sendCommand('birddogpicsetup', 'POST', body)
 				},
@@ -2748,8 +2791,12 @@ module.exports = {
 					},
 				],
 				callback: (action) => {
+					let value = action.options.val
+					if (value == 'Toggle') {
+						value = toggleVal(this.camera.low_latency, MODEL_ACTIONS.low_latency.choices)
+					}
 					body = {
-						LowLatency: String(action.options.val),
+						LowLatency: String(value),
 					}
 					this.sendCommand('birddogpicsetup', 'POST', body)
 				},
@@ -2769,8 +2816,12 @@ module.exports = {
 					},
 				],
 				callback: (action) => {
+					let value = action.options.val
+					if (value == 'Toggle') {
+						value = toggleVal(this.camera.picMirror, MODEL_ACTIONS.picMirror.choices)
+					}
 					body = {
-						Mirror: String(action.options.val),
+						Mirror: String(value),
 					}
 					this.sendCommand('birddogpicsetup', 'POST', body)
 				},
@@ -2927,8 +2978,12 @@ module.exports = {
 					},
 				],
 				callback: (action) => {
+					let value = action.options.val
+					if (value == 'Toggle') {
+						value = toggleVal(this.camera.stabilizer, MODEL_ACTIONS.stabilizer.choices)
+					}
 					body = {
-						Stabilizer: String(action.options.val),
+						Stabilizer: String(value),
 					}
 					this.sendCommand('birddogpicsetup', 'POST', body)
 				},
@@ -3906,8 +3961,12 @@ module.exports = {
 					},
 				],
 				callback: (action) => {
+					let value = action.options.val
+					if (value == 'Toggle') {
+						value = toggleVal(this.camera.high_resolution, MODEL_ACTIONS.high_resolution.choices)
+					}
 					body = {
-						HighResolution: String(action.options.val),
+						HighResolution: String(value),
 					}
 					this.sendCommand('birddogadvancesetup', 'POST', body)
 				},
@@ -3927,8 +3986,12 @@ module.exports = {
 					},
 				],
 				callback: (action) => {
+					let value = action.options.val
+					if (value == 'Toggle') {
+						value = toggleVal(this.camera.video_enhancement, MODEL_ACTIONS.video_enhancement.choices)
+					}
 					body = {
-						VideoEnhancement: String(action.options.val),
+						VideoEnhancement: String(value),
 					}
 					this.sendCommand('birddogadvancesetup', 'POST', body)
 				},
@@ -3950,8 +4013,12 @@ module.exports = {
 					},
 				],
 				callback: (action) => {
+					let value = action.options.val
+					if (value == 'Toggle') {
+						value = toggleVal(this.camera.aux, MODEL_ACTIONS.aux.choices)
+					}
 					body = {
-						Aux: String(action.options.val),
+						Aux: String(value),
 					}
 					this.sendCommand('birddogexternalsetup', 'POST', body)
 				},
@@ -3971,8 +4038,12 @@ module.exports = {
 					},
 				],
 				callback: (action) => {
+					let value = action.options.val
+					if (value == 'Toggle') {
+						value = toggleVal(this.camera.rain_wiper, MODEL_ACTIONS.rain_wiper.choices)
+					}
 					body = {
-						RainWiper: String(action.options.val),
+						RainWiper: String(value),
 					}
 					this.sendCommand('birddogexternalsetup', 'POST', body)
 				},
@@ -3992,8 +4063,12 @@ module.exports = {
 					},
 				],
 				callback: (action) => {
+					let value = action.options.val
+					if (value == 'Toggle') {
+						value = toggleVal(this.camera.v12vout, MODEL_ACTIONS.v12vout.choices)
+					}
 					body = {
-						V12vOut: String(action.options.val),
+						V12vOut: String(value),
 					}
 					this.sendCommand('birddogexternalsetup', 'POST', body)
 				},
@@ -4101,8 +4176,12 @@ module.exports = {
 					},
 				],
 				callback: (action) => {
+					let value = action.options.val
+					if (value == 'Toggle') {
+						value = toggleVal(this.camera.detail, MODEL_ACTIONS.detail.choices)
+					}
 					body = {
-						Detail: String(action.options.val),
+						Detail: String(value),
 					}
 					this.sendCommand('birddogdetsetup', 'POST', body)
 				},
@@ -4675,8 +4754,12 @@ module.exports = {
 					},
 				],
 				callback: (action) => {
+					let value = action.options.val
+					if (value == 'Toggle') {
+						value = toggleVal(this.camera.visibility_enhancer, MODEL_ACTIONS.visibility_enhancer.choices)
+					}
 					body = {
-						VisibilityEnhancer: String(action.options.val),
+						VisibilityEnhancer: String(value),
 					}
 					this.sendCommand('birddoggammasetup', 'POST', body)
 				},
@@ -4795,8 +4878,12 @@ module.exports = {
 					},
 				],
 				callback: (action) => {
+					let value = action.options.val
+					if (value == 'Toggle') {
+						value = toggleVal(this.camera.scope_preview, MODEL_ACTIONS.scope_preview.choices)
+					}
 					body = {
-						PreviewEnable: String(action.options.val),
+						PreviewEnable: String(value),
 					}
 					this.sendCommand('birddogscope', 'POST', body)
 				},
@@ -4816,8 +4903,12 @@ module.exports = {
 					},
 				],
 				callback: (action) => {
+					let value = action.options.val
+					if (value == 'Toggle') {
+						value = toggleVal(this.camera.scope_program, MODEL_ACTIONS.scope_program.choices)
+					}
 					body = {
-						ProgramEnable: String(action.options.val),
+						ProgramEnable: String(value),
 					}
 					this.sendCommand('birddogscope', 'POST', body)
 				},
@@ -4858,8 +4949,12 @@ module.exports = {
 					},
 				],
 				callback: (action) => {
+					let value = action.options.val
+					if (value == 'Toggle') {
+						value = toggleVal(this.camera.scope_transparency, MODEL_ACTIONS.scope_transparency.choices)
+					}
 					body = {
-						TransparencyEnable: String(action.options.val),
+						TransparencyEnable: String(value),
 					}
 					this.sendCommand('birddogscope', 'POST', body)
 				},
