@@ -988,6 +988,9 @@ module.exports = {
 						case 'Manual':
 							cmd = VISCA.MSG_CAM + VISCA.CAM_FOCUS_AUTO + VISCA.DATA_OFFVAL + VISCA.END_MSG
 							break
+						case 'Toggle':
+							cmd = VISCA.MSG_CAM + VISCA.CAM_FOCUS_AUTO + VISCA.DATA_TOGGLEVAL + VISCA.END_MSG
+							break
 					}
 					this.sendVISCACommand(cmd)
 				},

@@ -583,7 +583,7 @@ exports.initFeedbacks = function () {
 				{
 					type: 'dropdown',
 					label: 'Mode',
-					id: 'val',
+					id: 'mode',
 					choices: MODEL_ACTIONS.focusM.choices,
 					default: MODEL_ACTIONS.focusM.default,
 				},
