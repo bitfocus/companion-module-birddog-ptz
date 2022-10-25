@@ -156,7 +156,7 @@ module.exports = {
 			action: [
 				{
 					camera: ['common'],
-					action: { choices: CHOICES.ON_OFF, default: 'On' },
+					action: { choices: CHOICES.ON_OFF_TOGGLE, default: 'On' },
 				},
 			],
 		},
@@ -374,7 +374,7 @@ module.exports = {
 			action: [
 				{
 					camera: ['common'],
-					action: { choices: CHOICES.ON_OFF, default: 'On' },
+					action: { choices: CHOICES.ON_OFF_TOGGLE, default: 'On' },
 				},
 			],
 		},
@@ -812,7 +812,7 @@ module.exports = {
 			action: [
 				{
 					camera: ['common'],
-					action: { choices: CHOICES.ON_OFF, default: 'On' },
+					action: { choices: CHOICES.ON_OFF_TOGGLE, default: 'On' },
 				},
 			],
 		},
@@ -973,7 +973,7 @@ module.exports = {
 			action: [
 				{
 					camera: ['common'],
-					action: { choices: CHOICES.ON_OFF, default: 'On' },
+					action: { choices: CHOICES.ON_OFF_TOGGLE, default: 'On' },
 				},
 			],
 		},
@@ -997,7 +997,7 @@ module.exports = {
 			action: [
 				{
 					camera: ['common'],
-					action: { choices: CHOICES.ON_OFF, default: 'On' },
+					action: { choices: CHOICES.ON_OFF_TOGGLE, default: 'On' },
 				},
 			],
 		},
@@ -1043,7 +1043,7 @@ module.exports = {
 			action: [
 				{
 					camera: ['common'],
-					action: { choices: CHOICES.ON_OFF, default: 'On' },
+					action: { choices: CHOICES.ON_OFF_TOGGLE, default: 'On' },
 				},
 			],
 		},
@@ -1153,7 +1153,7 @@ module.exports = {
 			action: [
 				{
 					camera: ['common'],
-					action: { choices: CHOICES.ON_OFF, default: 'Off' },
+					action: { choices: CHOICES.ON_OFF_TOGGLE, default: 'Off' },
 				},
 			],
 		},
@@ -1191,7 +1191,7 @@ module.exports = {
 			action: [
 				{
 					camera: ['common'],
-					action: { choices: CHOICES.ON_OFF, default: 'Off' },
+					action: { choices: CHOICES.ON_OFF_TOGGLE, default: 'Off' },
 				},
 			],
 		},
@@ -1318,7 +1318,7 @@ module.exports = {
 			action: [
 				{
 					camera: ['common'],
-					action: { choices: CHOICES.ON_OFF, default: 'Off' },
+					action: { choices: CHOICES.ON_OFF_TOGGLE, default: 'Off' },
 				},
 			],
 		},
@@ -1502,7 +1502,7 @@ module.exports = {
 			action: [
 				{
 					camera: ['common'],
-					action: { choices: CHOICES.ON_OFF, default: 'Off' },
+					action: { choices: CHOICES.ON_OFF_TOGGLE, default: 'Off' },
 				},
 			],
 		},
@@ -1630,7 +1630,7 @@ module.exports = {
 			action: [
 				{
 					camera: ['common'],
-					action: { choices: CHOICES.ON_OFF, default: 'Off' },
+					action: { choices: CHOICES.ON_OFF_TOGGLE, default: 'Off' },
 				},
 			],
 		},
@@ -1680,7 +1680,7 @@ module.exports = {
 			action: [
 				{
 					camera: ['common'],
-					action: { choices: CHOICES.ON_OFF, default: 'On' },
+					action: { choices: CHOICES.ON_OFF_TOGGLE, default: 'On' },
 				},
 			],
 		},
@@ -1695,7 +1695,7 @@ module.exports = {
 			action: [
 				{
 					camera: ['common'],
-					action: { choices: CHOICES.ON_OFF, default: 'On' },
+					action: { choices: CHOICES.ON_OFF_TOGGLE, default: 'On' },
 				},
 			],
 		},
@@ -1763,7 +1763,7 @@ module.exports = {
 			action: [
 				{
 					camera: ['common'],
-					action: { choices: CHOICES.ON_OFF, default: 'Off' },
+					action: { choices: CHOICES.ON_OFF_TOGGLE, default: 'Off' },
 				},
 			],
 		},
@@ -2112,7 +2112,7 @@ module.exports = {
 			action: [
 				{
 					camera: ['common'],
-					action: { choices: CHOICES.ON_OFF, default: 'Off' },
+					action: { choices: CHOICES.ON_OFF_TOGGLE, default: 'Off' },
 				},
 			],
 		},
@@ -2127,7 +2127,7 @@ module.exports = {
 			action: [
 				{
 					camera: ['common'],
-					action: { choices: CHOICES.ON_OFF, default: 'Off' },
+					action: { choices: CHOICES.ON_OFF_TOGGLE, default: 'Off' },
 				},
 			],
 		},
@@ -2144,7 +2144,7 @@ module.exports = {
 			action: [
 				{
 					camera: ['common'],
-					action: { choices: CHOICES.ON_OFF, default: 'Off' },
+					action: { choices: CHOICES.ON_OFF_TOGGLE, default: 'Off' },
 				},
 			],
 		},
@@ -2159,7 +2159,7 @@ module.exports = {
 			action: [
 				{
 					camera: ['common'],
-					action: { choices: CHOICES.ON_OFF, default: 'Off' },
+					action: { choices: CHOICES.ON_OFF_TOGGLE, default: 'Off' },
 				},
 			],
 		},
@@ -2174,7 +2174,7 @@ module.exports = {
 			action: [
 				{
 					camera: ['common'],
-					action: { choices: CHOICES.ON_OFF, default: 'Off' },
+					action: { choices: CHOICES.ON_OFF_TOGGLE, default: 'Off' },
 				},
 			],
 		},
@@ -2236,7 +2236,7 @@ module.exports = {
 			action: [
 				{
 					camera: ['common'],
-					action: { choices: CHOICES.ON_OFF, default: 'Off' },
+					action: { choices: CHOICES.ON_OFF_TOGGLE, default: 'Off' },
 				},
 			],
 		},
@@ -2448,7 +2448,7 @@ module.exports = {
 			action: [
 				{
 					camera: ['common'],
-					action: { choices: CHOICES.ON_OFF, default: 'Off' },
+					action: { choices: CHOICES.ON_OFF_TOGGLE, default: 'Off' },
 				},
 			],
 		},
@@ -2510,7 +2510,7 @@ module.exports = {
 			action: [
 				{
 					camera: ['common'],
-					action: { choices: CHOICES.ON_OFF, default: 'Off' },
+					action: { choices: CHOICES.ON_OFF_TOGGLE, default: 'Off' },
 				},
 			],
 		},
@@ -2525,7 +2525,7 @@ module.exports = {
 			action: [
 				{
 					camera: ['common'],
-					action: { choices: CHOICES.ON_OFF, default: 'Off' },
+					action: { choices: CHOICES.ON_OFF_TOGGLE, default: 'Off' },
 				},
 			],
 		},
@@ -2555,7 +2555,7 @@ module.exports = {
 			action: [
 				{
 					camera: ['common'],
-					action: { choices: CHOICES.ON_OFF, default: 'Off' },
+					action: { choices: CHOICES.ON_OFF_TOGGLE, default: 'Off' },
 				},
 			],
 		},
