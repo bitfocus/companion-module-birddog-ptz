@@ -41,12 +41,6 @@ module.exports = {
 		{ id: 'Off', label: 'Off' },
 	],
 
-	ON_OFF_TOGGLE: [
-		{ id: 'On', label: 'On' },
-		{ id: 'Off', label: 'Off' },
-		{ id: 'Toggle', label: 'Toggle' },
-	],
-
 	STANDBY: [
 		{ id: 'on', label: 'Cam On' },
 		{ id: 'standby', label: 'Standby' },
@@ -439,7 +433,6 @@ module.exports = {
 	AUTO_FOCUS: [
 		{ id: 'Auto', label: 'Auto Focus' },
 		{ id: 'Manual', label: 'Manual' },
-		{ id: 'Toggle', label: 'Toggle' },
 	],
 
 	FOCUS_CONTROL: [
@@ -593,7 +586,6 @@ module.exports = {
 	PICTURE_EFFECT: [
 		{ id: 'BW', label: 'B&W' },
 		{ id: 'Off', label: 'Off' },
-		{ id: 'Toggle', label: 'Toggle' },
 	],
 
 	IR_CUT_FILTER_1: [
@@ -671,6 +663,5 @@ module.exports = {
 	SCOPE_SIZE: [
 		{ id: 'Off', label: 'Small' },
 		{ id: 'On', label: 'Large' },
-		{ id: 'Toggle', label: 'Toggle' },
 	],
 }
