@@ -941,6 +941,18 @@ module.exports = {
 			}
 		}
 
+		if (MODEL_ACTIONS?.onScreenMenu) {
+			actions['onScreenMenu'] = {
+				label: MODEL_ACTIONS.onScreenMenu.name,
+				callback: (action) => {
+					body = {
+						Menu: String('On/Off'),
+					}
+					this.sendCommand('birddogptz', 'POST', body)
+				},
+			}
+		}
+
 		// Focus Actions
 
 		if (MODEL_ACTIONS?.focus) {

@@ -785,6 +785,20 @@ module.exports = {
 				},
 			],
 		},
+		onScreenMenu: {
+			camera: ['All'],
+			firmware: ['5'],
+			store_state: true,
+			api_endpoint: ['birddogptz'],
+			api_variable: ['Menu'],
+			name: `PTZ - Toggle OSD Menu`,
+			action: [
+				{
+					camera: ['common'],
+					action: {},
+				},
+			],
+		},
 
 		// Focus
 		focus: {
