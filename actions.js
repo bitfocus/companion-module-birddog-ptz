@@ -202,13 +202,17 @@ module.exports = {
 						type: 'dropdown',
 						label: 'Mode',
 						id: 'val',
-						choices: MODEL_ACTIONS.analogAudioOutput.choices,
+						choices: [...MODEL_ACTIONS.analogAudioOutput.choices, { id: 'Toggle', label: 'Toggle' }],
 						default: MODEL_ACTIONS.analogAudioOutput.default,
 					},
 				],
 				callback: (action) => {
+					let value = action.options.val
+					if (value == 'Toggle') {
+						value = toggleVal(this.camera.analogAudioOutput, MODEL_ACTIONS.analogAudioOutput.choices)
+					}
 					body = {
-						AnalogAudiooutputselect: String(action.options.val),
+						AnalogAudiooutputselect: String(value),
 					}
 					this.sendCommand('analogaudiosetup', 'POST', body)
 				},
@@ -225,13 +229,17 @@ module.exports = {
 						type: 'dropdown',
 						label: 'Mode',
 						id: 'val',
-						choices: MODEL_ACTIONS.video_output.choices,
+						choices: [...MODEL_ACTIONS.video_output.choices, { id: 'Toggle', label: 'Toggle' }],
 						default: MODEL_ACTIONS.video_output.default,
 					},
 				],
 				callback: (action) => {
+					let value = action.options.val
+					if (value == 'Toggle') {
+						value = toggleVal(this.camera.video_output, MODEL_ACTIONS.video_output.choices)
+					}
 					body = {
-						videooutput: String(action.options.val),
+						videooutput: String(value),
 					}
 					this.sendCommand('videooutputinterface', 'POST', body)
 				},
@@ -293,13 +301,17 @@ module.exports = {
 						type: 'dropdown',
 						label: 'Analog / Mute',
 						id: 'val',
-						choices: MODEL_ACTIONS.ndiAudio.choices,
+						choices: [...MODEL_ACTIONS.ndiAudio.choices, { id: 'Toggle', label: 'Toggle' }],
 						default: MODEL_ACTIONS.ndiAudio.default,
 					},
 				],
 				callback: (action) => {
+					let value = action.options.val
+					if (value == 'Toggle') {
+						value = toggleVal(this.camera.ndiAudio, MODEL_ACTIONS.ndiAudio.choices)
+					}
 					body = {
-						NDIAudio: String(action.options.val),
+						NDIAudio: String(value),
 					}
 					this.sendCommand('encodesetup', 'POST', body)
 				},
@@ -314,13 +326,17 @@ module.exports = {
 						type: 'dropdown',
 						label: 'NDI Group Enable',
 						id: 'val',
-						choices: MODEL_ACTIONS.ndiGroupEnable.choices,
+						choices: [...MODEL_ACTIONS.ndiGroupEnable.choices, { id: 'Toggle', label: 'Toggle' }],
 						default: MODEL_ACTIONS.ndiGroupEnable.default,
 					},
 				],
 				callback: (action) => {
+					let value = action.options.val
+					if (value == 'Toggle') {
+						value = toggleVal(this.camera.ndiGroupEnable, MODEL_ACTIONS.ndiGroupEnable.choices)
+					}
 					body = {
-						NDIGroup: String(action.options.val),
+						NDIGroup: String(value),
 					}
 					this.sendCommand('encodesetup', 'POST', body)
 				},
@@ -381,13 +397,17 @@ module.exports = {
 						type: 'dropdown',
 						label: 'On / Off',
 						id: 'val',
-						choices: MODEL_ACTIONS.tally_mode.choices,
+						choices: [...MODEL_ACTIONS.tally_mode.choices, { id: 'Toggle', label: 'Toggle' }],
 						default: MODEL_ACTIONS.tally_mode.default,
 					},
 				],
 				callback: (action) => {
+					let value = action.options.val
+					if (value == 'Toggle') {
+						value = toggleVal(this.camera.tally_mode, MODEL_ACTIONS.tally_mode.choices)
+					}
 					body = {
-						TallyMode: String(action.options.val),
+						TallyMode: String(value),
 					}
 					this.sendCommand('encodesetup', 'POST', body)
 				},
@@ -442,13 +462,17 @@ module.exports = {
 						type: 'dropdown',
 						label: 'Enabled / Disabled',
 						id: 'val',
-						choices: MODEL_ACTIONS.ndi_discovery_server.choices,
+						choices: [...MODEL_ACTIONS.ndi_discovery_server.choices, { id: 'Toggle', label: 'Toggle' }],
 						default: MODEL_ACTIONS.ndi_discovery_server.default,
 					},
 				],
 				callback: (action) => {
+					let value = action.options.val
+					if (value == 'Toggle') {
+						value = toggleVal(this.camera.ndi_discovery_server, MODEL_ACTIONS.ndi_discovery_server.choices)
+					}
 					body = {
-						NDIDisServ: String(action.options.val),
+						NDIDisServ: String(value),
 					}
 					this.sendCommand('NDIDisServer', 'POST', body)
 				},

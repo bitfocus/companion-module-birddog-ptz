@@ -186,7 +186,7 @@ exports.getPresets = function () {
 				{
 					action: 'analogAudioOutput',
 					options: {
-						val: MODEL_ACTIONS.analogAudioOutput.default,
+						val: 'Toggle',
 					},
 				},
 			],
