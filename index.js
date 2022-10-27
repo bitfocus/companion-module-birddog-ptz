@@ -460,7 +460,7 @@ class instance extends instance_skel {
 		this.ws = new WebSocket(`ws://${this.config.host}:6790/`)
 
 		this.ws.on('open', () => {
-			this.log('debug', `WebSocket connection opened to BirdDog PTZ camera`)
+			this.log('debug', `WebSocket connection opened to ${this.camera.hostname}`)
 		})
 
 		this.ws.on('close', (code) => {
@@ -650,10 +650,10 @@ class instance extends instance_skel {
 					let FW_minor = data.FirmwareVersion.substring(data.FirmwareVersion.lastIndexOf(' ') + 2).substring(1)
 
 					// Set Initial State for Camera
-					this.intializeState(model, FW_major, FW_minor)
+					this.intializeState(model, data.HostName, FW_major, FW_minor)
 
 					// InitializeCamera
-					this.initializeCamera(data.HostName)
+					this.initializeCamera()
 				} else if (data.Version === '1.0' && this.currentStatus != 2) {
 					this.log('error', 'Please upgrade your BirdDog camera to the latest LTS firmware to use this module')
 					this.status(this.STATUS_ERROR)
@@ -679,12 +679,12 @@ class instance extends instance_skel {
 			})
 	}
 
-	initializeCamera(hostname) {
+	initializeCamera() {
 		// this.debug('---- in initializeCamera')
 		if (this.currentStatus != 0 && this.camera.firmware.major && this.camera.model) {
 			this.status(this.STATUS_OK)
-			this.log('info', `Connected to ${hostname}`)
-			this.debug('---- Connected to', hostname)
+			this.log('info', `Connected to ${this.camera.hostname}`)
+			this.debug('---- Connected to', this.camera.hostname)
 
 			this.actions()
 			this.initPresets()
@@ -698,7 +698,7 @@ class instance extends instance_skel {
 			}
 		} else {
 			this.status(this.STATUS_ERROR)
-			this.log('error', `Unable to connect to ${hostname}`)
+			this.log('error', `Unable to connect to ${this.camera.hostname}`)
 		}
 	}
 
@@ -727,7 +727,7 @@ class instance extends instance_skel {
 		}
 	}
 
-	intializeState(model, FW_major, FW_minor) {
+	intializeState(model, hostname, FW_major, FW_minor) {
 		// Take all level 1 elements from MODEL_SPECS filtered by;
 		// - All cameras or model matches
 		// - FW matches
@@ -750,6 +750,7 @@ class instance extends instance_skel {
 
 		// Set some defaults
 		this.camera.model = model
+		this.camera.hostname = hostname
 		this.camera.firmware = {}
 		this.camera.firmware.major = FW_major
 		this.camera.firmware.minor = FW_minor

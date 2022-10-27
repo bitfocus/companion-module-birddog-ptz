@@ -79,19 +79,19 @@ module.exports = {
 			variableId: 'firmware',
 			name: 'General - Firmware',
 		},
-		firmwareversion: {
+		firmware_version: {
 			camera: ['All'],
 			firmware: ['5'],
 			api_endpoint: ['about'],
 			api_variable: ['FirmwareVersion'],
-			store_state: false,
+			store_state: true,
 		},
 		format: {
 			camera: ['All'],
 			firmware: ['5'],
 			api_endpoint: ['about'],
 			api_variable: ['Format'],
-			store_state: false,
+			store_state: true,
 		},
 		framerate: {
 			camera: ['All'],
@@ -788,9 +788,7 @@ module.exports = {
 		onScreenMenu: {
 			camera: ['All'],
 			firmware: ['5'],
-			store_state: true,
-			api_endpoint: ['birddogptz'],
-			api_variable: ['Menu'],
+			store_state: false,
 			name: `PTZ - Toggle OSD Menu`,
 			action: [
 				{
@@ -1475,7 +1473,8 @@ module.exports = {
 		},
 		wbOnePush: {
 			camera: ['All'],
-			firmware: ['4', '5'],
+			firmware: ['5'],
+			store_state: true,
 			api_endpoint: ['birddogwbsetup'],
 			api_variable: ['OnePushTrigger'],
 			name: 'White Balance - One Push Trigger',
