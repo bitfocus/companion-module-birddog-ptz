@@ -79,6 +79,20 @@ module.exports = {
 			variableId: 'firmware',
 			name: 'General - Firmware',
 		},
+		firmwareversion: {
+			camera: ['All'],
+			firmware: ['5'],
+			api_endpoint: ['about'],
+			api_variable: ['FirmwareVersion'],
+			store_state: false,
+		},
+		format: {
+			camera: ['All'],
+			firmware: ['5'],
+			api_endpoint: ['about'],
+			api_variable: ['Format'],
+			store_state: false,
+		},
 		framerate: {
 			camera: ['All'],
 			firmware: ['4', '5'],
@@ -299,6 +313,20 @@ module.exports = {
 			api_variable: ['ColorBitDepth'],
 			variableId: 'color_bitdepth',
 			name: 'Encode Setup - Color Bit Depth',
+		},
+		genlock: {
+			camera: ['All'],
+			firmware: ['5'],
+			store_state: true,
+			api_endpoint: ['encodesetup'],
+			api_variable: ['GenLock'],
+		},
+		loopTally: {
+			camera: ['All'],
+			firmware: ['5'],
+			store_state: true,
+			api_endpoint: ['encodesetup'],
+			api_variable: ['LoopTally'],
 		},
 		ndiAudio: {
 			camera: ['All'],
@@ -1434,6 +1462,8 @@ module.exports = {
 		wbOnePush: {
 			camera: ['All'],
 			firmware: ['4', '5'],
+			api_endpoint: ['birddogwbsetup'],
+			api_variable: ['OnePushTrigger'],
 			name: 'White Balance - One Push Trigger',
 			action: [
 				{
