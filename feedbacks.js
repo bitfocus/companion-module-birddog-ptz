@@ -1491,13 +1491,13 @@ exports.initFeedbacks = function () {
 				{
 					type: 'dropdown',
 					label: 'White Balance Mode',
-					id: 'white_balance',
+					id: 'mode',
 					choices: MODEL_ACTIONS.wb_mode.choices,
 					default: MODEL_ACTIONS.wb_mode.default,
 				},
 			],
 			callback: (feedback) => {
-				return this.camera?.wb_mode == feedback.options.white_balance
+				return this.camera?.wb_mode == feedback.options.mode
 			},
 		}
 	}

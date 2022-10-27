@@ -1,5 +1,18 @@
+const { getModelActions, sortByLabel } = require('./utils')
+var { MODEL_SPECS } = require('./models.js')
+const CHOICES = require('./choices.js')
+
 exports.getPresets = function () {
+	const ColorWhite = this.rgb(255, 255, 255) // White
+	const ColorBlack = this.rgb(0, 0, 0) // Black
+	const ColorRed = this.rgb(255, 0, 0) // Red
+	const ColorGreen = this.rgb(0, 255, 0) // Green
+	const ColorOrange = this.rgb(255, 102, 0) // Orange
+
+	MODEL_ACTIONS = getModelActions(MODEL_SPECS, this.camera.firmware.major, this.camera.model)
+
 	let presets = []
+
 	// Variables for Base64 image data do not edit
 	let image_up =
 		'iVBORw0KGgoAAAANSUhEUgAAAEgAAAA6AQMAAAApyY3OAAABS2lUWHRYTUw6Y29tLmFkb2JlLnhtcAAAAAAAPD94cGFja2V0IGJlZ2luPSLvu78iIGlkPSJXNU0wTXBDZWhpSHpyZVN6TlRjemtjOWQiPz4KPHg6eG1wbWV0YSB4bWxuczp4PSJhZG9iZTpuczptZXRhLyIgeDp4bXB0az0iQWRvYmUgWE1QIENvcmUgNS42LWMxNDAgNzkuMTYwNDUxLCAyMDE3LzA1LzA2LTAxOjA4OjIxICAgICAgICAiPgogPHJkZjpSREYgeG1sbnM6cmRmPSJodHRwOi8vd3d3LnczLm9yZy8xOTk5LzAyLzIyLXJkZi1zeW50YXgtbnMjIj4KICA8cmRmOkRlc2NyaXB0aW9uIHJkZjphYm91dD0iIi8+CiA8L3JkZjpSREY+CjwveDp4bXBtZXRhPgo8P3hwYWNrZXQgZW5kPSJyIj8+LUNEtwAAAARnQU1BAACxjwv8YQUAAAABc1JHQgCuzhzpAAAABlBMVEUAAAD///+l2Z/dAAAAAXRSTlMAQObYZgAAAIFJREFUKM+90EEKgzAQRmFDFy49ghcp5FquVPBighcRegHBjWDJ68D8U6F7m00+EnhkUlW3ru6rdyCV0INQzSg1zFLLKmU2aeCQQMEEJXIQORRsTLNyKJhNm3IoaPBg4mQorp2Mh1+00kKN307o/bZrpt5O/FlPU/c75X91/fPd6wPRD1eHyHEL4wAAAABJRU5ErkJggg=='
@@ -18,6 +31,178 @@ exports.getPresets = function () {
 	let image_down_left =
 		'iVBORw0KGgoAAAANSUhEUgAAAEgAAAA6CAMAAAAk2e+/AAABS2lUWHRYTUw6Y29tLmFkb2JlLnhtcAAAAAAAPD94cGFja2V0IGJlZ2luPSLvu78iIGlkPSJXNU0wTXBDZWhpSHpyZVN6TlRjemtjOWQiPz4KPHg6eG1wbWV0YSB4bWxuczp4PSJhZG9iZTpuczptZXRhLyIgeDp4bXB0az0iQWRvYmUgWE1QIENvcmUgNS42LWMxNDAgNzkuMTYwNDUxLCAyMDE3LzA1LzA2LTAxOjA4OjIxICAgICAgICAiPgogPHJkZjpSREYgeG1sbnM6cmRmPSJodHRwOi8vd3d3LnczLm9yZy8xOTk5LzAyLzIyLXJkZi1zeW50YXgtbnMjIj4KICA8cmRmOkRlc2NyaXB0aW9uIHJkZjphYm91dD0iIi8+CiA8L3JkZjpSREY+CjwveDp4bXBtZXRhPgo8P3hwYWNrZXQgZW5kPSJyIj8+LUNEtwAAAARnQU1BAACxjwv8YQUAAAABc1JHQgCuzhzpAAABg1BMVEUAAAD///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////8aT76cAAAAgHRSTlMAafwJfflezc+3WA7Z5Rk6PAvpBNE73kJT89QxZ48czNIv9A1DnI3qKQUaymjT4a7HdVuGf85LR20CVHr+tLBlA0GvYSTYZEnbAcazNPX4yB4GrAgnmL6Bcj4qIVKIe8kdVadIEe27B90bOG/3Er1rYJq1wibyh+4Q5CMzRllMXDo5euMAAAGfSURBVFjD7dblUwJBGAbw5aSlBJRGQERBkLC7u7u7u7veP90jDnaEcdhjP+k9X5h9Zu43O7PLe4eQECH/KGsIaUooOEcLK75LpehH628idSrE+nMANfyQ3MY2BRm0C6mM462tUwJAJtVyUB1WmsoSFZEk46D6TBcYS3UKPpCYawxD5VxHImVD/RHIxMQbGintkGQcppkcOkuutQPYfkDfmjck556ZTSydve2YY5UWk0Mww672VPh+XFqCU8tA+whtL+KOpa+bF3Rh8B4ymDNaSnSzG9IPIpsL34/HTPZfS58auMPYuYNMWcQXOsD3U9ZDOkZkkCvqwSIqUI2WfEDmgiQxRANiIp8GKtDLO6/Znw19oOdXhKoROtEUBr1F5Y9f4dt1XygqKgh6YqcHwMQkQBWICr1H6czTgrpoQde0IGnekJEWNEwLMv/GPDDB/M/fDioVeLYA5GqoYt+xNRY4toJkCiBUG7vTEVxJu2Z549RbqXQuba7uVDZWO66mgw6d7kYaEPvvCb+REIp/srGzLP4aa0n8zKFkKUSIkD+Qb9QrYMvxAbaBAAAAAElFTkSuQmCC'
 
+	// General Camera Presets
+
+	// VISCA Presets
+	if (MODEL_ACTIONS?.standby) {
+		presets.push({
+			category: 'VISCA Actions',
+			label: 'Standby',
+			bank: {
+				style: 'text',
+				text: 'CAM Standby',
+				size: '18',
+				color: ColorWhite,
+				bgcolor: ColorBlack,
+			},
+			actions: [
+				{
+					action: 'standby',
+					options: {
+						val: 'standby',
+					},
+				},
+			],
+		})
+	}
+
+	if (MODEL_ACTIONS?.freeze) {
+		presets.push({
+			category: 'VISCA Actions',
+			label: 'Freeze',
+			bank: {
+				style: 'text',
+				text: 'Freeze',
+				size: '18',
+				color: ColorWhite,
+				bgcolor: ColorBlack,
+			},
+			actions: [
+				{
+					action: 'freeze',
+					options: {
+						val: 'Toggle',
+					},
+				},
+			],
+			feedbacks: [
+				{
+					type: 'freeze_status',
+					options: { val: MODEL_ACTIONS.freeze.default },
+					style: {
+						color: ColorBlack,
+						bgcolor: ColorGreen,
+					},
+				},
+			],
+		})
+	}
+
+	// Analog Audio Presets
+	if (MODEL_ACTIONS?.analogAudioInGain) {
+		presets.push({
+			category: 'Analog Audio',
+			label: 'Analog Audio In Gain Up',
+			bank: {
+				style: 'text',
+				text: '⯅\\nAudio In\\nGain',
+				size: '18',
+				color: ColorWhite,
+				bgcolor: ColorBlack,
+			},
+			actions: [
+				{
+					action: 'analogAudioInGain',
+					options: {
+						val: 'up',
+					},
+				},
+			],
+		})
+		presets.push({
+			category: 'Analog Audio',
+			label: 'Analog Audio In Gain Down',
+			bank: {
+				style: 'text',
+				text: '$(birddog-ptz:audio_in_gain)\\n⯆',
+				size: '18',
+				color: ColorWhite,
+				bgcolor: ColorBlack,
+			},
+			actions: [
+				{
+					action: 'analogAudioInGain',
+					options: {
+						val: 'down',
+					},
+				},
+			],
+		})
+	}
+
+	if (MODEL_ACTIONS?.analogAudioOutGain) {
+		presets.push({
+			category: 'Analog Audio',
+			label: 'Analog Audio Out Gain Up',
+			bank: {
+				style: 'text',
+				text: '⯅\\nAudio Out\\nGain',
+				size: '18',
+				color: ColorWhite,
+				bgcolor: ColorBlack,
+			},
+			actions: [
+				{
+					action: 'analogAudioOutGain',
+					options: {
+						val: 'up',
+					},
+				},
+			],
+		})
+		presets.push({
+			category: 'Analog Audio',
+			label: 'Analog Audio Out Gain Down',
+			bank: {
+				style: 'text',
+				text: '$(birddog-ptz:audio_out_gain)\\n⯆',
+				size: '18',
+				color: ColorWhite,
+				bgcolor: ColorBlack,
+			},
+			actions: [
+				{
+					action: 'analogAudioOutGain',
+					options: {
+						val: 'down',
+					},
+				},
+			],
+		})
+	}
+
+	if (MODEL_ACTIONS?.analogAudioOutput) {
+		presets.push({
+			category: 'Analog Audio',
+			label: 'Analog Audio Output',
+			bank: {
+				style: 'text',
+				text: 'Audio Output\\n\\n$(birddog-ptz:audio_output)',
+				size: '18',
+				color: ColorWhite,
+				bgcolor: ColorBlack,
+			},
+			actions: [
+				{
+					action: 'analogAudioOutput',
+					options: {
+						val: MODEL_ACTIONS.analogAudioOutput.default,
+					},
+				},
+			],
+			feedbacks: [
+				{
+					type: 'analogAudioOutput',
+					options: { val: MODEL_ACTIONS.analogAudioOutput.default },
+					style: {
+						color: ColorBlack,
+						bgcolor: ColorGreen,
+					},
+				},
+			],
+		})
+	}
+
 	presets.push({
 		category: 'Pan/Tilt',
 		label: 'UP',
@@ -27,8 +212,8 @@ exports.getPresets = function () {
 			png64: image_up,
 			pngalignment: 'center:center',
 			size: '18',
-			color: '16777215',
-			bgcolor: this.rgb(0, 0, 0),
+			color: ColorWhite,
+			bgcolor: ColorBlack,
 		},
 		actions: [
 			{
@@ -56,8 +241,8 @@ exports.getPresets = function () {
 			png64: image_down,
 			pngalignment: 'center:center',
 			size: '18',
-			color: '16777215',
-			bgcolor: this.rgb(0, 0, 0),
+			color: ColorWhite,
+			bgcolor: ColorBlack,
 		},
 		actions: [
 			{
@@ -85,8 +270,8 @@ exports.getPresets = function () {
 			png64: image_left,
 			pngalignment: 'center:center',
 			size: '18',
-			color: '16777215',
-			bgcolor: this.rgb(0, 0, 0),
+			color: ColorWhite,
+			bgcolor: ColorBlack,
 		},
 		actions: [
 			{
@@ -114,8 +299,8 @@ exports.getPresets = function () {
 			png64: image_right,
 			pngalignment: 'center:center',
 			size: '18',
-			color: '16777215',
-			bgcolor: this.rgb(0, 0, 0),
+			color: ColorWhite,
+			bgcolor: ColorBlack,
 		},
 		actions: [
 			{
@@ -143,8 +328,8 @@ exports.getPresets = function () {
 			png64: image_up_right,
 			pngalignment: 'center:center',
 			size: '18',
-			color: '16777215',
-			bgcolor: this.rgb(0, 0, 0),
+			color: ColorWhite,
+			bgcolor: ColorBlack,
 		},
 		actions: [
 			{
@@ -172,8 +357,8 @@ exports.getPresets = function () {
 			png64: image_up_left,
 			pngalignment: 'center:center',
 			size: '18',
-			color: '16777215',
-			bgcolor: this.rgb(0, 0, 0),
+			color: ColorWhite,
+			bgcolor: ColorBlack,
 		},
 		actions: [
 			{
@@ -201,8 +386,8 @@ exports.getPresets = function () {
 			png64: image_down_left,
 			pngalignment: 'center:center',
 			size: '18',
-			color: '16777215',
-			bgcolor: this.rgb(0, 0, 0),
+			color: ColorWhite,
+			bgcolor: ColorBlack,
 		},
 		actions: [
 			{
@@ -230,8 +415,8 @@ exports.getPresets = function () {
 			png64: image_down_right,
 			pngalignment: 'center:center',
 			size: '18',
-			color: '16777215',
-			bgcolor: this.rgb(0, 0, 0),
+			color: ColorWhite,
+			bgcolor: ColorBlack,
 		},
 		actions: [
 			{
@@ -257,8 +442,8 @@ exports.getPresets = function () {
 			style: 'text',
 			text: 'HOME',
 			size: '18',
-			color: '16777215',
-			bgcolor: this.rgb(0, 0, 0),
+			color: ColorWhite,
+			bgcolor: ColorBlack,
 		},
 		actions: [
 			{
@@ -276,8 +461,8 @@ exports.getPresets = function () {
 			style: 'text',
 			text: 'PAN SPEED\\nUP',
 			size: 'auto',
-			color: '16777215',
-			bgcolor: this.rgb(0, 0, 0),
+			color: ColorWhite,
+			bgcolor: ColorBlack,
 		},
 		actions: [
 			{
@@ -295,8 +480,8 @@ exports.getPresets = function () {
 			style: 'text',
 			text: 'PAN SPEED\\nDOWN',
 			size: 'auto',
-			color: '16777215',
-			bgcolor: this.rgb(0, 0, 0),
+			color: ColorWhite,
+			bgcolor: ColorBlack,
 		},
 		actions: [
 			{
@@ -314,8 +499,8 @@ exports.getPresets = function () {
 			style: 'text',
 			text: 'TILT SPEED\\nUP',
 			size: 'auto',
-			color: '16777215',
-			bgcolor: this.rgb(0, 0, 0),
+			color: ColorWhite,
+			bgcolor: ColorBlack,
 		},
 		actions: [
 			{
@@ -333,8 +518,8 @@ exports.getPresets = function () {
 			style: 'text',
 			text: 'TILT SPEED\\nDOWN',
 			size: 'auto',
-			color: '16777215',
-			bgcolor: this.rgb(0, 0, 0),
+			color: ColorWhite,
+			bgcolor: ColorBlack,
 		},
 		actions: [
 			{
@@ -352,8 +537,8 @@ exports.getPresets = function () {
 			style: 'text',
 			text: 'ZOOM\\nIN',
 			size: '18',
-			color: '16777215',
-			bgcolor: this.rgb(0, 0, 0),
+			color: ColorWhite,
+			bgcolor: ColorBlack,
 		},
 		actions: [
 			{
@@ -379,8 +564,8 @@ exports.getPresets = function () {
 			style: 'text',
 			text: 'ZOOM\\nOUT',
 			size: '18',
-			color: '16777215',
-			bgcolor: this.rgb(0, 0, 0),
+			color: ColorWhite,
+			bgcolor: ColorBlack,
 		},
 		actions: [
 			{
@@ -406,8 +591,8 @@ exports.getPresets = function () {
 			style: 'text',
 			text: 'FOCUS\\nNEAR',
 			size: '18',
-			color: '16777215',
-			bgcolor: this.rgb(0, 0, 0),
+			color: ColorWhite,
+			bgcolor: ColorBlack,
 		},
 		actions: [
 			{
@@ -433,8 +618,8 @@ exports.getPresets = function () {
 			style: 'text',
 			text: 'FOCUS\\nFAR',
 			size: '18',
-			color: '16777215',
-			bgcolor: this.rgb(0, 0, 0),
+			color: ColorWhite,
+			bgcolor: ColorBlack,
 		},
 		actions: [
 			{
@@ -460,8 +645,8 @@ exports.getPresets = function () {
 			style: 'text',
 			text: 'AUTO\\nFOCUS',
 			size: '18',
-			color: '16777215',
-			bgcolor: this.rgb(0, 0, 0),
+			color: ColorWhite,
+			bgcolor: ColorBlack,
 			latch: true,
 		},
 		actions: [
@@ -488,8 +673,8 @@ exports.getPresets = function () {
 			style: 'text',
 			text: 'O.P.\\nAF',
 			size: '18',
-			color: '16777215',
-			bgcolor: this.rgb(0, 0, 0),
+			color: ColorWhite,
+			bgcolor: ColorBlack,
 		},
 		actions: [
 			{
@@ -507,8 +692,8 @@ exports.getPresets = function () {
 			style: 'text',
 			text: 'EXP\\nMODE',
 			size: '18',
-			color: '16777215',
-			bgcolor: this.rgb(0, 0, 0),
+			color: ColorWhite,
+			bgcolor: ColorBlack,
 		},
 		actions: [
 			{
@@ -526,8 +711,8 @@ exports.getPresets = function () {
 			style: 'text',
 			text: 'GAIN\\nUP',
 			size: '18',
-			color: '16777215',
-			bgcolor: this.rgb(0, 0, 0),
+			color: ColorWhite,
+			bgcolor: ColorBlack,
 		},
 		actions: [
 			{
@@ -545,8 +730,8 @@ exports.getPresets = function () {
 			style: 'text',
 			text: 'GAIN\\nDOWN',
 			size: '18',
-			color: '16777215',
-			bgcolor: this.rgb(0, 0, 0),
+			color: ColorWhite,
+			bgcolor: ColorBlack,
 		},
 		actions: [
 			{
@@ -564,8 +749,8 @@ exports.getPresets = function () {
 			style: 'text',
 			text: 'IRIS\\nUP',
 			size: '18',
-			color: '16777215',
-			bgcolor: this.rgb(0, 0, 0),
+			color: ColorWhite,
+			bgcolor: ColorBlack,
 		},
 		actions: [
 			{
@@ -583,8 +768,8 @@ exports.getPresets = function () {
 			style: 'text',
 			text: 'IRIS\\nDOWN',
 			size: '18',
-			color: '16777215',
-			bgcolor: this.rgb(0, 0, 0),
+			color: ColorWhite,
+			bgcolor: ColorBlack,
 		},
 		actions: [
 			{
@@ -602,8 +787,8 @@ exports.getPresets = function () {
 			style: 'text',
 			text: 'Shutter\\nUP',
 			size: '18',
-			color: '16777215',
-			bgcolor: this.rgb(0, 0, 0),
+			color: ColorWhite,
+			bgcolor: ColorBlack,
 		},
 		actions: [
 			{
@@ -621,8 +806,8 @@ exports.getPresets = function () {
 			style: 'text',
 			text: 'Shutter\\nDOWN',
 			size: '18',
-			color: '16777215',
-			bgcolor: this.rgb(0, 0, 0),
+			color: ColorWhite,
+			bgcolor: ColorBlack,
 		},
 		actions: [
 			{
@@ -634,14 +819,82 @@ exports.getPresets = function () {
 		],
 	})
 	presets.push({
+		category: 'White Balance',
+		label: 'White Balance Mode',
+		bank: {
+			style: 'text',
+			text: 'WB Mode\\n$(birddog-ptz:wb_mode)',
+			size: '24',
+			color: ColorWhite,
+			bgcolor: ColorBlack,
+		},
+		actions: [
+			{
+				action: 'wb_mode',
+				options: {
+					val: 'AUTO',
+				},
+			},
+		],
+		feedbacks: [
+			{
+				type: 'wb_mode',
+				options: { mode: 'AUTO' },
+				style: {
+					color: ColorBlack,
+					bgcolor: ColorGreen,
+				},
+			},
+		],
+	})
+	presets.push({
+		category: 'White Balance',
+		label: 'Color Temp Up',
+		bank: {
+			style: 'text',
+			text: '⯅\\nWB',
+			size: '24',
+			color: ColorWhite,
+			bgcolor: ColorBlack,
+		},
+		actions: [
+			{
+				action: 'color_temp',
+				options: {
+					val: 'up',
+				},
+			},
+		],
+	})
+	presets.push({
+		category: 'White Balance',
+		label: 'Color Temp Down',
+		bank: {
+			style: 'text',
+			text: '<variable here>K\\n⯆',
+			size: '24',
+			color: ColorWhite,
+			bgcolor: ColorBlack,
+		},
+		actions: [
+			{
+				action: 'color_temp',
+				options: {
+					val: 'down',
+				},
+			},
+		],
+	})
+
+	presets.push({
 		category: 'Color',
 		label: 'Red Gain Up',
 		bank: {
 			style: 'text',
 			text: 'Red\\nUp',
 			size: '18',
-			color: '16777215',
-			bgcolor: this.rgb(0, 0, 0),
+			color: ColorWhite,
+			bgcolor: ColorBlack,
 		},
 		actions: [
 			{
@@ -659,8 +912,8 @@ exports.getPresets = function () {
 			style: 'text',
 			text: 'Red\\nDown',
 			size: '18',
-			color: '16777215',
-			bgcolor: this.rgb(0, 0, 0),
+			color: ColorWhite,
+			bgcolor: ColorBlack,
 		},
 		actions: [
 			{
@@ -678,8 +931,8 @@ exports.getPresets = function () {
 			style: 'text',
 			text: 'Blue\\nUp',
 			size: '18',
-			color: '16777215',
-			bgcolor: this.rgb(0, 0, 0),
+			color: ColorWhite,
+			bgcolor: ColorBlack,
 		},
 		actions: [
 			{
@@ -697,8 +950,8 @@ exports.getPresets = function () {
 			style: 'text',
 			text: 'Blue\\nDown',
 			size: '18',
-			color: '16777215',
-			bgcolor: this.rgb(0, 0, 0),
+			color: ColorWhite,
+			bgcolor: ColorBlack,
 		},
 		actions: [
 			{
@@ -710,6 +963,30 @@ exports.getPresets = function () {
 		],
 	})
 
+	presets.push({
+		category: 'Variables',
+		label: 'IRIS/Shutter/ColorTemp/Gain',
+		bank: {
+			style: 'text',
+			text: '$(birddog-ptz:iris) $(birddog-ptz:shutter_speed)\\n$(birddog-ptz:color_temp)K\\n$(birddog-ptz:gain)',
+			size: 'Auto',
+			color: ColorWhite,
+			bgcolor: ColorBlack,
+		},
+	})
+
+	presets.push({
+		category: 'Variables',
+		label: 'CPU / BR',
+		bank: {
+			style: 'text',
+			text: 'CPU | BR\\n$(birddog-ptz:sys_info_perc)\\n$(birddog-ptz:avbr)',
+			size: 'Auto',
+			color: ColorWhite,
+			bgcolor: ColorBlack,
+		},
+	})
+
 	let save
 	for (save = 0; save < 16; save++) {
 		presets.push({
@@ -719,8 +996,8 @@ exports.getPresets = function () {
 				style: 'text',
 				text: 'SAVE\\nPRESET\\n' + parseInt(save + 1),
 				size: '14',
-				color: '16777215',
-				bgcolor: this.rgb(0, 0, 0),
+				color: ColorWhite,
+				bgcolor: ColorBlack,
 			},
 			actions: [
 				{
@@ -742,8 +1019,8 @@ exports.getPresets = function () {
 				style: 'text',
 				text: 'Recall\\nPRESET\\n' + parseInt(recall + 1),
 				size: '14',
-				color: '16777215',
-				bgcolor: this.rgb(0, 0, 0),
+				color: ColorWhite,
+				bgcolor: ColorBlack,
 			},
 			actions: [
 				{
@@ -755,5 +1032,6 @@ exports.getPresets = function () {
 			],
 		})
 	}
+
 	return presets
 }
