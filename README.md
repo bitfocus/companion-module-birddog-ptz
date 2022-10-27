@@ -10,9 +10,16 @@ See [HELP.md](https://github.com/bitfocus/companion-module-birddog-ptz/blob/main
 
 ### v2.3.2
 
+- Changes
+
+  - Add 'Toogle' to appropriate actions
+  - Added On Screen Menu Action
+  - Changed WB Mode options for v5 cameras
+
 - Fixes
   - Fixed Iris action
- 
+  - Corrected multiple feedbacks
+
 ### v2.3.1
 
 - Fixes
