@@ -270,7 +270,7 @@ exports.updateVariables = function () {
 	}
 
 	if (MODEL_VARIABLES.some((variable) => variable.name === 'gain_limit')) {
-		this.setVariable('gain_limit', MODEL_ACTIONS.gain.choices.find((o) => o.id == this.camera.gain_limit)?.label)
+		this.setVariable('gain_limit', MODEL_ACTIONS.gain.value.choices.find((o) => o.id == this.camera.gain_limit)?.label)
 	}
 
 	if (MODEL_VARIABLES.some((variable) => variable.name === 'gain_point')) {
