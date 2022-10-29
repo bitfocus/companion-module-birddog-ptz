@@ -1414,7 +1414,7 @@ module.exports = {
 						type: 'dropdown',
 						label: 'On / Off',
 						id: 'val',
-						choices: MODEL_ACTIONS.high_sensitivity.choices,
+						choices: [...MODEL_ACTIONS.high_sensitivity.choices, { id: 'Toggle', label: 'Toggle' }],
 						default: MODEL_ACTIONS.high_sensitivity.default,
 					},
 				],

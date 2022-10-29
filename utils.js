@@ -85,6 +85,10 @@ function sortByAction(a, b) {
 	return 0
 }
 
+function sortByPresetCategory(a, b) {
+	return a.category.localeCompare(b.category) || a.label.localeCompare(b.label)
+}
+
 function getModelVariables(array, FW, model) {
 	// returns an object containing all variables based on model & FW
 	const variables = []
@@ -164,6 +168,7 @@ module.exports = {
 	strToPQRS,
 	sortByLabel,
 	sortByAction,
+	sortByPresetCategory,
 	getModelVariables,
 	getModelActions,
 	getModelQueries,

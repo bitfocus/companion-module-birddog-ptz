@@ -672,7 +672,7 @@ exports.initFeedbacks = function () {
 	}
 
 	if (MODEL_ACTIONS?.expComp) {
-		feedbacks.exposureCompEn = {
+		feedbacks.exposureoCmpEn = {
 			type: 'boolean',
 			label: MODEL_ACTIONS.expComp.name,
 			description: 'If the camera matches the selected exposure compensation status, change the style of the button',
