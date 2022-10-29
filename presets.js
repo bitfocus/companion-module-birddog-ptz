@@ -1208,7 +1208,7 @@ exports.getPresets = function () {
 
 	if (MODEL_ACTIONS?.recallPset) {
 		let recall
-		for (recall = 1; recall == 9; recall++) {
+		for (recall = 1; recall < 10; recall++) {
 			presets.push({
 				category: 'Preset',
 				label: 'Recall Preset ' + parseInt(recall),
@@ -1233,7 +1233,7 @@ exports.getPresets = function () {
 
 	if (MODEL_ACTIONS?.savePset) {
 		let save
-		for (save = 1; save == 9; save++) {
+		for (save = 1; save < 10; save++) {
 			presets.push({
 				category: 'Preset',
 				label: 'Save Preset ' + parseInt(save),
@@ -5214,7 +5214,7 @@ exports.getPresets = function () {
 			],
 		})
 		presets.push({
-			category: 'Gamma Setup',
+			category: 'Scopes',
 			label: 'Gamma Gain Down',
 			bank: {
 				style: 'text',
