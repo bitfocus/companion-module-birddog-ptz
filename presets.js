@@ -40,7 +40,7 @@ exports.getPresets = function () {
 			bank: {
 				style: 'text',
 				text: 'FW\\n$(birddog-ptz:firmware)',
-				size: 'Auto',
+				size: 'auto',
 				color: ColorWhite,
 				bgcolor: ColorBlack,
 			},
@@ -53,7 +53,7 @@ exports.getPresets = function () {
 			bank: {
 				style: 'text',
 				text: 'Model\\n$(birddog-ptz:model)',
-				size: 'Auto',
+				size: 'auto',
 				color: ColorWhite,
 				bgcolor: ColorBlack,
 			},
@@ -66,7 +66,7 @@ exports.getPresets = function () {
 			bank: {
 				style: 'text',
 				text: 'Hostname\\n$(birddog-ptz:hostname)',
-				size: 'Auto',
+				size: 'auto',
 				color: ColorWhite,
 				bgcolor: ColorBlack,
 			},
@@ -79,7 +79,7 @@ exports.getPresets = function () {
 			bank: {
 				style: 'text',
 				text: 'IP Address\\n$(birddog-ptz:ipaddress)',
-				size: 'Auto',
+				size: 'auto',
 				color: ColorWhite,
 				bgcolor: ColorBlack,
 			},
@@ -92,7 +92,7 @@ exports.getPresets = function () {
 			bank: {
 				style: 'text',
 				text: 'Netmask\\n$(birddog-ptz:netmask)',
-				size: 'Auto',
+				size: 'auto',
 				color: ColorWhite,
 				bgcolor: ColorBlack,
 			},
@@ -105,7 +105,7 @@ exports.getPresets = function () {
 			bank: {
 				style: 'text',
 				text: 'Network Config\\n$(birddog-ptz:network_config)',
-				size: 'Auto',
+				size: 'auto',
 				color: ColorWhite,
 				bgcolor: ColorBlack,
 			},
@@ -118,7 +118,7 @@ exports.getPresets = function () {
 			bank: {
 				style: 'text',
 				text: 'SN\\n$(birddog-ptz:serial_number)',
-				size: 'Auto',
+				size: 'auto',
 				color: ColorWhite,
 				bgcolor: ColorBlack,
 			},
@@ -131,7 +131,7 @@ exports.getPresets = function () {
 			bank: {
 				style: 'text',
 				text: 'Status\\n$(birddog-ptz:status)',
-				size: 'Auto',
+				size: 'auto',
 				color: ColorWhite,
 				bgcolor: ColorBlack,
 			},
@@ -147,7 +147,7 @@ exports.getPresets = function () {
 			bank: {
 				style: 'text',
 				text: '$(birddog-ptz:standby)',
-				size: 'Auto',
+				size: 'auto',
 				color: ColorWhite,
 				bgcolor: ColorBlack,
 			},
@@ -179,7 +179,7 @@ exports.getPresets = function () {
 			bank: {
 				style: 'text',
 				text: 'Freeze\\n$(birddog-ptz:freeze)',
-				size: 'Auto',
+				size: 'auto',
 				color: ColorWhite,
 				bgcolor: ColorBlack,
 			},
@@ -212,7 +212,7 @@ exports.getPresets = function () {
 			bank: {
 				style: 'text',
 				text: '⯅\\nAudio In\\nGain',
-				size: 'Auto',
+				size: 'auto',
 				color: ColorWhite,
 				bgcolor: ColorBlack,
 			},
@@ -231,7 +231,7 @@ exports.getPresets = function () {
 			bank: {
 				style: 'text',
 				text: '$(birddog-ptz:audio_in_gain)\\n⯆',
-				size: 'Auto',
+				size: 'auto',
 				color: ColorWhite,
 				bgcolor: ColorBlack,
 			},
@@ -253,7 +253,7 @@ exports.getPresets = function () {
 			bank: {
 				style: 'text',
 				text: '⯅\\nAudio Out\\nGain',
-				size: 'Auto',
+				size: 'auto',
 				color: ColorWhite,
 				bgcolor: ColorBlack,
 			},
@@ -272,7 +272,7 @@ exports.getPresets = function () {
 			bank: {
 				style: 'text',
 				text: '$(birddog-ptz:audio_out_gain)\\n⯆',
-				size: 'Auto',
+				size: 'auto',
 				color: ColorWhite,
 				bgcolor: ColorBlack,
 			},
@@ -294,7 +294,7 @@ exports.getPresets = function () {
 			bank: {
 				style: 'text',
 				text: 'Audio Output\\n$(birddog-ptz:audio_output)',
-				size: 'Auto',
+				size: 'auto',
 				color: ColorWhite,
 				bgcolor: ColorBlack,
 			},
@@ -328,7 +328,7 @@ exports.getPresets = function () {
 			bank: {
 				style: 'text',
 				text: 'OLED\\n$(birddog-ptz:oled)',
-				size: 'Auto',
+				size: 'auto',
 				color: ColorWhite,
 				bgcolor: ColorBlack,
 			},
@@ -344,7 +344,7 @@ exports.getPresets = function () {
 			bank: {
 				style: 'text',
 				text: 'Video Output\\n\\n$(birddog-ptz:video_output)',
-				size: 'Auto',
+				size: 'auto',
 				color: ColorWhite,
 				bgcolor: ColorBlack,
 			},
@@ -378,7 +378,7 @@ exports.getPresets = function () {
 			bank: {
 				style: 'text',
 				text: 'BW Mode\\n$(birddog-ptz:bandwidth_mode)',
-				size: 'Auto',
+				size: 'auto',
 				color: ColorWhite,
 				bgcolor: ColorBlack,
 			},
@@ -410,7 +410,7 @@ exports.getPresets = function () {
 			bank: {
 				style: 'text',
 				text: 'NDI BW\\n$(birddog-ptz:bandwidth_select)',
-				size: 'Auto',
+				size: 'auto',
 				color: ColorWhite,
 				bgcolor: ColorBlack,
 			},
@@ -424,7 +424,7 @@ exports.getPresets = function () {
 			bank: {
 				style: 'text',
 				text: 'Color Bitdepth\\n$(birddog-ptz:color_bitdepth)',
-				size: 'Auto',
+				size: 'auto',
 				color: ColorWhite,
 				bgcolor: ColorBlack,
 			},
@@ -438,7 +438,7 @@ exports.getPresets = function () {
 			bank: {
 				style: 'text',
 				text: 'NDI Audio\\n$(birddog-ptz:ndi_audio)',
-				size: 'Auto',
+				size: 'auto',
 				color: ColorWhite,
 				bgcolor: ColorBlack,
 			},
@@ -470,7 +470,7 @@ exports.getPresets = function () {
 			bank: {
 				style: 'text',
 				text: 'NDI Group\\n$(birddog-ptz:ndi_group)',
-				size: 'Auto',
+				size: 'auto',
 				color: ColorWhite,
 				bgcolor: ColorBlack,
 			},
@@ -502,7 +502,7 @@ exports.getPresets = function () {
 			bank: {
 				style: 'text',
 				text: 'NDI Group Name\\n$(birddog-ptz:ndi_group_name)',
-				size: 'Auto',
+				size: 'auto',
 				color: ColorWhite,
 				bgcolor: ColorBlack,
 			},
@@ -516,7 +516,7 @@ exports.getPresets = function () {
 			bank: {
 				style: 'text',
 				text: 'SS Mode\\n$(birddog-ptz:screensaver_mode)',
-				size: 'Auto',
+				size: 'auto',
 				color: ColorWhite,
 				bgcolor: ColorBlack,
 			},
@@ -548,7 +548,7 @@ exports.getPresets = function () {
 			bank: {
 				style: 'text',
 				text: 'Stream Name\\n$(birddog-ptz:stream_name)',
-				size: 'Auto',
+				size: 'auto',
 				color: ColorWhite,
 				bgcolor: ColorBlack,
 			},
@@ -562,7 +562,7 @@ exports.getPresets = function () {
 			bank: {
 				style: 'text',
 				text: 'Stream to Network\\n$(birddog-ptz:stream_to_network)',
-				size: 'Auto',
+				size: 'auto',
 				color: ColorWhite,
 				bgcolor: ColorBlack,
 			},
@@ -594,7 +594,7 @@ exports.getPresets = function () {
 			bank: {
 				style: 'text',
 				text: 'Tally Mode\\n$(birddog-ptz:tally_mode)',
-				size: 'Auto',
+				size: 'auto',
 				color: ColorWhite,
 				bgcolor: ColorBlack,
 			},
@@ -626,7 +626,7 @@ exports.getPresets = function () {
 			bank: {
 				style: 'text',
 				text: 'VideoCSC\\n$(birddog-ptz:video_csc)',
-				size: 'Auto',
+				size: 'auto',
 				color: ColorWhite,
 				bgcolor: ColorBlack,
 			},
@@ -640,7 +640,7 @@ exports.getPresets = function () {
 			bank: {
 				style: 'text',
 				text: 'Video Format\\n$(birddog-ptz:video_format)',
-				size: 'Auto',
+				size: 'auto',
 				color: ColorWhite,
 				bgcolor: ColorBlack,
 			},
@@ -654,7 +654,7 @@ exports.getPresets = function () {
 			bank: {
 				style: 'text',
 				text: 'Video Sample Rate\\n$(birddog-ptz:video_sample_rate)',
-				size: 'Auto',
+				size: 'auto',
 				color: ColorWhite,
 				bgcolor: ColorBlack,
 			},
@@ -670,7 +670,7 @@ exports.getPresets = function () {
 			bank: {
 				style: 'text',
 				text: 'TX Method\\n$(birddog-ptz:transmit_method)',
-				size: 'Auto',
+				size: 'auto',
 				color: ColorWhite,
 				bgcolor: ColorBlack,
 			},
@@ -702,7 +702,7 @@ exports.getPresets = function () {
 			bank: {
 				style: 'text',
 				text: 'Multicast\\nNet Prefix\\n$(birddog-ptz:transmit_netprefix)',
-				size: 'Auto',
+				size: 'auto',
 				color: ColorWhite,
 				bgcolor: ColorBlack,
 			},
@@ -716,7 +716,7 @@ exports.getPresets = function () {
 			bank: {
 				style: 'text',
 				text: 'Multicast\\nNetmask\\n$(birddog-ptz:transmit_netmask)',
-				size: 'Auto',
+				size: 'auto',
 				color: ColorWhite,
 				bgcolor: ColorBlack,
 			},
@@ -730,7 +730,7 @@ exports.getPresets = function () {
 			bank: {
 				style: 'text',
 				text: 'Multicast\\nTTL\\n$(birddog-ptz:transmit_ttl)',
-				size: 'Auto',
+				size: 'auto',
 				color: ColorWhite,
 				bgcolor: ColorBlack,
 			},
@@ -744,7 +744,7 @@ exports.getPresets = function () {
 			bank: {
 				style: 'text',
 				text: 'Capture Screensaver',
-				size: 'Auto',
+				size: 'auto',
 				color: ColorWhite,
 				bgcolor: ColorBlack,
 			},
@@ -765,7 +765,7 @@ exports.getPresets = function () {
 			bank: {
 				style: 'text',
 				text: 'NDI Discovery\\nServer\\n$(birddog-ptz:ndi_discovery_server)',
-				size: 'Auto',
+				size: 'auto',
 				color: ColorWhite,
 				bgcolor: ColorBlack,
 			},
@@ -797,7 +797,7 @@ exports.getPresets = function () {
 			bank: {
 				style: 'text',
 				text: 'NDI Discovery\\nServer IP\\n$(birddog-ptz:ndi_discovery_server_ip)',
-				size: 'Auto',
+				size: 'auto',
 				color: ColorWhite,
 				bgcolor: ColorBlack,
 			},
@@ -813,7 +813,7 @@ exports.getPresets = function () {
 			bank: {
 				style: 'text',
 				text: 'FreeD\\n$(birddog-ptz:freed)',
-				size: 'Auto',
+				size: 'auto',
 				color: ColorWhite,
 				bgcolor: ColorBlack,
 			},
@@ -827,7 +827,7 @@ exports.getPresets = function () {
 			bank: {
 				style: 'text',
 				text: 'FreeD\\nIP Address\\n$(birddog-ptz:freed_ip_address)',
-				size: 'Auto',
+				size: 'auto',
 				color: ColorWhite,
 				bgcolor: ColorBlack,
 			},
@@ -841,7 +841,7 @@ exports.getPresets = function () {
 			bank: {
 				style: 'text',
 				text: 'FreeD\\nPort\\n$(birddog-ptz:freed_port)',
-				size: 'Auto',
+				size: 'auto',
 				color: ColorWhite,
 				bgcolor: ColorBlack,
 			},
@@ -857,7 +857,7 @@ exports.getPresets = function () {
 				text: '',
 				png64: image_up,
 				pngalignment: 'center:center',
-				size: 'Auto',
+				size: 'auto',
 				color: ColorWhite,
 				bgcolor: ColorBlack,
 			},
@@ -886,7 +886,7 @@ exports.getPresets = function () {
 				text: '',
 				png64: image_down,
 				pngalignment: 'center:center',
-				size: 'Auto',
+				size: 'auto',
 				color: ColorWhite,
 				bgcolor: ColorBlack,
 			},
@@ -915,7 +915,7 @@ exports.getPresets = function () {
 				text: '',
 				png64: image_left,
 				pngalignment: 'center:center',
-				size: 'Auto',
+				size: 'auto',
 				color: ColorWhite,
 				bgcolor: ColorBlack,
 			},
@@ -944,7 +944,7 @@ exports.getPresets = function () {
 				text: '',
 				png64: image_right,
 				pngalignment: 'center:center',
-				size: 'Auto',
+				size: 'auto',
 				color: ColorWhite,
 				bgcolor: ColorBlack,
 			},
@@ -973,7 +973,7 @@ exports.getPresets = function () {
 				text: '',
 				png64: image_up_right,
 				pngalignment: 'center:center',
-				size: 'Auto',
+				size: 'auto',
 				color: ColorWhite,
 				bgcolor: ColorBlack,
 			},
@@ -1002,7 +1002,7 @@ exports.getPresets = function () {
 				text: '',
 				png64: image_up_left,
 				pngalignment: 'center:center',
-				size: 'Auto',
+				size: 'auto',
 				color: ColorWhite,
 				bgcolor: ColorBlack,
 			},
@@ -1031,7 +1031,7 @@ exports.getPresets = function () {
 				text: '',
 				png64: image_down_left,
 				pngalignment: 'center:center',
-				size: 'Auto',
+				size: 'auto',
 				color: ColorWhite,
 				bgcolor: ColorBlack,
 			},
@@ -1060,7 +1060,7 @@ exports.getPresets = function () {
 				text: '',
 				png64: image_down_right,
 				pngalignment: 'center:center',
-				size: 'Auto',
+				size: 'auto',
 				color: ColorWhite,
 				bgcolor: ColorBlack,
 			},
@@ -1087,7 +1087,7 @@ exports.getPresets = function () {
 			bank: {
 				style: 'text',
 				text: 'HOME',
-				size: 'Auto',
+				size: 'auto',
 				color: ColorWhite,
 				bgcolor: ColorBlack,
 			},
@@ -1215,7 +1215,7 @@ exports.getPresets = function () {
 				bank: {
 					style: 'text',
 					text: 'Recall\\nPreset\\n' + parseInt(recall),
-					size: '14',
+					size: 'auto',
 					color: ColorWhite,
 					bgcolor: ColorBlack,
 				},
@@ -1240,7 +1240,7 @@ exports.getPresets = function () {
 				bank: {
 					style: 'text',
 					text: 'Save\\nPreset\\n' + parseInt(save),
-					size: '14',
+					size: 'auto',
 					color: ColorWhite,
 					bgcolor: ColorBlack,
 				},
@@ -1304,7 +1304,7 @@ exports.getPresets = function () {
 			bank: {
 				style: 'text',
 				text: 'TELE',
-				size: 'Auto',
+				size: 'auto',
 				color: ColorWhite,
 				bgcolor: ColorBlack,
 			},
@@ -1331,7 +1331,7 @@ exports.getPresets = function () {
 			bank: {
 				style: 'text',
 				text: 'WIDE',
-				size: 'Auto',
+				size: 'auto',
 				color: ColorWhite,
 				bgcolor: ColorBlack,
 			},
@@ -1423,7 +1423,7 @@ exports.getPresets = function () {
 			bank: {
 				style: 'text',
 				text: 'Focus\\nIn',
-				size: 'Auto',
+				size: 'auto',
 				color: ColorWhite,
 				bgcolor: ColorBlack,
 			},
@@ -1450,7 +1450,7 @@ exports.getPresets = function () {
 			bank: {
 				style: 'text',
 				text: 'Focus\\nOut',
-				size: 'Auto',
+				size: 'auto',
 				color: ColorWhite,
 				bgcolor: ColorBlack,
 			},
@@ -1477,7 +1477,7 @@ exports.getPresets = function () {
 			bank: {
 				style: 'text',
 				text: 'Focus Mode\\n$(birddog-ptz:focus_mode)',
-				size: 'Auto',
+				size: 'auto',
 				color: ColorWhite,
 				bgcolor: ColorBlack,
 			},
@@ -1506,7 +1506,7 @@ exports.getPresets = function () {
 			bank: {
 				style: 'text',
 				text: 'O.P.\\nAF',
-				size: 'Auto',
+				size: 'auto',
 				color: ColorWhite,
 				bgcolor: ColorBlack,
 			},
@@ -1530,7 +1530,7 @@ exports.getPresets = function () {
 			bank: {
 				style: 'text',
 				text: 'Ae Response\\n$(birddog-ptz:ae_response)',
-				size: 'Auto',
+				size: 'auto',
 				color: ColorWhite,
 				bgcolor: ColorBlack,
 			},
@@ -1562,7 +1562,7 @@ exports.getPresets = function () {
 			bank: {
 				style: 'text',
 				text: 'Backlight\\n$(birddog-ptz:backlight)',
-				size: 'Auto',
+				size: 'auto',
 				color: ColorWhite,
 				bgcolor: ColorBlack,
 			},
@@ -1594,7 +1594,7 @@ exports.getPresets = function () {
 			bank: {
 				style: 'text',
 				text: 'Bright Level\\n$(birddog-ptz:bright_level)',
-				size: 'Auto',
+				size: 'auto',
 				color: ColorWhite,
 				bgcolor: ColorBlack,
 			},
@@ -1626,7 +1626,7 @@ exports.getPresets = function () {
 			bank: {
 				style: 'text',
 				text: 'Exposure Compensation\\n$(birddog-ptz:exposure_comp)',
-				size: 'Auto',
+				size: 'auto',
 				color: ColorWhite,
 				bgcolor: ColorBlack,
 			},
@@ -1658,7 +1658,7 @@ exports.getPresets = function () {
 			bank: {
 				style: 'text',
 				text: 'Exposure\\nCompensation\\nLevel\\n$(birddog-ptz:exposure_comp_level)',
-				size: 'Auto',
+				size: 'auto',
 				color: ColorWhite,
 				bgcolor: ColorBlack,
 			},
@@ -1672,7 +1672,7 @@ exports.getPresets = function () {
 			bank: {
 				style: 'text',
 				text: 'Exposure\\nMode\\n$(birddog-ptz:exposure_mode)',
-				size: 'Auto',
+				size: 'auto',
 				color: ColorWhite,
 				bgcolor: ColorBlack,
 			},
@@ -1704,7 +1704,7 @@ exports.getPresets = function () {
 			bank: {
 				style: 'text',
 				text: '⯅\\nGain',
-				size: 'Auto',
+				size: 'auto',
 				color: ColorWhite,
 				bgcolor: ColorBlack,
 			},
@@ -1723,7 +1723,7 @@ exports.getPresets = function () {
 			bank: {
 				style: 'text',
 				text: '$(birddog-ptz:gain)\\n⯆',
-				size: 'Auto',
+				size: 'auto',
 				color: ColorWhite,
 				bgcolor: ColorBlack,
 			},
@@ -1745,7 +1745,7 @@ exports.getPresets = function () {
 			bank: {
 				style: 'text',
 				text: '⯅\\nGain Limit',
-				size: 'Auto',
+				size: 'auto',
 				color: ColorWhite,
 				bgcolor: ColorBlack,
 			},
@@ -1764,7 +1764,7 @@ exports.getPresets = function () {
 			bank: {
 				style: 'text',
 				text: '$(birddog-ptz:gain_limit)\\n⯆',
-				size: 'Auto',
+				size: 'auto',
 				color: ColorWhite,
 				bgcolor: ColorBlack,
 			},
@@ -1786,7 +1786,7 @@ exports.getPresets = function () {
 			bank: {
 				style: 'text',
 				text: 'Gain point\\n$(birddog-ptz:gain_point)',
-				size: 'Auto',
+				size: 'auto',
 				color: ColorWhite,
 				bgcolor: ColorBlack,
 			},
@@ -1818,7 +1818,7 @@ exports.getPresets = function () {
 			bank: {
 				style: 'text',
 				text: '⯅\\nGain Point\\nPosition',
-				size: 'Auto',
+				size: 'auto',
 				color: ColorWhite,
 				bgcolor: ColorBlack,
 			},
@@ -1837,7 +1837,7 @@ exports.getPresets = function () {
 			bank: {
 				style: 'text',
 				text: '$(birddog-ptz:gain_point_position)\\n⯆',
-				size: 'Auto',
+				size: 'auto',
 				color: ColorWhite,
 				bgcolor: ColorBlack,
 			},
@@ -1859,7 +1859,7 @@ exports.getPresets = function () {
 			bank: {
 				style: 'text',
 				text: 'High Sensitivity\\n$(birddog-ptz:high_sensitivity)',
-				size: 'Auto',
+				size: 'auto',
 				color: ColorWhite,
 				bgcolor: ColorBlack,
 			},
@@ -1891,7 +1891,7 @@ exports.getPresets = function () {
 			bank: {
 				style: 'text',
 				text: '⯅\\nIris',
-				size: 'Auto',
+				size: 'auto',
 				color: ColorWhite,
 				bgcolor: ColorBlack,
 			},
@@ -1910,7 +1910,7 @@ exports.getPresets = function () {
 			bank: {
 				style: 'text',
 				text: '$(birddog-ptz:iris)\\n⯆',
-				size: 'Auto',
+				size: 'auto',
 				color: ColorWhite,
 				bgcolor: ColorBlack,
 			},
@@ -1932,7 +1932,7 @@ exports.getPresets = function () {
 			bank: {
 				style: 'text',
 				text: 'Shutter Control\\nOverwrite\\n$(birddog-ptz:shutter_control_overwrite)',
-				size: 'Auto',
+				size: 'auto',
 				color: ColorWhite,
 				bgcolor: ColorBlack,
 			},
@@ -1964,7 +1964,7 @@ exports.getPresets = function () {
 			bank: {
 				style: 'text',
 				text: '⯅\\nShutter\\nMax Speed',
-				size: 'Auto',
+				size: 'auto',
 				color: ColorWhite,
 				bgcolor: ColorBlack,
 			},
@@ -1983,7 +1983,7 @@ exports.getPresets = function () {
 			bank: {
 				style: 'text',
 				text: '$(birddog-ptz:shutter_max_speed)\\n⯆',
-				size: 'Auto',
+				size: 'auto',
 				color: ColorWhite,
 				bgcolor: ColorBlack,
 			},
@@ -2005,7 +2005,7 @@ exports.getPresets = function () {
 			bank: {
 				style: 'text',
 				text: '⯅\\nShutter\\nMin Speed',
-				size: 'Auto',
+				size: 'auto',
 				color: ColorWhite,
 				bgcolor: ColorBlack,
 			},
@@ -2024,7 +2024,7 @@ exports.getPresets = function () {
 			bank: {
 				style: 'text',
 				text: '$(birddog-ptz:shutter_min_speed)\\n⯆',
-				size: 'Auto',
+				size: 'auto',
 				color: ColorWhite,
 				bgcolor: ColorBlack,
 			},
@@ -2046,7 +2046,7 @@ exports.getPresets = function () {
 			bank: {
 				style: 'text',
 				text: '⯅\\nShutter',
-				size: 'Auto',
+				size: 'auto',
 				color: ColorWhite,
 				bgcolor: ColorBlack,
 			},
@@ -2065,7 +2065,7 @@ exports.getPresets = function () {
 			bank: {
 				style: 'text',
 				text: '$(birddog-ptz:shutter_speed)\\n⯆',
-				size: 'Auto',
+				size: 'auto',
 				color: ColorWhite,
 				bgcolor: ColorBlack,
 			},
@@ -2087,7 +2087,7 @@ exports.getPresets = function () {
 			bank: {
 				style: 'text',
 				text: '⯅\\nShutter Speed\\nOverwrite',
-				size: 'Auto',
+				size: 'auto',
 				color: ColorWhite,
 				bgcolor: ColorBlack,
 			},
@@ -2106,7 +2106,7 @@ exports.getPresets = function () {
 			bank: {
 				style: 'text',
 				text: '$(birddog-ptz:shutter_speed_overwrite)\\n⯆',
-				size: 'Auto',
+				size: 'auto',
 				color: ColorWhite,
 				bgcolor: ColorBlack,
 			},
@@ -2128,7 +2128,7 @@ exports.getPresets = function () {
 			bank: {
 				style: 'text',
 				text: 'Slow Shutter\\nEnable\\n$(birddog-ptz:slow_shutter_en)',
-				size: 'Auto',
+				size: 'auto',
 				color: ColorWhite,
 				bgcolor: ColorBlack,
 			},
@@ -2160,7 +2160,7 @@ exports.getPresets = function () {
 			bank: {
 				style: 'text',
 				text: '⯅\\nSlow Shutter\\nLimit',
-				size: 'Auto',
+				size: 'auto',
 				color: ColorWhite,
 				bgcolor: ColorBlack,
 			},
@@ -2179,7 +2179,7 @@ exports.getPresets = function () {
 			bank: {
 				style: 'text',
 				text: '$(birddog-ptz:slow_shutter_limit)\\n⯆',
-				size: 'Auto',
+				size: 'auto',
 				color: ColorWhite,
 				bgcolor: ColorBlack,
 			},
@@ -2201,7 +2201,7 @@ exports.getPresets = function () {
 			bank: {
 				style: 'text',
 				text: 'Spotlight\\n$(birddog-ptz:spotlight)',
-				size: 'Auto',
+				size: 'auto',
 				color: ColorWhite,
 				bgcolor: ColorBlack,
 			},
@@ -2235,7 +2235,7 @@ exports.getPresets = function () {
 			bank: {
 				style: 'text',
 				text: '⯅\\nBG',
-				size: 'Auto',
+				size: 'auto',
 				color: ColorWhite,
 				bgcolor: ColorBlack,
 			},
@@ -2254,7 +2254,7 @@ exports.getPresets = function () {
 			bank: {
 				style: 'text',
 				text: '$(birddog-ptz:bg)\\n⯆',
-				size: 'Auto',
+				size: 'auto',
 				color: ColorWhite,
 				bgcolor: ColorBlack,
 			},
@@ -2276,7 +2276,7 @@ exports.getPresets = function () {
 			bank: {
 				style: 'text',
 				text: '⯅\\nBR',
-				size: 'Auto',
+				size: 'auto',
 				color: ColorWhite,
 				bgcolor: ColorBlack,
 			},
@@ -2295,7 +2295,7 @@ exports.getPresets = function () {
 			bank: {
 				style: 'text',
 				text: '$(birddog-ptz:br)\\n⯆',
-				size: 'Auto',
+				size: 'auto',
 				color: ColorWhite,
 				bgcolor: ColorBlack,
 			},
@@ -2317,7 +2317,7 @@ exports.getPresets = function () {
 			bank: {
 				style: 'text',
 				text: '⯅\\nBlue Gain',
-				size: 'Auto',
+				size: 'auto',
 				color: ColorWhite,
 				bgcolor: ColorBlack,
 			},
@@ -2336,7 +2336,7 @@ exports.getPresets = function () {
 			bank: {
 				style: 'text',
 				text: '$(birddog-ptz:blue_gain)\\n⯆',
-				size: 'Auto',
+				size: 'auto',
 				color: ColorWhite,
 				bgcolor: ColorBlack,
 			},
@@ -2358,7 +2358,7 @@ exports.getPresets = function () {
 			bank: {
 				style: 'text',
 				text: '⯅\\nColor Temp',
-				size: 'Auto',
+				size: 'auto',
 				color: ColorWhite,
 				bgcolor: ColorBlack,
 			},
@@ -2377,7 +2377,7 @@ exports.getPresets = function () {
 			bank: {
 				style: 'text',
 				text: '$(birddog-ptz:color_temp)K\\n⯆',
-				size: 'Auto',
+				size: 'auto',
 				color: ColorWhite,
 				bgcolor: ColorBlack,
 			},
@@ -2399,7 +2399,7 @@ exports.getPresets = function () {
 			bank: {
 				style: 'text',
 				text: '⯅\\nGB',
-				size: 'Auto',
+				size: 'auto',
 				color: ColorWhite,
 				bgcolor: ColorBlack,
 			},
@@ -2418,7 +2418,7 @@ exports.getPresets = function () {
 			bank: {
 				style: 'text',
 				text: '$(birddog-ptz:gb)\\n⯆',
-				size: 'Auto',
+				size: 'auto',
 				color: ColorWhite,
 				bgcolor: ColorBlack,
 			},
@@ -2440,7 +2440,7 @@ exports.getPresets = function () {
 			bank: {
 				style: 'text',
 				text: '⯅\\nGR',
-				size: 'Auto',
+				size: 'auto',
 				color: ColorWhite,
 				bgcolor: ColorBlack,
 			},
@@ -2459,7 +2459,7 @@ exports.getPresets = function () {
 			bank: {
 				style: 'text',
 				text: '$(birddog-ptz:gr)\\n⯆',
-				size: 'Auto',
+				size: 'auto',
 				color: ColorWhite,
 				bgcolor: ColorBlack,
 			},
@@ -2481,7 +2481,7 @@ exports.getPresets = function () {
 			bank: {
 				style: 'text',
 				text: '⯅\\nLevel',
-				size: 'Auto',
+				size: 'auto',
 				color: ColorWhite,
 				bgcolor: ColorBlack,
 			},
@@ -2500,7 +2500,7 @@ exports.getPresets = function () {
 			bank: {
 				style: 'text',
 				text: '$(birddog-ptz:level)\\n⯆',
-				size: 'Auto',
+				size: 'auto',
 				color: ColorWhite,
 				bgcolor: ColorBlack,
 			},
@@ -2522,7 +2522,7 @@ exports.getPresets = function () {
 			bank: {
 				style: 'text',
 				text: 'Matrix\\n$(birddog-ptz:matrix)',
-				size: 'Auto',
+				size: 'auto',
 				color: ColorWhite,
 				bgcolor: ColorBlack,
 			},
@@ -2554,7 +2554,7 @@ exports.getPresets = function () {
 			bank: {
 				style: 'text',
 				text: '⯅\\nOffset',
-				size: 'Auto',
+				size: 'auto',
 				color: ColorWhite,
 				bgcolor: ColorBlack,
 			},
@@ -2573,7 +2573,7 @@ exports.getPresets = function () {
 			bank: {
 				style: 'text',
 				text: '$(birddog-ptz:offset)\\n⯆',
-				size: 'Auto',
+				size: 'auto',
 				color: ColorWhite,
 				bgcolor: ColorBlack,
 			},
@@ -2595,7 +2595,7 @@ exports.getPresets = function () {
 			bank: {
 				style: 'text',
 				text: '⯅\\nPhase',
-				size: 'Auto',
+				size: 'auto',
 				color: ColorWhite,
 				bgcolor: ColorBlack,
 			},
@@ -2614,7 +2614,7 @@ exports.getPresets = function () {
 			bank: {
 				style: 'text',
 				text: '$(birddog-ptz:phase)\\n⯆',
-				size: 'Auto',
+				size: 'auto',
 				color: ColorWhite,
 				bgcolor: ColorBlack,
 			},
@@ -2636,7 +2636,7 @@ exports.getPresets = function () {
 			bank: {
 				style: 'text',
 				text: '⯅\\nRB',
-				size: 'Auto',
+				size: 'auto',
 				color: ColorWhite,
 				bgcolor: ColorBlack,
 			},
@@ -2655,7 +2655,7 @@ exports.getPresets = function () {
 			bank: {
 				style: 'text',
 				text: '$(birddog-ptz:rb)\\n⯆',
-				size: 'Auto',
+				size: 'auto',
 				color: ColorWhite,
 				bgcolor: ColorBlack,
 			},
@@ -2677,7 +2677,7 @@ exports.getPresets = function () {
 			bank: {
 				style: 'text',
 				text: '⯅\\nRG',
-				size: 'Auto',
+				size: 'auto',
 				color: ColorWhite,
 				bgcolor: ColorBlack,
 			},
@@ -2696,7 +2696,7 @@ exports.getPresets = function () {
 			bank: {
 				style: 'text',
 				text: '$(birddog-ptz:rg)\\n⯆',
-				size: 'Auto',
+				size: 'auto',
 				color: ColorWhite,
 				bgcolor: ColorBlack,
 			},
@@ -2718,7 +2718,7 @@ exports.getPresets = function () {
 			bank: {
 				style: 'text',
 				text: '⯅\\nRed Gain',
-				size: 'Auto',
+				size: 'auto',
 				color: ColorWhite,
 				bgcolor: ColorBlack,
 			},
@@ -2737,7 +2737,7 @@ exports.getPresets = function () {
 			bank: {
 				style: 'text',
 				text: '$(birddog-ptz:red_gain)\\n⯆',
-				size: 'Auto',
+				size: 'auto',
 				color: ColorWhite,
 				bgcolor: ColorBlack,
 			},
@@ -2759,7 +2759,7 @@ exports.getPresets = function () {
 			bank: {
 				style: 'text',
 				text: 'Select\\n$(birddog-ptz:select)',
-				size: 'Auto',
+				size: 'auto',
 				color: ColorWhite,
 				bgcolor: ColorBlack,
 			},
@@ -2791,7 +2791,7 @@ exports.getPresets = function () {
 			bank: {
 				style: 'text',
 				text: '⯅\\nSpeed',
-				size: 'Auto',
+				size: 'auto',
 				color: ColorWhite,
 				bgcolor: ColorBlack,
 			},
@@ -2810,7 +2810,7 @@ exports.getPresets = function () {
 			bank: {
 				style: 'text',
 				text: '$(birddog-ptz:speed)\\n⯆',
-				size: 'Auto',
+				size: 'auto',
 				color: ColorWhite,
 				bgcolor: ColorBlack,
 			},
@@ -2832,7 +2832,7 @@ exports.getPresets = function () {
 			bank: {
 				style: 'text',
 				text: 'WB Mode\\n$(birddog-ptz:wb_mode)',
-				size: 'Auto',
+				size: 'auto',
 				color: ColorWhite,
 				bgcolor: ColorBlack,
 			},
@@ -2864,7 +2864,7 @@ exports.getPresets = function () {
 			bank: {
 				style: 'text',
 				text: 'WB\\nONE PUSH',
-				size: 'Auto',
+				size: 'auto',
 				color: ColorWhite,
 				bgcolor: ColorBlack,
 			},
@@ -2885,7 +2885,7 @@ exports.getPresets = function () {
 			bank: {
 				style: 'text',
 				text: 'Backlight\\nComp\\n$(birddog-ptz:backlight_com)',
-				size: 'Auto',
+				size: 'auto',
 				color: ColorWhite,
 				bgcolor: ColorBlack,
 			},
@@ -2917,7 +2917,7 @@ exports.getPresets = function () {
 			bank: {
 				style: 'text',
 				text: 'Chroma\\nSuppress\\n$(birddog-ptz:chroma_suppress)',
-				size: 'Auto',
+				size: 'auto',
 				color: ColorWhite,
 				bgcolor: ColorBlack,
 			},
@@ -2949,7 +2949,7 @@ exports.getPresets = function () {
 			bank: {
 				style: 'text',
 				text: '⯅\\nSaturation',
-				size: 'Auto',
+				size: 'auto',
 				color: ColorWhite,
 				bgcolor: ColorBlack,
 			},
@@ -2968,7 +2968,7 @@ exports.getPresets = function () {
 			bank: {
 				style: 'text',
 				text: '$(birddog-ptz:saturation)\\n⯆',
-				size: 'Auto',
+				size: 'auto',
 				color: ColorWhite,
 				bgcolor: ColorBlack,
 			},
@@ -2990,7 +2990,7 @@ exports.getPresets = function () {
 			bank: {
 				style: 'text',
 				text: '⯅\\nContrast',
-				size: 'Auto',
+				size: 'auto',
 				color: ColorWhite,
 				bgcolor: ColorBlack,
 			},
@@ -3009,7 +3009,7 @@ exports.getPresets = function () {
 			bank: {
 				style: 'text',
 				text: '$(birddog-ptz:contrast)\\n⯆',
-				size: 'Auto',
+				size: 'auto',
 				color: ColorWhite,
 				bgcolor: ColorBlack,
 			},
@@ -3031,7 +3031,7 @@ exports.getPresets = function () {
 			bank: {
 				style: 'text',
 				text: 'Effect\\n$(birddog-ptz:bw_effect)',
-				size: 'Auto',
+				size: 'auto',
 				color: ColorWhite,
 				bgcolor: ColorBlack,
 			},
@@ -3063,7 +3063,7 @@ exports.getPresets = function () {
 			bank: {
 				style: 'text',
 				text: 'Flip\\n$(birddog-ptz:flip)',
-				size: 'Auto',
+				size: 'auto',
 				color: ColorWhite,
 				bgcolor: ColorBlack,
 			},
@@ -3095,7 +3095,7 @@ exports.getPresets = function () {
 			bank: {
 				style: 'text',
 				text: '⯅\\nGamma',
-				size: 'Auto',
+				size: 'auto',
 				color: ColorWhite,
 				bgcolor: ColorBlack,
 			},
@@ -3114,7 +3114,7 @@ exports.getPresets = function () {
 			bank: {
 				style: 'text',
 				text: '$(birddog-ptz:gamma)\\n⯆',
-				size: 'Auto',
+				size: 'auto',
 				color: ColorWhite,
 				bgcolor: ColorBlack,
 			},
@@ -3136,7 +3136,7 @@ exports.getPresets = function () {
 			bank: {
 				style: 'text',
 				text: 'Flip\\n$(birddog-ptz:highlight_comp)',
-				size: 'Auto',
+				size: 'auto',
 				color: ColorWhite,
 				bgcolor: ColorBlack,
 			},
@@ -3168,7 +3168,7 @@ exports.getPresets = function () {
 			bank: {
 				style: 'text',
 				text: '⯅\\nHighlight\\nCompensation Mask',
-				size: 'Auto',
+				size: 'auto',
 				color: ColorWhite,
 				bgcolor: ColorBlack,
 			},
@@ -3187,7 +3187,7 @@ exports.getPresets = function () {
 			bank: {
 				style: 'text',
 				text: '$(birddog-ptz:highlight_comp_mask)\\n⯆',
-				size: 'Auto',
+				size: 'auto',
 				color: ColorWhite,
 				bgcolor: ColorBlack,
 			},
@@ -3209,7 +3209,7 @@ exports.getPresets = function () {
 			bank: {
 				style: 'text',
 				text: '⯅\\nHue',
-				size: 'Auto',
+				size: 'auto',
 				color: ColorWhite,
 				bgcolor: ColorBlack,
 			},
@@ -3228,7 +3228,7 @@ exports.getPresets = function () {
 			bank: {
 				style: 'text',
 				text: '$(birddog-ptz:hue)\\n⯆',
-				size: 'Auto',
+				size: 'auto',
 				color: ColorWhite,
 				bgcolor: ColorBlack,
 			},
@@ -3250,7 +3250,7 @@ exports.getPresets = function () {
 			bank: {
 				style: 'text',
 				text: 'IR Cut Filter\\n$(birddog-ptz:ir_cutfilter)',
-				size: 'Auto',
+				size: 'auto',
 				color: ColorWhite,
 				bgcolor: ColorBlack,
 			},
@@ -3282,7 +3282,7 @@ exports.getPresets = function () {
 			bank: {
 				style: 'text',
 				text: 'Low Latency\\n$(birddog-ptz:low_latency)',
-				size: 'Auto',
+				size: 'auto',
 				color: ColorWhite,
 				bgcolor: ColorBlack,
 			},
@@ -3314,7 +3314,7 @@ exports.getPresets = function () {
 			bank: {
 				style: 'text',
 				text: 'Mirror\\n$(birddog-ptz:mirror)',
-				size: 'Auto',
+				size: 'auto',
 				color: ColorWhite,
 				bgcolor: ColorBlack,
 			},
@@ -3346,7 +3346,7 @@ exports.getPresets = function () {
 			bank: {
 				style: 'text',
 				text: '⯅\\nHue',
-				size: 'Auto',
+				size: 'auto',
 				color: ColorWhite,
 				bgcolor: ColorBlack,
 			},
@@ -3365,7 +3365,7 @@ exports.getPresets = function () {
 			bank: {
 				style: 'text',
 				text: '$(birddog-ptz:nd_filter)\\n⯆',
-				size: 'Auto',
+				size: 'auto',
 				color: ColorWhite,
 				bgcolor: ColorBlack,
 			},
@@ -3387,7 +3387,7 @@ exports.getPresets = function () {
 			bank: {
 				style: 'text',
 				text: '⯅\\nNR',
-				size: 'Auto',
+				size: 'auto',
 				color: ColorWhite,
 				bgcolor: ColorBlack,
 			},
@@ -3406,7 +3406,7 @@ exports.getPresets = function () {
 			bank: {
 				style: 'text',
 				text: '$(birddog-ptz:noise_reduction)\\n⯆',
-				size: 'Auto',
+				size: 'auto',
 				color: ColorWhite,
 				bgcolor: ColorBlack,
 			},
@@ -3428,7 +3428,7 @@ exports.getPresets = function () {
 			bank: {
 				style: 'text',
 				text: '⯅\\nSharpness',
-				size: 'Auto',
+				size: 'auto',
 				color: ColorWhite,
 				bgcolor: ColorBlack,
 			},
@@ -3447,7 +3447,7 @@ exports.getPresets = function () {
 			bank: {
 				style: 'text',
 				text: '$(birddog-ptz:sharpness)\\n⯆',
-				size: 'Auto',
+				size: 'auto',
 				color: ColorWhite,
 				bgcolor: ColorBlack,
 			},
@@ -3469,7 +3469,7 @@ exports.getPresets = function () {
 			bank: {
 				style: 'text',
 				text: 'Mirror\\n$(birddog-ptz:stabilizer)',
-				size: 'Auto',
+				size: 'auto',
 				color: ColorWhite,
 				bgcolor: ColorBlack,
 			},
@@ -3501,7 +3501,7 @@ exports.getPresets = function () {
 			bank: {
 				style: 'text',
 				text: '⯅\\n3D NR',
-				size: 'Auto',
+				size: 'auto',
 				color: ColorWhite,
 				bgcolor: ColorBlack,
 			},
@@ -3520,7 +3520,7 @@ exports.getPresets = function () {
 			bank: {
 				style: 'text',
 				text: '$(birddog-ptz:threed_nr)\\n⯆',
-				size: 'Auto',
+				size: 'auto',
 				color: ColorWhite,
 				bgcolor: ColorBlack,
 			},
@@ -3542,7 +3542,7 @@ exports.getPresets = function () {
 			bank: {
 				style: 'text',
 				text: '⯅\\n2D NR',
-				size: 'Auto',
+				size: 'auto',
 				color: ColorWhite,
 				bgcolor: ColorBlack,
 			},
@@ -3561,7 +3561,7 @@ exports.getPresets = function () {
 			bank: {
 				style: 'text',
 				text: '$(birddog-ptz:twod_nr)\\n⯆',
-				size: 'Auto',
+				size: 'auto',
 				color: ColorWhite,
 				bgcolor: ColorBlack,
 			},
@@ -3583,7 +3583,7 @@ exports.getPresets = function () {
 			bank: {
 				style: 'text',
 				text: '⯅\\nWDR',
-				size: 'Auto',
+				size: 'auto',
 				color: ColorWhite,
 				bgcolor: ColorBlack,
 			},
@@ -3602,7 +3602,7 @@ exports.getPresets = function () {
 			bank: {
 				style: 'text',
 				text: '$(birddog-ptz:wide_dynamic_range)\\n⯆',
-				size: 'Auto',
+				size: 'auto',
 				color: ColorWhite,
 				bgcolor: ColorBlack,
 			},
@@ -3626,7 +3626,7 @@ exports.getPresets = function () {
 			bank: {
 				style: 'text',
 				text: '⯅\\nBlue Gain',
-				size: 'Auto',
+				size: 'auto',
 				color: ColorWhite,
 				bgcolor: ColorBlack,
 			},
@@ -3645,7 +3645,7 @@ exports.getPresets = function () {
 			bank: {
 				style: 'text',
 				text: '$(birddog-ptz:cm_blue_gain)\\n⯆',
-				size: 'Auto',
+				size: 'auto',
 				color: ColorWhite,
 				bgcolor: ColorBlack,
 			},
@@ -3667,7 +3667,7 @@ exports.getPresets = function () {
 			bank: {
 				style: 'text',
 				text: '⯅\\nBlue Hue',
-				size: 'Auto',
+				size: 'auto',
 				color: ColorWhite,
 				bgcolor: ColorBlack,
 			},
@@ -3686,7 +3686,7 @@ exports.getPresets = function () {
 			bank: {
 				style: 'text',
 				text: '$(birddog-ptz:cm_blue_hue)\\n⯆',
-				size: 'Auto',
+				size: 'auto',
 				color: ColorWhite,
 				bgcolor: ColorBlack,
 			},
@@ -3708,7 +3708,7 @@ exports.getPresets = function () {
 			bank: {
 				style: 'text',
 				text: '⯅\\nColor Gain',
-				size: 'Auto',
+				size: 'auto',
 				color: ColorWhite,
 				bgcolor: ColorBlack,
 			},
@@ -3727,7 +3727,7 @@ exports.getPresets = function () {
 			bank: {
 				style: 'text',
 				text: '$(birddog-ptz:cm_color_gain)\\n⯆',
-				size: 'Auto',
+				size: 'auto',
 				color: ColorWhite,
 				bgcolor: ColorBlack,
 			},
@@ -3749,7 +3749,7 @@ exports.getPresets = function () {
 			bank: {
 				style: 'text',
 				text: '⯅\\nCyan Gain',
-				size: 'Auto',
+				size: 'auto',
 				color: ColorWhite,
 				bgcolor: ColorBlack,
 			},
@@ -3768,7 +3768,7 @@ exports.getPresets = function () {
 			bank: {
 				style: 'text',
 				text: '$(birddog-ptz:cm_cyan_gain)\\n⯆',
-				size: 'Auto',
+				size: 'auto',
 				color: ColorWhite,
 				bgcolor: ColorBlack,
 			},
@@ -3790,7 +3790,7 @@ exports.getPresets = function () {
 			bank: {
 				style: 'text',
 				text: '⯅\\nCyan Hue',
-				size: 'Auto',
+				size: 'auto',
 				color: ColorWhite,
 				bgcolor: ColorBlack,
 			},
@@ -3809,7 +3809,7 @@ exports.getPresets = function () {
 			bank: {
 				style: 'text',
 				text: '$(birddog-ptz:cm_cyan_hue)\\n⯆',
-				size: 'Auto',
+				size: 'auto',
 				color: ColorWhite,
 				bgcolor: ColorBlack,
 			},
@@ -3831,7 +3831,7 @@ exports.getPresets = function () {
 			bank: {
 				style: 'text',
 				text: '⯅\\nGreen Gain',
-				size: 'Auto',
+				size: 'auto',
 				color: ColorWhite,
 				bgcolor: ColorBlack,
 			},
@@ -3850,7 +3850,7 @@ exports.getPresets = function () {
 			bank: {
 				style: 'text',
 				text: '$(birddog-ptz:cm_green_gain)\\n⯆',
-				size: 'Auto',
+				size: 'auto',
 				color: ColorWhite,
 				bgcolor: ColorBlack,
 			},
@@ -3872,7 +3872,7 @@ exports.getPresets = function () {
 			bank: {
 				style: 'text',
 				text: '⯅\\nGreen Hue',
-				size: 'Auto',
+				size: 'auto',
 				color: ColorWhite,
 				bgcolor: ColorBlack,
 			},
@@ -3891,7 +3891,7 @@ exports.getPresets = function () {
 			bank: {
 				style: 'text',
 				text: '$(birddog-ptz:cm_green_hue)\\n⯆',
-				size: 'Auto',
+				size: 'auto',
 				color: ColorWhite,
 				bgcolor: ColorBlack,
 			},
@@ -3913,7 +3913,7 @@ exports.getPresets = function () {
 			bank: {
 				style: 'text',
 				text: '⯅\\nHue Phase',
-				size: 'Auto',
+				size: 'auto',
 				color: ColorWhite,
 				bgcolor: ColorBlack,
 			},
@@ -3932,7 +3932,7 @@ exports.getPresets = function () {
 			bank: {
 				style: 'text',
 				text: '$(birddog-ptz:cm_hue_phase)\\n⯆',
-				size: 'Auto',
+				size: 'auto',
 				color: ColorWhite,
 				bgcolor: ColorBlack,
 			},
@@ -3954,7 +3954,7 @@ exports.getPresets = function () {
 			bank: {
 				style: 'text',
 				text: '⯅\\nMagenta Gain',
-				size: 'Auto',
+				size: 'auto',
 				color: ColorWhite,
 				bgcolor: ColorBlack,
 			},
@@ -3973,7 +3973,7 @@ exports.getPresets = function () {
 			bank: {
 				style: 'text',
 				text: '$(birddog-ptz:cm_mag_gain)\\n⯆',
-				size: 'Auto',
+				size: 'auto',
 				color: ColorWhite,
 				bgcolor: ColorBlack,
 			},
@@ -3995,7 +3995,7 @@ exports.getPresets = function () {
 			bank: {
 				style: 'text',
 				text: '⯅\\nMagenta Hue',
-				size: 'Auto',
+				size: 'auto',
 				color: ColorWhite,
 				bgcolor: ColorBlack,
 			},
@@ -4014,7 +4014,7 @@ exports.getPresets = function () {
 			bank: {
 				style: 'text',
 				text: '$(birddog-ptz:cm_mag_hue)\\n⯆',
-				size: 'Auto',
+				size: 'auto',
 				color: ColorWhite,
 				bgcolor: ColorBlack,
 			},
@@ -4036,7 +4036,7 @@ exports.getPresets = function () {
 			bank: {
 				style: 'text',
 				text: '⯅\\nRed Gain',
-				size: 'Auto',
+				size: 'auto',
 				color: ColorWhite,
 				bgcolor: ColorBlack,
 			},
@@ -4055,7 +4055,7 @@ exports.getPresets = function () {
 			bank: {
 				style: 'text',
 				text: '$(birddog-ptz:cm_red_gain)\\n⯆',
-				size: 'Auto',
+				size: 'auto',
 				color: ColorWhite,
 				bgcolor: ColorBlack,
 			},
@@ -4077,7 +4077,7 @@ exports.getPresets = function () {
 			bank: {
 				style: 'text',
 				text: '⯅\\nRed Hue',
-				size: 'Auto',
+				size: 'auto',
 				color: ColorWhite,
 				bgcolor: ColorBlack,
 			},
@@ -4096,7 +4096,7 @@ exports.getPresets = function () {
 			bank: {
 				style: 'text',
 				text: '$(birddog-ptz:cm_red_hue)\\n⯆',
-				size: 'Auto',
+				size: 'auto',
 				color: ColorWhite,
 				bgcolor: ColorBlack,
 			},
@@ -4118,7 +4118,7 @@ exports.getPresets = function () {
 			bank: {
 				style: 'text',
 				text: '⯅\\nYellow Gain',
-				size: 'Auto',
+				size: 'auto',
 				color: ColorWhite,
 				bgcolor: ColorBlack,
 			},
@@ -4137,7 +4137,7 @@ exports.getPresets = function () {
 			bank: {
 				style: 'text',
 				text: '$(birddog-ptz:cm_yellow_gain)\\n⯆',
-				size: 'Auto',
+				size: 'auto',
 				color: ColorWhite,
 				bgcolor: ColorBlack,
 			},
@@ -4159,7 +4159,7 @@ exports.getPresets = function () {
 			bank: {
 				style: 'text',
 				text: '⯅\\nYellow Hue',
-				size: 'Auto',
+				size: 'auto',
 				color: ColorWhite,
 				bgcolor: ColorBlack,
 			},
@@ -4178,7 +4178,7 @@ exports.getPresets = function () {
 			bank: {
 				style: 'text',
 				text: '$(birddog-ptz:cm_yellow_hue)\\n⯆',
-				size: 'Auto',
+				size: 'auto',
 				color: ColorWhite,
 				bgcolor: ColorBlack,
 			},
@@ -4202,7 +4202,7 @@ exports.getPresets = function () {
 			bank: {
 				style: 'text',
 				text: '⯅\\nBrightness',
-				size: 'Auto',
+				size: 'auto',
 				color: ColorWhite,
 				bgcolor: ColorBlack,
 			},
@@ -4221,7 +4221,7 @@ exports.getPresets = function () {
 			bank: {
 				style: 'text',
 				text: '$(birddog-ptz:brightness)\\n⯆',
-				size: 'Auto',
+				size: 'auto',
 				color: ColorWhite,
 				bgcolor: ColorBlack,
 			},
@@ -4243,7 +4243,7 @@ exports.getPresets = function () {
 			bank: {
 				style: 'text',
 				text: 'Brightness\\nCompensation\\n$(birddog-ptz:brightness_comp)',
-				size: 'Auto',
+				size: 'auto',
 				color: ColorWhite,
 				bgcolor: ColorBlack,
 			},
@@ -4275,7 +4275,7 @@ exports.getPresets = function () {
 			bank: {
 				style: 'text',
 				text: 'Compensation\\nLevel\\n$(birddog-ptz:comp_level)',
-				size: 'Auto',
+				size: 'auto',
 				color: ColorWhite,
 				bgcolor: ColorBlack,
 			},
@@ -4307,7 +4307,7 @@ exports.getPresets = function () {
 			bank: {
 				style: 'text',
 				text: '⯅\\nGamma\\nOffset',
-				size: 'Auto',
+				size: 'auto',
 				color: ColorWhite,
 				bgcolor: ColorBlack,
 			},
@@ -4326,7 +4326,7 @@ exports.getPresets = function () {
 			bank: {
 				style: 'text',
 				text: '$(birddog-ptz:gamma_offset)\\n⯆',
-				size: 'Auto',
+				size: 'auto',
 				color: ColorWhite,
 				bgcolor: ColorBlack,
 			},
@@ -4348,7 +4348,7 @@ exports.getPresets = function () {
 			bank: {
 				style: 'text',
 				text: 'High\\nResolution\\n$(birddog-ptz:high_resolution)',
-				size: 'Auto',
+				size: 'auto',
 				color: ColorWhite,
 				bgcolor: ColorBlack,
 			},
@@ -4380,7 +4380,7 @@ exports.getPresets = function () {
 			bank: {
 				style: 'text',
 				text: 'Video\\nEnhancement\\n$(birddog-ptz:video_enhancement)',
-				size: 'Auto',
+				size: 'auto',
 				color: ColorWhite,
 				bgcolor: ColorBlack,
 			},
@@ -4414,7 +4414,7 @@ exports.getPresets = function () {
 			bank: {
 				style: 'text',
 				text: 'Aux\\n$(birddog-ptz:aux)',
-				size: 'Auto',
+				size: 'auto',
 				color: ColorWhite,
 				bgcolor: ColorBlack,
 			},
@@ -4446,7 +4446,7 @@ exports.getPresets = function () {
 			bank: {
 				style: 'text',
 				text: 'Rain Wiper\\n$(birddog-ptz:rain_wiper)',
-				size: 'Auto',
+				size: 'auto',
 				color: ColorWhite,
 				bgcolor: ColorBlack,
 			},
@@ -4478,7 +4478,7 @@ exports.getPresets = function () {
 			bank: {
 				style: 'text',
 				text: '12v Out\\n$(birddog-ptz:v12vout)',
-				size: 'Auto',
+				size: 'auto',
 				color: ColorWhite,
 				bgcolor: ColorBlack,
 			},
@@ -4512,7 +4512,7 @@ exports.getPresets = function () {
 			bank: {
 				style: 'text',
 				text: 'Bandwidth\\n$(birddog-ptz:bandwidth)',
-				size: 'Auto',
+				size: 'auto',
 				color: ColorWhite,
 				bgcolor: ColorBlack,
 			},
@@ -4544,7 +4544,7 @@ exports.getPresets = function () {
 			bank: {
 				style: 'text',
 				text: 'BW Balance\\n$(birddog-ptz:bw_balance)',
-				size: 'Auto',
+				size: 'auto',
 				color: ColorWhite,
 				bgcolor: ColorBlack,
 			},
@@ -4576,7 +4576,7 @@ exports.getPresets = function () {
 			bank: {
 				style: 'text',
 				text: '⯅\\nCrispening',
-				size: 'Auto',
+				size: 'auto',
 				color: ColorWhite,
 				bgcolor: ColorBlack,
 			},
@@ -4595,7 +4595,7 @@ exports.getPresets = function () {
 			bank: {
 				style: 'text',
 				text: '$(birddog-ptz:crispening)\\n⯆',
-				size: 'Auto',
+				size: 'auto',
 				color: ColorWhite,
 				bgcolor: ColorBlack,
 			},
@@ -4617,7 +4617,7 @@ exports.getPresets = function () {
 			bank: {
 				style: 'text',
 				text: 'Detail\\n$(birddog-ptz:detail)',
-				size: 'Auto',
+				size: 'auto',
 				color: ColorWhite,
 				bgcolor: ColorBlack,
 			},
@@ -4649,7 +4649,7 @@ exports.getPresets = function () {
 			bank: {
 				style: 'text',
 				text: '⯅\\nHighlight\\nDetail',
-				size: 'Auto',
+				size: 'auto',
 				color: ColorWhite,
 				bgcolor: ColorBlack,
 			},
@@ -4668,7 +4668,7 @@ exports.getPresets = function () {
 			bank: {
 				style: 'text',
 				text: '$(birddog-ptz:highlight_detail)\\n⯆',
-				size: 'Auto',
+				size: 'auto',
 				color: ColorWhite,
 				bgcolor: ColorBlack,
 			},
@@ -4690,7 +4690,7 @@ exports.getPresets = function () {
 			bank: {
 				style: 'text',
 				text: '⯅\\nHv Balance',
-				size: 'Auto',
+				size: 'auto',
 				color: ColorWhite,
 				bgcolor: ColorBlack,
 			},
@@ -4709,7 +4709,7 @@ exports.getPresets = function () {
 			bank: {
 				style: 'text',
 				text: '$(birddog-ptz:hv_balance)\\n⯆',
-				size: 'Auto',
+				size: 'auto',
 				color: ColorWhite,
 				bgcolor: ColorBlack,
 			},
@@ -4731,7 +4731,7 @@ exports.getPresets = function () {
 			bank: {
 				style: 'text',
 				text: '⯅\\nLimit',
-				size: 'Auto',
+				size: 'auto',
 				color: ColorWhite,
 				bgcolor: ColorBlack,
 			},
@@ -4750,7 +4750,7 @@ exports.getPresets = function () {
 			bank: {
 				style: 'text',
 				text: '$(birddog-ptz:limit)\\n⯆',
-				size: 'Auto',
+				size: 'auto',
 				color: ColorWhite,
 				bgcolor: ColorBlack,
 			},
@@ -4772,7 +4772,7 @@ exports.getPresets = function () {
 			bank: {
 				style: 'text',
 				text: '⯅\\nSuper Low',
-				size: 'Auto',
+				size: 'auto',
 				color: ColorWhite,
 				bgcolor: ColorBlack,
 			},
@@ -4791,7 +4791,7 @@ exports.getPresets = function () {
 			bank: {
 				style: 'text',
 				text: '$(birddog-ptz:super_low)\\n⯆',
-				size: 'Auto',
+				size: 'auto',
 				color: ColorWhite,
 				bgcolor: ColorBlack,
 			},
@@ -4815,7 +4815,7 @@ exports.getPresets = function () {
 			bank: {
 				style: 'text',
 				text: '⯅\\nBlack Gamma\\nLevel',
-				size: 'Auto',
+				size: 'auto',
 				color: ColorWhite,
 				bgcolor: ColorBlack,
 			},
@@ -4834,7 +4834,7 @@ exports.getPresets = function () {
 			bank: {
 				style: 'text',
 				text: '$(birddog-ptz:black_gamma_level)\\n⯆',
-				size: 'Auto',
+				size: 'auto',
 				color: ColorWhite,
 				bgcolor: ColorBlack,
 			},
@@ -4856,7 +4856,7 @@ exports.getPresets = function () {
 			bank: {
 				style: 'text',
 				text: '⯅\\nBlack\\nLevel',
-				size: 'Auto',
+				size: 'auto',
 				color: ColorWhite,
 				bgcolor: ColorBlack,
 			},
@@ -4875,7 +4875,7 @@ exports.getPresets = function () {
 			bank: {
 				style: 'text',
 				text: '$(birddog-ptz:black_level)\\n⯆',
-				size: 'Auto',
+				size: 'auto',
 				color: ColorWhite,
 				bgcolor: ColorBlack,
 			},
@@ -4897,7 +4897,7 @@ exports.getPresets = function () {
 			bank: {
 				style: 'text',
 				text: 'Black Level\\nRange\\n$(birddog-ptz:black_level_range)',
-				size: 'Auto',
+				size: 'auto',
 				color: ColorWhite,
 				bgcolor: ColorBlack,
 			},
@@ -4929,7 +4929,7 @@ exports.getPresets = function () {
 			bank: {
 				style: 'text',
 				text: '⯅\\nEffect',
-				size: 'Auto',
+				size: 'auto',
 				color: ColorWhite,
 				bgcolor: ColorBlack,
 			},
@@ -4948,7 +4948,7 @@ exports.getPresets = function () {
 			bank: {
 				style: 'text',
 				text: '$(birddog-ptz:effect)\\n⯆',
-				size: 'Auto',
+				size: 'auto',
 				color: ColorWhite,
 				bgcolor: ColorBlack,
 			},
@@ -4970,7 +4970,7 @@ exports.getPresets = function () {
 			bank: {
 				style: 'text',
 				text: '⯅\\nLevel',
-				size: 'Auto',
+				size: 'auto',
 				color: ColorWhite,
 				bgcolor: ColorBlack,
 			},
@@ -4989,7 +4989,7 @@ exports.getPresets = function () {
 			bank: {
 				style: 'text',
 				text: '$(birddog-ptz:level)\\n⯆',
-				size: 'Auto',
+				size: 'auto',
 				color: ColorWhite,
 				bgcolor: ColorBlack,
 			},
@@ -5011,7 +5011,7 @@ exports.getPresets = function () {
 			bank: {
 				style: 'text',
 				text: '⯅\\nOffset',
-				size: 'Auto',
+				size: 'auto',
 				color: ColorWhite,
 				bgcolor: ColorBlack,
 			},
@@ -5030,7 +5030,7 @@ exports.getPresets = function () {
 			bank: {
 				style: 'text',
 				text: '$(birddog-ptz:offset)\\n⯆',
-				size: 'Auto',
+				size: 'auto',
 				color: ColorWhite,
 				bgcolor: ColorBlack,
 			},
@@ -5052,7 +5052,7 @@ exports.getPresets = function () {
 			bank: {
 				style: 'text',
 				text: '⯅\\nPattern',
-				size: 'Auto',
+				size: 'auto',
 				color: ColorWhite,
 				bgcolor: ColorBlack,
 			},
@@ -5071,7 +5071,7 @@ exports.getPresets = function () {
 			bank: {
 				style: 'text',
 				text: '$(birddog-ptz:pattern)\\n⯆',
-				size: 'Auto',
+				size: 'auto',
 				color: ColorWhite,
 				bgcolor: ColorBlack,
 			},
@@ -5093,7 +5093,7 @@ exports.getPresets = function () {
 			bank: {
 				style: 'text',
 				text: '⯅\\nPattern\\nFine',
-				size: 'Auto',
+				size: 'auto',
 				color: ColorWhite,
 				bgcolor: ColorBlack,
 			},
@@ -5112,7 +5112,7 @@ exports.getPresets = function () {
 			bank: {
 				style: 'text',
 				text: '$(birddog-ptz:pattern_fine)\\n⯆',
-				size: 'Auto',
+				size: 'auto',
 				color: ColorWhite,
 				bgcolor: ColorBlack,
 			},
@@ -5134,7 +5134,7 @@ exports.getPresets = function () {
 			bank: {
 				style: 'text',
 				text: 'Settings\\n$(birddog-ptz:settings)',
-				size: 'Auto',
+				size: 'auto',
 				color: ColorWhite,
 				bgcolor: ColorBlack,
 			},
@@ -5166,7 +5166,7 @@ exports.getPresets = function () {
 			bank: {
 				style: 'text',
 				text: 'Visibility\\nEnhancer\\n$(birddog-ptz:visibility_enhancer)',
-				size: 'Auto',
+				size: 'auto',
 				color: ColorWhite,
 				bgcolor: ColorBlack,
 			},
@@ -5200,7 +5200,7 @@ exports.getPresets = function () {
 			bank: {
 				style: 'text',
 				text: '⯅\\nGamma\\nGain',
-				size: 'Auto',
+				size: 'auto',
 				color: ColorWhite,
 				bgcolor: ColorBlack,
 			},
@@ -5219,7 +5219,7 @@ exports.getPresets = function () {
 			bank: {
 				style: 'text',
 				text: '$(birddog-ptz:scope_gamma_gain)\\n⯆',
-				size: 'Auto',
+				size: 'auto',
 				color: ColorWhite,
 				bgcolor: ColorBlack,
 			},
@@ -5241,7 +5241,7 @@ exports.getPresets = function () {
 			bank: {
 				style: 'text',
 				text: 'Mode\\n$(birddog-ptz:scope_mode)',
-				size: 'Auto',
+				size: 'auto',
 				color: ColorWhite,
 				bgcolor: ColorBlack,
 			},
@@ -5273,7 +5273,7 @@ exports.getPresets = function () {
 			bank: {
 				style: 'text',
 				text: 'Position\\n$(birddog-ptz:scope_position)',
-				size: 'Auto',
+				size: 'auto',
 				color: ColorWhite,
 				bgcolor: ColorBlack,
 			},
@@ -5305,7 +5305,7 @@ exports.getPresets = function () {
 			bank: {
 				style: 'text',
 				text: 'Preview\\nEnable\\n$(birddog-ptz:scope_preview)',
-				size: 'Auto',
+				size: 'auto',
 				color: ColorWhite,
 				bgcolor: ColorBlack,
 			},
@@ -5337,7 +5337,7 @@ exports.getPresets = function () {
 			bank: {
 				style: 'text',
 				text: 'Program\\nEnable\\n$(birddog-ptz:scope_program)',
-				size: 'Auto',
+				size: 'auto',
 				color: ColorWhite,
 				bgcolor: ColorBlack,
 			},
@@ -5369,7 +5369,7 @@ exports.getPresets = function () {
 			bank: {
 				style: 'text',
 				text: 'Size\\n$(birddog-ptz:scope_size)',
-				size: 'Auto',
+				size: 'auto',
 				color: ColorWhite,
 				bgcolor: ColorBlack,
 			},
@@ -5401,7 +5401,7 @@ exports.getPresets = function () {
 			bank: {
 				style: 'text',
 				text: 'Transparency\\nEnable\\n$(birddog-ptz:scope_transparency)',
-				size: 'Auto',
+				size: 'auto',
 				color: ColorWhite,
 				bgcolor: ColorBlack,
 			},
@@ -5435,7 +5435,7 @@ exports.getPresets = function () {
 			bank: {
 				style: 'text',
 				text: 'Average\\nBitrate\\n$(birddog-ptz:avbr)',
-				size: 'Auto',
+				size: 'auto',
 				color: ColorWhite,
 				bgcolor: ColorBlack,
 			},
@@ -5446,7 +5446,7 @@ exports.getPresets = function () {
 			bank: {
 				style: 'text',
 				text: 'Audio Ch\\n$(birddog-ptz:aud_ch)',
-				size: 'Auto',
+				size: 'auto',
 				color: ColorWhite,
 				bgcolor: ColorBlack,
 			},
@@ -5457,7 +5457,7 @@ exports.getPresets = function () {
 			bank: {
 				style: 'text',
 				text: 'Audio\\nSample Rate\\n$(birddog-ptz:aud_sr)',
-				size: 'Auto',
+				size: 'auto',
 				color: ColorWhite,
 				bgcolor: ColorBlack,
 			},
@@ -5468,7 +5468,7 @@ exports.getPresets = function () {
 			bank: {
 				style: 'text',
 				text: 'Audio\\nStatus\\n$(birddog-ptz:aud_stat)',
-				size: 'Auto',
+				size: 'auto',
 				color: ColorWhite,
 				bgcolor: ColorBlack,
 			},
@@ -5479,7 +5479,7 @@ exports.getPresets = function () {
 			bank: {
 				style: 'text',
 				text: 'Status\\n$(birddog-ptz:dashboard_vid_status)',
-				size: 'Auto',
+				size: 'auto',
 				color: ColorWhite,
 				bgcolor: ColorBlack,
 			},
@@ -5490,7 +5490,7 @@ exports.getPresets = function () {
 			bank: {
 				style: 'text',
 				text: 'Device Mode\\n$(birddog-ptz:dev_mode)',
-				size: 'Auto',
+				size: 'auto',
 				color: ColorWhite,
 				bgcolor: ColorBlack,
 			},
@@ -5501,7 +5501,7 @@ exports.getPresets = function () {
 			bank: {
 				style: 'text',
 				text: 'Genlock Status\\n$(birddog-ptz:gen_status)',
-				size: 'Auto',
+				size: 'auto',
 				color: ColorWhite,
 				bgcolor: ColorBlack,
 			},
@@ -5512,7 +5512,7 @@ exports.getPresets = function () {
 			bank: {
 				style: 'text',
 				text: 'MCU Version\\n$(birddog-ptz:mcu_ver)',
-				size: 'Auto',
+				size: 'auto',
 				color: ColorWhite,
 				bgcolor: ColorBlack,
 			},
@@ -5523,7 +5523,7 @@ exports.getPresets = function () {
 			bank: {
 				style: 'text',
 				text: 'Network\\nBandwidth\\n$(birddog-ptz:net_band_perc)',
-				size: 'Auto',
+				size: 'auto',
 				color: ColorWhite,
 				bgcolor: ColorBlack,
 			},
@@ -5534,7 +5534,7 @@ exports.getPresets = function () {
 			bank: {
 				style: 'text',
 				text: 'Network\\nMode\\n$(birddog-ptz:net_mode)',
-				size: 'Auto',
+				size: 'auto',
 				color: ColorWhite,
 				bgcolor: ColorBlack,
 			},
@@ -5545,7 +5545,7 @@ exports.getPresets = function () {
 			bank: {
 				style: 'text',
 				text: 'Network\\nSpeed\\n$(birddog-ptz:net_speed)',
-				size: 'Auto',
+				size: 'auto',
 				color: ColorWhite,
 				bgcolor: ColorBlack,
 			},
@@ -5556,7 +5556,7 @@ exports.getPresets = function () {
 			bank: {
 				style: 'text',
 				text: 'Source\\nStatus\\n$(birddog-ptz:src_stat)',
-				size: 'Auto',
+				size: 'auto',
 				color: ColorWhite,
 				bgcolor: ColorBlack,
 			},
@@ -5567,7 +5567,7 @@ exports.getPresets = function () {
 			bank: {
 				style: 'text',
 				text: 'CPU Usage\\n$(birddog-ptz:sys_info_perc)',
-				size: 'Auto',
+				size: 'auto',
 				color: ColorWhite,
 				bgcolor: ColorBlack,
 			},
@@ -5578,7 +5578,7 @@ exports.getPresets = function () {
 			bank: {
 				style: 'text',
 				text: 'Video\\nFormat\\n$(birddog-ptz:vid_fmt)',
-				size: 'Auto',
+				size: 'auto',
 				color: ColorWhite,
 				bgcolor: ColorBlack,
 			},
@@ -5589,7 +5589,7 @@ exports.getPresets = function () {
 			bank: {
 				style: 'text',
 				text: 'Video\\nFrame Rate\\n$(birddog-ptz:vid_fr)',
-				size: 'Auto',
+				size: 'auto',
 				color: ColorWhite,
 				bgcolor: ColorBlack,
 			},
@@ -5600,7 +5600,7 @@ exports.getPresets = function () {
 			bank: {
 				style: 'text',
 				text: 'Video\\nResolution\\n$(birddog-ptz:vid_res)',
-				size: 'Auto',
+				size: 'auto',
 				color: ColorWhite,
 				bgcolor: ColorBlack,
 			},
@@ -5611,7 +5611,7 @@ exports.getPresets = function () {
 			bank: {
 				style: 'text',
 				text: 'Video\\nSample Rate\\n$(birddog-ptz:vid_sra)',
-				size: 'Auto',
+				size: 'auto',
 				color: ColorWhite,
 				bgcolor: ColorBlack,
 			},
@@ -5622,7 +5622,7 @@ exports.getPresets = function () {
 			bank: {
 				style: 'text',
 				text: 'Video\\nStream Name\\n$(birddog-ptz:vid_str_name)',
-				size: 'Auto',
+				size: 'auto',
 				color: ColorWhite,
 				bgcolor: ColorBlack,
 			},
@@ -5633,7 +5633,7 @@ exports.getPresets = function () {
 			bank: {
 				style: 'text',
 				text: '$(birddog-ptz:iris) $(birddog-ptz:shutter_speed)\\n$(birddog-ptz:color_temp)K\\n$(birddog-ptz:gain)',
-				size: 'Auto',
+				size: 'auto',
 				color: ColorWhite,
 				bgcolor: ColorBlack,
 			},
@@ -5644,7 +5644,7 @@ exports.getPresets = function () {
 			bank: {
 				style: 'text',
 				text: 'CPU | BR\\n$(birddog-ptz:sys_info_perc)\\n$(birddog-ptz:avbr)',
-				size: 'Auto',
+				size: 'auto',
 				color: ColorWhite,
 				bgcolor: ColorBlack,
 			},
