@@ -1303,7 +1303,7 @@ exports.getPresets = function () {
 			label: 'Zoom In',
 			bank: {
 				style: 'text',
-				text: 'TELE',
+				text: 'Tele',
 				size: 'auto',
 				color: ColorWhite,
 				bgcolor: ColorBlack,
@@ -1330,7 +1330,7 @@ exports.getPresets = function () {
 			label: 'Zoom Out',
 			bank: {
 				style: 'text',
-				text: 'WIDE',
+				text: 'Wide',
 				size: 'auto',
 				color: ColorWhite,
 				bgcolor: ColorBlack,
