@@ -8,7 +8,7 @@ See [HELP.md](https://github.com/bitfocus/companion-module-birddog-ptz/blob/main
 
 ## Changes
 
-### v2.3.2
+### v2.3.3
 
 - Changes
 
@@ -18,9 +18,13 @@ See [HELP.md](https://github.com/bitfocus/companion-module-birddog-ptz/blob/main
   - Add full range of Presets
 
 - Fixes
-  - Fixed Iris action
   - Corrected multiple feedbacks
   - Fixed Gain Limit Variable
+
+### v2.3.2
+
+- Fixes
+  - Fixed Iris action
 
 ### v2.3.1
 
