@@ -4847,7 +4847,7 @@ module.exports = {
 							break
 						case 'down':
 							newValue =
-								currentValue > MODEL_ACTIONS.scope_gamma_gain.range.max
+								currentValue > MODEL_ACTIONS.scope_gamma_gain.range.min
 									? --currentValue
 									: MODEL_ACTIONS.scope_gamma_gain.range.min
 							break

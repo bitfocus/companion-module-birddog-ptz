@@ -146,7 +146,7 @@ exports.getPresets = function () {
 			label: 'Standby',
 			bank: {
 				style: 'text',
-				text: '$(birddog-ptz:standby)',
+				text: 'Cam Standby',
 				size: 'auto',
 				color: ColorWhite,
 				bgcolor: ColorBlack,
@@ -162,7 +162,36 @@ exports.getPresets = function () {
 			feedbacks: [
 				{
 					type: 'standby_status',
-					options: { val: MODEL_ACTIONS.standby.default },
+					options: { val: 'standby' },
+					style: {
+						color: ColorBlack,
+						bgcolor: ColorGreen,
+					},
+				},
+			],
+		})
+		presets.push({
+			category: 'VISCA Actions',
+			label: 'Cam On',
+			bank: {
+				style: 'text',
+				text: 'Cam On',
+				size: 'auto',
+				color: ColorWhite,
+				bgcolor: ColorBlack,
+			},
+			actions: [
+				{
+					action: 'standby',
+					options: {
+						val: 'on',
+					},
+				},
+			],
+			feedbacks: [
+				{
+					type: 'standby_status',
+					options: { val: 'on' },
 					style: {
 						color: ColorBlack,
 						bgcolor: ColorGreen,
@@ -570,7 +599,7 @@ exports.getPresets = function () {
 				{
 					action: 'stream_to_network',
 					options: {
-						val: MODEL_ACTIONS.stream_to_network.default,
+						val: 'Toggle',
 					},
 				},
 			],
@@ -602,7 +631,7 @@ exports.getPresets = function () {
 				{
 					action: 'tally_mode',
 					options: {
-						val: MODEL_ACTIONS.tally_mode.default,
+						val: 'Toggle',
 					},
 				},
 			],
@@ -3132,10 +3161,10 @@ exports.getPresets = function () {
 	if (MODEL_ACTIONS?.highlight_comp) {
 		presets.push({
 			category: 'Picture',
-			label: 'Flip',
+			label: 'Highlight Compensation',
 			bank: {
 				style: 'text',
-				text: 'Flip\\n$(birddog-ptz:highlight_comp)',
+				text: 'Highlight Comp.\\n$(birddog-ptz:highlight_comp)',
 				size: 'auto',
 				color: ColorWhite,
 				bgcolor: ColorBlack,
@@ -3164,10 +3193,10 @@ exports.getPresets = function () {
 	if (MODEL_ACTIONS?.highlight_comp_mask) {
 		presets.push({
 			category: 'Picture',
-			label: 'Highlight Compensation Mask Up',
+			label: 'Highlight Comp. Mask Up',
 			bank: {
 				style: 'text',
-				text: '⯅\\nHighlight\\nCompensation Mask',
+				text: '⯅\\nHigh Comp\\n Mask',
 				size: 'auto',
 				color: ColorWhite,
 				bgcolor: ColorBlack,
@@ -3183,7 +3212,7 @@ exports.getPresets = function () {
 		})
 		presets.push({
 			category: 'Picture',
-			label: 'Highlight Compensation Mask Down',
+			label: 'Highlight Comp. Mask Down',
 			bank: {
 				style: 'text',
 				text: '$(birddog-ptz:highlight_comp_mask)\\n⯆',
@@ -5149,7 +5178,7 @@ exports.getPresets = function () {
 			feedbacks: [
 				{
 					type: 'settings',
-					options: { val: MODEL_ACTIONS.settings.default },
+					options: { value: MODEL_ACTIONS.settings.default },
 					style: {
 						color: ColorBlack,
 						bgcolor: ColorGreen,
@@ -5181,7 +5210,7 @@ exports.getPresets = function () {
 			feedbacks: [
 				{
 					type: 'visibility_enhancer',
-					options: { val: MODEL_ACTIONS.visibility_enhancer.default },
+					options: { value: MODEL_ACTIONS.visibility_enhancer.default },
 					style: {
 						color: ColorBlack,
 						bgcolor: ColorGreen,
@@ -5256,7 +5285,7 @@ exports.getPresets = function () {
 			feedbacks: [
 				{
 					type: 'scope_mode',
-					options: { val: MODEL_ACTIONS.scope_mode.default },
+					options: { value: MODEL_ACTIONS.scope_mode.default },
 					style: {
 						color: ColorBlack,
 						bgcolor: ColorGreen,
@@ -5320,7 +5349,7 @@ exports.getPresets = function () {
 			feedbacks: [
 				{
 					type: 'scope_preview',
-					options: { val: MODEL_ACTIONS.scope_preview.default },
+					options: { value: 'On' },
 					style: {
 						color: ColorBlack,
 						bgcolor: ColorGreen,
@@ -5352,7 +5381,7 @@ exports.getPresets = function () {
 			feedbacks: [
 				{
 					type: 'scope_program',
-					options: { val: MODEL_ACTIONS.scope_program.default },
+					options: { value: 'On' },
 					style: {
 						color: ColorBlack,
 						bgcolor: ColorGreen,
@@ -5384,7 +5413,7 @@ exports.getPresets = function () {
 			feedbacks: [
 				{
 					type: 'scope_size',
-					options: { val: MODEL_ACTIONS.scope_size.default },
+					options: { value: MODEL_ACTIONS.scope_size.default },
 					style: {
 						color: ColorBlack,
 						bgcolor: ColorGreen,
@@ -5416,7 +5445,7 @@ exports.getPresets = function () {
 			feedbacks: [
 				{
 					type: 'scope_transparency',
-					options: { val: MODEL_ACTIONS.scope_transparency.default },
+					options: { value: 'On' },
 					style: {
 						color: ColorBlack,
 						bgcolor: ColorGreen,

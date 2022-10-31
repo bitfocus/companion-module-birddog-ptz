@@ -1457,7 +1457,7 @@ exports.initFeedbacks = function () {
 		feedbacks.speed = {
 			type: 'boolean',
 			label: MODEL_ACTIONS.speed.name,
-			description: 'If the camera matches the selected Red Gain level, change the style of the button',
+			description: 'If the camera matches the selected Speed level, change the style of the button',
 			style: {
 				color: ColorBlack,
 				bgcolor: ColorGreen,

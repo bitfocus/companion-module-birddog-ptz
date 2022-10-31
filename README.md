@@ -12,7 +12,7 @@ See [HELP.md](https://github.com/bitfocus/companion-module-birddog-ptz/blob/main
 
 - Changes
 
-  - Add 'Toogle' to appropriate actions
+  - Add 'Toggle' to appropriate actions
   - Added On Screen Menu Action
   - Changed WB Mode options for v5 cameras
   - Add full range of Presets
