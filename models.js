@@ -79,6 +79,20 @@ module.exports = {
 			variableId: 'firmware',
 			name: 'General - Firmware',
 		},
+		firmware_version: {
+			camera: ['All'],
+			firmware: ['5'],
+			api_endpoint: ['about'],
+			api_variable: ['FirmwareVersion'],
+			store_state: true,
+		},
+		format: {
+			camera: ['All'],
+			firmware: ['5'],
+			api_endpoint: ['about'],
+			api_variable: ['Format'],
+			store_state: true,
+		},
 		framerate: {
 			camera: ['All'],
 			firmware: ['4', '5'],
@@ -299,6 +313,20 @@ module.exports = {
 			api_variable: ['ColorBitDepth'],
 			variableId: 'color_bitdepth',
 			name: 'Encode Setup - Color Bit Depth',
+		},
+		genlock: {
+			camera: ['All'],
+			firmware: ['5'],
+			store_state: true,
+			api_endpoint: ['encodesetup'],
+			api_variable: ['GenLock'],
+		},
+		loopTally: {
+			camera: ['All'],
+			firmware: ['5'],
+			store_state: true,
+			api_endpoint: ['encodesetup'],
+			api_variable: ['LoopTally'],
 		},
 		ndiAudio: {
 			camera: ['All'],
@@ -754,6 +782,18 @@ module.exports = {
 				{
 					camera: ['common'],
 					action: { choices: CHOICES.SPEED_CHANGES, default: 'up', range: { min: 0, max: 7, default: 4 } },
+				},
+			],
+		},
+		onScreenMenu: {
+			camera: ['All'],
+			firmware: ['5'],
+			store_state: false,
+			name: `PTZ - Toggle OSD Menu`,
+			action: [
+				{
+					camera: ['common'],
+					action: {},
 				},
 			],
 		},
@@ -1433,7 +1473,10 @@ module.exports = {
 		},
 		wbOnePush: {
 			camera: ['All'],
-			firmware: ['4', '5'],
+			firmware: ['5'],
+			store_state: true,
+			api_endpoint: ['birddogwbsetup'],
+			api_variable: ['OnePushTrigger'],
 			name: 'White Balance - One Push Trigger',
 			action: [
 				{
@@ -1444,7 +1487,7 @@ module.exports = {
 		},
 		wb_mode: {
 			camera: ['All'],
-			firmware: ['4', '5'],
+			firmware: ['4'],
 			store_state: true,
 			api_endpoint: ['birddogwbsetup'],
 			api_variable: ['WbMode'],
@@ -1458,6 +1501,30 @@ module.exports = {
 				{
 					camera: ['P100', 'P110', 'P120', 'PF120'],
 					action: { choices: CHOICES.WB_MODE_1 },
+				},
+				{
+					camera: ['P200A2A3', 'P200A4A5', 'A200GEN1', 'A200GEN2', 'A300GEN1', 'A300GEN2', 'P400', 'P4K'],
+					action: { choices: CHOICES.WB_MODE_2 },
+				},
+			],
+		},
+
+		wb_mode: {
+			camera: ['All'],
+			firmware: ['5'],
+			store_state: true,
+			api_endpoint: ['birddogwbsetup'],
+			api_variable: ['WbMode'],
+			variableId: 'wb_mode',
+			name: `White Balance - White Balance Mode`,
+			action: [
+				{
+					camera: ['common'],
+					action: { default: 'AUTO' },
+				},
+				{
+					camera: ['P100', 'P110', 'P120', 'PF120'],
+					action: { choices: CHOICES.WB_MODE_1b },
 				},
 				{
 					camera: ['P200A2A3', 'P200A4A5', 'A200GEN1', 'A200GEN2', 'A300GEN1', 'A300GEN2', 'P400', 'P4K'],

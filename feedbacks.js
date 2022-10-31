@@ -377,7 +377,7 @@ exports.initFeedbacks = function () {
 	if (MODEL_ACTIONS?.pt) {
 		feedbacks.posPan = {
 			type: 'boolean',
-			name: `PTZ - Pan Position`,
+			label: `PTZ - Pan Position`,
 			description: 'If the camera matches the selected Pan Position, change the style of the button',
 			style: {
 				color: ColorBlack,
@@ -399,7 +399,7 @@ exports.initFeedbacks = function () {
 
 		feedbacks.posTilt = {
 			type: 'boolean',
-			name: `PTZ - Tilt Position`,
+			label: `PTZ - Tilt Position`,
 			description: 'If the camera matches the selected Tilt Position, change the style of the button',
 			style: {
 				color: ColorBlack,
@@ -423,7 +423,7 @@ exports.initFeedbacks = function () {
 	if (MODEL_ACTIONS?.zoom) {
 		feedbacks.posZoom = {
 			type: 'boolean',
-			name: `PTZ - Zoom Position`,
+			label: `PTZ - Zoom Position`,
 			description: 'If the camera matches the selected Zoom Position, change the style of the button',
 			style: {
 				color: ColorBlack,
@@ -583,7 +583,7 @@ exports.initFeedbacks = function () {
 				{
 					type: 'dropdown',
 					label: 'Mode',
-					id: 'val',
+					id: 'mode',
 					choices: MODEL_ACTIONS.focusM.choices,
 					default: MODEL_ACTIONS.focusM.default,
 				},
@@ -672,7 +672,7 @@ exports.initFeedbacks = function () {
 	}
 
 	if (MODEL_ACTIONS?.expComp) {
-		feedbacks.exposureCompEn = {
+		feedbacks.exposureoCmpEn = {
 			type: 'boolean',
 			label: MODEL_ACTIONS.expComp.name,
 			description: 'If the camera matches the selected exposure compensation status, change the style of the button',
@@ -1457,7 +1457,7 @@ exports.initFeedbacks = function () {
 		feedbacks.speed = {
 			type: 'boolean',
 			label: MODEL_ACTIONS.speed.name,
-			description: 'If the camera matches the selected Red Gain level, change the style of the button',
+			description: 'If the camera matches the selected Speed level, change the style of the button',
 			style: {
 				color: ColorBlack,
 				bgcolor: ColorGreen,
@@ -1491,13 +1491,13 @@ exports.initFeedbacks = function () {
 				{
 					type: 'dropdown',
 					label: 'White Balance Mode',
-					id: 'white_balance',
+					id: 'mode',
 					choices: MODEL_ACTIONS.wb_mode.choices,
 					default: MODEL_ACTIONS.wb_mode.default,
 				},
 			],
 			callback: (feedback) => {
-				return this.camera?.wb_mode == feedback.options.white_balance
+				return this.camera?.wb_mode == feedback.options.mode
 			},
 		}
 	}
@@ -2856,7 +2856,7 @@ exports.initFeedbacks = function () {
 				},
 			],
 			callback: (feedback) => {
-				return this.camera?.black_level_range == feedback.options.value
+				return this.camera?.black_level_range == feedback.options.val
 			},
 		}
 	}
@@ -2999,7 +2999,7 @@ exports.initFeedbacks = function () {
 				{
 					type: 'dropdown',
 					label: 'Settings',
-					id: 'val',
+					id: 'value',
 					choices: MODEL_ACTIONS.settings.choices,
 					default: MODEL_ACTIONS.settings.default,
 				},
@@ -3023,7 +3023,7 @@ exports.initFeedbacks = function () {
 				{
 					type: 'dropdown',
 					label: 'Settings',
-					id: 'val',
+					id: 'value',
 					choices: MODEL_ACTIONS.visibility_enhancer.choices,
 					default: MODEL_ACTIONS.visibility_enhancer.default,
 				},
@@ -3049,7 +3049,7 @@ exports.initFeedbacks = function () {
 				{
 					type: 'dropdown',
 					label: 'On/Off',
-					id: 'val',
+					id: 'value',
 					choices: MODEL_ACTIONS.scope_size.choices,
 					default: MODEL_ACTIONS.scope_size.default,
 				},
@@ -3103,7 +3103,7 @@ exports.initFeedbacks = function () {
 				{
 					type: 'dropdown',
 					label: 'Mode',
-					id: 'val',
+					id: 'value',
 					choices: MODEL_ACTIONS.scope_mode.choices,
 					default: MODEL_ACTIONS.scope_mode.default,
 				},
@@ -3127,7 +3127,7 @@ exports.initFeedbacks = function () {
 				{
 					type: 'dropdown',
 					label: 'Position',
-					id: 'val',
+					id: 'value',
 					choices: MODEL_ACTIONS.scope_position.choices,
 					default: MODEL_ACTIONS.scope_position.default,
 				},
@@ -3151,7 +3151,7 @@ exports.initFeedbacks = function () {
 				{
 					type: 'dropdown',
 					label: 'On/Off',
-					id: 'val',
+					id: 'value',
 					choices: MODEL_ACTIONS.scope_preview.choices,
 					default: MODEL_ACTIONS.scope_preview.default,
 				},
@@ -3175,7 +3175,7 @@ exports.initFeedbacks = function () {
 				{
 					type: 'dropdown',
 					label: 'On/Off',
-					id: 'val',
+					id: 'value',
 					choices: MODEL_ACTIONS.scope_program.choices,
 					default: MODEL_ACTIONS.scope_program.default,
 				},
@@ -3199,7 +3199,7 @@ exports.initFeedbacks = function () {
 				{
 					type: 'dropdown',
 					label: 'On/Off',
-					id: 'val',
+					id: 'value',
 					choices: MODEL_ACTIONS.scope_transparency.choices,
 					default: MODEL_ACTIONS.scope_transparency.default,
 				},

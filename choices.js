@@ -546,6 +546,16 @@ module.exports = {
 		{ id: 'MANUAL2', label: 'Manual 2' },
 	],
 
+	WB_MODE_1b: [
+		{ id: 'AUTO', label: 'Auto' },
+		{ id: 'INDOOR', label: 'Indoor' },
+		{ id: 'OUTDOOR', label: 'Outdoor' },
+		{ id: 'ONEPUSH', label: 'One Push Mode' },
+		{ id: 'ATW', label: 'ATW' },
+		{ id: 'USER', label: 'User' },
+		{ id: 'MANUAL2', label: 'Manual 2' },
+	],
+
 	//P200, A200, P400, P4K
 	WB_MODE_2: [
 		{ id: 'AUTO', label: 'Auto' },

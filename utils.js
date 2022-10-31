@@ -85,6 +85,10 @@ function sortByAction(a, b) {
 	return 0
 }
 
+function sortByPresetCategory(a, b) {
+	return a.category.localeCompare(b.category) || a.label.localeCompare(b.label)
+}
+
 function getModelVariables(array, FW, model) {
 	// returns an object containing all variables based on model & FW
 	const variables = []
@@ -147,6 +151,15 @@ function getModelQueries(array, model, FW) {
 	)
 }
 
+function toggleVal(val, array) {
+	// returns the other value in the given 3 choice array (including 'toggle')
+	console.log('-- in toggleVal function')
+	console.log('--- val is', val)
+	console.log('--- array is', array)
+	result = array.filter((element) => element.id !== val && element.id !== 'Toggle')
+	return result[0].id
+}
+
 module.exports = {
 	addStringToBinary,
 	createPositionArray,
@@ -155,7 +168,9 @@ module.exports = {
 	strToPQRS,
 	sortByLabel,
 	sortByAction,
+	sortByPresetCategory,
 	getModelVariables,
 	getModelActions,
 	getModelQueries,
+	toggleVal,
 }

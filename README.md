@@ -8,11 +8,24 @@ See [HELP.md](https://github.com/bitfocus/companion-module-birddog-ptz/blob/main
 
 ## Changes
 
+### v2.3.3
+
+- Changes
+
+  - Add 'Toggle' to appropriate actions
+  - Added On Screen Menu Action
+  - Changed WB Mode options for v5 Cameras
+  - Add full range of Presets
+
+- Fixes
+  - Corrected multiple feedbacks
+  - Fixed Gain Limit Variable
+
 ### v2.3.2
 
 - Fixes
   - Fixed Iris action
- 
+
 ### v2.3.1
 
 - Fixes

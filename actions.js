@@ -1,4 +1,4 @@
-const { sortByAction, getModelActions } = require('./utils')
+const { sortByAction, getModelActions, toggleVal } = require('./utils')
 var { MODEL_SPECS } = require('./models.js')
 const VISCA = require('./constants')
 const CHOICES = require('./choices.js')
@@ -59,7 +59,7 @@ module.exports = {
 						type: 'dropdown',
 						label: 'On / Off',
 						id: 'val',
-						choices: MODEL_ACTIONS.freeze.choices,
+						choices: [...MODEL_ACTIONS.freeze.choices, { id: 'Toggle', label: 'Toggle' }],
 						default: MODEL_ACTIONS.freeze.default,
 					},
 				],
@@ -70,6 +70,9 @@ module.exports = {
 							break
 						case 'Off':
 							cmd = VISCA.MSG_CAM + VISCA.CAM_FREEZE + VISCA.DATA_OFFVAL + VISCA.END_MSG
+							break
+						case 'Toggle':
+							cmd = VISCA.MSG_CAM + VISCA.CAM_FREEZE + VISCA.DATA_TOGGLEVAL + VISCA.END_MSG
 							break
 					}
 					this.sendVISCACommand(cmd)
@@ -199,13 +202,17 @@ module.exports = {
 						type: 'dropdown',
 						label: 'Mode',
 						id: 'val',
-						choices: MODEL_ACTIONS.analogAudioOutput.choices,
+						choices: [...MODEL_ACTIONS.analogAudioOutput.choices, { id: 'Toggle', label: 'Toggle' }],
 						default: MODEL_ACTIONS.analogAudioOutput.default,
 					},
 				],
 				callback: (action) => {
+					let value = action.options.val
+					if (value == 'Toggle') {
+						value = toggleVal(this.camera.analogAudioOutput, MODEL_ACTIONS.analogAudioOutput.choices)
+					}
 					body = {
-						AnalogAudiooutputselect: String(action.options.val),
+						AnalogAudiooutputselect: String(value),
 					}
 					this.sendCommand('analogaudiosetup', 'POST', body)
 				},
@@ -222,13 +229,17 @@ module.exports = {
 						type: 'dropdown',
 						label: 'Mode',
 						id: 'val',
-						choices: MODEL_ACTIONS.video_output.choices,
+						choices: [...MODEL_ACTIONS.video_output.choices, { id: 'Toggle', label: 'Toggle' }],
 						default: MODEL_ACTIONS.video_output.default,
 					},
 				],
 				callback: (action) => {
+					let value = action.options.val
+					if (value == 'Toggle') {
+						value = toggleVal(this.camera.video_output, MODEL_ACTIONS.video_output.choices)
+					}
 					body = {
-						videooutput: String(action.options.val),
+						videooutput: String(value),
 					}
 					this.sendCommand('videooutputinterface', 'POST', body)
 				},
@@ -290,13 +301,17 @@ module.exports = {
 						type: 'dropdown',
 						label: 'Analog / Mute',
 						id: 'val',
-						choices: MODEL_ACTIONS.ndiAudio.choices,
+						choices: [...MODEL_ACTIONS.ndiAudio.choices, { id: 'Toggle', label: 'Toggle' }],
 						default: MODEL_ACTIONS.ndiAudio.default,
 					},
 				],
 				callback: (action) => {
+					let value = action.options.val
+					if (value == 'Toggle') {
+						value = toggleVal(this.camera.ndiAudio, MODEL_ACTIONS.ndiAudio.choices)
+					}
 					body = {
-						NDIAudio: String(action.options.val),
+						NDIAudio: String(value),
 					}
 					this.sendCommand('encodesetup', 'POST', body)
 				},
@@ -311,13 +326,17 @@ module.exports = {
 						type: 'dropdown',
 						label: 'NDI Group Enable',
 						id: 'val',
-						choices: MODEL_ACTIONS.ndiGroupEnable.choices,
+						choices: [...MODEL_ACTIONS.ndiGroupEnable.choices, { id: 'Toggle', label: 'Toggle' }],
 						default: MODEL_ACTIONS.ndiGroupEnable.default,
 					},
 				],
 				callback: (action) => {
+					let value = action.options.val
+					if (value == 'Toggle') {
+						value = toggleVal(this.camera.ndiGroupEnable, MODEL_ACTIONS.ndiGroupEnable.choices)
+					}
 					body = {
-						NDIGroup: String(action.options.val),
+						NDIGroup: String(value),
 					}
 					this.sendCommand('encodesetup', 'POST', body)
 				},
@@ -353,13 +372,17 @@ module.exports = {
 						type: 'dropdown',
 						label: 'On/Off',
 						id: 'val',
-						choices: MODEL_ACTIONS.stream_to_network.choices,
+						choices: [...MODEL_ACTIONS.stream_to_network.choices, { id: 'Toggle', label: 'Toggle' }],
 						default: MODEL_ACTIONS.stream_to_network.default,
 					},
 				],
 				callback: (action) => {
+					let value = action.options.val
+					if (value == 'Toggle') {
+						value = toggleVal(this.camera.stream_to_network, MODEL_ACTIONS.stream_to_network.choices)
+					}
 					body = {
-						StreamToNetwork: String(action.options.val),
+						StreamToNetwork: String(value),
 					}
 					this.sendCommand('encodesetup', 'POST', body)
 				},
@@ -374,13 +397,17 @@ module.exports = {
 						type: 'dropdown',
 						label: 'On / Off',
 						id: 'val',
-						choices: MODEL_ACTIONS.tally_mode.choices,
+						choices: [...MODEL_ACTIONS.tally_mode.choices, { id: 'Toggle', label: 'Toggle' }],
 						default: MODEL_ACTIONS.tally_mode.default,
 					},
 				],
 				callback: (action) => {
+					let value = action.options.val
+					if (value == 'Toggle') {
+						value = toggleVal(this.camera.tally_mode, MODEL_ACTIONS.tally_mode.choices)
+					}
 					body = {
-						TallyMode: String(action.options.val),
+						TallyMode: String(value),
 					}
 					this.sendCommand('encodesetup', 'POST', body)
 				},
@@ -435,13 +462,17 @@ module.exports = {
 						type: 'dropdown',
 						label: 'Enabled / Disabled',
 						id: 'val',
-						choices: MODEL_ACTIONS.ndi_discovery_server.choices,
+						choices: [...MODEL_ACTIONS.ndi_discovery_server.choices, { id: 'Toggle', label: 'Toggle' }],
 						default: MODEL_ACTIONS.ndi_discovery_server.default,
 					},
 				],
 				callback: (action) => {
+					let value = action.options.val
+					if (value == 'Toggle') {
+						value = toggleVal(this.camera.ndi_discovery_server, MODEL_ACTIONS.ndi_discovery_server.choices)
+					}
 					body = {
-						NDIDisServ: String(action.options.val),
+						NDIDisServ: String(value),
 					}
 					this.sendCommand('NDIDisServer', 'POST', body)
 				},
@@ -934,6 +965,18 @@ module.exports = {
 			}
 		}
 
+		if (MODEL_ACTIONS?.onScreenMenu) {
+			actions['onScreenMenu'] = {
+				label: MODEL_ACTIONS.onScreenMenu.name,
+				callback: (action) => {
+					body = {
+						Menu: String('On/Off'),
+					}
+					this.sendCommand('birddogptz', 'POST', body)
+				},
+			}
+		}
+
 		// Focus Actions
 
 		if (MODEL_ACTIONS?.focus) {
@@ -976,7 +1019,7 @@ module.exports = {
 						type: 'dropdown',
 						label: 'Mode',
 						id: 'val',
-						choices: MODEL_ACTIONS.focusM.choices,
+						choices: [...MODEL_ACTIONS.focusM.choices, { id: 'Toggle', label: 'Toggle' }],
 						default: MODEL_ACTIONS.focusM.default,
 					},
 				],
@@ -987,6 +1030,9 @@ module.exports = {
 							break
 						case 'Manual':
 							cmd = VISCA.MSG_CAM + VISCA.CAM_FOCUS_AUTO + VISCA.DATA_OFFVAL + VISCA.END_MSG
+							break
+						case 'Toggle':
+							cmd = VISCA.MSG_CAM + VISCA.CAM_FOCUS_AUTO + VISCA.DATA_TOGGLEVAL + VISCA.END_MSG
 							break
 					}
 					this.sendVISCACommand(cmd)
@@ -1057,13 +1103,17 @@ module.exports = {
 						type: 'dropdown',
 						label: 'On / Off',
 						id: 'mode',
-						choices: MODEL_ACTIONS.backlight.choices,
+						choices: [...MODEL_ACTIONS.backlight.choices, { id: 'Toggle', label: 'Toggle' }],
 						default: MODEL_ACTIONS.backlight.default,
 					},
 				],
 				callback: (action) => {
+					let value = action.options.mode
+					if (value == 'Toggle') {
+						value = toggleVal(this.camera.backlight, MODEL_ACTIONS.backlight.choices)
+					}
 					body = {
-						Backlight: String(action.options.mode),
+						Backlight: String(value),
 					}
 					this.sendCommand('birddogexpsetup', 'POST', body)
 				},
@@ -1289,13 +1339,17 @@ module.exports = {
 						type: 'dropdown',
 						label: 'Gain Point',
 						id: 'val',
-						choices: MODEL_ACTIONS.gain_point.choices,
+						choices: [...MODEL_ACTIONS.gain_point.choices, { id: 'Toggle', label: 'Toggle' }],
 						default: MODEL_ACTIONS.gain_point.default,
 					},
 				],
 				callback: (action) => {
+					let value = action.options.val
+					if (value == 'Toggle') {
+						value = toggleVal(this.camera.gain_point, MODEL_ACTIONS.gain_point.choices)
+					}
 					body = {
-						GainPoint: String(action.options.val),
+						GainPoint: String(value),
 					}
 					this.sendCommand('birddogexpsetup', 'POST', body)
 				},
@@ -1360,13 +1414,17 @@ module.exports = {
 						type: 'dropdown',
 						label: 'On / Off',
 						id: 'val',
-						choices: MODEL_ACTIONS.high_sensitivity.choices,
+						choices: [...MODEL_ACTIONS.high_sensitivity.choices, { id: 'Toggle', label: 'Toggle' }],
 						default: MODEL_ACTIONS.high_sensitivity.default,
 					},
 				],
 				callback: (action) => {
+					let value = action.options.val
+					if (value == 'Toggle') {
+						value = toggleVal(this.camera.high_sensitivity, MODEL_ACTIONS.high_sensitivity.choices)
+					}
 					body = {
-						HighSensitivity: String(action.options.val),
+						HighSensitivity: String(value),
 					}
 					this.sendCommand('birddogexpsetup', 'POST', body)
 				},
@@ -1432,13 +1490,17 @@ module.exports = {
 						type: 'dropdown',
 						label: 'On/Off',
 						id: 'val',
-						choices: MODEL_ACTIONS.shutter_control_overwrite.choices,
+						choices: [...MODEL_ACTIONS.shutter_control_overwrite.choices, { id: 'Toggle', label: 'Toggle' }],
 						default: MODEL_ACTIONS.shutter_control_overwrite.default,
 					},
 				],
 				callback: (action) => {
+					let value = action.options.val
+					if (value == 'Toggle') {
+						value = toggleVal(this.camera.shutter_control_overwrite, MODEL_ACTIONS.shutter_control_overwrite.choices)
+					}
 					body = {
-						ShutterControlOverwrite: String(action.options.val),
+						ShutterControlOverwrite: String(value),
 					}
 					this.sendCommand('birddogexpsetup', 'POST', body)
 				},
@@ -1661,13 +1723,17 @@ module.exports = {
 						type: 'dropdown',
 						label: 'On/Off',
 						id: 'val',
-						choices: MODEL_ACTIONS.slow_shutter_en.choices,
+						choices: [...MODEL_ACTIONS.slow_shutter_en.choices, { id: 'Toggle', label: 'Toggle' }],
 						default: MODEL_ACTIONS.slow_shutter_en.default,
 					},
 				],
 				callback: (action) => {
+					let value = action.options.val
+					if (value == 'Toggle') {
+						value = toggleVal(this.camera.slow_shutter_en, MODEL_ACTIONS.slow_shutter_en.choices)
+					}
 					body = {
-						SlowShutterEn: String(action.options.val),
+						SlowShutterEn: String(value),
 					}
 					this.sendCommand('birddogexpsetup', 'POST', body)
 				},
@@ -1734,13 +1800,17 @@ module.exports = {
 						type: 'dropdown',
 						label: 'On/Off',
 						id: 'val',
-						choices: MODEL_ACTIONS.spotlight.choices,
+						choices: [...MODEL_ACTIONS.spotlight.choices, { id: 'Toggle', label: 'Toggle' }],
 						default: MODEL_ACTIONS.spotlight.default,
 					},
 				],
 				callback: (action) => {
+					let value = action.options.val
+					if (value == 'Toggle') {
+						value = toggleVal(this.camera.spotlight, MODEL_ACTIONS.spotlight.choices)
+					}
 					body = {
-						Spotlight: String(action.options.val),
+						Spotlight: String(value),
 					}
 					this.sendCommand('birddogexpsetup', 'POST', body)
 				},
@@ -2058,13 +2128,17 @@ module.exports = {
 						type: 'dropdown',
 						label: 'On/Off',
 						id: 'val',
-						choices: MODEL_ACTIONS.matrix.choices,
+						choices: [...MODEL_ACTIONS.matrix.choices, { id: 'Toggle', label: 'Toggle' }],
 						default: MODEL_ACTIONS.matrix.default,
 					},
 				],
 				callback: (action) => {
+					let value = action.options.val
+					if (value == 'Toggle') {
+						value = toggleVal(this.camera.matrix, MODEL_ACTIONS.matrix.choices)
+					}
 					body = {
-						Matrix: String(action.options.val),
+						Matrix: String(value),
 					}
 					this.sendCommand('birddogwbsetup', 'POST', body)
 				},
@@ -2387,13 +2461,17 @@ module.exports = {
 						type: 'dropdown',
 						label: 'On/Off',
 						id: 'val',
-						choices: MODEL_ACTIONS.backlight_com.choices,
+						choices: [...MODEL_ACTIONS.backlight_com.choices, { id: 'Toggle', label: 'Toggle' }],
 						default: MODEL_ACTIONS.backlight_com.default,
 					},
 				],
 				callback: (action) => {
+					let value = action.options.val
+					if (value == 'Toggle') {
+						value = toggleVal(this.camera.backlight_com, MODEL_ACTIONS.backlight_com.choices)
+					}
 					body = {
-						BackLightCom: String(action.options.val),
+						BackLightCom: String(value),
 					}
 					this.sendCommand('birddogpicsetup', 'POST', body)
 				},
@@ -2517,13 +2595,17 @@ module.exports = {
 						type: 'dropdown',
 						label: 'Effect',
 						id: 'val',
-						choices: MODEL_ACTIONS.pictureEffect.choices,
+						choices: [...MODEL_ACTIONS.pictureEffect.choices, { id: 'Toggle', label: 'Toggle' }],
 						default: MODEL_ACTIONS.pictureEffect.default,
 					},
 				],
 				callback: (action) => {
+					let value = action.options.val
+					if (value == 'Toggle') {
+						value = toggleVal(this.camera.pictureEffect, MODEL_ACTIONS.pictureEffect.choices)
+					}
 					body = {
-						Effect: String(action.options.val),
+						Effect: String(value),
 					}
 					this.sendCommand('birddogpicsetup', 'POST', body)
 				},
@@ -2538,13 +2620,17 @@ module.exports = {
 						type: 'dropdown',
 						label: 'On / Off',
 						id: 'val',
-						choices: MODEL_ACTIONS.picFlip.choices,
+						choices: [...MODEL_ACTIONS.picFlip.choices, { id: 'Toggle', label: 'Toggle' }],
 						default: MODEL_ACTIONS.picFlip.default,
 					},
 				],
 				callback: (action) => {
+					let value = action.options.val
+					if (value == 'Toggle') {
+						value = toggleVal(this.camera.picFlip, MODEL_ACTIONS.picFlip.choices)
+					}
 					body = {
-						Flip: String(action.options.val),
+						Flip: String(value),
 					}
 					this.sendCommand('birddogpicsetup', 'POST', body)
 				},
@@ -2740,13 +2826,17 @@ module.exports = {
 						type: 'dropdown',
 						label: 'On / Off',
 						id: 'val',
-						choices: MODEL_ACTIONS.low_latency.choices,
+						choices: [...MODEL_ACTIONS.low_latency.choices, { id: 'Toggle', label: 'Toggle' }],
 						default: MODEL_ACTIONS.low_latency.default,
 					},
 				],
 				callback: (action) => {
+					let value = action.options.val
+					if (value == 'Toggle') {
+						value = toggleVal(this.camera.low_latency, MODEL_ACTIONS.low_latency.choices)
+					}
 					body = {
-						LowLatency: String(action.options.val),
+						LowLatency: String(value),
 					}
 					this.sendCommand('birddogpicsetup', 'POST', body)
 				},
@@ -2761,13 +2851,17 @@ module.exports = {
 						type: 'dropdown',
 						label: 'On / Off',
 						id: 'val',
-						choices: MODEL_ACTIONS.picMirror.choices,
+						choices: [...MODEL_ACTIONS.picMirror.choices, { id: 'Toggle', label: 'Toggle' }],
 						default: MODEL_ACTIONS.picMirror.default,
 					},
 				],
 				callback: (action) => {
+					let value = action.options.val
+					if (value == 'Toggle') {
+						value = toggleVal(this.camera.picMirror, MODEL_ACTIONS.picMirror.choices)
+					}
 					body = {
-						Mirror: String(action.options.val),
+						Mirror: String(value),
 					}
 					this.sendCommand('birddogpicsetup', 'POST', body)
 				},
@@ -2919,13 +3013,17 @@ module.exports = {
 						type: 'dropdown',
 						label: 'On / Off',
 						id: 'val',
-						choices: MODEL_ACTIONS.stabilizer.choices,
+						choices: [...MODEL_ACTIONS.stabilizer.choices, { id: 'Toggle', label: 'Toggle' }],
 						default: MODEL_ACTIONS.stabilizer.default,
 					},
 				],
 				callback: (action) => {
+					let value = action.options.val
+					if (value == 'Toggle') {
+						value = toggleVal(this.camera.stabilizer, MODEL_ACTIONS.stabilizer.choices)
+					}
 					body = {
-						Stabilizer: String(action.options.val),
+						Stabilizer: String(value),
 					}
 					this.sendCommand('birddogpicsetup', 'POST', body)
 				},
@@ -3898,13 +3996,17 @@ module.exports = {
 						type: 'dropdown',
 						label: 'On / Off',
 						id: 'val',
-						choices: MODEL_ACTIONS.high_resolution.choices,
+						choices: [...MODEL_ACTIONS.high_resolution.choices, { id: 'Toggle', label: 'Toggle' }],
 						default: MODEL_ACTIONS.high_resolution.default,
 					},
 				],
 				callback: (action) => {
+					let value = action.options.val
+					if (value == 'Toggle') {
+						value = toggleVal(this.camera.high_resolution, MODEL_ACTIONS.high_resolution.choices)
+					}
 					body = {
-						HighResolution: String(action.options.val),
+						HighResolution: String(value),
 					}
 					this.sendCommand('birddogadvancesetup', 'POST', body)
 				},
@@ -3919,13 +4021,17 @@ module.exports = {
 						type: 'dropdown',
 						label: 'On / Off',
 						id: 'val',
-						choices: MODEL_ACTIONS.video_enhancement.choices,
+						choices: [...MODEL_ACTIONS.video_enhancement.choices, { id: 'Toggle', label: 'Toggle' }],
 						default: MODEL_ACTIONS.video_enhancement.default,
 					},
 				],
 				callback: (action) => {
+					let value = action.options.val
+					if (value == 'Toggle') {
+						value = toggleVal(this.camera.video_enhancement, MODEL_ACTIONS.video_enhancement.choices)
+					}
 					body = {
-						VideoEnhancement: String(action.options.val),
+						VideoEnhancement: String(value),
 					}
 					this.sendCommand('birddogadvancesetup', 'POST', body)
 				},
@@ -3942,13 +4048,17 @@ module.exports = {
 						type: 'dropdown',
 						label: 'On / Off',
 						id: 'val',
-						choices: MODEL_ACTIONS.aux.choices,
+						choices: [...MODEL_ACTIONS.aux.choices, { id: 'Toggle', label: 'Toggle' }],
 						default: MODEL_ACTIONS.aux.default,
 					},
 				],
 				callback: (action) => {
+					let value = action.options.val
+					if (value == 'Toggle') {
+						value = toggleVal(this.camera.aux, MODEL_ACTIONS.aux.choices)
+					}
 					body = {
-						Aux: String(action.options.val),
+						Aux: String(value),
 					}
 					this.sendCommand('birddogexternalsetup', 'POST', body)
 				},
@@ -3963,13 +4073,17 @@ module.exports = {
 						type: 'dropdown',
 						label: 'On / Off',
 						id: 'val',
-						choices: MODEL_ACTIONS.rain_wiper.choices,
+						choices: [...MODEL_ACTIONS.rain_wiper.choices, { id: 'Toggle', label: 'Toggle' }],
 						default: MODEL_ACTIONS.rain_wiper.default,
 					},
 				],
 				callback: (action) => {
+					let value = action.options.val
+					if (value == 'Toggle') {
+						value = toggleVal(this.camera.rain_wiper, MODEL_ACTIONS.rain_wiper.choices)
+					}
 					body = {
-						RainWiper: String(action.options.val),
+						RainWiper: String(value),
 					}
 					this.sendCommand('birddogexternalsetup', 'POST', body)
 				},
@@ -3984,13 +4098,17 @@ module.exports = {
 						type: 'dropdown',
 						label: 'On / Off',
 						id: 'val',
-						choices: MODEL_ACTIONS.v12vout.choices,
+						choices: [...MODEL_ACTIONS.v12vout.choices, { id: 'Toggle', label: 'Toggle' }],
 						default: MODEL_ACTIONS.v12vout.default,
 					},
 				],
 				callback: (action) => {
+					let value = action.options.val
+					if (value == 'Toggle') {
+						value = toggleVal(this.camera.v12vout, MODEL_ACTIONS.v12vout.choices)
+					}
 					body = {
-						V12vOut: String(action.options.val),
+						V12vOut: String(value),
 					}
 					this.sendCommand('birddogexternalsetup', 'POST', body)
 				},
@@ -4093,13 +4211,17 @@ module.exports = {
 						type: 'dropdown',
 						label: 'On / Off',
 						id: 'val',
-						choices: MODEL_ACTIONS.detail.choices,
+						choices: [...MODEL_ACTIONS.detail.choices, { id: 'Toggle', label: 'Toggle' }],
 						default: MODEL_ACTIONS.detail.default,
 					},
 				],
 				callback: (action) => {
+					let value = action.options.val
+					if (value == 'Toggle') {
+						value = toggleVal(this.camera.detail, MODEL_ACTIONS.detail.choices)
+					}
 					body = {
-						Detail: String(action.options.val),
+						Detail: String(value),
 					}
 					this.sendCommand('birddogdetsetup', 'POST', body)
 				},
@@ -4667,13 +4789,17 @@ module.exports = {
 						type: 'dropdown',
 						label: 'Settings',
 						id: 'val',
-						choices: MODEL_ACTIONS.visibility_enhancer.choices,
+						choices: [...MODEL_ACTIONS.visibility_enhancer.choices, { id: 'Toggle', label: 'Toggle' }],
 						default: MODEL_ACTIONS.visibility_enhancer.default,
 					},
 				],
 				callback: (action) => {
+					let value = action.options.val
+					if (value == 'Toggle') {
+						value = toggleVal(this.camera.visibility_enhancer, MODEL_ACTIONS.visibility_enhancer.choices)
+					}
 					body = {
-						VisibilityEnhancer: String(action.options.val),
+						VisibilityEnhancer: String(value),
 					}
 					this.sendCommand('birddoggammasetup', 'POST', body)
 				},
@@ -4721,7 +4847,7 @@ module.exports = {
 							break
 						case 'down':
 							newValue =
-								currentValue > MODEL_ACTIONS.scope_gamma_gain.range.max
+								currentValue > MODEL_ACTIONS.scope_gamma_gain.range.min
 									? --currentValue
 									: MODEL_ACTIONS.scope_gamma_gain.range.min
 							break
@@ -4787,13 +4913,17 @@ module.exports = {
 						type: 'dropdown',
 						label: 'On/Off',
 						id: 'val',
-						choices: MODEL_ACTIONS.scope_preview.choices,
+						choices: [...MODEL_ACTIONS.scope_preview.choices, { id: 'Toggle', label: 'Toggle' }],
 						default: MODEL_ACTIONS.scope_preview.default,
 					},
 				],
 				callback: (action) => {
+					let value = action.options.val
+					if (value == 'Toggle') {
+						value = toggleVal(this.camera.scope_preview, MODEL_ACTIONS.scope_preview.choices)
+					}
 					body = {
-						PreviewEnable: String(action.options.val),
+						PreviewEnable: String(value),
 					}
 					this.sendCommand('birddogscope', 'POST', body)
 				},
@@ -4808,13 +4938,17 @@ module.exports = {
 						type: 'dropdown',
 						label: 'On/Off',
 						id: 'val',
-						choices: MODEL_ACTIONS.scope_program.choices,
+						choices: [...MODEL_ACTIONS.scope_program.choices, { id: 'Toggle', label: 'Toggle' }],
 						default: MODEL_ACTIONS.scope_program.default,
 					},
 				],
 				callback: (action) => {
+					let value = action.options.val
+					if (value == 'Toggle') {
+						value = toggleVal(this.camera.scope_program, MODEL_ACTIONS.scope_program.choices)
+					}
 					body = {
-						ProgramEnable: String(action.options.val),
+						ProgramEnable: String(value),
 					}
 					this.sendCommand('birddogscope', 'POST', body)
 				},
@@ -4829,13 +4963,17 @@ module.exports = {
 						type: 'dropdown',
 						label: 'Small/Large',
 						id: 'val',
-						choices: MODEL_ACTIONS.scope_size.choices,
+						choices: [...MODEL_ACTIONS.scope_size.choices, { id: 'Toggle', label: 'Toggle' }],
 						default: MODEL_ACTIONS.scope_size.default,
 					},
 				],
 				callback: (action) => {
+					let value = action.options.val
+					if (value == 'Toggle') {
+						value = toggleVal(this.camera.scope_size, MODEL_ACTIONS.scope_size.choices)
+					}
 					body = {
-						DoubleSizeEnable: String(action.options.val),
+						DoubleSizeEnable: String(value),
 					}
 					this.sendCommand('birddogscope', 'POST', body)
 				},
@@ -4850,13 +4988,17 @@ module.exports = {
 						type: 'dropdown',
 						label: 'On/Off',
 						id: 'val',
-						choices: MODEL_ACTIONS.scope_transparency.choices,
+						choices: [...MODEL_ACTIONS.scope_transparency.choices, { id: 'Toggle', label: 'Toggle' }],
 						default: MODEL_ACTIONS.scope_transparency.default,
 					},
 				],
 				callback: (action) => {
+					let value = action.options.val
+					if (value == 'Toggle') {
+						value = toggleVal(this.camera.scope_transparency, MODEL_ACTIONS.scope_transparency.choices)
+					}
 					body = {
-						TransparencyEnable: String(action.options.val),
+						TransparencyEnable: String(value),
 					}
 					this.sendCommand('birddogscope', 'POST', body)
 				},
