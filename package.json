@@ -1,37 +1,18 @@
 {
 	"name": "birddog-ptz",
-	"legacy": [
-		"birddog-visca"
-	],
 	"version": "2.3.3",
-	"api_version": "1.0.0",
-	"keywords": [
-		"Protocol",
-		"Camera"
-	],
-	"manufacturer": "BirdDog",
-	"product": "PTZ",
-	"shortname": "BirdDog PTZ",
-	"description": "This module controls BirdDog PTZ cameras.",
 	"main": "index.js",
 	"scripts": {
-		"test": "echo \"Error: no test specified\" && exit 1"
+		"test": "echo \"Error: no test specified\" && exit 1",
+		"lint:raw": "eslint --ext .ts --ext .js --ignore-pattern dist --ignore-pattern pkg",
+		"lint": "yarn lint:raw ."
 	},
-	"author": "Benni M. <info@benni-m.de>",
-	"contributors": [
-		"Bryce Seifert",
-		"Jamie McConchie"
-	],
 	"license": "MIT",
-	"homepage": "https://github.com/bitfocus/companion-module-birddog-ptz#readme",
-	"bugs": {
-		"url": "https://github.com/bitfocus/companion-module-birddog-ptz/issues"
-	},
-	"repository": {
-		"type": "git",
-		"url": "git+https://github.com/bitfocus/companion-module-birddog-ptz.git"
-	},
 	"dependencies": {
+		"@companion-module/base": "~1.1.1",
 		"node-fetch": "^2.6.7"
+	},
+	"devDependencies": {
+		"@companion-module/tools": "^1.0.0"
 	}
 }
