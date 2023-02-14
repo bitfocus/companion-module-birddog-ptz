@@ -1,4 +1,4 @@
-const instance_skel = require('../../instance_skel')
+const { InstanceBase, runEntrypoint, UDPHelper } = require('@companion-module/base')
 const actions = require('./actions')
 const presets = require('./presets')
 const { updateVariableDefinitions, updateVariables } = require('./variables')
@@ -9,14 +9,13 @@ const VISCA = require('./constants')
 const CHOICES = require('./choices.js')
 var { MODEL_QUERIES, MODEL_SPECS } = require('./models.js')
 
-const udp = require('../../udp')
 const fetch = require('node-fetch')
 const WebSocket = require('ws')
 
 let debug
 let log
 
-class instance extends instance_skel {
+class instance extends InstanceBase {
 	constructor(system, id, config) {
 		super(system, id, config)
 
@@ -427,7 +426,7 @@ class instance extends instance_skel {
 			clearInterval(this.timers.pollCameraStatus)
 		}
 		if (this.config.host !== undefined) {
-			this.udp = new udp(this.config.host, this.port)
+			this.udp = new UDPHelper(this.config.host, this.port)
 
 			// Reset sequence number
 			this.sendControlCommand('\x01')
