@@ -3,7 +3,7 @@
 	"name": "birddog-ptz",
 	"shortname": "BirdDog PTZ",
 	"description": "This module controls BirdDog PTZ cameras.",
-	"version": "0.0.0",
+	"version": "3.0.0",
 	"license": "MIT",
 	"repository": "git+https://github.com/bitfocus/companion-module-birddog-ptz.git",
 	"bugs": "https://github.com/bitfocus/companion-module-birddog-ptz/issues",
@@ -19,9 +19,7 @@
 			"name": "Jamie McConchie"
 		}
 	],
-	"legacyIds": [
-		"birddog-visca"
-	],
+	"legacyIds": ["birddog-visca"],
 	"runtime": {
 		"type": "node18",
 		"api": "nodejs-ipc",
@@ -29,11 +27,6 @@
 		"entrypoint": "..\\index.js"
 	},
 	"manufacturer": "BirdDog",
-	"products": [
-		"PTZ"
-	],
-	"keywords": [
-		"Protocol",
-		"Camera"
-	]
+	"products": ["PTZ"],
+	"keywords": ["Protocol", "Camera"]
 }

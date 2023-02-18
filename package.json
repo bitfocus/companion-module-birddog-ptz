@@ -1,12 +1,13 @@
 {
 	"name": "birddog-ptz",
-	"version": "2.3.3",
+	"version": "3.0.0",
 	"main": "index.js",
 	"scripts": {
-		"test": "echo \"Error: no test specified\" && exit 1",
+		"format": "prettier -w .",
 		"lint:raw": "eslint --ext .ts --ext .js --ignore-pattern dist --ignore-pattern pkg",
 		"lint": "yarn lint:raw ."
 	},
+	"type": "module",
 	"license": "MIT",
 	"repository": {
 		"type": "git",
@@ -14,11 +15,11 @@
 	},
 	"dependencies": {
 		"@companion-module/base": "~1.1.1",
-		"node-fetch": "^2.6.7",
+		"node-fetch": "^3.3.0",
 		"ws": "^8.12.1"
 	},
 	"devDependencies": {
-		"@companion-module/tools": "^1.0.0"
+		"@companion-module/tools": "^1.0.1"
 	},
 	"prettier": "@companion-module/tools/.prettierrc.json"
 }

@@ -104,8 +104,8 @@ function getModelVariables(array, FW, model) {
 	filteredArray.sort(sortByLabel)
 	filteredArray.forEach((array) =>
 		variables.push({
-			label: array[1].name,
-			name: array[1].variableId,
+			name: array[1].name,
+			variableId: array[1].variableId,
 		})
 	)
 	return variables

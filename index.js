@@ -1,4 +1,5 @@
-const { InstanceBase, runEntrypoint, UDPHelper } = require('@companion-module/base')
+import { InstanceBase, runEntrypoint, UDPHelper } from '@companion-module/base'
+
 const actions = require('./actions')
 const presets = require('./presets')
 const { updateVariableDefinitions, updateVariables } = require('./variables')
@@ -9,13 +10,10 @@ const VISCA = require('./constants')
 const CHOICES = require('./choices.js')
 var { MODEL_QUERIES, MODEL_SPECS } = require('./models.js')
 
-const fetch = require('node-fetch')
-const WebSocket = require('ws')
+import fetch from 'node-fetch'
+import WebSocket, { WebSocketServer } from 'ws'
 
-let debug
-let log
-
-class instance extends InstanceBase {
+class BirdDogPTZInstance extends InstanceBase {
 	constructor(system, id, config) {
 		super(system, id, config)
 
@@ -52,7 +50,7 @@ class instance extends InstanceBase {
 	config_fields() {
 		return [
 			{
-				type: 'text',
+				type: 'static-text',
 				id: 'info',
 				width: 12,
 				label: 'Information',
@@ -788,4 +786,4 @@ class instance extends InstanceBase {
 	}
 }
 
-exports = module.exports = instance
+runEntrypoint(BirdDogPTZInstance, upgradeScripts)

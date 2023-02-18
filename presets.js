@@ -1,12 +1,13 @@
 const { getModelActions, getModelVariables, sortByPresetCategory } = require('./utils')
 var { MODEL_SPECS } = require('./models.js')
+import { combineRgb } from '@companion-module/base'
 
 exports.getPresets = function () {
-	const ColorWhite = this.rgb(255, 255, 255) // White
-	const ColorBlack = this.rgb(0, 0, 0) // Black
-	const ColorRed = this.rgb(255, 0, 0) // Red
-	const ColorGreen = this.rgb(0, 255, 0) // Green
-	const ColorOrange = this.rgb(255, 102, 0) // Orange
+	const ColorWhite = combineRgb(255, 255, 255) // White
+	const ColorBlack = combineRgb(0, 0, 0) // Black
+	const ColorRed = combineRgb(255, 0, 0) // Red
+	const ColorGreen = combineRgb(0, 255, 0) // Green
+	const ColorOrange = combineRgb(255, 102, 0) // Orange
 
 	MODEL_ACTIONS = getModelActions(MODEL_SPECS, this.camera.firmware.major, this.camera.model)
 	MODEL_VARIABLES = getModelVariables(MODEL_SPECS, this.camera.firmware.major, this.camera.model)
