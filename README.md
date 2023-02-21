@@ -8,6 +8,12 @@ See [HELP.md](https://github.com/bitfocus/companion-module-birddog-ptz/blob/main
 
 ## Changes
 
+### v3.0.0
+
+- Changes
+
+  - Support for Companion v3
+
 ### v2.3.3
 
 - Changes
