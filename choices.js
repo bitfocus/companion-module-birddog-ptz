@@ -1,21 +1,21 @@
-const { createPositionArray, createZoomArray } = require('./utils')
+import { createPositionArray, createZoomArray } from './utils.js'
 
 // Create Color Temp Array
-var COLOR_TEMP = []
+let COLOR_TEMP = []
 for (let i = 28; i <= 65; i++) {
 	COLOR_TEMP.push({ id: i + '00', label: i + '00k' })
 }
 
 // Create Postion Arrays with Max degress, Min degrees, step degree, & Hex vlaue of MAx degrees
-POS_PAN_P100 = createPositionArray(175, -175, 5, 0x08da)
-POS_PAN_P200 = createPositionArray(175, -175, 5, 0x067b)
-POS_TILT = createPositionArray(90, -30, 5, 0x049d)
-POS_ZOOM_10 = createZoomArray(10, 1, 1, 0x4000)
-POS_ZOOM_12 = createZoomArray(12, 1, 1, 0x4000)
-POS_ZOOM_20 = createZoomArray(20, 1, 1, 0x4000)
-POS_ZOOM_30 = createZoomArray(30, 1, 1, 0x4000)
+const POS_PAN_P100 = createPositionArray(175, -175, 5, 0x08da)
+const POS_PAN_P200 = createPositionArray(175, -175, 5, 0x067b)
+const POS_TILT = createPositionArray(90, -30, 5, 0x049d)
+const POS_ZOOM_10 = createZoomArray(10, 1, 1, 0x4000)
+const POS_ZOOM_12 = createZoomArray(12, 1, 1, 0x4000)
+const POS_ZOOM_20 = createZoomArray(20, 1, 1, 0x4000)
+const POS_ZOOM_30 = createZoomArray(30, 1, 1, 0x4000)
 
-module.exports = {
+export default {
 	// ############
 	// Basic Look Ups
 	// ############

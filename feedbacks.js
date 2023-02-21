@@ -1,16 +1,16 @@
-const { getModelActions, sortByLabel } = require('./utils')
-var { MODEL_SPECS } = require('./models.js')
-const CHOICES = require('./choices.js')
+import { getModelActions, sortByLabel } from './utils.js'
+import { MODEL_SPECS } from './models.js'
+import CHOICES from './choices.js'
 import { combineRgb } from '@companion-module/base'
 
-exports.initFeedbacks = function () {
+export function getFeedbacks() {
 	const ColorWhite = combineRgb(255, 255, 255) // White
 	const ColorBlack = combineRgb(0, 0, 0) // Black
 	const ColorRed = combineRgb(255, 0, 0) // Red
 	const ColorGreen = combineRgb(0, 255, 0) // Green
 	const ColorOrange = combineRgb(255, 102, 0) // Orange
 
-	MODEL_ACTIONS = getModelActions(MODEL_SPECS, this.camera.firmware.major, this.camera.model)
+	let MODEL_ACTIONS = getModelActions(MODEL_SPECS, this.camera.firmware.major, this.camera.model)
 
 	const feedbacks = {}
 

@@ -1,53 +1,68 @@
 import { InstanceBase, runEntrypoint, UDPHelper } from '@companion-module/base'
 
-const actions = require('./actions')
-const presets = require('./presets')
-const { updateVariableDefinitions, updateVariables } = require('./variables')
-const { initFeedbacks } = require('./feedbacks')
-const upgradeScripts = require('./upgrades')
-const { addStringToBinary, strToPQRS, getModelActions, getModelQueries } = require('./utils')
-const VISCA = require('./constants')
-const CHOICES = require('./choices.js')
-var { MODEL_QUERIES, MODEL_SPECS } = require('./models.js')
+import { getActions } from './actions.js'
+import { getPresets } from './presets.js'
+import { updateVariableDefinitions, updateVariables } from './variables.js'
+import { getFeedbacks } from './feedbacks.js'
+import { upgradeScripts } from './upgrades.js'
+import { addStringToBinary, strToPQRS, getModelQueries } from './utils.js'
+import { VISCA } from './constants.js'
+import CHOICES from './choices.js'
+import { MODEL_QUERIES, MODEL_SPECS } from './models.js'
 
 import fetch from 'node-fetch'
-import WebSocket, { WebSocketServer } from 'ws'
+import WebSocket from 'ws'
 
 class BirdDogPTZInstance extends InstanceBase {
-	constructor(system, id, config) {
-		super(system, id, config)
+	constructor(internal) {
+		super(internal)
+	}
 
-		Object.assign(this, {
-			...actions,
-			...presets,
-		})
+	async init(config) {
+		this.updateStatus('connecting')
+		this.config = config
 
-		this.updateVariableDefinitions = updateVariableDefinitions
-		this.updateVariables = updateVariables
+		this.port = 52381 // Visca port
 		this.addStringToBinary = addStringToBinary
 		this.strToPQRS = strToPQRS
+		this.updateVariables = updateVariables
 
 		// Keep track of setInterval
 		this.timers = {
 			pollCameraConfig: null, // ID of setInterval for Camera Config polling
 			pollCameraStatus: null, // ID of setInterval for Camera Status polling
 		}
+
+		// Get Initial Camera Info
+		this.getCameraModel()
 	}
 
-	// Make sure to NOT commit this line uncommented
-	//static DEVELOPER_forceStartupUpgradeScript = 2
+	async destroy() {
+		// Clear open connections
+		if (this.udp !== undefined) {
+			this.udp.destroy()
+		}
 
-	static GetUpgradeScripts() {
-		return [
-			upgradeScripts.choicesUpgrade,
-			upgradeScripts.autoDetectDefault,
-			upgradeScripts.colorTempChange,
-			upgradeScripts.tallyMode,
-			upgradeScripts.actionsValueUpgrade,
-		]
+		if (this.ws !== undefined) {
+			this.ws.close(1000)
+			delete this.ws
+		}
+
+		// Clear polling timers
+		if (this.timers.pollCameraStatus !== undefined) {
+			clearInterval(this.timers.pollCameraStatus)
+		}
+		if (this.timers.pollCameraConfig) {
+			clearInterval(this.timers.pollCameraConfig)
+			this.timers.pollCameraConfig = null
+		}
+
+		if (this.timers.ws_reconnect) {
+			clearInterval(this.timers.ws_reconnect)
+		}
 	}
 
-	config_fields() {
+	getConfigFields() {
 		return [
 			{
 				type: 'static-text',
@@ -73,76 +88,39 @@ class BirdDogPTZInstance extends InstanceBase {
 		]
 	}
 
-	updateConfig(config) {
+	async configUpdated(config) {
 		this.config = config
 
-		this.status(this.STATUS_WARNING, 'Connecting')
+		this.updateStatus('connecting')
 
 		if (this.config.host !== undefined) {
-			this.debug('----Config Model Choice:- ' + this.config.model)
+			this.log('debug', '----Config Model Choice:- ' + this.config.model)
 			this.getCameraModel()
 		} else {
-			this.status(
-				this.STATUS_ERROR,
+			this.updateStatus(
+				'bad_config',
 				'Unable to connect, please enter an IP address for your camera in the module settings'
 			)
 		}
 	}
 
-	destroy() {
-		// Clear open connections
-		if (this.udp !== undefined) {
-			this.udp.destroy()
-		}
-
-		if (this.ws !== undefined) {
-			this.ws.close(1000)
-			delete this.ws
-		}
-
-		// Clear polling timers
-		if (this.timers.pollCameraStatus !== undefined) {
-			clearInterval(this.timers.pollCameraStatus)
-		}
-		if (this.timers.pollCameraConfig) {
-			clearInterval(this.timers.pollCameraConfig)
-			this.timers.pollCameraConfig = null
-		}
-
-		if (this.timers.ws_reconnect) {
-			clearInterval(this.timers.ws_reconnect)
-		}
-
-		debug('destroy', this.id)
-	}
-
-	init() {
-		debug = this.debug
-		log = this.log
-
-		this.status(this.STATUS_WARNING, 'Connecting')
-
-		this.port = 52381 // Visca port
-
-		// Get Initial Camera Info
-		this.getCameraModel()
-	}
-
 	initVariables() {
-		this.updateVariableDefinitions()
+		updateVariableDefinitions.bind(this)()
 	}
 
 	initFeedbacks() {
-		const feedbacks = initFeedbacks.bind(this)()
+		const feedbacks = getFeedbacks.bind(this)()
 		this.setFeedbackDefinitions(feedbacks)
 	}
 
-	initPresets(updates) {
-		this.setPresetDefinitions(this.getPresets())
+	initPresets() {
+		const presets = getPresets.bind(this)()
+		this.setPresetDefinitions(presets)
 	}
 
-	actions(system) {
-		this.setActions(this.getActions())
+	initActions() {
+		const actions = getActions.bind(this)()
+		this.setActionDefinitions(actions)
 	}
 
 	sendCommand(cmd, type, params) {
@@ -171,11 +149,11 @@ class BirdDogPTZInstance extends InstanceBase {
 						this.sendCommand('encodesetup', 'GET')
 					}
 				} else {
-					this.debug(`Command failed ${url}`)
+					this.log('debug', `Command failed ${url}`)
 				}
 			})
 			.catch((err) => {
-				this.debug(err)
+				this.log('debug', `Command Error: ${err}`)
 				let errorText = String(err)
 				if (
 					errorText.match('ECONNREFUSED') ||
@@ -183,13 +161,8 @@ class BirdDogPTZInstance extends InstanceBase {
 					errorText.match('EHOSTDOWN') ||
 					errorText.match('ETIMEDOUT')
 				) {
-					if (this.currentStatus != 2) {
-						this.status(this.STATUS_ERROR)
-						this.log(
-							'error',
-							`Connection lost to ${this.camera?.HostName ? this.camera.HostName : 'BirdDog PTZ camera'}`
-						)
-					}
+					this.updateStatus('connection_failure')
+					this.log('error', `Connection lost to ${this.camera?.HostName ? this.camera.HostName : 'BirdDog PTZ camera'}`)
 				}
 			})
 	}
@@ -223,20 +196,20 @@ class BirdDogPTZInstance extends InstanceBase {
 						case '24':
 							if (!(this.camera.shutter_table === '24')) {
 								this.camera.shutter_table = '24'
-								this.actions()
+								this.initActions()
 							}
 							break
 						case '25':
 						case '50':
 							if (!(this.camera.shutter_table === '50')) {
 								this.camera.shutter_table = '50'
-								this.actions()
+								this.initActions()
 							}
 							break
 						default:
 							if (!(this.camera.shutter_table === '60')) {
 								this.camera.shutter_table = '60'
-								this.actions()
+								this.initActions()
 							}
 							break
 					}
@@ -263,22 +236,22 @@ class BirdDogPTZInstance extends InstanceBase {
 
 				if (changed.includes('gain_limit')) {
 					// rebuild actions as GainLimit has changed
-					this.debug('-----Gain Limit changed')
-					this.actions()
+					this.log('debug', '-----Gain Limit changed')
+					this.initActions()
 					this.initFeedbacks()
 				}
 
 				if (changed.includes('shutter_max_speed')) {
 					// rebuild actions as Shutter Max speed has changed
-					this.debug('-----ShutterMaxSpeed changed')
-					this.actions()
+					this.log('debug', '-----ShutterMaxSpeed changed')
+					this.initActions()
 					this.initFeedbacks()
 				}
 
 				if (changed.includes('shutter_min_speed')) {
 					// rebuild actions as Shutter Min speed has changed
-					this.debug('-----ShutterMinSpeed changed')
-					this.actions()
+					this.log('debug', '-----ShutterMinSpeed changed')
+					this.initActions()
 					this.initFeedbacks()
 				}
 				//this.camera.expsetup = data
@@ -344,12 +317,12 @@ class BirdDogPTZInstance extends InstanceBase {
 		}
 
 		let newbuf = buf.slice(0, 8 + payload.length)
-		this.debug('-----Sending VISCA message: ' + Buffer.from(newbuf, 'binary').toString('hex'))
+		this.log('debug', '-----Sending VISCA message: ' + Buffer.from(newbuf, 'binary').toString('hex'))
 		this.udp.send(newbuf)
 	}
 
 	incomingData(data) {
-		this.debug('-----Incoming VISCA message: ' + Buffer.from(data, 'binary').toString('hex'))
+		this.log('debug', '-----Incoming VISCA message: ' + Buffer.from(data, 'binary').toString('hex'))
 		switch (data[7].toString(16)) {
 			case '4a': // Query Standby status
 				if (data[8] == 0x90 && data[9] == 0x50 && data[10] == 0x02 && data[11] == 0xff) {
@@ -415,7 +388,7 @@ class BirdDogPTZInstance extends InstanceBase {
 	}
 
 	init_udp() {
-		this.debug('----init udp')
+		this.log('debug', '----init udp')
 		if (this.udp !== undefined) {
 			this.udp.destroy()
 			delete this.udp
@@ -433,20 +406,20 @@ class BirdDogPTZInstance extends InstanceBase {
 			this.startPolling()
 
 			this.udp.on('status_change', (status, message) => {
-				//this.status(status, message)
+				//this.updateStatus('unknown_error', message)
 			})
 			this.udp.on('data', (data) => {
 				this.incomingData(data)
 			})
 			this.udp.on('error', (error) => {
-				this.debug('----UDP Error: ' + error)
+				this.log('debug', '----UDP Error: ' + error)
 			})
-			this.debug(this.udp.host, ':', this.port)
+			this.log('debug', this.udp.host, ':', this.port)
 		}
 	}
 
 	init_ws_listener() {
-		this.debug('----init webscoket')
+		this.log('debug', '----init webscoket')
 		clearInterval(this.timers.ws_reconnect)
 
 		if (this.ws !== undefined) {
@@ -462,7 +435,7 @@ class BirdDogPTZInstance extends InstanceBase {
 
 		this.ws.on('close', (code) => {
 			this.log('debug', `WebSocket Connection closed with code ${code}`)
-			this.debug(`---- WebSocket Connection closed with code ${code}`)
+			this.log('debug', `---- WebSocket Connection closed with code ${code}`)
 			if (code !== 1000) {
 				this.timers.ws_reconnect = setInterval(this.init_ws_listener.bind(this), 500)
 			}
@@ -474,9 +447,9 @@ class BirdDogPTZInstance extends InstanceBase {
 				data = JSON.parse(message.toString())
 				this.storeState(data, 'WebSocket')
 			} catch (e) {
-				this.debug('JSON Error:' + e)
+				this.log('debug', 'JSON Error:' + e)
 			}
-			this.debug('---- WebSocket received: ', data)
+			this.log('debug', `---- WebSocket received: ${JSON.stringify(data)}`)
 		})
 
 		this.ws.on('error', (data) => {
@@ -492,7 +465,7 @@ class BirdDogPTZInstance extends InstanceBase {
 
 		// Repeat the poll at set intervals
 		this.timers.pollCameraConfig = setInterval(this.pollCameraConfig.bind(this), 10000) // No need to poll frequently
-		this.timers.pollCameraStatus = setInterval(this.pollCameraStatus.bind(this), 3000) // This will be used to get status of the camera
+		this.timers.pollCameraStatus = setInterval(this.pollCameraStatus.bind(this), 1000) // This will be used to get status of the camera
 	}
 
 	stopPolling() {
@@ -576,8 +549,8 @@ class BirdDogPTZInstance extends InstanceBase {
 			this.sendVISCACommand(VISCA.MSG_QRY_OPERATION + VISCA.OP_PAN_POS + VISCA.END_MSG, '\x5d') // Query Pan/Tilt Position
 		}
 
-		this.debug('----Camera Setup for - ', this.camera.model)
-		this.debug(this.camera)
+		this.log('debug', `----Camera Setup for - ${this.camera.model}`)
+		this.log('debug', this.camera)
 	}
 
 	getCameraModel() {
@@ -590,7 +563,7 @@ class BirdDogPTZInstance extends InstanceBase {
 			fetch(url, options)
 				.then((res) => {
 					if (res.status == 200) {
-						//this.debug(res)
+						//this.log('debug',res)
 						return res.text()
 					}
 				})
@@ -599,16 +572,16 @@ class BirdDogPTZInstance extends InstanceBase {
 					if (model) {
 						model = model.replace(/BirdDog| |_/g, '')
 						this.getCameraFW(this.checkCameraModel(model))
-					} else if (!model && this.currentStatus != 2) {
+					} else if (!model) {
 						this.log('error', 'Please upgrade your BirdDog camera to the latest LTS firmware to use this module')
-						this.status(this.STATUS_ERROR)
+						this.updateStatus('connection_failure')
 						if (this.timers.pollCameraStatus !== undefined) {
 							clearInterval(this.timers.pollCameraStatus)
 						}
 					}
 				})
 				.catch((err) => {
-					this.debug(err)
+					this.log('debug', `Get Cam Model Error ${err}`)
 					let errorText = String(err)
 					if (
 						errorText.match('ECONNREFUSED') ||
@@ -616,10 +589,8 @@ class BirdDogPTZInstance extends InstanceBase {
 						errorText.match('EHOSTDOWN') ||
 						errorText.match('ETIMEDOUT')
 					) {
-						if (this.currentStatus != 2) {
-							this.status(this.STATUS_ERROR)
-							this.log('error', `Unable to connect to BirdDog PTZ Camera (Error: ${errorText?.split('reason:')[1]})`)
-						}
+						this.updateStatus('connection_failure')
+						this.log('error', `Unable to connect to BirdDog PTZ Camera (Error: ${errorText?.split('reason:')[1]})`)
 					}
 				})
 		} else {
@@ -637,7 +608,7 @@ class BirdDogPTZInstance extends InstanceBase {
 		fetch(url, options)
 			.then((res) => {
 				if (res.status == 200) {
-					//this.debug(res)
+					//this.log('debug',res)
 					return res.json()
 				}
 			})
@@ -651,16 +622,16 @@ class BirdDogPTZInstance extends InstanceBase {
 
 					// InitializeCamera
 					this.initializeCamera()
-				} else if (data.Version === '1.0' && this.currentStatus != 2) {
+				} else if (data.Version === '1.0') {
 					this.log('error', 'Please upgrade your BirdDog camera to the latest LTS firmware to use this module')
-					this.status(this.STATUS_ERROR)
+					this.updateStatus('connection_failure')
 					if (this.timers.pollCameraStatus !== undefined) {
 						clearInterval(this.timers.pollCameraStatus)
 					}
 				}
 			})
 			.catch((err) => {
-				this.debug(err)
+				this.log('debug', `Camera Firmware Error: ${err}`)
 				let errorText = String(err)
 				if (
 					errorText.match('ECONNREFUSED') ||
@@ -668,58 +639,57 @@ class BirdDogPTZInstance extends InstanceBase {
 					errorText.match('EHOSTDOWN') ||
 					errorText.match('ETIMEDOUT')
 				) {
-					if (this.currentStatus != 2) {
-						this.status(this.STATUS_ERROR)
-						this.log('error', `Unable to connect to BirdDog PTZ Camera (Error: ${errorText?.split('reason:')[1]})`)
-					}
+					this.updateStatus('connection_failure')
+					this.log('error', `Unable to connect to BirdDog PTZ Camera (Error: ${errorText?.split('reason:')[1]})`)
 				}
 			})
 	}
 
 	initializeCamera() {
-		// this.debug('---- in initializeCamera')
-		if (this.currentStatus != 0 && this.camera.firmware.major && this.camera.model) {
-			this.status(this.STATUS_OK)
+		// this.log('debug','---- in initializeCamera')
+		if (this.camera.firmware.major && this.camera.model) {
+			this.updateStatus('ok')
 			this.log('info', `Connected to ${this.camera.hostname}`)
-			this.debug('---- Connected to', this.camera.hostname)
+			this.log('debug', `---- Connected to ${this.camera.hostname}`)
 
-			this.actions()
+			this.initActions()
 			this.initPresets()
+			this.log('debug', `---- HERE`)
 			this.initVariables()
 			this.initFeedbacks()
-
+			this.log('debug', `---- HERE`)
 			this.init_udp()
 
 			if (this.camera.firmware.major === '5') {
 				this.init_ws_listener()
 			}
 		} else {
-			this.status(this.STATUS_ERROR)
+			this.updateStatus('connection_failure')
 			this.log('error', `Unable to connect to ${this.camera.hostname}`)
 		}
 	}
 
 	checkCameraModel(detectedModel) {
-		//this.debug('---- In checkCameraModel with detectedModel as', detectedModel)
-		var model = CHOICES.CAMERAS.find((element) => {
-			// this.debug('---- Checking element ', element)
+		//this.log('debug','---- In checkCameraModel with detectedModel as', detectedModel)
+		let model = CHOICES.CAMERAS.find((element) => {
+			// this.log('debug','---- Checking element ', element)
 			if (element.id === detectedModel) {
 				return detectedModel
 			} else if (element?.other) {
-				var tempArray = Object.entries(element)
+				let tempArray = Object.entries(element)
 				return tempArray[2][1].includes(detectedModel)
 			} else {
-				// this.debug('---- Returning False for ', element)
+				// this.log('debug','---- Returning False for ', element)
 				return false
 			}
 		})
 		if (model) {
 			this.log('info', `Detected camera model: ${model.id}`)
-			this.debug('---- Detected camera model: ' + model.id)
+			this.log('debug', '---- Detected camera model: ' + model.id)
 			return model.id
 		} else {
 			this.log('error', `Unrecognized camera model: ${detectedModel}. Using "Default" camera profile`)
-			this.debug(`Unrecognized camera model: ${detectedModel}. Using "Default" camera profile`)
+			this.log('debug', `Unrecognized camera model: ${detectedModel}. Using "Default" camera profile`)
 			return 'Default'
 		}
 	}
@@ -754,7 +724,7 @@ class BirdDogPTZInstance extends InstanceBase {
 		this.camera.shutter_table = 60 // Camera defaults to 59.94 on startup
 		this.camera.unknown = [] // Array to store unknown API variables
 
-		this.debug('---- Initial State for camera', this.camera)
+		this.log('debug', '---- Initial State for camera', this.camera)
 	}
 
 	storeState(data, endpoint) {
@@ -773,8 +743,8 @@ class BirdDogPTZInstance extends InstanceBase {
 			if (!stored) {
 				if (!this.camera.unknown.includes(element[0])) {
 					//Only warn about unknown API variables once
-					this.log('warn', `Unknown API variable returned from ${endpoint}: ${element[0]}`)
-					this.debug('---- Unknown API variable returned from ' + endpoint + ': ' + element[0])
+					this.log('debug', `Unknown API variable returned from ${endpoint}: ${element[0]}`)
+					this.log('debug', '---- Unknown API variable returned from ' + endpoint + ': ' + element[0])
 					this.camera.unknown.push(element[0])
 				}
 			} else if (this.camera[stored[0]] !== element[1]) {

@@ -2,7 +2,7 @@
 	"id": "birddog-ptz",
 	"name": "birddog-ptz",
 	"shortname": "BirdDog PTZ",
-	"description": "This module controls BirdDog PTZ cameras.",
+	"description": "BirdDog PTZ module for Companion.",
 	"version": "3.0.0",
 	"license": "MIT",
 	"repository": "git+https://github.com/bitfocus/companion-module-birddog-ptz.git",
@@ -24,7 +24,7 @@
 		"type": "node18",
 		"api": "nodejs-ipc",
 		"apiVersion": "0.0.0",
-		"entrypoint": "..\\index.js"
+		"entrypoint": "../index.js"
 	},
 	"manufacturer": "BirdDog",
 	"products": ["PTZ"],

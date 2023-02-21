@@ -1,46 +1,47 @@
-module.exports = {
-	choicesUpgrade: function (context, config, actions, feedbacks) {
-		let changed = false
+export const upgradeScripts = [
+	function (context, props) {
+		//choicesUpgrade
+		let changed = {
+			updatedConfig: config,
+			updatedActions: [],
+			updatedFeedbacks: [],
+		}
 
-		actions.forEach((action) => {
-			if (action.action === 'freeze') {
+		props.actions.forEach((action) => {
+			if (action.actionId === 'freeze') {
 				if (action.options.val == '0') {
 					action.options.val = 'On'
-					changed = true
 				} else if (action.options.val == '1') {
 					action.options.val = 'Off'
-					changed = true
 				}
+				changed.updatedActions.push(action)
 			}
-			if (action.action === 'power') {
-				action.action = 'standby'
+			if (action.actionId === 'power') {
+				action.actionId = 'standby'
 				if (action.options.val == '0') {
 					action.options.val = 'on'
-					changed = true
 				} else if (action.options.val == '1') {
 					action.options.val = 'standby'
-					changed = true
 				}
+				changed.updatedActions.push(action)
 			}
-			if (action.action === 'hrMode' || action.action === 'highSensitivity') {
+			if (action.actionId === 'hrMode' || action.actionId === 'highSensitivity') {
 				if (action.options.bol == '1') {
 					action.options.val = 'On'
-					changed = true
 				} else if (action.options.bol == '0') {
 					action.options.val = 'Off'
-					changed = true
 				}
+				changed.updatedActions.push(action)
 			}
-			if (action.action === 'picFlip' || action.action === 'picMirror') {
+			if (action.actionId === 'picFlip' || action.actionId === 'picMirror') {
 				if (action.options.val == '1') {
 					action.options.val = 'On'
-					changed = true
 				} else if (action.options.val == '0') {
 					action.options.val = 'Off'
-					changed = true
 				}
+				changed.updatedActions.push(action)
 			}
-			if (action.action === 'wb') {
+			if (action.actionId === 'wb') {
 				let val
 				if (!isNaN(action.options.val)) {
 					switch (action.options.val) {
@@ -82,9 +83,9 @@ module.exports = {
 					val = action.options.val
 				}
 				action.options.val = val
-				changed = true
+				changed.updatedActions.push(action)
 			}
-			if (action.action === 'expM') {
+			if (action.actionId === 'expM') {
 				let val
 				if (!isNaN(action.options.val)) {
 					switch (action.options.val) {
@@ -105,57 +106,53 @@ module.exports = {
 					val = action.options.val
 				}
 				action.options.val = val
-				changed = true
+				changed.updatedActions.push(action)
 			}
-			if (action.action === 'pictureEffect') {
+			if (action.actionId === 'pictureEffect') {
 				if (action.options.val == '1' || action.options.val == '2') {
 					action.options.val = 'BW'
-					changed = true
 				} else if (action.options.val == '0') {
 					action.options.val = 'Off'
-					changed = true
 				}
+				changed.updatedActions.push(action)
 			}
-			if (action.action === 'focusM') {
+			if (action.actionId === 'focusM') {
 				if (action.options.bol == '0') {
 					action.options.val = 'Auto'
-					changed = true
 				} else if (action.options.bol == '1') {
 					action.options.val = 'Manual'
-					changed = true
 				}
+				changed.updatedActions.push(action)
 			}
-			if (action.action === 'tally') {
+			if (action.actionId === 'tally') {
 				if (action.options.bol == '1') {
 					action.options.val = 'TallyOn'
-					changed = true
 				} else if (action.options.bol == '0') {
 					action.options.val = 'TallyOff'
-					changed = true
 				}
+				changed.updatedActions.push(action)
 			}
-			if (action.action === 'irMode') {
-				action.action = 'ir_cutfilter'
+			if (action.actionId === 'irMode') {
+				action.actionId = 'ir_cutfilter'
 				if (action.options.bol == '0') {
 					action.options.val = 'On'
-					changed = true
 				} else if (action.options.bol == '1') {
 					action.options.val = 'Off'
-					changed = true
 				}
+				changed.updatedActions.push(action)
 			}
-			if (action.action === 'ptSpeedU') {
-				action.action = 'panSpeed'
+			if (action.actionId === 'ptSpeedU') {
+				action.actionId = 'panSpeed'
 				action.options.type = 'up'
-				changed = true
+				changed.updatedActions.push(action)
 			}
-			if (action.action === 'ptSpeedD') {
-				action.action = 'panSpeed'
+			if (action.actionId === 'ptSpeedD') {
+				action.actionId = 'panSpeed'
 				action.options.type = 'down'
-				changed = true
+				changed.updatedActions.push(action)
 			}
-			if (action.action === 'ptSpeedS') {
-				action.action = 'panSpeed'
+			if (action.actionId === 'ptSpeedS') {
+				action.actionId = 'panSpeed'
 				action.options.type = 'value'
 				let val
 				if (action.options.speed) {
@@ -235,9 +232,9 @@ module.exports = {
 					}
 				}
 				action.options.value = val
-				changed = true
+				changed.updatedActions.push(action)
 			}
-			if (action.action === 'pt') {
+			if (action.actionId === 'pt') {
 				let val
 				if (!isNaN(action.options.val)) {
 					switch (action.options.val) {
@@ -276,9 +273,9 @@ module.exports = {
 					val = action.options.val
 				}
 				action.options.val = val
-				changed = true
+				changed.updatedActions.push(action)
 			}
-			if (action.action === 'zoom') {
+			if (action.actionId === 'zoom') {
 				let val
 				if (!isNaN(action.options.val)) {
 					switch (action.options.val) {
@@ -296,9 +293,9 @@ module.exports = {
 					val = action.options.val
 				}
 				action.options.val = val
-				changed = true
+				changed.updatedActions.push(action)
 			}
-			if (action.action === 'focus') {
+			if (action.actionId === 'focus') {
 				let val
 				if (!isNaN(action.options.val)) {
 					switch (action.options.val) {
@@ -319,172 +316,194 @@ module.exports = {
 					val = action.options.val
 				}
 				action.options.val = val
-				changed = true
+				changed.updatedActions.push(action)
 			}
-			if (action.action === 'gainBlue') {
-				action.action = 'blue_gain'
-				changed = true
+			if (action.actionId === 'gainBlue') {
+				action.actionId = 'blue_gain'
+				changed.updatedActions.push(action)
 			}
-			if (action.action === 'gainRed') {
-				action.action = 'red_gain'
-				changed = true
+			if (action.actionId === 'gainRed') {
+				action.actionId = 'red_gain'
+				changed.updatedActions.push(action)
 			}
-			if (action.action === 'wb') {
-				action.action = 'wb_mode'
-				changed = true
+			if (action.actionId === 'wb') {
+				action.actionId = 'wb_mode'
+				changed.updatedActions.push(action)
 			}
 		})
 		return changed
 	},
-	autoDetectDefault: function (context, config, actions, feedbacks) {
-		let changed = false
-		if (config.model == undefined || config.model == '') {
-			config.model = 'Auto'
-			changed = true
+	function (context, props) {
+		//autoDetectDefault
+		let changed = {
+			updatedConfig: null,
+			updatedActions: [],
+			updatedFeedbacks: [],
 		}
+		if (props.config !== null) {
+			if (props.config.model == undefined || props.config.model == '') {
+				props.config.model = 'Auto'
+				changed.updatedConfig = props.config
+			}
+		}
+		return changed
 	},
 
-	colorTempChange: function (context, config, actions, feedbacks) {
-		let changed = false
-		actions.forEach((action) => {
-			if (action.action === 'color_temp') {
+	function (context, props) {
+		//colorTempChange
+		let changed = {
+			updatedConfig: config,
+			updatedActions: [],
+			updatedFeedbacks: [],
+		}
+		props.actions.forEach((action) => {
+			if (action.actionId === 'color_temp') {
 				if (!['up', 'down', 'value'].includes(action.options.val)) {
 					let val = action.options.val
 					action.options.val = 'value'
 					action.options.value = val
-					changed = true
+					changed.updatedActions.push(action)
 				}
 			}
 		})
 		return changed
 	},
-
-	tallyMode: function (context, config, actions, feedbacks) {
-		let changed = false
-		actions.forEach((action) => {
-			if (action.action === 'tally') {
-				action.action = 'tally_mode'
+	function (context, props) {
+		//tallyMode
+		let changed = {
+			updatedConfig: config,
+			updatedActions: [],
+			updatedFeedbacks: [],
+		}
+		props.actions.forEach((action) => {
+			if (action.actionId === 'tally') {
+				action.actionId = 'tally_mode'
+				changed.updatedActions.push(action)
 			}
 		})
 		return changed
 	},
-
-	actionsValueUpgrade: function (context, config, actions, feedbacks) {
-		let changed = false
-		actions.forEach((action) => {
-			if (action.action === 'analogAudioInGain') {
+	function (context, props) {
+		//actionsValueUpgrade
+		let changed = {
+			updatedConfig: config,
+			updatedActions: [],
+			updatedFeedbacks: [],
+		}
+		props.actions.forEach((action) => {
+			if (action.actionId === 'analogAudioInGain') {
 				action.options.value = action.options.val
 				action.options.val = 'value'
-				changed = true
+				changed.updatedActions.push(action)
 			}
 
-			if (action.action === 'analogAudioOutGain') {
+			if (action.actionId === 'analogAudioOutGain') {
 				action.options.value = action.options.val
 				action.options.val = 'value'
-				changed = true
+				changed.updatedActions.push(action)
 			}
 
-			if (action.action === 'noise_reduction') {
+			if (action.actionId === 'noise_reduction') {
 				action.options.value = action.options.val
 				action.options.val = 'value'
-				changed = true
+				changed.updatedActions.push(action)
 			}
 
-			if (action.action === 'wide_dynamic_range') {
+			if (action.actionId === 'wide_dynamic_range') {
 				action.options.value = action.options.val
 				action.options.val = 'value'
-				changed = true
+				changed.updatedActions.push(action)
 			}
 
-			if (action.action === 'color') {
-				action.action = 'saturation'
-				changed = true
+			if (action.actionId === 'color') {
+				action.actionId = 'saturation'
+				changed.updatedActions.push(action)
 			}
 
-			if (action.action === 'ae_response') {
+			if (action.actionId === 'ae_response') {
 				action.options.value = action.options.level
 				action.options.val = 'value'
-				changed = true
+				changed.updatedActions.push(action)
 			}
 
-			if (action.action === 'bright_level') {
+			if (action.actionId === 'bright_level') {
 				action.options.value = action.options.level
 				action.options.val = 'value'
-				changed = true
+				changed.updatedActions.push(action)
 			}
 
-			if (action.action === 'shutter_speed_overwrite') {
+			if (action.actionId === 'shutter_speed_overwrite') {
 				action.options.value = action.options.val
 				action.options.val = 'value'
-				changed = true
+				changed.updatedActions.push(action)
 			}
 
-			if (action.action === 'bg') {
+			if (action.actionId === 'bg') {
 				action.options.value = action.options.val
 				action.options.val = 'value'
-				changed = true
+				changed.updatedActions.push(action)
 			}
 
-			if (action.action === 'br') {
+			if (action.actionId === 'br') {
 				action.options.value = action.options.val
 				action.options.val = 'value'
-				changed = true
+				changed.updatedActions.push(action)
 			}
 
-			if (action.action === 'gb') {
+			if (action.actionId === 'gb') {
 				action.options.value = action.options.val
 				action.options.val = 'value'
-				changed = true
+				changed.updatedActions.push(action)
 			}
 
-			if (action.action === 'level') {
+			if (action.actionId === 'level') {
 				action.options.value = action.options.val
 				action.options.val = 'value'
-				changed = true
+				changed.updatedActions.push(action)
 			}
 
-			if (action.action === 'offset') {
+			if (action.actionId === 'offset') {
 				action.options.value = action.options.val
 				action.options.val = 'value'
-				changed = true
+				changed.updatedActions.push(action)
 			}
 
-			if (action.action === 'phase') {
+			if (action.actionId === 'phase') {
 				action.options.value = action.options.val
 				action.options.val = 'value'
-				changed = true
+				changed.updatedActions.push(action)
 			}
 
-			if (action.action === 'rb') {
+			if (action.actionId === 'rb') {
 				action.options.value = action.options.val
 				action.options.val = 'value'
-				changed = true
+				changed.updatedActions.push(action)
 			}
 
-			if (action.action === 'rg') {
+			if (action.actionId === 'rg') {
 				action.options.value = action.options.val
 				action.options.val = 'value'
-				changed = true
+				changed.updatedActions.push(action)
 			}
 
-			if (action.action === 'speed') {
+			if (action.actionId === 'speed') {
 				action.options.value = action.options.val
 				action.options.val = 'value'
-				changed = true
+				changed.updatedActions.push(action)
 			}
 
-			if (action.action === 'threed_nr') {
+			if (action.actionId === 'threed_nr') {
 				action.options.value = action.options.val
 				action.options.val = 'value'
-				changed = true
+				changed.updatedActions.push(action)
 			}
 
-			if (action.action === 'twod_nr') {
+			if (action.actionId === 'twod_nr') {
 				action.options.value = action.options.val
 				action.options.val = 'value'
-				changed = true
+				changed.updatedActions.push(action)
 			}
 		})
 		return changed
 	},
-}
+]

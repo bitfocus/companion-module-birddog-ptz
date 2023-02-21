@@ -1,16 +1,16 @@
-const { getModelActions, getModelVariables, sortByPresetCategory } = require('./utils')
-var { MODEL_SPECS } = require('./models.js')
+import { getModelActions, getModelVariables, sortByPresetCategory } from './utils.js'
+import { MODEL_SPECS } from './models.js'
 import { combineRgb } from '@companion-module/base'
 
-exports.getPresets = function () {
+export function getPresets() {
 	const ColorWhite = combineRgb(255, 255, 255) // White
 	const ColorBlack = combineRgb(0, 0, 0) // Black
 	const ColorRed = combineRgb(255, 0, 0) // Red
 	const ColorGreen = combineRgb(0, 255, 0) // Green
 	const ColorOrange = combineRgb(255, 102, 0) // Orange
 
-	MODEL_ACTIONS = getModelActions(MODEL_SPECS, this.camera.firmware.major, this.camera.model)
-	MODEL_VARIABLES = getModelVariables(MODEL_SPECS, this.camera.firmware.major, this.camera.model)
+	let MODEL_ACTIONS = getModelActions(MODEL_SPECS, this.camera.firmware.major, this.camera.model)
+	let MODEL_VARIABLES = getModelVariables(MODEL_SPECS, this.camera.firmware.major, this.camera.model)
 
 	let presets = {}
 
@@ -36,7 +36,7 @@ exports.getPresets = function () {
 
 	if (MODEL_VARIABLES.some((variable) => variable.name === 'firmware')) {
 		presets.firmware = {
-			type: button,
+			type: 'button',
 			category: 'General Camera',
 			name: 'Firmware',
 			options: {},
@@ -52,7 +52,7 @@ exports.getPresets = function () {
 	}
 	if (MODEL_VARIABLES.some((variable) => variable.name === 'model')) {
 		presets.model = {
-			type: button,
+			type: 'button',
 			category: 'General Camera',
 			name: 'Model',
 			options: {},
@@ -68,7 +68,7 @@ exports.getPresets = function () {
 	}
 	if (MODEL_VARIABLES.some((variable) => variable.name === 'hostname')) {
 		presets.hostname = {
-			type: button,
+			type: 'button',
 			category: 'General Camera',
 			name: 'Hostname',
 			options: {},
@@ -84,7 +84,7 @@ exports.getPresets = function () {
 	}
 	if (MODEL_VARIABLES.some((variable) => variable.name === 'ipaddress')) {
 		presets.ipaddress = {
-			type: button,
+			type: 'button',
 			category: 'General Camera',
 			name: 'IP Address',
 			options: {},
@@ -100,7 +100,7 @@ exports.getPresets = function () {
 	}
 	if (MODEL_VARIABLES.some((variable) => variable.name === 'netmask')) {
 		presets.netmask = {
-			type: button,
+			type: 'button',
 			category: 'General Camera',
 			name: 'Netmask',
 			options: {},
@@ -116,7 +116,7 @@ exports.getPresets = function () {
 	}
 	if (MODEL_VARIABLES.some((variable) => variable.name === 'network_config')) {
 		presets.network_config = {
-			type: button,
+			type: 'button',
 			category: 'General Camera',
 			name: 'Network Config',
 			options: {},
@@ -132,7 +132,7 @@ exports.getPresets = function () {
 	}
 	if (MODEL_VARIABLES.some((variable) => variable.name === 'serial_number')) {
 		presets.serial_number = {
-			type: button,
+			type: 'button',
 			category: 'General Camera',
 			name: 'Serial Number',
 			options: {},
@@ -148,7 +148,7 @@ exports.getPresets = function () {
 	}
 	if (MODEL_VARIABLES.some((variable) => variable.name === 'status')) {
 		presets.status = {
-			type: button,
+			type: 'button',
 			category: 'General Camera',
 			name: 'Status',
 			options: {},
@@ -167,7 +167,7 @@ exports.getPresets = function () {
 
 	if (MODEL_ACTIONS?.standby) {
 		presets.standby = {
-			type: button,
+			type: 'button',
 			category: 'VISCA Actions',
 			name: 'Standby',
 			options: {},
@@ -202,7 +202,7 @@ exports.getPresets = function () {
 			],
 		}
 		presets.camOn = {
-			type: button,
+			type: 'button',
 			category: 'VISCA Actions',
 			name: 'Cam On',
 			options: {},
@@ -240,7 +240,7 @@ exports.getPresets = function () {
 
 	if (MODEL_ACTIONS?.freeze) {
 		presets.freeze = {
-			type: button,
+			type: 'button',
 			category: 'VISCA Actions',
 			name: 'Freeze',
 			options: {},
@@ -279,7 +279,7 @@ exports.getPresets = function () {
 	// Analog Audio Presets
 	if (MODEL_ACTIONS?.analogAudioInGain) {
 		presets.analogAudioInGainUp = {
-			type: button,
+			type: 'button',
 			category: 'Analog Audio',
 			name: 'Analog Audio In Gain Up',
 			options: {},
@@ -305,7 +305,7 @@ exports.getPresets = function () {
 			feedbacks: [],
 		}
 		presets.analogAudioInGainDown = {
-			type: button,
+			type: 'button',
 			category: 'Analog Audio',
 			name: 'Analog Audio In Gain Down',
 			options: {},
@@ -334,7 +334,7 @@ exports.getPresets = function () {
 
 	if (MODEL_ACTIONS?.analogAudioOutGain) {
 		presets.analogAudioOutGainUp = {
-			type: button,
+			type: 'button',
 			category: 'Analog Audio',
 			name: 'Analog Audio Out Gain Up',
 			options: {},
@@ -360,7 +360,7 @@ exports.getPresets = function () {
 			feedbacks: [],
 		}
 		presets.analogAudioOutGainDown = {
-			type: button,
+			type: 'button',
 			category: 'Analog Audio',
 			name: 'Analog Audio Out Gain Down',
 			options: {},
@@ -389,7 +389,7 @@ exports.getPresets = function () {
 
 	if (MODEL_ACTIONS?.analogAudioOutput) {
 		presets.analogAudioOutput = {
-			type: button,
+			type: 'button',
 			category: 'Analog Audio',
 			name: 'Analog Audio Output',
 			options: {},
@@ -429,7 +429,7 @@ exports.getPresets = function () {
 
 	if (MODEL_VARIABLES.some((variable) => variable.name === 'oled')) {
 		presets.oled = {
-			type: button,
+			type: 'button',
 			category: 'Device Settings',
 			name: 'OLED',
 			options: {},
@@ -448,7 +448,7 @@ exports.getPresets = function () {
 
 	if (MODEL_ACTIONS?.video_output) {
 		presets.video_output = {
-			type: button,
+			type: 'button',
 			category: 'Video Output',
 			name: 'Video Output',
 			options: {},
@@ -488,7 +488,7 @@ exports.getPresets = function () {
 
 	if (MODEL_ACTIONS?.bandwidth_mode) {
 		presets.bandwidth_mode = {
-			type: button,
+			type: 'button',
 			category: 'Encode Setup',
 			name: 'Bandwidth Mode',
 			options: {},
@@ -526,7 +526,7 @@ exports.getPresets = function () {
 
 	if (MODEL_VARIABLES.some((variable) => variable.name === 'bandwidth_select')) {
 		presets.bandwidth_select = {
-			type: button,
+			type: 'button',
 			category: 'Encode Setup',
 			name: 'BW Select',
 			options: {},
@@ -543,7 +543,7 @@ exports.getPresets = function () {
 
 	if (MODEL_VARIABLES.some((variable) => variable.name === 'color_bitdepth')) {
 		presets.color_bitdepth = {
-			type: button,
+			type: 'button',
 			category: 'Encode Setup',
 			name: 'Color Bitdepth',
 			options: {},
@@ -560,7 +560,7 @@ exports.getPresets = function () {
 
 	if (MODEL_ACTIONS?.ndiAudio) {
 		presets.ndiAudio = {
-			type: button,
+			type: 'button',
 			category: 'Encode Setup',
 			name: 'NDI Audio',
 			options: {},
@@ -598,7 +598,7 @@ exports.getPresets = function () {
 
 	if (MODEL_ACTIONS?.ndiGroupEnable) {
 		presets.ndiGroupEnable = {
-			type: button,
+			type: 'button',
 			category: 'Encode Setup',
 			name: 'NDI Group',
 			options: {},
@@ -636,7 +636,7 @@ exports.getPresets = function () {
 
 	if (MODEL_VARIABLES.some((variable) => variable.name === 'ndi_group_name')) {
 		presets.ndi_group_name = {
-			type: button,
+			type: 'button',
 			category: 'Encode Setup',
 			name: 'NDI Group Name',
 			options: {},
@@ -653,7 +653,7 @@ exports.getPresets = function () {
 
 	if (MODEL_ACTIONS?.screensaver_mode) {
 		presets.screensaver_mode = {
-			type: button,
+			type: 'button',
 			category: 'Encode Setup',
 			name: 'Screensaver Mode ',
 			options: {},
@@ -691,7 +691,7 @@ exports.getPresets = function () {
 
 	if (MODEL_VARIABLES.some((variable) => variable.name === 'stream_name')) {
 		presets.stream_name = {
-			type: button,
+			type: 'button',
 			category: 'Encode Setup',
 			name: 'Stream Name',
 			options: {},
@@ -708,7 +708,7 @@ exports.getPresets = function () {
 
 	if (MODEL_ACTIONS?.stream_to_network) {
 		presets.stream_to_network = {
-			type: button,
+			type: 'button',
 			category: 'Encode Setup',
 			name: 'Stream to Network ',
 			options: {},
@@ -746,7 +746,7 @@ exports.getPresets = function () {
 
 	if (MODEL_ACTIONS?.tally_mode) {
 		presets.tally_mode = {
-			type: button,
+			type: 'button',
 			category: 'Encode Setup',
 			name: 'Tally Mode',
 			options: {},
@@ -784,7 +784,7 @@ exports.getPresets = function () {
 
 	if (MODEL_VARIABLES.some((variable) => variable.name === 'video_csc')) {
 		presets.video_csc = {
-			type: button,
+			type: 'button',
 			category: 'Encode Setup',
 			name: 'Video CSC',
 			options: {},
@@ -801,7 +801,7 @@ exports.getPresets = function () {
 
 	if (MODEL_VARIABLES.some((variable) => variable.name === 'video_format')) {
 		presets.video_format = {
-			type: button,
+			type: 'button',
 			category: 'Encode Setup',
 			name: 'Video Format',
 			options: {},
@@ -818,7 +818,7 @@ exports.getPresets = function () {
 
 	if (MODEL_VARIABLES.some((variable) => variable.name === 'video_sample_rate')) {
 		presets.video_sample_rate = {
-			type: button,
+			type: 'button',
 			category: 'Encode Setup',
 			name: 'Video Sample Rate',
 			options: {},
@@ -837,7 +837,7 @@ exports.getPresets = function () {
 
 	if (MODEL_ACTIONS?.transmit_method) {
 		presets.transmit_method = {
-			type: button,
+			type: 'button',
 			category: 'Encode Transport',
 			name: 'Transmit Method',
 			options: {},
@@ -875,7 +875,7 @@ exports.getPresets = function () {
 
 	if (MODEL_VARIABLES.some((variable) => variable.name === 'transmit_netprefix')) {
 		presets.transmit_netprefix = {
-			type: button,
+			type: 'button',
 			category: 'Encode Transport',
 			name: 'Multicast Net Prefix',
 			options: {},
@@ -892,7 +892,7 @@ exports.getPresets = function () {
 
 	if (MODEL_VARIABLES.some((variable) => variable.name === 'transmit_netmask')) {
 		presets.transmit_netmask = {
-			type: button,
+			type: 'button',
 			category: 'Encode Transport',
 			name: 'Multicast Netmask',
 			options: {},
@@ -909,7 +909,7 @@ exports.getPresets = function () {
 
 	if (MODEL_VARIABLES.some((variable) => variable.name === 'transmit_ttl')) {
 		presets.transmit_ttl = {
-			type: button,
+			type: 'button',
 			category: 'Encode Transport',
 			name: 'Multicast TTL',
 			options: {},
@@ -926,7 +926,7 @@ exports.getPresets = function () {
 
 	if (MODEL_ACTIONS?.capture_screensaver) {
 		presets.capture_screensaver = {
-			type: button,
+			type: 'button',
 			category: 'Encode Transport',
 			name: 'Capture Screensaver',
 			options: {},
@@ -954,7 +954,7 @@ exports.getPresets = function () {
 
 	if (MODEL_ACTIONS?.ndi_discovery_server) {
 		presets.ndi_discovery_server = {
-			type: button,
+			type: 'button',
 			category: 'NDI Discovery',
 			name: 'NDI Discovery Server',
 			options: {},
@@ -992,7 +992,7 @@ exports.getPresets = function () {
 
 	if (MODEL_VARIABLES.some((variable) => variable.name === 'ndi_discovery_server_ip')) {
 		presets.ndi_discovery_server_ip = {
-			type: button,
+			type: 'button',
 			category: 'NDI Discovery',
 			name: 'NDI Discovery Server IP',
 			options: {},
@@ -1011,7 +1011,7 @@ exports.getPresets = function () {
 
 	if (MODEL_VARIABLES.some((variable) => variable.name === 'freed')) {
 		presets.freed = {
-			type: button,
+			type: 'button',
 			category: 'FreeD',
 			name: 'FreeD',
 			options: {},
@@ -1026,7 +1026,7 @@ exports.getPresets = function () {
 
 	if (MODEL_VARIABLES.some((variable) => variable.name === 'freed_ip_address')) {
 		presets.freed_ip_address = {
-			type: button,
+			type: 'button',
 			category: 'FreeD',
 			name: 'FreeD IP Address',
 			options: {},
@@ -1043,7 +1043,7 @@ exports.getPresets = function () {
 
 	if (MODEL_VARIABLES.some((variable) => variable.name === 'freed_port')) {
 		presets.freed_port = {
-			type: button,
+			type: 'button',
 			category: 'FreeD',
 			name: 'FreeD Port',
 			options: {},
@@ -1060,7 +1060,7 @@ exports.getPresets = function () {
 
 	if (MODEL_ACTIONS?.pt) {
 		presets.ptUp = {
-			type: button,
+			type: 'button',
 			category: 'Camera Control',
 			name: 'UP',
 			options: {},
@@ -1079,6 +1079,11 @@ exports.getPresets = function () {
 							actionId: 'pt',
 							options: {
 								val: 'up',
+								posPan: '0000',
+								posTilt: '0000',
+								override: false,
+								panSpeed: 9,
+								tiltSpeed: 9,
 							},
 						},
 					],
@@ -1095,7 +1100,7 @@ exports.getPresets = function () {
 			feedbacks: [],
 		}
 		presets.ptDown = {
-			type: button,
+			type: 'button',
 			category: 'Camera Control',
 			name: 'DOWN',
 			options: {},
@@ -1114,6 +1119,11 @@ exports.getPresets = function () {
 							actionId: 'pt',
 							options: {
 								val: 'down',
+								posPan: '0000',
+								posTilt: '0000',
+								override: false,
+								panSpeed: 9,
+								tiltSpeed: 9,
 							},
 						},
 					],
@@ -1130,7 +1140,7 @@ exports.getPresets = function () {
 			feedbacks: [],
 		}
 		presets.ptLeft = {
-			type: button,
+			type: 'button',
 			category: 'Camera Control',
 			name: 'LEFT',
 			options: {},
@@ -1149,6 +1159,11 @@ exports.getPresets = function () {
 							actionId: 'pt',
 							options: {
 								val: 'left',
+								posPan: '0000',
+								posTilt: '0000',
+								override: false,
+								panSpeed: 9,
+								tiltSpeed: 9,
 							},
 						},
 					],
@@ -1165,7 +1180,7 @@ exports.getPresets = function () {
 			feedbacks: [],
 		}
 		presets.ptRight = {
-			type: button,
+			type: 'button',
 			category: 'Camera Control',
 			name: 'RIGHT',
 			options: {},
@@ -1184,6 +1199,11 @@ exports.getPresets = function () {
 							actionId: 'pt',
 							options: {
 								val: 'right',
+								posPan: '0000',
+								posTilt: '0000',
+								override: false,
+								panSpeed: 9,
+								tiltSpeed: 9,
 							},
 						},
 					],
@@ -1200,7 +1220,7 @@ exports.getPresets = function () {
 			feedbacks: [],
 		}
 		presets.ptUpRight = {
-			type: button,
+			type: 'button',
 			category: 'Camera Control',
 			name: 'UP RIGHT',
 			options: {},
@@ -1219,6 +1239,11 @@ exports.getPresets = function () {
 							actionId: 'pt',
 							options: {
 								val: 'up_right',
+								posPan: '0000',
+								posTilt: '0000',
+								override: false,
+								panSpeed: 9,
+								tiltSpeed: 9,
 							},
 						},
 					],
@@ -1235,7 +1260,7 @@ exports.getPresets = function () {
 			feedbacks: [],
 		}
 		presets.ptUpLeft = {
-			type: button,
+			type: 'button',
 			category: 'Camera Control',
 			name: 'UP LEFT',
 			options: {},
@@ -1254,6 +1279,11 @@ exports.getPresets = function () {
 							actionId: 'pt',
 							options: {
 								val: 'up_left',
+								posPan: '0000',
+								posTilt: '0000',
+								override: false,
+								panSpeed: 9,
+								tiltSpeed: 9,
 							},
 						},
 					],
@@ -1270,7 +1300,7 @@ exports.getPresets = function () {
 			feedbacks: [],
 		}
 		presets.ptDownLeft = {
-			type: button,
+			type: 'button',
 			category: 'Camera Control',
 			name: 'DOWN LEFT',
 			options: {},
@@ -1289,6 +1319,11 @@ exports.getPresets = function () {
 							actionId: 'pt',
 							options: {
 								val: 'down_left',
+								posPan: '0000',
+								posTilt: '0000',
+								override: false,
+								panSpeed: 9,
+								tiltSpeed: 9,
 							},
 						},
 					],
@@ -1305,7 +1340,7 @@ exports.getPresets = function () {
 			feedbacks: [],
 		}
 		presets.ptDownRight = {
-			type: button,
+			type: 'button',
 			category: 'Camera Control',
 			name: 'DOWN RIGHT',
 			options: {},
@@ -1324,6 +1359,11 @@ exports.getPresets = function () {
 							actionId: 'pt',
 							options: {
 								val: 'down_right',
+								posPan: '0000',
+								posTilt: '0000',
+								override: false,
+								panSpeed: 9,
+								tiltSpeed: 9,
 							},
 						},
 					],
@@ -1340,7 +1380,7 @@ exports.getPresets = function () {
 			feedbacks: [],
 		}
 		presets.ptHome = {
-			type: button,
+			type: 'button',
 			category: 'Camera Control',
 			name: 'Home',
 			options: {},
@@ -1357,6 +1397,11 @@ exports.getPresets = function () {
 							actionId: 'pt',
 							options: {
 								val: 'home',
+								posPan: '0000',
+								posTilt: '0000',
+								override: false,
+								panSpeed: 9,
+								tiltSpeed: 9,
 							},
 						},
 					],
@@ -1369,7 +1414,7 @@ exports.getPresets = function () {
 
 	if (MODEL_ACTIONS?.panSpeed) {
 		presets.panSpeedUp = {
-			type: button,
+			type: 'button',
 			category: 'Camera Control',
 			name: 'Pan Speed Up',
 			options: {},
@@ -1395,7 +1440,7 @@ exports.getPresets = function () {
 			feedbacks: [],
 		}
 		presets.panSpeedDown = {
-			type: button,
+			type: 'button',
 			category: 'Camera Control',
 			name: 'Pan Speed Down',
 			options: {},
@@ -1424,7 +1469,7 @@ exports.getPresets = function () {
 
 	if (MODEL_ACTIONS?.preset) {
 		presets.presetMode = {
-			type: button,
+			type: 'button',
 			category: 'Preset',
 			name: 'Preset Mode',
 			options: {},
@@ -1453,7 +1498,7 @@ exports.getPresets = function () {
 
 	if (MODEL_ACTIONS?.preset_speed) {
 		presets.preset_speedUp = {
-			type: button,
+			type: 'button',
 			category: 'Preset',
 			name: 'Preset Speed Up',
 			options: {},
@@ -1479,7 +1524,7 @@ exports.getPresets = function () {
 			feedbacks: [],
 		}
 		presets.preset_speedDown = {
-			type: button,
+			type: 'button',
 			category: 'Preset',
 			name: 'Preset Speed Down',
 			options: {},
@@ -1510,7 +1555,7 @@ exports.getPresets = function () {
 		let recall
 		for (recall = 1; recall < 10; recall++) {
 			presets[`recallPset_${recall}`] = {
-				type: button,
+				type: 'button',
 				category: 'Preset',
 				label: 'Recall Preset ' + parseInt(recall),
 				style: {
@@ -1541,7 +1586,7 @@ exports.getPresets = function () {
 		let save
 		for (save = 1; save < 10; save++) {
 			presets[`savePset${save}`] = {
-				type: button,
+				type: 'button',
 				category: 'Preset',
 				label: 'Save Preset ' + parseInt(save),
 				style: {
@@ -1570,7 +1615,7 @@ exports.getPresets = function () {
 
 	if (MODEL_ACTIONS?.tiltSpeed) {
 		presets.tiltSpeedUp = {
-			type: button,
+			type: 'button',
 			category: 'Camera Control',
 			name: 'Tilt Speed Up',
 			options: {},
@@ -1596,7 +1641,7 @@ exports.getPresets = function () {
 			feedbacks: [],
 		}
 		presets.tiltSpeedDown = {
-			type: button,
+			type: 'button',
 			category: 'Camera Control',
 			name: 'Tilt Speed Down',
 			options: {},
@@ -1625,7 +1670,7 @@ exports.getPresets = function () {
 
 	if (MODEL_ACTIONS?.zoom) {
 		presets.zoomIn = {
-			type: button,
+			type: 'button',
 			category: 'Camera Control',
 			name: 'Zoom In',
 			options: {},
@@ -1658,7 +1703,7 @@ exports.getPresets = function () {
 			feedbacks: [],
 		}
 		presets.zoomOut = {
-			type: button,
+			type: 'button',
 			category: 'Camera Control',
 			name: 'Zoom Out',
 			options: {},
@@ -1694,7 +1739,7 @@ exports.getPresets = function () {
 
 	if (MODEL_ACTIONS?.zoomSpeed) {
 		presets.zoomSpeedUp = {
-			type: button,
+			type: 'button',
 			category: 'Camera Control',
 			name: 'Zoom Speed Up',
 			options: {},
@@ -1720,7 +1765,7 @@ exports.getPresets = function () {
 			feedbacks: [],
 		}
 		presets.zoomSpeedDown = {
-			type: button,
+			type: 'button',
 			category: 'Camera Control',
 			name: 'Zoom Speed Down',
 			options: {},
@@ -1749,7 +1794,7 @@ exports.getPresets = function () {
 
 	if (MODEL_ACTIONS?.onScreenMenu) {
 		presets.onScreenMenu = {
-			type: button,
+			type: 'button',
 			category: 'Camera Control',
 			name: 'On Screen Menu',
 			options: {},
@@ -1777,7 +1822,7 @@ exports.getPresets = function () {
 
 	if (MODEL_ACTIONS?.focus) {
 		presets.focusIn = {
-			type: button,
+			type: 'button',
 			category: 'Camera Control',
 			name: 'Focus In',
 			options: {},
@@ -1810,7 +1855,7 @@ exports.getPresets = function () {
 			feedbacks: [],
 		}
 		presets.focusFar = {
-			type: button,
+			type: 'button',
 			category: 'Camera Control',
 			name: 'Focus Far',
 			options: {},
@@ -1844,7 +1889,7 @@ exports.getPresets = function () {
 			feedbacks: [],
 		}
 		presets.focusMode = {
-			type: button,
+			type: 'button',
 			category: 'Camera Control',
 			name: 'Focus Mode',
 			options: {},
@@ -1879,7 +1924,7 @@ exports.getPresets = function () {
 			],
 		}
 		presets.focusOnePush = {
-			type: button,
+			type: 'button',
 			category: 'Camera Control',
 			name: 'One Push Auto Focus',
 			options: {},
@@ -1910,7 +1955,7 @@ exports.getPresets = function () {
 
 	if (MODEL_ACTIONS?.ae_response) {
 		presets.ae_response = {
-			type: button,
+			type: 'button',
 			category: 'Exposure',
 			name: 'Ae Response',
 			options: {},
@@ -1948,7 +1993,7 @@ exports.getPresets = function () {
 
 	if (MODEL_ACTIONS?.backlight) {
 		presets.backlight = {
-			type: button,
+			type: 'button',
 			category: 'Exposure',
 			name: 'Backlight',
 			options: {},
@@ -1986,7 +2031,7 @@ exports.getPresets = function () {
 
 	if (MODEL_ACTIONS?.bright_level) {
 		presets.bright_level = {
-			type: button,
+			type: 'button',
 			category: 'Exposure',
 			name: 'Bright Level',
 			options: {},
@@ -2024,7 +2069,7 @@ exports.getPresets = function () {
 
 	if (MODEL_ACTIONS?.expComp) {
 		presets.expComp = {
-			type: button,
+			type: 'button',
 			category: 'Exposure',
 			name: 'Exposure Compensation',
 			options: {},
@@ -2062,7 +2107,7 @@ exports.getPresets = function () {
 
 	if (MODEL_VARIABLES.some((variable) => variable.name === 'exposure_comp_level')) {
 		presets.exposure_comp_level = {
-			type: button,
+			type: 'button',
 			category: 'Exposure',
 			name: 'Exposure Compensation Level',
 			options: {},
@@ -2079,7 +2124,7 @@ exports.getPresets = function () {
 
 	if (MODEL_ACTIONS?.exposure_mode) {
 		presets.exposure_mode = {
-			type: button,
+			type: 'button',
 			category: 'Exposure',
 			name: 'Exposure Mode',
 			options: {},
@@ -2117,7 +2162,7 @@ exports.getPresets = function () {
 
 	if (MODEL_ACTIONS?.gain) {
 		presets.gainUp = {
-			type: button,
+			type: 'button',
 			category: 'Exposure',
 			name: 'Gain Up',
 			options: {},
@@ -2143,7 +2188,7 @@ exports.getPresets = function () {
 			feedbacks: [],
 		}
 		presets.gainDown = {
-			type: button,
+			type: 'button',
 			category: 'Exposure',
 			name: 'Gain Down',
 			options: {},
@@ -2172,7 +2217,7 @@ exports.getPresets = function () {
 
 	if (MODEL_ACTIONS?.gain_limit) {
 		presets.gain_limitUp = {
-			type: button,
+			type: 'button',
 			category: 'Exposure',
 			name: 'Gain Limit Up',
 			options: {},
@@ -2198,7 +2243,7 @@ exports.getPresets = function () {
 			feedbacks: [],
 		}
 		presets.gain_limitDown = {
-			type: button,
+			type: 'button',
 			category: 'Exposure',
 			name: 'Gain Limit Down',
 			options: {},
@@ -2227,7 +2272,7 @@ exports.getPresets = function () {
 
 	if (MODEL_ACTIONS?.gain_point) {
 		presets.gain_point = {
-			type: button,
+			type: 'button',
 			category: 'Exposure',
 			name: 'Gain Point',
 			options: {},
@@ -2265,7 +2310,7 @@ exports.getPresets = function () {
 
 	if (MODEL_ACTIONS?.gain_point_position) {
 		presets.gain_point_positionUp = {
-			type: button,
+			type: 'button',
 			category: 'Exposure',
 			name: 'Gain Point Position Up',
 			options: {},
@@ -2291,7 +2336,7 @@ exports.getPresets = function () {
 			feedbacks: [],
 		}
 		presets.gain_point_positionDown = {
-			type: button,
+			type: 'button',
 			category: 'Exposure',
 			name: 'Gain Point Position Down',
 			options: {},
@@ -2320,7 +2365,7 @@ exports.getPresets = function () {
 
 	if (MODEL_ACTIONS?.high_sensitivity) {
 		presets.high_sensitivity = {
-			type: button,
+			type: 'button',
 			category: 'Exposure',
 			name: 'High Sensitivity',
 			options: {},
@@ -2358,7 +2403,7 @@ exports.getPresets = function () {
 
 	if (MODEL_ACTIONS?.iris) {
 		presets.irisUp = {
-			type: button,
+			type: 'button',
 			category: 'Exposure',
 			name: 'Iris Up',
 			options: {},
@@ -2384,7 +2429,7 @@ exports.getPresets = function () {
 			feedbacks: [],
 		}
 		presets.irisDown = {
-			type: button,
+			type: 'button',
 			category: 'Exposure',
 			name: 'Iris Down',
 			options: {},
@@ -2413,7 +2458,7 @@ exports.getPresets = function () {
 
 	if (MODEL_ACTIONS?.shutter_control_overwrite) {
 		presets.shutter_control_overwrite = {
-			type: button,
+			type: 'button',
 			category: 'Exposure',
 			name: 'Shutter Control Overwrite',
 			options: {},
@@ -2451,7 +2496,7 @@ exports.getPresets = function () {
 
 	if (MODEL_ACTIONS?.shutter_max_speed) {
 		presets.shutter_max_speedUp = {
-			type: button,
+			type: 'button',
 			category: 'Exposure',
 			name: 'Shutter Max Speed Up',
 			options: {},
@@ -2477,7 +2522,7 @@ exports.getPresets = function () {
 			feedbacks: [],
 		}
 		presets.shutter_max_speedDown = {
-			type: button,
+			type: 'button',
 			category: 'Exposure',
 			name: 'Shutter Max Speed Down',
 			options: {},
@@ -2506,7 +2551,7 @@ exports.getPresets = function () {
 
 	if (MODEL_ACTIONS?.shutter_min_speed) {
 		presets.shutter_min_speedUp = {
-			type: button,
+			type: 'button',
 			category: 'Exposure',
 			name: 'Shutter Min Speed Up',
 			options: {},
@@ -2532,7 +2577,7 @@ exports.getPresets = function () {
 			feedbacks: [],
 		}
 		presets.shutter_min_speedDown = {
-			type: button,
+			type: 'button',
 			category: 'Exposure',
 			name: 'Shutter Min Speed Down',
 			options: {},
@@ -2561,7 +2606,7 @@ exports.getPresets = function () {
 
 	if (MODEL_ACTIONS?.shutter_speed) {
 		presets.shutter_speedUp = {
-			type: button,
+			type: 'button',
 			category: 'Exposure',
 			name: 'Shutter Up',
 			options: {},
@@ -2587,7 +2632,7 @@ exports.getPresets = function () {
 			feedbacks: [],
 		}
 		presets.shutter_speedDown = {
-			type: button,
+			type: 'button',
 			category: 'Exposure',
 			name: 'Shutter Down',
 			options: {},
@@ -2616,7 +2661,7 @@ exports.getPresets = function () {
 
 	if (MODEL_ACTIONS?.shutter_speed_overwrite) {
 		presets.shutter_speed_overwriteUp = {
-			type: button,
+			type: 'button',
 			category: 'Exposure',
 			name: 'Shutter Speed Overwrite Up',
 			options: {},
@@ -2642,7 +2687,7 @@ exports.getPresets = function () {
 			feedbacks: [],
 		}
 		presets.shutter_speed_overwriteDown = {
-			type: button,
+			type: 'button',
 			category: 'Exposure',
 			name: 'Shutter Speed Overwrite Down',
 			options: {},
@@ -2671,7 +2716,7 @@ exports.getPresets = function () {
 
 	if (MODEL_ACTIONS?.slow_shutter_en) {
 		presets.slow_shutter_en = {
-			type: button,
+			type: 'button',
 			category: 'Exposure',
 			name: 'Slow Shutter Enable',
 			options: {},
@@ -2709,7 +2754,7 @@ exports.getPresets = function () {
 
 	if (MODEL_ACTIONS?.slow_shutter_limit) {
 		presets.slow_shutter_limitUp = {
-			type: button,
+			type: 'button',
 			category: 'Exposure',
 			name: 'Slow Shutter Limit Up',
 			options: {},
@@ -2735,7 +2780,7 @@ exports.getPresets = function () {
 			feedbacks: [],
 		}
 		presets.slow_shutter_limitDown = {
-			type: button,
+			type: 'button',
 			category: 'Exposure',
 			name: 'Slow Shutter Limit Down',
 			options: {},
@@ -2764,7 +2809,7 @@ exports.getPresets = function () {
 
 	if (MODEL_ACTIONS?.spotlight) {
 		presets.spotlight = {
-			type: button,
+			type: 'button',
 			category: 'Exposure',
 			name: 'Spotlight',
 			options: {},
@@ -2804,7 +2849,7 @@ exports.getPresets = function () {
 
 	if (MODEL_ACTIONS?.bg) {
 		presets.bgUp = {
-			type: button,
+			type: 'button',
 			category: 'White Balance',
 			name: 'BG Up',
 			options: {},
@@ -2830,7 +2875,7 @@ exports.getPresets = function () {
 			feedbacks: [],
 		}
 		presets.bgDown = {
-			type: button,
+			type: 'button',
 			category: 'White Balance',
 			name: 'BG Down',
 			options: {},
@@ -2859,7 +2904,7 @@ exports.getPresets = function () {
 
 	if (MODEL_ACTIONS?.br) {
 		presets.brUp = {
-			type: button,
+			type: 'button',
 			category: 'White Balance',
 			name: 'BR Up',
 			options: {},
@@ -2885,7 +2930,7 @@ exports.getPresets = function () {
 			feedbacks: [],
 		}
 		presets.brDown = {
-			type: button,
+			type: 'button',
 			category: 'White Balance',
 			name: 'BR Down',
 			options: {},
@@ -2914,7 +2959,7 @@ exports.getPresets = function () {
 
 	if (MODEL_ACTIONS?.blue_gain) {
 		presets.blue_gainUp = {
-			type: button,
+			type: 'button',
 			category: 'White Balance',
 			name: 'Blue Gain Up',
 			options: {},
@@ -2940,7 +2985,7 @@ exports.getPresets = function () {
 			feedbacks: [],
 		}
 		presets.blue_gainDown = {
-			type: button,
+			type: 'button',
 			category: 'White Balance',
 			name: 'Blue Gain Down',
 			options: {},
@@ -2969,7 +3014,7 @@ exports.getPresets = function () {
 
 	if (MODEL_ACTIONS?.color_temp) {
 		presets.color_tempUp = {
-			type: button,
+			type: 'button',
 			category: 'White Balance',
 			name: 'Color Temp Up',
 			options: {},
@@ -2995,7 +3040,7 @@ exports.getPresets = function () {
 			feedbacks: [],
 		}
 		presets.color_tempDown = {
-			type: button,
+			type: 'button',
 			category: 'White Balance',
 			name: 'Color Temp Down',
 			options: {},
@@ -3024,7 +3069,7 @@ exports.getPresets = function () {
 
 	if (MODEL_ACTIONS?.gb) {
 		presets.gbUp = {
-			type: button,
+			type: 'button',
 			category: 'White Balance',
 			name: 'GB Up',
 			options: {},
@@ -3050,7 +3095,7 @@ exports.getPresets = function () {
 			feedbacks: [],
 		}
 		presets.gbDown = {
-			type: button,
+			type: 'button',
 			category: 'White Balance',
 			name: 'GB Down',
 			options: {},
@@ -3079,7 +3124,7 @@ exports.getPresets = function () {
 
 	if (MODEL_ACTIONS?.gr) {
 		presets.grUp = {
-			type: button,
+			type: 'button',
 			category: 'White Balance',
 			name: 'GR Up',
 			options: {},
@@ -3105,7 +3150,7 @@ exports.getPresets = function () {
 			feedbacks: [],
 		}
 		presets.grDown = {
-			type: button,
+			type: 'button',
 			category: 'White Balance',
 			name: 'GR Down',
 			options: {},
@@ -3134,7 +3179,7 @@ exports.getPresets = function () {
 
 	if (MODEL_ACTIONS?.level) {
 		presets.levelUp = {
-			type: button,
+			type: 'button',
 			category: 'White Balance',
 			name: 'Level Up',
 			options: {},
@@ -3160,7 +3205,7 @@ exports.getPresets = function () {
 			feedbacks: [],
 		}
 		presets.levelDown = {
-			type: button,
+			type: 'button',
 			category: 'White Balance',
 			name: 'Level Down',
 			options: {},
@@ -3189,7 +3234,7 @@ exports.getPresets = function () {
 
 	if (MODEL_ACTIONS?.matrix) {
 		presets.matrix = {
-			type: button,
+			type: 'button',
 			category: 'White Balance',
 			name: 'Matrix',
 			options: {},
@@ -3227,7 +3272,7 @@ exports.getPresets = function () {
 
 	if (MODEL_ACTIONS?.offset) {
 		presets.offsetUp = {
-			type: button,
+			type: 'button',
 			category: 'White Balance',
 			name: 'Offset Up',
 			options: {},
@@ -3253,7 +3298,7 @@ exports.getPresets = function () {
 			feedbacks: [],
 		}
 		presets.offsetDown = {
-			type: button,
+			type: 'button',
 			category: 'White Balance',
 			name: 'Offset Down',
 			options: {},
@@ -3282,7 +3327,7 @@ exports.getPresets = function () {
 
 	if (MODEL_ACTIONS?.phase) {
 		presets.phaseUp = {
-			type: button,
+			type: 'button',
 			category: 'White Balance',
 			name: 'Phase Up',
 			options: {},
@@ -3308,7 +3353,7 @@ exports.getPresets = function () {
 			feedbacks: [],
 		}
 		presets.phaseDown = {
-			type: button,
+			type: 'button',
 			category: 'White Balance',
 			name: 'Phase Down',
 			options: {},
@@ -3337,7 +3382,7 @@ exports.getPresets = function () {
 
 	if (MODEL_ACTIONS?.rb) {
 		presets.rbUp = {
-			type: button,
+			type: 'button',
 			category: 'White Balance',
 			name: 'RB Up',
 			options: {},
@@ -3363,7 +3408,7 @@ exports.getPresets = function () {
 			feedbacks: [],
 		}
 		presets.rbDown = {
-			type: button,
+			type: 'button',
 			category: 'White Balance',
 			name: 'RB Down',
 			options: {},
@@ -3392,7 +3437,7 @@ exports.getPresets = function () {
 
 	if (MODEL_ACTIONS?.rg) {
 		presets.rgUp = {
-			type: button,
+			type: 'button',
 			category: 'White Balance',
 			name: 'RG Up',
 			options: {},
@@ -3418,7 +3463,7 @@ exports.getPresets = function () {
 			feedbacks: [],
 		}
 		presets.rgDown = {
-			type: button,
+			type: 'button',
 			category: 'White Balance',
 			name: 'RG Down',
 			options: {},
@@ -3447,7 +3492,7 @@ exports.getPresets = function () {
 
 	if (MODEL_ACTIONS?.red_gain) {
 		presets.red_gainUp = {
-			type: button,
+			type: 'button',
 			category: 'White Balance',
 			name: 'Red Gain Up',
 			options: {},
@@ -3473,7 +3518,7 @@ exports.getPresets = function () {
 			feedbacks: [],
 		}
 		presets.red_gainDown = {
-			type: button,
+			type: 'button',
 			category: 'White Balance',
 			name: 'Red Gain Down',
 			options: {},
@@ -3502,7 +3547,7 @@ exports.getPresets = function () {
 
 	if (MODEL_ACTIONS?.select) {
 		presets.select = {
-			type: button,
+			type: 'button',
 			category: 'White Balance',
 			name: 'Select',
 			options: {},
@@ -3540,7 +3585,7 @@ exports.getPresets = function () {
 
 	if (MODEL_ACTIONS?.speed) {
 		presets.speedUp = {
-			type: button,
+			type: 'button',
 			category: 'White Balance',
 			name: 'Speed Up',
 			options: {},
@@ -3566,7 +3611,7 @@ exports.getPresets = function () {
 			feedbacks: [],
 		}
 		presets.speedDown = {
-			type: button,
+			type: 'button',
 			category: 'White Balance',
 			name: 'Speed Down',
 			options: {},
@@ -3595,7 +3640,7 @@ exports.getPresets = function () {
 
 	if (MODEL_ACTIONS?.wb_mode) {
 		presets.wb_mode = {
-			type: button,
+			type: 'button',
 			category: 'White Balance',
 			name: 'White Balance Mode',
 			options: {},
@@ -3633,7 +3678,7 @@ exports.getPresets = function () {
 
 	if (MODEL_ACTIONS?.wbOnePush) {
 		presets.wbOnePush = {
-			type: button,
+			type: 'button',
 			category: 'White Balance',
 			name: 'WB One Push',
 			options: {},
@@ -3661,7 +3706,7 @@ exports.getPresets = function () {
 
 	if (MODEL_ACTIONS?.backlight_com) {
 		presets.backlight_com = {
-			type: button,
+			type: 'button',
 			category: 'Picture',
 			name: 'Backlight Compensation',
 			options: {},
@@ -3699,7 +3744,7 @@ exports.getPresets = function () {
 
 	if (MODEL_ACTIONS?.chroma_suppress) {
 		presets.chroma_suppress = {
-			type: button,
+			type: 'button',
 			category: 'Picture',
 			name: 'Backlight Compensation',
 			options: {},
@@ -3737,7 +3782,7 @@ exports.getPresets = function () {
 
 	if (MODEL_ACTIONS?.saturation) {
 		presets.saturationUp = {
-			type: button,
+			type: 'button',
 			category: 'Picture',
 			name: 'Saturation Up',
 			options: {},
@@ -3763,7 +3808,7 @@ exports.getPresets = function () {
 			feedbacks: [],
 		}
 		presets.saturationDown = {
-			type: button,
+			type: 'button',
 			category: 'Picture',
 			name: 'Saturation Down',
 			options: {},
@@ -3792,7 +3837,7 @@ exports.getPresets = function () {
 
 	if (MODEL_ACTIONS?.contrast) {
 		presets.contrastUp = {
-			type: button,
+			type: 'button',
 			category: 'Picture',
 			name: 'Contrast Up',
 			options: {},
@@ -3818,7 +3863,7 @@ exports.getPresets = function () {
 			feedbacks: [],
 		}
 		presets.contrastDown = {
-			type: button,
+			type: 'button',
 			category: 'Picture',
 			name: 'Contrast Down',
 			options: {},
@@ -3847,7 +3892,7 @@ exports.getPresets = function () {
 
 	if (MODEL_ACTIONS?.pictureEffect) {
 		presets.pictureEffect = {
-			type: button,
+			type: 'button',
 			category: 'Picture',
 			name: 'Effect',
 			options: {},
@@ -3885,7 +3930,7 @@ exports.getPresets = function () {
 
 	if (MODEL_ACTIONS?.picFlip) {
 		presets.picFlip = {
-			type: button,
+			type: 'button',
 			category: 'Picture',
 			name: 'Flip',
 			options: {},
@@ -3923,7 +3968,7 @@ exports.getPresets = function () {
 
 	if (MODEL_ACTIONS?.gamma) {
 		presets.gammaUp = {
-			type: button,
+			type: 'button',
 			category: 'Picture',
 			name: 'Gamma Up',
 			options: {},
@@ -3949,7 +3994,7 @@ exports.getPresets = function () {
 			feedbacks: [],
 		}
 		presets.gammaDown = {
-			type: button,
+			type: 'button',
 			category: 'Picture',
 			name: 'Gamma Down',
 			options: {},
@@ -3978,7 +4023,7 @@ exports.getPresets = function () {
 
 	if (MODEL_ACTIONS?.highlight_comp) {
 		presets.highlight_comp = {
-			type: button,
+			type: 'button',
 			category: 'Picture',
 			name: 'Highlight Compensation',
 			options: {},
@@ -4016,7 +4061,7 @@ exports.getPresets = function () {
 
 	if (MODEL_ACTIONS?.highlight_comp_mask) {
 		presets.highlight_comp_maskUp = {
-			type: button,
+			type: 'button',
 			category: 'Picture',
 			name: 'Highlight Comp. Mask Up',
 			options: {},
@@ -4042,7 +4087,7 @@ exports.getPresets = function () {
 			feedbacks: [],
 		}
 		presets.highlight_comp_maskDown = {
-			type: button,
+			type: 'button',
 			category: 'Picture',
 			name: 'Highlight Comp. Mask Down',
 			options: {},
@@ -4071,7 +4116,7 @@ exports.getPresets = function () {
 
 	if (MODEL_ACTIONS?.hue) {
 		presets.hueUp = {
-			type: button,
+			type: 'button',
 			category: 'Picture',
 			name: 'Hue Up',
 			options: {},
@@ -4097,7 +4142,7 @@ exports.getPresets = function () {
 			feedbacks: [],
 		}
 		presets.hueDown = {
-			type: button,
+			type: 'button',
 			category: 'Picture',
 			name: 'Hue Down',
 			options: {},
@@ -4126,7 +4171,7 @@ exports.getPresets = function () {
 
 	if (MODEL_ACTIONS?.ir_cutfilter) {
 		presets.ir_cutfilter = {
-			type: button,
+			type: 'button',
 			category: 'Picture',
 			name: 'IR Cutfilter',
 			options: {},
@@ -4164,7 +4209,7 @@ exports.getPresets = function () {
 
 	if (MODEL_ACTIONS?.low_latency) {
 		presets.low_latency = {
-			type: button,
+			type: 'button',
 			category: 'Picture',
 			name: 'Low Latency',
 			options: {},
@@ -4202,7 +4247,7 @@ exports.getPresets = function () {
 
 	if (MODEL_ACTIONS?.picMirror) {
 		presets.picMirror = {
-			type: button,
+			type: 'button',
 			category: 'Picture',
 			name: 'Mirror',
 			options: {},
@@ -4240,7 +4285,7 @@ exports.getPresets = function () {
 
 	if (MODEL_ACTIONS?.nd_filter) {
 		presets.nd_filterUp = {
-			type: button,
+			type: 'button',
 			category: 'Picture',
 			name: 'ND Filter Up',
 			options: {},
@@ -4266,7 +4311,7 @@ exports.getPresets = function () {
 			feedbacks: [],
 		}
 		presets.nd_filterDown = {
-			type: button,
+			type: 'button',
 			category: 'Picture',
 			name: 'ND Filter Down',
 			options: {},
@@ -4295,7 +4340,7 @@ exports.getPresets = function () {
 
 	if (MODEL_ACTIONS?.noise_reduction) {
 		presets.noise_reductionUp = {
-			type: button,
+			type: 'button',
 			category: 'Picture',
 			name: 'Noise Reduction Up',
 			options: {},
@@ -4321,7 +4366,7 @@ exports.getPresets = function () {
 			feedbacks: [],
 		}
 		presets.noise_reductionDown = {
-			type: button,
+			type: 'button',
 			category: 'Picture',
 			name: 'Noise Reduction Down',
 			options: {},
@@ -4350,7 +4395,7 @@ exports.getPresets = function () {
 
 	if (MODEL_ACTIONS?.sharpness) {
 		presets.sharpnessUp = {
-			type: button,
+			type: 'button',
 			category: 'Picture',
 			name: 'Sharpness Up',
 			options: {},
@@ -4376,7 +4421,7 @@ exports.getPresets = function () {
 			feedbacks: [],
 		}
 		presets.sharpnessDown = {
-			type: button,
+			type: 'button',
 			category: 'Picture',
 			name: 'Sharpness Down',
 			options: {},
@@ -4405,7 +4450,7 @@ exports.getPresets = function () {
 
 	if (MODEL_ACTIONS?.stabilizer) {
 		presets.stabilizer = {
-			type: button,
+			type: 'button',
 			category: 'Picture',
 			name: 'Stabilizer',
 			options: {},
@@ -4443,7 +4488,7 @@ exports.getPresets = function () {
 
 	if (MODEL_ACTIONS?.threed_nr) {
 		presets.threed_nrUp = {
-			type: button,
+			type: 'button',
 			category: 'Picture',
 			name: '3D Noise Reduction Up',
 			options: {},
@@ -4469,7 +4514,7 @@ exports.getPresets = function () {
 			feedbacks: [],
 		}
 		presets.threed_nrDown = {
-			type: button,
+			type: 'button',
 			category: 'Picture',
 			name: '3D Noise Reduction Down',
 			options: {},
@@ -4498,7 +4543,7 @@ exports.getPresets = function () {
 
 	if (MODEL_ACTIONS?.twod_nr) {
 		presets.twod_nrUp = {
-			type: button,
+			type: 'button',
 			category: 'Picture',
 			name: '2D Noise Reduction Up',
 			options: {},
@@ -4524,7 +4569,7 @@ exports.getPresets = function () {
 			feedbacks: [],
 		}
 		presets.twod_nrDown = {
-			type: button,
+			type: 'button',
 			category: 'Picture',
 			name: '2D Noise Reduction Down',
 			options: {},
@@ -4553,7 +4598,7 @@ exports.getPresets = function () {
 
 	if (MODEL_ACTIONS?.wide_dynamic_range) {
 		presets.wide_dynamic_rangeUp = {
-			type: button,
+			type: 'button',
 			category: 'Picture',
 			name: 'Wide Dynamics Range Up',
 			options: {},
@@ -4579,7 +4624,7 @@ exports.getPresets = function () {
 			feedbacks: [],
 		}
 		presets.wide_dynamic_rangeDown = {
-			type: button,
+			type: 'button',
 			category: 'Picture',
 			name: 'Wide Dynamics Range Down',
 			options: {},
@@ -4610,7 +4655,7 @@ exports.getPresets = function () {
 
 	if (MODEL_ACTIONS?.cm_blue_gain) {
 		presets.cm_blue_gainUp = {
-			type: button,
+			type: 'button',
 			category: 'Color Matrix',
 			name: 'Blue Gain Up',
 			options: {},
@@ -4636,7 +4681,7 @@ exports.getPresets = function () {
 			feedbacks: [],
 		}
 		presets.cm_blue_gainDown = {
-			type: button,
+			type: 'button',
 			category: 'Color Matrix',
 			name: 'Blue Gain Down',
 			options: {},
@@ -4665,7 +4710,7 @@ exports.getPresets = function () {
 
 	if (MODEL_ACTIONS?.cm_blue_hue) {
 		presets.cm_blue_hueUp = {
-			type: button,
+			type: 'button',
 			category: 'Color Matrix',
 			name: 'Blue Hue Up',
 			options: {},
@@ -4691,7 +4736,7 @@ exports.getPresets = function () {
 			feedbacks: [],
 		}
 		presets.cm_blue_hueDown = {
-			type: button,
+			type: 'button',
 			category: 'Color Matrix',
 			name: 'Blue Hue Down',
 			options: {},
@@ -4720,7 +4765,7 @@ exports.getPresets = function () {
 
 	if (MODEL_ACTIONS?.cm_color_gain) {
 		presets.cm_color_gainUp = {
-			type: button,
+			type: 'button',
 			category: 'Color Matrix',
 			name: 'Color Gain Up',
 			options: {},
@@ -4746,7 +4791,7 @@ exports.getPresets = function () {
 			feedbacks: [],
 		}
 		presets.cm_color_gainDown = {
-			type: button,
+			type: 'button',
 			category: 'Color Matrix',
 			name: 'Color Gain Down',
 			options: {},
@@ -4775,7 +4820,7 @@ exports.getPresets = function () {
 
 	if (MODEL_ACTIONS?.cm_cyan_gain) {
 		presets.cm_cyan_gainUp = {
-			type: button,
+			type: 'button',
 			category: 'Color Matrix',
 			name: 'Cyan Gain Up',
 			options: {},
@@ -4801,7 +4846,7 @@ exports.getPresets = function () {
 			feedbacks: [],
 		}
 		presets.cm_cyan_gainDown = {
-			type: button,
+			type: 'button',
 			category: 'Color Matrix',
 			name: 'Cyan Gain Down',
 			options: {},
@@ -4830,7 +4875,7 @@ exports.getPresets = function () {
 
 	if (MODEL_ACTIONS?.cm_cyan_hue) {
 		presets.cm_cyan_hueUp = {
-			type: button,
+			type: 'button',
 			category: 'Color Matrix',
 			name: 'Cyan Hue Up',
 			options: {},
@@ -4856,7 +4901,7 @@ exports.getPresets = function () {
 			feedbacks: [],
 		}
 		presets.cm_cyan_hueDown = {
-			type: button,
+			type: 'button',
 			category: 'Color Matrix',
 			name: 'Cyan Hue Down',
 			options: {},
@@ -4885,7 +4930,7 @@ exports.getPresets = function () {
 
 	if (MODEL_ACTIONS?.cm_green_gain) {
 		presets.cm_green_gainUp = {
-			type: button,
+			type: 'button',
 			category: 'Color Matrix',
 			name: 'Green Gain Up',
 			options: {},
@@ -4911,7 +4956,7 @@ exports.getPresets = function () {
 			feedbacks: [],
 		}
 		presets.cm_green_gainDown = {
-			type: button,
+			type: 'button',
 			category: 'Color Matrix',
 			name: 'Green Gain Down',
 			options: {},
@@ -4940,7 +4985,7 @@ exports.getPresets = function () {
 
 	if (MODEL_ACTIONS?.cm_green_hue) {
 		presets.cm_green_hueUp = {
-			type: button,
+			type: 'button',
 			category: 'Color Matrix',
 			name: 'Green Hue Up',
 			options: {},
@@ -4966,7 +5011,7 @@ exports.getPresets = function () {
 			feedbacks: [],
 		}
 		presets.cm_green_hueDown = {
-			type: button,
+			type: 'button',
 			category: 'Color Matrix',
 			name: 'Green Hue Down',
 			options: {},
@@ -4995,7 +5040,7 @@ exports.getPresets = function () {
 
 	if (MODEL_ACTIONS?.cm_hue_phase) {
 		presets.cm_hue_phaseUp = {
-			type: button,
+			type: 'button',
 			category: 'Color Matrix',
 			name: 'Hue Phase Up',
 			options: {},
@@ -5021,7 +5066,7 @@ exports.getPresets = function () {
 			feedbacks: [],
 		}
 		presets.cm_hue_phaseDown = {
-			type: button,
+			type: 'button',
 			category: 'Color Matrix',
 			name: 'Hue Phase Down',
 			options: {},
@@ -5050,7 +5095,7 @@ exports.getPresets = function () {
 
 	if (MODEL_ACTIONS?.cm_mag_gain) {
 		presets.cm_mag_gainUp = {
-			type: button,
+			type: 'button',
 			category: 'Color Matrix',
 			name: 'Magenta Gain Up',
 			options: {},
@@ -5076,7 +5121,7 @@ exports.getPresets = function () {
 			feedbacks: [],
 		}
 		presets.cm_mag_gainDown = {
-			type: button,
+			type: 'button',
 			category: 'Color Matrix',
 			name: 'Magenta Gain Down',
 			options: {},
@@ -5105,7 +5150,7 @@ exports.getPresets = function () {
 
 	if (MODEL_ACTIONS?.cm_mag_hue) {
 		presets.cm_mag_hueUp = {
-			type: button,
+			type: 'button',
 			category: 'Color Matrix',
 			name: 'Magenta Hue Up',
 			options: {},
@@ -5131,7 +5176,7 @@ exports.getPresets = function () {
 			feedbacks: [],
 		}
 		presets.cm_mag_hueDown = {
-			type: button,
+			type: 'button',
 			category: 'Color Matrix',
 			name: 'Magenta Hue Down',
 			options: {},
@@ -5160,7 +5205,7 @@ exports.getPresets = function () {
 
 	if (MODEL_ACTIONS?.cm_red_gain) {
 		presets.cm_red_gainUp = {
-			type: button,
+			type: 'button',
 			category: 'Color Matrix',
 			name: 'Red Gain Up',
 			options: {},
@@ -5186,7 +5231,7 @@ exports.getPresets = function () {
 			feedbacks: [],
 		}
 		presets.cm_red_gainDown = {
-			type: button,
+			type: 'button',
 			category: 'Color Matrix',
 			name: 'Red Gain Down',
 			options: {},
@@ -5215,7 +5260,7 @@ exports.getPresets = function () {
 
 	if (MODEL_ACTIONS?.cm_red_hue) {
 		presets.cm_red_hueUp = {
-			type: button,
+			type: 'button',
 			category: 'Color Matrix',
 			name: 'Red Hue Up',
 			options: {},
@@ -5241,7 +5286,7 @@ exports.getPresets = function () {
 			feedbacks: [],
 		}
 		presets.cm_red_hueDown = {
-			type: button,
+			type: 'button',
 			category: 'Color Matrix',
 			name: 'Red Hue Down',
 			options: {},
@@ -5270,7 +5315,7 @@ exports.getPresets = function () {
 
 	if (MODEL_ACTIONS?.cm_yellow_gain) {
 		presets.cm_yellow_gainUp = {
-			type: button,
+			type: 'button',
 			category: 'Color Matrix',
 			name: 'Yellow Gain Up',
 			options: {},
@@ -5296,7 +5341,7 @@ exports.getPresets = function () {
 			feedbacks: [],
 		}
 		presets.cm_yellow_gainDown = {
-			type: button,
+			type: 'button',
 			category: 'Color Matrix',
 			name: 'Yellow Gain Down',
 			options: {},
@@ -5325,7 +5370,7 @@ exports.getPresets = function () {
 
 	if (MODEL_ACTIONS?.cm_yellow_hue) {
 		presets.cm_yellow_hueUp = {
-			type: button,
+			type: 'button',
 			category: 'Color Matrix',
 			name: 'Yellow Hue Up',
 			options: {},
@@ -5351,7 +5396,7 @@ exports.getPresets = function () {
 			feedbacks: [],
 		}
 		presets.cm_yellow_hueDown = {
-			type: button,
+			type: 'button',
 			category: 'Color Matrix',
 			name: 'Yellow Hue Down',
 			options: {},
@@ -5382,7 +5427,7 @@ exports.getPresets = function () {
 
 	if (MODEL_ACTIONS?.brightness) {
 		presets.brightnessUp = {
-			type: button,
+			type: 'button',
 			category: 'Advanced Setup',
 			name: 'Brightness Up',
 			options: {},
@@ -5408,7 +5453,7 @@ exports.getPresets = function () {
 			feedbacks: [],
 		}
 		presets.brightnessDown = {
-			type: button,
+			type: 'button',
 			category: 'Advanced Setup',
 			name: 'Brightness Down',
 			options: {},
@@ -5437,7 +5482,7 @@ exports.getPresets = function () {
 
 	if (MODEL_ACTIONS?.brightness_comp) {
 		presets.brightness_comp = {
-			type: button,
+			type: 'button',
 			category: 'Advanced Setup',
 			name: 'Brightness Compensation',
 			options: {},
@@ -5475,7 +5520,7 @@ exports.getPresets = function () {
 
 	if (MODEL_ACTIONS?.comp_level) {
 		presets.comp_level = {
-			type: button,
+			type: 'button',
 			category: 'Advanced Setup',
 			name: 'Compensation Level',
 			options: {},
@@ -5513,7 +5558,7 @@ exports.getPresets = function () {
 
 	if (MODEL_ACTIONS?.gamma_offset) {
 		presets.gamma_offsetUp = {
-			type: button,
+			type: 'button',
 			category: 'Advanced Setup',
 			name: 'Gamma Offset Up',
 			options: {},
@@ -5536,9 +5581,10 @@ exports.getPresets = function () {
 					up: [],
 				},
 			],
+			feedbacks: [],
 		}
 		presets.gamma_offsetDown = {
-			type: button,
+			type: 'button',
 			category: 'Advanced Setup',
 			name: 'Gamma Offset Down',
 			options: {},
@@ -5567,7 +5613,7 @@ exports.getPresets = function () {
 
 	if (MODEL_ACTIONS?.high_resolution) {
 		presets.high_resolution = {
-			type: button,
+			type: 'button',
 			category: 'Advanced Setup',
 			name: 'High Resolution',
 			options: {},
@@ -5605,7 +5651,7 @@ exports.getPresets = function () {
 
 	if (MODEL_ACTIONS?.video_enhancement) {
 		presets.video_enhancement = {
-			type: button,
+			type: 'button',
 			category: 'Advanced Setup',
 			name: 'Video Enhancement',
 			options: {},
@@ -5645,7 +5691,7 @@ exports.getPresets = function () {
 
 	if (MODEL_ACTIONS?.aux) {
 		presets.aux = {
-			type: button,
+			type: 'button',
 			category: 'External Setup',
 			name: 'Aux',
 			options: {},
@@ -5683,7 +5729,7 @@ exports.getPresets = function () {
 
 	if (MODEL_ACTIONS?.rain_wiper) {
 		presets.rain_wiper = {
-			type: button,
+			type: 'button',
 			category: 'External Setup',
 			name: 'Rain Wiper',
 			options: {},
@@ -5721,7 +5767,7 @@ exports.getPresets = function () {
 
 	if (MODEL_ACTIONS?.v12vout) {
 		presets.v12vout = {
-			type: button,
+			type: 'button',
 			category: 'External Setup',
 			name: '12v Out',
 			options: {},
@@ -5761,7 +5807,7 @@ exports.getPresets = function () {
 
 	if (MODEL_ACTIONS?.bandwidth) {
 		presets.bandwidth = {
-			type: button,
+			type: 'button',
 			category: 'Detail Setup',
 			name: 'Bandwidth',
 			options: {},
@@ -5799,7 +5845,7 @@ exports.getPresets = function () {
 
 	if (MODEL_ACTIONS?.bw_balance) {
 		presets.bw_balance = {
-			type: button,
+			type: 'button',
 			category: 'Detail Setup',
 			name: 'BW Balance',
 			options: {},
@@ -5837,7 +5883,7 @@ exports.getPresets = function () {
 
 	if (MODEL_ACTIONS?.crispening) {
 		presets.crispeningUp = {
-			type: button,
+			type: 'button',
 			category: 'Detail Setup',
 			name: 'Crispening Up',
 			options: {},
@@ -5863,7 +5909,7 @@ exports.getPresets = function () {
 			feedbacks: [],
 		}
 		presets.crispeningDown = {
-			type: button,
+			type: 'button',
 			category: 'Advanced Setup',
 			name: 'Crispening Down',
 			options: {},
@@ -5892,7 +5938,7 @@ exports.getPresets = function () {
 
 	if (MODEL_ACTIONS?.detail) {
 		presets.detail = {
-			type: button,
+			type: 'button',
 			category: 'Detail Setup',
 			name: 'Detail',
 			options: {},
@@ -5930,7 +5976,7 @@ exports.getPresets = function () {
 
 	if (MODEL_ACTIONS?.highlight_detail) {
 		presets.highlight_detailUp = {
-			type: button,
+			type: 'button',
 			category: 'Detail Setup',
 			name: 'Highlight Detail Up',
 			options: {},
@@ -5956,7 +6002,7 @@ exports.getPresets = function () {
 			feedbacks: [],
 		}
 		presets.highlight_detailDown = {
-			type: button,
+			type: 'button',
 			category: 'Advanced Setup',
 			name: 'Highlight Detail Down',
 			options: {},
@@ -5985,7 +6031,7 @@ exports.getPresets = function () {
 
 	if (MODEL_ACTIONS?.hv_balance) {
 		presets.hv_balanceUp = {
-			type: button,
+			type: 'button',
 			category: 'Detail Setup',
 			name: 'Hv Balance Up',
 			options: {},
@@ -6011,7 +6057,7 @@ exports.getPresets = function () {
 			feedbacks: [],
 		}
 		presets.hv_balanceDown = {
-			type: button,
+			type: 'button',
 			category: 'Advanced Setup',
 			name: 'Hv Balance Down',
 			options: {},
@@ -6040,7 +6086,7 @@ exports.getPresets = function () {
 
 	if (MODEL_ACTIONS?.limit) {
 		presets.limitUp = {
-			type: button,
+			type: 'button',
 			category: 'Detail Setup',
 			name: 'Limit Up',
 			options: {},
@@ -6066,7 +6112,7 @@ exports.getPresets = function () {
 			feedbacks: [],
 		}
 		presets.limitDown = {
-			type: button,
+			type: 'button',
 			category: 'Advanced Setup',
 			name: 'Limit Down',
 			options: {},
@@ -6095,7 +6141,7 @@ exports.getPresets = function () {
 
 	if (MODEL_ACTIONS?.super_low) {
 		presets.super_lowUp = {
-			type: button,
+			type: 'button',
 			category: 'Detail Setup',
 			name: 'Super Low Up',
 			options: {},
@@ -6121,7 +6167,7 @@ exports.getPresets = function () {
 			feedbacks: [],
 		}
 		presets.super_lowDown = {
-			type: button,
+			type: 'button',
 			category: 'Advanced Setup',
 			name: 'Super Low Down',
 			options: {},
@@ -6152,7 +6198,7 @@ exports.getPresets = function () {
 
 	if (MODEL_ACTIONS?.black_gamma_level) {
 		presets.black_gamma_levelUp = {
-			type: button,
+			type: 'button',
 			category: 'Gamma Setup',
 			name: 'Black Gamma Level Up',
 			options: {},
@@ -6178,7 +6224,7 @@ exports.getPresets = function () {
 			feedbacks: [],
 		}
 		presets.black_gamma_levelDown = {
-			type: button,
+			type: 'button',
 			category: 'Gamma Setup',
 			name: 'Black Gamma Level Down',
 			options: {},
@@ -6207,7 +6253,7 @@ exports.getPresets = function () {
 
 	if (MODEL_ACTIONS?.black_level) {
 		presets.black_levelUp = {
-			type: button,
+			type: 'button',
 			category: 'Gamma Setup',
 			name: 'Black Level Up',
 			options: {},
@@ -6233,7 +6279,7 @@ exports.getPresets = function () {
 			feedbacks: [],
 		}
 		presets.black_levelDown = {
-			type: button,
+			type: 'button',
 			category: 'Gamma Setup',
 			name: 'Black Level Down',
 			options: {},
@@ -6262,7 +6308,7 @@ exports.getPresets = function () {
 
 	if (MODEL_ACTIONS?.black_level_range) {
 		presets.black_level_range = {
-			type: button,
+			type: 'button',
 			category: 'Gamma Setup',
 			name: 'Black Level Range',
 			options: {},
@@ -6300,7 +6346,7 @@ exports.getPresets = function () {
 
 	if (MODEL_ACTIONS?.effect) {
 		presets.effectUp = {
-			type: button,
+			type: 'button',
 			category: 'Gamma Setup',
 			name: 'Effect Up',
 			options: {},
@@ -6326,7 +6372,7 @@ exports.getPresets = function () {
 			feedbacks: [],
 		}
 		presets.effectDown = {
-			type: button,
+			type: 'button',
 			category: 'Gamma Setup',
 			name: 'Effect Down',
 			options: {},
@@ -6355,7 +6401,7 @@ exports.getPresets = function () {
 
 	if (MODEL_ACTIONS?.offset) {
 		presets.offsetUp = {
-			type: button,
+			type: 'button',
 			category: 'Gamma Setup',
 			name: 'Offset Up',
 			options: {},
@@ -6381,7 +6427,7 @@ exports.getPresets = function () {
 			feedbacks: [],
 		}
 		presets.offsetDown = {
-			type: button,
+			type: 'button',
 			category: 'Gamma Setup',
 			name: 'Offset Down',
 			options: {},
@@ -6410,7 +6456,7 @@ exports.getPresets = function () {
 
 	if (MODEL_ACTIONS?.pattern) {
 		presets.patternUp = {
-			type: button,
+			type: 'button',
 			category: 'Gamma Setup',
 			name: 'Pattern Up',
 			options: {},
@@ -6436,7 +6482,7 @@ exports.getPresets = function () {
 			feedbacks: [],
 		}
 		presets.patternDown = {
-			type: button,
+			type: 'button',
 			category: 'Gamma Setup',
 			name: 'Pattern Down',
 			options: {},
@@ -6465,7 +6511,7 @@ exports.getPresets = function () {
 
 	if (MODEL_ACTIONS?.pattern_fine) {
 		presets.pattern_fineUp = {
-			type: button,
+			type: 'button',
 			category: 'Gamma Setup',
 			name: 'Pattern Fine Up',
 			options: {},
@@ -6491,7 +6537,7 @@ exports.getPresets = function () {
 			feedbacks: [],
 		}
 		presets.pattern_fineDown = {
-			type: button,
+			type: 'button',
 			category: 'Gamma Setup',
 			name: 'Pattern Fine Down',
 			options: {},
@@ -6520,7 +6566,7 @@ exports.getPresets = function () {
 
 	if (MODEL_ACTIONS?.settings) {
 		presets.settings = {
-			type: button,
+			type: 'button',
 			category: 'Gamma Setup',
 			name: 'Settings',
 			options: {},
@@ -6558,7 +6604,7 @@ exports.getPresets = function () {
 
 	if (MODEL_ACTIONS?.visibility_enhancer) {
 		presets.visibility_enhancer = {
-			type: button,
+			type: 'button',
 			category: 'Gamma Setup',
 			name: 'Visibility Enhancer',
 			options: {},
@@ -6598,7 +6644,7 @@ exports.getPresets = function () {
 
 	if (MODEL_ACTIONS?.scope_gamma_gain) {
 		presets.scope_gamma_gainUp = {
-			type: button,
+			type: 'button',
 			category: 'Scopes',
 			name: 'Gamma Gain Up',
 			options: {},
@@ -6624,7 +6670,7 @@ exports.getPresets = function () {
 			feedbacks: [],
 		}
 		presets.scope_gamma_gainDown = {
-			type: button,
+			type: 'button',
 			category: 'Scopes',
 			name: 'Gamma Gain Down',
 			options: {},
@@ -6653,7 +6699,7 @@ exports.getPresets = function () {
 
 	if (MODEL_ACTIONS?.scope_mode) {
 		presets.scope_mode = {
-			type: button,
+			type: 'button',
 			category: 'Scopes',
 			name: 'Mode',
 			options: {},
@@ -6691,7 +6737,7 @@ exports.getPresets = function () {
 
 	if (MODEL_ACTIONS?.scope_position) {
 		presets.scope_position = {
-			type: button,
+			type: 'button',
 			category: 'Scopes',
 			name: 'Position',
 			options: {},
@@ -6729,7 +6775,7 @@ exports.getPresets = function () {
 
 	if (MODEL_ACTIONS?.scope_preview) {
 		presets.scope_preview = {
-			type: button,
+			type: 'button',
 			category: 'Scopes',
 			name: 'Preview Enable',
 			options: {},
@@ -6767,7 +6813,7 @@ exports.getPresets = function () {
 
 	if (MODEL_ACTIONS?.scope_program) {
 		presets.scope_program = {
-			type: button,
+			type: 'button',
 			category: 'Scopes',
 			name: 'Program Enable',
 			options: {},
@@ -6805,7 +6851,7 @@ exports.getPresets = function () {
 
 	if (MODEL_ACTIONS?.scope_size) {
 		presets.scope_size = {
-			type: button,
+			type: 'button',
 			category: 'Scopes',
 			name: 'Size',
 			options: {},
@@ -6843,7 +6889,7 @@ exports.getPresets = function () {
 
 	if (MODEL_ACTIONS?.scope_transparency) {
 		presets.scope_transparency = {
-			type: button,
+			type: 'button',
 			category: 'Scopes',
 			name: 'Transparency Enable',
 			options: {},
@@ -6883,7 +6929,7 @@ exports.getPresets = function () {
 
 	if (this.camera.firmware.major == '5') {
 		presets.averageBitrate = {
-			type: button,
+			type: 'button',
 			category: 'Dashboard',
 			name: 'Average Bitrate',
 			options: {},
@@ -6897,7 +6943,7 @@ exports.getPresets = function () {
 			feedbacks: [],
 		}
 		presets.audioChannels = {
-			type: button,
+			type: 'button',
 			category: 'Dashboard',
 			name: 'Audio Channels',
 			options: {},
@@ -6911,7 +6957,7 @@ exports.getPresets = function () {
 			feedbacks: [],
 		}
 		presets.audioSampleRate = {
-			type: button,
+			type: 'button',
 			category: 'Dashboard',
 			name: 'Audio Sample Rate',
 			options: {},
@@ -6925,7 +6971,7 @@ exports.getPresets = function () {
 			feedbacks: [],
 		}
 		presets.audioStatus = {
-			type: button,
+			type: 'button',
 			category: 'Dashboard',
 			name: 'Audio Status',
 			options: {},
@@ -6939,7 +6985,7 @@ exports.getPresets = function () {
 			feedbacks: [],
 		}
 		presets.dashboardStatus = {
-			type: button,
+			type: 'button',
 			category: 'Dashboard',
 			name: 'Status',
 			options: {},
@@ -6953,7 +6999,7 @@ exports.getPresets = function () {
 			feedbacks: [],
 		}
 		presets.deviceMode = {
-			type: button,
+			type: 'button',
 			category: 'Dashboard',
 			name: 'Device Mode',
 			options: {},
@@ -6967,7 +7013,7 @@ exports.getPresets = function () {
 			feedbacks: [],
 		}
 		presets.genlockStatus = {
-			type: button,
+			type: 'button',
 			category: 'Dashboard',
 			name: 'Genlock Status',
 			options: {},
@@ -6981,7 +7027,7 @@ exports.getPresets = function () {
 			feedbacks: [],
 		}
 		presets.mcuVersion = {
-			type: button,
+			type: 'button',
 			category: 'Dashboard',
 			name: 'MCU Version',
 			options: {},
@@ -6995,7 +7041,7 @@ exports.getPresets = function () {
 			feedbacks: [],
 		}
 		presets.networkBandwidth = {
-			type: button,
+			type: 'button',
 			category: 'Dashboard',
 			name: 'Network Bandwidth',
 			options: {},
@@ -7009,7 +7055,7 @@ exports.getPresets = function () {
 			feedbacks: [],
 		}
 		presets.networkMode = {
-			type: button,
+			type: 'button',
 			category: 'Dashboard',
 			name: 'Network Mode',
 			options: {},
@@ -7023,7 +7069,7 @@ exports.getPresets = function () {
 			feedbacks: [],
 		}
 		presets.networkSpeed = {
-			type: button,
+			type: 'button',
 			category: 'Dashboard',
 			name: 'Network Speed',
 			options: {},
@@ -7037,7 +7083,7 @@ exports.getPresets = function () {
 			feedbacks: [],
 		}
 		presets.sourceStatus = {
-			type: button,
+			type: 'button',
 			category: 'Dashboard',
 			name: 'Source Status',
 			options: {},
@@ -7051,7 +7097,7 @@ exports.getPresets = function () {
 			feedbacks: [],
 		}
 		presets.cpuUsage = {
-			type: button,
+			type: 'button',
 			category: 'Dashboard',
 			name: 'CPU Usage',
 			options: {},
@@ -7065,7 +7111,7 @@ exports.getPresets = function () {
 			feedbacks: [],
 		}
 		presets.videoFormat = {
-			type: button,
+			type: 'button',
 			category: 'Dashboard',
 			name: 'Video Format',
 			options: {},
@@ -7079,7 +7125,7 @@ exports.getPresets = function () {
 			feedbacks: [],
 		}
 		presets.videoFrameRate = {
-			type: button,
+			type: 'button',
 			category: 'Dashboard',
 			name: 'Video Frame Rate',
 			options: {},
@@ -7093,7 +7139,7 @@ exports.getPresets = function () {
 			feedbacks: [],
 		}
 		presets.videoResolution = {
-			type: button,
+			type: 'button',
 			category: 'Dashboard',
 			name: 'Video Resolution',
 			options: {},
@@ -7107,7 +7153,7 @@ exports.getPresets = function () {
 			feedbacks: [],
 		}
 		presets.videoSampleRate = {
-			type: button,
+			type: 'button',
 			category: 'Dashboard',
 			name: 'Video Sample rate',
 			options: {},
@@ -7121,7 +7167,7 @@ exports.getPresets = function () {
 			feedbacks: [],
 		}
 		presets.videoStreamName = {
-			type: button,
+			type: 'button',
 			category: 'Dashboard',
 			name: 'Video Stream Name',
 			options: {},
@@ -7135,7 +7181,7 @@ exports.getPresets = function () {
 			feedbacks: [],
 		}
 		presets.irisShutterColorTempGain = {
-			type: button,
+			type: 'button',
 			category: 'Dashboard',
 			name: 'IRIS/Shutter/ColorTemp/Gain',
 			options: {},
@@ -7149,7 +7195,7 @@ exports.getPresets = function () {
 			feedbacks: [],
 		}
 		presets.cpuBitrate = {
-			type: button,
+			type: 'button',
 			category: 'Dashboard',
 			name: 'CPU / BR',
 			options: {},
