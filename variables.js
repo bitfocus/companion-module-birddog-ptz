@@ -214,7 +214,9 @@ export function updateVariables() {
 	}
 
 	if (MODEL_VARIABLES.some((variable) => variable.variableId === 'zoom_position')) {
-		updatedVariables.zoom_position = getPositionLabel(MODEL_ACTIONS.zoom.posZoomChoices, this.camera.zoom_position)
+		let label = getPositionLabel(MODEL_ACTIONS.zoom.posZoomChoices, this.camera.zoom_position)
+		updatedVariables.zoom_position = label
+		updatedVariables.zoom_position_int = label.replace(/['X']/gi, '')
 	}
 
 	if (MODEL_VARIABLES.some((variable) => variable.variableId === 'pan_position')) {

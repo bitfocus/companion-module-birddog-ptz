@@ -769,6 +769,13 @@ export const MODEL_SPECS = {
 		variableId: 'zoom_position',
 		name: `PTZ - Zoom Position`,
 	},
+	zoom_position_int: {
+		camera: ['All'],
+		firmware: ['4', '5'],
+		store_state: true,
+		variableId: 'zoom_position_int',
+		name: `PTZ - Zoom Position (Integer)`,
+	},
 	zoomSpeed: {
 		camera: ['All'],
 		firmware: ['4', '5'],
