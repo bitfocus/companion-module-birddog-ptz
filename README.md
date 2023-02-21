@@ -13,6 +13,11 @@ See [HELP.md](https://github.com/bitfocus/companion-module-birddog-ptz/blob/main
 - Changes
 
   - Support for Companion v3
+  - New variable to allow raw zoom integer to be used in triggers
+
+- Fixes
+  - Actions now properly populate in Companion UI
+  - Update module status to connected after reconnection
 
 ### v2.3.3
 
