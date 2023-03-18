@@ -7,34 +7,34 @@
 // @returns - A list of objects
 const merge = (...objects) => objects.reduce((acc, cur) => ({ ...acc, ...cur }))
 
-function addStringToBinary(binaryStr, string) {
+export function addStringToBinary(binaryStr, string) {
 	let data = Buffer.from(binaryStr, 'binary').toString('hex')
 	let sum = parseInt(data, 16) + parseInt(string, 16)
 	return String.fromCharCode(sum.toString())
 }
 
 // Create Postion Arrays with Max degress, Min degrees, step degree, & Hex vlaue of MAx degrees
-function createPositionArray(max, min, steps, maxhex) {
-	var array = []
-	ratio = maxhex / max
+export function createPositionArray(max, min, steps, maxhex) {
+	let array = []
+	let ratio = maxhex / max
 	for (let i = max; i >= min; i = i - steps) {
-		id = i < 0 ? ((ratio * i) >>> 0).toString(16).slice(4) : ('0000' + Math.round(ratio * i).toString(16)).slice(-4)
+		let id = i < 0 ? ((ratio * i) >>> 0).toString(16).slice(4) : ('0000' + Math.round(ratio * i).toString(16)).slice(-4)
 		array.push({ id: id, label: i + String.fromCharCode(176) })
 	}
 	return array
 }
 
-function createZoomArray(max, min, steps, maxhex) {
-	var array = []
-	ratio = maxhex / (max - 1)
+export function createZoomArray(max, min, steps, maxhex) {
+	let array = []
+	let ratio = maxhex / (max - 1)
 	for (let i = max; i >= min; i = i - steps) {
-		id = ('0000' + Math.round(ratio * (i - 1)).toString(16)).slice(-4)
+		let id = ('0000' + Math.round(ratio * (i - 1)).toString(16)).slice(-4)
 		array.push({ id: id, label: i + 'X' })
 	}
 	return array
 }
 
-function getPositionLabel(array, value) {
+export function getPositionLabel(array, value) {
 	// returns label from closest id in array to value
 	// array.id contains hex as strings, value is a hex string
 	if (!Array.isArray(array)) {
@@ -44,15 +44,15 @@ function getPositionLabel(array, value) {
 	}
 	// use two's compliment to return negative number as required
 	else value = ~~parseInt(value[0] == 'f' ? 'FFFF' + value : value, 16)
-	closest = array.reduce((a, b) => {
-		a_int = ~~parseInt(a.id[0] == 'f' ? 'FFFF' + a.id : a.id, 16)
-		b_int = ~~parseInt(b.id[0] == 'f' ? 'FFFF' + b.id : b.id, 16)
+	let closest = array.reduce((a, b) => {
+		let a_int = ~~parseInt(a.id[0] == 'f' ? 'FFFF' + a.id : a.id, 16)
+		let b_int = ~~parseInt(b.id[0] == 'f' ? 'FFFF' + b.id : b.id, 16)
 		return Math.abs(b_int - value) < Math.abs(a_int - value) ? b : a
 	})
 	return closest.label
 }
 
-function strToPQRS(string) {
+export function strToPQRS(string) {
 	return (
 		addStringToBinary('\x00', string[0]) +
 		addStringToBinary('\x00', string[1]) +
@@ -61,9 +61,9 @@ function strToPQRS(string) {
 	)
 }
 
-function sortByLabel(a, b) {
-	labelA = a[1].name
-	labelB = b[1].name
+export function sortByLabel(a, b) {
+	let labelA = a[1].name
+	let labelB = b[1].name
 	if (labelA < labelB) {
 		return -1
 	}
@@ -73,9 +73,9 @@ function sortByLabel(a, b) {
 	return 0
 }
 
-function sortByAction(a, b) {
-	labelA = a[1].label
-	labelB = b[1].label
+export function sortByAction(a, b) {
+	let labelA = a[1].label
+	let labelB = b[1].label
 	if (labelA < labelB) {
 		return -1
 	}
@@ -85,16 +85,16 @@ function sortByAction(a, b) {
 	return 0
 }
 
-function sortByPresetCategory(a, b) {
+export function sortByPresetCategory(a, b) {
 	return a.category.localeCompare(b.category) || a.label.localeCompare(b.label)
 }
 
-function getModelVariables(array, FW, model) {
+export function getModelVariables(array, FW, model) {
 	// returns an object containing all variables based on model & FW
 	const variables = []
-	tempArray = Object.entries(array)
+	let tempArray = Object.entries(array)
 
-	filteredArray = tempArray.filter(
+	let filteredArray = tempArray.filter(
 		(array) =>
 			// filter array based on: All cameras or Model matches, and FW matches & has 'variable_name' object
 			(array[1].camera.includes(model) || array[1].camera.includes('All')) &&
@@ -104,18 +104,18 @@ function getModelVariables(array, FW, model) {
 	filteredArray.sort(sortByLabel)
 	filteredArray.forEach((array) =>
 		variables.push({
-			label: array[1].name,
-			name: array[1].variableId,
+			name: array[1].name,
+			variableId: array[1].variableId,
 		})
 	)
 	return variables
 }
 
-function getModelActions(array, FW, model) {
+export function getModelActions(array, FW, model) {
 	// returns an object containing all actions based on model & FW
 	const actions = []
-	tempArray = Object.entries(array)
-	filteredArray = tempArray.filter(
+	let tempArray = Object.entries(array)
+	let filteredArray = tempArray.filter(
 		(array) =>
 			// filter array based on: All cameras or Model matches, and FW matches & has 'action' object
 			(array[1].camera.includes(model) || array[1].camera.includes('All')) &&
@@ -132,18 +132,18 @@ function getModelActions(array, FW, model) {
 	return merge(...actions)
 }
 
-function getModelActionDetails(array, FW, model) {
+export function getModelActionDetails(array, FW, model) {
 	// returns an object containing actions based on model & FW
-	commonActions = array.filter((array) => array.camera.includes('common'))
-	modelActions = array.filter(
+	let commonActions = array.filter((array) => array.camera.includes('common'))
+	let modelActions = array.filter(
 		// filter array based on: All cameras or Model matches, and if it contains a FW filed, then if FW matches
 		(array) => (array.camera.includes(model) || array.camera.includes('All')) && (array.firmware?.includes(FW) ?? true)
 	)
 	return merge(commonActions[0]?.action, modelActions[0]?.action)
 }
 
-function getModelQueries(array, model, FW) {
-	asArray = Object.entries(array)
+export function getModelQueries(array, model, FW) {
+	let asArray = Object.entries(array)
 	return Object.fromEntries(
 		asArray.filter(
 			(item) => (item[1].camera.includes(model) || item[1].camera.includes('All')) && item[1].firmware.includes(FW)
@@ -151,26 +151,11 @@ function getModelQueries(array, model, FW) {
 	)
 }
 
-function toggleVal(val, array) {
+export function toggleVal(val, array) {
 	// returns the other value in the given 3 choice array (including 'toggle')
 	console.log('-- in toggleVal function')
 	console.log('--- val is', val)
 	console.log('--- array is', array)
-	result = array.filter((element) => element.id !== val && element.id !== 'Toggle')
+	let result = array.filter((element) => element.id !== val && element.id !== 'Toggle')
 	return result[0].id
-}
-
-module.exports = {
-	addStringToBinary,
-	createPositionArray,
-	createZoomArray,
-	getPositionLabel,
-	strToPQRS,
-	sortByLabel,
-	sortByAction,
-	sortByPresetCategory,
-	getModelVariables,
-	getModelActions,
-	getModelQueries,
-	toggleVal,
 }
