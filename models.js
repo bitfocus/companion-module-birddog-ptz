@@ -7,7 +7,7 @@ export const MODEL_QUERIES = {
 	//Device Settings
 	analogaudiosetup: { camera: ['All'], firmware: ['4', '5'] },
 	devicesettings: { camera: ['All'], firmware: ['5'] },
-	videooutputinterface: { camera: ['P400', 'P4K'], firmware: ['4', '5'] },
+	videooutputinterface: { camera: ['P240', 'P400', 'P4K'], firmware: ['4', '5'] },
 
 	//NDI Encode
 	encodesetup: { camera: ['All'], firmware: ['4', '5'] },
@@ -31,6 +31,7 @@ export const MODEL_QUERIES = {
 			'A200GEN2',
 			'A300GEN1',
 			'A300GEN2',
+			'P240',
 			'P400',
 			'P4K',
 		],
@@ -60,10 +61,10 @@ export const MODEL_QUERIES = {
 	birddogexternalsetup: { camera: ['A200GEN1', 'A200GEN2', 'A300GEN1', 'A300GEN2'], firmware: ['4', '5'] },
 
 	//Detail Settings
-	birddogdetsetup: { camera: ['P400', 'P4K'], firmware: ['4', '5'] },
+	birddogdetsetup: { camera: ['P240', 'P400', 'P4K'], firmware: ['4', '5'] },
 
 	//Gamma Settings
-	birddoggammasetup: { camera: ['P400', 'P4K'], firmware: ['4', '5'] },
+	birddoggammasetup: { camera: ['P240', 'P400', 'P4K'], firmware: ['4', '5'] },
 
 	//Scope Settings
 	birddogscope: { camera: ['All'], firmware: ['5'] },
@@ -247,7 +248,7 @@ export const MODEL_SPECS = {
 
 	// Video Output Interface
 	video_output: {
-		camera: ['P400', 'P4K'],
+		camera: ['P240', 'P400', 'P4K'],
 		firmware: ['4', '5'],
 		store_state: true,
 		api_endpoint: ['videooutputinterface'],
@@ -406,7 +407,7 @@ export const MODEL_SPECS = {
 		],
 	},
 	tally_mode: {
-		camera: ['P110', 'P120', 'PF120', 'P200A2A3', 'P200A4A5', 'P400', 'P4K'],
+		camera: ['P110', 'P120', 'PF120', 'P200A2A3', 'P200A4A5', 'P240', 'P400', 'P4K'],
 		firmware: ['4', '5'],
 		store_state: true,
 		api_endpoint: ['encodesetup'],
@@ -557,6 +558,7 @@ export const MODEL_SPECS = {
 			'A200GEN2',
 			'A300GEN1',
 			'A300GEN2',
+			'P240',
 			'P400',
 			'P4K',
 		],
@@ -579,7 +581,7 @@ export const MODEL_SPECS = {
 				action: { posPanChoices: CHOICES.POS_PAN_P100 },
 			},
 			{
-				camera: ['P200A2A3', 'P200A4A5', 'A200GEN1', 'A200GEN2', 'A300GEN1', 'A300GEN2', 'P400', 'P4K'],
+				camera: ['P200A2A3', 'P200A4A5', 'A200GEN1', 'A200GEN2', 'A300GEN1', 'A300GEN2', 'P240', 'P400', 'P4K'],
 				action: { posPanChoices: CHOICES.POS_PAN_P200 },
 			},
 		],
@@ -595,6 +597,7 @@ export const MODEL_SPECS = {
 			'A200GEN2',
 			'A300GEN1',
 			'A300GEN2',
+			'P240',
 			'P400',
 			'P4K',
 		],
@@ -614,6 +617,7 @@ export const MODEL_SPECS = {
 			'A200GEN2',
 			'A300GEN1',
 			'A300GEN2',
+			'P240',
 			'P400',
 			'P4K',
 		],
@@ -695,6 +699,7 @@ export const MODEL_SPECS = {
 			'A200GEN2',
 			'A300GEN1',
 			'A300GEN2',
+			'P240',
 			'P400',
 			'P4K',
 		],
@@ -714,6 +719,7 @@ export const MODEL_SPECS = {
 			'A200GEN2',
 			'A300GEN1',
 			'A300GEN2',
+			'P240',
 			'P400',
 			'P4K',
 		],
@@ -753,7 +759,7 @@ export const MODEL_SPECS = {
 				action: { posZoomChoices: CHOICES.POS_ZOOM_10 },
 			},
 			{
-				camera: ['PF120', 'P120', 'P400'],
+				camera: ['PF120', 'P120', 'P240', 'P400'],
 				action: { posZoomChoices: CHOICES.POS_ZOOM_20 },
 			},
 			{
@@ -833,7 +839,7 @@ export const MODEL_SPECS = {
 
 	// Exposure
 	ae_response: {
-		camera: ['P200A2A3', 'P200A4A5', 'A200GEN1', 'A200GEN2', 'A300GEN1', 'A300GEN2', 'P400', 'P4K'],
+		camera: ['P200A2A3', 'P200A4A5', 'A200GEN1', 'A200GEN2', 'A300GEN1', 'A300GEN2', 'P240', 'P400', 'P4K'],
 		firmware: ['4', '5'],
 		store_state: true,
 		api_endpoint: ['birddogexpsetup'],
@@ -848,7 +854,7 @@ export const MODEL_SPECS = {
 		],
 	},
 	backlight: {
-		camera: ['P400', 'P4K'],
+		camera: ['P240', 'P400', 'P4K'],
 		firmware: ['4', '5'],
 		store_state: true,
 		api_endpoint: ['birddogexpsetup'],
@@ -884,7 +890,7 @@ export const MODEL_SPECS = {
 				action: { range: { min: 0, max: 31, default: 16 } },
 			},
 			{
-				camera: ['P400'],
+				camera: ['P240', 'P400'],
 				action: { range: { min: 0, max: 41, default: 21 } },
 			},
 			{
@@ -926,7 +932,7 @@ export const MODEL_SPECS = {
 				action: { range: { min: -7, max: 7, default: 0 } },
 			},
 			{
-				camera: ['P200A2A3', 'P200A4A5', 'A200GEN1', 'A200GEN2', 'A300GEN1', 'A300GEN2', 'P400', 'P4K'],
+				camera: ['P200A2A3', 'P200A4A5', 'A200GEN1', 'A200GEN2', 'A300GEN1', 'A300GEN2', 'P240', 'P400', 'P4K'],
 				action: { range: { min: -128, max: 127, default: 0 } },
 			},
 		],
@@ -953,7 +959,7 @@ export const MODEL_SPECS = {
 				action: { choices: CHOICES.EXP_MODE_2 },
 			},
 			{
-				camera: ['P400', 'P4K'],
+				camera: ['P240', 'P400', 'P4K'],
 				action: { choices: CHOICES.EXP_MODE_3 },
 			},
 		],
@@ -980,13 +986,13 @@ export const MODEL_SPECS = {
 				action: { value: { choices: CHOICES.GAIN_2, default: 1 } },
 			},
 			{
-				camera: ['P400', 'P4K'],
+				camera: ['P240', 'P400', 'P4K'],
 				action: { value: { choices: CHOICES.GAIN_3, default: 1 } },
 			},
 		],
 	},
 	gain_limit: {
-		camera: ['P200A2A3', 'P200A4A5', 'A200GEN1', 'A200GEN2', 'A300GEN1', 'A300GEN2', 'P400', 'P4K'],
+		camera: ['P200A2A3', 'P200A4A5', 'A200GEN1', 'A200GEN2', 'A300GEN1', 'A300GEN2', 'P240', 'P400', 'P4K'],
 		firmware: ['4', '5'],
 		store_state: true,
 		api_endpoint: ['birddogexpsetup'],
@@ -1003,13 +1009,13 @@ export const MODEL_SPECS = {
 				action: { range: { min: 4, max: 15, default: 15 } },
 			},
 			{
-				camera: ['P400', 'P4K'],
+				camera: ['P240', 'P400', 'P4K'],
 				action: { range: { min: 4, max: 13, default: 13 } },
 			},
 		],
 	},
 	gain_point: {
-		camera: ['P400', 'P4K'],
+		camera: ['P240', 'P400', 'P4K'],
 		firmware: ['4', '5'],
 		store_state: true,
 		api_endpoint: ['birddogexpsetup'],
@@ -1024,7 +1030,7 @@ export const MODEL_SPECS = {
 		],
 	},
 	gain_point_position: {
-		camera: ['P400', 'P4K'],
+		camera: ['P240', 'P400', 'P4K'],
 		firmware: ['4', '5'],
 		store_state: true,
 		api_endpoint: ['birddogexpsetup'],
@@ -1033,7 +1039,7 @@ export const MODEL_SPECS = {
 		name: `Exposure - Gain Point Position `,
 	},
 	high_sensitivity: {
-		camera: ['P200A2A3', 'P200A4A5', 'A200GEN1', 'A200GEN2', 'A300GEN1', 'A300GEN2', 'P400', 'P4K'],
+		camera: ['P200A2A3', 'P200A4A5', 'A200GEN1', 'A200GEN2', 'A300GEN1', 'A300GEN2', 'P240', 'P400', 'P4K'],
 		firmware: ['4', '5'],
 		store_state: true,
 		api_endpoint: ['birddogexpsetup'],
@@ -1069,7 +1075,7 @@ export const MODEL_SPECS = {
 				action: { value: { choices: CHOICES.IRIS_2, default: 12, range: { closed: 0, min: 5, max: 17 } } },
 			},
 			{
-				camera: ['P400'],
+				camera: ['P240', 'P400'],
 				action: { value: { choices: CHOICES.IRIS_3, default: 17, range: { closed: 0, min: 5, max: 21 } } },
 			},
 			{
@@ -1094,7 +1100,7 @@ export const MODEL_SPECS = {
 		],
 	},
 	shutter_max_speed: {
-		camera: ['P400', 'P4K'],
+		camera: ['P240', 'P400', 'P4K'],
 		firmware: ['4', '5'],
 		store_state: true,
 		api_endpoint: ['birddogexpsetup'],
@@ -1109,7 +1115,7 @@ export const MODEL_SPECS = {
 		],
 	},
 	shutter_min_speed: {
-		camera: ['P400', 'P4K'],
+		camera: ['P240', 'P400', 'P4K'],
 		firmware: ['4', '5'],
 		store_state: true,
 		api_endpoint: ['birddogexpsetup'],
@@ -1189,7 +1195,7 @@ export const MODEL_SPECS = {
 		store_state: true,
 	},
 	slow_shutter_en: {
-		camera: ['P200A2A3', 'P200A4A5', 'A200GEN1', 'A200GEN2', 'A300GEN1', 'A300GEN2', 'P400', 'P4K'],
+		camera: ['P200A2A3', 'P200A4A5', 'A200GEN1', 'A200GEN2', 'A300GEN1', 'A300GEN2', 'P240', 'P400', 'P4K'],
 		firmware: ['4', '5'],
 		store_state: true,
 		api_endpoint: ['birddogexpsetup'],
@@ -1204,7 +1210,7 @@ export const MODEL_SPECS = {
 		],
 	},
 	slow_shutter_limit: {
-		camera: ['P200A2A3', 'P200A4A5', 'A200GEN1', 'A200GEN2', 'A300GEN1', 'A300GEN2', 'P400', 'P4K'],
+		camera: ['P200A2A3', 'P200A4A5', 'A200GEN1', 'A200GEN2', 'A300GEN1', 'A300GEN2', 'P240', 'P400', 'P4K'],
 		firmware: ['4', '5'],
 		store_state: true,
 		api_endpoint: ['birddogexpsetup'],
@@ -1221,13 +1227,13 @@ export const MODEL_SPECS = {
 				action: { range: { min: 1, max: 6, default: 3 } },
 			},
 			{
-				camera: ['P400', 'P4K'],
+				camera: ['P240', 'P400', 'P4K'],
 				action: { range: { min: 6, max: 17, default: 12 } },
 			},
 		],
 	},
 	spotlight: {
-		camera: ['P400', 'P4K'],
+		camera: ['P240', 'P400', 'P4K'],
 		firmware: ['4', '5'],
 		store_state: true,
 		api_endpoint: ['birddogexpsetup'],
@@ -1244,7 +1250,7 @@ export const MODEL_SPECS = {
 
 	// White Balance
 	bg: {
-		camera: ['P400', 'P4K'],
+		camera: ['P240', 'P400', 'P4K'],
 		firmware: ['4', '5'],
 		store_state: true,
 		api_endpoint: ['birddogwbsetup'],
@@ -1274,7 +1280,7 @@ export const MODEL_SPECS = {
 		],
 	},
 	br: {
-		camera: ['P400', 'P4K'],
+		camera: ['P240', 'P400', 'P4K'],
 		firmware: ['4', '5'],
 		store_state: true,
 		api_endpoint: ['birddogwbsetup'],
@@ -1309,7 +1315,7 @@ export const MODEL_SPECS = {
 		],
 	},
 	gb: {
-		camera: ['P400', 'P4K'],
+		camera: ['P240', 'P400', 'P4K'],
 		firmware: ['4', '5'],
 		store_state: true,
 		api_endpoint: ['birddogwbsetup'],
@@ -1324,7 +1330,7 @@ export const MODEL_SPECS = {
 		],
 	},
 	gr: {
-		camera: ['P400', 'P4K'],
+		camera: ['P240', 'P400', 'P4K'],
 		firmware: ['4', '5'],
 		store_state: true,
 		api_endpoint: ['birddogwbsetup'],
@@ -1339,7 +1345,7 @@ export const MODEL_SPECS = {
 		],
 	},
 	level: {
-		camera: ['P400', 'P4K'],
+		camera: ['P240', 'P400', 'P4K'],
 		firmware: ['4', '5'],
 		store_state: true,
 		api_endpoint: ['birddogwbsetup'],
@@ -1354,7 +1360,7 @@ export const MODEL_SPECS = {
 		],
 	},
 	matrix: {
-		camera: ['P400', 'P4K'],
+		camera: ['P240', 'P400', 'P4K'],
 		firmware: ['4', '5'],
 		store_state: true,
 		api_endpoint: ['birddogwbsetup'],
@@ -1369,7 +1375,7 @@ export const MODEL_SPECS = {
 		],
 	},
 	offset: {
-		camera: ['P400', 'P4K'],
+		camera: ['P240', 'P400', 'P4K'],
 		firmware: ['4', '5'],
 		store_state: true,
 		api_endpoint: ['birddogwbsetup'],
@@ -1384,7 +1390,7 @@ export const MODEL_SPECS = {
 		],
 	},
 	phase: {
-		camera: ['P400', 'P4K'],
+		camera: ['P240', 'P400', 'P4K'],
 		firmware: ['4', '5'],
 		store_state: true,
 		api_endpoint: ['birddogwbsetup'],
@@ -1399,7 +1405,7 @@ export const MODEL_SPECS = {
 		],
 	},
 	rb: {
-		camera: ['P400', 'P4K'],
+		camera: ['P240', 'P400', 'P4K'],
 		firmware: ['4', '5'],
 		store_state: true,
 		api_endpoint: ['birddogwbsetup'],
@@ -1433,7 +1439,7 @@ export const MODEL_SPECS = {
 		],
 	},
 	rg: {
-		camera: ['P400', 'P4K'],
+		camera: ['P240', 'P400', 'P4K'],
 		firmware: ['4', '5'],
 		store_state: true,
 		api_endpoint: ['birddogwbsetup'],
@@ -1448,7 +1454,7 @@ export const MODEL_SPECS = {
 		],
 	},
 	select: {
-		camera: ['P400', 'P4K'],
+		camera: ['P240', 'P400', 'P4K'],
 		firmware: ['4', '5'],
 		store_state: true,
 		api_endpoint: ['birddogwbsetup'],
@@ -1463,7 +1469,7 @@ export const MODEL_SPECS = {
 		],
 	},
 	speed: {
-		camera: ['P400', 'P4K'],
+		camera: ['P240', 'P400', 'P4K'],
 		firmware: ['4', '5'],
 		store_state: true,
 		api_endpoint: ['birddogwbsetup'],
@@ -1509,7 +1515,7 @@ export const MODEL_SPECS = {
 				action: { choices: CHOICES.WB_MODE_1 },
 			},
 			{
-				camera: ['P200A2A3', 'P200A4A5', 'A200GEN1', 'A200GEN2', 'A300GEN1', 'A300GEN2', 'P400', 'P4K'],
+				camera: ['P200A2A3', 'P200A4A5', 'A200GEN1', 'A200GEN2', 'A300GEN1', 'A300GEN2', 'P240', 'P400', 'P4K'],
 				action: { choices: CHOICES.WB_MODE_2 },
 			},
 		],
@@ -1533,7 +1539,7 @@ export const MODEL_SPECS = {
 				action: { choices: CHOICES.WB_MODE_1b },
 			},
 			{
-				camera: ['P200A2A3', 'P200A4A5', 'A200GEN1', 'A200GEN2', 'A300GEN1', 'A300GEN2', 'P400', 'P4K'],
+				camera: ['P200A2A3', 'P200A4A5', 'A200GEN1', 'A200GEN2', 'A300GEN1', 'A300GEN2', 'P240', 'P400', 'P4K'],
 				action: { choices: CHOICES.WB_MODE_2 },
 			},
 		],
@@ -1556,7 +1562,7 @@ export const MODEL_SPECS = {
 		],
 	},
 	chroma_suppress: {
-		camera: ['P200A2A3', 'P200A4A5', 'A200GEN1', 'A200GEN2', 'A300GEN1', 'A300GEN2', 'P400', 'P4K'],
+		camera: ['P200A2A3', 'P200A4A5', 'A200GEN1', 'A200GEN2', 'A300GEN1', 'A300GEN2', 'P240', 'P400', 'P4K'],
 		firmware: ['4', '5'],
 		store_state: true,
 		api_endpoint: ['birddogpicsetup'],
@@ -1601,7 +1607,7 @@ export const MODEL_SPECS = {
 		],
 	},
 	highlight_comp: {
-		camera: ['P200A2A3', 'P200A4A5', 'A200GEN1', 'A200GEN2', 'A300GEN1', 'A300GEN2', 'P400', 'P4K'],
+		camera: ['P200A2A3', 'P200A4A5', 'A200GEN1', 'A200GEN2', 'A300GEN1', 'A300GEN2', 'P240', 'P400', 'P4K'],
 		firmware: ['4', '5'],
 		store_state: true,
 		api_endpoint: ['birddogpicsetup'],
@@ -1646,7 +1652,7 @@ export const MODEL_SPECS = {
 		],
 	},
 	ir_cutfilter: {
-		camera: ['P200A2A3', 'P200A4A5', 'A200GEN1', 'A200GEN2', 'A300GEN1', 'A300GEN2', 'P400', 'P4K'],
+		camera: ['P200A2A3', 'P200A4A5', 'A200GEN1', 'A200GEN2', 'A300GEN1', 'A300GEN2', 'P240', 'P400', 'P4K'],
 		firmware: ['4', '5'],
 		store_state: true,
 		api_endpoint: ['birddogpicsetup'],
@@ -1659,7 +1665,7 @@ export const MODEL_SPECS = {
 				action: { choices: CHOICES.IR_CUT_FILTER_1, default: 'Auto' },
 			},
 			{
-				camera: ['P400', 'P4K'],
+				camera: ['P240', 'P400', 'P4K'],
 				action: { choices: CHOICES.IR_CUT_FILTER_2, default: 'On' },
 			},
 			{
@@ -1802,7 +1808,7 @@ export const MODEL_SPECS = {
 		],
 	},
 	stabilizer: {
-		camera: ['P200A2A3', 'P200A4A5', 'A200GEN1', 'A200GEN2', 'A300GEN1', 'A300GEN2', 'P400', 'P4K'],
+		camera: ['P200A2A3', 'P200A4A5', 'A200GEN1', 'A200GEN2', 'A300GEN1', 'A300GEN2', 'P240', 'P400', 'P4K'],
 		firmware: ['4', '5'],
 		store_state: true,
 		api_endpoint: ['birddogpicsetup'],
@@ -1817,7 +1823,7 @@ export const MODEL_SPECS = {
 		],
 	},
 	threed_nr: {
-		camera: ['P400', 'P4K'],
+		camera: ['P240', 'P400', 'P4K'],
 		firmware: ['4', '5'],
 		store_state: true,
 		api_endpoint: ['birddogpicsetup'],
@@ -1837,7 +1843,7 @@ export const MODEL_SPECS = {
 		],
 	},
 	twod_nr: {
-		camera: ['P400', 'P4K'],
+		camera: ['P240', 'P400', 'P4K'],
 		firmware: ['4', '5'],
 		store_state: true,
 		api_endpoint: ['birddogpicsetup'],
@@ -2230,7 +2236,7 @@ export const MODEL_SPECS = {
 
 	// Detail Setup
 	bandwidth: {
-		camera: ['P400', 'P4K'],
+		camera: ['P240', 'P400', 'P4K'],
 		firmware: ['4', '5'],
 		store_state: true,
 		api_endpoint: ['birddogdetsetup'],
@@ -2245,7 +2251,7 @@ export const MODEL_SPECS = {
 		],
 	},
 	bw_balance: {
-		camera: ['P400', 'P4K'],
+		camera: ['P240', 'P400', 'P4K'],
 		firmware: ['4', '5'],
 		store_state: true,
 		api_endpoint: ['birddogdetsetup'],
@@ -2260,7 +2266,7 @@ export const MODEL_SPECS = {
 		],
 	},
 	crispening: {
-		camera: ['P400', 'P4K'],
+		camera: ['P240', 'P400', 'P4K'],
 		firmware: ['4', '5'],
 		store_state: true,
 		api_endpoint: ['birddogdetsetup'],
@@ -2275,7 +2281,7 @@ export const MODEL_SPECS = {
 		],
 	},
 	detail: {
-		camera: ['P400', 'P4K'],
+		camera: ['P240', 'P400', 'P4K'],
 		firmware: ['4', '5'],
 		store_state: true,
 		api_endpoint: ['birddogdetsetup'],
@@ -2290,7 +2296,7 @@ export const MODEL_SPECS = {
 		],
 	},
 	highlight_detail: {
-		camera: ['P400', 'P4K'],
+		camera: ['P240', 'P400', 'P4K'],
 		firmware: ['4', '5'],
 		store_state: true,
 		api_endpoint: ['birddogdetsetup'],
@@ -2305,7 +2311,7 @@ export const MODEL_SPECS = {
 		],
 	},
 	hv_balance: {
-		camera: ['P400', 'P4K'],
+		camera: ['P240', 'P400', 'P4K'],
 		firmware: ['4', '5'],
 		store_state: true,
 		api_endpoint: ['birddogdetsetup'],
@@ -2320,7 +2326,7 @@ export const MODEL_SPECS = {
 		],
 	},
 	limit: {
-		camera: ['P400', 'P4K'],
+		camera: ['P240', 'P400', 'P4K'],
 		firmware: ['4', '5'],
 		store_state: true,
 		api_endpoint: ['birddogdetsetup'],
@@ -2335,7 +2341,7 @@ export const MODEL_SPECS = {
 		],
 	},
 	super_low: {
-		camera: ['P400', 'P4K'],
+		camera: ['P240', 'P400', 'P4K'],
 		firmware: ['4', '5'],
 		store_state: true,
 		api_endpoint: ['birddogdetsetup'],
@@ -2352,7 +2358,7 @@ export const MODEL_SPECS = {
 
 	// Gamma Setup
 	black_gamma_level: {
-		camera: ['P400', 'P4K'],
+		camera: ['P240', 'P400', 'P4K'],
 		firmware: ['4', '5'],
 		store_state: true,
 		api_endpoint: ['birddoggammasetup'],
@@ -2367,7 +2373,7 @@ export const MODEL_SPECS = {
 		],
 	},
 	black_level: {
-		camera: ['P400', 'P4K'],
+		camera: ['P240', 'P400', 'P4K'],
 		firmware: ['4', '5'],
 		store_state: true,
 		api_endpoint: ['birddoggammasetup'],
@@ -2382,7 +2388,7 @@ export const MODEL_SPECS = {
 		],
 	},
 	black_level_range: {
-		camera: ['P400', 'P4K'],
+		camera: ['P240', 'P400', 'P4K'],
 		firmware: ['4', '5'],
 		store_state: true,
 		api_endpoint: ['birddoggammasetup'],
@@ -2397,7 +2403,7 @@ export const MODEL_SPECS = {
 		],
 	},
 	effect: {
-		camera: ['P400', 'P4K'],
+		camera: ['P240', 'P400', 'P4K'],
 		firmware: ['4', '5'],
 		store_state: true,
 		api_endpoint: ['birddoggammasetup'],
@@ -2412,7 +2418,7 @@ export const MODEL_SPECS = {
 		],
 	},
 	level: {
-		camera: ['P400', 'P4K'],
+		camera: ['P240', 'P400', 'P4K'],
 		firmware: ['4', '5'],
 		store_state: true,
 		api_endpoint: ['birddoggammasetup'],
@@ -2427,7 +2433,7 @@ export const MODEL_SPECS = {
 		],
 	},
 	offset: {
-		camera: ['P400', 'P4K'],
+		camera: ['P240', 'P400', 'P4K'],
 		firmware: ['4', '5'],
 		store_state: true,
 		api_endpoint: ['birddoggammasetup'],
@@ -2442,7 +2448,7 @@ export const MODEL_SPECS = {
 		],
 	},
 	pattern: {
-		camera: ['P400', 'P4K'],
+		camera: ['P240', 'P400', 'P4K'],
 		firmware: ['4', '5'],
 		store_state: true,
 		api_endpoint: ['birddoggammasetup'],
@@ -2457,7 +2463,7 @@ export const MODEL_SPECS = {
 		],
 	},
 	pattern_fine: {
-		camera: ['P400', 'P4K'],
+		camera: ['P240', 'P400', 'P4K'],
 		firmware: ['4', '5'],
 		store_state: true,
 		api_endpoint: ['birddoggammasetup'],
@@ -2472,7 +2478,7 @@ export const MODEL_SPECS = {
 		],
 	},
 	settings: {
-		camera: ['P400', 'P4K'],
+		camera: ['P240', 'P400', 'P4K'],
 		firmware: ['4', '5'],
 		store_state: true,
 		api_endpoint: ['birddoggammasetup'],
@@ -2487,7 +2493,7 @@ export const MODEL_SPECS = {
 		],
 	},
 	visibility_enhancer: {
-		camera: ['P400', 'P4K'],
+		camera: ['P240', 'P400', 'P4K'],
 		firmware: ['4', '5'],
 		store_state: true,
 		api_endpoint: ['birddoggammasetup'],

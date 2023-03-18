@@ -301,7 +301,7 @@ export function updateVariables() {
 	}
 
 	if (MODEL_VARIABLES.some((variable) => variable.variableId === 'shutter_speed')) {
-		updatedVariables.shutter_speed = MODEL_ACTIONS.shutter_speed?.['shutter_' + [this.camera.shutter_table]].find(
+		updatedVariables.shutter_speed = MODEL_ACTIONS.shutter_speed?.['shutter_' + [this.camera.shutter_table]]?.find(
 			(o) => o.id == this.camera.shutter_speed
 		)?.label
 	}
