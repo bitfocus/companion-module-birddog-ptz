@@ -2150,7 +2150,7 @@ export function getPresets() {
 			feedbacks: [
 				{
 					feedbackId: 'exposureMode',
-					options: { val: MODEL_ACTIONS.exposure_mode.default },
+					options: { mode: MODEL_ACTIONS.exposure_mode.default },
 					style: {
 						color: ColorBlack,
 						bgcolor: ColorGreen,
