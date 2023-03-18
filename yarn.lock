@@ -2,10 +2,10 @@
 # yarn lockfile v1
 
 
-"@companion-module/base@~1.2.1":
-  version "1.2.1"
-  resolved "https://registry.yarnpkg.com/@companion-module/base/-/base-1.2.1.tgz#f935f99c8b0e935939f9a21b81331fd8453485a3"
-  integrity sha512-6cJJl4oVheMIdF55UrmfoJ6+MCyaRo9uKeCRcfKq3lq0knNj1xkNgiiys/M9Ymm4BLLQ0iKIhwHsyEYMKB7bhA==
+"@companion-module/base@~1.3.0":
+  version "1.3.0"
+  resolved "https://registry.yarnpkg.com/@companion-module/base/-/base-1.3.0.tgz#1168f36235bdec7f2603f88824fc2e930c1e41e7"
+  integrity sha512-gp8Pb0is0kG3J2hkGu28zJWo3C8igkiA/KMmNgrQMJWWY0yR1HiKCSllyTpmrjBUixvOUqrHgZKfuHA1bpJ93A==
   dependencies:
     "@sentry/node" "^7.36.0"
     "@sentry/tracing" "^7.36.0"
@@ -18,10 +18,10 @@
     p-timeout "^4.1.0"
     tslib "^2.5.0"
 
-"@companion-module/tools@^1.1.0":
-  version "1.1.0"
-  resolved "https://registry.yarnpkg.com/@companion-module/tools/-/tools-1.1.0.tgz#3e4e24051b6cbf6a3192f0b85ffa7dea77372233"
-  integrity sha512-YX218Z6WXNGHdeFlBcCteyEC14IBgIoaM+V5H8PLE3ijn7NO+ARet62QajU83T2NLONyXybPa/PHqE+Y9ERIDQ==
+"@companion-module/tools@^1.2.0":
+  version "1.2.0"
+  resolved "https://registry.yarnpkg.com/@companion-module/tools/-/tools-1.2.0.tgz#5dd3518c476f6e824ae17741c25801050c0040b0"
+  integrity sha512-F+YaH2/Q3a6rm1ae+QpVOW4p3donRvbyYSbBcasyK919bZo6XLwUgwd/Mr1ZAoDWsqvy/VE3DUXBpZVLXpiV1Q==
   dependencies:
     "@typescript-eslint/eslint-plugin" "^5.50.0"
     "@typescript-eslint/parser" "^5.50.0"
@@ -1478,10 +1478,10 @@ node-fetch@3.2.10:
     fetch-blob "^3.1.4"
     formdata-polyfill "^4.0.10"
 
-node-fetch@^3.3.0:
-  version "3.3.0"
-  resolved "https://registry.yarnpkg.com/node-fetch/-/node-fetch-3.3.0.tgz#37e71db4ecc257057af828d523a7243d651d91e4"
-  integrity sha512-BKwRP/O0UvoMKp7GNdwPlObhYGB5DQqwhEDQlNKuoqwVYSxkSZCSbHjnFFmUEtwSKRPU4kNK8PbDYYitwaE3QA==
+node-fetch@^3.3.1:
+  version "3.3.1"
+  resolved "https://registry.yarnpkg.com/node-fetch/-/node-fetch-3.3.1.tgz#b3eea7b54b3a48020e46f4f88b9c5a7430d20b2e"
+  integrity sha512-cRVc/kyto/7E5shrWca1Wsea4y6tL9iYJE5FBCius3JQfb/4P4I295PfhgbJQBLTx6lATE4z+wK0rPM4VS2uow==
   dependencies:
     data-uri-to-buffer "^4.0.0"
     fetch-blob "^3.1.4"
@@ -2075,10 +2075,10 @@ wrappy@1:
   resolved "https://registry.yarnpkg.com/wrappy/-/wrappy-1.0.2.tgz#b5243d8f3ec1aa35f1364605bc0d1036e30ab69f"
   integrity sha512-l4Sp/DRseor9wL6EvV2+TuQn63dMkPjZ/sp9XkghTEbV9KlPS1xUsZ3u7/IQO4wxtcFB4bgpQPRcR3QCvezPcQ==
 
-ws@^8.12.1:
-  version "8.12.1"
-  resolved "https://registry.yarnpkg.com/ws/-/ws-8.12.1.tgz#c51e583d79140b5e42e39be48c934131942d4a8f"
-  integrity sha512-1qo+M9Ba+xNhPB+YTWUlK6M17brTut5EXbcBaMRN5pH5dFrXz7lzz1ChFSUq3bOUl8yEvSenhHmYUNJxFzdJew==
+ws@^8.13.0:
+  version "8.13.0"
+  resolved "https://registry.yarnpkg.com/ws/-/ws-8.13.0.tgz#9a9fb92f93cf41512a0735c8f4dd09b8a1211cd0"
+  integrity sha512-x9vcZYTrFPC7aSIbj7sRCYo7L/Xb8Iy+pW0ng0wt2vCJv7M9HOMy0UoN3rr+IFC7hb7vXoqS+P9ktyLLLhO+LA==
 
 yallist@^4.0.0:
   version "4.0.0"
