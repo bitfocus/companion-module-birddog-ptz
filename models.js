@@ -1163,7 +1163,19 @@ export const MODEL_SPECS = {
 				},
 			},
 			{
-				camera: ['P100', 'PF120', 'P200A2A3', 'P200A4A5', 'A200GEN1', 'A200GEN2', 'A300GEN1', 'A300GEN2'],
+				camera: [
+					'P100',
+					'PF120',
+					'P200A2A3',
+					'P200A4A5',
+					'A200GEN1',
+					'A200GEN2',
+					'A300GEN1',
+					'A300GEN2',
+					'P240',
+					'P400',
+					'P4K',
+				],
 				action: {
 					shutter_24: CHOICES.SHUTTER_4K_24,
 					shutter_50: CHOICES.SHUTTER_4K_50,

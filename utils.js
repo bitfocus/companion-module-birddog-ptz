@@ -153,9 +153,7 @@ export function getModelQueries(array, model, FW) {
 
 export function toggleVal(val, array) {
 	// returns the other value in the given 3 choice array (including 'toggle')
-	console.log('-- in toggleVal function')
-	console.log('--- val is', val)
-	console.log('--- array is', array)
+
 	let result = array.filter((element) => element.id !== val && element.id !== 'Toggle')
 	return result[0].id
 }
