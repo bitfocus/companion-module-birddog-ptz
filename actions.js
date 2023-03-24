@@ -1502,8 +1502,8 @@ export function getActions() {
 					type: 'dropdown',
 					label: 'Shutter Max Speed',
 					id: 'val',
-					choices: MODEL_ACTIONS.shutter_control_overwrite.choices,
-					default: MODEL_ACTIONS.shutter_control_overwrite.default,
+					choices: MODEL_ACTIONS.shutter_max_speed.choices,
+					default: MODEL_ACTIONS.shutter_max_speed.default,
 				},
 				{
 					type: 'dropdown',
@@ -1554,8 +1554,8 @@ export function getActions() {
 					type: 'dropdown',
 					label: 'Shutter Min Speed',
 					id: 'val',
-					choices: MODEL_ACTIONS.shutter_control_overwrite.choices,
-					default: MODEL_ACTIONS.shutter_control_overwrite.default,
+					choices: MODEL_ACTIONS.shutter_min_speed.choices,
+					default: MODEL_ACTIONS.shutter_min_speed.default,
 				},
 				{
 					type: 'dropdown',
@@ -1565,7 +1565,7 @@ export function getActions() {
 						MODEL_ACTIONS.shutter_min_speed.range.min,
 						parseInt(this.camera.expsetup?.ShutterMaxSpeed, 10) + 1
 					),
-					default: MODEL_ACTIONS.shutter_max_speed.range.default,
+					default: MODEL_ACTIONS.shutter_min_speed.range.default,
 					isVisible: (options) => options.val === 'value',
 				},
 			],
