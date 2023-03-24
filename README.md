@@ -8,6 +8,11 @@ See [HELP.md](https://github.com/bitfocus/companion-module-birddog-ptz/blob/main
 
 ## Changes
 
+### v3.0.1
+
+- Fixes
+  - P400 and P4K models should now properly load actions and variables
+
 ### v3.0.0
 
 - Changes
