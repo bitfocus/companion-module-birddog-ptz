@@ -2,7 +2,7 @@ export const upgradeScripts = [
 	function (context, props) {
 		//choicesUpgrade
 		let changed = {
-			updatedConfig: config,
+			updatedConfig: null,
 			updatedActions: [],
 			updatedFeedbacks: [],
 		}
@@ -341,9 +341,10 @@ export const upgradeScripts = [
 			updatedFeedbacks: [],
 		}
 		if (props.config !== null) {
-			if (props.config.model == undefined || props.config.model == '') {
-				props.config.model = 'Auto'
-				changed.updatedConfig = props.config
+			let config = props.config
+			if (config.model == undefined || config.model == '') {
+				config.model = 'Auto'
+				changed.updatedConfig = config
 			}
 		}
 		return changed
@@ -352,7 +353,7 @@ export const upgradeScripts = [
 	function (context, props) {
 		//colorTempChange
 		let changed = {
-			updatedConfig: config,
+			updatedConfig: null,
 			updatedActions: [],
 			updatedFeedbacks: [],
 		}
@@ -371,7 +372,7 @@ export const upgradeScripts = [
 	function (context, props) {
 		//tallyMode
 		let changed = {
-			updatedConfig: config,
+			updatedConfig: null,
 			updatedActions: [],
 			updatedFeedbacks: [],
 		}
@@ -386,7 +387,7 @@ export const upgradeScripts = [
 	function (context, props) {
 		//actionsValueUpgrade
 		let changed = {
-			updatedConfig: config,
+			updatedConfig: null,
 			updatedActions: [],
 			updatedFeedbacks: [],
 		}
