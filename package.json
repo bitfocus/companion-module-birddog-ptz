@@ -1,6 +1,6 @@
 {
 	"name": "birddog-ptz",
-	"version": "3.0.1",
+	"version": "3.0.2",
 	"main": "index.js",
 	"scripts": {
 		"format": "prettier -w .",
@@ -19,7 +19,7 @@
 		"ws": "^8.13.0"
 	},
 	"devDependencies": {
-		"@companion-module/tools": "^1.2.0"
+		"@companion-module/tools": "^1.2.1"
 	},
 	"prettier": "@companion-module/tools/.prettierrc.json"
 }
