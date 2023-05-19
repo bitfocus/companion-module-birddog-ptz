@@ -8,6 +8,11 @@ See [HELP.md](https://github.com/bitfocus/companion-module-birddog-ptz/blob/main
 
 ## Changes
 
+### v3.0.2
+
+- Fixes
+  - Possible module crash on upgrade in certain scenarios
+
 ### v3.0.1
 
 - Fixes
