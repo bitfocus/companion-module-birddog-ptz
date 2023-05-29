@@ -220,11 +220,15 @@ export function updateVariables() {
 	}
 
 	if (MODEL_VARIABLES.some((variable) => variable.variableId === 'pan_position')) {
-		updatedVariables.pan_position = getPositionLabel(MODEL_ACTIONS.pt.posPanChoices, this.camera.pan_position)
+		let label = getPositionLabel(MODEL_ACTIONS.pt.posPanChoices, this.camera.pan_position)
+		updatedVariables.pan_position = label
+		updatedVariables.pan_position_int = label.replace(/['°']/gi, '')
 	}
 
 	if (MODEL_VARIABLES.some((variable) => variable.variableId === 'tilt_position')) {
-		updatedVariables.tilt_position = getPositionLabel(MODEL_ACTIONS.pt.posTiltChoices, this.camera.tilt_position)
+		let label = getPositionLabel(MODEL_ACTIONS.pt.posTiltChoices, this.camera.tilt_position)
+		updatedVariables.tilt_position = label
+		updatedVariables.tilt_position_int = label.replace(/['°']/gi, '')
 	}
 
 	// Focus Variables
