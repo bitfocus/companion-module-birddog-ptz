@@ -606,6 +606,26 @@ export const MODEL_SPECS = {
 		variableId: 'pan_position',
 		name: `PTZ - Pan Position`,
 	},
+	pan_position_int: {
+		camera: [
+			'P100',
+			'P110',
+			'P120',
+			'P200A2A3',
+			'P200A4A5',
+			'A200GEN1',
+			'A200GEN2',
+			'A300GEN1',
+			'A300GEN2',
+			'P240',
+			'P400',
+			'P4K',
+		],
+		firmware: ['4', '5'],
+		store_state: true,
+		variableId: 'pan_position_int',
+		name: `PTZ - Pan Position (Integer)`,
+	},
 	panSpeed: {
 		camera: [
 			'P100',
@@ -707,6 +727,26 @@ export const MODEL_SPECS = {
 		store_state: true,
 		variableId: 'tilt_position',
 		name: `PTZ - Tilt Position`,
+	},
+	tilt_position_int: {
+		camera: [
+			'P100',
+			'P110',
+			'P120',
+			'P200A2A3',
+			'P200A4A5',
+			'A200GEN1',
+			'A200GEN2',
+			'A300GEN1',
+			'A300GEN2',
+			'P240',
+			'P400',
+			'P4K',
+		],
+		firmware: ['4', '5'],
+		store_state: true,
+		variableId: 'tilt_position_int',
+		name: `PTZ - Tilt Position (Integer)`,
 	},
 	tiltSpeed: {
 		camera: [
