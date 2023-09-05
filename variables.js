@@ -319,7 +319,9 @@ export function updateVariables() {
 	}
 
 	if (MODEL_VARIABLES.some((variable) => variable.variableId === 'slow_shutter_limit')) {
-		updatedVariables.slow_shutter_limit = this.camera.slow_shutter_limit
+		updatedVariables.slow_shutter_limit = MODEL_ACTIONS.slow_shutter_limit?.[
+			'shutter_' + [this.camera.shutter_table]
+		]?.find((o) => o.id == this.camera.slow_shutter_limit)?.label
 	}
 
 	if (MODEL_VARIABLES.some((variable) => variable.variableId === 'spotlight')) {

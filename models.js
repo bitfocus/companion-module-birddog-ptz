@@ -1276,11 +1276,20 @@ export const MODEL_SPECS = {
 			},
 			{
 				camera: ['P200A2A3', 'P200A4A5', 'A200GEN1', 'A200GEN2', 'A300GEN1', 'A300GEN2'],
-				action: { range: { min: 1, max: 6, default: 3 } },
+				action: {
+					shutter_50: CHOICES.SLOW_SHUTTER_50,
+					shutter_60: CHOICES.SLOW_SHUTTER_60,
+					range: { min: 1, max: 6, default: 3 },
+				},
 			},
 			{
 				camera: ['P240', 'P400', 'P4K'],
-				action: { range: { min: 6, max: 17, default: 12 } },
+				action: {
+					shutter_24: CHOICES.SLOW_SHUTTER_4K_24,
+					shutter_50: CHOICES.SLOW_SHUTTER_4K_50,
+					shutter_60: CHOICES.SLOW_SHUTTER_4K_60,
+					range: { min: 6, max: 17, default: 12 },
+				},
 			},
 		],
 	},

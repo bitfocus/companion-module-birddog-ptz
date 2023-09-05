@@ -1072,10 +1072,7 @@ export function getFeedbacks() {
 					type: 'dropdown',
 					label: 'Shutter Speed',
 					id: 'val',
-					choices: MODEL_ACTIONS.shutter_speed?.['shutter_' + [this.camera.shutter_table]].slice(
-						MODEL_ACTIONS.slow_shutter_limit.range.min,
-						MODEL_ACTIONS.slow_shutter_limit.range.max + 1
-					),
+					choices: MODEL_ACTIONS.slow_shutter_limit?.['shutter_' + [this.camera.shutter_table]],
 					default: MODEL_ACTIONS.slow_shutter_limit.range.default,
 				},
 			],
