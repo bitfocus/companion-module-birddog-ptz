@@ -229,7 +229,14 @@ class BirdDogPTZInstance extends InstanceBase {
 				//this.camera.ndiserver = data
 				break
 			case 'birddogptzsetup':
+				let originalSpeedState = this.camera?.speedControl
 				changed = this.storeState(data, 'birddogptzsetup')
+
+				if (!originalSpeedState || originalSpeedState !== data.SpeedControl) {
+					this.initActions()
+					this.initFeedbacks()
+				}
+
 				//this.camera.ptz = data
 				break
 			case 'birddogexpsetup':

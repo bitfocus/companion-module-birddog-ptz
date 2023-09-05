@@ -454,6 +454,11 @@ export default {
 		{ id: 'value', label: 'Speed Value' },
 	],
 
+	SPEED_TYPE: [
+		{ id: 'standard', label: 'Standard' },
+		{ id: 'advanced', label: 'Super Fine' },
+	],
+
 	PTZ_DIRECTION: [
 		{ id: 'left', label: 'Left' },
 		{ id: 'right', label: 'Right' },

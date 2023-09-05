@@ -376,6 +376,11 @@ export function getFeedbacks() {
 	}
 
 	// PTZ Feedback
+	let speedMode = !this.camera.speedControl || this.camera.speedControl === 'standard' ? true : false
+	let panSpeedMax = speedMode ? 21 : 255
+	let panSpeedDefault = speedMode ? 11 : 255
+	let tiltSpeedMax = speedMode ? 18 : 255
+	let tiltSpeedDefault = speedMode ? 9 : 255
 
 	if (MODEL_ACTIONS?.pt) {
 		feedbacks.posPan = {
@@ -459,11 +464,12 @@ export function getFeedbacks() {
 			options: [
 				{
 					type: 'number',
-					label: 'Speed (' + MODEL_ACTIONS.panSpeed.range.min + ' to ' + MODEL_ACTIONS.panSpeed.range.max + ')',
+					label: `Speed (0 to ${panSpeedMax})`,
 					id: 'value',
-					default: MODEL_ACTIONS.panSpeed.range.default,
-					min: MODEL_ACTIONS.panSpeed.range.min,
-					max: MODEL_ACTIONS.panSpeed.range.max,
+					default: panSpeedDefault,
+					min: 0,
+					max: panSpeedMax,
+					range: true,
 				},
 			],
 			callback: (feedback) => {
@@ -533,11 +539,12 @@ export function getFeedbacks() {
 			options: [
 				{
 					type: 'number',
-					label: 'Speed (' + MODEL_ACTIONS.tiltSpeed.range.min + ' to ' + MODEL_ACTIONS.tiltSpeed.range.max + ')',
+					label: `Speed (0 to ${tiltSpeedMax})`,
 					id: 'value',
-					default: MODEL_ACTIONS.tiltSpeed.range.default,
-					min: MODEL_ACTIONS.tiltSpeed.range.min,
-					max: MODEL_ACTIONS.tiltSpeed.range.max,
+					default: tiltSpeedDefault,
+					min: 0,
+					max: tiltSpeedMax,
+					range: true,
 				},
 			],
 			callback: (feedback) => {
@@ -567,6 +574,30 @@ export function getFeedbacks() {
 			],
 			callback: (feedback) => {
 				return this.camera?.zoomSpeed == feedback.options.value
+			},
+		}
+	}
+
+	if (MODEL_ACTIONS?.speedControl) {
+		feedbacks.speedControl = {
+			type: 'boolean',
+			name: MODEL_ACTIONS.speedControl.name,
+			description: 'If the camera matches the selected speed mode, change the default style of the button',
+			defaultStyle: {
+				color: ColorBlack,
+				bgcolor: ColorGreen,
+			},
+			options: [
+				{
+					type: 'dropdown',
+					label: 'Speed Mode',
+					id: 'val',
+					choices: MODEL_ACTIONS.speedControl.choices,
+					default: MODEL_ACTIONS.speedControl.default,
+				},
+			],
+			callback: (feedback) => {
+				return this.camera?.speedControl == feedback.options.val
 			},
 		}
 	}

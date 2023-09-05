@@ -480,6 +480,11 @@ export function getActions() {
 	}
 
 	// PTZ Actions
+	let speedMode = !this.camera.speedControl || this.camera.speedControl === 'standard' ? true : false
+	let panSpeedMax = speedMode ? 21 : 255
+	let panSpeedDefault = speedMode ? 11 : 255
+	let tiltSpeedMax = speedMode ? 18 : 255
+	let tiltSpeedDefault = speedMode ? 9 : 255
 
 	if (MODEL_ACTIONS?.pt) {
 		actions['pt'] = {
@@ -517,20 +522,22 @@ export function getActions() {
 				},
 				{
 					type: 'number',
-					label: 'Pan Speed(' + MODEL_ACTIONS.panSpeed.range.min + ' to ' + MODEL_ACTIONS.panSpeed.range.max + ')',
-					id: 'panSpeed',
-					default: MODEL_ACTIONS.panSpeed.range.default,
-					min: MODEL_ACTIONS.panSpeed.range.min,
-					max: MODEL_ACTIONS.panSpeed.range.max,
+					label: `Pan Speed (0 to ${panSpeedMax})`,
+					id: 'value',
+					default: panSpeedDefault,
+					min: 0,
+					max: panSpeedMax,
+					range: true,
 					isVisible: (options) => options.override === true || options.val === 'direct',
 				},
 				{
 					type: 'number',
-					label: 'Tilt Speed (' + MODEL_ACTIONS.tiltSpeed.range.min + ' to ' + MODEL_ACTIONS.tiltSpeed.range.max + ')',
-					id: 'tiltSpeed',
-					default: MODEL_ACTIONS.tiltSpeed.range.default,
-					min: MODEL_ACTIONS.tiltSpeed.range.min,
-					max: MODEL_ACTIONS.tiltSpeed.range.max,
+					label: `Tilt Speed (0 to ${tiltSpeedMax})`,
+					id: 'value',
+					default: tiltSpeedDefault,
+					min: 0,
+					max: tiltSpeedMax,
+					range: true,
 					isVisible: (options) => options.override === true || options.val === 'direct',
 				},
 			],
@@ -663,11 +670,12 @@ export function getActions() {
 				},
 				{
 					type: 'number',
-					label: 'Speed (' + MODEL_ACTIONS.panSpeed.range.min + ' to ' + MODEL_ACTIONS.panSpeed.range.max + ')',
+					label: `Speed (0 to ${panSpeedMax})`,
 					id: 'value',
-					default: MODEL_ACTIONS.panSpeed.range.default,
-					min: MODEL_ACTIONS.panSpeed.range.min,
-					max: MODEL_ACTIONS.panSpeed.range.max,
+					default: panSpeedDefault,
+					min: 0,
+					max: panSpeedMax,
+					range: true,
 					isVisible: (options) => options.type === 'value',
 				},
 			],
@@ -675,12 +683,10 @@ export function getActions() {
 				currentValue = this.camera?.panSpeed ? this.camera.panSpeed : MODEL_ACTIONS.panSpeed.range.default
 				switch (action.options.type) {
 					case 'up':
-						newValue =
-							currentValue < MODEL_ACTIONS.panSpeed.range.max ? ++currentValue : MODEL_ACTIONS.panSpeed.range.max
+						newValue = currentValue < panSpeedMax ? ++currentValue : panSpeedMax
 						break
 					case 'down':
-						newValue =
-							currentValue > MODEL_ACTIONS.panSpeed.range.min ? --currentValue : MODEL_ACTIONS.panSpeed.range.min
+						newValue = currentValue > 0 ? --currentValue : 0
 						break
 					case 'value':
 						newValue = action.options.value
@@ -820,11 +826,12 @@ export function getActions() {
 				},
 				{
 					type: 'number',
-					label: 'Speed (' + MODEL_ACTIONS.tiltSpeed.range.min + ' to ' + MODEL_ACTIONS.tiltSpeed.range.max + ')',
+					label: `Speed (0 to ${tiltSpeedMax})`,
 					id: 'value',
-					default: MODEL_ACTIONS.tiltSpeed.range.default,
-					min: MODEL_ACTIONS.tiltSpeed.range.min,
-					max: MODEL_ACTIONS.tiltSpeed.range.max,
+					default: tiltSpeedDefault,
+					min: 0,
+					max: tiltSpeedMax,
+					range: true,
 					isVisible: (options) => options.type === 'value',
 				},
 			],
@@ -832,12 +839,10 @@ export function getActions() {
 				currentValue = this.camera?.tiltSpeed ? this.camera.tiltSpeed : MODEL_ACTIONS.tiltSpeed.range.default
 				switch (action.options.type) {
 					case 'up':
-						newValue =
-							currentValue < MODEL_ACTIONS.tiltSpeed.range.max ? ++currentValue : MODEL_ACTIONS.tiltSpeed.range.max
+						newValue = currentValue < tiltSpeedMax ? ++currentValue : tiltSpeedMax
 						break
 					case 'down':
-						newValue =
-							currentValue > MODEL_ACTIONS.tiltSpeed.range.min ? --currentValue : MODEL_ACTIONS.tiltSpeed.range.min
+						newValue = currentValue > 0 ? --currentValue : 0
 						break
 					case 'value':
 						newValue = action.options.value
@@ -970,6 +975,28 @@ export function getActions() {
 					Menu: String('On/Off'),
 				}
 				this.sendCommand('birddogptz', 'POST', body)
+			},
+		}
+	}
+
+	if (MODEL_ACTIONS?.speedControl) {
+		actions['speedControl'] = {
+			name: MODEL_ACTIONS.speedControl.name,
+			options: [
+				{
+					type: 'dropdown',
+					label: 'Speed Mode',
+					id: 'value',
+					choices: MODEL_ACTIONS.speedControl.choices,
+					default: MODEL_ACTIONS.speedControl.default,
+				},
+			],
+			callback: (action) => {
+				newValue = action.options.value
+				body = {
+					SpeedControl: newValue,
+				}
+				this.sendCommand('birddogptzsetup', 'POST', body)
 			},
 		}
 	}

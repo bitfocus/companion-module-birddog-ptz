@@ -849,6 +849,21 @@ export const MODEL_SPECS = {
 			},
 		],
 	},
+	speedControl: {
+		camera: ['All'],
+		firmware: ['5'],
+		store_state: true,
+		api_endpoint: ['birddogptzsetup'],
+		api_variable: ['SpeedControl'],
+		variableId: 'speed_control',
+		name: `PTZ - Speed Control`,
+		action: [
+			{
+				camera: ['common'],
+				action: { choices: CHOICES.SPEED_TYPE, default: 'standard' },
+			},
+		],
+	},
 
 	// Focus
 	focus: {

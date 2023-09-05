@@ -231,6 +231,12 @@ export function updateVariables() {
 		updatedVariables.tilt_position_int = label.replace(/['°']/gi, '')
 	}
 
+	if (MODEL_VARIABLES.some((variable) => variable.variableId === 'speed_control')) {
+		updatedVariables.speed_control = MODEL_ACTIONS.speedControl.choices.find(
+			(o) => o.id == this.camera.speedControl
+		)?.label
+	}
+
 	// Focus Variables
 
 	if (MODEL_VARIABLES.some((variable) => variable.variableId === 'focus_mode')) {
