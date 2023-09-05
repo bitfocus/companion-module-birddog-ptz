@@ -20,7 +20,7 @@ export function getFeedbacks() {
 		feedbacks.standby_status = {
 			type: 'boolean',
 			name: MODEL_ACTIONS.standby.name,
-			description: 'If the camera is in standby, change the defaultStyle of the button',
+			description: 'If the camera is in standby, change the default style of the button',
 			defaultStyle: {
 				color: ColorBlack,
 				bgcolor: ColorGreen,
@@ -44,7 +44,7 @@ export function getFeedbacks() {
 		feedbacks.freeze_status = {
 			type: 'boolean',
 			name: MODEL_ACTIONS.freeze.name,
-			description: 'If the camera matches the selected freeze status, change the defaultStyle of the button',
+			description: 'If the camera matches the selected freeze status, change the default style of the button',
 			defaultStyle: {
 				color: ColorBlack,
 				bgcolor: ColorGreen,
@@ -69,7 +69,7 @@ export function getFeedbacks() {
 		feedbacks.analogAudioInGain = {
 			type: 'boolean',
 			name: MODEL_ACTIONS.analogAudioInGain.name,
-			description: 'If the camera matches the selected Audio Out Gain, change the defaultStyle of the button',
+			description: 'If the camera matches the selected Audio Out Gain, change the default style of the button',
 			defaultStyle: {
 				color: ColorBlack,
 				bgcolor: ColorGreen,
@@ -99,7 +99,7 @@ export function getFeedbacks() {
 		feedbacks.analogAudioOutGain = {
 			type: 'boolean',
 			name: MODEL_ACTIONS.analogAudioOutGain.name,
-			description: 'If the camera matches the selected Audio Out Gain, change the defaultStyle of the button',
+			description: 'If the camera matches the selected Audio Out Gain, change the default style of the button',
 			defaultStyle: {
 				color: ColorBlack,
 				bgcolor: ColorGreen,
@@ -129,7 +129,7 @@ export function getFeedbacks() {
 		feedbacks.analogAudioOutput = {
 			type: 'boolean',
 			name: MODEL_ACTIONS.analogAudioOutput.name,
-			description: 'If the camera matches the selected audio ouptut selector, change the defaultStyle of the button',
+			description: 'If the camera matches the selected audio ouptut selector, change the default style of the button',
 			defaultStyle: {
 				color: ColorBlack,
 				bgcolor: ColorGreen,
@@ -155,7 +155,7 @@ export function getFeedbacks() {
 		feedbacks.video_output = {
 			type: 'boolean',
 			name: MODEL_ACTIONS.video_output.name,
-			description: 'If the camera matches the selected Video Output mode, change the defaultStyle of the button',
+			description: 'If the camera matches the selected Video Output mode, change the default style of the button',
 			defaultStyle: {
 				color: ColorBlack,
 				bgcolor: ColorGreen,
@@ -181,7 +181,7 @@ export function getFeedbacks() {
 		feedbacks.bandwidth_mode = {
 			type: 'boolean',
 			name: MODEL_ACTIONS.bandwidth_mode.name,
-			description: 'If the camera matches the selected encode bandwidth mode, change the defaultStyle of the button',
+			description: 'If the camera matches the selected encode bandwidth mode, change the default style of the button',
 			defaultStyle: {
 				color: ColorBlack,
 				bgcolor: ColorGreen,
@@ -205,7 +205,7 @@ export function getFeedbacks() {
 		feedbacks.ndiAudio = {
 			type: 'boolean',
 			name: MODEL_ACTIONS.ndiAudio.name,
-			description: 'If the camera matches the selected NDI Audio selector, change the defaultStyle of the button',
+			description: 'If the camera matches the selected NDI Audio selector, change the default style of the button',
 			defaultStyle: {
 				color: ColorBlack,
 				bgcolor: ColorGreen,
@@ -230,7 +230,7 @@ export function getFeedbacks() {
 			type: 'boolean',
 			name: MODEL_ACTIONS.ndiGroupEnable.name,
 			description:
-				'If the camera matches the selected NDI Group Enable  selector, change the defaultStyle of the button',
+				'If the camera matches the selected NDI Group Enable  selector, change the default style of the button',
 			defaultStyle: {
 				color: ColorBlack,
 				bgcolor: ColorGreen,
@@ -254,7 +254,7 @@ export function getFeedbacks() {
 		feedbacks.screensaver_mode = {
 			type: 'boolean',
 			name: MODEL_ACTIONS.screensaver_mode.name,
-			description: 'If the camera matches the selected ScreenSaver Mode, change the defaultStyle of the button',
+			description: 'If the camera matches the selected ScreenSaver Mode, change the default style of the button',
 			defaultStyle: {
 				color: ColorBlack,
 				bgcolor: ColorGreen,
@@ -278,7 +278,7 @@ export function getFeedbacks() {
 		feedbacks.stream_to_network = {
 			type: 'boolean',
 			name: MODEL_ACTIONS.stream_to_network.name,
-			description: 'If the camera matches the selected Stream to Network state, change the defaultStyle of the button',
+			description: 'If the camera matches the selected Stream to Network state, change the default style of the button',
 			defaultStyle: {
 				color: ColorBlack,
 				bgcolor: ColorGreen,
@@ -302,7 +302,7 @@ export function getFeedbacks() {
 		feedbacks.tally_mode = {
 			type: 'boolean',
 			name: MODEL_ACTIONS.tally_mode.name,
-			description: 'If the camera tally matches the selected mode, change the defaultStyle of the button',
+			description: 'If the camera tally matches the selected mode, change the default style of the button',
 			defaultStyle: {
 				color: ColorBlack,
 				bgcolor: ColorGreen,
@@ -328,7 +328,7 @@ export function getFeedbacks() {
 		feedbacks.transmit_method = {
 			type: 'boolean',
 			name: MODEL_ACTIONS.transmit_method.name,
-			description: 'If the camera matches the selected transmit method, change the defaultStyle of the button',
+			description: 'If the camera matches the selected transmit method, change the default style of the button',
 			defaultStyle: {
 				color: ColorBlack,
 				bgcolor: ColorGreen,
@@ -355,7 +355,7 @@ export function getFeedbacks() {
 			type: 'boolean',
 			name: MODEL_ACTIONS.ndi_discovery_server.name,
 			description:
-				'If the camera matches the selected NDI Discovery Server status, change the defaultStyle of the button',
+				'If the camera matches the selected NDI Discovery Server status, change the default style of the button',
 			defaultStyle: {
 				color: ColorBlack,
 				bgcolor: ColorGreen,
@@ -386,7 +386,7 @@ export function getFeedbacks() {
 		feedbacks.posPan = {
 			type: 'boolean',
 			name: `PTZ - Pan Position`,
-			description: 'If the camera matches the selected Pan Position, change the defaultStyle of the button',
+			description: 'If the camera matches the selected Pan Position, change the default style of the button',
 			defaultStyle: {
 				color: ColorBlack,
 				bgcolor: ColorGreen,
@@ -408,7 +408,7 @@ export function getFeedbacks() {
 		feedbacks.posTilt = {
 			type: 'boolean',
 			name: `PTZ - Tilt Position`,
-			description: 'If the camera matches the selected Tilt Position, change the defaultStyle of the button',
+			description: 'If the camera matches the selected Tilt Position, change the default style of the button',
 			defaultStyle: {
 				color: ColorBlack,
 				bgcolor: ColorGreen,
@@ -432,7 +432,7 @@ export function getFeedbacks() {
 		feedbacks.posZoom = {
 			type: 'boolean',
 			name: `PTZ - Zoom Position`,
-			description: 'If the camera matches the selected Zoom Position, change the defaultStyle of the button',
+			description: 'If the camera matches the selected Zoom Position, change the default style of the button',
 			defaultStyle: {
 				color: ColorBlack,
 				bgcolor: ColorGreen,
@@ -456,7 +456,7 @@ export function getFeedbacks() {
 		feedbacks.panSpeed = {
 			type: 'boolean',
 			name: MODEL_ACTIONS.panSpeed.name,
-			description: 'If the camera matches the selected Pan Speed, change the defaultStyle of the button',
+			description: 'If the camera matches the selected Pan Speed, change the default style of the button',
 			defaultStyle: {
 				color: ColorBlack,
 				bgcolor: ColorGreen,
@@ -482,7 +482,7 @@ export function getFeedbacks() {
 		feedbacks.preset = {
 			type: 'boolean',
 			name: MODEL_ACTIONS.preset.name,
-			description: 'If the camera matches the selected Preset Mode, change the defaultStyle of the button',
+			description: 'If the camera matches the selected Preset Mode, change the default style of the button',
 			defaultStyle: {
 				color: ColorBlack,
 				bgcolor: ColorGreen,
@@ -506,7 +506,7 @@ export function getFeedbacks() {
 		feedbacks.preset_speed = {
 			type: 'boolean',
 			name: MODEL_ACTIONS.preset_speed.name,
-			description: 'If the camera matches the selected Preset Speed, change the defaultStyle of the button',
+			description: 'If the camera matches the selected Preset Speed, change the default style of the button',
 			defaultStyle: {
 				color: ColorBlack,
 				bgcolor: ColorGreen,
@@ -531,7 +531,7 @@ export function getFeedbacks() {
 		feedbacks.tiltSpeed = {
 			type: 'boolean',
 			name: MODEL_ACTIONS.tiltSpeed.name,
-			description: 'If the camera matches the selected Tilt Speed, change the defaultStyle of the button',
+			description: 'If the camera matches the selected Tilt Speed, change the default style of the button',
 			defaultStyle: {
 				color: ColorBlack,
 				bgcolor: ColorGreen,
@@ -557,7 +557,7 @@ export function getFeedbacks() {
 		feedbacks.zoomSpeed = {
 			type: 'boolean',
 			name: MODEL_ACTIONS.zoomSpeed.name,
-			description: 'If the camera matches the selected Zoom Speed, change the defaultStyle of the button',
+			description: 'If the camera matches the selected Zoom Speed, change the default style of the button',
 			defaultStyle: {
 				color: ColorBlack,
 				bgcolor: ColorGreen,
@@ -608,7 +608,7 @@ export function getFeedbacks() {
 		feedbacks.focusMode = {
 			type: 'boolean',
 			name: MODEL_ACTIONS.focusM.name,
-			description: 'If the camera matches the selected focus mode, change the defaultStyle of the button',
+			description: 'If the camera matches the selected focus mode, change the default style of the button',
 			defaultStyle: {
 				color: ColorBlack,
 				bgcolor: ColorGreen,
@@ -634,7 +634,7 @@ export function getFeedbacks() {
 		feedbacks.ae_response = {
 			type: 'boolean',
 			name: MODEL_ACTIONS.ae_response.name,
-			description: 'If the camera matches the selected Ae Response level, change the defaultStyle of the button',
+			description: 'If the camera matches the selected Ae Response level, change the default style of the button',
 			defaultStyle: {
 				color: ColorBlack,
 				bgcolor: ColorGreen,
@@ -660,7 +660,7 @@ export function getFeedbacks() {
 		feedbacks.backlight = {
 			type: 'boolean',
 			name: MODEL_ACTIONS.backlight.name,
-			description: 'If the camera has Backlight on, change the defaultStyle of the button',
+			description: 'If the camera has Backlight on, change the default style of the button',
 			defaultStyle: {
 				color: ColorBlack,
 				bgcolor: ColorGreen,
@@ -684,7 +684,7 @@ export function getFeedbacks() {
 		feedbacks.bright_level = {
 			type: 'boolean',
 			name: MODEL_ACTIONS.bright_level.name,
-			description: 'If the camera matches the selected Bright Level, change the defaultStyle of the button',
+			description: 'If the camera matches the selected Bright Level, change the default style of the button',
 			defaultStyle: {
 				color: ColorBlack,
 				bgcolor: ColorGreen,
@@ -710,7 +710,7 @@ export function getFeedbacks() {
 			type: 'boolean',
 			name: MODEL_ACTIONS.expComp.name,
 			description:
-				'If the camera matches the selected exposure compensation status, change the defaultStyle of the button',
+				'If the camera matches the selected exposure compensation status, change the default style of the button',
 			defaultStyle: {
 				color: ColorBlack,
 				bgcolor: ColorGreen,
@@ -735,7 +735,7 @@ export function getFeedbacks() {
 			type: 'boolean',
 			name: MODEL_ACTIONS.expCompLvl.name,
 			description:
-				'If the camera matches the selected exposure compensation level, change the defaultStyle of the button',
+				'If the camera matches the selected exposure compensation level, change the default style of the button',
 			defaultStyle: {
 				color: ColorBlack,
 				bgcolor: ColorGreen,
@@ -765,7 +765,7 @@ export function getFeedbacks() {
 		feedbacks.exposureMode = {
 			type: 'boolean',
 			name: MODEL_ACTIONS.exposure_mode.name,
-			description: 'If the camera matches the selected exposure mode, change the defaultStyle of the button',
+			description: 'If the camera matches the selected exposure mode, change the default style of the button',
 			defaultStyle: {
 				color: ColorBlack,
 				bgcolor: ColorGreen,
@@ -789,7 +789,7 @@ export function getFeedbacks() {
 		feedbacks.gain = {
 			type: 'boolean',
 			name: MODEL_ACTIONS.gain.name,
-			description: 'If the camera matches the selected gain, change the defaultStyle of the button',
+			description: 'If the camera matches the selected gain, change the default style of the button',
 			defaultStyle: {
 				color: ColorBlack,
 				bgcolor: ColorGreen,
@@ -813,7 +813,7 @@ export function getFeedbacks() {
 		feedbacks.gain_limit = {
 			type: 'boolean',
 			name: MODEL_ACTIONS.gain_limit.name,
-			description: 'If the camera matches the selected gain limit, change the defaultStyle of the button',
+			description: 'If the camera matches the selected gain limit, change the default style of the button',
 			defaultStyle: {
 				color: ColorBlack,
 				bgcolor: ColorGreen,
@@ -840,7 +840,7 @@ export function getFeedbacks() {
 		feedbacks.gain_point = {
 			type: 'boolean',
 			name: MODEL_ACTIONS.gain_point.name,
-			description: 'If the camera has gain point on, change the defaultStyle of the button',
+			description: 'If the camera has gain point on, change the default style of the button',
 			defaultStyle: {
 				color: ColorBlack,
 				bgcolor: ColorGreen,
@@ -864,7 +864,7 @@ export function getFeedbacks() {
 		feedbacks.gain_point_position = {
 			type: 'boolean',
 			name: MODEL_ACTIONS.gain_point_position.name,
-			description: 'If the camera matches the selected gain point, change the defaultStyle of the button',
+			description: 'If the camera matches the selected gain point, change the default style of the button',
 			defaultStyle: {
 				color: ColorBlack,
 				bgcolor: ColorGreen,
@@ -888,7 +888,7 @@ export function getFeedbacks() {
 		feedbacks.high_sensitivity = {
 			type: 'boolean',
 			name: MODEL_ACTIONS.high_sensitivity.name,
-			description: 'If the camera has high sensitivity turned on, change the defaultStyle of the button',
+			description: 'If the camera has high sensitivity turned on, change the default style of the button',
 			defaultStyle: {
 				color: ColorBlack,
 				bgcolor: ColorGreen,
@@ -912,7 +912,7 @@ export function getFeedbacks() {
 		feedbacks.iris = {
 			type: 'boolean',
 			name: MODEL_ACTIONS.iris.name,
-			description: 'If the camera matches the selected Iris value, change the defaultStyle of the button',
+			description: 'If the camera matches the selected Iris value, change the default style of the button',
 			defaultStyle: {
 				color: ColorBlack,
 				bgcolor: ColorGreen,
@@ -936,7 +936,7 @@ export function getFeedbacks() {
 		feedbacks.shutter_control_overwrite = {
 			type: 'boolean',
 			name: MODEL_ACTIONS.shutter_control_overwrite.name,
-			description: 'If the camera has Shutter Control Overwrite turned on, change the defaultStyle of the button',
+			description: 'If the camera has Shutter Control Overwrite turned on, change the default style of the button',
 			defaultStyle: {
 				color: ColorBlack,
 				bgcolor: ColorGreen,
@@ -960,7 +960,7 @@ export function getFeedbacks() {
 		feedbacks.shushutter_max_speedt = {
 			type: 'boolean',
 			name: MODEL_ACTIONS.shutter_max_speed.name,
-			description: 'If the camera matches the selected shutter max speed, change the defaultStyle of the button',
+			description: 'If the camera matches the selected shutter max speed, change the default style of the button',
 			defaultStyle: {
 				color: ColorBlack,
 				bgcolor: ColorGreen,
@@ -987,7 +987,7 @@ export function getFeedbacks() {
 		feedbacks.shushutter_min_speedt = {
 			type: 'boolean',
 			name: MODEL_ACTIONS.shutter_min_speed.name,
-			description: 'If the camera matches the selected shutter max speed, change the defaultStyle of the button',
+			description: 'If the camera matches the selected shutter max speed, change the default style of the button',
 			defaultStyle: {
 				color: ColorBlack,
 				bgcolor: ColorGreen,
@@ -1014,7 +1014,7 @@ export function getFeedbacks() {
 		feedbacks.shut = {
 			type: 'boolean',
 			name: MODEL_ACTIONS.shutter_speed.name,
-			description: 'If the camera matches the selected shutter speed, change the defaultStyle of the button',
+			description: 'If the camera matches the selected shutter speed, change the default style of the button',
 			defaultStyle: {
 				color: ColorBlack,
 				bgcolor: ColorGreen,
@@ -1039,7 +1039,7 @@ export function getFeedbacks() {
 			type: 'boolean',
 			name: MODEL_ACTIONS.shutter_speed_overwrite.name,
 			description:
-				'If the camera matches the selected Shutter Speed Overwrite level, change the defaultStyle of the button',
+				'If the camera matches the selected Shutter Speed Overwrite level, change the default style of the button',
 			defaultStyle: {
 				color: ColorBlack,
 				bgcolor: ColorGreen,
@@ -1069,7 +1069,7 @@ export function getFeedbacks() {
 		feedbacks.slow_shutter_en = {
 			type: 'boolean',
 			name: MODEL_ACTIONS.slow_shutter_en.name,
-			description: 'If the camera matches the Slow Shutter state, change the defaultStyle of the button',
+			description: 'If the camera matches the Slow Shutter state, change the default style of the button',
 			defaultStyle: {
 				color: ColorBlack,
 				bgcolor: ColorGreen,
@@ -1093,7 +1093,7 @@ export function getFeedbacks() {
 		feedbacks.slow_shutter_limit = {
 			type: 'boolean',
 			name: MODEL_ACTIONS.slow_shutter_limit.name,
-			description: 'If the camera matches the selected slow shutter limit, change the defaultStyle of the button',
+			description: 'If the camera matches the selected slow shutter limit, change the default style of the button',
 			defaultStyle: {
 				color: ColorBlack,
 				bgcolor: ColorGreen,
@@ -1117,7 +1117,7 @@ export function getFeedbacks() {
 		feedbacks.spotlight = {
 			type: 'boolean',
 			name: MODEL_ACTIONS.spotlight.name,
-			description: 'If the camera matches the Spotlight state, change the defaultStyle of the button',
+			description: 'If the camera matches the Spotlight state, change the default style of the button',
 			defaultStyle: {
 				color: ColorBlack,
 				bgcolor: ColorGreen,
@@ -1143,7 +1143,7 @@ export function getFeedbacks() {
 		feedbacks.bg = {
 			type: 'boolean',
 			name: MODEL_ACTIONS.bg.name,
-			description: 'If the camera matches the selected BG level, change the defaultStyle of the button',
+			description: 'If the camera matches the selected BG level, change the default style of the button',
 			defaultStyle: {
 				color: ColorBlack,
 				bgcolor: ColorGreen,
@@ -1168,7 +1168,7 @@ export function getFeedbacks() {
 		feedbacks.br = {
 			type: 'boolean',
 			name: MODEL_ACTIONS.br.name,
-			description: 'If the camera matches the selected BR level, change the defaultStyle of the button',
+			description: 'If the camera matches the selected BR level, change the default style of the button',
 			defaultStyle: {
 				color: ColorBlack,
 				bgcolor: ColorGreen,
@@ -1193,7 +1193,7 @@ export function getFeedbacks() {
 		feedbacks.blue_gain = {
 			type: 'boolean',
 			name: MODEL_ACTIONS.blue_gain.name,
-			description: 'If the camera matches the selected BR level, change the defaultStyle of the button',
+			description: 'If the camera matches the selected BR level, change the default style of the button',
 			defaultStyle: {
 				color: ColorBlack,
 				bgcolor: ColorGreen,
@@ -1219,7 +1219,7 @@ export function getFeedbacks() {
 			type: 'boolean',
 			name: MODEL_ACTIONS.color_temp.name,
 			description:
-				'If the camera color temperature matches the selected color temperature, change the defaultStyle of the button',
+				'If the camera color temperature matches the selected color temperature, change the default style of the button',
 			defaultStyle: {
 				color: ColorBlack,
 				bgcolor: ColorGreen,
@@ -1243,7 +1243,7 @@ export function getFeedbacks() {
 		feedbacks.gb = {
 			type: 'boolean',
 			name: MODEL_ACTIONS.gb.name,
-			description: 'If the camera matches the selected GB level, change the defaultStyle of the button',
+			description: 'If the camera matches the selected GB level, change the default style of the button',
 			defaultStyle: {
 				color: ColorBlack,
 				bgcolor: ColorGreen,
@@ -1268,7 +1268,7 @@ export function getFeedbacks() {
 		feedbacks.gr = {
 			type: 'boolean',
 			name: MODEL_ACTIONS.gr.name,
-			description: 'If the camera matches the selected GR level, change the defaultStyle of the button',
+			description: 'If the camera matches the selected GR level, change the default style of the button',
 			defaultStyle: {
 				color: ColorBlack,
 				bgcolor: ColorGreen,
@@ -1293,7 +1293,7 @@ export function getFeedbacks() {
 		feedbacks.level = {
 			type: 'boolean',
 			name: MODEL_ACTIONS.level.name,
-			description: 'If the camera matches the selected level, change the defaultStyle of the button',
+			description: 'If the camera matches the selected level, change the default style of the button',
 			defaultStyle: {
 				color: ColorBlack,
 				bgcolor: ColorGreen,
@@ -1318,7 +1318,7 @@ export function getFeedbacks() {
 		feedbacks.matrix = {
 			type: 'boolean',
 			name: MODEL_ACTIONS.matrix.name,
-			description: 'If the camera matches the selected Matrix mode, change the defaultStyle of the button',
+			description: 'If the camera matches the selected Matrix mode, change the default style of the button',
 			defaultStyle: {
 				color: ColorBlack,
 				bgcolor: ColorGreen,
@@ -1342,7 +1342,7 @@ export function getFeedbacks() {
 		feedbacks.offset = {
 			type: 'boolean',
 			name: MODEL_ACTIONS.offset.name,
-			description: 'If the camera matches the selected Offset level, change the defaultStyle of the button',
+			description: 'If the camera matches the selected Offset level, change the default style of the button',
 			defaultStyle: {
 				color: ColorBlack,
 				bgcolor: ColorGreen,
@@ -1367,7 +1367,7 @@ export function getFeedbacks() {
 		feedbacks.phase = {
 			type: 'boolean',
 			name: MODEL_ACTIONS.phase.name,
-			description: 'If the camera matches the selected Phase level, change the defaultStyle of the button',
+			description: 'If the camera matches the selected Phase level, change the default style of the button',
 			defaultStyle: {
 				color: ColorBlack,
 				bgcolor: ColorGreen,
@@ -1392,7 +1392,7 @@ export function getFeedbacks() {
 		feedbacks.rb = {
 			type: 'boolean',
 			name: MODEL_ACTIONS.rb.name,
-			description: 'If the camera matches the selected RB level, change the defaultStyle of the button',
+			description: 'If the camera matches the selected RB level, change the default style of the button',
 			defaultStyle: {
 				color: ColorBlack,
 				bgcolor: ColorGreen,
@@ -1417,7 +1417,7 @@ export function getFeedbacks() {
 		feedbacks.rg = {
 			type: 'boolean',
 			name: MODEL_ACTIONS.rg.name,
-			description: 'If the camera matches the selected RG level, change the defaultStyle of the button',
+			description: 'If the camera matches the selected RG level, change the default style of the button',
 			defaultStyle: {
 				color: ColorBlack,
 				bgcolor: ColorGreen,
@@ -1442,7 +1442,7 @@ export function getFeedbacks() {
 		feedbacks.red_gain = {
 			type: 'boolean',
 			name: MODEL_ACTIONS.red_gain.name,
-			description: 'If the camera matches the selected Red Gain level, change the defaultStyle of the button',
+			description: 'If the camera matches the selected Red Gain level, change the default style of the button',
 			defaultStyle: {
 				color: ColorBlack,
 				bgcolor: ColorGreen,
@@ -1467,7 +1467,7 @@ export function getFeedbacks() {
 		feedbacks.select = {
 			type: 'boolean',
 			name: MODEL_ACTIONS.select.name,
-			description: 'Change the defaultStyle of the button based on the WB mode',
+			description: 'change the default style of the button based on the WB mode',
 			defaultStyle: {
 				color: ColorBlack,
 				bgcolor: ColorGreen,
@@ -1491,7 +1491,7 @@ export function getFeedbacks() {
 		feedbacks.speed = {
 			type: 'boolean',
 			name: MODEL_ACTIONS.speed.name,
-			description: 'If the camera matches the selected Speed level, change the defaultStyle of the button',
+			description: 'If the camera matches the selected Speed level, change the default style of the button',
 			defaultStyle: {
 				color: ColorBlack,
 				bgcolor: ColorGreen,
@@ -1516,7 +1516,7 @@ export function getFeedbacks() {
 		feedbacks.wb_mode = {
 			type: 'boolean',
 			name: MODEL_ACTIONS.wb_mode.name,
-			description: 'Change the defaultStyle of the button based on the WB mode',
+			description: 'change the default style of the button based on the WB mode',
 			defaultStyle: {
 				color: ColorBlack,
 				bgcolor: ColorGreen,
@@ -1542,7 +1542,7 @@ export function getFeedbacks() {
 		feedbacks.backlight_com = {
 			type: 'boolean',
 			name: MODEL_ACTIONS.backlight_com.name,
-			description: 'If the camera matches the selected Backlight Compensation, change the defaultStyle of the button',
+			description: 'If the camera matches the selected Backlight Compensation, change the default style of the button',
 			defaultStyle: {
 				color: ColorBlack,
 				bgcolor: ColorGreen,
@@ -1566,7 +1566,7 @@ export function getFeedbacks() {
 		feedbacks.chroma_suppress = {
 			type: 'boolean',
 			name: MODEL_ACTIONS.chroma_suppress.name,
-			description: 'If the camera matches the selected Chroma Suppression, change the defaultStyle of the button',
+			description: 'If the camera matches the selected Chroma Suppression, change the default style of the button',
 			defaultStyle: {
 				color: ColorBlack,
 				bgcolor: ColorGreen,
@@ -1590,7 +1590,7 @@ export function getFeedbacks() {
 		feedbacks.contrast = {
 			type: 'boolean',
 			name: MODEL_ACTIONS.contrast.name,
-			description: 'If the camera matches the selected Contrast level, change the defaultStyle of the button',
+			description: 'If the camera matches the selected Contrast level, change the default style of the button',
 			defaultStyle: {
 				color: ColorBlack,
 				bgcolor: ColorGreen,
@@ -1616,7 +1616,7 @@ export function getFeedbacks() {
 		feedbacks.pictureEffect = {
 			type: 'boolean',
 			name: MODEL_ACTIONS.pictureEffect.name,
-			description: 'If the camera matches the selected Effect mode, change the defaultStyle of the button',
+			description: 'If the camera matches the selected Effect mode, change the default style of the button',
 			defaultStyle: {
 				color: ColorBlack,
 				bgcolor: ColorGreen,
@@ -1640,7 +1640,7 @@ export function getFeedbacks() {
 		feedbacks.picFlip = {
 			type: 'boolean',
 			name: MODEL_ACTIONS.picFlip.name,
-			description: 'If the camera matches the selected Flip mode, change the defaultStyle of the button',
+			description: 'If the camera matches the selected Flip mode, change the default style of the button',
 			defaultStyle: {
 				color: ColorBlack,
 				bgcolor: ColorGreen,
@@ -1664,7 +1664,7 @@ export function getFeedbacks() {
 		feedbacks.gamma = {
 			type: 'boolean',
 			name: MODEL_ACTIONS.gamma.name,
-			description: 'If the camera matches the selected Gamma value, change the defaultStyle of the button',
+			description: 'If the camera matches the selected Gamma value, change the default style of the button',
 			defaultStyle: {
 				color: ColorBlack,
 				bgcolor: ColorGreen,
@@ -1690,7 +1690,7 @@ export function getFeedbacks() {
 			type: 'boolean',
 			name: MODEL_ACTIONS.highlight_comp.name,
 			description:
-				'If the camera matches the selected Highlight Compensation mode, change the defaultStyle of the button',
+				'If the camera matches the selected Highlight Compensation mode, change the default style of the button',
 			defaultStyle: {
 				color: ColorBlack,
 				bgcolor: ColorGreen,
@@ -1715,7 +1715,7 @@ export function getFeedbacks() {
 			type: 'boolean',
 			name: MODEL_ACTIONS.highlight_comp_mask.name,
 			description:
-				'If the camera matches the selected Highlight Compensation Mask value, change the defaultStyle of the button',
+				'If the camera matches the selected Highlight Compensation Mask value, change the default style of the button',
 			defaultStyle: {
 				color: ColorBlack,
 				bgcolor: ColorGreen,
@@ -1745,7 +1745,7 @@ export function getFeedbacks() {
 		feedbacks.hue = {
 			type: 'boolean',
 			name: MODEL_ACTIONS.hue.name,
-			description: 'If the camera matches the selected Hue value, change the defaultStyle of the button',
+			description: 'If the camera matches the selected Hue value, change the default style of the button',
 			defaultStyle: {
 				color: ColorBlack,
 				bgcolor: ColorGreen,
@@ -1770,7 +1770,7 @@ export function getFeedbacks() {
 		feedbacks.ir_cutfilter = {
 			type: 'boolean',
 			name: MODEL_ACTIONS.ir_cutfilter.name,
-			description: 'If the camera matches the selected IR Cut Filter mode, change the defaultStyle of the button',
+			description: 'If the camera matches the selected IR Cut Filter mode, change the default style of the button',
 			defaultStyle: {
 				color: ColorBlack,
 				bgcolor: ColorGreen,
@@ -1794,7 +1794,7 @@ export function getFeedbacks() {
 		feedbacks.low_latency = {
 			type: 'boolean',
 			name: MODEL_ACTIONS.low_latency.name,
-			description: 'If the camera matches the selected Low Latency mode, change the defaultStyle of the button',
+			description: 'If the camera matches the selected Low Latency mode, change the default style of the button',
 			defaultStyle: {
 				color: ColorBlack,
 				bgcolor: ColorGreen,
@@ -1818,7 +1818,7 @@ export function getFeedbacks() {
 		feedbacks.picMirror = {
 			type: 'boolean',
 			name: MODEL_ACTIONS.picMirror.name,
-			description: 'If the camera matches the selected Picture Mirror mode, change the defaultStyle of the button',
+			description: 'If the camera matches the selected Picture Mirror mode, change the default style of the button',
 			defaultStyle: {
 				color: ColorBlack,
 				bgcolor: ColorGreen,
@@ -1842,7 +1842,7 @@ export function getFeedbacks() {
 		feedbacks.nd_filter = {
 			type: 'boolean',
 			name: MODEL_ACTIONS.nd_filter.name,
-			description: 'If the camera matches the selected ND Filter value, change the defaultStyle of the button',
+			description: 'If the camera matches the selected ND Filter value, change the default style of the button',
 			defaultStyle: {
 				color: ColorBlack,
 				bgcolor: ColorGreen,
@@ -1867,7 +1867,7 @@ export function getFeedbacks() {
 		feedbacks.noise_reduction = {
 			type: 'boolean',
 			name: MODEL_ACTIONS.noise_reduction.name,
-			description: 'If the camera matches the selected Noise Reduction mode, change the defaultStyle of the button',
+			description: 'If the camera matches the selected Noise Reduction mode, change the default style of the button',
 			defaultStyle: {
 				color: ColorBlack,
 				bgcolor: ColorGreen,
@@ -1891,7 +1891,7 @@ export function getFeedbacks() {
 		feedbacks.saturation = {
 			type: 'boolean',
 			name: MODEL_ACTIONS.saturation.name,
-			description: 'If the camera matches the selected saturation level, change the defaultStyle of the button',
+			description: 'If the camera matches the selected saturation level, change the default style of the button',
 			defaultStyle: {
 				color: ColorBlack,
 				bgcolor: ColorGreen,
@@ -1916,7 +1916,7 @@ export function getFeedbacks() {
 		feedbacks.sharpness = {
 			type: 'boolean',
 			name: MODEL_ACTIONS.sharpness.name,
-			description: 'If the camera matches the selected Sharpness value, change the defaultStyle of the button',
+			description: 'If the camera matches the selected Sharpness value, change the default style of the button',
 			defaultStyle: {
 				color: ColorBlack,
 				bgcolor: ColorGreen,
@@ -1941,7 +1941,7 @@ export function getFeedbacks() {
 		feedbacks.stabilizer = {
 			type: 'boolean',
 			name: MODEL_ACTIONS.stabilizer.name,
-			description: 'If the camera matches the selected Stabilizer mode, change the defaultStyle of the button',
+			description: 'If the camera matches the selected Stabilizer mode, change the default style of the button',
 			defaultStyle: {
 				color: ColorBlack,
 				bgcolor: ColorGreen,
@@ -1965,7 +1965,7 @@ export function getFeedbacks() {
 		feedbacks.threed_nr = {
 			type: 'boolean',
 			name: MODEL_ACTIONS.threed_nr.name,
-			description: 'If the camera matches the selected 3D Noise Reduction mode, change the defaultStyle of the button',
+			description: 'If the camera matches the selected 3D Noise Reduction mode, change the default style of the button',
 			defaultStyle: {
 				color: ColorBlack,
 				bgcolor: ColorGreen,
@@ -1989,7 +1989,7 @@ export function getFeedbacks() {
 		feedbacks.twod_nr = {
 			type: 'boolean',
 			name: MODEL_ACTIONS.twod_nr.name,
-			description: 'If the camera matches the selected 2D Noise Reduction mode, change the defaultStyle of the button',
+			description: 'If the camera matches the selected 2D Noise Reduction mode, change the default style of the button',
 			defaultStyle: {
 				color: ColorBlack,
 				bgcolor: ColorGreen,
@@ -2013,7 +2013,7 @@ export function getFeedbacks() {
 		feedbacks.wide_dynamic_range = {
 			type: 'boolean',
 			name: MODEL_ACTIONS.wide_dynamic_range.name,
-			description: 'If the camera matches the selected Wide Dynamic Range mode, change the defaultStyle of the button',
+			description: 'If the camera matches the selected Wide Dynamic Range mode, change the default style of the button',
 			defaultStyle: {
 				color: ColorBlack,
 				bgcolor: ColorGreen,
@@ -2039,7 +2039,7 @@ export function getFeedbacks() {
 		feedbacks.cm_blue_gain = {
 			type: 'boolean',
 			name: MODEL_ACTIONS.cm_blue_gain.name,
-			description: 'If the camera matches the selected Blue Gain value, change the defaultStyle of the button',
+			description: 'If the camera matches the selected Blue Gain value, change the default style of the button',
 			defaultStyle: {
 				color: ColorBlack,
 				bgcolor: ColorGreen,
@@ -2064,7 +2064,7 @@ export function getFeedbacks() {
 		feedbacks.cm_blue_hue = {
 			type: 'boolean',
 			name: MODEL_ACTIONS.cm_blue_hue.name,
-			description: 'If the camera matches the selected Blue Hue value, change the defaultStyle of the button',
+			description: 'If the camera matches the selected Blue Hue value, change the default style of the button',
 			defaultStyle: {
 				color: ColorBlack,
 				bgcolor: ColorGreen,
@@ -2089,7 +2089,7 @@ export function getFeedbacks() {
 		feedbacks.cm_color_gain = {
 			type: 'boolean',
 			name: MODEL_ACTIONS.cm_color_gain.name,
-			description: 'If the camera matches the selected Color Gain value, change the defaultStyle of the button',
+			description: 'If the camera matches the selected Color Gain value, change the default style of the button',
 			defaultStyle: {
 				color: ColorBlack,
 				bgcolor: ColorGreen,
@@ -2115,7 +2115,7 @@ export function getFeedbacks() {
 		feedbacks.cm_cyan_gain = {
 			type: 'boolean',
 			name: MODEL_ACTIONS.cm_cyan_gain.name,
-			description: 'If the camera matches the selected Cyan Gain value, change the defaultStyle of the button',
+			description: 'If the camera matches the selected Cyan Gain value, change the default style of the button',
 			defaultStyle: {
 				color: ColorBlack,
 				bgcolor: ColorGreen,
@@ -2140,7 +2140,7 @@ export function getFeedbacks() {
 		feedbacks.cm_cyan_hue = {
 			type: 'boolean',
 			name: MODEL_ACTIONS.cm_cyan_hue.name,
-			description: 'If the camera matches the selected Cyan Hue value, change the defaultStyle of the button',
+			description: 'If the camera matches the selected Cyan Hue value, change the default style of the button',
 			defaultStyle: {
 				color: ColorBlack,
 				bgcolor: ColorGreen,
@@ -2165,7 +2165,7 @@ export function getFeedbacks() {
 		feedbacks.cm_green_gain = {
 			type: 'boolean',
 			name: MODEL_ACTIONS.cm_green_gain.name,
-			description: 'If the camera matches the selected Green Gain value, change the defaultStyle of the button',
+			description: 'If the camera matches the selected Green Gain value, change the default style of the button',
 			defaultStyle: {
 				color: ColorBlack,
 				bgcolor: ColorGreen,
@@ -2191,7 +2191,7 @@ export function getFeedbacks() {
 		feedbacks.cm_green_hue = {
 			type: 'boolean',
 			name: MODEL_ACTIONS.cm_green_hue.name,
-			description: 'If the camera matches the selected Green Hue value, change the defaultStyle of the button',
+			description: 'If the camera matches the selected Green Hue value, change the default style of the button',
 			defaultStyle: {
 				color: ColorBlack,
 				bgcolor: ColorGreen,
@@ -2216,7 +2216,7 @@ export function getFeedbacks() {
 		feedbacks.cm_hue_phase = {
 			type: 'boolean',
 			name: MODEL_ACTIONS.cm_hue_phase.name,
-			description: 'If the camera matches the selected Hue Phase value, change the defaultStyle of the button',
+			description: 'If the camera matches the selected Hue Phase value, change the default style of the button',
 			defaultStyle: {
 				color: ColorBlack,
 				bgcolor: ColorGreen,
@@ -2241,7 +2241,7 @@ export function getFeedbacks() {
 		feedbacks.cm_mag_gain = {
 			type: 'boolean',
 			name: MODEL_ACTIONS.cm_mag_gain.name,
-			description: 'If the camera matches the selected Magenta Gain value, change the defaultStyle of the button',
+			description: 'If the camera matches the selected Magenta Gain value, change the default style of the button',
 			defaultStyle: {
 				color: ColorBlack,
 				bgcolor: ColorGreen,
@@ -2266,7 +2266,7 @@ export function getFeedbacks() {
 		feedbacks.cm_mag_hue = {
 			type: 'boolean',
 			name: MODEL_ACTIONS.cm_mag_hue.name,
-			description: 'If the camera matches the selected Magenta Hue value, change the defaultStyle of the button',
+			description: 'If the camera matches the selected Magenta Hue value, change the default style of the button',
 			defaultStyle: {
 				color: ColorBlack,
 				bgcolor: ColorGreen,
@@ -2291,7 +2291,7 @@ export function getFeedbacks() {
 		feedbacks.cm_red_gain = {
 			type: 'boolean',
 			name: MODEL_ACTIONS.cm_red_gain.name,
-			description: 'If the camera matches the selected Red Gain value, change the defaultStyle of the button',
+			description: 'If the camera matches the selected Red Gain value, change the default style of the button',
 			defaultStyle: {
 				color: ColorBlack,
 				bgcolor: ColorGreen,
@@ -2316,7 +2316,7 @@ export function getFeedbacks() {
 		feedbacks.cm_red_hue = {
 			type: 'boolean',
 			name: MODEL_ACTIONS.cm_red_hue.name,
-			description: 'If the camera matches the selected Red Hue value, change the defaultStyle of the button',
+			description: 'If the camera matches the selected Red Hue value, change the default style of the button',
 			defaultStyle: {
 				color: ColorBlack,
 				bgcolor: ColorGreen,
@@ -2341,7 +2341,7 @@ export function getFeedbacks() {
 		feedbacks.cm_yellow_gain = {
 			type: 'boolean',
 			name: MODEL_ACTIONS.cm_yellow_gain.name,
-			description: 'If the camera matches the selected Yellow Gain value, change the defaultStyle of the button',
+			description: 'If the camera matches the selected Yellow Gain value, change the default style of the button',
 			defaultStyle: {
 				color: ColorBlack,
 				bgcolor: ColorGreen,
@@ -2367,7 +2367,7 @@ export function getFeedbacks() {
 		feedbacks.cm_yellow_hue = {
 			type: 'boolean',
 			name: MODEL_ACTIONS.cm_yellow_hue.name,
-			description: 'If the camera matches the selected Yellow Hue value, change the defaultStyle of the button',
+			description: 'If the camera matches the selected Yellow Hue value, change the default style of the button',
 			defaultStyle: {
 				color: ColorBlack,
 				bgcolor: ColorGreen,
@@ -2395,7 +2395,7 @@ export function getFeedbacks() {
 		feedbacks.brightness = {
 			type: 'boolean',
 			name: MODEL_ACTIONS.brightness.name,
-			description: 'If the camera matches the selected Brightness value, change the defaultStyle of the button',
+			description: 'If the camera matches the selected Brightness value, change the default style of the button',
 			defaultStyle: {
 				color: ColorBlack,
 				bgcolor: ColorGreen,
@@ -2421,7 +2421,7 @@ export function getFeedbacks() {
 			type: 'boolean',
 			name: MODEL_ACTIONS.brightness_comp.name,
 			description:
-				'If the camera matches the selected Brightness Compensation mode, change the defaultStyle of the button',
+				'If the camera matches the selected Brightness Compensation mode, change the default style of the button',
 			defaultStyle: {
 				color: ColorBlack,
 				bgcolor: ColorGreen,
@@ -2445,7 +2445,7 @@ export function getFeedbacks() {
 		feedbacks.comp_level = {
 			type: 'boolean',
 			name: MODEL_ACTIONS.comp_level.name,
-			description: 'If the camera matches the selected Compensation Level, change the defaultStyle of the button',
+			description: 'If the camera matches the selected Compensation Level, change the default style of the button',
 			defaultStyle: {
 				color: ColorBlack,
 				bgcolor: ColorGreen,
@@ -2469,7 +2469,7 @@ export function getFeedbacks() {
 		feedbacks.gamma_offset = {
 			type: 'boolean',
 			name: MODEL_ACTIONS.gamma_offset.name,
-			description: 'If the camera matches the selected Gamma Offset value, change the defaultStyle of the button',
+			description: 'If the camera matches the selected Gamma Offset value, change the default style of the button',
 			defaultStyle: {
 				color: ColorBlack,
 				bgcolor: ColorGreen,
@@ -2494,7 +2494,7 @@ export function getFeedbacks() {
 		feedbacks.high_resolution = {
 			type: 'boolean',
 			name: MODEL_ACTIONS.high_resolution.name,
-			description: 'If the camera matches the selected High Resolution mode, change the defaultStyle of the button',
+			description: 'If the camera matches the selected High Resolution mode, change the default style of the button',
 			defaultStyle: {
 				color: ColorBlack,
 				bgcolor: ColorGreen,
@@ -2518,7 +2518,7 @@ export function getFeedbacks() {
 		feedbacks.video_enhancement = {
 			type: 'boolean',
 			name: MODEL_ACTIONS.video_enhancement.name,
-			description: 'If the camera matches the selected Video Enhancement mode, change the defaultStyle of the button',
+			description: 'If the camera matches the selected Video Enhancement mode, change the default style of the button',
 			defaultStyle: {
 				color: ColorBlack,
 				bgcolor: ColorGreen,
@@ -2544,7 +2544,7 @@ export function getFeedbacks() {
 		feedbacks.aux = {
 			type: 'boolean',
 			name: MODEL_ACTIONS.aux.name,
-			description: 'If the camera matches the selected Aux mode, change the defaultStyle of the button',
+			description: 'If the camera matches the selected Aux mode, change the default style of the button',
 			defaultStyle: {
 				color: ColorBlack,
 				bgcolor: ColorGreen,
@@ -2568,7 +2568,7 @@ export function getFeedbacks() {
 		feedbacks.rain_wiper = {
 			type: 'boolean',
 			name: MODEL_ACTIONS.rain_wiper.name,
-			description: 'If the camera matches the selected Rain Wiper mode, change the defaultStyle of the button',
+			description: 'If the camera matches the selected Rain Wiper mode, change the default style of the button',
 			defaultStyle: {
 				color: ColorBlack,
 				bgcolor: ColorGreen,
@@ -2592,7 +2592,7 @@ export function getFeedbacks() {
 		feedbacks.v12vout = {
 			type: 'boolean',
 			name: MODEL_ACTIONS.v12vout.name,
-			description: 'If the camera matches the selected 12v Out mode, change the defaultStyle of the button',
+			description: 'If the camera matches the selected 12v Out mode, change the default style of the button',
 			defaultStyle: {
 				color: ColorBlack,
 				bgcolor: ColorGreen,
@@ -2618,7 +2618,7 @@ export function getFeedbacks() {
 		feedbacks.bandwidth = {
 			type: 'boolean',
 			name: MODEL_ACTIONS.bandwidth.name,
-			description: 'If the camera matches the selected Bandwidth mode, change the defaultStyle of the button',
+			description: 'If the camera matches the selected Bandwidth mode, change the default style of the button',
 			defaultStyle: {
 				color: ColorBlack,
 				bgcolor: ColorGreen,
@@ -2642,7 +2642,7 @@ export function getFeedbacks() {
 		feedbacks.bw_balance = {
 			type: 'boolean',
 			name: MODEL_ACTIONS.bw_balance.name,
-			description: 'If the camera matches the selected BW Bandwidth mode, change the defaultStyle of the button',
+			description: 'If the camera matches the selected BW Bandwidth mode, change the default style of the button',
 			defaultStyle: {
 				color: ColorBlack,
 				bgcolor: ColorGreen,
@@ -2666,7 +2666,7 @@ export function getFeedbacks() {
 		feedbacks.crispening = {
 			type: 'boolean',
 			name: MODEL_ACTIONS.crispening.name,
-			description: 'If the camera matches the selected Crispening value, change the defaultStyle of the button',
+			description: 'If the camera matches the selected Crispening value, change the default style of the button',
 			defaultStyle: {
 				color: ColorBlack,
 				bgcolor: ColorGreen,
@@ -2691,7 +2691,7 @@ export function getFeedbacks() {
 		feedbacks.detail = {
 			type: 'boolean',
 			name: MODEL_ACTIONS.detail.name,
-			description: 'If the camera matches the selected Detail value, change the defaultStyle of the button',
+			description: 'If the camera matches the selected Detail value, change the default style of the button',
 			defaultStyle: {
 				color: ColorBlack,
 				bgcolor: ColorGreen,
@@ -2715,7 +2715,7 @@ export function getFeedbacks() {
 		feedbacks.highlight_detail = {
 			type: 'boolean',
 			name: MODEL_ACTIONS.highlight_detail.name,
-			description: 'If the camera matches the selected Highlight Detail value, change the defaultStyle of the button',
+			description: 'If the camera matches the selected Highlight Detail value, change the default style of the button',
 			defaultStyle: {
 				color: ColorBlack,
 				bgcolor: ColorGreen,
@@ -2745,7 +2745,7 @@ export function getFeedbacks() {
 		feedbacks.hv_balance = {
 			type: 'boolean',
 			name: MODEL_ACTIONS.hv_balance.name,
-			description: 'If the camera matches the selected Hv Balance value, change the defaultStyle of the button',
+			description: 'If the camera matches the selected Hv Balance value, change the default style of the button',
 			defaultStyle: {
 				color: ColorBlack,
 				bgcolor: ColorGreen,
@@ -2770,7 +2770,7 @@ export function getFeedbacks() {
 		feedbacks.limit = {
 			type: 'boolean',
 			name: MODEL_ACTIONS.limit.name,
-			description: 'If the camera matches the selected Limit value, change the defaultStyle of the button',
+			description: 'If the camera matches the selected Limit value, change the default style of the button',
 			defaultStyle: {
 				color: ColorBlack,
 				bgcolor: ColorGreen,
@@ -2795,7 +2795,7 @@ export function getFeedbacks() {
 		feedbacks.super_low = {
 			type: 'boolean',
 			name: MODEL_ACTIONS.super_low.name,
-			description: 'If the camera matches the selected Super Low value, change the defaultStyle of the button',
+			description: 'If the camera matches the selected Super Low value, change the default style of the button',
 			defaultStyle: {
 				color: ColorBlack,
 				bgcolor: ColorGreen,
@@ -2822,7 +2822,7 @@ export function getFeedbacks() {
 		feedbacks.black_gamma_level = {
 			type: 'boolean',
 			name: MODEL_ACTIONS.black_gamma_level.name,
-			description: 'If the camera matches the selected Black Gamma Level, change the defaultStyle of the button',
+			description: 'If the camera matches the selected Black Gamma Level, change the default style of the button',
 			defaultStyle: {
 				color: ColorBlack,
 				bgcolor: ColorGreen,
@@ -2852,7 +2852,7 @@ export function getFeedbacks() {
 		feedbacks.black_level = {
 			type: 'boolean',
 			name: MODEL_ACTIONS.black_level.name,
-			description: 'If the camera matches the selected Black Level, change the defaultStyle of the button',
+			description: 'If the camera matches the selected Black Level, change the default style of the button',
 			defaultStyle: {
 				color: ColorBlack,
 				bgcolor: ColorGreen,
@@ -2877,7 +2877,7 @@ export function getFeedbacks() {
 		feedbacks.black_level_range = {
 			type: 'boolean',
 			name: MODEL_ACTIONS.black_level_range.name,
-			description: 'If the camera matches the selected Black Level Range, change the defaultStyle of the button',
+			description: 'If the camera matches the selected Black Level Range, change the default style of the button',
 			defaultStyle: {
 				color: ColorBlack,
 				bgcolor: ColorGreen,
@@ -2901,7 +2901,7 @@ export function getFeedbacks() {
 		feedbacks.effect = {
 			type: 'boolean',
 			name: MODEL_ACTIONS.effect.name,
-			description: 'If the camera matches the selected Effect Range, change the defaultStyle of the button',
+			description: 'If the camera matches the selected Effect Range, change the default style of the button',
 			defaultStyle: {
 				color: ColorBlack,
 				bgcolor: ColorGreen,
@@ -2926,7 +2926,7 @@ export function getFeedbacks() {
 		feedbacks.level = {
 			type: 'boolean',
 			name: MODEL_ACTIONS.level.name,
-			description: 'If the camera matches the selected Level, change the defaultStyle of the button',
+			description: 'If the camera matches the selected Level, change the default style of the button',
 			defaultStyle: {
 				color: ColorBlack,
 				bgcolor: ColorGreen,
@@ -2951,7 +2951,7 @@ export function getFeedbacks() {
 		feedbacks.offset = {
 			type: 'boolean',
 			name: MODEL_ACTIONS.offset.name,
-			description: 'If the camera matches the selected Offset level, change the defaultStyle of the button',
+			description: 'If the camera matches the selected Offset level, change the default style of the button',
 			defaultStyle: {
 				color: ColorBlack,
 				bgcolor: ColorGreen,
@@ -2976,7 +2976,7 @@ export function getFeedbacks() {
 		feedbacks.pattern = {
 			type: 'boolean',
 			name: MODEL_ACTIONS.pattern.name,
-			description: 'If the camera matches the selected Pattern level, change the defaultStyle of the button',
+			description: 'If the camera matches the selected Pattern level, change the default style of the button',
 			defaultStyle: {
 				color: ColorBlack,
 				bgcolor: ColorGreen,
@@ -3001,7 +3001,7 @@ export function getFeedbacks() {
 		feedbacks.pattern_fine = {
 			type: 'boolean',
 			name: MODEL_ACTIONS.pattern_fine.name,
-			description: 'If the camera matches the selected Pattern Fine level, change the defaultStyle of the button',
+			description: 'If the camera matches the selected Pattern Fine level, change the default style of the button',
 			defaultStyle: {
 				color: ColorBlack,
 				bgcolor: ColorGreen,
@@ -3026,7 +3026,7 @@ export function getFeedbacks() {
 		feedbacks.settings = {
 			type: 'boolean',
 			name: MODEL_ACTIONS.settings.name,
-			description: 'If the camera matches the selected Settings mode, change the defaultStyle of the button',
+			description: 'If the camera matches the selected Settings mode, change the default style of the button',
 			defaultStyle: {
 				color: ColorBlack,
 				bgcolor: ColorGreen,
@@ -3050,7 +3050,8 @@ export function getFeedbacks() {
 		feedbacks.visibility_enhancer = {
 			type: 'boolean',
 			name: MODEL_ACTIONS.visibility_enhancer.name,
-			description: 'If the camera matches the selected Visibility Enhancer mode, change the defaultStyle of the button',
+			description:
+				'If the camera matches the selected Visibility Enhancer mode, change the default style of the button',
 			defaultStyle: {
 				color: ColorBlack,
 				bgcolor: ColorGreen,
@@ -3076,7 +3077,7 @@ export function getFeedbacks() {
 		feedbacks.scope_size = {
 			type: 'boolean',
 			name: MODEL_ACTIONS.scope_size.name,
-			description: 'If the camera matches the selected Scope Size, change the defaultStyle of the button',
+			description: 'If the camera matches the selected Scope Size, change the default style of the button',
 			defaultStyle: {
 				color: ColorBlack,
 				bgcolor: ColorGreen,
@@ -3100,7 +3101,7 @@ export function getFeedbacks() {
 		feedbacks.scope_gamma_gain = {
 			type: 'boolean',
 			name: MODEL_ACTIONS.scope_gamma_gain.name,
-			description: 'If the camera matches the selected Scope Gamma Gain, change the defaultStyle of the button',
+			description: 'If the camera matches the selected Scope Gamma Gain, change the default style of the button',
 			defaultStyle: {
 				color: ColorBlack,
 				bgcolor: ColorGreen,
@@ -3130,7 +3131,7 @@ export function getFeedbacks() {
 		feedbacks.scope_mode = {
 			type: 'boolean',
 			name: MODEL_ACTIONS.scope_mode.name,
-			description: 'If the camera matches the selected Scope Mode, change the defaultStyle of the button',
+			description: 'If the camera matches the selected Scope Mode, change the default style of the button',
 			defaultStyle: {
 				color: ColorBlack,
 				bgcolor: ColorGreen,
@@ -3154,7 +3155,7 @@ export function getFeedbacks() {
 		feedbacks.scope_position = {
 			type: 'boolean',
 			name: MODEL_ACTIONS.scope_position.name,
-			description: 'If the camera matches the selected scope position, change the defaultStyle of the button',
+			description: 'If the camera matches the selected scope position, change the default style of the button',
 			defaultStyle: {
 				color: ColorBlack,
 				bgcolor: ColorGreen,
@@ -3178,7 +3179,7 @@ export function getFeedbacks() {
 		feedbacks.scope_preview = {
 			type: 'boolean',
 			name: MODEL_ACTIONS.scope_preview.name,
-			description: 'If the camera matches the selected scope preview mode, change the defaultStyle of the button',
+			description: 'If the camera matches the selected scope preview mode, change the default style of the button',
 			defaultStyle: {
 				color: ColorBlack,
 				bgcolor: ColorGreen,
@@ -3202,7 +3203,7 @@ export function getFeedbacks() {
 		feedbacks.scope_program = {
 			type: 'boolean',
 			name: MODEL_ACTIONS.scope_program.name,
-			description: 'If the camera matches the selected scope program mode, change the defaultStyle of the button',
+			description: 'If the camera matches the selected scope program mode, change the default style of the button',
 			defaultStyle: {
 				color: ColorBlack,
 				bgcolor: ColorGreen,
@@ -3226,7 +3227,7 @@ export function getFeedbacks() {
 		feedbacks.scope_transparency = {
 			type: 'boolean',
 			name: MODEL_ACTIONS.scope_transparency.name,
-			description: 'If the camera matches the selected scope transparency mode, change the defaultStyle of the button',
+			description: 'If the camera matches the selected scope transparency mode, change the default style of the button',
 			defaultStyle: {
 				color: ColorBlack,
 				bgcolor: ColorGreen,
