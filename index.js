@@ -325,12 +325,12 @@ class BirdDogPTZInstance extends InstanceBase {
 		}
 
 		let newbuf = buf.slice(0, 8 + payload.length)
-		this.log('debug', '-----Sending VISCA message: ' + Buffer.from(newbuf, 'binary').toString('hex'))
+		//this.log('debug', '-----Sending VISCA message: ' + Buffer.from(newbuf, 'binary').toString('hex'))
 		this.udp.send(newbuf)
 	}
 
 	incomingData(data) {
-		this.log('debug', '-----Incoming VISCA message: ' + Buffer.from(data, 'binary').toString('hex'))
+		//this.log('debug', '-----Incoming VISCA message: ' + Buffer.from(data, 'binary').toString('hex'))
 		switch (data[7].toString(16)) {
 			case '4a': // Query Standby status
 				if (data[8] == 0x90 && data[9] == 0x50 && data[10] == 0x02 && data[11] == 0xff) {
@@ -427,7 +427,7 @@ class BirdDogPTZInstance extends InstanceBase {
 	}
 
 	init_ws_listener() {
-		this.log('debug', '----init webscoket')
+		this.log('debug', '----init websocket')
 		clearInterval(this.timers.ws_reconnect)
 
 		if (this.ws !== undefined) {
@@ -442,7 +442,6 @@ class BirdDogPTZInstance extends InstanceBase {
 		})
 
 		this.ws.on('close', (code) => {
-			this.log('debug', `WebSocket Connection closed with code ${code}`)
 			this.log('debug', `---- WebSocket Connection closed with code ${code}`)
 			if (code !== 1000) {
 				this.timers.ws_reconnect = setInterval(this.init_ws_listener.bind(this), 500)
@@ -457,7 +456,7 @@ class BirdDogPTZInstance extends InstanceBase {
 			} catch (e) {
 				this.log('debug', 'JSON Error:' + e)
 			}
-			this.log('debug', `---- WebSocket received: ${JSON.stringify(data)}`)
+			//this.log('debug', `---- WebSocket received: ${JSON.stringify(data)}`)
 		})
 
 		this.ws.on('error', (data) => {
@@ -557,8 +556,8 @@ class BirdDogPTZInstance extends InstanceBase {
 			this.sendVISCACommand(VISCA.MSG_QRY_OPERATION + VISCA.OP_PAN_POS + VISCA.END_MSG, '\x5d') // Query Pan/Tilt Position
 		}
 
-		this.log('debug', `----Camera Setup for - ${this.camera.model}`)
-		this.log('debug', this.camera)
+		//this.log('debug', `----Camera Setup for - ${this.camera.model}`)
+		//this.log('debug', this.camera)
 	}
 
 	getCameraModel() {
@@ -731,7 +730,7 @@ class BirdDogPTZInstance extends InstanceBase {
 		this.camera.shutter_table = 60 // Camera defaults to 59.94 on startup
 		this.camera.unknown = [] // Array to store unknown API variables
 
-		this.log('debug', '---- Initial State for camera', this.camera)
+		//this.log('debug', '---- Initial State for camera', this.camera)
 	}
 
 	storeState(data, endpoint) {
@@ -751,7 +750,6 @@ class BirdDogPTZInstance extends InstanceBase {
 				if (!this.camera.unknown.includes(element[0])) {
 					//Only warn about unknown API variables once
 					this.log('debug', `Unknown API variable returned from ${endpoint}: ${element[0]}`)
-					this.log('debug', '---- Unknown API variable returned from ' + endpoint + ': ' + element[0])
 					this.camera.unknown.push(element[0])
 				}
 			} else if (this.camera[stored[0]] !== element[1]) {
