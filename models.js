@@ -86,6 +86,13 @@ export const MODEL_SPECS = {
 		api_variable: ['FirmwareVersion'],
 		store_state: true,
 	},
+	mcu_version: {
+		camera: ['All'],
+		firmware: ['5'],
+		api_endpoint: ['about'],
+		api_variable: ['MCUVersion'],
+		store_state: true,
+	},
 	format: {
 		camera: ['All'],
 		firmware: ['5'],
@@ -115,6 +122,13 @@ export const MODEL_SPECS = {
 		api_variable: ['IPAddress'],
 		variableId: 'ipaddress',
 		name: 'General - IP Address',
+	},
+	gateway: {
+		camera: ['All'],
+		firmware: ['5'],
+		api_endpoint: ['about'],
+		api_variable: ['GateWay'],
+		store_state: true,
 	},
 	model: {
 		camera: ['All'],
