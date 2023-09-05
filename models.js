@@ -86,6 +86,13 @@ export const MODEL_SPECS = {
 		api_variable: ['FirmwareVersion'],
 		store_state: true,
 	},
+	mcu_version: {
+		camera: ['All'],
+		firmware: ['5'],
+		api_endpoint: ['about'],
+		api_variable: ['MCUVersion'],
+		store_state: true,
+	},
 	format: {
 		camera: ['All'],
 		firmware: ['5'],
@@ -115,6 +122,13 @@ export const MODEL_SPECS = {
 		api_variable: ['IPAddress'],
 		variableId: 'ipaddress',
 		name: 'General - IP Address',
+	},
+	gateway: {
+		camera: ['All'],
+		firmware: ['5'],
+		api_endpoint: ['about'],
+		api_variable: ['GateWay'],
+		store_state: true,
 	},
 	model: {
 		camera: ['All'],
@@ -849,6 +863,21 @@ export const MODEL_SPECS = {
 			},
 		],
 	},
+	speedControl: {
+		camera: ['All'],
+		firmware: ['5'],
+		store_state: true,
+		api_endpoint: ['birddogptzsetup'],
+		api_variable: ['SpeedControl'],
+		variableId: 'speed_control',
+		name: `PTZ - Speed Control`,
+		action: [
+			{
+				camera: ['common'],
+				action: { choices: CHOICES.SPEED_TYPE, default: 'standard' },
+			},
+		],
+	},
 
 	// Focus
 	focus: {
@@ -1276,11 +1305,20 @@ export const MODEL_SPECS = {
 			},
 			{
 				camera: ['P200A2A3', 'P200A4A5', 'A200GEN1', 'A200GEN2', 'A300GEN1', 'A300GEN2'],
-				action: { range: { min: 1, max: 6, default: 3 } },
+				action: {
+					shutter_50: CHOICES.SLOW_SHUTTER_50,
+					shutter_60: CHOICES.SLOW_SHUTTER_60,
+					range: { min: 1, max: 6, default: 3 },
+				},
 			},
 			{
 				camera: ['P240', 'P400', 'P4K'],
-				action: { range: { min: 6, max: 17, default: 12 } },
+				action: {
+					shutter_24: CHOICES.SLOW_SHUTTER_4K_24,
+					shutter_50: CHOICES.SLOW_SHUTTER_4K_50,
+					shutter_60: CHOICES.SLOW_SHUTTER_4K_60,
+					range: { min: 6, max: 17, default: 12 },
+				},
 			},
 		],
 	},

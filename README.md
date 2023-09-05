@@ -8,6 +8,14 @@ See [HELP.md](https://github.com/bitfocus/companion-module-birddog-ptz/blob/main
 
 ## Changes
 
+### v3.0.3
+
+- Fixes
+  - Slow Shutter Limit variable not showing actual shutter speed
+  - Slow Shutter Limit action dropdown values not matching actual shutter values
+  - Super Fine pan/tilt speed values not working with pan/tilt speed actions
+  - Debug logging cleaned up to allow for easier troubleshooting
+
 ### v3.0.2
 
 - Fixes

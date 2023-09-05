@@ -263,6 +263,15 @@ export default {
 		{ id: '21', label: '1/10000' },
 	],
 
+	SLOW_SHUTTER_60: [
+		{ id: '6', label: '1/1' },
+		{ id: '5', label: '1/2' },
+		{ id: '4', label: '1/4' },
+		{ id: '3', label: '1/8' },
+		{ id: '2', label: '1/15' },
+		{ id: '1', label: '1/30' },
+	],
+
 	SHUTTER_50: [
 		{ id: '0', label: '1/1' },
 		{ id: '1', label: '1/2' },
@@ -286,6 +295,15 @@ export default {
 		{ id: '19', label: '1/3500' },
 		{ id: '20', label: '1/6000' },
 		{ id: '21', label: '1/10000' },
+	],
+
+	SLOW_SHUTTER_50: [
+		{ id: '6', label: '1/1' },
+		{ id: '5', label: '1/2' },
+		{ id: '4', label: '1/3' },
+		{ id: '3', label: '1/6' },
+		{ id: '2', label: '1/12' },
+		{ id: '1', label: '1/25' },
 	],
 
 	SHUTTER_4K_60: [
@@ -319,6 +337,21 @@ export default {
 		{ id: '33', label: '1/10000' },
 	],
 
+	SLOW_SHUTTER_4K_60: [
+		{ id: '6', label: '1/1' },
+		{ id: '7', label: '2/3' },
+		{ id: '8', label: '1/2' },
+		{ id: '9', label: '1/3' },
+		{ id: '10', label: '1/4' },
+		{ id: '11', label: '1/6' },
+		{ id: '12', label: '1/8' },
+		{ id: '13', label: '1/10' },
+		{ id: '14', label: '1/15' },
+		{ id: '15', label: '1/20' },
+		{ id: '16', label: '1/30' },
+		{ id: '17', label: '1/50' },
+	],
+
 	SHUTTER_4K_50: [
 		{ id: '6', label: '1/1' },
 		{ id: '7', label: '2/3' },
@@ -348,6 +381,21 @@ export default {
 		{ id: '31', label: '1/3500' },
 		{ id: '32', label: '1/6000' },
 		{ id: '33', label: '1/10000' },
+	],
+
+	SLOW_SHUTTER_4K_50: [
+		{ id: '6', label: '1/1' },
+		{ id: '7', label: '2/3' },
+		{ id: '8', label: '1/2' },
+		{ id: '9', label: '1/3' },
+		{ id: '10', label: '1/4' },
+		{ id: '11', label: '1/6' },
+		{ id: '12', label: '1/8' },
+		{ id: '13', label: '1/12' },
+		{ id: '14', label: '1/15' },
+		{ id: '15', label: '1/20' },
+		{ id: '16', label: '1/25' },
+		{ id: '17', label: '1/30' },
 	],
 
 	SHUTTER_4K_24: [
@@ -381,6 +429,21 @@ export default {
 		{ id: '33', label: '1/10000' },
 	],
 
+	SLOW_SHUTTER_4K_24: [
+		{ id: '6', label: '1/1' },
+		{ id: '7', label: '2/3' },
+		{ id: '8', label: '1/2' },
+		{ id: '9', label: '1/3' },
+		{ id: '10', label: '1/4' },
+		{ id: '11', label: '1/6' },
+		{ id: '12', label: '1/8' },
+		{ id: '13', label: '1/12' },
+		{ id: '14', label: '1/20' },
+		{ id: '15', label: '1/24' },
+		{ id: '16', label: '1/25' },
+		{ id: '17', label: '1/40' },
+	],
+
 	// ############
 	// PTZ Look Ups
 	// ############
@@ -389,6 +452,11 @@ export default {
 		{ id: 'up', label: 'Speed Up' },
 		{ id: 'down', label: 'Speed Down' },
 		{ id: 'value', label: 'Speed Value' },
+	],
+
+	SPEED_TYPE: [
+		{ id: 'standard', label: 'Standard' },
+		{ id: 'advanced', label: 'Super Fine' },
 	],
 
 	PTZ_DIRECTION: [
