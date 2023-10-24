@@ -1195,20 +1195,6 @@ export function getActions() {
 					choices: MODEL_ACTIONS.expComp.choices,
 					default: MODEL_ACTIONS.expComp.default,
 				},
-				{
-					type: 'number',
-					label:
-						'Exposure Compensation Level (' +
-						MODEL_ACTIONS.expCompLvl.range.min +
-						' to ' +
-						MODEL_ACTIONS.expCompLvl.range.max +
-						')',
-					id: 'level',
-					default: MODEL_ACTIONS.expCompLvl.range.default,
-					min: MODEL_ACTIONS.expCompLvl.range.min,
-					max: MODEL_ACTIONS.expCompLvl.range.max,
-					isVisible: (options) => options.val === 'On',
-				},
 			],
 			callback: (action) => {
 				switch (action.options.val) {
@@ -1218,17 +1204,69 @@ export function getActions() {
 						}
 						break
 					case 'On':
-						//Convert action range to API range for P100 & PF120
-						let level =
-							this.camera.model === 'P100' || this.camera.model === 'PF120'
-								? String(action.options.level + 7)
-								: String(action.options.level)
 						body = {
 							ExpCompEn: String(action.options.val),
-							ExpCompLvl: String(level),
 						}
 						break
 				}
+				this.sendCommand('birddogexpsetup', 'POST', body)
+			},
+		}
+	}
+
+	if (MODEL_ACTIONS?.expCompLvl) {
+		actions['expCompLvl'] = {
+			name: MODEL_ACTIONS.expCompLvl.name,
+			options: [
+				{
+					type: 'dropdown',
+					label: 'Level Adjustment',
+					id: 'val',
+					choices: MODEL_ACTIONS.expCompLvl.choices,
+					default: MODEL_ACTIONS.expCompLvl.default,
+				},
+				{
+					type: 'number',
+					label:
+						'Exposure Compensation Level (' +
+						MODEL_ACTIONS.expCompLvl.range.min +
+						' to ' +
+						MODEL_ACTIONS.expCompLvl.range.max +
+						')',
+					id: 'value',
+					default: MODEL_ACTIONS.expCompLvl.range.default,
+					min: MODEL_ACTIONS.expCompLvl.range.min,
+					max: MODEL_ACTIONS.expCompLvl.range.max,
+					isVisible: (options) => options.val === 'value',
+				},
+			],
+			callback: (action) => {
+				//Convert action range to API range for P100 & PF120
+				/* let level =
+							this.camera.model === 'P100' || this.camera.model === 'PF120'
+								? String(action.options.level + 7)
+								: String(action.options.level) */
+
+				let level = 0
+				currentValue = this.camera?.expCompLvl ? this.camera.expCompLvl : MODEL_ACTIONS.expCompLvl.range.default
+				switch (action.options.val) {
+					case 'up':
+						level =
+							currentValue < MODEL_ACTIONS.expCompLvl.range.max ? ++currentValue : MODEL_ACTIONS.expCompLvl.range.max
+						break
+					case 'down':
+						level =
+							currentValue > MODEL_ACTIONS.expCompLvl.range.min ? --currentValue : MODEL_ACTIONS.expCompLvl.range.min
+						break
+					case 'value':
+						level = action.options.value
+						break
+				}
+
+				body = {
+					ExpCompLvl: String(level),
+				}
+
 				this.sendCommand('birddogexpsetup', 'POST', body)
 			},
 		}

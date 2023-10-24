@@ -507,4 +507,28 @@ export const upgradeScripts = [
 		})
 		return changed
 	},
+	function (context, props) {
+		//expCompLvlSplit
+		let changed = {
+			updatedConfig: null,
+			updatedActions: [],
+			updatedFeedbacks: [],
+		}
+		props.actions.forEach((action) => {
+			if (action.actionId === 'expComp') {
+				if (action.options.val === 'On' && action.options.level) {
+					action.actionId = 'expCompLvl'
+					action.options.val = 'value'
+					action.options.value = action.options.level
+					delete action.options.level
+					changed.updatedActions.push(action)
+				} else if (action.options.val === 'O' && action.options.val) {
+					delete action.options.level
+					changed.updatedActions.push(action)
+				} else {
+				}
+			}
+		})
+		return changed
+	},
 ]
