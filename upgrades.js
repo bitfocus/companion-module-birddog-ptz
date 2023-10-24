@@ -522,10 +522,9 @@ export const upgradeScripts = [
 					action.options.value = action.options.level
 					delete action.options.level
 					changed.updatedActions.push(action)
-				} else if (action.options.val === 'O' && action.options.val) {
+				} else {
 					delete action.options.level
 					changed.updatedActions.push(action)
-				} else {
 				}
 			}
 		})
