@@ -7,10 +7,10 @@
   resolved "https://registry.yarnpkg.com/@aashutoshrathi/word-wrap/-/word-wrap-1.2.6.tgz#bd9154aec9983f77b3a034ecaa015c2e4201f6cf"
   integrity sha512-1Yjs2SvM8TflER/OD3cOjhWWOZb58A2t7wpE2S9XfBYTiIl+XFhQG2bjy4Pu1I+EAlCNUzRDYDdFwFYUKvXcIA==
 
-"@companion-module/base@~1.4.3":
-  version "1.4.3"
-  resolved "https://registry.yarnpkg.com/@companion-module/base/-/base-1.4.3.tgz#0e83955c8fc41e8f525f29ddf7a32cb70dbc2ec5"
-  integrity sha512-bIcJ75idsdILW5/sd1HoX0HkIRcwMyMZ2nccj/I2xJMDnn93Rz54aQ9zn3ZePvqP+H1N/x45VWC1IHMVzReT7Q==
+"@companion-module/base@~1.5.1":
+  version "1.5.1"
+  resolved "https://registry.yarnpkg.com/@companion-module/base/-/base-1.5.1.tgz#20612ba8adbe04ed2220ded9acb99c4cd877c304"
+  integrity sha512-gpUtE7121CuPJkZMEoqh1GU6QwDoqmj4WvjI/fqyeTrqejKcKz/oSgMxSMeh7T1Gf02a5OOTpJ+aYWBlNB0BKw==
   dependencies:
     "@sentry/node" "^7.63.0"
     "@sentry/tracing" "^7.63.0"
@@ -23,10 +23,10 @@
     p-timeout "^4.1.0"
     tslib "^2.6.1"
 
-"@companion-module/tools@^1.4.0":
-  version "1.4.0"
-  resolved "https://registry.yarnpkg.com/@companion-module/tools/-/tools-1.4.0.tgz#b949aec311a2e1354c668f5e88a0cf1edb792224"
-  integrity sha512-mNCH0LMQcqy98s2ge5040YLQcQkrHvo694tWpJ9XeCmZMf8AipcQ4vhyZ5JZL/otgCAWBnVPG64MN6cb6v19OQ==
+"@companion-module/tools@^1.4.1":
+  version "1.4.1"
+  resolved "https://registry.yarnpkg.com/@companion-module/tools/-/tools-1.4.1.tgz#ba7ef9dec6992d66972748e04db79a9e2454027f"
+  integrity sha512-hZrv24x0dofxNG+XeIlJpXmq7mH26LXMomWIBJ2W/7Oqs+jTMnULg4LhW1DzPxhfbEVBJQLtJ1v8nD37zk9HgQ==
   dependencies:
     "@typescript-eslint/eslint-plugin" "^5.59.9"
     "@typescript-eslint/parser" "^5.59.9"
@@ -2146,10 +2146,10 @@ wrappy@1:
   resolved "https://registry.yarnpkg.com/wrappy/-/wrappy-1.0.2.tgz#b5243d8f3ec1aa35f1364605bc0d1036e30ab69f"
   integrity sha512-l4Sp/DRseor9wL6EvV2+TuQn63dMkPjZ/sp9XkghTEbV9KlPS1xUsZ3u7/IQO4wxtcFB4bgpQPRcR3QCvezPcQ==
 
-ws@^8.13.0:
-  version "8.13.0"
-  resolved "https://registry.yarnpkg.com/ws/-/ws-8.13.0.tgz#9a9fb92f93cf41512a0735c8f4dd09b8a1211cd0"
-  integrity sha512-x9vcZYTrFPC7aSIbj7sRCYo7L/Xb8Iy+pW0ng0wt2vCJv7M9HOMy0UoN3rr+IFC7hb7vXoqS+P9ktyLLLhO+LA==
+ws@^8.14.2:
+  version "8.14.2"
+  resolved "https://registry.yarnpkg.com/ws/-/ws-8.14.2.tgz#6c249a806eb2db7a20d26d51e7709eab7b2e6c7f"
+  integrity sha512-wEBG1ftX4jcglPxgFCMJmZ2PLtSbJ2Peg6TmpJFTbe9GZYOQCDPdMYu/Tm0/bGZkw8paZnJY45J4K2PZrLYq8g==
 
 yallist@^4.0.0:
   version "4.0.0"
