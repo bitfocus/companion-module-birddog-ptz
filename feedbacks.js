@@ -799,8 +799,8 @@ export function getFeedbacks() {
 					type: 'dropdown',
 					label: 'Gain (dB)',
 					id: 'gain',
-					choices: MODEL_ACTIONS.gain.choices,
-					default: MODEL_ACTIONS.gain.default,
+					choices: MODEL_ACTIONS.gain.value.choices,
+					default: MODEL_ACTIONS.gain.value.default,
 				},
 			],
 			callback: (feedback) => {
@@ -922,8 +922,8 @@ export function getFeedbacks() {
 					type: 'dropdown',
 					label: 'Iris',
 					id: 'val',
-					choices: MODEL_ACTIONS.iris.choices,
-					default: MODEL_ACTIONS.iris.default,
+					choices: MODEL_ACTIONS.iris.value.choices,
+					default: MODEL_ACTIONS.iris.value.default,
 				},
 			],
 			callback: (feedback) => {
