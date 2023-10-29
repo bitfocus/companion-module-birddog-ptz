@@ -81,7 +81,7 @@ See [HELP.md](https://github.com/bitfocus/companion-module-birddog-ptz/blob/main
 
 - Fixes
   - Correct P110 & P120 actions
-  - Updated Color Temparature action
+  - Updated Color Temperature action
   - Removed unneeded logging
 
 ### v2.2.0
@@ -92,9 +92,9 @@ See [HELP.md](https://github.com/bitfocus/companion-module-birddog-ptz/blob/main
   - Added Realtime variables from Camera dashboard
   - Added P110 & P120 model cameras
   - Improved model detection and initialization
-  - Seperated polling of camera config from camera status
+  - Separated polling of camera config from camera status
   - Filter Actions / Feedback / Variables based on Model & FW
-  - Improved backend to handle mulitple models and firmware, and for storing device status
+  - Improved backend to handle multiple models and firmware, and for storing device status
 
   New Actions
 
@@ -118,7 +118,7 @@ See [HELP.md](https://github.com/bitfocus/companion-module-birddog-ptz/blob/main
   - Enable Camera model to be specified in config
 
 - Fixes
-  - Move Model detection to seperate function
+  - Move Model detection to separate function
   - Use /version call instead of /about for Model
 
 ### v2.1.2
@@ -150,7 +150,7 @@ See [HELP.md](https://github.com/bitfocus/companion-module-birddog-ptz/blob/main
   - PTZ
     - Pan Position
     - Pan Speed
-    - Tilt Postion
+    - Tilt Position
     - Tilt Speed
     - Zoom Position
     - Zoom Speed
