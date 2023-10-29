@@ -8,6 +8,13 @@ See [HELP.md](https://github.com/bitfocus/companion-module-birddog-ptz/blob/main
 
 ## Changes
 
+### v3.1.0
+
+- Features
+  - Exposure Level adjustment action
+- Fixes
+  - White Balance mode name change from Manual to User
+
 ### v3.0.3
 
 - Fixes
