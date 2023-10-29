@@ -611,7 +611,7 @@ export default {
 		{ id: 'OUTDOOR', label: 'Outdoor' },
 		{ id: 'ONEPUSH', label: 'One Push Mode' },
 		{ id: 'ATW', label: 'ATW' },
-		{ id: 'MANUAL1', label: 'Manual 1' },
+		{ id: 'USER', label: 'User' },
 		{ id: 'MANUAL2', label: 'Manual 2' },
 	],
 
@@ -633,7 +633,7 @@ export default {
 		{ id: 'OUTDOOR-AUTO', label: 'Outdoor Auto' },
 		{ id: 'ONEPUSH', label: 'One Push Mode' },
 		{ id: 'ATW', label: 'ATW' },
-		{ id: 'MANUAL1', label: 'Manual' },
+		{ id: 'USER', label: 'User' },
 		{ id: 'SLV-AUTO', label: 'Sodium Lamp Auto' },
 		{ id: 'SLV', label: 'Sodium Lamp' },
 		{ id: 'SLV-OUTDOOR-AUTO', label: 'Sodium Lamp Outdoor Auto' },

@@ -530,4 +530,29 @@ export const upgradeScripts = [
 		})
 		return changed
 	},
+	function (context, props) {
+		//White Balance mode change
+		let changed = {
+			updatedConfig: null,
+			updatedActions: [],
+			updatedFeedbacks: [],
+		}
+		props.actions.forEach((action) => {
+			if (action.actionId === 'wb_mode') {
+				if (action.options.val === 'MANUAL1') {
+					action.options.val = 'USER'
+					changed.updatedActions.push(action)
+				}
+			}
+		})
+		props.feedbacks.forEach((feedback) => {
+			if (feedback.feedbackId === 'wb_mode') {
+				if (feedback.options.mode === 'MANUAL1') {
+					feedback.options.mode = 'USER'
+					changed.updatedFeedbacks.push(feedback)
+				}
+			}
+		})
+		return changed
+	},
 ]
