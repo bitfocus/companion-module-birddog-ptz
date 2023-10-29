@@ -129,7 +129,7 @@ export function getFeedbacks() {
 		feedbacks.analogAudioOutput = {
 			type: 'boolean',
 			name: MODEL_ACTIONS.analogAudioOutput.name,
-			description: 'If the camera matches the selected audio ouptut selector, change the default style of the button',
+			description: 'If the camera matches the selected audio output selector, change the default style of the button',
 			defaultStyle: {
 				color: ColorBlack,
 				bgcolor: ColorGreen,
