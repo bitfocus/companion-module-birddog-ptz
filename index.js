@@ -99,7 +99,7 @@ class BirdDogPTZInstance extends InstanceBase {
 		} else {
 			this.updateStatus(
 				'bad_config',
-				'Unable to connect, please enter an IP address for your camera in the module settings'
+				'Unable to connect, please enter an IP address for your camera in the module settings',
 			)
 		}
 	}
@@ -145,10 +145,6 @@ class BirdDogPTZInstance extends InstanceBase {
 				if (data && type == 'GET') {
 					this.processData(decodeURI(url), data)
 				} else if ((data && type == 'PUT') || type == 'POST') {
-					if (decodeURI(url).match('/encodesetup')) {
-						//Temp workaround since encodesetup is not in poll, update if changed
-						this.sendCommand('encodesetup', 'GET')
-					}
 				} else {
 					this.log('debug', `Command failed ${url}`)
 				}
@@ -460,12 +456,13 @@ class BirdDogPTZInstance extends InstanceBase {
 		})
 
 		this.ws.on('error', (data) => {
-			this.log('error', `WebSocket error: ${data}`)
+			this.log('debug', `WebSocket error: ${data}`)
 		})
 	}
 
 	// Poll for BirdDog camera configuration/status
 	startPolling() {
+		this.stopPolling()
 		//Immediately do the poll
 		this.pollCameraConfig()
 		this.pollCameraStatus()
@@ -714,7 +711,7 @@ class BirdDogPTZInstance extends InstanceBase {
 				// filter array based on: All cameras or Model matches, and FW matches & has 'store_state' object
 				(array[1].camera.includes(model) || array[1].camera.includes('All')) &&
 				array[1].firmware.includes(FW_major) &&
-				array[1].store_state === true
+				array[1].store_state === true,
 		)
 
 		Object.keys(Object.fromEntries(filteredArray))
@@ -744,7 +741,7 @@ class BirdDogPTZInstance extends InstanceBase {
 					(array[1].camera.includes(this.camera.model) || array[1].camera.includes('All')) &&
 					array[1].firmware.includes(this.camera.firmware.major) &&
 					array[1]?.api_endpoint?.includes(endpoint) &&
-					array[1]?.api_variable?.includes(element[0])
+					array[1]?.api_variable?.includes(element[0]),
 			)
 			if (!stored) {
 				if (!this.camera.unknown.includes(element[0])) {
