@@ -14,12 +14,12 @@
 		"url": "git+https://github.com/bitfocus/companion-module-birddog-ptz.git"
 	},
 	"dependencies": {
-		"@companion-module/base": "~1.5.1",
+		"@companion-module/base": "~1.7.0",
 		"node-fetch": "^3.3.2",
-		"ws": "^8.14.2"
+		"ws": "^8.16.0"
 	},
 	"devDependencies": {
-		"@companion-module/tools": "^1.4.1"
+		"@companion-module/tools": "^1.4.2"
 	},
 	"prettier": "@companion-module/tools/.prettierrc.json"
 }
