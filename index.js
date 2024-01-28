@@ -322,7 +322,7 @@ class BirdDogPTZInstance extends InstanceBase {
 			counter.copy(buf, 7)
 		}
 
-		let newbuf = buf.slice(0, 8 + payload.length)
+		let newbuf = buf.subarray(0, 8 + payload.length)
 		//this.log('debug', '-----Sending VISCA message: ' + Buffer.from(newbuf, 'binary').toString('hex'))
 		this.udp.send(newbuf)
 	}
@@ -399,7 +399,7 @@ class BirdDogPTZInstance extends InstanceBase {
 			payload.copy(buf, 8)
 		}
 
-		let newbuf = buf.slice(0, 8 + payload.length)
+		let newbuf = buf.subarray(0, 8 + payload.length)
 
 		this.udp.send(newbuf)
 	}
