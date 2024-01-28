@@ -293,8 +293,10 @@ class BirdDogPTZInstance extends InstanceBase {
 				//this.camera.birddogscope = data
 				break
 		}
-		this.updateVariables()
-		this.checkFeedbacks()
+		if (changed.length > 0) {
+			this.updateVariables()
+			this.checkFeedbacks()
+		}
 	}
 
 	sendVISCACommand(payload, counter) {
@@ -350,13 +352,19 @@ class BirdDogPTZInstance extends InstanceBase {
 				}
 				break
 			case '5c': // Query Zoom Position
-				if (data[8] == 0x90 && data[9] == 0x50 && data[14] == 0xff) {
+				if (
+					this.validateVISCA(data, 14) &&
+					data[8] == 0x90 &&
+					data[9] == 0x50 &&
+					data[13] !== 0x50 &&
+					data[14] == 0xff
+				) {
 					this.camera.zoom_position =
 						data[10].toString(16) + data[11].toString(16) + data[12].toString(16) + data[13].toString(16)
 				}
 				break
 			case '5d': // Query Pan/Tilt Position
-				if (data[8] == 0x90 && data[9] == 0x50 && data[18] == 0xff) {
+				if (this.validateVISCA(data, 18) && data[8] == 0x90 && data[9] == 0x50 && data[18] == 0xff) {
 					this.camera.pan_position =
 						data[10].toString(16) + data[11].toString(16) + data[12].toString(16) + data[13].toString(16)
 					this.camera.tilt_position =
@@ -366,6 +374,11 @@ class BirdDogPTZInstance extends InstanceBase {
 		}
 		this.updateVariables()
 		this.checkFeedbacks()
+	}
+
+	validateVISCA(data, validSlot) {
+		//console.log(data.indexOf(0xff, 0))
+		return data.indexOf(0xff, 0) === validSlot ? true : false
 	}
 
 	sendControlCommand(payload) {
