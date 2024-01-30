@@ -328,27 +328,43 @@ class BirdDogPTZInstance extends InstanceBase {
 	}
 
 	incomingData(data) {
+		let changed = null
+		let param = ''
+		let newVal = null
+
 		//this.log('debug', '-----Incoming VISCA message: ' + Buffer.from(data, 'binary').toString('hex'))
 		switch (data[7].toString(16)) {
 			case '4a': // Query Standby status
 				if (data[8] == 0x90 && data[9] == 0x50 && data[10] == 0x02 && data[11] == 0xff) {
-					this.camera.standby = 'on'
+					newVal = 'on'
 				} else if (data[8] == 0x90 && data[9] == 0x50 && data[10] == 0x03 && data[11] == 0xff) {
-					this.camera.standby = 'standby'
+					newVal = 'standby'
+				}
+				if (this.camera.standby !== newVal) {
+					changed = true
+					this.camera.standby = newVal
 				}
 				break
 			case '5a': // Query Auto Focus mode
 				if (data[8] == 0x90 && data[9] == 0x50 && data[10] == 0x02 && data[11] == 0xff) {
-					this.camera.focusM = 'Auto'
+					newVal = 'Auto'
 				} else if (data[8] == 0x90 && data[9] == 0x50 && data[10] == 0x03 && data[11] == 0xff) {
-					this.camera.focusM = 'Manual'
+					newVal = 'Manual'
+				}
+				if (this.camera.focusM !== newVal) {
+					changed = true
+					this.camera.focusM = newVal
 				}
 				break
 			case '5b': // Query Freeze Status
 				if (data[8] == 0x90 && data[9] == 0x50 && data[10] == 0x02 && data[11] == 0xff) {
-					this.camera.freeze = 'On'
+					newVal = 'On'
 				} else if (data[8] == 0x90 && data[9] == 0x50 && data[10] == 0x03 && data[11] == 0xff) {
-					this.camera.freeze = 'Off'
+					newVal = 'Off'
+				}
+				if (this.camera.freeze !== newVal) {
+					changed = true
+					this.camera.freeze = newVal
 				}
 				break
 			case '5c': // Query Zoom Position
@@ -359,21 +375,33 @@ class BirdDogPTZInstance extends InstanceBase {
 					data[13] !== 0x50 &&
 					data[14] == 0xff
 				) {
-					this.camera.zoom_position =
-						data[10].toString(16) + data[11].toString(16) + data[12].toString(16) + data[13].toString(16)
+					newVal = data[10].toString(16) + data[11].toString(16) + data[12].toString(16) + data[13].toString(16)
+				}
+				if (this.camera.zoom_position !== newVal) {
+					changed = true
+					this.camera.zoom_position = newVal
 				}
 				break
 			case '5d': // Query Pan/Tilt Position
+				let tiltVal = this.camera.tilt_position
 				if (this.validateVISCA(data, 18) && data[8] == 0x90 && data[9] == 0x50 && data[18] == 0xff) {
-					this.camera.pan_position =
-						data[10].toString(16) + data[11].toString(16) + data[12].toString(16) + data[13].toString(16)
-					this.camera.tilt_position =
-						data[14].toString(16) + data[15].toString(16) + data[16].toString(16) + data[17].toString(16)
+					newVal = data[10].toString(16) + data[11].toString(16) + data[12].toString(16) + data[13].toString(16)
+					tiltVal = data[14].toString(16) + data[15].toString(16) + data[16].toString(16) + data[17].toString(16)
+				}
+				if (this.camera.pan_position !== newVal) {
+					changed = true
+					this.camera.pan_position = newVal
+				}
+				if (this.camera.tilt_position !== tiltVal) {
+					changed = true
+					this.camera.tilt_position = tiltVal
 				}
 				break
 		}
-		this.updateVariables()
-		this.checkFeedbacks()
+		if (changed) {
+			this.updateVariables()
+			this.checkFeedbacks()
+		}
 	}
 
 	validateVISCA(data, validSlot) {

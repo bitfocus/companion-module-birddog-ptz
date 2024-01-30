@@ -14,6 +14,7 @@ export function updateVariableDefinitions() {
 // #### Update Variables ####
 // #########################
 export function updateVariables() {
+	console.log('uodathtoh')
 	let MODEL_VARIABLES = getModelVariables(MODEL_SPECS, this.camera.firmware.major, this.camera.model)
 	let MODEL_ACTIONS = getModelActions(MODEL_SPECS, this.camera.firmware.major, this.camera.model)
 
