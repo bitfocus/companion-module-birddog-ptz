@@ -14,6 +14,7 @@ See [HELP.md](https://github.com/bitfocus/companion-module-birddog-ptz/blob/main
   - Camera unable to wake after going into standby mode
   - Pan/Tilt variables intermittently displaying non-valid values
   - Only update variables when changes are detected
+  - Exposure feedback values dropdown not displaying properly
 
 ### v3.1.0
 
