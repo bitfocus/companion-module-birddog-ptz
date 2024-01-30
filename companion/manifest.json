@@ -3,7 +3,7 @@
 	"name": "birddog-ptz",
 	"shortname": "BirdDog PTZ",
 	"description": "BirdDog PTZ module for Companion.",
-	"version": "3.1.0",
+	"version": "3.1.1",
 	"license": "MIT",
 	"repository": "git+https://github.com/bitfocus/companion-module-birddog-ptz.git",
 	"bugs": "https://github.com/bitfocus/companion-module-birddog-ptz/issues",

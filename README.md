@@ -8,6 +8,13 @@ See [HELP.md](https://github.com/bitfocus/companion-module-birddog-ptz/blob/main
 
 ## Changes
 
+### v3.1.1
+
+- Fixes
+  - Camera unable to wake after going into standby mode
+  - Pan/Tilt variables intermittently displaying non-valid values
+  - Only update variables when changes are detected
+
 ### v3.1.0
 
 - Features
