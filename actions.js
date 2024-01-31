@@ -40,15 +40,12 @@ export function getActions() {
 				switch (action.options.val) {
 					case 'on':
 						cmd = VISCA.MSG_CAM + VISCA.CAM_POWER + VISCA.DATA_ONVAL + VISCA.END_MSG
-						this.stopPolling()
-						this.sendVISCACommand(cmd)
-						setTimeout(() => this.startPolling(), 3000) // delay polling
 						break
 					case 'standby':
 						cmd = VISCA.MSG_CAM + VISCA.CAM_POWER + VISCA.DATA_OFFVAL + VISCA.END_MSG
-						this.sendVISCACommand(cmd)
 						break
 				}
+				this.sendVISCACommand(cmd)
 			},
 		}
 	}
