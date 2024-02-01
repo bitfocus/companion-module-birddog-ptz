@@ -8,6 +8,11 @@ See [HELP.md](https://github.com/bitfocus/companion-module-birddog-ptz/blob/main
 
 ## Changes
 
+### v3.1.2
+
+- Fixes
+  - Further work on fixing camera wake in standby mode
+
 ### v3.1.1
 
 - Fixes
