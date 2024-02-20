@@ -177,7 +177,7 @@ export const MODEL_SPECS = {
 	// VISCA
 	freeze: {
 		camera: ['All'],
-		firmware: ['4'], //v5 is returning incorrectly formatted VISCA msg
+		firmware: ['4', '5'], //v5 is returning incorrectly formatted VISCA msg
 		store_state: true,
 		variableId: 'freeze',
 		name: 'VISCA - Freeze',
@@ -718,7 +718,7 @@ export const MODEL_SPECS = {
 		action: [
 			{
 				camera: ['common'],
-				action: { range: { min: 1, max: 64, default: 1 } },
+				action: { range: { min: 1, max: 128, default: 1 } },
 			},
 		],
 	},

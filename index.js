@@ -146,7 +146,10 @@ class BirdDogPTZInstance extends InstanceBase {
 					this.processData(decodeURI(url), data)
 				} else if ((data && type == 'PUT') || type == 'POST') {
 				} else {
-					this.log('debug', `Command failed ${url}`)
+					if (!url.match('birddogptzsetup')) {
+						//Suppress this log: this failure is due to a BirdDog firmware bug in v5.5.114
+						this.log('debug', `Command failed ${url}`)
+					}
 				}
 			})
 			.catch((err) => {
@@ -329,84 +332,67 @@ class BirdDogPTZInstance extends InstanceBase {
 
 	incomingData(data) {
 		let changed = null
-		let param = ''
-		let newVal = null
-
 		//this.log('debug', '-----Incoming VISCA message: ' + Buffer.from(data, 'binary').toString('hex'))
-		switch (data[7].toString(16)) {
-			case '4a': // Query Standby status
-				if (data[8] == 0x90 && data[9] == 0x50 && data[10] == 0x02 && data[11] == 0xff) {
-					newVal = 'on'
-				} else if (data[8] == 0x90 && data[9] == 0x50 && data[10] == 0x03 && data[11] == 0xff) {
-					newVal = 'standby'
-				}
-				if (this.camera.standby !== newVal) {
-					changed = true
-					this.camera.standby = newVal
-				}
-				break
-			case '5a': // Query Auto Focus mode
-				if (data[8] == 0x90 && data[9] == 0x50 && data[10] == 0x02 && data[11] == 0xff) {
-					newVal = 'Auto'
-				} else if (data[8] == 0x90 && data[9] == 0x50 && data[10] == 0x03 && data[11] == 0xff) {
-					newVal = 'Manual'
-				}
-				if (this.camera.focusM !== newVal) {
-					changed = true
-					this.camera.focusM = newVal
-				}
-				break
-			case '5b': // Query Freeze Status
-				if (data[8] == 0x90 && data[9] == 0x50 && data[10] == 0x02 && data[11] == 0xff) {
-					newVal = 'On'
-				} else if (data[8] == 0x90 && data[9] == 0x50 && data[10] == 0x03 && data[11] == 0xff) {
-					newVal = 'Off'
-				}
-				if (this.camera.freeze !== newVal) {
-					changed = true
-					this.camera.freeze = newVal
-				}
-				break
-			case '5c': // Query Zoom Position
-				if (
-					this.validateVISCA(data, 14) &&
-					data[8] == 0x90 &&
-					data[9] == 0x50 &&
-					data[13] !== 0x50 &&
-					data[14] == 0xff
-				) {
-					newVal = data[10].toString(16) + data[11].toString(16) + data[12].toString(16) + data[13].toString(16)
-				}
-				if (this.camera.zoom_position !== newVal) {
-					changed = true
-					this.camera.zoom_position = newVal
-				}
-				break
-			case '5d': // Query Pan/Tilt Position
-				let tiltVal = this.camera.tilt_position
-				if (this.validateVISCA(data, 18) && data[8] == 0x90 && data[9] == 0x50 && data[18] == 0xff) {
-					newVal = data[10].toString(16) + data[11].toString(16) + data[12].toString(16) + data[13].toString(16)
-					tiltVal = data[14].toString(16) + data[15].toString(16) + data[16].toString(16) + data[17].toString(16)
-				}
-				if (this.camera.pan_position !== newVal) {
-					changed = true
-					this.camera.pan_position = newVal
-				}
-				if (this.camera.tilt_position !== tiltVal) {
-					changed = true
-					this.camera.tilt_position = tiltVal
-				}
-				break
+
+		if (data[8] == 0x90 && data[9] == 0x50 && data[10] == 0x17 && data[27] == 0xff && data.length == 28) {
+			let newPanVal = data[11].toString(16) + data[12].toString(16) + data[13].toString(16) + data[14].toString(16)
+			let newTiltVal = data[15].toString(16) + data[16].toString(16) + data[17].toString(16) + data[18].toString(16)
+			let newZoomVal = data[19].toString(16) + data[20].toString(16) + data[21].toString(16) + data[22].toString(16)
+
+			if (this.camera.pan_position !== newPanVal) {
+				changed = true
+				this.camera.pan_position = newPanVal
+			}
+			if (this.camera.tilt_position !== newTiltVal) {
+				changed = true
+				this.camera.tilt_position = newTiltVal
+			}
+			if (this.camera.zoom_position !== newZoomVal) {
+				changed = true
+				this.camera.zoom_position = newZoomVal
+			}
 		}
+
+		if (data[8] == 0x90 && data[9] == 0x50 && data[10] == 0x15 && data[23] == 0xff && data.length == 24) {
+			let newFocusVal
+			if (data[20] == 0x02) {
+				newFocusVal = 'Auto'
+			} else {
+				newFocusVal = 'Manual'
+			}
+			if (this.camera.focusM !== newFocusVal) {
+				changed = true
+				this.camera.focusM = newFocusVal
+			}
+
+			let newStandbyVal
+			if (data[21] == 0x02) {
+				newStandbyVal = 'on'
+			} else {
+				newStandbyVal = 'standby'
+			}
+			if (this.camera.standby !== newStandbyVal) {
+				changed = true
+				this.camera.standby = newStandbyVal
+			}
+
+			let newFreezeVal
+			if (data[22] == 0x02) {
+				newFreezeVal = 'On'
+			} else {
+				newFreezeVal = 'Off'
+			}
+
+			if (this.camera.freeze !== newFreezeVal) {
+				changed = true
+				this.camera.freeze = newFreezeVal
+			}
+		}
+
 		if (changed) {
 			this.updateVariables()
 			this.checkFeedbacks()
 		}
-	}
-
-	validateVISCA(data, validSlot) {
-		//console.log(data.indexOf(0xff, 0))
-		return data.indexOf(0xff, 0) === validSlot ? true : false
 	}
 
 	sendControlCommand(payload) {
@@ -568,13 +554,19 @@ class BirdDogPTZInstance extends InstanceBase {
 			this.sendCommand('birddogpicsetup', 'GET')
 		}
 		if (this.udp) {
-			this.sendVISCACommand(VISCA.MSG_QRY + VISCA.CAM_POWER + VISCA.END_MSG, '\x4a') // Query Standby status
-
+			//this.sendVISCACommand(VISCA.MSG_QRY + VISCA.CAM_POWER + VISCA.END_MSG, '\x4a') // Query Standby status
+			this.sendVISCACommand(VISCA.MSG_BLOCK_QRY + '\x15' + VISCA.END_MSG) // Query Camera Details
 			if (this.camera?.standby === 'on') {
 				//Sending this while camera is in standby makes it unable to wake-up
-				this.sendVISCACommand(VISCA.MSG_QRY + VISCA.CAM_FOCUS_AUTO + VISCA.END_MSG, '\x5a') // Query Auto Focus Mode
-				this.sendVISCACommand(VISCA.MSG_QRY + VISCA.CAM_FREEZE + VISCA.END_MSG, '\x5b') // Query Freeze
-				this.sendVISCACommand(VISCA.MSG_QRY + VISCA.CAM_ZOOM_DIRECT + VISCA.END_MSG, '\x5c') // Query Zoom Position
+				//this.sendVISCACommand(VISCA.MSG_QRY + VISCA.CAM_FOCUS_AUTO + VISCA.END_MSG, '\x5a') // Query Auto Focus Mode
+				//this.sendVISCACommand(VISCA.MSG_QRY + VISCA.CAM_FREEZE + VISCA.END_MSG, '\x5b') // Query Freeze
+				//this.sendVISCACommand(VISCA.MSG_QRY + VISCA.CAM_ZOOM_DIRECT + VISCA.END_MSG, '\x5c') // Query Zoom Position
+				//this.sendVISCACommand(VISCA.MSG_BLOCK_QRY + '\x15' + VISCA.END_MSG)
+				this.sendVISCACommand(VISCA.MSG_BLOCK_QRY + '\x17' + VISCA.END_MSG) // Query PTZ Position
+			}
+
+			if (MODEL_QRY?.pt_pos) {
+				//this.sendVISCACommand(VISCA.MSG_QRY_OPERATION + VISCA.OP_PAN_POS + VISCA.END_MSG, '\x5d') // Query Pan/Tilt Position
 			}
 		}
 		if (MODEL_QRY?.birddogcmsetup) {
@@ -594,11 +586,6 @@ class BirdDogPTZInstance extends InstanceBase {
 		}
 		if (MODEL_QRY?.birddogscope) {
 			this.sendCommand('birddogscope', 'GET')
-		}
-		if (MODEL_QRY?.pt_pos) {
-			if (this.udp) {
-				this.sendVISCACommand(VISCA.MSG_QRY_OPERATION + VISCA.OP_PAN_POS + VISCA.END_MSG, '\x5d') // Query Pan/Tilt Position
-			}
 		}
 
 		//this.log('debug', `----Camera Setup for - ${this.camera.model}`)
