@@ -8,9 +8,16 @@ See [HELP.md](https://github.com/bitfocus/companion-module-birddog-ptz/blob/main
 
 ## Changes
 
-### v3.1.2
+### v3.1.3
 
 - Fixes
+  - Adjust max number presets on the "Save / Recall Preset" actions to 128
+  - Workaround to re-enable Freeze action that was broken due to BirdDog v5 firmware bug
+  - Batch VISCA inquires in an attempt to prevent intermittently receiving incorrect Pan/Tilt/Zoom variable values
+
+### v3.1.2
+
+- Fix
   - Further work on fixing camera wake in standby mode
 
 ### v3.1.1

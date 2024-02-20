@@ -6,6 +6,7 @@ export const VISCA = {
 	MSG_OPERATION: '\x81\x01\x06',
 	MSG_QRY: '\x81\x09\x04',
 	MSG_QRY_OPERATION: '\x81\x09\x06',
+	MSG_BLOCK_QRY: '\x81\x09\x7e\x7e',
 
 	// ############
 	// Basic VISCA Constants

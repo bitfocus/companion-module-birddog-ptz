@@ -71,7 +71,12 @@ export function getActions() {
 						cmd = VISCA.MSG_CAM + VISCA.CAM_FREEZE + VISCA.DATA_OFFVAL + VISCA.END_MSG
 						break
 					case 'Toggle':
-						cmd = VISCA.MSG_CAM + VISCA.CAM_FREEZE + VISCA.DATA_TOGGLEVAL + VISCA.END_MSG
+						//cmd = VISCA.MSG_CAM + VISCA.CAM_FREEZE + VISCA.DATA_TOGGLEVAL + VISCA.END_MSG
+						if (this.camera.freeze === 'On') {
+							cmd = VISCA.MSG_CAM + VISCA.CAM_FREEZE + VISCA.DATA_OFFVAL + VISCA.END_MSG
+						} else {
+							cmd = VISCA.MSG_CAM + VISCA.CAM_FREEZE + VISCA.DATA_ONVAL + VISCA.END_MSG
+						}
 						break
 				}
 				this.sendVISCACommand(cmd)
