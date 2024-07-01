@@ -1,6 +1,6 @@
 # companion-module-birddog-ptz
 
-This module allows you to control any [BirdDog](https://birddog.tv/ptz-range/) PTZ camera running LTS firmware.
+This module allows you to control any [BirdDog](https://birddog.tv/ptz-range/) PTZ camera running the Si2 or NDI 5 firmware.
 
 ## Getting Started
 
