@@ -8,6 +8,16 @@ See [HELP.md](https://github.com/bitfocus/companion-module-birddog-ptz/blob/main
 
 ## Changes
 
+### v3.1.5
+
+- Fix
+  - Pan/Tilt Speed override option not working 
+
+### v3.1.4
+
+- Patch
+  - Update module dependencies
+
 ### v3.1.3
 
 - Fixes
