@@ -528,7 +528,7 @@ export function getActions() {
 				{
 					type: 'number',
 					label: `Pan Speed (0 to ${panSpeedMax})`,
-					id: 'value',
+					id: 'panSpeed',
 					default: panSpeedDefault,
 					min: 0,
 					max: panSpeedMax,
@@ -538,7 +538,7 @@ export function getActions() {
 				{
 					type: 'number',
 					label: `Tilt Speed (0 to ${tiltSpeedMax})`,
-					id: 'value',
+					id: 'tiltSpeed',
 					default: tiltSpeedDefault,
 					min: 0,
 					max: tiltSpeedMax,
