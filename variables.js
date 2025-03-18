@@ -73,7 +73,7 @@ export function updateVariables() {
 
 	if (MODEL_VARIABLES.some((variable) => variable.variableId === 'audio_output')) {
 		updatedVariables.audio_output = MODEL_ACTIONS.analogAudioOutput.choices.find(
-			(o) => o.id == this.camera.analogAudioOutput
+			(o) => o.id == this.camera.analogAudioOutput,
 		)?.label
 	}
 
@@ -93,7 +93,7 @@ export function updateVariables() {
 
 	if (MODEL_VARIABLES.some((variable) => variable.variableId === 'bandwidth_mode')) {
 		updatedVariables.bandwidth_mode = MODEL_ACTIONS.bandwidth_mode.choices.find(
-			(o) => o.id == this.camera.bandwidth_mode
+			(o) => o.id == this.camera.bandwidth_mode,
 		)?.label
 	}
 
@@ -111,7 +111,7 @@ export function updateVariables() {
 
 	if (MODEL_VARIABLES.some((variable) => variable.variableId === 'ndi_group')) {
 		updatedVariables.ndi_group = MODEL_ACTIONS.ndiGroupEnable.choices.find(
-			(o) => o.id == this.camera.ndiGroupEnable
+			(o) => o.id == this.camera.ndiGroupEnable,
 		)?.label
 	}
 
@@ -121,7 +121,7 @@ export function updateVariables() {
 
 	if (MODEL_VARIABLES.some((variable) => variable.variableId === 'screensaver_mode')) {
 		updatedVariables.screensaver_mode = MODEL_ACTIONS.screensaver_mode.choices.find(
-			(o) => o.id == this.camera.screensaver_mode
+			(o) => o.id == this.camera.screensaver_mode,
 		)?.label
 	}
 
@@ -171,7 +171,7 @@ export function updateVariables() {
 
 	if (MODEL_VARIABLES.some((variable) => variable.variableId === 'ndi_discovery_server')) {
 		updatedVariables.ndi_discovery_server = MODEL_ACTIONS.ndi_discovery_server.choices.find(
-			(o) => o.id == this.camera.ndi_discovery_server
+			(o) => o.id == this.camera.ndi_discovery_server,
 		)?.label
 	}
 
@@ -233,7 +233,7 @@ export function updateVariables() {
 
 	if (MODEL_VARIABLES.some((variable) => variable.variableId === 'speed_control')) {
 		updatedVariables.speed_control = MODEL_ACTIONS.speedControl.choices.find(
-			(o) => o.id == this.camera.speedControl
+			(o) => o.id == this.camera.speedControl,
 		)?.label
 	}
 
@@ -312,7 +312,7 @@ export function updateVariables() {
 
 	if (MODEL_VARIABLES.some((variable) => variable.variableId === 'shutter_speed')) {
 		updatedVariables.shutter_speed = MODEL_ACTIONS.shutter_speed?.['shutter_' + [this.camera.shutter_table]]?.find(
-			(o) => o.id == this.camera.shutter_speed
+			(o) => o.id == this.camera.shutter_speed,
 		)?.label
 	}
 
@@ -456,7 +456,7 @@ export function updateVariables() {
 
 	if (MODEL_VARIABLES.some((variable) => variable.variableId === 'noise_reduction')) {
 		updatedVariables.noise_reduction = MODEL_ACTIONS.noise_reduction.value.choices.find(
-			(o) => o.id == this.camera.noise_reduction
+			(o) => o.id == this.camera.noise_reduction,
 		)?.label
 	}
 
@@ -482,7 +482,7 @@ export function updateVariables() {
 
 	if (MODEL_VARIABLES.some((variable) => variable.variableId === 'wide_dynamic_range')) {
 		updatedVariables.wide_dynamic_range = MODEL_ACTIONS.wide_dynamic_range.value.choices.find(
-			(o) => o.id == this.camera.wide_dynamic_range
+			(o) => o.id == this.camera.wide_dynamic_range,
 		)?.label
 	}
 

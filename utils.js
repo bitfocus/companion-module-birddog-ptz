@@ -99,14 +99,14 @@ export function getModelVariables(array, FW, model) {
 			// filter array based on: All cameras or Model matches, and FW matches & has 'variable_name' object
 			(array[1].camera.includes(model) || array[1].camera.includes('All')) &&
 			array[1].firmware.includes(FW) &&
-			array[1]?.variableId
+			array[1]?.variableId,
 	)
 	filteredArray.sort(sortByLabel)
 	filteredArray.forEach((array) =>
 		variables.push({
 			name: array[1].name,
 			variableId: array[1].variableId,
-		})
+		}),
 	)
 	return variables
 }
@@ -120,14 +120,14 @@ export function getModelActions(array, FW, model) {
 			// filter array based on: All cameras or Model matches, and FW matches & has 'action' object
 			(array[1].camera.includes(model) || array[1].camera.includes('All')) &&
 			array[1].firmware.includes(FW) &&
-			array[1]?.action
+			array[1]?.action,
 	)
 	filteredArray.sort(sortByLabel)
 	filteredArray.forEach((array) =>
 		actions.push({
 			// Create array of objects containing the action, with it's name and all relevant action options
 			[array[0]]: merge({ name: array[1].name }, getModelActionDetails(array[1].action, FW, model)),
-		})
+		}),
 	)
 	return merge(...actions)
 }
@@ -137,7 +137,7 @@ export function getModelActionDetails(array, FW, model) {
 	let commonActions = array.filter((array) => array.camera.includes('common'))
 	let modelActions = array.filter(
 		// filter array based on: All cameras or Model matches, and if it contains a FW filed, then if FW matches
-		(array) => (array.camera.includes(model) || array.camera.includes('All')) && (array.firmware?.includes(FW) ?? true)
+		(array) => (array.camera.includes(model) || array.camera.includes('All')) && (array.firmware?.includes(FW) ?? true),
 	)
 	return merge(commonActions[0]?.action, modelActions[0]?.action)
 }
@@ -146,8 +146,8 @@ export function getModelQueries(array, model, FW) {
 	let asArray = Object.entries(array)
 	return Object.fromEntries(
 		asArray.filter(
-			(item) => (item[1].camera.includes(model) || item[1].camera.includes('All')) && item[1].firmware.includes(FW)
-		)
+			(item) => (item[1].camera.includes(model) || item[1].camera.includes('All')) && item[1].firmware.includes(FW),
+		),
 	)
 }
 
