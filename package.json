@@ -4,7 +4,8 @@
 	"main": "index.js",
 	"scripts": {
 		"format": "prettier -w .",
-		"lint:raw": "eslint --ext .ts --ext .js --ignore-pattern dist --ignore-pattern pkg",
+		"package": "companion-module-build",
+		"lint:raw": "eslint",
 		"lint": "yarn lint:raw ."
 	},
 	"type": "module",
@@ -14,12 +15,18 @@
 		"url": "git+https://github.com/bitfocus/companion-module-birddog-ptz.git"
 	},
 	"dependencies": {
-		"@companion-module/base": "~1.11.1",
+		"@companion-module/base": "~1.11.3",
 		"node-fetch": "^3.3.2",
-		"ws": "^8.18.0"
+		"ws": "^8.18.1"
 	},
 	"devDependencies": {
-		"@companion-module/tools": "^2.1.0"
+		"@companion-module/tools": "^2.2.2",
+		"eslint": "^9.22.0",
+		"prettier": "^3.5.3"
 	},
-	"prettier": "@companion-module/tools/.prettierrc.json"
+	"engines": {
+		"node": "^22.12"
+	},
+	"prettier": "@companion-module/tools/.prettierrc.json",
+	"packageManager": "yarn@4.6.0"
 }
