@@ -1,13 +1,11 @@
-import { getModelActions, getModelVariables, sortByPresetCategory } from './utils.js'
+import { getModelActions, getModelVariables } from './utils.js'
 import { MODEL_SPECS } from './models.js'
 import { combineRgb } from '@companion-module/base'
 
 export function getPresets() {
 	const ColorWhite = combineRgb(255, 255, 255) // White
 	const ColorBlack = combineRgb(0, 0, 0) // Black
-	const ColorRed = combineRgb(255, 0, 0) // Red
 	const ColorGreen = combineRgb(0, 255, 0) // Green
-	const ColorOrange = combineRgb(255, 102, 0) // Orange
 
 	let MODEL_ACTIONS = getModelActions(MODEL_SPECS, this.camera.firmware.major, this.camera.model)
 	let MODEL_VARIABLES = getModelVariables(MODEL_SPECS, this.camera.firmware.major, this.camera.model)

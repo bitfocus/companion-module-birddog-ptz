@@ -825,7 +825,7 @@ export function getFeedbacks() {
 					id: 'gain',
 					choices: MODEL_ACTIONS.gain.choices.slice(
 						MODEL_ACTIONS.gain_limit.range.min - 1,
-						MODEL_ACTIONS.gain_limit.range.max + 1
+						MODEL_ACTIONS.gain_limit.range.max + 1,
 					),
 					default: MODEL_ACTIONS.gain_limit.range.default,
 				},
@@ -972,7 +972,7 @@ export function getFeedbacks() {
 					id: 'val',
 					choices: MODEL_ACTIONS.shut?.['shutter_' + [this.camera.shutter_table]].slice(
 						MODEL_ACTIONS.shutter_max_speed.range.min,
-						MODEL_ACTIONS.shutter_max_speed.range.max + 1
+						MODEL_ACTIONS.shutter_max_speed.range.max + 1,
 					),
 					default: MODEL_ACTIONS.shutter_max_speed.range.default,
 				},
@@ -999,7 +999,7 @@ export function getFeedbacks() {
 					id: 'val',
 					choices: MODEL_ACTIONS.shut?.['shutter_' + [this.camera.shutter_table]].slice(
 						MODEL_ACTIONS.shutter_min_speed.range.min,
-						MODEL_ACTIONS.shutter_min_speed.range.max + 1
+						MODEL_ACTIONS.shutter_min_speed.range.max + 1,
 					),
 					default: MODEL_ACTIONS.shutter_min_speed.range.default,
 				},

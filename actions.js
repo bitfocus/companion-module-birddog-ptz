@@ -1359,7 +1359,7 @@ export function getActions() {
 					id: 'value',
 					choices: MODEL_ACTIONS.gain.value.choices.slice(
 						MODEL_ACTIONS.gain_limit.range.min - 1,
-						MODEL_ACTIONS.gain_limit.range.max + 1
+						MODEL_ACTIONS.gain_limit.range.max + 1,
 					),
 					default: MODEL_ACTIONS.gain_limit.range.default,
 					isVisible: (options) => options.val === 'value',
@@ -1432,8 +1432,8 @@ export function getActions() {
 						0,
 						parseInt(
 							this.camera.expsetup?.GainLimit ? this.camera.expsetup?.GainLimit : MODEL_ACTIONS.gain.value.default,
-							10
-						) + 1
+							10,
+						) + 1,
 					),
 					default: MODEL_ACTIONS.gain.value.default,
 					isVisible: (options) => options.val === 'value',
@@ -1516,16 +1516,16 @@ export function getActions() {
 							currentValue === MODEL_ACTIONS.iris.value.range.closed
 								? MODEL_ACTIONS.iris.value.range.min
 								: currentValue < MODEL_ACTIONS.iris.value.range.max
-								? ++currentValue
-								: MODEL_ACTIONS.iris.value.range.max
+									? ++currentValue
+									: MODEL_ACTIONS.iris.value.range.max
 						break
 					case 'down':
 						newValue =
 							currentValue === MODEL_ACTIONS.iris.value.range.min
 								? MODEL_ACTIONS.iris.value.range.closed
 								: currentValue > MODEL_ACTIONS.iris.value.range.min
-								? --currentValue
-								: MODEL_ACTIONS.iris.value.range.closed
+									? --currentValue
+									: MODEL_ACTIONS.iris.value.range.closed
 						break
 					case 'value':
 						newValue = action.options.value
@@ -1581,7 +1581,7 @@ export function getActions() {
 					id: 'value',
 					choices: MODEL_ACTIONS.shut?.['shutter_' + [this.camera.shutter_table]].slice(
 						MODEL_ACTIONS.shutter_max_speed.range.min,
-						MODEL_ACTIONS.shutter_max_speed.range.max + 1
+						MODEL_ACTIONS.shutter_max_speed.range.max + 1,
 					),
 					default: MODEL_ACTIONS.shutter_max_speed.range.default,
 					isVisible: (options) => options.val === 'value',
@@ -1633,7 +1633,7 @@ export function getActions() {
 					id: 'value',
 					choices: MODEL_ACTIONS.shut?.['shutter_' + [this.camera.shutter_table]].slice(
 						MODEL_ACTIONS.shutter_min_speed.range.min,
-						parseInt(this.camera.expsetup?.ShutterMaxSpeed, 10) + 1
+						parseInt(this.camera.expsetup?.ShutterMaxSpeed, 10) + 1,
 					),
 					default: MODEL_ACTIONS.shutter_min_speed.range.default,
 					isVisible: (options) => options.val === 'value',
