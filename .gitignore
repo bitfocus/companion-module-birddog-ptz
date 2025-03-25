@@ -3,3 +3,4 @@ node_modules/
 /pkg.tgz
 .DS_Store
 /.yarn
+*.tgz

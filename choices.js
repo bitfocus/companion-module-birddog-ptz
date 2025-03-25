@@ -6,6 +6,11 @@ for (let i = 28; i <= 65; i++) {
 	COLOR_TEMP.push({ id: i + '00', label: i + '00k' })
 }
 
+let COLOR_TEMP_X_SERIES = []
+for (let i = 25; i <= 90; i++) {
+	COLOR_TEMP_X_SERIES.push({ id: i + '00', label: i + '00k' })
+}
+
 // Create Postion Arrays with Max degress, Min degrees, step degree, & Hex vlaue of MAx degrees
 const POS_PAN_P100 = createPositionArray(175, -175, 5, 0x08da)
 const POS_PAN_P200 = createPositionArray(175, -175, 5, 0x067b)
@@ -35,6 +40,9 @@ export default {
 		{ id: 'P240', label: 'P240' },
 		{ id: 'P400', label: 'P400', other: ['EYES P400', 'EYESP400'] },
 		{ id: 'P4K', label: 'P4K', other: ['EYES P4K', 'EYESP4K'] },
+		{ id: 'X1', label: 'X1' },
+		{ id: 'X1Ultra', label: 'X1 Ultra', other: ['X1 Ultra'] },
+		{ id: 'X4Ultra', label: 'X4 Ultra', other: ['X4 Ultra'] },
 	],
 
 	ON_OFF: [
@@ -232,6 +240,24 @@ export default {
 		{ id: '11', label: '30 dB' },
 		{ id: '12', label: '33 dB' },
 		{ id: '13', label: '36 dB' },
+	],
+	//X1, X1Ultra, X4Ultra
+	GAIN_4: [
+		{ id: '0', label: '0 dB' },
+		{ id: '1', label: '3 dB' },
+		{ id: '2', label: '6 dB' },
+		{ id: '3', label: '9 dB' },
+		{ id: '4', label: '12 dB' },
+		{ id: '5', label: '15 dB' },
+		{ id: '6', label: '18 dB' },
+		{ id: '7', label: '21 dB' },
+		{ id: '8', label: '24 dB' },
+		{ id: '9', label: '27 dB' },
+		{ id: '10', label: '30 dB' },
+		{ id: '11', label: '33 dB' },
+		{ id: '12', label: '36 dB' },
+		{ id: '13', label: '39 dB' },
+		{ id: '14', label: '42 dB' },
 	],
 
 	// ############
@@ -575,7 +601,7 @@ export default {
 	// ############
 	// Exposure Mode Look Ups
 	// ############
-	//P100, PF120, P200_A4_A5, A200_GEN1, A200_GEN2, A300_GEN1, A300_GEN2
+	//P100, PF120, P200_A4_A5, A200_GEN1, A200_GEN2, A300_GEN1, A300_GEN2, X1, X1Ultra, X4Ultra
 	EXP_MODE_1: [
 		{ id: 'FULL-AUTO', label: 'FULL-AUTO' },
 		{ id: 'MANUAL', label: 'MANUAL' },
@@ -625,6 +651,15 @@ export default {
 		{ id: 'MANUAL2', label: 'Manual 2' },
 	],
 
+	WB_MODE_1c: [
+		{ id: 'AUTO', label: 'Auto' },
+		{ id: 'INDOOR', label: 'Indoor' },
+		{ id: 'OUTDOOR', label: 'Outdoor' },
+		{ id: 'ONEPUSH', label: 'One Push Mode' },
+		{ id: 'ColorTemp', label: 'Color Temp' },
+		{ id: 'MANUAL', label: 'Manual' },
+	],
+
 	//P200, A200, P400, P4K
 	WB_MODE_2: [
 		{ id: 'AUTO', label: 'Auto' },
@@ -647,6 +682,7 @@ export default {
 	],
 
 	COLOR_TEMP,
+	COLOR_TEMP_X_SERIES,
 
 	// ############
 	// Picture Setup Look Ups

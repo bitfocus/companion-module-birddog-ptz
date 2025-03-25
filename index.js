@@ -654,7 +654,7 @@ class BirdDogPTZInstance extends InstanceBase {
 			.then((data) => {
 				if (data.FirmwareVersion) {
 					let FW_major = data.FirmwareVersion.substring(data.FirmwareVersion.lastIndexOf(' ') + 1).substring(0, 1)
-					let FW_minor = data.FirmwareVersion.substring(data.FirmwareVersion.lastIndexOf(' ') + 2).substring(1)
+					let FW_minor = data.FirmwareVersion.substring(data.FirmwareVersion.lastIndexOf(' ') + 2).substring(1, 2)
 
 					// Set Initial State for Camera
 					this.intializeState(model, data.HostName, FW_major, FW_minor)

@@ -32,8 +32,16 @@ export function updateVariables() {
 		updatedVariables.hostname = this.camera.hostname
 	}
 
+	if (MODEL_VARIABLES.some((variable) => variable.variableId === 'hardware_version')) {
+		updatedVariables.hardware_version = this.camera.hardware_version
+	}
+
 	if (MODEL_VARIABLES.some((variable) => variable.variableId === 'ipaddress')) {
 		updatedVariables.ipaddress = this.camera.ipaddress
+	}
+
+	if (MODEL_VARIABLES.some((variable) => variable.variableId === 'fallback_ip')) {
+		updatedVariables.fallback_IP = this.camera.fallback_IP
 	}
 
 	if (MODEL_VARIABLES.some((variable) => variable.variableId === 'netmask')) {
@@ -50,6 +58,18 @@ export function updateVariables() {
 
 	if (MODEL_VARIABLES.some((variable) => variable.variableId === 'status')) {
 		updatedVariables.status = this.camera.status
+	}
+
+	if (MODEL_VARIABLES.some((variable) => variable.variableId === 'wifi_config_method')) {
+		updatedVariables.wifi_config_method = this.camera.wifi_config_method
+	}
+
+	if (MODEL_VARIABLES.some((variable) => variable.variableId === 'wifi_ip_address')) {
+		updatedVariables.wifi_ip_address = this.camera.wifi_ip_address
+	}
+
+	if (MODEL_VARIABLES.some((variable) => variable.variableId === 'wifi_netmask')) {
+		updatedVariables.wifi_netmask = this.camera.wifi_netmask
 	}
 
 	// VISCA Variables
@@ -216,19 +236,19 @@ export function updateVariables() {
 	if (MODEL_VARIABLES.some((variable) => variable.variableId === 'zoom_position')) {
 		let label = getPositionLabel(MODEL_ACTIONS.zoom.posZoomChoices, this.camera.zoom_position)
 		updatedVariables.zoom_position = label
-		updatedVariables.zoom_position_int = label.replace(/['X']/gi, '')
+		updatedVariables.zoom_position_int = label?.replace(/['X']/gi, '')
 	}
 
 	if (MODEL_VARIABLES.some((variable) => variable.variableId === 'pan_position')) {
 		let label = getPositionLabel(MODEL_ACTIONS.pt.posPanChoices, this.camera.pan_position)
 		updatedVariables.pan_position = label
-		updatedVariables.pan_position_int = label.replace(/['°']/gi, '')
+		updatedVariables.pan_position_int = label?.replace(/['°']/gi, '')
 	}
 
 	if (MODEL_VARIABLES.some((variable) => variable.variableId === 'tilt_position')) {
 		let label = getPositionLabel(MODEL_ACTIONS.pt.posTiltChoices, this.camera.tilt_position)
 		updatedVariables.tilt_position = label
-		updatedVariables.tilt_position_int = label.replace(/['°']/gi, '')
+		updatedVariables.tilt_position_int = label?.replace(/['°']/gi, '')
 	}
 
 	if (MODEL_VARIABLES.some((variable) => variable.variableId === 'speed_control')) {
@@ -484,6 +504,10 @@ export function updateVariables() {
 		updatedVariables.wide_dynamic_range = MODEL_ACTIONS.wide_dynamic_range.value.choices.find(
 			(o) => o.id == this.camera.wide_dynamic_range,
 		)?.label
+	}
+
+	if (MODEL_VARIABLES.some((variable) => variable.variableId === 'wdr_enable')) {
+		updatedVariables.wdr_enable = this.camera.wdr_enable
 	}
 
 	// Color Matrix Variables

@@ -17,6 +17,8 @@ export function getActions() {
 		if (this.poll_interval !== undefined) {
 			clearInterval(this.poll_interval)
 		}
+	} else {
+		console.log(MODEL_ACTIONS)
 	}
 
 	let actions = {}
@@ -26,7 +28,7 @@ export function getActions() {
 	// VISCA Actions
 	if (MODEL_ACTIONS?.standby) {
 		actions['standby'] = {
-			name: MODEL_ACTIONS.standby.name,
+			name: MODEL_ACTIONS.standby?.name,
 			options: [
 				{
 					type: 'dropdown',
@@ -52,7 +54,7 @@ export function getActions() {
 
 	if (MODEL_ACTIONS?.freeze) {
 		actions['freeze'] = {
-			name: MODEL_ACTIONS.freeze.name,
+			name: MODEL_ACTIONS.freeze?.name,
 			options: [
 				{
 					type: 'dropdown',
@@ -88,7 +90,7 @@ export function getActions() {
 
 	if (MODEL_ACTIONS?.analogAudioInGain) {
 		actions['analogAudioInGain'] = {
-			name: MODEL_ACTIONS.analogAudioInGain.name,
+			name: MODEL_ACTIONS.analogAudioInGain?.name,
 			options: [
 				{
 					type: 'dropdown',
@@ -144,7 +146,7 @@ export function getActions() {
 
 	if (MODEL_ACTIONS?.analogAudioOutGain) {
 		actions['analogAudioOutGain'] = {
-			name: MODEL_ACTIONS.analogAudioOutGain.name,
+			name: MODEL_ACTIONS.analogAudioOutGain?.name,
 			options: [
 				{
 					type: 'dropdown',
@@ -200,7 +202,7 @@ export function getActions() {
 
 	if (MODEL_ACTIONS?.analogAudioOutput) {
 		actions['analogAudioOutput'] = {
-			name: MODEL_ACTIONS.analogAudioOutput.name,
+			name: MODEL_ACTIONS.analogAudioOutput?.name,
 			options: [
 				{
 					type: 'dropdown',
@@ -227,7 +229,7 @@ export function getActions() {
 
 	if (MODEL_ACTIONS?.video_output) {
 		actions['video_output'] = {
-			name: MODEL_ACTIONS.video_output.name,
+			name: MODEL_ACTIONS.video_output?.name,
 			options: [
 				{
 					type: 'dropdown',
@@ -254,7 +256,7 @@ export function getActions() {
 
 	if (MODEL_ACTIONS?.bandwidth_mode) {
 		actions['bandwidth_mode'] = {
-			name: MODEL_ACTIONS.bandwidth_mode.name,
+			name: MODEL_ACTIONS.bandwidth_mode?.name,
 			options: [
 				{
 					type: 'dropdown',
@@ -299,7 +301,7 @@ export function getActions() {
 
 	if (MODEL_ACTIONS?.ndiAudio) {
 		actions['ndiAudio'] = {
-			name: MODEL_ACTIONS.ndiAudio.name,
+			name: MODEL_ACTIONS.ndiAudio?.name,
 			options: [
 				{
 					type: 'dropdown',
@@ -324,7 +326,7 @@ export function getActions() {
 
 	if (MODEL_ACTIONS?.ndiGroupEnable) {
 		actions['ndiGroupEnable'] = {
-			name: MODEL_ACTIONS.ndiGroupEnable.name,
+			name: MODEL_ACTIONS.ndiGroupEnable?.name,
 			options: [
 				{
 					type: 'dropdown',
@@ -349,7 +351,7 @@ export function getActions() {
 
 	if (MODEL_ACTIONS?.screensaver_mode) {
 		actions['screensaver_mode'] = {
-			name: MODEL_ACTIONS.screensaver_mode.name,
+			name: MODEL_ACTIONS.screensaver_mode?.name,
 			options: [
 				{
 					type: 'dropdown',
@@ -370,7 +372,7 @@ export function getActions() {
 
 	if (MODEL_ACTIONS?.stream_to_network) {
 		actions['stream_to_network'] = {
-			name: MODEL_ACTIONS.stream_to_network.name,
+			name: MODEL_ACTIONS.stream_to_network?.name,
 			options: [
 				{
 					type: 'dropdown',
@@ -395,7 +397,7 @@ export function getActions() {
 
 	if (MODEL_ACTIONS?.tally_mode) {
 		actions['tally_mode'] = {
-			name: MODEL_ACTIONS.tally_mode.name,
+			name: MODEL_ACTIONS.tally_mode?.name,
 			options: [
 				{
 					type: 'dropdown',
@@ -422,7 +424,7 @@ export function getActions() {
 
 	if (MODEL_ACTIONS?.transmit_method) {
 		actions['transmit_method'] = {
-			name: MODEL_ACTIONS.transmit_method.name,
+			name: MODEL_ACTIONS.transmit_method?.name,
 			options: [
 				{
 					type: 'dropdown',
@@ -449,7 +451,7 @@ export function getActions() {
 
 	if (MODEL_ACTIONS?.capture_screensaver) {
 		actions['capture_screensaver'] = {
-			name: MODEL_ACTIONS.capture_screensaver.name,
+			name: MODEL_ACTIONS.capture_screensaver?.name,
 			options: [],
 			callback: (action) => {
 				this.sendCommand('capture?ChNum=1&status=Encode', 'GET')
@@ -461,7 +463,7 @@ export function getActions() {
 
 	if (MODEL_ACTIONS?.ndi_discovery_server) {
 		actions['ndi_discovery_server'] = {
-			name: MODEL_ACTIONS.ndi_discovery_server.name,
+			name: MODEL_ACTIONS.ndi_discovery_server?.name,
 			options: [
 				{
 					type: 'dropdown',
@@ -493,7 +495,7 @@ export function getActions() {
 
 	if (MODEL_ACTIONS?.pt) {
 		actions['pt'] = {
-			name: MODEL_ACTIONS.pt.name,
+			name: MODEL_ACTIONS.pt?.name,
 			options: [
 				{
 					type: 'dropdown',
@@ -664,7 +666,7 @@ export function getActions() {
 
 	if (MODEL_ACTIONS?.panSpeed) {
 		actions['panSpeed'] = {
-			name: MODEL_ACTIONS.panSpeed.name,
+			name: MODEL_ACTIONS.panSpeed?.name,
 			options: [
 				{
 					type: 'dropdown',
@@ -707,7 +709,7 @@ export function getActions() {
 
 	if (MODEL_ACTIONS?.preset) {
 		actions['preset'] = {
-			name: MODEL_ACTIONS.preset.name,
+			name: MODEL_ACTIONS.preset?.name,
 			options: [
 				{
 					type: 'dropdown',
@@ -728,7 +730,7 @@ export function getActions() {
 
 	if (MODEL_ACTIONS?.preset_speed) {
 		actions['preset_speed'] = {
-			name: MODEL_ACTIONS.preset_speed.name,
+			name: MODEL_ACTIONS.preset_speed?.name,
 			options: [
 				{
 					type: 'dropdown',
@@ -776,7 +778,7 @@ export function getActions() {
 
 	if (MODEL_ACTIONS?.recallPset) {
 		actions['recallPset'] = {
-			name: MODEL_ACTIONS.recallPset.name,
+			name: MODEL_ACTIONS.recallPset?.name,
 			options: [
 				{
 					type: 'number',
@@ -798,7 +800,7 @@ export function getActions() {
 
 	if (MODEL_ACTIONS?.savePset) {
 		actions['savePset'] = {
-			name: MODEL_ACTIONS.savePset.name,
+			name: MODEL_ACTIONS.savePset?.name,
 			options: [
 				{
 					type: 'number',
@@ -820,7 +822,7 @@ export function getActions() {
 
 	if (MODEL_ACTIONS?.tiltSpeed) {
 		actions['tiltSpeed'] = {
-			name: MODEL_ACTIONS.tiltSpeed.name,
+			name: MODEL_ACTIONS.tiltSpeed?.name,
 			options: [
 				{
 					type: 'dropdown',
@@ -863,7 +865,7 @@ export function getActions() {
 
 	if (MODEL_ACTIONS?.zoom) {
 		actions['zoom'] = {
-			name: MODEL_ACTIONS.zoom.name,
+			name: MODEL_ACTIONS.zoom?.name,
 			options: [
 				{
 					type: 'dropdown',
@@ -929,7 +931,7 @@ export function getActions() {
 
 	if (MODEL_ACTIONS?.zoomSpeed) {
 		actions['zoomSpeed'] = {
-			name: MODEL_ACTIONS.zoomSpeed.name,
+			name: MODEL_ACTIONS.zoomSpeed?.name,
 			options: [
 				{
 					type: 'dropdown',
@@ -973,7 +975,7 @@ export function getActions() {
 
 	if (MODEL_ACTIONS?.onScreenMenu) {
 		actions['onScreenMenu'] = {
-			name: MODEL_ACTIONS.onScreenMenu.name,
+			name: MODEL_ACTIONS.onScreenMenu?.name,
 			options: [],
 			callback: (action) => {
 				body = {
@@ -986,7 +988,7 @@ export function getActions() {
 
 	if (MODEL_ACTIONS?.speedControl) {
 		actions['speedControl'] = {
-			name: MODEL_ACTIONS.speedControl.name,
+			name: MODEL_ACTIONS.speedControl?.name,
 			options: [
 				{
 					type: 'dropdown',
@@ -1010,7 +1012,7 @@ export function getActions() {
 
 	if (MODEL_ACTIONS?.focus) {
 		actions['focus'] = {
-			name: MODEL_ACTIONS.focus.name,
+			name: MODEL_ACTIONS.focus?.name,
 			options: [
 				{
 					type: 'dropdown',
@@ -1042,7 +1044,7 @@ export function getActions() {
 
 	if (MODEL_ACTIONS?.focusM) {
 		actions['focusM'] = {
-			name: MODEL_ACTIONS.focusM.name,
+			name: MODEL_ACTIONS.focusM?.name,
 			options: [
 				{
 					type: 'dropdown',
@@ -1073,7 +1075,7 @@ export function getActions() {
 
 	if (MODEL_ACTIONS?.ae_response) {
 		actions['ae_response'] = {
-			name: MODEL_ACTIONS.ae_response.name,
+			name: MODEL_ACTIONS.ae_response?.name,
 			options: [
 				{
 					type: 'dropdown',
@@ -1118,7 +1120,7 @@ export function getActions() {
 
 	if (MODEL_ACTIONS?.backlight) {
 		actions['backlight'] = {
-			name: MODEL_ACTIONS.backlight.name,
+			name: MODEL_ACTIONS.backlight?.name,
 			options: [
 				{
 					type: 'dropdown',
@@ -1143,7 +1145,7 @@ export function getActions() {
 
 	if (MODEL_ACTIONS?.bright_level) {
 		actions['bright_level'] = {
-			name: MODEL_ACTIONS.bright_level.name,
+			name: MODEL_ACTIONS.bright_level?.name,
 			options: [
 				{
 					type: 'dropdown',
@@ -1191,7 +1193,7 @@ export function getActions() {
 
 	if (MODEL_ACTIONS?.expComp) {
 		actions['expComp'] = {
-			name: MODEL_ACTIONS.expComp.name,
+			name: MODEL_ACTIONS.expComp?.name,
 			options: [
 				{
 					type: 'dropdown',
@@ -1221,7 +1223,7 @@ export function getActions() {
 
 	if (MODEL_ACTIONS?.expCompLvl) {
 		actions['expCompLvl'] = {
-			name: MODEL_ACTIONS.expCompLvl.name,
+			name: MODEL_ACTIONS.expCompLvl?.name,
 			options: [
 				{
 					type: 'dropdown',
@@ -1279,7 +1281,7 @@ export function getActions() {
 
 	if (MODEL_ACTIONS?.exposure_mode) {
 		actions['expM'] = {
-			name: MODEL_ACTIONS.exposure_mode.name,
+			name: MODEL_ACTIONS.exposure_mode?.name,
 			options: [
 				{
 					type: 'dropdown',
@@ -1300,7 +1302,7 @@ export function getActions() {
 
 	if (MODEL_ACTIONS?.gain) {
 		actions['gain'] = {
-			name: MODEL_ACTIONS.gain.name,
+			name: MODEL_ACTIONS.gain?.name,
 			options: [
 				{
 					type: 'dropdown',
@@ -1344,7 +1346,7 @@ export function getActions() {
 
 	if (MODEL_ACTIONS?.gain_limit) {
 		actions['gainLimit'] = {
-			name: MODEL_ACTIONS.gain_limit.name,
+			name: MODEL_ACTIONS.gain_limit?.name,
 			options: [
 				{
 					type: 'dropdown',
@@ -1390,7 +1392,7 @@ export function getActions() {
 
 	if (MODEL_ACTIONS?.gain_point) {
 		actions['gainPoint'] = {
-			name: MODEL_ACTIONS.gain_point.name,
+			name: MODEL_ACTIONS.gain_point?.name,
 			options: [
 				{
 					type: 'dropdown',
@@ -1415,7 +1417,7 @@ export function getActions() {
 
 	if (MODEL_ACTIONS?.gain_point_position) {
 		actions['gainPointPosition'] = {
-			name: MODEL_ACTIONS.gain_point_position.name,
+			name: MODEL_ACTIONS.gain_point_position?.name,
 			options: [
 				{
 					type: 'dropdown',
@@ -1465,7 +1467,7 @@ export function getActions() {
 
 	if (MODEL_ACTIONS?.high_sensitivity) {
 		actions['highSensitivity'] = {
-			name: MODEL_ACTIONS.high_sensitivity.name,
+			name: MODEL_ACTIONS.high_sensitivity?.name,
 			options: [
 				{
 					type: 'dropdown',
@@ -1490,7 +1492,7 @@ export function getActions() {
 
 	if (MODEL_ACTIONS?.iris) {
 		actions['iris'] = {
-			name: MODEL_ACTIONS.iris.name,
+			name: MODEL_ACTIONS.iris?.name,
 			options: [
 				{
 					type: 'dropdown',
@@ -1541,7 +1543,7 @@ export function getActions() {
 
 	if (MODEL_ACTIONS?.shutter_control_overwrite) {
 		actions['shutter_control_overwrite'] = {
-			name: MODEL_ACTIONS.shutter_control_overwrite.name,
+			name: MODEL_ACTIONS.shutter_control_overwrite?.name,
 			options: [
 				{
 					type: 'dropdown',
@@ -1566,7 +1568,7 @@ export function getActions() {
 
 	if (MODEL_ACTIONS?.shutter_max_speed) {
 		actions['shutter_max_speed'] = {
-			name: MODEL_ACTIONS.shutter_max_speed.name,
+			name: MODEL_ACTIONS.shutter_max_speed?.name,
 			options: [
 				{
 					type: 'dropdown',
@@ -1618,7 +1620,7 @@ export function getActions() {
 
 	if (MODEL_ACTIONS?.shutter_min_speed) {
 		actions['shutter_min_speed'] = {
-			name: MODEL_ACTIONS.shutter_min_speed.name,
+			name: MODEL_ACTIONS.shutter_min_speed?.name,
 			options: [
 				{
 					type: 'dropdown',
@@ -1670,7 +1672,7 @@ export function getActions() {
 
 	if (MODEL_ACTIONS?.shutter_speed) {
 		actions['shut'] = {
-			name: MODEL_ACTIONS.shutter_speed.name,
+			name: MODEL_ACTIONS.shutter_speed?.name,
 			options: [
 				{
 					type: 'dropdown',
@@ -1719,7 +1721,7 @@ export function getActions() {
 
 	if (MODEL_ACTIONS?.shutter_speed_overwrite) {
 		actions['shutter_speed_overwrite'] = {
-			name: MODEL_ACTIONS.shutter_speed_overwrite.name,
+			name: MODEL_ACTIONS.shutter_speed_overwrite?.name,
 			options: [
 				{
 					type: 'dropdown',
@@ -1774,7 +1776,7 @@ export function getActions() {
 
 	if (MODEL_ACTIONS?.slow_shutter_en) {
 		actions['slow_shutter_en'] = {
-			name: MODEL_ACTIONS.slow_shutter_en.name,
+			name: MODEL_ACTIONS.slow_shutter_en?.name,
 			options: [
 				{
 					type: 'dropdown',
@@ -1799,7 +1801,7 @@ export function getActions() {
 
 	if (MODEL_ACTIONS?.slow_shutter_limit) {
 		actions['slow_shutter_limit'] = {
-			name: MODEL_ACTIONS.slow_shutter_limit.name,
+			name: MODEL_ACTIONS.slow_shutter_limit?.name,
 			options: [
 				{
 					type: 'dropdown',
@@ -1848,7 +1850,7 @@ export function getActions() {
 
 	if (MODEL_ACTIONS?.spotlight) {
 		actions['spotlight'] = {
-			name: MODEL_ACTIONS.spotlight.name,
+			name: MODEL_ACTIONS.spotlight?.name,
 			options: [
 				{
 					type: 'dropdown',
@@ -1875,7 +1877,7 @@ export function getActions() {
 
 	if (MODEL_ACTIONS?.bg) {
 		actions['bg'] = {
-			name: MODEL_ACTIONS.bg.name,
+			name: MODEL_ACTIONS.bg?.name,
 			options: [
 				{
 					type: 'dropdown',
@@ -1917,7 +1919,7 @@ export function getActions() {
 
 	if (MODEL_ACTIONS?.br) {
 		actions['br'] = {
-			name: MODEL_ACTIONS.br.name,
+			name: MODEL_ACTIONS.br?.name,
 			options: [
 				{
 					type: 'dropdown',
@@ -1959,7 +1961,7 @@ export function getActions() {
 
 	if (MODEL_ACTIONS?.blue_gain) {
 		actions['blue_gain'] = {
-			name: MODEL_ACTIONS.blue_gain.name,
+			name: MODEL_ACTIONS.blue_gain?.name,
 			options: [
 				{
 					type: 'dropdown',
@@ -1993,8 +1995,14 @@ export function getActions() {
 						newValue = action.options.value
 						break
 				}
-				body = {
-					BlueGain: String(newValue),
+				if (this.camera.firmware.major === '6') {
+					body = {
+						BTuning: String(newValue),
+					}
+				} else {
+					body = {
+						BlueGain: String(newValue),
+					}
 				}
 				this.sendCommand('birddogwbsetup', 'POST', body)
 			},
@@ -2003,7 +2011,7 @@ export function getActions() {
 
 	if (MODEL_ACTIONS?.color_temp) {
 		actions['color_temp'] = {
-			name: MODEL_ACTIONS.color_temp.name,
+			name: MODEL_ACTIONS.color_temp?.name,
 			options: [
 				{
 					type: 'dropdown',
@@ -2050,7 +2058,7 @@ export function getActions() {
 
 	if (MODEL_ACTIONS?.gb) {
 		actions['gb'] = {
-			name: MODEL_ACTIONS.gb.name,
+			name: MODEL_ACTIONS.gb?.name,
 			options: [
 				{
 					type: 'dropdown',
@@ -2092,7 +2100,7 @@ export function getActions() {
 
 	if (MODEL_ACTIONS?.gr) {
 		actions['gr'] = {
-			name: MODEL_ACTIONS.gr.name,
+			name: MODEL_ACTIONS.gr?.name,
 			options: [
 				{
 					type: 'dropdown',
@@ -2134,7 +2142,7 @@ export function getActions() {
 
 	if (MODEL_ACTIONS?.level) {
 		actions['level'] = {
-			name: MODEL_ACTIONS.level.name,
+			name: MODEL_ACTIONS.level?.name,
 			options: [
 				{
 					type: 'dropdown',
@@ -2176,7 +2184,7 @@ export function getActions() {
 
 	if (MODEL_ACTIONS?.matrix) {
 		actions['matrix'] = {
-			name: MODEL_ACTIONS.matrix.name,
+			name: MODEL_ACTIONS.matrix?.name,
 			options: [
 				{
 					type: 'dropdown',
@@ -2201,7 +2209,7 @@ export function getActions() {
 
 	if (MODEL_ACTIONS?.offset) {
 		actions['offset'] = {
-			name: MODEL_ACTIONS.offset.name,
+			name: MODEL_ACTIONS.offset?.name,
 			options: [
 				{
 					type: 'dropdown',
@@ -2243,7 +2251,7 @@ export function getActions() {
 
 	if (MODEL_ACTIONS?.phase) {
 		actions['phase'] = {
-			name: MODEL_ACTIONS.phase.name,
+			name: MODEL_ACTIONS.phase?.name,
 			options: [
 				{
 					type: 'dropdown',
@@ -2285,7 +2293,7 @@ export function getActions() {
 
 	if (MODEL_ACTIONS?.rb) {
 		actions['rb'] = {
-			name: MODEL_ACTIONS.rb.name,
+			name: MODEL_ACTIONS.rb?.name,
 			options: [
 				{
 					type: 'dropdown',
@@ -2327,7 +2335,7 @@ export function getActions() {
 
 	if (MODEL_ACTIONS?.rg) {
 		actions['rg'] = {
-			name: MODEL_ACTIONS.rg.name,
+			name: MODEL_ACTIONS.rg?.name,
 			options: [
 				{
 					type: 'dropdown',
@@ -2369,7 +2377,7 @@ export function getActions() {
 
 	if (MODEL_ACTIONS?.red_gain) {
 		actions['red_gain'] = {
-			name: MODEL_ACTIONS.red_gain.name,
+			name: MODEL_ACTIONS.red_gain?.name,
 			options: [
 				{
 					type: 'dropdown',
@@ -2403,8 +2411,14 @@ export function getActions() {
 						newValue = action.options.value
 						break
 				}
-				body = {
-					RedGain: String(newValue),
+				if (this.camera.firmware.major === '6') {
+					body = {
+						RTuning: String(newValue),
+					}
+				} else {
+					body = {
+						BlueGain: String(newValue),
+					}
 				}
 				this.sendCommand('birddogwbsetup', 'POST', body)
 			},
@@ -2413,7 +2427,7 @@ export function getActions() {
 
 	if (MODEL_ACTIONS?.select) {
 		actions['select'] = {
-			name: MODEL_ACTIONS.select.name,
+			name: MODEL_ACTIONS.select?.name,
 			options: [
 				{
 					type: 'dropdown',
@@ -2434,7 +2448,7 @@ export function getActions() {
 
 	if (MODEL_ACTIONS?.speed) {
 		actions['speed'] = {
-			name: MODEL_ACTIONS.speed.name,
+			name: MODEL_ACTIONS.speed?.name,
 			options: [
 				{
 					type: 'dropdown',
@@ -2476,7 +2490,7 @@ export function getActions() {
 
 	if (MODEL_ACTIONS?.wb_mode) {
 		actions['wb_mode'] = {
-			name: MODEL_ACTIONS.wb_mode.name,
+			name: MODEL_ACTIONS.wb_mode?.name,
 			options: [
 				{
 					type: 'dropdown',
@@ -2496,12 +2510,19 @@ export function getActions() {
 	}
 	if (MODEL_ACTIONS?.wbOnePush) {
 		actions['wbOnePush'] = {
-			name: MODEL_ACTIONS.wbOnePush.name,
+			name: MODEL_ACTIONS.wbOnePush?.name,
 			options: [],
 			description: 'Camera must be in One Push mode in order to use this action',
 			callback: (action) => {
-				cmd = VISCA.MSG_CAM + VISCA.CAM_WB_TRIGGER + VISCA.CMD_CAM_WB_TRIGGER_NOW + VISCA.END_MSG
-				this.sendVISCACommand(cmd)
+				if (this.camera.firmware.major === '6') {
+					body = {
+						OnePushTrigger: String('Take'),
+					}
+					this.sendCommand('birddogwbsetup', 'POST', body)
+				} else {
+					cmd = VISCA.MSG_CAM + VISCA.CAM_WB_TRIGGER + VISCA.CMD_CAM_WB_TRIGGER_NOW + VISCA.END_MSG
+					this.sendVISCACommand(cmd)
+				}
 			},
 		}
 	}
@@ -2510,7 +2531,7 @@ export function getActions() {
 
 	if (MODEL_ACTIONS?.backlight_com) {
 		actions['backlight_com'] = {
-			name: MODEL_ACTIONS.backlight_com.name,
+			name: MODEL_ACTIONS.backlight_com?.name,
 			options: [
 				{
 					type: 'dropdown',
@@ -2535,7 +2556,7 @@ export function getActions() {
 
 	if (MODEL_ACTIONS?.chroma_suppress) {
 		actions['chroma_suppress'] = {
-			name: MODEL_ACTIONS.chroma_suppress.name,
+			name: MODEL_ACTIONS.chroma_suppress?.name,
 			options: [
 				{
 					type: 'dropdown',
@@ -2556,7 +2577,7 @@ export function getActions() {
 
 	if (MODEL_ACTIONS?.saturation) {
 		actions['saturation'] = {
-			name: MODEL_ACTIONS.saturation.name,
+			name: MODEL_ACTIONS.saturation?.name,
 			options: [
 				{
 					type: 'dropdown',
@@ -2600,7 +2621,7 @@ export function getActions() {
 
 	if (MODEL_ACTIONS?.contrast) {
 		actions['contrast'] = {
-			name: MODEL_ACTIONS.contrast.name,
+			name: MODEL_ACTIONS.contrast?.name,
 			options: [
 				{
 					type: 'dropdown',
@@ -2644,7 +2665,7 @@ export function getActions() {
 
 	if (MODEL_ACTIONS?.pictureEffect) {
 		actions['pictureEffect'] = {
-			name: MODEL_ACTIONS.pictureEffect.name,
+			name: MODEL_ACTIONS.pictureEffect?.name,
 			options: [
 				{
 					type: 'dropdown',
@@ -2669,7 +2690,7 @@ export function getActions() {
 
 	if (MODEL_ACTIONS?.picFlip) {
 		actions['picFlip'] = {
-			name: MODEL_ACTIONS.picFlip.name,
+			name: MODEL_ACTIONS.picFlip?.name,
 			options: [
 				{
 					type: 'dropdown',
@@ -2694,7 +2715,7 @@ export function getActions() {
 
 	if (MODEL_ACTIONS?.gamma) {
 		actions['gamma'] = {
-			name: MODEL_ACTIONS.gamma.name,
+			name: MODEL_ACTIONS.gamma?.name,
 			options: [
 				{
 					type: 'dropdown',
@@ -2736,7 +2757,7 @@ export function getActions() {
 
 	if (MODEL_ACTIONS?.highlight_comp) {
 		actions['highlight_comp'] = {
-			name: MODEL_ACTIONS.highlight_comp.name,
+			name: MODEL_ACTIONS.highlight_comp?.name,
 			options: [
 				{
 					type: 'dropdown',
@@ -2757,7 +2778,7 @@ export function getActions() {
 
 	if (MODEL_ACTIONS?.highlight_comp_mask) {
 		actions['highlight_comp_mask'] = {
-			name: MODEL_ACTIONS.highlight_comp_mask.name,
+			name: MODEL_ACTIONS.highlight_comp_mask?.name,
 			options: [
 				{
 					type: 'dropdown',
@@ -2812,7 +2833,7 @@ export function getActions() {
 
 	if (MODEL_ACTIONS?.hue) {
 		actions['hue'] = {
-			name: MODEL_ACTIONS.hue.name,
+			name: MODEL_ACTIONS.hue?.name,
 			options: [
 				{
 					type: 'dropdown',
@@ -2854,7 +2875,7 @@ export function getActions() {
 
 	if (MODEL_ACTIONS?.ir_cutfilter) {
 		actions['ir_cutfilter'] = {
-			name: MODEL_ACTIONS.ir_cutfilter.name,
+			name: MODEL_ACTIONS.ir_cutfilter?.name,
 			options: [
 				{
 					type: 'dropdown',
@@ -2875,7 +2896,7 @@ export function getActions() {
 
 	if (MODEL_ACTIONS?.low_latency) {
 		actions['low_latency'] = {
-			name: MODEL_ACTIONS.low_latency.name,
+			name: MODEL_ACTIONS.low_latency?.name,
 			options: [
 				{
 					type: 'dropdown',
@@ -2900,7 +2921,7 @@ export function getActions() {
 
 	if (MODEL_ACTIONS?.picMirror) {
 		actions['picMirror'] = {
-			name: MODEL_ACTIONS.picMirror.name,
+			name: MODEL_ACTIONS.picMirror?.name,
 			options: [
 				{
 					type: 'dropdown',
@@ -2925,7 +2946,7 @@ export function getActions() {
 
 	if (MODEL_ACTIONS?.nd_filter) {
 		actions['nd_filter'] = {
-			name: MODEL_ACTIONS.nd_filter.name,
+			name: MODEL_ACTIONS.nd_filter?.name,
 			options: [
 				{
 					type: 'dropdown',
@@ -2969,7 +2990,7 @@ export function getActions() {
 
 	if (MODEL_ACTIONS?.noise_reduction) {
 		actions['noise_reduction'] = {
-			name: MODEL_ACTIONS.noise_reduction.name,
+			name: MODEL_ACTIONS.noise_reduction?.name,
 			options: [
 				{
 					type: 'dropdown',
@@ -3018,7 +3039,7 @@ export function getActions() {
 
 	if (MODEL_ACTIONS?.sharpness) {
 		actions['sharpness'] = {
-			name: MODEL_ACTIONS.sharpness.name,
+			name: MODEL_ACTIONS.sharpness?.name,
 			options: [
 				{
 					type: 'dropdown',
@@ -3062,7 +3083,7 @@ export function getActions() {
 
 	if (MODEL_ACTIONS?.stabilizer) {
 		actions['stabilizer'] = {
-			name: MODEL_ACTIONS.stabilizer.name,
+			name: MODEL_ACTIONS.stabilizer?.name,
 			options: [
 				{
 					type: 'dropdown',
@@ -3087,7 +3108,7 @@ export function getActions() {
 
 	if (MODEL_ACTIONS?.threed_nr) {
 		actions['threed_nr'] = {
-			name: MODEL_ACTIONS.threed_nr.name,
+			name: MODEL_ACTIONS.threed_nr?.name,
 			options: [
 				{
 					type: 'dropdown',
@@ -3130,7 +3151,7 @@ export function getActions() {
 
 	if (MODEL_ACTIONS?.twod_nr) {
 		actions['twod_nr'] = {
-			name: MODEL_ACTIONS.twod_nr.name,
+			name: MODEL_ACTIONS.twod_nr?.name,
 			options: [
 				{
 					type: 'dropdown',
@@ -3171,7 +3192,7 @@ export function getActions() {
 
 	if (MODEL_ACTIONS?.wide_dynamic_range) {
 		actions['wide_dynamic_range'] = {
-			name: MODEL_ACTIONS.wide_dynamic_range.name,
+			name: MODEL_ACTIONS.wide_dynamic_range?.name,
 			options: [
 				{
 					type: 'dropdown',
@@ -3218,11 +3239,36 @@ export function getActions() {
 		}
 	}
 
+	if (MODEL_ACTIONS?.wdr_enable) {
+		actions['wdr_enable'] = {
+			name: MODEL_ACTIONS.wdr_enable?.name,
+			options: [
+				{
+					type: 'dropdown',
+					label: 'On / Off',
+					id: 'val',
+					choices: [...MODEL_ACTIONS.wdr_enable.choices, { id: 'Toggle', label: 'Toggle' }],
+					default: MODEL_ACTIONS.wdr_enable.default,
+				},
+			],
+			callback: (action) => {
+				let value = action.options.val
+				if (value == 'Toggle') {
+					value = toggleVal(this.camera.wdr_enable, MODEL_ACTIONS.wdr_enable.choices)
+				}
+				body = {
+					WDREnable: String(value),
+				}
+				this.sendCommand('birddogpicsetup', 'POST', body)
+			},
+		}
+	}
+
 	// Color Matrix Actions
 
 	if (MODEL_ACTIONS?.cm_blue_gain) {
 		actions['cm_blue_gain'] = {
-			name: MODEL_ACTIONS.cm_blue_gain.name,
+			name: MODEL_ACTIONS.cm_blue_gain?.name,
 			options: [
 				{
 					type: 'dropdown',
@@ -3270,7 +3316,7 @@ export function getActions() {
 
 	if (MODEL_ACTIONS?.cm_blue_hue) {
 		actions['cm_blue_hue'] = {
-			name: MODEL_ACTIONS.cm_blue_hue.name,
+			name: MODEL_ACTIONS.cm_blue_hue?.name,
 			options: [
 				{
 					type: 'dropdown',
@@ -3314,7 +3360,7 @@ export function getActions() {
 
 	if (MODEL_ACTIONS?.cm_color_gain) {
 		actions['cm_color_gain'] = {
-			name: MODEL_ACTIONS.cm_color_gain.name,
+			name: MODEL_ACTIONS.cm_color_gain?.name,
 			options: [
 				{
 					type: 'dropdown',
@@ -3365,7 +3411,7 @@ export function getActions() {
 
 	if (MODEL_ACTIONS?.cm_cyan_gain) {
 		actions['cm_cyan_gain'] = {
-			name: MODEL_ACTIONS.cm_cyan_gain.name,
+			name: MODEL_ACTIONS.cm_cyan_gain?.name,
 			options: [
 				{
 					type: 'dropdown',
@@ -3413,7 +3459,7 @@ export function getActions() {
 
 	if (MODEL_ACTIONS?.cm_cyan_hue) {
 		actions['cm_cyan_hue'] = {
-			name: MODEL_ACTIONS.cm_cyan_hue.name,
+			name: MODEL_ACTIONS.cm_cyan_hue?.name,
 			options: [
 				{
 					type: 'dropdown',
@@ -3457,7 +3503,7 @@ export function getActions() {
 
 	if (MODEL_ACTIONS?.cm_green_gain) {
 		actions['cm_green_gain'] = {
-			name: MODEL_ACTIONS.cm_green_gain.name,
+			name: MODEL_ACTIONS.cm_green_gain?.name,
 			options: [
 				{
 					type: 'dropdown',
@@ -3508,7 +3554,7 @@ export function getActions() {
 
 	if (MODEL_ACTIONS?.cm_green_hue) {
 		actions['cm_green_hue'] = {
-			name: MODEL_ACTIONS.cm_green_hue.name,
+			name: MODEL_ACTIONS.cm_green_hue?.name,
 			options: [
 				{
 					type: 'dropdown',
@@ -3556,7 +3602,7 @@ export function getActions() {
 
 	if (MODEL_ACTIONS?.cm_hue_phase) {
 		actions['cm_hue_phase'] = {
-			name: MODEL_ACTIONS.cm_hue_phase.name,
+			name: MODEL_ACTIONS.cm_hue_phase?.name,
 			options: [
 				{
 					type: 'dropdown',
@@ -3604,7 +3650,7 @@ export function getActions() {
 
 	if (MODEL_ACTIONS?.cm_mag_gain) {
 		actions['cm_mag_gain'] = {
-			name: MODEL_ACTIONS.cm_mag_gain.name,
+			name: MODEL_ACTIONS.cm_mag_gain?.name,
 			options: [
 				{
 					type: 'dropdown',
@@ -3648,7 +3694,7 @@ export function getActions() {
 
 	if (MODEL_ACTIONS?.cm_mag_hue) {
 		actions['cm_mag_hue'] = {
-			name: MODEL_ACTIONS.cm_mag_hue.name,
+			name: MODEL_ACTIONS.cm_mag_hue?.name,
 			options: [
 				{
 					type: 'dropdown',
@@ -3692,7 +3738,7 @@ export function getActions() {
 
 	if (MODEL_ACTIONS?.cm_red_gain) {
 		actions['cm_red_gain'] = {
-			name: MODEL_ACTIONS.cm_red_gain.name,
+			name: MODEL_ACTIONS.cm_red_gain?.name,
 			options: [
 				{
 					type: 'dropdown',
@@ -3736,7 +3782,7 @@ export function getActions() {
 
 	if (MODEL_ACTIONS?.cm_red_hue) {
 		actions['cm_red_hue'] = {
-			name: MODEL_ACTIONS.cm_red_hue.name,
+			name: MODEL_ACTIONS.cm_red_hue?.name,
 			options: [
 				{
 					type: 'dropdown',
@@ -3780,7 +3826,7 @@ export function getActions() {
 
 	if (MODEL_ACTIONS?.cm_yellow_gain) {
 		actions['cm_yellow_gain'] = {
-			name: MODEL_ACTIONS.cm_yellow_gain.name,
+			name: MODEL_ACTIONS.cm_yellow_gain?.name,
 			options: [
 				{
 					type: 'dropdown',
@@ -3831,7 +3877,7 @@ export function getActions() {
 
 	if (MODEL_ACTIONS?.cm_yellow_hue) {
 		actions['cm_yellow_hue'] = {
-			name: MODEL_ACTIONS.cm_yellow_hue.name,
+			name: MODEL_ACTIONS.cm_yellow_hue?.name,
 			options: [
 				{
 					type: 'dropdown',
@@ -3884,7 +3930,7 @@ export function getActions() {
 
 	if (MODEL_ACTIONS?.brightness) {
 		actions['brightness'] = {
-			name: MODEL_ACTIONS.brightness.name,
+			name: MODEL_ACTIONS.brightness?.name,
 			options: [
 				{
 					type: 'dropdown',
@@ -3928,7 +3974,7 @@ export function getActions() {
 
 	if (MODEL_ACTIONS?.brightness_comp) {
 		actions['brightness_comp'] = {
-			name: MODEL_ACTIONS.brightness_comp.name,
+			name: MODEL_ACTIONS.brightness_comp?.name,
 			options: [
 				{
 					type: 'dropdown',
@@ -3949,7 +3995,7 @@ export function getActions() {
 
 	if (MODEL_ACTIONS?.comp_level) {
 		actions['comp_level'] = {
-			name: MODEL_ACTIONS.comp_level.name,
+			name: MODEL_ACTIONS.comp_level?.name,
 			options: [
 				{
 					type: 'dropdown',
@@ -3970,7 +4016,7 @@ export function getActions() {
 
 	if (MODEL_ACTIONS?.gamma_offset) {
 		actions['gamma_offset'] = {
-			name: MODEL_ACTIONS.gamma_offset.name,
+			name: MODEL_ACTIONS.gamma_offset?.name,
 			options: [
 				{
 					type: 'dropdown',
@@ -4018,7 +4064,7 @@ export function getActions() {
 
 	if (MODEL_ACTIONS?.high_resolution) {
 		actions['high_resolution'] = {
-			name: MODEL_ACTIONS.high_resolution.name,
+			name: MODEL_ACTIONS.high_resolution?.name,
 			options: [
 				{
 					type: 'dropdown',
@@ -4043,7 +4089,7 @@ export function getActions() {
 
 	if (MODEL_ACTIONS?.video_enhancement) {
 		actions['video_enhancement'] = {
-			name: MODEL_ACTIONS.video_enhancement.name,
+			name: MODEL_ACTIONS.video_enhancement?.name,
 			options: [
 				{
 					type: 'dropdown',
@@ -4070,7 +4116,7 @@ export function getActions() {
 
 	if (MODEL_ACTIONS?.aux) {
 		actions['aux'] = {
-			name: MODEL_ACTIONS.aux.name,
+			name: MODEL_ACTIONS.aux?.name,
 			options: [
 				{
 					type: 'dropdown',
@@ -4095,7 +4141,7 @@ export function getActions() {
 
 	if (MODEL_ACTIONS?.rain_wiper) {
 		actions['rain_wiper'] = {
-			name: MODEL_ACTIONS.rain_wiper.name,
+			name: MODEL_ACTIONS.rain_wiper?.name,
 			options: [
 				{
 					type: 'dropdown',
@@ -4120,7 +4166,7 @@ export function getActions() {
 
 	if (MODEL_ACTIONS?.v12vout) {
 		actions['v12vout'] = {
-			name: MODEL_ACTIONS.v12vout.name,
+			name: MODEL_ACTIONS.v12vout?.name,
 			options: [
 				{
 					type: 'dropdown',
@@ -4147,7 +4193,7 @@ export function getActions() {
 
 	if (MODEL_ACTIONS?.bandwidth) {
 		actions['bandwidth'] = {
-			name: MODEL_ACTIONS.bandwidth.name,
+			name: MODEL_ACTIONS.bandwidth?.name,
 			options: [
 				{
 					type: 'dropdown',
@@ -4168,7 +4214,7 @@ export function getActions() {
 
 	if (MODEL_ACTIONS?.bw_balance) {
 		actions['bw_balance'] = {
-			name: MODEL_ACTIONS.bw_balance.name,
+			name: MODEL_ACTIONS.bw_balance?.name,
 			options: [
 				{
 					type: 'dropdown',
@@ -4189,7 +4235,7 @@ export function getActions() {
 
 	if (MODEL_ACTIONS?.crispening) {
 		actions['crispening'] = {
-			name: MODEL_ACTIONS.crispening.name,
+			name: MODEL_ACTIONS.crispening?.name,
 			options: [
 				{
 					type: 'dropdown',
@@ -4233,7 +4279,7 @@ export function getActions() {
 
 	if (MODEL_ACTIONS?.detail) {
 		actions['detail'] = {
-			name: MODEL_ACTIONS.detail.name,
+			name: MODEL_ACTIONS.detail?.name,
 			options: [
 				{
 					type: 'dropdown',
@@ -4258,7 +4304,7 @@ export function getActions() {
 
 	if (MODEL_ACTIONS?.highlight_detail) {
 		actions['highlight_detail'] = {
-			name: MODEL_ACTIONS.highlight_detail.name,
+			name: MODEL_ACTIONS.highlight_detail?.name,
 			options: [
 				{
 					type: 'dropdown',
@@ -4313,7 +4359,7 @@ export function getActions() {
 
 	if (MODEL_ACTIONS?.hv_balance) {
 		actions['hv_balance'] = {
-			name: MODEL_ACTIONS.hv_balance.name,
+			name: MODEL_ACTIONS.hv_balance?.name,
 			options: [
 				{
 					type: 'dropdown',
@@ -4357,7 +4403,7 @@ export function getActions() {
 
 	if (MODEL_ACTIONS?.limit) {
 		actions['limit'] = {
-			name: MODEL_ACTIONS.limit.name,
+			name: MODEL_ACTIONS.limit?.name,
 			options: [
 				{
 					type: 'dropdown',
@@ -4399,7 +4445,7 @@ export function getActions() {
 
 	if (MODEL_ACTIONS?.super_low) {
 		actions['super_low'] = {
-			name: MODEL_ACTIONS.super_low.name,
+			name: MODEL_ACTIONS.super_low?.name,
 			options: [
 				{
 					type: 'dropdown',
@@ -4447,7 +4493,7 @@ export function getActions() {
 
 	if (MODEL_ACTIONS?.black_gamma_level) {
 		actions['black_gamma_level'] = {
-			name: MODEL_ACTIONS.black_gamma_level.name,
+			name: MODEL_ACTIONS.black_gamma_level?.name,
 			options: [
 				{
 					type: 'dropdown',
@@ -4502,7 +4548,7 @@ export function getActions() {
 
 	if (MODEL_ACTIONS?.black_level) {
 		actions['black_level'] = {
-			name: MODEL_ACTIONS.black_level.name,
+			name: MODEL_ACTIONS.black_level?.name,
 			options: [
 				{
 					type: 'dropdown',
@@ -4546,7 +4592,7 @@ export function getActions() {
 
 	if (MODEL_ACTIONS?.black_level_range) {
 		actions['black_level_range'] = {
-			name: MODEL_ACTIONS.black_level_range.name,
+			name: MODEL_ACTIONS.black_level_range?.name,
 			options: [
 				{
 					type: 'dropdown',
@@ -4567,7 +4613,7 @@ export function getActions() {
 
 	if (MODEL_ACTIONS?.effect) {
 		actions['effect'] = {
-			name: MODEL_ACTIONS.effect.name,
+			name: MODEL_ACTIONS.effect?.name,
 			options: [
 				{
 					type: 'dropdown',
@@ -4609,7 +4655,7 @@ export function getActions() {
 
 	if (MODEL_ACTIONS?.level) {
 		actions['level'] = {
-			name: MODEL_ACTIONS.level.name,
+			name: MODEL_ACTIONS.level?.name,
 			options: [
 				{
 					type: 'dropdown',
@@ -4651,7 +4697,7 @@ export function getActions() {
 
 	if (MODEL_ACTIONS?.offset) {
 		actions['offset'] = {
-			name: MODEL_ACTIONS.offset.name,
+			name: MODEL_ACTIONS.offset?.name,
 			options: [
 				{
 					type: 'dropdown',
@@ -4693,7 +4739,7 @@ export function getActions() {
 
 	if (MODEL_ACTIONS?.pattern) {
 		actions['pattern'] = {
-			name: MODEL_ACTIONS.pattern.name,
+			name: MODEL_ACTIONS.pattern?.name,
 			options: [
 				{
 					type: 'dropdown',
@@ -4735,7 +4781,7 @@ export function getActions() {
 
 	if (MODEL_ACTIONS?.pattern_fine) {
 		actions['pattern_fine'] = {
-			name: MODEL_ACTIONS.pattern_fine.name,
+			name: MODEL_ACTIONS.pattern_fine?.name,
 			options: [
 				{
 					type: 'dropdown',
@@ -4783,7 +4829,7 @@ export function getActions() {
 
 	if (MODEL_ACTIONS?.settings) {
 		actions['settings'] = {
-			name: MODEL_ACTIONS.settings.name,
+			name: MODEL_ACTIONS.settings?.name,
 			options: [
 				{
 					type: 'dropdown',
@@ -4804,7 +4850,7 @@ export function getActions() {
 
 	if (MODEL_ACTIONS?.visibility_enhancer) {
 		actions['visibility_enhancer'] = {
-			name: MODEL_ACTIONS.visibility_enhancer.name,
+			name: MODEL_ACTIONS.visibility_enhancer?.name,
 			options: [
 				{
 					type: 'dropdown',
@@ -4831,7 +4877,7 @@ export function getActions() {
 
 	if (MODEL_ACTIONS?.scope_gamma_gain) {
 		actions['scope_gamma_gain'] = {
-			name: MODEL_ACTIONS.scope_gamma_gain.name,
+			name: MODEL_ACTIONS.scope_gamma_gain?.name,
 			options: [
 				{
 					type: 'dropdown',
@@ -4886,7 +4932,7 @@ export function getActions() {
 
 	if (MODEL_ACTIONS?.scope_mode) {
 		actions['scope_mode'] = {
-			name: MODEL_ACTIONS.scope_mode.name,
+			name: MODEL_ACTIONS.scope_mode?.name,
 			options: [
 				{
 					type: 'dropdown',
@@ -4907,7 +4953,7 @@ export function getActions() {
 
 	if (MODEL_ACTIONS?.scope_position) {
 		actions['scope_position'] = {
-			name: MODEL_ACTIONS.scope_position.name,
+			name: MODEL_ACTIONS.scope_position?.name,
 			options: [
 				{
 					type: 'dropdown',
@@ -4928,7 +4974,7 @@ export function getActions() {
 
 	if (MODEL_ACTIONS?.scope_preview) {
 		actions['scope_preview'] = {
-			name: MODEL_ACTIONS.scope_preview.name,
+			name: MODEL_ACTIONS.scope_preview?.name,
 			options: [
 				{
 					type: 'dropdown',
@@ -4953,7 +4999,7 @@ export function getActions() {
 
 	if (MODEL_ACTIONS?.scope_program) {
 		actions['scope_program'] = {
-			name: MODEL_ACTIONS.scope_program.name,
+			name: MODEL_ACTIONS.scope_program?.name,
 			options: [
 				{
 					type: 'dropdown',
@@ -4978,7 +5024,7 @@ export function getActions() {
 
 	if (MODEL_ACTIONS?.scope_size) {
 		actions['scope_size'] = {
-			name: MODEL_ACTIONS.scope_size.name,
+			name: MODEL_ACTIONS.scope_size?.name,
 			options: [
 				{
 					type: 'dropdown',
@@ -5003,7 +5049,7 @@ export function getActions() {
 
 	if (MODEL_ACTIONS?.scope_transparency) {
 		actions['scope_transparency'] = {
-			name: MODEL_ACTIONS.scope_transparency.name,
+			name: MODEL_ACTIONS.scope_transparency?.name,
 			options: [
 				{
 					type: 'dropdown',
@@ -5029,7 +5075,7 @@ export function getActions() {
 	// Other Actions
 
 	actions['custom'] = {
-		name: MODEL_ACTIONS.custom.name,
+		name: MODEL_ACTIONS.custom?.name,
 		options: [
 			{
 				type: 'textinput',
