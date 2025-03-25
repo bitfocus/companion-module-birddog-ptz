@@ -17,8 +17,6 @@ export function getActions() {
 		if (this.poll_interval !== undefined) {
 			clearInterval(this.poll_interval)
 		}
-	} else {
-		console.log(MODEL_ACTIONS)
 	}
 
 	let actions = {}
