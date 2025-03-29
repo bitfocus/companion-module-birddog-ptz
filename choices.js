@@ -551,6 +551,12 @@ export default {
 		{ id: 'LowLatency', label: 'Low Latency' },
 	],
 
+	DEFLICKER: [
+		{ id: 'default', label: 'Default' },
+		{ id: '50Hz', label: '50Hz' },
+		{ id: '60Hz', label: '60Hz' },
+	],
+
 	// ############
 	// NDI ENCODE Look Ups
 	// ############
@@ -745,6 +751,14 @@ export default {
 		{ id: 'PATTERN', label: 'Pattern' },
 		{ id: 'STANDARD', label: 'Standard' },
 		{ id: 'STRAIGHT', label: 'Straight' },
+	],
+
+	GAMMA_X_SERIES: [
+		{ id: 'default', label: 'Default' },
+		{ id: '0.45', label: '0.45' },
+		{ id: '0.50', label: '0.50' },
+		{ id: '0.55', label: '0.55' },
+		{ id: '0.63', label: '0.63' },
 	],
 
 	// ############

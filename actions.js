@@ -3262,6 +3262,56 @@ export function getActions() {
 		}
 	}
 
+	if (MODEL_ACTIONS?.brightnessPic) {
+		actions['brightness'] = {
+			name: MODEL_ACTIONS.brightnessPic?.name,
+			options: [
+				{
+					type: 'dropdown',
+					label: 'Brightness',
+					id: 'val',
+					choices: MODEL_ACTIONS.brightnessPic.choices,
+					default: MODEL_ACTIONS.brightnessPic.default,
+				},
+				{
+					type: 'number',
+					label: 'Value (' + MODEL_ACTIONS.brightnessPic.range.min + ' to ' + MODEL_ACTIONS.brightness.range.max + ')',
+					id: 'value',
+					min: MODEL_ACTIONS.brightnessPic.range.min,
+					max: MODEL_ACTIONS.brightnessPic.range.max,
+					default: MODEL_ACTIONS.brightnessPic.range.default,
+					isVisible: (options) => options.val === 'value',
+				},
+			],
+			callback: (action) => {
+				currentValue = this.camera?.brightnessPic
+					? this.camera.brightnessPic
+					: MODEL_ACTIONS.brightnessPic.range.default
+				switch (action.options.val) {
+					case 'up':
+						newValue =
+							currentValue < MODEL_ACTIONS.brightnessPic.range.max
+								? ++currentValue
+								: MODEL_ACTIONS.brightnessPic.range.max
+						break
+					case 'down':
+						newValue =
+							currentValue > MODEL_ACTIONS.brightnessPic.range.min
+								? --currentValue
+								: MODEL_ACTIONS.brightnessPic.range.min
+						break
+					case 'value':
+						newValue = action.options.value
+						break
+				}
+				body = {
+					Brightness: String(newValue),
+				}
+				this.sendCommand('birddogpicsetup', 'POST', body)
+			},
+		}
+	}
+
 	// Color Matrix Actions
 
 	if (MODEL_ACTIONS?.cm_blue_gain) {
