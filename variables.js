@@ -598,6 +598,17 @@ export function updateVariables() {
 		updatedVariables.video_enhancement = this.camera.video_enhancement
 	}
 
+	if (MODEL_VARIABLES.some((variable) => variable.variableId === 'af_zone')) {
+		updatedVariables.af_zone = this.camera.af_zone
+	}
+
+	if (MODEL_VARIABLES.some((variable) => variable.variableId === 'scene')) {
+		updatedVariables.scene = this.camera.scene
+	}
+
+	if (MODEL_VARIABLES.some((variable) => variable.variableId === 'af_sensitivity')) {
+		updatedVariables.af_sensitivity = this.camera.af_sensitivity
+	}
 	// External Setup Variables
 
 	if (MODEL_VARIABLES.some((variable) => variable.variableId === 'aux')) {

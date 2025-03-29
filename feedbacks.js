@@ -2535,6 +2535,78 @@ export function getFeedbacks() {
 		}
 	}
 
+	if (MODEL_ACTIONS?.af_zone) {
+		feedbacks.af_zone = {
+			type: 'boolean',
+			name: MODEL_ACTIONS.af_zone.name,
+			description: 'If the camera matches the selected AF Zone, change the default style of the button',
+			defaultStyle: {
+				color: ColorBlack,
+				bgcolor: ColorGreen,
+			},
+			options: [
+				{
+					type: 'dropdown',
+					label: 'Zone',
+					id: 'val',
+					choices: MODEL_ACTIONS.af_zone.choices,
+					default: MODEL_ACTIONS.af_zone.default,
+				},
+			],
+			callback: (feedback) => {
+				return this.camera?.af_zone == feedback.options.val
+			},
+		}
+	}
+
+	if (MODEL_ACTIONS?.scene) {
+		feedbacks.scene = {
+			type: 'boolean',
+			name: MODEL_ACTIONS.scene.name,
+			description: 'If the camera matches the selected Scene, change the default style of the button',
+			defaultStyle: {
+				color: ColorBlack,
+				bgcolor: ColorGreen,
+			},
+			options: [
+				{
+					type: 'dropdown',
+					label: 'Scene',
+					id: 'val',
+					choices: MODEL_ACTIONS.scene.choices,
+					default: MODEL_ACTIONS.scene.default,
+				},
+			],
+			callback: (feedback) => {
+				return this.camera?.scene == feedback.options.val
+			},
+		}
+	}
+
+	if (MODEL_ACTIONS?.af_sensitivity) {
+		feedbacks.af_sensitivity = {
+			type: 'boolean',
+			name: MODEL_ACTIONS.af_sensitivity.name,
+			description: 'If the camera matches the selected AF Sensitivity, change the default style of the button',
+			defaultStyle: {
+				color: ColorBlack,
+				bgcolor: ColorGreen,
+			},
+			options: [
+				{
+					type: 'dropdown',
+					label: 'Sensitivity',
+					id: 'val',
+					choices: MODEL_ACTIONS.af_sensitivity.choices,
+					default: MODEL_ACTIONS.af_sensitivity.default,
+				},
+			],
+			callback: (feedback) => {
+				return this.camera?.af_sensitivity == feedback.options.val
+			},
+		}
+	}
+
 	// External Setup Feedback
 
 	if (MODEL_ACTIONS?.aux) {

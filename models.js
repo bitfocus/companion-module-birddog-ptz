@@ -2655,6 +2655,51 @@ export const MODEL_SPECS = {
 			},
 		],
 	},
+	af_zone: {
+		camera: ['X1', 'X1Ultra', 'X4Ultra'],
+		firmware: ['6'],
+		store_state: true,
+		api_endpoint: ['birddogadvancesetup'],
+		api_variable: ['AFZone'],
+		variableId: 'af_zone',
+		name: 'Advanced Setup - AF Zone',
+		action: [
+			{
+				camera: ['common'],
+				action: { choices: CHOICES.AF_ZONE, default: 'ALL' },
+			},
+		],
+	},
+	scene: {
+		camera: ['X1', 'X1Ultra', 'X4Ultra'],
+		firmware: ['6'],
+		store_state: true,
+		api_endpoint: ['birddogadvancesetup'],
+		api_variable: ['Scene'],
+		variableId: 'scene',
+		name: 'Advanced Setup - Scene',
+		action: [
+			{
+				camera: ['common'],
+				action: { choices: CHOICES.SCENE, default: 'Normal' },
+			},
+		],
+	},
+	af_sensitivity: {
+		camera: ['X1', 'X1Ultra', 'X4Ultra'],
+		firmware: ['6'],
+		store_state: true,
+		api_endpoint: ['birddogadvancesetup'],
+		api_variable: ['AFSensitivity'],
+		variableId: 'af_zone',
+		name: 'Advanced Setup - AF Sensitivity',
+		action: [
+			{
+				camera: ['common'],
+				action: { choices: CHOICES.AF_SENSITIVITY, default: 'Middle' },
+			},
+		],
+	},
 
 	// External Setup
 	aux: {

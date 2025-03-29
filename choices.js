@@ -536,6 +536,25 @@ export default {
 		{ id: 'stop', label: 'Focus Stop' },
 		{ id: 'trigger', label: 'Focus One Push Auto' },
 	],
+	//X1, X1Ultra, X4Ultra
+	AF_ZONE: [
+		{ id: 'ALL', label: 'All' },
+		{ id: 'Top', label: 'Top' },
+		{ id: 'Center', label: 'Center' },
+		{ id: 'Bottom', label: 'Bottom' },
+		{ id: 'Left', label: 'Left' },
+		{ id: 'Right', label: 'Right' },
+	],
+	SCENE: [
+		{ id: 'Normal', label: 'Normal' },
+		{ id: 'Macro', label: 'Macro' },
+		{ id: 'Live', label: 'Live' },
+	],
+	AF_SENSITIVITY: [
+		{ id: 'Low', label: 'Low' },
+		{ id: 'Middle', label: 'Middle' },
+		{ id: 'High', label: 'High' },
+	],
 
 	// ############
 	// Device Settings Look Ups

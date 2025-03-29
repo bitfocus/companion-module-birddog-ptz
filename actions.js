@@ -4160,6 +4160,72 @@ export function getActions() {
 		}
 	}
 
+	if (MODEL_ACTIONS?.af_zone) {
+		actions['af_zone'] = {
+			name: MODEL_ACTIONS.af_zone?.name,
+			options: [
+				{
+					type: 'dropdown',
+					label: 'Zone',
+					id: 'val',
+					choices: MODEL_ACTIONS.af_zone.choices,
+					default: MODEL_ACTIONS.af_zone.default,
+				},
+			],
+			callback: (action) => {
+				let value = action.options.val
+				body = {
+					AFZone: String(value),
+				}
+				this.sendCommand('birddogadvancesetup', 'POST', body)
+			},
+		}
+	}
+
+	if (MODEL_ACTIONS?.scene) {
+		actions['scene'] = {
+			name: MODEL_ACTIONS.scene?.name,
+			options: [
+				{
+					type: 'dropdown',
+					label: 'Scene',
+					id: 'val',
+					choices: MODEL_ACTIONS.scene.choices,
+					default: MODEL_ACTIONS.scene.default,
+				},
+			],
+			callback: (action) => {
+				let value = action.options.val
+				body = {
+					Scene: String(value),
+				}
+				this.sendCommand('birddogadvancesetup', 'POST', body)
+			},
+		}
+	}
+
+	if (MODEL_ACTIONS?.af_sensitivity) {
+		actions['af_sensitivity'] = {
+			name: MODEL_ACTIONS.af_sensitivity?.name,
+			options: [
+				{
+					type: 'dropdown',
+					label: 'Sensitivity',
+					id: 'val',
+					choices: MODEL_ACTIONS.af_sensitivity.choices,
+					default: MODEL_ACTIONS.af_sensitivity.default,
+				},
+			],
+			callback: (action) => {
+				let value = action.options.val
+				body = {
+					AFSensitivity: String(value),
+				}
+				this.sendCommand('birddogadvancesetup', 'POST', body)
+			},
+		}
+	}
+
 	// External Setup Actions
 
 	if (MODEL_ACTIONS?.aux) {
