@@ -52,6 +52,10 @@ export function updateVariables() {
 		updatedVariables.network_config = this.camera.network_config
 	}
 
+	if (MODEL_VARIABLES.some((variable) => variable.variableId === 'dns')) {
+		updatedVariables.dns = this.camera.dns
+	}
+
 	if (MODEL_VARIABLES.some((variable) => variable.variableId === 'serial_number')) {
 		updatedVariables.serial_number = this.camera.serial_number
 	}

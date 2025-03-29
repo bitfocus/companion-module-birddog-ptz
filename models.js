@@ -186,6 +186,15 @@ export const MODEL_SPECS = {
 		variableId: 'network_config',
 		name: 'General - Network Config Method',
 	},
+	dns: {
+		camera: ['X1', 'X1Ultra', 'X4Ultra'],
+		firmware: ['6'],
+		store_state: true,
+		api_endpoint: ['about'],
+		api_variable: ['Dns'],
+		variableId: 'dns',
+		name: 'General - DNS',
+	},
 	wifi_config_method: {
 		camera: ['X1', 'X1Ultra', 'X4Ultra'],
 		firmware: ['6'],
@@ -215,7 +224,7 @@ export const MODEL_SPECS = {
 	},
 	serial_number: {
 		camera: ['All'],
-		firmware: ['4', '5'],
+		firmware: ['4', '5', '6'],
 		store_state: true,
 		api_endpoint: ['about'],
 		api_variable: ['SerialNumber'],
@@ -224,7 +233,7 @@ export const MODEL_SPECS = {
 	},
 	status: {
 		camera: ['All'],
-		firmware: ['4', '5'],
+		firmware: ['4', '5', '6'],
 		store_state: true,
 		api_endpoint: ['about'],
 		api_variable: ['Status'],
