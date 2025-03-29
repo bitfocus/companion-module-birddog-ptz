@@ -136,7 +136,10 @@ class BirdDogPTZInstance extends InstanceBase {
 		fetch(url, options)
 			.then((res) => {
 				if (res.status == 200) {
-					this.updateStatus('ok')
+					if (this.camera?.connected === false || this.camera?.connected === undefined) {
+						this.camera.connected = true
+						this.updateStatus('ok')
+					}
 					return res.json()
 				}
 			})
@@ -161,6 +164,7 @@ class BirdDogPTZInstance extends InstanceBase {
 					errorText.match('EHOSTDOWN') ||
 					errorText.match('ETIMEDOUT')
 				) {
+					this.camera.connected = false
 					this.updateStatus('connection_failure')
 					//this.log('error', `Connection lost to ${this.camera?.HostName ? this.camera.HostName : 'BirdDog PTZ camera'}`)
 				}
@@ -694,6 +698,7 @@ class BirdDogPTZInstance extends InstanceBase {
 	initializeCamera() {
 		// this.log('debug','---- in initializeCamera')
 		if (this.camera.firmware.major && this.camera.model) {
+			this.camera.connected = true
 			this.updateStatus('ok')
 			this.log('info', `Connected to ${this.camera.hostname}`)
 			this.log('debug', `---- Connected to ${this.camera.hostname}`)
