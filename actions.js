@@ -418,6 +418,50 @@ export function getActions() {
 		}
 	}
 
+	if (MODEL_ACTIONS?.tally_state) {
+		actions['tally_state'] = {
+			name: MODEL_ACTIONS.tally_state?.name,
+			options: [
+				{
+					type: 'dropdown',
+					label: 'Onboard Tally',
+					id: 'val',
+					choices: MODEL_ACTIONS.tally_state.choices,
+					default: MODEL_ACTIONS.tally_state.default,
+				},
+			],
+			callback: (action) => {
+				let value = action.options.val
+				body = {
+					tally_state: String(value),
+				}
+				this.sendCommand('tally', 'POST', body)
+			},
+		}
+	}
+
+	if (MODEL_ACTIONS?.tally_rest_state) {
+		actions['tally_rest_state'] = {
+			name: MODEL_ACTIONS.tally_rest_state?.name,
+			options: [
+				{
+					type: 'dropdown',
+					label: 'Rest State',
+					id: 'val',
+					choices: MODEL_ACTIONS.tally_rest_state.choices,
+					default: MODEL_ACTIONS.tally_rest_state.default,
+				},
+			],
+			callback: (action) => {
+				let value = action.options.val
+				body = {
+					tally_rest_state: String(value),
+				}
+				this.sendCommand('tally', 'POST', body)
+			},
+		}
+	}
+
 	// Encode Transport Actions
 
 	if (MODEL_ACTIONS?.transmit_method) {

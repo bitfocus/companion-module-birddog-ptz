@@ -319,6 +319,54 @@ export function getFeedbacks() {
 		}
 	}
 
+	if (MODEL_ACTIONS?.tally_state) {
+		feedbacks.tally_state = {
+			type: 'boolean',
+			name: MODEL_ACTIONS.tally_state.name,
+			description: 'If the camera tally state matches the selected mode, change the default style of the button',
+			defaultStyle: {
+				color: ColorBlack,
+				bgcolor: ColorGreen,
+			},
+			options: [
+				{
+					type: 'dropdown',
+					label: 'Onboard Tally',
+					id: 'mode',
+					choices: MODEL_ACTIONS.tally_state.choices,
+					default: MODEL_ACTIONS.tally_state.default,
+				},
+			],
+			callback: (feedback) => {
+				return this.camera?.tally_state == feedback.options.mode
+			},
+		}
+	}
+
+	if (MODEL_ACTIONS?.tally_rest_state) {
+		feedbacks.tally_rest_state = {
+			type: 'boolean',
+			name: MODEL_ACTIONS.tally_rest_state.name,
+			description: 'If the camera tally rest state matches the selected mode, change the default style of the button',
+			defaultStyle: {
+				color: ColorBlack,
+				bgcolor: ColorGreen,
+			},
+			options: [
+				{
+					type: 'dropdown',
+					label: 'Rest State',
+					id: 'mode',
+					choices: MODEL_ACTIONS.tally_rest_state.choices,
+					default: MODEL_ACTIONS.tally_rest_state.default,
+				},
+			],
+			callback: (feedback) => {
+				return this.camera?.tally_rest_state == feedback.options.mode
+			},
+		}
+	}
+
 	// Encode Transport Feedback
 
 	if (MODEL_ACTIONS?.transmit_method) {

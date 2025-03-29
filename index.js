@@ -295,6 +295,10 @@ class BirdDogPTZInstance extends InstanceBase {
 				changed = this.storeState(data, 'birddogscope')
 				//this.camera.birddogscope = data
 				break
+			case 'tally':
+				changed = this.storeState(data, 'tally')
+				//this.camera.advancesetup = data
+				break
 		}
 		if (changed.length > 0) {
 			this.updateVariables()
@@ -534,6 +538,9 @@ class BirdDogPTZInstance extends InstanceBase {
 		}
 		if (MODEL_QRY?.NDIDisServer) {
 			this.sendCommand('NDIDisServer', 'GET')
+		}
+		if (MODEL_QRY?.tally) {
+			this.sendCommand('tally', 'GET')
 		}
 	}
 

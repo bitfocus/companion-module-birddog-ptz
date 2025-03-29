@@ -608,6 +608,11 @@ export default {
 		{ id: 'TallyOff', label: 'Tally Off' },
 	],
 
+	TALLY_REST_STATE: [
+		{ id: 'white', label: 'White' },
+		{ id: 'Off', label: 'Off' },
+	],
+
 	SCREEN_SAVER_MODE: [
 		{ id: 'BirdDogSS', label: 'BirdDog' },
 		{ id: 'BlackSS', label: 'Black' },

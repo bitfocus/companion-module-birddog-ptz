@@ -70,6 +70,10 @@ export const MODEL_QUERIES = {
 		camera: ['P200A2A3', 'P200A4A5', 'A200GEN1', 'A200GEN2', 'A300GEN1', 'A300GEN2', 'X1', 'X1Ultra', 'X4Ultra'],
 		firmware: ['4', '5', '6'],
 	},
+	tally: {
+		camera: ['X1', 'X1Ultra', 'X4Ultra'],
+		firmware: ['6'],
+	},
 
 	//External Settings
 	birddogexternalsetup: { camera: ['A200GEN1', 'A200GEN2', 'A300GEN1', 'A300GEN2'], firmware: ['4', '5'] },
@@ -499,6 +503,36 @@ export const MODEL_SPECS = {
 			{
 				camera: ['common'],
 				action: { choices: CHOICES.TALLY_MODE, default: 'TallyOn' },
+			},
+		],
+	},
+	tally_state: {
+		camera: ['X1', 'X1Ultra', 'X4Ultra'],
+		firmware: ['6'],
+		store_state: true,
+		api_endpoint: ['tally'],
+		api_variable: ['tally_state'],
+		variableId: 'tally_mode',
+		name: `Tally - Onboard Tally`,
+		action: [
+			{
+				camera: ['common'],
+				action: { choices: CHOICES.ON_OFF, default: 'On' },
+			},
+		],
+	},
+	tally_rest_state: {
+		camera: ['X1', 'X1Ultra'],
+		firmware: ['6'],
+		store_state: true,
+		api_endpoint: ['tally'],
+		api_variable: ['tally_rest_state'],
+		variableId: 'tally_rest_state',
+		name: `Tally - Tally Rest State`,
+		action: [
+			{
+				camera: ['common'],
+				action: { choices: CHOICES.TALLY_REST_STATE, default: 'white' },
 			},
 		],
 	},

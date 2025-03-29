@@ -158,7 +158,11 @@ export function updateVariables() {
 	}
 
 	if (MODEL_VARIABLES.some((variable) => variable.variableId === 'tally_mode')) {
-		updatedVariables.tally_mode = this.camera.tally_mode
+		updatedVariables.tally_mode = this.camera.tally_mode ?? this.camera.tally_state
+	}
+
+	if (MODEL_VARIABLES.some((variable) => variable.variableId === 'tally_rest_state')) {
+		updatedVariables.tally_rest_state = this.camera.tally_rest_state
 	}
 
 	if (MODEL_VARIABLES.some((variable) => variable.variableId === 'video_csc')) {
