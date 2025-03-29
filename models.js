@@ -2173,7 +2173,7 @@ export const MODEL_SPECS = {
 		action: [
 			{
 				camera: ['X1', 'X1Ultra', 'X4Ultra'],
-				action: { choices: CHOICES.DEFLICKER, default: 'default', range: { min: 0, max: 100, default: 50 } },
+				action: { choices: CHOICES.DEFLICKER, default: 'default' },
 			},
 		],
 	},

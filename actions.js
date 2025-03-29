@@ -3275,7 +3275,8 @@ export function getActions() {
 				},
 				{
 					type: 'number',
-					label: 'Value (' + MODEL_ACTIONS.brightnessPic.range.min + ' to ' + MODEL_ACTIONS.brightness.range.max + ')',
+					label:
+						'Value (' + MODEL_ACTIONS.brightnessPic.range.min + ' to ' + MODEL_ACTIONS.brightnessPic.range.max + ')',
 					id: 'value',
 					min: MODEL_ACTIONS.brightnessPic.range.min,
 					max: MODEL_ACTIONS.brightnessPic.range.max,
@@ -3306,6 +3307,28 @@ export function getActions() {
 				}
 				body = {
 					Brightness: String(newValue),
+				}
+				this.sendCommand('birddogpicsetup', 'POST', body)
+			},
+		}
+	}
+
+	if (MODEL_ACTIONS?.deflicker) {
+		actions['deflicker'] = {
+			name: MODEL_ACTIONS.deflicker?.name,
+			options: [
+				{
+					type: 'dropdown',
+					label: 'DeFlicker',
+					id: 'val',
+					choices: MODEL_ACTIONS.deflicker.choices,
+					default: MODEL_ACTIONS.deflicker.default,
+				},
+			],
+			callback: (action) => {
+				let value = action.options.val
+				body = {
+					DeFlicker: String(value),
 				}
 				this.sendCommand('birddogpicsetup', 'POST', body)
 			},

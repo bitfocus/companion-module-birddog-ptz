@@ -514,6 +514,10 @@ export function updateVariables() {
 		updatedVariables.wdr_enable = this.camera.wdr_enable
 	}
 
+	if (MODEL_VARIABLES.some((variable) => variable.variableId === 'deflicker')) {
+		updatedVariables.deflicker = this.camera.deflicker
+	}
+
 	// Color Matrix Variables
 
 	if (MODEL_VARIABLES.some((variable) => variable.variableId === 'cm_blue_gain')) {
@@ -575,7 +579,7 @@ export function updateVariables() {
 	// Advanced Setup Variables
 
 	if (MODEL_VARIABLES.some((variable) => variable.variableId === 'brightness')) {
-		updatedVariables.brightness = this.camera.brightness
+		updatedVariables.brightness = this.camera.brightness ?? this.camera.brightnessPic
 	}
 
 	if (MODEL_VARIABLES.some((variable) => variable.variableId === 'brightness_comp')) {

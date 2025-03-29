@@ -571,7 +571,7 @@ export default {
 	],
 
 	DEFLICKER: [
-		{ id: 'default', label: 'Default' },
+		{ id: 'default', label: 'OFF' },
 		{ id: '50Hz', label: '50Hz' },
 		{ id: '60Hz', label: '60Hz' },
 	],

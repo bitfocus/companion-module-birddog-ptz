@@ -2030,6 +2030,80 @@ export function getFeedbacks() {
 		}
 	}
 
+	if (MODEL_ACTIONS?.wdr_enable) {
+		feedbacks.wdr_enable = {
+			type: 'boolean',
+			name: MODEL_ACTIONS.wdr_enable.name,
+			description: 'If the camera matches the selected Wide Dynamic Range mode, change the default style of the button',
+			defaultStyle: {
+				color: ColorBlack,
+				bgcolor: ColorGreen,
+			},
+			options: [
+				{
+					type: 'dropdown',
+					label: 'Wide Dynamic Range',
+					id: 'val',
+					choices: MODEL_ACTIONS.wdr_enable.choices,
+					default: MODEL_ACTIONS.wdr_enable.default,
+				},
+			],
+			callback: (feedback) => {
+				return this.camera?.wdr_enable == feedback.options.val
+			},
+		}
+	}
+
+	if (MODEL_ACTIONS?.brightnessPic) {
+		feedbacks.brightnessPic = {
+			type: 'boolean',
+			name: MODEL_ACTIONS.brightnessPic.name,
+			description: 'If the camera matches the selected Brightness value, change the default style of the button',
+			defaultStyle: {
+				color: ColorBlack,
+				bgcolor: ColorGreen,
+			},
+			options: [
+				{
+					type: 'number',
+					label:
+						'Value (' + MODEL_ACTIONS.brightnessPic.range.min + ' to ' + MODEL_ACTIONS.brightnessPic.range.max + ')',
+					id: 'value',
+					min: MODEL_ACTIONS.brightnessPic.range.min,
+					max: MODEL_ACTIONS.brightnessPic.range.max,
+					default: MODEL_ACTIONS.brightnessPic.range.default,
+				},
+			],
+			callback: (feedback) => {
+				return this.camera?.brightnessPic == feedback.options.value
+			},
+		}
+	}
+
+	if (MODEL_ACTIONS?.deflicker) {
+		feedbacks.deflicker = {
+			type: 'boolean',
+			name: MODEL_ACTIONS.deflicker.name,
+			description: 'If the camera matches the selected DeFlicker mode, change the default style of the button',
+			defaultStyle: {
+				color: ColorBlack,
+				bgcolor: ColorGreen,
+			},
+			options: [
+				{
+					type: 'dropdown',
+					label: 'DeFlicker',
+					id: 'val',
+					choices: MODEL_ACTIONS.deflicker.choices,
+					default: MODEL_ACTIONS.deflicker.default,
+				},
+			],
+			callback: (feedback) => {
+				return this.camera?.deflicker == feedback.options.val
+			},
+		}
+	}
+
 	// Color Matrix Feedback
 
 	if (MODEL_ACTIONS?.cm_blue_gain) {
