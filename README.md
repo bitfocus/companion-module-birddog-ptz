@@ -4,9 +4,14 @@ This module allows you to control any [BirdDog](https://birddog.tv/ptz-range/) P
 
 ## Getting Started
 
-See [HELP.md](https://github.com/bitfocus/companion-module-birddog-ptz/blob/main/HELP.md)
+See [HELP.md](https://github.com/bitfocus/companion-module-birddog-ptz/blob/main/companion/HELP.md)
 
-## Changes
+## Changelog
+
+### v3.2.0
+
+- New
+  - Add support for X1, X1 Ultra, MAX, and X4 Ultra cameras
 
 ### v3.1.5
 
