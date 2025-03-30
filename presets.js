@@ -282,7 +282,7 @@ export function getPresets() {
 			name: 'Analog Audio In Gain Up',
 			options: {},
 			style: {
-				text: '🔺\\nAudio In\\nGain',
+				text: '\u{25B2}\\nAudio In\\nGain',
 				size: 'auto',
 				color: ColorWhite,
 				bgcolor: ColorBlack,
@@ -308,7 +308,7 @@ export function getPresets() {
 			name: 'Analog Audio In Gain Down',
 			options: {},
 			style: {
-				text: '$(birddog-ptz:audio_in_gain)\\n🔻',
+				text: '$(birddog-ptz:audio_in_gain)\\n\u{25BC}',
 				size: 'auto',
 				color: ColorWhite,
 				bgcolor: ColorBlack,
@@ -337,7 +337,7 @@ export function getPresets() {
 			name: 'Analog Audio Out Gain Up',
 			options: {},
 			style: {
-				text: '🔺\\nAudio Out\\nGain',
+				text: '\u{25B2}\\nAudio Out\\nGain',
 				size: 'auto',
 				color: ColorWhite,
 				bgcolor: ColorBlack,
@@ -363,7 +363,7 @@ export function getPresets() {
 			name: 'Analog Audio Out Gain Down',
 			options: {},
 			style: {
-				text: '$(birddog-ptz:audio_out_gain)\\n🔻',
+				text: '$(birddog-ptz:audio_out_gain)\\n\u{25BC}',
 				size: 'auto',
 				color: ColorWhite,
 				bgcolor: ColorBlack,
@@ -473,6 +473,82 @@ export function getPresets() {
 				{
 					feedbackId: 'video_output',
 					options: { val: MODEL_ACTIONS.video_output.default },
+					style: {
+						color: ColorBlack,
+						bgcolor: ColorGreen,
+					},
+				},
+			],
+		}
+	}
+
+	if (MODEL_ACTIONS?.output_mode) {
+		presets.output_mode = {
+			type: 'button',
+			category: 'Video Output',
+			name: 'Output Mode',
+			options: {},
+			style: {
+				text: 'Output Mode\\n\\n$(birddog-ptz:output_mode)',
+				size: 'auto',
+				color: ColorWhite,
+				bgcolor: ColorBlack,
+			},
+			steps: [
+				{
+					down: [
+						{
+							actionId: 'output_mode',
+							options: {
+								val: 'Toggle',
+							},
+						},
+					],
+					up: [],
+				},
+			],
+			feedbacks: [
+				{
+					feedbackId: 'output_mode',
+					options: { val: MODEL_ACTIONS.output_mode.default },
+					style: {
+						color: ColorBlack,
+						bgcolor: ColorGreen,
+					},
+				},
+			],
+		}
+	}
+
+	if (MODEL_ACTIONS?.privacy_mode) {
+		presets.privacy_mode = {
+			type: 'button',
+			category: 'Video Output',
+			name: 'Privacy Mode',
+			options: {},
+			style: {
+				text: 'Privacy Mode\\n\\n$(birddog-ptz:privacy_mode)',
+				size: 'auto',
+				color: ColorWhite,
+				bgcolor: ColorBlack,
+			},
+			steps: [
+				{
+					down: [
+						{
+							actionId: 'privacy_mode',
+							options: {
+								val: 'Toggle',
+							},
+						},
+					],
+					up: [],
+				},
+			],
+			feedbacks: [
+				{
+					feedbackId: 'privacy_mode',
+					options: { val: MODEL_ACTIONS.privacy_mode.default },
 					style: {
 						color: ColorBlack,
 						bgcolor: ColorGreen,
@@ -780,6 +856,82 @@ export function getPresets() {
 		}
 	}
 
+	if (MODEL_ACTIONS?.tally_state) {
+		presets.tally_state = {
+			type: 'button',
+			category: 'Tally',
+			name: 'Tally - Onboard Tally',
+			options: {},
+			style: {
+				text: 'Onboard Tally\\n$(birddog-ptz:tally_mode)',
+				size: 'auto',
+				color: ColorWhite,
+				bgcolor: ColorBlack,
+			},
+			steps: [
+				{
+					down: [
+						{
+							actionId: 'tally_state',
+							options: {
+								val: 'Toggle',
+							},
+						},
+					],
+					up: [],
+				},
+			],
+			feedbacks: [
+				{
+					feedbackId: 'tally_state',
+					options: { val: MODEL_ACTIONS.tally_state.default },
+					style: {
+						color: ColorBlack,
+						bgcolor: ColorGreen,
+					},
+				},
+			],
+		}
+	}
+
+	if (MODEL_ACTIONS?.tally_rest_state) {
+		presets.tally_rest_state = {
+			type: 'button',
+			category: 'Tally',
+			name: 'Tally - Tally Rest State',
+			options: {},
+			style: {
+				text: 'Tally Rest State\\n$(birddog-ptz:tally_rest_state)',
+				size: 'auto',
+				color: ColorWhite,
+				bgcolor: ColorBlack,
+			},
+			steps: [
+				{
+					down: [
+						{
+							actionId: 'tally_rest_state',
+							options: {
+								val: 'white',
+							},
+						},
+					],
+					up: [],
+				},
+			],
+			feedbacks: [
+				{
+					feedbackId: 'tally_rest_state',
+					options: { val: MODEL_ACTIONS.tally_rest_state.default },
+					style: {
+						color: ColorBlack,
+						bgcolor: ColorGreen,
+					},
+				},
+			],
+		}
+	}
+
 	if (MODEL_VARIABLES.some((variable) => variable.name === 'video_csc')) {
 		presets.video_csc = {
 			type: 'button',
@@ -1055,8 +1207,12 @@ export function getPresets() {
 			feedbacks: [],
 		}
 	}
-
 	if (MODEL_ACTIONS?.pt) {
+		presets.headerPt = {
+			category: 'Camera Control',
+			name: 'Pan / Tilt Direction',
+			type: 'text',
+		}
 		presets.ptUp = {
 			type: 'button',
 			category: 'Camera Control',
@@ -1410,263 +1566,12 @@ export function getPresets() {
 		}
 	}
 
-	if (MODEL_ACTIONS?.panSpeed) {
-		presets.panSpeedUp = {
-			type: 'button',
-			category: 'Camera Control',
-			name: 'Pan Speed Up',
-			options: {},
-			style: {
-				text: '🔺\\nPan Speed',
-				size: 'auto',
-				color: ColorWhite,
-				bgcolor: ColorBlack,
-			},
-			steps: [
-				{
-					down: [
-						{
-							actionId: 'panSpeed',
-							options: {
-								type: 'up',
-							},
-						},
-					],
-					up: [],
-				},
-			],
-			feedbacks: [],
-		}
-		presets.panSpeedDown = {
-			type: 'button',
-			category: 'Camera Control',
-			name: 'Pan Speed Down',
-			options: {},
-			style: {
-				text: '$(birddog-ptz:pan_speed)\\n🔻',
-				size: 'auto',
-				color: ColorWhite,
-				bgcolor: ColorBlack,
-			},
-			steps: [
-				{
-					down: [
-						{
-							actionId: 'panSpeed',
-							options: {
-								type: 'down',
-							},
-						},
-					],
-					up: [],
-				},
-			],
-			feedbacks: [],
-		}
-	}
-
-	if (MODEL_ACTIONS?.preset) {
-		presets.presetMode = {
-			type: 'button',
-			category: 'Preset',
-			name: 'Preset Mode',
-			options: {},
-			style: {
-				text: 'Preset $(birddog-ptz:preset)',
-				size: 'auto',
-				color: ColorWhite,
-				bgcolor: ColorBlack,
-			},
-			steps: [
-				{
-					down: [
-						{
-							actionId: 'preset',
-							options: {
-								val: MODEL_ACTIONS.preset.default,
-							},
-						},
-					],
-					up: [],
-				},
-			],
-			feedbacks: [],
-		}
-	}
-
-	if (MODEL_ACTIONS?.preset_speed) {
-		presets.preset_speedUp = {
-			type: 'button',
-			category: 'Preset',
-			name: 'Preset Speed Up',
-			options: {},
-			style: {
-				text: '🔺\\nPreset Speed',
-				size: 'auto',
-				color: ColorWhite,
-				bgcolor: ColorBlack,
-			},
-			steps: [
-				{
-					down: [
-						{
-							actionId: 'preset_speed',
-							options: {
-								type: 'up',
-							},
-						},
-					],
-					up: [],
-				},
-			],
-			feedbacks: [],
-		}
-		presets.preset_speedDown = {
-			type: 'button',
-			category: 'Preset',
-			name: 'Preset Speed Down',
-			options: {},
-			style: {
-				text: '$(birddog-ptz:preset_speed)\\n🔻',
-				size: 'auto',
-				color: ColorWhite,
-				bgcolor: ColorBlack,
-			},
-			steps: [
-				{
-					down: [
-						{
-							actionId: 'preset_speed',
-							options: {
-								type: 'down',
-							},
-						},
-					],
-					up: [],
-				},
-			],
-			feedbacks: [],
-		}
-	}
-
-	if (MODEL_ACTIONS?.recallPset) {
-		let recall
-		for (recall = 1; recall < 10; recall++) {
-			presets[`recallPset_${recall}`] = {
-				type: 'button',
-				category: 'Preset',
-				label: 'Recall Preset ' + parseInt(recall),
-				style: {
-					text: 'Recall\\nPreset\\n' + parseInt(recall),
-					size: 'auto',
-					color: ColorWhite,
-					bgcolor: ColorBlack,
-				},
-				steps: [
-					{
-						down: [
-							{
-								actionId: 'recallPset',
-								options: {
-									val: parseInt(recall),
-								},
-							},
-						],
-						up: [],
-					},
-				],
-				feedbacks: [],
-			}
-		}
-	}
-
-	if (MODEL_ACTIONS?.savePset) {
-		let save
-		for (save = 1; save < 10; save++) {
-			presets[`savePset${save}`] = {
-				type: 'button',
-				category: 'Preset',
-				label: 'Save Preset ' + parseInt(save),
-				style: {
-					text: 'Save\\nPreset\\n' + parseInt(save),
-					size: 'auto',
-					color: ColorWhite,
-					bgcolor: ColorBlack,
-				},
-				steps: [
-					{
-						down: [
-							{
-								actionId: 'savePset',
-								options: {
-									val: parseInt(save),
-								},
-							},
-						],
-						up: [],
-					},
-				],
-				feedbacks: [],
-			}
-		}
-	}
-
-	if (MODEL_ACTIONS?.tiltSpeed) {
-		presets.tiltSpeedUp = {
-			type: 'button',
-			category: 'Camera Control',
-			name: 'Tilt Speed Up',
-			options: {},
-			style: {
-				text: '🔺\\nTilt Speed',
-				size: 'auto',
-				color: ColorWhite,
-				bgcolor: ColorBlack,
-			},
-			steps: [
-				{
-					down: [
-						{
-							actionId: 'tiltSpeed',
-							options: {
-								type: 'up',
-							},
-						},
-					],
-					up: [],
-				},
-			],
-			feedbacks: [],
-		}
-		presets.tiltSpeedDown = {
-			type: 'button',
-			category: 'Camera Control',
-			name: 'Tilt Speed Down',
-			options: {},
-			style: {
-				text: '$(birddog-ptz:tilt_speed)\\n🔻',
-				size: 'auto',
-				color: ColorWhite,
-				bgcolor: ColorBlack,
-			},
-			steps: [
-				{
-					down: [
-						{
-							actionId: 'tiltSpeed',
-							options: {
-								type: 'down',
-							},
-						},
-					],
-					up: [],
-				},
-			],
-			feedbacks: [],
-		}
-	}
-
 	if (MODEL_ACTIONS?.zoom) {
+		presets.headerZoom = {
+			category: 'Camera Control',
+			name: 'Zoom',
+			type: 'text',
+		}
 		presets.zoomIn = {
 			type: 'button',
 			category: 'Camera Control',
@@ -1735,6 +1640,121 @@ export function getPresets() {
 		}
 	}
 
+	if (MODEL_ACTIONS?.panSpeed) {
+		presets.headerSpeed = {
+			category: 'Camera Control',
+			name: 'Speed Control',
+			type: 'text',
+		}
+		presets.panSpeedUp = {
+			type: 'button',
+			category: 'Camera Control',
+			name: 'Pan Speed Up',
+			options: {},
+			style: {
+				text: '\u{25B2}\\nPan Speed',
+				size: 'auto',
+				color: ColorWhite,
+				bgcolor: ColorBlack,
+			},
+			steps: [
+				{
+					down: [
+						{
+							actionId: 'panSpeed',
+							options: {
+								type: 'up',
+							},
+						},
+					],
+					up: [],
+				},
+			],
+			feedbacks: [],
+		}
+		presets.panSpeedDown = {
+			type: 'button',
+			category: 'Camera Control',
+			name: 'Pan Speed Down',
+			options: {},
+			style: {
+				text: '$(birddog-ptz:pan_speed)\\n\u{25BC}',
+				size: 'auto',
+				color: ColorWhite,
+				bgcolor: ColorBlack,
+			},
+			steps: [
+				{
+					down: [
+						{
+							actionId: 'panSpeed',
+							options: {
+								type: 'down',
+							},
+						},
+					],
+					up: [],
+				},
+			],
+			feedbacks: [],
+		}
+	}
+
+	if (MODEL_ACTIONS?.tiltSpeed) {
+		presets.tiltSpeedUp = {
+			type: 'button',
+			category: 'Camera Control',
+			name: 'Tilt Speed Up',
+			options: {},
+			style: {
+				text: '\u{25B2}\\nTilt Speed',
+				size: 'auto',
+				color: ColorWhite,
+				bgcolor: ColorBlack,
+			},
+			steps: [
+				{
+					down: [
+						{
+							actionId: 'tiltSpeed',
+							options: {
+								type: 'up',
+							},
+						},
+					],
+					up: [],
+				},
+			],
+			feedbacks: [],
+		}
+		presets.tiltSpeedDown = {
+			type: 'button',
+			category: 'Camera Control',
+			name: 'Tilt Speed Down',
+			options: {},
+			style: {
+				text: '$(birddog-ptz:tilt_speed)\\n\u{25BC}',
+				size: 'auto',
+				color: ColorWhite,
+				bgcolor: ColorBlack,
+			},
+			steps: [
+				{
+					down: [
+						{
+							actionId: 'tiltSpeed',
+							options: {
+								type: 'down',
+							},
+						},
+					],
+					up: [],
+				},
+			],
+			feedbacks: [],
+		}
+	}
+
 	if (MODEL_ACTIONS?.zoomSpeed) {
 		presets.zoomSpeedUp = {
 			type: 'button',
@@ -1742,7 +1762,7 @@ export function getPresets() {
 			name: 'Zoom Speed Up',
 			options: {},
 			style: {
-				text: '🔺\\nZoom Speed',
+				text: '\u{25B2}\\nZoom Speed',
 				size: 'auto',
 				color: ColorWhite,
 				bgcolor: ColorBlack,
@@ -1768,7 +1788,7 @@ export function getPresets() {
 			name: 'Zoom Speed Down',
 			options: {},
 			style: {
-				text: '$(birddog-ptz:zoom_speed)\\n🔻',
+				text: '$(birddog-ptz:zoom_speed)\\n\u{25BC}',
 				size: 'auto',
 				color: ColorWhite,
 				bgcolor: ColorBlack,
@@ -1790,35 +1810,13 @@ export function getPresets() {
 		}
 	}
 
-	if (MODEL_ACTIONS?.onScreenMenu) {
-		presets.onScreenMenu = {
-			type: 'button',
-			category: 'Camera Control',
-			name: 'On Screen Menu',
-			options: {},
-			style: {
-				text: 'Menu ON/OFF',
-				size: 'auto',
-				color: ColorWhite,
-				bgcolor: ColorBlack,
-			},
-			steps: [
-				{
-					down: [
-						{
-							actionId: 'onScreenMenu',
-						},
-					],
-					up: [],
-				},
-			],
-			feedbacks: [],
-		}
-	}
-
 	// Focus Actions
-
 	if (MODEL_ACTIONS?.focus) {
+		presets.headerFocus = {
+			category: 'Camera Control',
+			name: 'Focus Control',
+			type: 'text',
+		}
 		presets.focusIn = {
 			type: 'button',
 			category: 'Camera Control',
@@ -1927,7 +1925,7 @@ export function getPresets() {
 			name: 'One Push Auto Focus',
 			options: {},
 			style: {
-				text: 'O.P.\\nAF',
+				text: 'One Push\\nAF',
 				size: 'auto',
 				color: ColorWhite,
 				bgcolor: ColorBlack,
@@ -1946,6 +1944,198 @@ export function getPresets() {
 				},
 			],
 			feedbacks: [],
+		}
+	}
+
+	if (MODEL_ACTIONS?.onScreenMenu) {
+		presets.headerOSD = {
+			category: 'Camera Control',
+			name: 'On Screen Menu',
+			type: 'text',
+		}
+		presets.onScreenMenu = {
+			type: 'button',
+			category: 'Camera Control',
+			name: 'On Screen Menu',
+			options: {},
+			style: {
+				text: 'Menu ON/OFF',
+				size: 'auto',
+				color: ColorWhite,
+				bgcolor: ColorBlack,
+			},
+			steps: [
+				{
+					down: [
+						{
+							actionId: 'onScreenMenu',
+						},
+					],
+					up: [],
+				},
+			],
+			feedbacks: [],
+		}
+	}
+
+	if (MODEL_ACTIONS?.preset) {
+		presets.headerPreset = {
+			category: 'Preset',
+			name: 'Preset Controls',
+			type: 'text',
+		}
+		presets.presetMode = {
+			type: 'button',
+			category: 'Preset',
+			name: 'Preset Mode',
+			options: {},
+			style: {
+				text: 'Preset $(birddog-ptz:preset)',
+				size: 'auto',
+				color: ColorWhite,
+				bgcolor: ColorBlack,
+			},
+			steps: [
+				{
+					down: [
+						{
+							actionId: 'preset',
+							options: {
+								val: MODEL_ACTIONS.preset.default,
+							},
+						},
+					],
+					up: [],
+				},
+			],
+			feedbacks: [],
+		}
+	}
+
+	if (MODEL_ACTIONS?.preset_speed) {
+		presets.preset_speedUp = {
+			type: 'button',
+			category: 'Preset',
+			name: 'Preset Speed Up',
+			options: {},
+			style: {
+				text: '\u{25B2}\\nPreset Speed',
+				size: 'auto',
+				color: ColorWhite,
+				bgcolor: ColorBlack,
+			},
+			steps: [
+				{
+					down: [
+						{
+							actionId: 'preset_speed',
+							options: {
+								type: 'up',
+							},
+						},
+					],
+					up: [],
+				},
+			],
+			feedbacks: [],
+		}
+		presets.preset_speedDown = {
+			type: 'button',
+			category: 'Preset',
+			name: 'Preset Speed Down',
+			options: {},
+			style: {
+				text: '$(birddog-ptz:preset_speed)\\n\u{25BC}',
+				size: 'auto',
+				color: ColorWhite,
+				bgcolor: ColorBlack,
+			},
+			steps: [
+				{
+					down: [
+						{
+							actionId: 'preset_speed',
+							options: {
+								type: 'down',
+							},
+						},
+					],
+					up: [],
+				},
+			],
+			feedbacks: [],
+		}
+	}
+
+	if (MODEL_ACTIONS?.recallPset) {
+		presets.headerPresetRecall = {
+			category: 'Preset',
+			name: 'Preset Recall',
+			type: 'text',
+		}
+		let recall
+		for (recall = 1; recall < 10; recall++) {
+			presets[`recallPset_${recall}`] = {
+				type: 'button',
+				category: 'Preset',
+				label: 'Recall Preset ' + parseInt(recall),
+				style: {
+					text: 'Recall\\nPreset\\n' + parseInt(recall),
+					size: 'auto',
+					color: ColorWhite,
+					bgcolor: ColorBlack,
+				},
+				steps: [
+					{
+						down: [
+							{
+								actionId: 'recallPset',
+								options: {
+									val: parseInt(recall),
+								},
+							},
+						],
+						up: [],
+					},
+				],
+				feedbacks: [],
+			}
+		}
+	}
+
+	if (MODEL_ACTIONS?.savePset) {
+		presets.headerPresetSave = {
+			category: 'Preset',
+			name: 'Preset Save',
+			type: 'text',
+		}
+		let save
+		for (save = 1; save < 10; save++) {
+			presets[`savePset${save}`] = {
+				type: 'button',
+				category: 'Preset',
+				label: 'Save Preset ' + parseInt(save),
+				style: {
+					text: 'Save\\nPreset\\n' + parseInt(save),
+					size: 'auto',
+					color: ColorWhite,
+					bgcolor: ColorBlack,
+				},
+				steps: [
+					{
+						down: [
+							{
+								actionId: 'savePset',
+								options: {
+									val: parseInt(save),
+								},
+							},
+						],
+						up: [],
+					},
+				],
+				feedbacks: [],
+			}
 		}
 	}
 
@@ -2124,7 +2314,7 @@ export function getPresets() {
 			name: 'Exposure Comp Level Up',
 			options: {},
 			style: {
-				text: '🔺\\nEx Comp Lvl',
+				text: '\u{25B2}\\nEx Comp Lvl',
 				size: 'auto',
 				color: ColorWhite,
 				bgcolor: ColorBlack,
@@ -2150,7 +2340,7 @@ export function getPresets() {
 			name: 'Exposure Comp Level Down',
 			options: {},
 			style: {
-				text: '$(birddog-ptz:exposure_comp_level)\\n🔻',
+				text: '$(birddog-ptz:exposure_comp_level)\\n\u{25BC}',
 				size: 'auto',
 				color: ColorWhite,
 				bgcolor: ColorBlack,
@@ -2217,7 +2407,7 @@ export function getPresets() {
 			name: 'Gain Up',
 			options: {},
 			style: {
-				text: '🔺\\nGain',
+				text: '\u{25B2}\\nGain',
 				size: 'auto',
 				color: ColorWhite,
 				bgcolor: ColorBlack,
@@ -2243,7 +2433,7 @@ export function getPresets() {
 			name: 'Gain Down',
 			options: {},
 			style: {
-				text: '$(birddog-ptz:gain)\\n🔻',
+				text: '$(birddog-ptz:gain)\\n\u{25BC}',
 				size: 'auto',
 				color: ColorWhite,
 				bgcolor: ColorBlack,
@@ -2272,7 +2462,7 @@ export function getPresets() {
 			name: 'Gain Limit Up',
 			options: {},
 			style: {
-				text: '🔺\\nGain Limit',
+				text: '\u{25B2}\\nGain Limit',
 				size: 'auto',
 				color: ColorWhite,
 				bgcolor: ColorBlack,
@@ -2298,7 +2488,7 @@ export function getPresets() {
 			name: 'Gain Limit Down',
 			options: {},
 			style: {
-				text: '$(birddog-ptz:gain_limit)\\n🔻',
+				text: '$(birddog-ptz:gain_limit)\\n\u{25BC}',
 				size: 'auto',
 				color: ColorWhite,
 				bgcolor: ColorBlack,
@@ -2365,7 +2555,7 @@ export function getPresets() {
 			name: 'Gain Point Position Up',
 			options: {},
 			style: {
-				text: '🔺\\nGain Point\\nPosition',
+				text: '\u{25B2}\\nGain Point\\nPosition',
 				size: 'auto',
 				color: ColorWhite,
 				bgcolor: ColorBlack,
@@ -2391,7 +2581,7 @@ export function getPresets() {
 			name: 'Gain Point Position Down',
 			options: {},
 			style: {
-				text: '$(birddog-ptz:gain_point_position)\\n🔻',
+				text: '$(birddog-ptz:gain_point_position)\\n\u{25BC}',
 				size: 'auto',
 				color: ColorWhite,
 				bgcolor: ColorBlack,
@@ -2458,7 +2648,7 @@ export function getPresets() {
 			name: 'Iris Up',
 			options: {},
 			style: {
-				text: '🔺\\nIris',
+				text: '\u{25B2}\\nIris',
 				size: 'auto',
 				color: ColorWhite,
 				bgcolor: ColorBlack,
@@ -2484,7 +2674,7 @@ export function getPresets() {
 			name: 'Iris Down',
 			options: {},
 			style: {
-				text: '$(birddog-ptz:iris)\\n🔻',
+				text: '$(birddog-ptz:iris)\\n\u{25BC}',
 				size: 'auto',
 				color: ColorWhite,
 				bgcolor: ColorBlack,
@@ -2551,7 +2741,7 @@ export function getPresets() {
 			name: 'Shutter Max Speed Up',
 			options: {},
 			style: {
-				text: '🔺\\nShutter\\nMax Speed',
+				text: '\u{25B2}\\nShutter\\nMax Speed',
 				size: 'auto',
 				color: ColorWhite,
 				bgcolor: ColorBlack,
@@ -2577,7 +2767,7 @@ export function getPresets() {
 			name: 'Shutter Max Speed Down',
 			options: {},
 			style: {
-				text: '$(birddog-ptz:shutter_max_speed)\\n🔻',
+				text: '$(birddog-ptz:shutter_max_speed)\\n\u{25BC}',
 				size: 'auto',
 				color: ColorWhite,
 				bgcolor: ColorBlack,
@@ -2606,7 +2796,7 @@ export function getPresets() {
 			name: 'Shutter Min Speed Up',
 			options: {},
 			style: {
-				text: '🔺\\nShutter\\nMin Speed',
+				text: '\u{25B2}\\nShutter\\nMin Speed',
 				size: 'auto',
 				color: ColorWhite,
 				bgcolor: ColorBlack,
@@ -2632,7 +2822,7 @@ export function getPresets() {
 			name: 'Shutter Min Speed Down',
 			options: {},
 			style: {
-				text: '$(birddog-ptz:shutter_min_speed)\\n🔻',
+				text: '$(birddog-ptz:shutter_min_speed)\\n\u{25BC}',
 				size: 'auto',
 				color: ColorWhite,
 				bgcolor: ColorBlack,
@@ -2661,7 +2851,7 @@ export function getPresets() {
 			name: 'Shutter Up',
 			options: {},
 			style: {
-				text: '🔺\\nShutter',
+				text: '\u{25B2}\\nShutter',
 				size: 'auto',
 				color: ColorWhite,
 				bgcolor: ColorBlack,
@@ -2687,7 +2877,7 @@ export function getPresets() {
 			name: 'Shutter Down',
 			options: {},
 			style: {
-				text: '$(birddog-ptz:shutter_speed)\\n🔻',
+				text: '$(birddog-ptz:shutter_speed)\\n\u{25BC}',
 				size: 'auto',
 				color: ColorWhite,
 				bgcolor: ColorBlack,
@@ -2716,7 +2906,7 @@ export function getPresets() {
 			name: 'Shutter Speed Overwrite Up',
 			options: {},
 			style: {
-				text: '🔺\\nShutter Speed\\nOverwrite',
+				text: '\u{25B2}\\nShutter Speed\\nOverwrite',
 				size: 'auto',
 				color: ColorWhite,
 				bgcolor: ColorBlack,
@@ -2742,7 +2932,7 @@ export function getPresets() {
 			name: 'Shutter Speed Overwrite Down',
 			options: {},
 			style: {
-				text: '$(birddog-ptz:shutter_speed_overwrite)\\n🔻',
+				text: '$(birddog-ptz:shutter_speed_overwrite)\\n\u{25BC}',
 				size: 'auto',
 				color: ColorWhite,
 				bgcolor: ColorBlack,
@@ -2809,7 +2999,7 @@ export function getPresets() {
 			name: 'Slow Shutter Limit Up',
 			options: {},
 			style: {
-				text: '🔺\\nSlow Shutter\\nLimit',
+				text: '\u{25B2}\\nSlow Shutter\\nLimit',
 				size: 'auto',
 				color: ColorWhite,
 				bgcolor: ColorBlack,
@@ -2835,7 +3025,7 @@ export function getPresets() {
 			name: 'Slow Shutter Limit Down',
 			options: {},
 			style: {
-				text: '$(birddog-ptz:slow_shutter_limit)\\n🔻',
+				text: '$(birddog-ptz:slow_shutter_limit)\\n\u{25BC}',
 				size: 'auto',
 				color: ColorWhite,
 				bgcolor: ColorBlack,
@@ -2904,7 +3094,7 @@ export function getPresets() {
 			name: 'BG Up',
 			options: {},
 			style: {
-				text: '🔺\\nBG',
+				text: '\u{25B2}\\nBG',
 				size: 'auto',
 				color: ColorWhite,
 				bgcolor: ColorBlack,
@@ -2930,7 +3120,7 @@ export function getPresets() {
 			name: 'BG Down',
 			options: {},
 			style: {
-				text: '$(birddog-ptz:bg)\\n🔻',
+				text: '$(birddog-ptz:bg)\\n\u{25BC}',
 				size: 'auto',
 				color: ColorWhite,
 				bgcolor: ColorBlack,
@@ -2959,7 +3149,7 @@ export function getPresets() {
 			name: 'BR Up',
 			options: {},
 			style: {
-				text: '🔺\\nBR',
+				text: '\u{25B2}\\nBR',
 				size: 'auto',
 				color: ColorWhite,
 				bgcolor: ColorBlack,
@@ -2985,7 +3175,7 @@ export function getPresets() {
 			name: 'BR Down',
 			options: {},
 			style: {
-				text: '$(birddog-ptz:br)\\n🔻',
+				text: '$(birddog-ptz:br)\\n\u{25BC}',
 				size: 'auto',
 				color: ColorWhite,
 				bgcolor: ColorBlack,
@@ -3014,7 +3204,7 @@ export function getPresets() {
 			name: 'Blue Gain Up',
 			options: {},
 			style: {
-				text: '🔺\\nBlue Gain',
+				text: '\u{25B2}\\nBlue Gain',
 				size: 'auto',
 				color: ColorWhite,
 				bgcolor: ColorBlack,
@@ -3040,7 +3230,7 @@ export function getPresets() {
 			name: 'Blue Gain Down',
 			options: {},
 			style: {
-				text: '$(birddog-ptz:blue_gain)\\n🔻',
+				text: '$(birddog-ptz:blue_gain)\\n\u{25BC}',
 				size: 'auto',
 				color: ColorWhite,
 				bgcolor: ColorBlack,
@@ -3069,7 +3259,7 @@ export function getPresets() {
 			name: 'Color Temp Up',
 			options: {},
 			style: {
-				text: '🔺\\nColor Temp',
+				text: '\u{25B2}\\nColor Temp',
 				size: 'auto',
 				color: ColorWhite,
 				bgcolor: ColorBlack,
@@ -3095,7 +3285,7 @@ export function getPresets() {
 			name: 'Color Temp Down',
 			options: {},
 			style: {
-				text: '$(birddog-ptz:color_temp)K\\n🔻',
+				text: '$(birddog-ptz:color_temp)K\\n\u{25BC}',
 				size: 'auto',
 				color: ColorWhite,
 				bgcolor: ColorBlack,
@@ -3124,7 +3314,7 @@ export function getPresets() {
 			name: 'GB Up',
 			options: {},
 			style: {
-				text: '🔺\\nGB',
+				text: '\u{25B2}\\nGB',
 				size: 'auto',
 				color: ColorWhite,
 				bgcolor: ColorBlack,
@@ -3150,7 +3340,7 @@ export function getPresets() {
 			name: 'GB Down',
 			options: {},
 			style: {
-				text: '$(birddog-ptz:gb)\\n🔻',
+				text: '$(birddog-ptz:gb)\\n\u{25BC}',
 				size: 'auto',
 				color: ColorWhite,
 				bgcolor: ColorBlack,
@@ -3179,7 +3369,7 @@ export function getPresets() {
 			name: 'GR Up',
 			options: {},
 			style: {
-				text: '🔺\\nGR',
+				text: '\u{25B2}\\nGR',
 				size: 'auto',
 				color: ColorWhite,
 				bgcolor: ColorBlack,
@@ -3205,7 +3395,7 @@ export function getPresets() {
 			name: 'GR Down',
 			options: {},
 			style: {
-				text: '$(birddog-ptz:gr)\\n🔻',
+				text: '$(birddog-ptz:gr)\\n\u{25BC}',
 				size: 'auto',
 				color: ColorWhite,
 				bgcolor: ColorBlack,
@@ -3234,7 +3424,7 @@ export function getPresets() {
 			name: 'Level Up',
 			options: {},
 			style: {
-				text: '🔺\\nLevel',
+				text: '\u{25B2}\\nLevel',
 				size: 'auto',
 				color: ColorWhite,
 				bgcolor: ColorBlack,
@@ -3260,7 +3450,7 @@ export function getPresets() {
 			name: 'Level Down',
 			options: {},
 			style: {
-				text: '$(birddog-ptz:level)\\n🔻',
+				text: '$(birddog-ptz:level)\\n\u{25BC}',
 				size: 'auto',
 				color: ColorWhite,
 				bgcolor: ColorBlack,
@@ -3327,7 +3517,7 @@ export function getPresets() {
 			name: 'Offset Up',
 			options: {},
 			style: {
-				text: '🔺\\nOffset',
+				text: '\u{25B2}\\nOffset',
 				size: 'auto',
 				color: ColorWhite,
 				bgcolor: ColorBlack,
@@ -3353,7 +3543,7 @@ export function getPresets() {
 			name: 'Offset Down',
 			options: {},
 			style: {
-				text: '$(birddog-ptz:offset)\\n🔻',
+				text: '$(birddog-ptz:offset)\\n\u{25BC}',
 				size: 'auto',
 				color: ColorWhite,
 				bgcolor: ColorBlack,
@@ -3382,7 +3572,7 @@ export function getPresets() {
 			name: 'Phase Up',
 			options: {},
 			style: {
-				text: '🔺\\nPhase',
+				text: '\u{25B2}\\nPhase',
 				size: 'auto',
 				color: ColorWhite,
 				bgcolor: ColorBlack,
@@ -3408,7 +3598,7 @@ export function getPresets() {
 			name: 'Phase Down',
 			options: {},
 			style: {
-				text: '$(birddog-ptz:phase)\\n🔻',
+				text: '$(birddog-ptz:phase)\\n\u{25BC}',
 				size: 'auto',
 				color: ColorWhite,
 				bgcolor: ColorBlack,
@@ -3437,7 +3627,7 @@ export function getPresets() {
 			name: 'RB Up',
 			options: {},
 			style: {
-				text: '🔺\\nRB',
+				text: '\u{25B2}\\nRB',
 				size: 'auto',
 				color: ColorWhite,
 				bgcolor: ColorBlack,
@@ -3463,7 +3653,7 @@ export function getPresets() {
 			name: 'RB Down',
 			options: {},
 			style: {
-				text: '$(birddog-ptz:rb)\\n🔻',
+				text: '$(birddog-ptz:rb)\\n\u{25BC}',
 				size: 'auto',
 				color: ColorWhite,
 				bgcolor: ColorBlack,
@@ -3492,7 +3682,7 @@ export function getPresets() {
 			name: 'RG Up',
 			options: {},
 			style: {
-				text: '🔺\\nRG',
+				text: '\u{25B2}\\nRG',
 				size: 'auto',
 				color: ColorWhite,
 				bgcolor: ColorBlack,
@@ -3518,7 +3708,7 @@ export function getPresets() {
 			name: 'RG Down',
 			options: {},
 			style: {
-				text: '$(birddog-ptz:rg)\\n🔻',
+				text: '$(birddog-ptz:rg)\\n\u{25BC}',
 				size: 'auto',
 				color: ColorWhite,
 				bgcolor: ColorBlack,
@@ -3547,7 +3737,7 @@ export function getPresets() {
 			name: 'Red Gain Up',
 			options: {},
 			style: {
-				text: '🔺\\nRed Gain',
+				text: '\u{25B2}\\nRed Gain',
 				size: 'auto',
 				color: ColorWhite,
 				bgcolor: ColorBlack,
@@ -3573,7 +3763,7 @@ export function getPresets() {
 			name: 'Red Gain Down',
 			options: {},
 			style: {
-				text: '$(birddog-ptz:red_gain)\\n🔻',
+				text: '$(birddog-ptz:red_gain)\\n\u{25BC}',
 				size: 'auto',
 				color: ColorWhite,
 				bgcolor: ColorBlack,
@@ -3640,7 +3830,7 @@ export function getPresets() {
 			name: 'Speed Up',
 			options: {},
 			style: {
-				text: '🔺\\nSpeed',
+				text: '\u{25B2}\\nSpeed',
 				size: 'auto',
 				color: ColorWhite,
 				bgcolor: ColorBlack,
@@ -3666,7 +3856,7 @@ export function getPresets() {
 			name: 'Speed Down',
 			options: {},
 			style: {
-				text: '$(birddog-ptz:speed)\\n🔻',
+				text: '$(birddog-ptz:speed)\\n\u{25BC}',
 				size: 'auto',
 				color: ColorWhite,
 				bgcolor: ColorBlack,
@@ -3837,7 +4027,7 @@ export function getPresets() {
 			name: 'Saturation Up',
 			options: {},
 			style: {
-				text: '🔺\\nSaturation',
+				text: '\u{25B2}\\nSaturation',
 				size: 'auto',
 				color: ColorWhite,
 				bgcolor: ColorBlack,
@@ -3863,7 +4053,7 @@ export function getPresets() {
 			name: 'Saturation Down',
 			options: {},
 			style: {
-				text: '$(birddog-ptz:saturation)\\n🔻',
+				text: '$(birddog-ptz:saturation)\\n\u{25BC}',
 				size: 'auto',
 				color: ColorWhite,
 				bgcolor: ColorBlack,
@@ -3892,7 +4082,7 @@ export function getPresets() {
 			name: 'Contrast Up',
 			options: {},
 			style: {
-				text: '🔺\\nContrast',
+				text: '\u{25B2}\\nContrast',
 				size: 'auto',
 				color: ColorWhite,
 				bgcolor: ColorBlack,
@@ -3918,7 +4108,7 @@ export function getPresets() {
 			name: 'Contrast Down',
 			options: {},
 			style: {
-				text: '$(birddog-ptz:contrast)\\n🔻',
+				text: '$(birddog-ptz:contrast)\\n\u{25BC}',
 				size: 'auto',
 				color: ColorWhite,
 				bgcolor: ColorBlack,
@@ -4023,7 +4213,7 @@ export function getPresets() {
 			name: 'Gamma Up',
 			options: {},
 			style: {
-				text: '🔺\\nGamma',
+				text: '\u{25B2}\\nGamma',
 				size: 'auto',
 				color: ColorWhite,
 				bgcolor: ColorBlack,
@@ -4049,7 +4239,7 @@ export function getPresets() {
 			name: 'Gamma Down',
 			options: {},
 			style: {
-				text: '$(birddog-ptz:gamma)\\n🔻',
+				text: '$(birddog-ptz:gamma)\\n\u{25BC}',
 				size: 'auto',
 				color: ColorWhite,
 				bgcolor: ColorBlack,
@@ -4116,7 +4306,7 @@ export function getPresets() {
 			name: 'Highlight Comp. Mask Up',
 			options: {},
 			style: {
-				text: '🔺\\nHigh Comp\\n Mask',
+				text: '\u{25B2}\\nHigh Comp\\n Mask',
 				size: 'auto',
 				color: ColorWhite,
 				bgcolor: ColorBlack,
@@ -4142,7 +4332,7 @@ export function getPresets() {
 			name: 'Highlight Comp. Mask Down',
 			options: {},
 			style: {
-				text: '$(birddog-ptz:highlight_comp_mask)\\n🔻',
+				text: '$(birddog-ptz:highlight_comp_mask)\\n\u{25BC}',
 				size: 'auto',
 				color: ColorWhite,
 				bgcolor: ColorBlack,
@@ -4171,7 +4361,7 @@ export function getPresets() {
 			name: 'Hue Up',
 			options: {},
 			style: {
-				text: '🔺\\nHue',
+				text: '\u{25B2}\\nHue',
 				size: 'auto',
 				color: ColorWhite,
 				bgcolor: ColorBlack,
@@ -4197,7 +4387,7 @@ export function getPresets() {
 			name: 'Hue Down',
 			options: {},
 			style: {
-				text: '$(birddog-ptz:hue)\\n🔻',
+				text: '$(birddog-ptz:hue)\\n\u{25BC}',
 				size: 'auto',
 				color: ColorWhite,
 				bgcolor: ColorBlack,
@@ -4340,7 +4530,7 @@ export function getPresets() {
 			name: 'ND Filter Up',
 			options: {},
 			style: {
-				text: '🔺\\nND Filter',
+				text: '\u{25B2}\\nND Filter',
 				size: 'auto',
 				color: ColorWhite,
 				bgcolor: ColorBlack,
@@ -4366,7 +4556,7 @@ export function getPresets() {
 			name: 'ND Filter Down',
 			options: {},
 			style: {
-				text: '$(birddog-ptz:nd_filter)\\n🔻',
+				text: '$(birddog-ptz:nd_filter)\\n\u{25BC}',
 				size: 'auto',
 				color: ColorWhite,
 				bgcolor: ColorBlack,
@@ -4395,7 +4585,7 @@ export function getPresets() {
 			name: 'Noise Reduction Up',
 			options: {},
 			style: {
-				text: '🔺\\nNR',
+				text: '\u{25B2}\\nNR',
 				size: 'auto',
 				color: ColorWhite,
 				bgcolor: ColorBlack,
@@ -4421,7 +4611,7 @@ export function getPresets() {
 			name: 'Noise Reduction Down',
 			options: {},
 			style: {
-				text: '$(birddog-ptz:noise_reduction)\\n🔻',
+				text: '$(birddog-ptz:noise_reduction)\\n\u{25BC}',
 				size: 'auto',
 				color: ColorWhite,
 				bgcolor: ColorBlack,
@@ -4450,7 +4640,7 @@ export function getPresets() {
 			name: 'Sharpness Up',
 			options: {},
 			style: {
-				text: '🔺\\nSharpness',
+				text: '\u{25B2}\\nSharpness',
 				size: 'auto',
 				color: ColorWhite,
 				bgcolor: ColorBlack,
@@ -4476,7 +4666,7 @@ export function getPresets() {
 			name: 'Sharpness Down',
 			options: {},
 			style: {
-				text: '$(birddog-ptz:sharpness)\\n🔻',
+				text: '$(birddog-ptz:sharpness)\\n\u{25BC}',
 				size: 'auto',
 				color: ColorWhite,
 				bgcolor: ColorBlack,
@@ -4543,7 +4733,7 @@ export function getPresets() {
 			name: '3D Noise Reduction Up',
 			options: {},
 			style: {
-				text: '🔺\\n3D NR',
+				text: '\u{25B2}\\n3D NR',
 				size: 'auto',
 				color: ColorWhite,
 				bgcolor: ColorBlack,
@@ -4569,7 +4759,7 @@ export function getPresets() {
 			name: '3D Noise Reduction Down',
 			options: {},
 			style: {
-				text: '$(birddog-ptz:threed_nr)\\n🔻',
+				text: '$(birddog-ptz:threed_nr)\\n\u{25BC}',
 				size: 'auto',
 				color: ColorWhite,
 				bgcolor: ColorBlack,
@@ -4598,7 +4788,7 @@ export function getPresets() {
 			name: '2D Noise Reduction Up',
 			options: {},
 			style: {
-				text: '🔺\\n2D NR',
+				text: '\u{25B2}\\n2D NR',
 				size: 'auto',
 				color: ColorWhite,
 				bgcolor: ColorBlack,
@@ -4624,7 +4814,7 @@ export function getPresets() {
 			name: '2D Noise Reduction Down',
 			options: {},
 			style: {
-				text: '$(birddog-ptz:twod_nr)\\n🔻',
+				text: '$(birddog-ptz:twod_nr)\\n\u{25BC}',
 				size: 'auto',
 				color: ColorWhite,
 				bgcolor: ColorBlack,
@@ -4653,7 +4843,7 @@ export function getPresets() {
 			name: 'Wide Dynamics Range Up',
 			options: {},
 			style: {
-				text: '🔺\\nWDR',
+				text: '\u{25B2}\\nWDR',
 				size: 'auto',
 				color: ColorWhite,
 				bgcolor: ColorBlack,
@@ -4679,7 +4869,7 @@ export function getPresets() {
 			name: 'Wide Dynamics Range Down',
 			options: {},
 			style: {
-				text: '$(birddog-ptz:wide_dynamic_range)\\n🔻',
+				text: '$(birddog-ptz:wide_dynamic_range)\\n\u{25BC}',
 				size: 'auto',
 				color: ColorWhite,
 				bgcolor: ColorBlack,
@@ -4701,6 +4891,44 @@ export function getPresets() {
 		}
 	}
 
+	if (MODEL_ACTIONS?.wdr_enable) {
+		presets.wdr_enable = {
+			type: 'button',
+			category: 'Picture',
+			name: 'Wide Dynamic Range',
+			options: {},
+			style: {
+				text: 'Wide Dynamic Range\\n$(birddog-ptz:wdr_enable)',
+				size: 'auto',
+				color: ColorWhite,
+				bgcolor: ColorBlack,
+			},
+			steps: [
+				{
+					down: [
+						{
+							actionId: 'wdr_enable',
+							options: {
+								val: 'Toggle',
+							},
+						},
+					],
+					up: [],
+				},
+			],
+			feedbacks: [
+				{
+					feedbackId: 'wdr_enable',
+					options: { val: MODEL_ACTIONS.wdr_enable.default },
+					style: {
+						color: ColorBlack,
+						bgcolor: ColorGreen,
+					},
+				},
+			],
+		}
+	}
+
 	// Color Matrix Presets
 
 	if (MODEL_ACTIONS?.cm_blue_gain) {
@@ -4710,7 +4938,7 @@ export function getPresets() {
 			name: 'Blue Gain Up',
 			options: {},
 			style: {
-				text: '🔺\\nBlue Gain',
+				text: '\u{25B2}\\nBlue Gain',
 				size: 'auto',
 				color: ColorWhite,
 				bgcolor: ColorBlack,
@@ -4736,7 +4964,7 @@ export function getPresets() {
 			name: 'Blue Gain Down',
 			options: {},
 			style: {
-				text: '$(birddog-ptz:cm_blue_gain)\\n🔻',
+				text: '$(birddog-ptz:cm_blue_gain)\\n\u{25BC}',
 				size: 'auto',
 				color: ColorWhite,
 				bgcolor: ColorBlack,
@@ -4765,7 +4993,7 @@ export function getPresets() {
 			name: 'Blue Hue Up',
 			options: {},
 			style: {
-				text: '🔺\\nBlue Hue',
+				text: '\u{25B2}\\nBlue Hue',
 				size: 'auto',
 				color: ColorWhite,
 				bgcolor: ColorBlack,
@@ -4791,7 +5019,7 @@ export function getPresets() {
 			name: 'Blue Hue Down',
 			options: {},
 			style: {
-				text: '$(birddog-ptz:cm_blue_hue)\\n🔻',
+				text: '$(birddog-ptz:cm_blue_hue)\\n\u{25BC}',
 				size: 'auto',
 				color: ColorWhite,
 				bgcolor: ColorBlack,
@@ -4820,7 +5048,7 @@ export function getPresets() {
 			name: 'Color Gain Up',
 			options: {},
 			style: {
-				text: '🔺\\nColor Gain',
+				text: '\u{25B2}\\nColor Gain',
 				size: 'auto',
 				color: ColorWhite,
 				bgcolor: ColorBlack,
@@ -4846,7 +5074,7 @@ export function getPresets() {
 			name: 'Color Gain Down',
 			options: {},
 			style: {
-				text: '$(birddog-ptz:cm_color_gain)\\n🔻',
+				text: '$(birddog-ptz:cm_color_gain)\\n\u{25BC}',
 				size: 'auto',
 				color: ColorWhite,
 				bgcolor: ColorBlack,
@@ -4875,7 +5103,7 @@ export function getPresets() {
 			name: 'Cyan Gain Up',
 			options: {},
 			style: {
-				text: '🔺\\nCyan Gain',
+				text: '\u{25B2}\\nCyan Gain',
 				size: 'auto',
 				color: ColorWhite,
 				bgcolor: ColorBlack,
@@ -4901,7 +5129,7 @@ export function getPresets() {
 			name: 'Cyan Gain Down',
 			options: {},
 			style: {
-				text: '$(birddog-ptz:cm_cyan_gain)\\n🔻',
+				text: '$(birddog-ptz:cm_cyan_gain)\\n\u{25BC}',
 				size: 'auto',
 				color: ColorWhite,
 				bgcolor: ColorBlack,
@@ -4930,7 +5158,7 @@ export function getPresets() {
 			name: 'Cyan Hue Up',
 			options: {},
 			style: {
-				text: '🔺\\nCyan Hue',
+				text: '\u{25B2}\\nCyan Hue',
 				size: 'auto',
 				color: ColorWhite,
 				bgcolor: ColorBlack,
@@ -4956,7 +5184,7 @@ export function getPresets() {
 			name: 'Cyan Hue Down',
 			options: {},
 			style: {
-				text: '$(birddog-ptz:cm_cyan_hue)\\n🔻',
+				text: '$(birddog-ptz:cm_cyan_hue)\\n\u{25BC}',
 				size: 'auto',
 				color: ColorWhite,
 				bgcolor: ColorBlack,
@@ -4985,7 +5213,7 @@ export function getPresets() {
 			name: 'Green Gain Up',
 			options: {},
 			style: {
-				text: '🔺\\nGreen Gain',
+				text: '\u{25B2}\\nGreen Gain',
 				size: 'auto',
 				color: ColorWhite,
 				bgcolor: ColorBlack,
@@ -5011,7 +5239,7 @@ export function getPresets() {
 			name: 'Green Gain Down',
 			options: {},
 			style: {
-				text: '$(birddog-ptz:cm_green_gain)\\n🔻',
+				text: '$(birddog-ptz:cm_green_gain)\\n\u{25BC}',
 				size: 'auto',
 				color: ColorWhite,
 				bgcolor: ColorBlack,
@@ -5040,7 +5268,7 @@ export function getPresets() {
 			name: 'Green Hue Up',
 			options: {},
 			style: {
-				text: '🔺\\nGreen Hue',
+				text: '\u{25B2}\\nGreen Hue',
 				size: 'auto',
 				color: ColorWhite,
 				bgcolor: ColorBlack,
@@ -5066,7 +5294,7 @@ export function getPresets() {
 			name: 'Green Hue Down',
 			options: {},
 			style: {
-				text: '$(birddog-ptz:cm_green_hue)\\n🔻',
+				text: '$(birddog-ptz:cm_green_hue)\\n\u{25BC}',
 				size: 'auto',
 				color: ColorWhite,
 				bgcolor: ColorBlack,
@@ -5095,7 +5323,7 @@ export function getPresets() {
 			name: 'Hue Phase Up',
 			options: {},
 			style: {
-				text: '🔺\\nHue Phase',
+				text: '\u{25B2}\\nHue Phase',
 				size: 'auto',
 				color: ColorWhite,
 				bgcolor: ColorBlack,
@@ -5121,7 +5349,7 @@ export function getPresets() {
 			name: 'Hue Phase Down',
 			options: {},
 			style: {
-				text: '$(birddog-ptz:cm_hue_phase)\\n🔻',
+				text: '$(birddog-ptz:cm_hue_phase)\\n\u{25BC}',
 				size: 'auto',
 				color: ColorWhite,
 				bgcolor: ColorBlack,
@@ -5150,7 +5378,7 @@ export function getPresets() {
 			name: 'Magenta Gain Up',
 			options: {},
 			style: {
-				text: '🔺\\nMagenta Gain',
+				text: '\u{25B2}\\nMagenta Gain',
 				size: 'auto',
 				color: ColorWhite,
 				bgcolor: ColorBlack,
@@ -5176,7 +5404,7 @@ export function getPresets() {
 			name: 'Magenta Gain Down',
 			options: {},
 			style: {
-				text: '$(birddog-ptz:cm_mag_gain)\\n🔻',
+				text: '$(birddog-ptz:cm_mag_gain)\\n\u{25BC}',
 				size: 'auto',
 				color: ColorWhite,
 				bgcolor: ColorBlack,
@@ -5205,7 +5433,7 @@ export function getPresets() {
 			name: 'Magenta Hue Up',
 			options: {},
 			style: {
-				text: '🔺\\nMagenta Hue',
+				text: '\u{25B2}\\nMagenta Hue',
 				size: 'auto',
 				color: ColorWhite,
 				bgcolor: ColorBlack,
@@ -5231,7 +5459,7 @@ export function getPresets() {
 			name: 'Magenta Hue Down',
 			options: {},
 			style: {
-				text: '$(birddog-ptz:cm_mag_hue)\\n🔻',
+				text: '$(birddog-ptz:cm_mag_hue)\\n\u{25BC}',
 				size: 'auto',
 				color: ColorWhite,
 				bgcolor: ColorBlack,
@@ -5260,7 +5488,7 @@ export function getPresets() {
 			name: 'Red Gain Up',
 			options: {},
 			style: {
-				text: '🔺\\nRed Gain',
+				text: '\u{25B2}\\nRed Gain',
 				size: 'auto',
 				color: ColorWhite,
 				bgcolor: ColorBlack,
@@ -5286,7 +5514,7 @@ export function getPresets() {
 			name: 'Red Gain Down',
 			options: {},
 			style: {
-				text: '$(birddog-ptz:cm_red_gain)\\n🔻',
+				text: '$(birddog-ptz:cm_red_gain)\\n\u{25BC}',
 				size: 'auto',
 				color: ColorWhite,
 				bgcolor: ColorBlack,
@@ -5315,7 +5543,7 @@ export function getPresets() {
 			name: 'Red Hue Up',
 			options: {},
 			style: {
-				text: '🔺\\nRed Hue',
+				text: '\u{25B2}\\nRed Hue',
 				size: 'auto',
 				color: ColorWhite,
 				bgcolor: ColorBlack,
@@ -5341,7 +5569,7 @@ export function getPresets() {
 			name: 'Red Hue Down',
 			options: {},
 			style: {
-				text: '$(birddog-ptz:cm_red_hue)\\n🔻',
+				text: '$(birddog-ptz:cm_red_hue)\\n\u{25BC}',
 				size: 'auto',
 				color: ColorWhite,
 				bgcolor: ColorBlack,
@@ -5370,7 +5598,7 @@ export function getPresets() {
 			name: 'Yellow Gain Up',
 			options: {},
 			style: {
-				text: '🔺\\nYellow Gain',
+				text: '\u{25B2}\\nYellow Gain',
 				size: 'auto',
 				color: ColorWhite,
 				bgcolor: ColorBlack,
@@ -5396,7 +5624,7 @@ export function getPresets() {
 			name: 'Yellow Gain Down',
 			options: {},
 			style: {
-				text: '$(birddog-ptz:cm_yellow_gain)\\n🔻',
+				text: '$(birddog-ptz:cm_yellow_gain)\\n\u{25BC}',
 				size: 'auto',
 				color: ColorWhite,
 				bgcolor: ColorBlack,
@@ -5425,7 +5653,7 @@ export function getPresets() {
 			name: 'Yellow Hue Up',
 			options: {},
 			style: {
-				text: '🔺\\nYellow Hue',
+				text: '\u{25B2}\\nYellow Hue',
 				size: 'auto',
 				color: ColorWhite,
 				bgcolor: ColorBlack,
@@ -5451,7 +5679,7 @@ export function getPresets() {
 			name: 'Yellow Hue Down',
 			options: {},
 			style: {
-				text: '$(birddog-ptz:cm_yellow_hue)\\n🔻',
+				text: '$(birddog-ptz:cm_yellow_hue)\\n\u{25BC}',
 				size: 'auto',
 				color: ColorWhite,
 				bgcolor: ColorBlack,
@@ -5482,7 +5710,7 @@ export function getPresets() {
 			name: 'Brightness Up',
 			options: {},
 			style: {
-				text: '🔺\\nBrightness',
+				text: '\u{25B2}\\nBrightness',
 				size: 'auto',
 				color: ColorWhite,
 				bgcolor: ColorBlack,
@@ -5508,7 +5736,7 @@ export function getPresets() {
 			name: 'Brightness Down',
 			options: {},
 			style: {
-				text: '$(birddog-ptz:brightness)\\n🔻',
+				text: '$(birddog-ptz:brightness)\\n\u{25BC}',
 				size: 'auto',
 				color: ColorWhite,
 				bgcolor: ColorBlack,
@@ -5613,7 +5841,7 @@ export function getPresets() {
 			name: 'Gamma Offset Up',
 			options: {},
 			style: {
-				text: '🔺\\nGamma\\nOffset',
+				text: '\u{25B2}\\nGamma\\nOffset',
 				size: 'auto',
 				color: ColorWhite,
 				bgcolor: ColorBlack,
@@ -5639,7 +5867,7 @@ export function getPresets() {
 			name: 'Gamma Offset Down',
 			options: {},
 			style: {
-				text: '$(birddog-ptz:gamma_offset)\\n🔻',
+				text: '$(birddog-ptz:gamma_offset)\\n\u{25BC}',
 				size: 'auto',
 				color: ColorWhite,
 				bgcolor: ColorBlack,
@@ -5938,7 +6166,7 @@ export function getPresets() {
 			name: 'Crispening Up',
 			options: {},
 			style: {
-				text: '🔺\\nCrispening',
+				text: '\u{25B2}\\nCrispening',
 				size: 'auto',
 				color: ColorWhite,
 				bgcolor: ColorBlack,
@@ -5964,7 +6192,7 @@ export function getPresets() {
 			name: 'Crispening Down',
 			options: {},
 			style: {
-				text: '$(birddog-ptz:crispening)\\n🔻',
+				text: '$(birddog-ptz:crispening)\\n\u{25BC}',
 				size: 'auto',
 				color: ColorWhite,
 				bgcolor: ColorBlack,
@@ -6031,7 +6259,7 @@ export function getPresets() {
 			name: 'Highlight Detail Up',
 			options: {},
 			style: {
-				text: '🔺\\nHighlight\\nDetail',
+				text: '\u{25B2}\\nHighlight\\nDetail',
 				size: 'auto',
 				color: ColorWhite,
 				bgcolor: ColorBlack,
@@ -6057,7 +6285,7 @@ export function getPresets() {
 			name: 'Highlight Detail Down',
 			options: {},
 			style: {
-				text: '$(birddog-ptz:highlight_detail)\\n🔻',
+				text: '$(birddog-ptz:highlight_detail)\\n\u{25BC}',
 				size: 'auto',
 				color: ColorWhite,
 				bgcolor: ColorBlack,
@@ -6086,7 +6314,7 @@ export function getPresets() {
 			name: 'Hv Balance Up',
 			options: {},
 			style: {
-				text: '🔺\\nHv Balance',
+				text: '\u{25B2}\\nHv Balance',
 				size: 'auto',
 				color: ColorWhite,
 				bgcolor: ColorBlack,
@@ -6112,7 +6340,7 @@ export function getPresets() {
 			name: 'Hv Balance Down',
 			options: {},
 			style: {
-				text: '$(birddog-ptz:hv_balance)\\n🔻',
+				text: '$(birddog-ptz:hv_balance)\\n\u{25BC}',
 				size: 'auto',
 				color: ColorWhite,
 				bgcolor: ColorBlack,
@@ -6141,7 +6369,7 @@ export function getPresets() {
 			name: 'Limit Up',
 			options: {},
 			style: {
-				text: '🔺\\nLimit',
+				text: '\u{25B2}\\nLimit',
 				size: 'auto',
 				color: ColorWhite,
 				bgcolor: ColorBlack,
@@ -6167,7 +6395,7 @@ export function getPresets() {
 			name: 'Limit Down',
 			options: {},
 			style: {
-				text: '$(birddog-ptz:limit)\\n🔻',
+				text: '$(birddog-ptz:limit)\\n\u{25BC}',
 				size: 'auto',
 				color: ColorWhite,
 				bgcolor: ColorBlack,
@@ -6196,7 +6424,7 @@ export function getPresets() {
 			name: 'Super Low Up',
 			options: {},
 			style: {
-				text: '🔺\\nSuper Low',
+				text: '\u{25B2}\\nSuper Low',
 				size: 'auto',
 				color: ColorWhite,
 				bgcolor: ColorBlack,
@@ -6222,7 +6450,7 @@ export function getPresets() {
 			name: 'Super Low Down',
 			options: {},
 			style: {
-				text: '$(birddog-ptz:super_low)\\n🔻',
+				text: '$(birddog-ptz:super_low)\\n\u{25BC}',
 				size: 'auto',
 				color: ColorWhite,
 				bgcolor: ColorBlack,
@@ -6253,7 +6481,7 @@ export function getPresets() {
 			name: 'Black Gamma Level Up',
 			options: {},
 			style: {
-				text: '🔺\\nBlack Gamma\\nLevel',
+				text: '\u{25B2}\\nBlack Gamma\\nLevel',
 				size: 'auto',
 				color: ColorWhite,
 				bgcolor: ColorBlack,
@@ -6279,7 +6507,7 @@ export function getPresets() {
 			name: 'Black Gamma Level Down',
 			options: {},
 			style: {
-				text: '$(birddog-ptz:black_gamma_level)\\n🔻',
+				text: '$(birddog-ptz:black_gamma_level)\\n\u{25BC}',
 				size: 'auto',
 				color: ColorWhite,
 				bgcolor: ColorBlack,
@@ -6308,7 +6536,7 @@ export function getPresets() {
 			name: 'Black Level Up',
 			options: {},
 			style: {
-				text: '🔺\\nBlack\\nLevel',
+				text: '\u{25B2}\\nBlack\\nLevel',
 				size: 'auto',
 				color: ColorWhite,
 				bgcolor: ColorBlack,
@@ -6334,7 +6562,7 @@ export function getPresets() {
 			name: 'Black Level Down',
 			options: {},
 			style: {
-				text: '$(birddog-ptz:black_level)\\n🔻',
+				text: '$(birddog-ptz:black_level)\\n\u{25BC}',
 				size: 'auto',
 				color: ColorWhite,
 				bgcolor: ColorBlack,
@@ -6401,7 +6629,7 @@ export function getPresets() {
 			name: 'Effect Up',
 			options: {},
 			style: {
-				text: '🔺\\nEffect',
+				text: '\u{25B2}\\nEffect',
 				size: 'auto',
 				color: ColorWhite,
 				bgcolor: ColorBlack,
@@ -6427,7 +6655,7 @@ export function getPresets() {
 			name: 'Effect Down',
 			options: {},
 			style: {
-				text: '$(birddog-ptz:effect)\\n🔻',
+				text: '$(birddog-ptz:effect)\\n\u{25BC}',
 				size: 'auto',
 				color: ColorWhite,
 				bgcolor: ColorBlack,
@@ -6449,14 +6677,14 @@ export function getPresets() {
 		}
 	}
 
-	if (MODEL_ACTIONS?.offset) {
-		presets.offsetUp = {
+	if (MODEL_ACTIONS?.gamma_setup_offset) {
+		presets.gamma_setup_offsetUp = {
 			type: 'button',
 			category: 'Gamma Setup',
 			name: 'Offset Up',
 			options: {},
 			style: {
-				text: '🔺\\nOffset',
+				text: '\u{25B2}\\nOffset',
 				size: 'auto',
 				color: ColorWhite,
 				bgcolor: ColorBlack,
@@ -6465,7 +6693,7 @@ export function getPresets() {
 				{
 					down: [
 						{
-							actionId: 'offset',
+							actionId: 'gamma_setup_offset',
 							options: {
 								val: 'up',
 							},
@@ -6476,13 +6704,13 @@ export function getPresets() {
 			],
 			feedbacks: [],
 		}
-		presets.offsetDown = {
+		presets.gamma_setup_offsetDown = {
 			type: 'button',
 			category: 'Gamma Setup',
 			name: 'Offset Down',
 			options: {},
 			style: {
-				text: '$(birddog-ptz:offset)\\n🔻',
+				text: '$(birddog-ptz:gamma_setup_offset)\\n\u{25BC}',
 				size: 'auto',
 				color: ColorWhite,
 				bgcolor: ColorBlack,
@@ -6491,7 +6719,7 @@ export function getPresets() {
 				{
 					down: [
 						{
-							actionId: 'offset',
+							actionId: 'gamma_setup_offset',
 							options: {
 								val: 'down',
 							},
@@ -6511,7 +6739,7 @@ export function getPresets() {
 			name: 'Pattern Up',
 			options: {},
 			style: {
-				text: '🔺\\nPattern',
+				text: '\u{25B2}\\nPattern',
 				size: 'auto',
 				color: ColorWhite,
 				bgcolor: ColorBlack,
@@ -6537,7 +6765,7 @@ export function getPresets() {
 			name: 'Pattern Down',
 			options: {},
 			style: {
-				text: '$(birddog-ptz:pattern)\\n🔻',
+				text: '$(birddog-ptz:pattern)\\n\u{25BC}',
 				size: 'auto',
 				color: ColorWhite,
 				bgcolor: ColorBlack,
@@ -6566,7 +6794,7 @@ export function getPresets() {
 			name: 'Pattern Fine Up',
 			options: {},
 			style: {
-				text: '🔺\\nPattern\\nFine',
+				text: '\u{25B2}\\nPattern\\nFine',
 				size: 'auto',
 				color: ColorWhite,
 				bgcolor: ColorBlack,
@@ -6592,7 +6820,7 @@ export function getPresets() {
 			name: 'Pattern Fine Down',
 			options: {},
 			style: {
-				text: '$(birddog-ptz:pattern_fine)\\n🔻',
+				text: '$(birddog-ptz:pattern_fine)\\n\u{25BC}',
 				size: 'auto',
 				color: ColorWhite,
 				bgcolor: ColorBlack,
@@ -6699,7 +6927,7 @@ export function getPresets() {
 			name: 'Gamma Gain Up',
 			options: {},
 			style: {
-				text: '🔺\\nGamma\\nGain',
+				text: '\u{25B2}\\nGamma\\nGain',
 				size: 'auto',
 				color: ColorWhite,
 				bgcolor: ColorBlack,
@@ -6725,7 +6953,7 @@ export function getPresets() {
 			name: 'Gamma Gain Down',
 			options: {},
 			style: {
-				text: '$(birddog-ptz:scope_gamma_gain)\\n🔻',
+				text: '$(birddog-ptz:scope_gamma_gain)\\n\u{25BC}',
 				size: 'auto',
 				color: ColorWhite,
 				bgcolor: ColorBlack,

@@ -4,11 +4,8 @@ import CHOICES from './choices.js'
 import { combineRgb } from '@companion-module/base'
 
 export function getFeedbacks() {
-	const ColorWhite = combineRgb(255, 255, 255) // White
 	const ColorBlack = combineRgb(0, 0, 0) // Black
-	const ColorRed = combineRgb(255, 0, 0) // Red
 	const ColorGreen = combineRgb(0, 255, 0) // Green
-	const ColorOrange = combineRgb(255, 102, 0) // Orange
 
 	let MODEL_ACTIONS = getModelActions(MODEL_SPECS, this.camera.firmware.major, this.camera.model)
 
@@ -175,6 +172,54 @@ export function getFeedbacks() {
 		}
 	}
 
+	if (MODEL_ACTIONS?.output_mode) {
+		feedbacks.output_mode = {
+			type: 'boolean',
+			name: MODEL_ACTIONS.output_mode.name,
+			description: 'If the camera matches the selected Video Output mode, change the default style of the button',
+			defaultStyle: {
+				color: ColorBlack,
+				bgcolor: ColorGreen,
+			},
+			options: [
+				{
+					type: 'dropdown',
+					label: 'Mode',
+					id: 'val',
+					choices: MODEL_ACTIONS.output_mode.choices,
+					default: MODEL_ACTIONS.output_mode.default,
+				},
+			],
+			callback: (feedback) => {
+				return this.camera?.output_mode == feedback.options.val
+			},
+		}
+	}
+
+	if (MODEL_ACTIONS?.privacy_mode) {
+		feedbacks.privacy_mode = {
+			type: 'boolean',
+			name: MODEL_ACTIONS.privacy_mode.name,
+			description: 'If the camera matches the selected Privacy mode, change the default style of the button',
+			defaultStyle: {
+				color: ColorBlack,
+				bgcolor: ColorGreen,
+			},
+			options: [
+				{
+					type: 'dropdown',
+					label: 'Mode',
+					id: 'val',
+					choices: MODEL_ACTIONS.privacy_mode.choices,
+					default: MODEL_ACTIONS.privacy_mode.default,
+				},
+			],
+			callback: (feedback) => {
+				return this.camera?.privacy_mode == feedback.options.val
+			},
+		}
+	}
+
 	// Encode Setup Feedback
 
 	if (MODEL_ACTIONS?.bandwidth_mode) {
@@ -318,6 +363,54 @@ export function getFeedbacks() {
 			],
 			callback: (feedback) => {
 				return this.camera?.tally_mode == feedback.options.mode
+			},
+		}
+	}
+
+	if (MODEL_ACTIONS?.tally_state) {
+		feedbacks.tally_state = {
+			type: 'boolean',
+			name: MODEL_ACTIONS.tally_state.name,
+			description: 'If the camera tally state matches the selected mode, change the default style of the button',
+			defaultStyle: {
+				color: ColorBlack,
+				bgcolor: ColorGreen,
+			},
+			options: [
+				{
+					type: 'dropdown',
+					label: 'Onboard Tally',
+					id: 'mode',
+					choices: MODEL_ACTIONS.tally_state.choices,
+					default: MODEL_ACTIONS.tally_state.default,
+				},
+			],
+			callback: (feedback) => {
+				return this.camera?.tally_state == feedback.options.mode
+			},
+		}
+	}
+
+	if (MODEL_ACTIONS?.tally_rest_state) {
+		feedbacks.tally_rest_state = {
+			type: 'boolean',
+			name: MODEL_ACTIONS.tally_rest_state.name,
+			description: 'If the camera tally rest state matches the selected mode, change the default style of the button',
+			defaultStyle: {
+				color: ColorBlack,
+				bgcolor: ColorGreen,
+			},
+			options: [
+				{
+					type: 'dropdown',
+					label: 'Rest State',
+					id: 'mode',
+					choices: MODEL_ACTIONS.tally_rest_state.choices,
+					default: MODEL_ACTIONS.tally_rest_state.default,
+				},
+			],
+			callback: (feedback) => {
+				return this.camera?.tally_rest_state == feedback.options.mode
 			},
 		}
 	}
@@ -2033,6 +2126,80 @@ export function getFeedbacks() {
 		}
 	}
 
+	if (MODEL_ACTIONS?.wdr_enable) {
+		feedbacks.wdr_enable = {
+			type: 'boolean',
+			name: MODEL_ACTIONS.wdr_enable.name,
+			description: 'If the camera matches the selected Wide Dynamic Range mode, change the default style of the button',
+			defaultStyle: {
+				color: ColorBlack,
+				bgcolor: ColorGreen,
+			},
+			options: [
+				{
+					type: 'dropdown',
+					label: 'Wide Dynamic Range',
+					id: 'val',
+					choices: MODEL_ACTIONS.wdr_enable.choices,
+					default: MODEL_ACTIONS.wdr_enable.default,
+				},
+			],
+			callback: (feedback) => {
+				return this.camera?.wdr_enable == feedback.options.val
+			},
+		}
+	}
+
+	if (MODEL_ACTIONS?.brightnessPic) {
+		feedbacks.brightnessPic = {
+			type: 'boolean',
+			name: MODEL_ACTIONS.brightnessPic.name,
+			description: 'If the camera matches the selected Brightness value, change the default style of the button',
+			defaultStyle: {
+				color: ColorBlack,
+				bgcolor: ColorGreen,
+			},
+			options: [
+				{
+					type: 'number',
+					label:
+						'Value (' + MODEL_ACTIONS.brightnessPic.range.min + ' to ' + MODEL_ACTIONS.brightnessPic.range.max + ')',
+					id: 'value',
+					min: MODEL_ACTIONS.brightnessPic.range.min,
+					max: MODEL_ACTIONS.brightnessPic.range.max,
+					default: MODEL_ACTIONS.brightnessPic.range.default,
+				},
+			],
+			callback: (feedback) => {
+				return this.camera?.brightnessPic == feedback.options.value
+			},
+		}
+	}
+
+	if (MODEL_ACTIONS?.deflicker) {
+		feedbacks.deflicker = {
+			type: 'boolean',
+			name: MODEL_ACTIONS.deflicker.name,
+			description: 'If the camera matches the selected DeFlicker mode, change the default style of the button',
+			defaultStyle: {
+				color: ColorBlack,
+				bgcolor: ColorGreen,
+			},
+			options: [
+				{
+					type: 'dropdown',
+					label: 'DeFlicker',
+					id: 'val',
+					choices: MODEL_ACTIONS.deflicker.choices,
+					default: MODEL_ACTIONS.deflicker.default,
+				},
+			],
+			callback: (feedback) => {
+				return this.camera?.deflicker == feedback.options.val
+			},
+		}
+	}
+
 	// Color Matrix Feedback
 
 	if (MODEL_ACTIONS?.cm_blue_gain) {
@@ -2538,6 +2705,78 @@ export function getFeedbacks() {
 		}
 	}
 
+	if (MODEL_ACTIONS?.af_zone) {
+		feedbacks.af_zone = {
+			type: 'boolean',
+			name: MODEL_ACTIONS.af_zone.name,
+			description: 'If the camera matches the selected AF Zone, change the default style of the button',
+			defaultStyle: {
+				color: ColorBlack,
+				bgcolor: ColorGreen,
+			},
+			options: [
+				{
+					type: 'dropdown',
+					label: 'Zone',
+					id: 'val',
+					choices: MODEL_ACTIONS.af_zone.choices,
+					default: MODEL_ACTIONS.af_zone.default,
+				},
+			],
+			callback: (feedback) => {
+				return this.camera?.af_zone == feedback.options.val
+			},
+		}
+	}
+
+	if (MODEL_ACTIONS?.scene) {
+		feedbacks.scene = {
+			type: 'boolean',
+			name: MODEL_ACTIONS.scene.name,
+			description: 'If the camera matches the selected Scene, change the default style of the button',
+			defaultStyle: {
+				color: ColorBlack,
+				bgcolor: ColorGreen,
+			},
+			options: [
+				{
+					type: 'dropdown',
+					label: 'Scene',
+					id: 'val',
+					choices: MODEL_ACTIONS.scene.choices,
+					default: MODEL_ACTIONS.scene.default,
+				},
+			],
+			callback: (feedback) => {
+				return this.camera?.scene == feedback.options.val
+			},
+		}
+	}
+
+	if (MODEL_ACTIONS?.af_sensitivity) {
+		feedbacks.af_sensitivity = {
+			type: 'boolean',
+			name: MODEL_ACTIONS.af_sensitivity.name,
+			description: 'If the camera matches the selected AF Sensitivity, change the default style of the button',
+			defaultStyle: {
+				color: ColorBlack,
+				bgcolor: ColorGreen,
+			},
+			options: [
+				{
+					type: 'dropdown',
+					label: 'Sensitivity',
+					id: 'val',
+					choices: MODEL_ACTIONS.af_sensitivity.choices,
+					default: MODEL_ACTIONS.af_sensitivity.default,
+				},
+			],
+			callback: (feedback) => {
+				return this.camera?.af_sensitivity == feedback.options.val
+			},
+		}
+	}
+
 	// External Setup Feedback
 
 	if (MODEL_ACTIONS?.aux) {
@@ -2922,10 +3161,10 @@ export function getFeedbacks() {
 		}
 	}
 
-	if (MODEL_ACTIONS?.level) {
+	if (MODEL_ACTIONS?.gamma_offset_level) {
 		feedbacks.level = {
 			type: 'boolean',
-			name: MODEL_ACTIONS.level.name,
+			name: MODEL_ACTIONS.gamma_offset_level.name,
 			description: 'If the camera matches the selected Level, change the default style of the button',
 			defaultStyle: {
 				color: ColorBlack,
@@ -2934,23 +3173,28 @@ export function getFeedbacks() {
 			options: [
 				{
 					type: 'number',
-					label: 'Value (' + MODEL_ACTIONS.level.range.min + ' to ' + MODEL_ACTIONS.level.range.max + ')',
+					label:
+						'Value (' +
+						MODEL_ACTIONS.gamma_offset_level.range.min +
+						' to ' +
+						MODEL_ACTIONS.gamma_offset_level.range.max +
+						')',
 					id: 'value',
-					min: MODEL_ACTIONS.level.range.min,
-					max: MODEL_ACTIONS.level.range.max,
-					default: MODEL_ACTIONS.level.range.default,
+					min: MODEL_ACTIONS.gamma_offset_level.range.min,
+					max: MODEL_ACTIONS.gamma_offset_level.range.max,
+					default: MODEL_ACTIONS.gamma_offset_level.range.default,
 				},
 			],
 			callback: (feedback) => {
-				return this.camera?.level == feedback.options.value
+				return this.camera?.gamma_offset_level == feedback.options.value
 			},
 		}
 	}
 
-	if (MODEL_ACTIONS?.offset) {
+	if (MODEL_ACTIONS?.gamma_setup_offset) {
 		feedbacks.offset = {
 			type: 'boolean',
-			name: MODEL_ACTIONS.offset.name,
+			name: MODEL_ACTIONS.gamma_setup_offset.name,
 			description: 'If the camera matches the selected Offset level, change the default style of the button',
 			defaultStyle: {
 				color: ColorBlack,
@@ -2959,15 +3203,20 @@ export function getFeedbacks() {
 			options: [
 				{
 					type: 'number',
-					label: 'Value (' + MODEL_ACTIONS.offset.range.min + ' to ' + MODEL_ACTIONS.offset.range.max + ')',
+					label:
+						'Value (' +
+						MODEL_ACTIONS.gamma_setup_offset.range.min +
+						' to ' +
+						MODEL_ACTIONS.gamma_setup_offset.range.max +
+						')',
 					id: 'value',
-					min: MODEL_ACTIONS.offset.range.min,
-					max: MODEL_ACTIONS.offset.range.max,
-					default: MODEL_ACTIONS.offset.range.default,
+					min: MODEL_ACTIONS.gamma_setup_offset.range.min,
+					max: MODEL_ACTIONS.gamma_setup_offset.range.max,
+					default: MODEL_ACTIONS.gamma_setup_offset.range.default,
 				},
 			],
 			callback: (feedback) => {
-				return this.camera?.offset == feedback.options.value
+				return this.camera?.gamma_setup_offset == feedback.options.value
 			},
 		}
 	}
