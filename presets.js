@@ -6639,8 +6639,8 @@ export function getPresets() {
 		}
 	}
 
-	if (MODEL_ACTIONS?.offset) {
-		presets.offsetUp = {
+	if (MODEL_ACTIONS?.gamma_setup_offset) {
+		presets.gamma_setup_offsetUp = {
 			type: 'button',
 			category: 'Gamma Setup',
 			name: 'Offset Up',
@@ -6655,7 +6655,7 @@ export function getPresets() {
 				{
 					down: [
 						{
-							actionId: 'offset',
+							actionId: 'gamma_setup_offset',
 							options: {
 								val: 'up',
 							},
@@ -6666,13 +6666,13 @@ export function getPresets() {
 			],
 			feedbacks: [],
 		}
-		presets.offsetDown = {
+		presets.gamma_setup_offsetDown = {
 			type: 'button',
 			category: 'Gamma Setup',
 			name: 'Offset Down',
 			options: {},
 			style: {
-				text: '$(birddog-ptz:offset)\\n🔻',
+				text: '$(birddog-ptz:gamma_setup_offset)\\n🔻',
 				size: 'auto',
 				color: ColorWhite,
 				bgcolor: ColorBlack,
@@ -6681,7 +6681,7 @@ export function getPresets() {
 				{
 					down: [
 						{
-							actionId: 'offset',
+							actionId: 'gamma_setup_offset',
 							options: {
 								val: 'down',
 							},

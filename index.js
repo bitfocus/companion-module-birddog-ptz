@@ -148,6 +148,7 @@ class BirdDogPTZInstance extends InstanceBase {
 				if (data && type == 'GET') {
 					this.processData(decodeURI(url), data)
 				} else if ((data && type == 'PUT') || type == 'POST') {
+					this.log('debug', `${data}`)
 				} else {
 					if (!url.match('birddogptzsetup')) {
 						//Suppress this log: this failure is due to a BirdDog firmware bug in v5.5.114
@@ -191,37 +192,39 @@ class BirdDogPTZInstance extends InstanceBase {
 				//this.camera.video = data
 				break
 			case 'encodesetup':
-				changed = this.storeState(data, 'encodesetup')
-				let match = data.VideoFormat.match(/\d+\D(\S*)/) // match the framerate
-				if (this.camera?.shutter_table) {
-					switch (match[1]) {
-						// If the current stored framerate doesn't match the camera framerate, change the stored framerate and repopulate actions
-						case '23.98':
-						case '24':
-							if (!(this.camera.shutter_table === '24')) {
-								this.camera.shutter_table = '24'
-								this.initActions()
-							}
-							break
-						case '25':
-						case '50':
-							if (!(this.camera.shutter_table === '50')) {
-								this.camera.shutter_table = '50'
-								this.initActions()
-							}
-							break
-						default:
-							if (!(this.camera.shutter_table === '60')) {
-								this.camera.shutter_table = '60'
-								this.initActions()
-							}
-							break
+				{
+					changed = this.storeState(data, 'encodesetup')
+					let match = data.VideoFormat.match(/\d+\D(\S*)/) // match the framerate
+					if (this.camera?.shutter_table) {
+						switch (match[1]) {
+							// If the current stored framerate doesn't match the camera framerate, change the stored framerate and repopulate actions
+							case '23.98':
+							case '24':
+								if (!(this.camera.shutter_table === '24')) {
+									this.camera.shutter_table = '24'
+									this.initActions()
+								}
+								break
+							case '25':
+							case '50':
+								if (!(this.camera.shutter_table === '50')) {
+									this.camera.shutter_table = '50'
+									this.initActions()
+								}
+								break
+							default:
+								if (!(this.camera.shutter_table === '60')) {
+									this.camera.shutter_table = '60'
+									this.initActions()
+								}
+								break
+						}
 					}
+					if (this.camera?.framerate) {
+						this.camera.framerate = match[1]
+					}
+					//this.camera.encode = data
 				}
-				if (this.camera?.framerate) {
-					this.camera.framerate = match[1]
-				}
-				//this.camera.encode = data
 				break
 			case 'encodetransport':
 				changed = this.storeState(data, 'encodetransport')
@@ -232,15 +235,17 @@ class BirdDogPTZInstance extends InstanceBase {
 				//this.camera.ndiserver = data
 				break
 			case 'birddogptzsetup':
-				let originalSpeedState = this.camera?.speedControl
-				changed = this.storeState(data, 'birddogptzsetup')
+				{
+					let originalSpeedState = this.camera?.speedControl
+					changed = this.storeState(data, 'birddogptzsetup')
 
-				if (!originalSpeedState || originalSpeedState !== data.SpeedControl) {
-					this.initActions()
-					this.initFeedbacks()
+					if (!originalSpeedState || originalSpeedState !== data.SpeedControl) {
+						this.initActions()
+						this.initFeedbacks()
+					}
+
+					//this.camera.ptz = data
 				}
-
-				//this.camera.ptz = data
 				break
 			case 'birddogexpsetup':
 				changed = this.storeState(data, 'birddogexpsetup')
@@ -444,9 +449,6 @@ class BirdDogPTZInstance extends InstanceBase {
 
 			this.startPolling()
 
-			this.udp.on('status_change', (status, message) => {
-				//this.updateStatus('unknown_error', message)
-			})
 			this.udp.on('data', (data) => {
 				this.incomingData(data)
 			})

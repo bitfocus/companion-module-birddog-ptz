@@ -3010,13 +3010,13 @@ export const MODEL_SPECS = {
 			},
 		],
 	},
-	level: {
+	gamma_setup_level: {
 		camera: ['P240', 'P400', 'P4K'],
 		firmware: ['4', '5'],
 		store_state: true,
 		api_endpoint: ['birddoggammasetup'],
 		api_variable: ['Level'],
-		variableId: 'level',
+		variableId: 'gamma_setup_level',
 		name: `Gamma Setup - Level`,
 		action: [
 			{
@@ -3025,13 +3025,13 @@ export const MODEL_SPECS = {
 			},
 		],
 	},
-	offset: {
+	gamma_setup_offset: {
 		camera: ['P240', 'P400', 'P4K'],
 		firmware: ['4', '5'],
 		store_state: true,
 		api_endpoint: ['birddoggammasetup'],
 		api_variable: ['Offset'],
-		variableId: 'offset',
+		variableId: 'gamma_setup_offset',
 		name: `Gamma Setup - Offset`,
 		action: [
 			{

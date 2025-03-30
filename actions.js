@@ -548,7 +548,7 @@ export function getActions() {
 		actions['capture_screensaver'] = {
 			name: MODEL_ACTIONS.capture_screensaver?.name,
 			options: [],
-			callback: (action) => {
+			callback: () => {
 				if (this.camera.firmware.major === '6') {
 					this.sendCommand('capture?location=encoder', 'POST')
 				} else {
@@ -1076,7 +1076,7 @@ export function getActions() {
 		actions['onScreenMenu'] = {
 			name: MODEL_ACTIONS.onScreenMenu?.name,
 			options: [],
-			callback: (action) => {
+			callback: () => {
 				body = {
 					Menu: String('On/Off'),
 				}
@@ -2612,7 +2612,7 @@ export function getActions() {
 			name: MODEL_ACTIONS.wbOnePush?.name,
 			options: [],
 			description: 'Camera must be in One Push mode in order to use this action',
-			callback: (action) => {
+			callback: () => {
 				if (this.camera.firmware.major === '6') {
 					body = {
 						OnePushTrigger: String('Take'),
@@ -3978,11 +3978,11 @@ export function getActions() {
 				switch (action.options.val) {
 					case 'up':
 						newValue =
-							currentValue < MODEL_ACTIONS.cm_red_hue.range.max ? ++currentValue : ODEL_ACTIONS.cm_red_hue.range.max
+							currentValue < MODEL_ACTIONS.cm_red_hue.range.max ? ++currentValue : MODEL_ACTIONS.cm_red_hue.range.max
 						break
 					case 'down':
 						newValue =
-							currentValue > MODEL_ACTIONS.cm_red_hue.range.min ? --currentValue : ODEL_ACTIONS.cm_red_hue.range.min
+							currentValue > MODEL_ACTIONS.cm_red_hue.range.min ? --currentValue : MODEL_ACTIONS.cm_red_hue.range.min
 						break
 					case 'value':
 						newValue = action.options.value
@@ -4707,9 +4707,7 @@ export function getActions() {
 				switch (action.options.val) {
 					case 'up':
 						newValue =
-							currentValue < MODEL_ACTIONS.super_low.range.max
-								? ++sucurrentValueper_low
-								: MODEL_ACTIONS.super_low.range.max
+							currentValue < MODEL_ACTIONS.super_low.range.max ? ++currentValue : MODEL_ACTIONS.super_low.range.max
 						break
 					case 'down':
 						newValue =
@@ -4891,35 +4889,48 @@ export function getActions() {
 		}
 	}
 
-	if (MODEL_ACTIONS?.level) {
-		actions['level'] = {
-			name: MODEL_ACTIONS.level?.name,
+	if (MODEL_ACTIONS?.gamma_setup_level) {
+		actions['gamma_setup_level'] = {
+			name: MODEL_ACTIONS.gamma_setup_level?.name,
 			options: [
 				{
 					type: 'dropdown',
 					label: 'Level',
 					id: 'val',
-					choices: MODEL_ACTIONS.level.choices,
-					default: MODEL_ACTIONS.level.default,
+					choices: MODEL_ACTIONS.gamma_setup_level.choices,
+					default: MODEL_ACTIONS.gamma_setup_level.default,
 				},
 				{
 					type: 'number',
-					label: 'Value (' + MODEL_ACTIONS.level.range.min + ' to ' + MODEL_ACTIONS.level.range.max + ')',
+					label:
+						'Value (' +
+						MODEL_ACTIONS.gamma_setup_level.range.min +
+						' to ' +
+						MODEL_ACTIONS.gamma_setup_level.range.max +
+						')',
 					id: 'value',
-					min: MODEL_ACTIONS.level.range.min,
-					max: MODEL_ACTIONS.level.range.max,
-					default: MODEL_ACTIONS.level.range.default,
+					min: MODEL_ACTIONS.gamma_setup_level.range.min,
+					max: MODEL_ACTIONS.gamma_setup_level.range.max,
+					default: MODEL_ACTIONS.gamma_setup_level.range.default,
 					isVisible: (options) => options.val === 'value',
 				},
 			],
 			callback: (action) => {
-				currentValue = this.camera?.level ? this.camera.level : MODEL_ACTIONS.level.range.default
+				currentValue = this.camera?.gamma_setup_level
+					? this.camera.gamma_setup_level
+					: MODEL_ACTIONS.gamma_setup_level.range.default
 				switch (action.options.val) {
 					case 'up':
-						newValue = currentValue < MODEL_ACTIONS.level.range.max ? ++currentValue : MODEL_ACTIONS.level.range.max
+						newValue =
+							currentValue < MODEL_ACTIONS.gamma_setup_level.range.max
+								? ++currentValue
+								: MODEL_ACTIONS.gamma_setup_level.range.max
 						break
 					case 'down':
-						newValue = currentValue > MODEL_ACTIONS.level.range.max ? --currentValue : MODEL_ACTIONS.level.range.min
+						newValue =
+							currentValue > MODEL_ACTIONS.gamma_setup_level.range.max
+								? --currentValue
+								: MODEL_ACTIONS.gamma_setup_level.range.min
 						break
 					case 'value':
 						newValue = action.options.value
@@ -4933,35 +4944,46 @@ export function getActions() {
 		}
 	}
 
-	if (MODEL_ACTIONS?.offset) {
-		actions['offset'] = {
-			name: MODEL_ACTIONS.offset?.name,
+	if (MODEL_ACTIONS?.gamma_setup_offset) {
+		actions['gamma_setup_offset'] = {
+			name: MODEL_ACTIONS.gamma_setup_offset?.name,
 			options: [
 				{
 					type: 'dropdown',
 					label: 'Offset',
 					id: 'val',
-					choices: MODEL_ACTIONS.offset.choices,
-					default: MODEL_ACTIONS.offset.default,
+					choices: MODEL_ACTIONS.gamma_setup_offset.choices,
+					default: MODEL_ACTIONS.gamma_setup_offset.default,
 				},
 				{
 					type: 'number',
-					label: 'Value (' + MODEL_ACTIONS.offset.range.min + ' to ' + MODEL_ACTIONS.offset.range.max + ')',
+					label:
+						'Value (' +
+						MODEL_ACTIONS.gamma_setup_offset.range.min +
+						' to ' +
+						MODEL_ACTIONS.gamma_setup_offset.range.max +
+						')',
 					id: 'value',
-					min: MODEL_ACTIONS.offset.range.min,
-					max: MODEL_ACTIONS.offset.range.max,
-					default: MODEL_ACTIONS.offset.range.default,
+					min: MODEL_ACTIONS.gamma_setup_offset.range.min,
+					max: MODEL_ACTIONS.gamma_setup_offset.range.max,
+					default: MODEL_ACTIONS.gamma_setup_offset.range.default,
 					isVisible: (options) => options.val === 'value',
 				},
 			],
 			callback: (action) => {
-				currentValue = this.camera?.offset ? this.camera.offset : MODEL_ACTIONS.offset.range.default
+				currentValue = this.camera?.offset ? this.camera.offset : MODEL_ACTIONS.gamma_setup_offset.range.default
 				switch (action.options.val) {
 					case 'up':
-						newValue = currentValue < MODEL_ACTIONS.offset.range.max ? ++currentValue : MODEL_ACTIONS.offset.range.max
+						newValue =
+							currentValue < MODEL_ACTIONS.gamma_setup_offset.range.max
+								? ++currentValue
+								: MODEL_ACTIONS.gamma_setup_offset.range.max
 						break
 					case 'down':
-						newValue = currentValue > MODEL_ACTIONS.offset.range.max ? --currentValue : MODEL_ACTIONS.offset.range.min
+						newValue =
+							currentValue > MODEL_ACTIONS.gamma_setup_offset.range.max
+								? --currentValue
+								: MODEL_ACTIONS.gamma_setup_offset.range.min
 						break
 					case 'value':
 						newValue = action.options.value

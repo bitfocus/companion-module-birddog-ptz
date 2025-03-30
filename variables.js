@@ -695,12 +695,12 @@ export function updateVariables() {
 		updatedVariables.effect = this.camera.effect
 	}
 
-	if (MODEL_VARIABLES.some((variable) => variable.variableId === 'level')) {
-		updatedVariables.level = this.camera.level
+	if (MODEL_VARIABLES.some((variable) => variable.variableId === 'gamma_setup_level')) {
+		updatedVariables.gamma_setup_level = this.camera.gamma_setup_level
 	}
 
-	if (MODEL_VARIABLES.some((variable) => variable.variableId === 'offset')) {
-		updatedVariables.offset = this.camera.offset
+	if (MODEL_VARIABLES.some((variable) => variable.variableId === 'gamma_setup_offset')) {
+		updatedVariables.gamma_setup_offset = this.camera.gamma_setup_offset
 	}
 
 	if (MODEL_VARIABLES.some((variable) => variable.variableId === 'pattern')) {

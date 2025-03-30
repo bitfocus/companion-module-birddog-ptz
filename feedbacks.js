@@ -3161,10 +3161,10 @@ export function getFeedbacks() {
 		}
 	}
 
-	if (MODEL_ACTIONS?.level) {
+	if (MODEL_ACTIONS?.gamma_offset_level) {
 		feedbacks.level = {
 			type: 'boolean',
-			name: MODEL_ACTIONS.level.name,
+			name: MODEL_ACTIONS.gamma_offset_level.name,
 			description: 'If the camera matches the selected Level, change the default style of the button',
 			defaultStyle: {
 				color: ColorBlack,
@@ -3173,23 +3173,28 @@ export function getFeedbacks() {
 			options: [
 				{
 					type: 'number',
-					label: 'Value (' + MODEL_ACTIONS.level.range.min + ' to ' + MODEL_ACTIONS.level.range.max + ')',
+					label:
+						'Value (' +
+						MODEL_ACTIONS.gamma_offset_level.range.min +
+						' to ' +
+						MODEL_ACTIONS.gamma_offset_level.range.max +
+						')',
 					id: 'value',
-					min: MODEL_ACTIONS.level.range.min,
-					max: MODEL_ACTIONS.level.range.max,
-					default: MODEL_ACTIONS.level.range.default,
+					min: MODEL_ACTIONS.gamma_offset_level.range.min,
+					max: MODEL_ACTIONS.gamma_offset_level.range.max,
+					default: MODEL_ACTIONS.gamma_offset_level.range.default,
 				},
 			],
 			callback: (feedback) => {
-				return this.camera?.level == feedback.options.value
+				return this.camera?.gamma_offset_level == feedback.options.value
 			},
 		}
 	}
 
-	if (MODEL_ACTIONS?.offset) {
+	if (MODEL_ACTIONS?.gamma_setup_offset) {
 		feedbacks.offset = {
 			type: 'boolean',
-			name: MODEL_ACTIONS.offset.name,
+			name: MODEL_ACTIONS.gamma_setup_offset.name,
 			description: 'If the camera matches the selected Offset level, change the default style of the button',
 			defaultStyle: {
 				color: ColorBlack,
@@ -3198,15 +3203,20 @@ export function getFeedbacks() {
 			options: [
 				{
 					type: 'number',
-					label: 'Value (' + MODEL_ACTIONS.offset.range.min + ' to ' + MODEL_ACTIONS.offset.range.max + ')',
+					label:
+						'Value (' +
+						MODEL_ACTIONS.gamma_setup_offset.range.min +
+						' to ' +
+						MODEL_ACTIONS.gamma_setup_offset.range.max +
+						')',
 					id: 'value',
-					min: MODEL_ACTIONS.offset.range.min,
-					max: MODEL_ACTIONS.offset.range.max,
-					default: MODEL_ACTIONS.offset.range.default,
+					min: MODEL_ACTIONS.gamma_setup_offset.range.min,
+					max: MODEL_ACTIONS.gamma_setup_offset.range.max,
+					default: MODEL_ACTIONS.gamma_setup_offset.range.default,
 				},
 			],
 			callback: (feedback) => {
-				return this.camera?.offset == feedback.options.value
+				return this.camera?.gamma_setup_offset == feedback.options.value
 			},
 		}
 	}
