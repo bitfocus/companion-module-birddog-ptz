@@ -27,22 +27,22 @@ export default {
 
 	CAMERAS: [
 		{ id: 'Auto', label: 'Auto Detect' },
+		{ id: 'X1', label: 'X1' },
+		{ id: 'X1Ultra', label: 'X1 Ultra', other: ['X1 Ultra'] },
+		{ id: 'X4Ultra', label: 'X4 Ultra', other: ['X4 Ultra'] },
 		{ id: 'P100', label: 'P100' },
 		{ id: 'P110', label: 'P110' },
 		{ id: 'P120', label: 'P120' },
 		{ id: 'PF120', label: 'PF120' },
 		{ id: 'P200A2A3', label: 'P200 A2_A3', other: ['P200A2_A3'] },
 		{ id: 'P200A4A5', label: 'P200 A4_A5', other: ['P200A4_A5'] },
+		{ id: 'P240', label: 'P240' },
+		{ id: 'P400', label: 'P400', other: ['EYES P400', 'EYESP400'] },
+		{ id: 'P4K', label: 'P4K', other: ['EYES P4K', 'EYESP4K'] },
 		{ id: 'A200GEN1', label: 'A200 GEN1' },
 		{ id: 'A200GEN2', label: 'A200 GEN2' },
 		{ id: 'A300GEN1', label: 'A300 GEN1' },
 		{ id: 'A300GEN2', label: 'A300 GEN2' },
-		{ id: 'P240', label: 'P240' },
-		{ id: 'P400', label: 'P400', other: ['EYES P400', 'EYESP400'] },
-		{ id: 'P4K', label: 'P4K', other: ['EYES P4K', 'EYESP4K'] },
-		{ id: 'X1', label: 'X1' },
-		{ id: 'X1Ultra', label: 'X1 Ultra', other: ['X1 Ultra'] },
-		{ id: 'X4Ultra', label: 'X4 Ultra', other: ['X4 Ultra'] },
 	],
 
 	ON_OFF: [
