@@ -250,6 +250,56 @@ export function getActions() {
 		}
 	}
 
+	if (MODEL_ACTIONS?.output_mode) {
+		actions['output_mode'] = {
+			name: MODEL_ACTIONS.output_mode?.name,
+			options: [
+				{
+					type: 'dropdown',
+					label: 'Mode',
+					id: 'val',
+					choices: [...MODEL_ACTIONS.output_mode.choices, { id: 'Toggle', label: 'Toggle' }],
+					default: MODEL_ACTIONS.output_mode.default,
+				},
+			],
+			callback: (action) => {
+				let value = action.options.val
+				if (value == 'Toggle') {
+					value = toggleVal(this.camera.output_mode, MODEL_ACTIONS.output_mode.choices)
+				}
+				body = {
+					OutputMode: String(value),
+				}
+				this.sendCommand('videooutputinterface', 'POST', body)
+			},
+		}
+	}
+
+	if (MODEL_ACTIONS?.privacy_mode) {
+		actions['privacy_mode'] = {
+			name: MODEL_ACTIONS.privacy_mode?.name,
+			options: [
+				{
+					type: 'dropdown',
+					label: 'Mode',
+					id: 'val',
+					choices: [...MODEL_ACTIONS.privacy_mode.choices, { id: 'Toggle', label: 'Toggle' }],
+					default: MODEL_ACTIONS.privacy_mode.default,
+				},
+			],
+			callback: (action) => {
+				let value = action.options.val
+				if (value == 'Toggle') {
+					value = toggleVal(this.camera.privacy_mode, MODEL_ACTIONS.privacy_mode.choices)
+				}
+				body = {
+					PrivacyMode: String(value),
+				}
+				this.sendCommand('videooutputinterface', 'POST', body)
+			},
+		}
+	}
+
 	// Encode Setup Actions
 
 	if (MODEL_ACTIONS?.bandwidth_mode) {
@@ -426,12 +476,15 @@ export function getActions() {
 					type: 'dropdown',
 					label: 'Onboard Tally',
 					id: 'val',
-					choices: MODEL_ACTIONS.tally_state.choices,
+					choices: [...MODEL_ACTIONS.tally_state.choices, { id: 'Toggle', label: 'Toggle' }],
 					default: MODEL_ACTIONS.tally_state.default,
 				},
 			],
 			callback: (action) => {
 				let value = action.options.val
+				if (value == 'Toggle') {
+					value = toggleVal(this.camera.tally_state, MODEL_ACTIONS.tally_state.choices)
+				}
 				body = {
 					tally_state: String(value),
 				}
@@ -496,7 +549,11 @@ export function getActions() {
 			name: MODEL_ACTIONS.capture_screensaver?.name,
 			options: [],
 			callback: (action) => {
-				this.sendCommand('capture?ChNum=1&status=Encode', 'GET')
+				if (this.camera.firmware.major === '6') {
+					this.sendCommand('capture?location=encoder', 'POST')
+				} else {
+					this.sendCommand('capture?ChNum=1&status=Encode', 'GET')
+				}
 			},
 		}
 	}

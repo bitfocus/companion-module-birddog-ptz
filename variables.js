@@ -113,6 +113,18 @@ export function updateVariables() {
 		updatedVariables.video_output = this.camera.video_output
 	}
 
+	if (MODEL_VARIABLES.some((variable) => variable.variableId === 'output_mode')) {
+		updatedVariables.output_mode = this.camera.output_mode
+	}
+
+	if (MODEL_VARIABLES.some((variable) => variable.variableId === 'output_format')) {
+		updatedVariables.output_format = this.camera.output_format
+	}
+
+	if (MODEL_VARIABLES.some((variable) => variable.variableId === 'privacy_mode')) {
+		updatedVariables.privacy_mode = this.camera.privacy_mode
+	}
+
 	// Encode Setup Variables
 
 	if (MODEL_VARIABLES.some((variable) => variable.variableId === 'bandwidth_mode')) {

@@ -482,6 +482,82 @@ export function getPresets() {
 		}
 	}
 
+	if (MODEL_ACTIONS?.output_mode) {
+		presets.output_mode = {
+			type: 'button',
+			category: 'Video Output',
+			name: 'Output Mode',
+			options: {},
+			style: {
+				text: 'Output Mode\\n\\n$(birddog-ptz:output_mode)',
+				size: 'auto',
+				color: ColorWhite,
+				bgcolor: ColorBlack,
+			},
+			steps: [
+				{
+					down: [
+						{
+							actionId: 'output_mode',
+							options: {
+								val: 'Toggle',
+							},
+						},
+					],
+					up: [],
+				},
+			],
+			feedbacks: [
+				{
+					feedbackId: 'output_mode',
+					options: { val: MODEL_ACTIONS.output_mode.default },
+					style: {
+						color: ColorBlack,
+						bgcolor: ColorGreen,
+					},
+				},
+			],
+		}
+	}
+
+	if (MODEL_ACTIONS?.privacy_mode) {
+		presets.privacy_mode = {
+			type: 'button',
+			category: 'Video Output',
+			name: 'Privacy Mode',
+			options: {},
+			style: {
+				text: 'Privacy Mode\\n\\n$(birddog-ptz:privacy_mode)',
+				size: 'auto',
+				color: ColorWhite,
+				bgcolor: ColorBlack,
+			},
+			steps: [
+				{
+					down: [
+						{
+							actionId: 'privacy_mode',
+							options: {
+								val: 'Toggle',
+							},
+						},
+					],
+					up: [],
+				},
+			],
+			feedbacks: [
+				{
+					feedbackId: 'privacy_mode',
+					options: { val: MODEL_ACTIONS.privacy_mode.default },
+					style: {
+						color: ColorBlack,
+						bgcolor: ColorGreen,
+					},
+				},
+			],
+		}
+	}
+
 	// Encode Setup Presets
 
 	if (MODEL_ACTIONS?.bandwidth_mode) {
@@ -771,6 +847,82 @@ export function getPresets() {
 				{
 					feedbackId: 'tally_mode',
 					options: { val: MODEL_ACTIONS.tally_mode.default },
+					style: {
+						color: ColorBlack,
+						bgcolor: ColorGreen,
+					},
+				},
+			],
+		}
+	}
+
+	if (MODEL_ACTIONS?.tally_state) {
+		presets.tally_state = {
+			type: 'button',
+			category: 'Tally',
+			name: 'Tally - Onboard Tally',
+			options: {},
+			style: {
+				text: 'Onboard Tally\\n$(birddog-ptz:tally_mode)',
+				size: 'auto',
+				color: ColorWhite,
+				bgcolor: ColorBlack,
+			},
+			steps: [
+				{
+					down: [
+						{
+							actionId: 'tally_state',
+							options: {
+								val: 'Toggle',
+							},
+						},
+					],
+					up: [],
+				},
+			],
+			feedbacks: [
+				{
+					feedbackId: 'tally_state',
+					options: { val: MODEL_ACTIONS.tally_state.default },
+					style: {
+						color: ColorBlack,
+						bgcolor: ColorGreen,
+					},
+				},
+			],
+		}
+	}
+
+	if (MODEL_ACTIONS?.tally_rest_state) {
+		presets.tally_rest_state = {
+			type: 'button',
+			category: 'Tally',
+			name: 'Tally - Tally Rest State',
+			options: {},
+			style: {
+				text: 'Tally Rest State\\n$(birddog-ptz:tally_rest_state)',
+				size: 'auto',
+				color: ColorWhite,
+				bgcolor: ColorBlack,
+			},
+			steps: [
+				{
+					down: [
+						{
+							actionId: 'tally_rest_state',
+							options: {
+								val: 'white',
+							},
+						},
+					],
+					up: [],
+				},
+			],
+			feedbacks: [
+				{
+					feedbackId: 'tally_rest_state',
+					options: { val: MODEL_ACTIONS.tally_rest_state.default },
 					style: {
 						color: ColorBlack,
 						bgcolor: ColorGreen,
@@ -4698,6 +4850,44 @@ export function getPresets() {
 				},
 			],
 			feedbacks: [],
+		}
+	}
+
+	if (MODEL_ACTIONS?.wdr_enable) {
+		presets.wdr_enable = {
+			type: 'button',
+			category: 'Picture',
+			name: 'Wide Dynamic Range',
+			options: {},
+			style: {
+				text: 'Wide Dynamic Range\\n$(birddog-ptz:wdr_enable)',
+				size: 'auto',
+				color: ColorWhite,
+				bgcolor: ColorBlack,
+			},
+			steps: [
+				{
+					down: [
+						{
+							actionId: 'wdr_enable',
+							options: {
+								val: 'Toggle',
+							},
+						},
+					],
+					up: [],
+				},
+			],
+			feedbacks: [
+				{
+					feedbackId: 'wdr_enable',
+					options: { val: MODEL_ACTIONS.wdr_enable.default },
+					style: {
+						color: ColorBlack,
+						bgcolor: ColorGreen,
+					},
+				},
+			],
 		}
 	}
 

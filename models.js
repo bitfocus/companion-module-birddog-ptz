@@ -7,10 +7,10 @@ export const MODEL_QUERIES = {
 	//Device Settings
 	analogaudiosetup: { camera: ['All'], firmware: ['4', '5'] },
 	devicesettings: { camera: ['All'], firmware: ['5'] },
-	videooutputinterface: { camera: ['P240', 'P400', 'P4K'], firmware: ['4', '5'] },
+	videooutputinterface: { camera: ['P240', 'P400', 'P4K', 'X1', 'X1Ultra', 'X4Ultra'], firmware: ['4', '5', '6'] },
 
 	//NDI Encode
-	encodesetup: { camera: ['All'], firmware: ['4', '5'] },
+	encodesetup: { camera: ['All'], firmware: ['4', '5', '6'] },
 	encodetransport: { camera: ['All'], firmware: ['4', '5'] },
 
 	//NDI Finder
@@ -347,6 +347,51 @@ export const MODEL_SPECS = {
 			},
 		],
 	},
+	output_mode: {
+		camera: ['X1', 'X1Ultra', 'X4Ultra'],
+		firmware: ['6'],
+		store_state: true,
+		api_endpoint: ['videooutputinterface'],
+		api_variable: ['OutputMode'],
+		variableId: 'output_mode',
+		name: `Video Output - Output Mode`,
+		action: [
+			{
+				camera: ['common'],
+				action: { choices: CHOICES.OUTPUT_MODE, default: 'Encode' },
+			},
+		],
+	},
+	output_format: {
+		camera: ['X1', 'X1Ultra', 'X4Ultra'],
+		firmware: ['6'],
+		store_state: true,
+		api_endpoint: ['videooutputinterface'],
+		api_variable: ['OutputFormat'],
+		variableId: 'output_format',
+		name: `Video Output - Output Format`,
+		/* action: [
+			{
+				camera: ['common'],
+				action: { choices: CHOICES.OUTPUT_MODE, default: 'Encode' },
+			},
+		], */
+	},
+	privacy_mode: {
+		camera: ['X1', 'X1Ultra', 'X4Ultra'],
+		firmware: ['6'],
+		store_state: true,
+		api_endpoint: ['videooutputinterface'],
+		api_variable: ['PrivacyMode'],
+		variableId: 'privacy_mode',
+		name: `Video Output - Privacy Mode`,
+		action: [
+			{
+				camera: ['common'],
+				action: { choices: CHOICES.ON_OFF, default: 'Off' },
+			},
+		],
+	},
 
 	// Encode Setup
 	bandwidth_mode: {
@@ -381,7 +426,7 @@ export const MODEL_SPECS = {
 	},
 	capture_screensaver: {
 		camera: ['All'],
-		firmware: ['5'],
+		firmware: ['5', '6'],
 		name: 'Encode - Capture Screensaver',
 		action: [
 			{
@@ -430,7 +475,7 @@ export const MODEL_SPECS = {
 	},
 	ndiGroupEnable: {
 		camera: ['All'],
-		firmware: ['4', '5'],
+		firmware: ['4', '5', '6'],
 		store_state: true,
 		api_endpoint: ['encodesetup'],
 		api_variable: ['NDIGroup'],
@@ -445,7 +490,7 @@ export const MODEL_SPECS = {
 	},
 	ndi_group_name: {
 		camera: ['All'],
-		firmware: ['4', '5'],
+		firmware: ['4', '5', '6'],
 		store_state: true,
 		api_endpoint: ['encodesetup'],
 		api_variable: ['NDIGroupName'],
@@ -454,7 +499,7 @@ export const MODEL_SPECS = {
 	},
 	screensaver_mode: {
 		camera: ['All'],
-		firmware: ['5'],
+		firmware: ['5', '6'],
 		store_state: true,
 		api_endpoint: ['encodesetup'],
 		api_variable: ['ScreenSaverMode'],
@@ -469,7 +514,7 @@ export const MODEL_SPECS = {
 	},
 	stream_name: {
 		camera: ['All'],
-		firmware: ['4', '5'],
+		firmware: ['4', '5', '6'],
 		store_state: true,
 		api_endpoint: ['encodesetup'],
 		api_variable: ['StreamName'],
@@ -478,7 +523,7 @@ export const MODEL_SPECS = {
 	},
 	stream_to_network: {
 		camera: ['All'],
-		firmware: ['5'],
+		firmware: ['5', '6'],
 		store_state: true,
 		api_endpoint: ['encodesetup'],
 		api_variable: ['StreamToNetwork'],
@@ -507,7 +552,7 @@ export const MODEL_SPECS = {
 		],
 	},
 	tally_state: {
-		camera: ['X1', 'X1Ultra', 'X4Ultra'],
+		camera: ['X1', 'X1Ultra'],
 		firmware: ['6'],
 		store_state: true,
 		api_endpoint: ['tally'],
@@ -547,7 +592,7 @@ export const MODEL_SPECS = {
 	},
 	video_format: {
 		camera: ['All'],
-		firmware: ['4', '5'],
+		firmware: ['4', '5', '6'],
 		store_state: true,
 		api_endpoint: ['encodesetup'],
 		api_variable: ['VideoFormat'],
@@ -611,7 +656,7 @@ export const MODEL_SPECS = {
 	// NDI Discovery
 	ndi_discovery_server: {
 		camera: ['All'],
-		firmware: ['4', '5'],
+		firmware: ['4', '5', '6'],
 		store_state: true,
 		api_endpoint: ['NDIDisServer'],
 		api_variable: ['NDIDisServ'],
@@ -626,7 +671,7 @@ export const MODEL_SPECS = {
 	},
 	ndi_discovery_server_ip: {
 		camera: ['All'],
-		firmware: ['4', '5'],
+		firmware: ['4', '5', '6'],
 		store_state: true,
 		api_endpoint: ['NDIDisServer'],
 		api_variable: ['NDIDisServIP'],

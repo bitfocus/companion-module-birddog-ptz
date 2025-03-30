@@ -172,6 +172,54 @@ export function getFeedbacks() {
 		}
 	}
 
+	if (MODEL_ACTIONS?.output_mode) {
+		feedbacks.output_mode = {
+			type: 'boolean',
+			name: MODEL_ACTIONS.output_mode.name,
+			description: 'If the camera matches the selected Video Output mode, change the default style of the button',
+			defaultStyle: {
+				color: ColorBlack,
+				bgcolor: ColorGreen,
+			},
+			options: [
+				{
+					type: 'dropdown',
+					label: 'Mode',
+					id: 'val',
+					choices: MODEL_ACTIONS.output_mode.choices,
+					default: MODEL_ACTIONS.output_mode.default,
+				},
+			],
+			callback: (feedback) => {
+				return this.camera?.output_mode == feedback.options.val
+			},
+		}
+	}
+
+	if (MODEL_ACTIONS?.privacy_mode) {
+		feedbacks.privacy_mode = {
+			type: 'boolean',
+			name: MODEL_ACTIONS.privacy_mode.name,
+			description: 'If the camera matches the selected Privacy mode, change the default style of the button',
+			defaultStyle: {
+				color: ColorBlack,
+				bgcolor: ColorGreen,
+			},
+			options: [
+				{
+					type: 'dropdown',
+					label: 'Mode',
+					id: 'val',
+					choices: MODEL_ACTIONS.privacy_mode.choices,
+					default: MODEL_ACTIONS.privacy_mode.default,
+				},
+			],
+			callback: (feedback) => {
+				return this.camera?.privacy_mode == feedback.options.val
+			},
+		}
+	}
+
 	// Encode Setup Feedback
 
 	if (MODEL_ACTIONS?.bandwidth_mode) {

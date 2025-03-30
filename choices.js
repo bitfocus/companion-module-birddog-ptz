@@ -570,6 +570,11 @@ export default {
 		{ id: 'LowLatency', label: 'Low Latency' },
 	],
 
+	OUTPUT_MODE: [
+		{ id: 'Encode', label: 'Encode' },
+		{ id: 'Decode', label: 'Decode' },
+	],
+
 	DEFLICKER: [
 		{ id: 'default', label: 'OFF' },
 		{ id: '50Hz', label: '50Hz' },
