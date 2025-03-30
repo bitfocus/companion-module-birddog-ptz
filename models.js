@@ -7,7 +7,10 @@ export const MODEL_QUERIES = {
 	//Device Settings
 	analogaudiosetup: { camera: ['All'], firmware: ['4', '5'] },
 	devicesettings: { camera: ['All'], firmware: ['5'] },
-	videooutputinterface: { camera: ['P240', 'P400', 'P4K', 'X1', 'X1Ultra', 'X4Ultra', 'MAX'], firmware: ['4', '5', '6'] },
+	videooutputinterface: {
+		camera: ['P240', 'P400', 'P4K', 'X1', 'X1Ultra', 'X4Ultra', 'MAX'],
+		firmware: ['4', '5', '6'],
+	},
 
 	//NDI Encode
 	encodesetup: { camera: ['All'], firmware: ['4', '5', '6'] },
