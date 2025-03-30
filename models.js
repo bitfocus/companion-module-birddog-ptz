@@ -14,7 +14,7 @@ export const MODEL_QUERIES = {
 	encodetransport: { camera: ['All'], firmware: ['4', '5'] },
 
 	//NDI Finder
-	NDIDisServer: { camera: ['All'], firmware: ['4', '5'] },
+	NDIDisServer: { camera: ['All'], firmware: ['4', '5', '6'] },
 
 	//PTZ
 	birddogptzsetup: { camera: ['All'], firmware: ['4', '5', '6'] },
