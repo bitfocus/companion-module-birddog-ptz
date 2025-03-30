@@ -588,8 +588,14 @@ export function getActions() {
 	// PTZ Actions
 	let speedMode = !this.camera.speedControl || this.camera.speedControl === 'standard' ? true : false
 	let panSpeedMax = speedMode ? 21 : 255
+	if (MODEL_ACTIONS?.panSpeed?.range?.max) {
+		panSpeedMax = MODEL_ACTIONS.panSpeed.range.max
+	}
 	let panSpeedDefault = speedMode ? 11 : 255
 	let tiltSpeedMax = speedMode ? 18 : 255
+	if (MODEL_ACTIONS?.tiltSpeed?.range?.max) {
+		panSpeedMax = MODEL_ACTIONS.tiltSpeed.range.max
+	}
 	let tiltSpeedDefault = speedMode ? 9 : 255
 
 	if (MODEL_ACTIONS?.pt) {
