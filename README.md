@@ -8,6 +8,11 @@ See [HELP.md](https://github.com/bitfocus/companion-module-birddog-ptz/blob/main
 
 ## Changelog
 
+### v3.3.0
+
+- New
+  - Add basic "Active Camera" action for BirdDog KBD controller
+
 ### v3.2.0
 
 - New
