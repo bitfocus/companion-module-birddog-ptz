@@ -5426,3 +5426,25 @@ export function getActions() {
 	}
 	return Object.fromEntries(Object.entries(actions).sort(sortByAction))
 }
+
+export function getKBDActions() {
+	return {
+		active_camera: {
+			name: 'Active Camera',
+			options: [
+				{
+					type: 'number',
+					label: `Camera Channel`,
+					id: 'val',
+					default: 1,
+					min: 1,
+					max: 256,
+				},
+			],
+			callback: (action) => {
+				let command = `cgi-bin/connTheDev.cgi?channel=${action.options.val}`
+				this.sendKBDCommand(command, 'GET')
+			},
+		},
+	}
+}
