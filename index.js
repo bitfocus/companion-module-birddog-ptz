@@ -1,6 +1,6 @@
 import { InstanceBase, runEntrypoint, UDPHelper } from '@companion-module/base'
 
-import { getActions } from './actions.js'
+import { getActions, getKBDActions } from './actions.js'
 import { getPresets } from './presets.js'
 import { updateVariableDefinitions, updateVariables } from './variables.js'
 import { getFeedbacks } from './feedbacks.js'
@@ -123,6 +123,11 @@ class BirdDogPTZInstance extends InstanceBase {
 		this.setActionDefinitions(actions)
 	}
 
+	initKBDActions() {
+		const actions = getKBDActions.bind(this)()
+		this.setActionDefinitions(actions)
+	}
+
 	sendCommand(cmd, type, params) {
 		let url = `http://${this.config.host}:8080/${cmd}`
 		let options = {
@@ -168,6 +173,48 @@ class BirdDogPTZInstance extends InstanceBase {
 					this.camera.connected = false
 					this.updateStatus('connection_failure')
 					//this.log('error', `Connection lost to ${this.camera?.HostName ? this.camera.HostName : 'BirdDog PTZ camera'}`)
+				}
+			})
+	}
+
+	sendKBDCommand(cmd, type, params) {
+		let url = `http://${this.config.host}/${cmd}`
+		let options = {
+			method: type,
+			headers: { 'Content-Type': 'application/json' },
+		}
+		if (type == 'PUT' || type == 'POST') {
+			options.body = params != undefined ? JSON.stringify(params) : null
+		}
+
+		fetch(url, options)
+			.then((res) => {
+				if (res.status == 200) {
+					this.updateStatus('ok')
+					return res.json()
+				}
+			})
+			.then((json) => {
+				let data = json
+				if (data && type == 'GET') {
+					if (data.result === '0') {
+						this.updateStatus('ok')
+					} else {
+						this.updateStatus('connection_failure')
+						this.log('debug', `---- ${url} returned ${JSON.stringify(data)}`)
+					}
+				}
+			})
+			.catch((err) => {
+				this.log('debug', `Command Error: ${err}`)
+				let errorText = String(err)
+				if (
+					errorText.match('ECONNREFUSED') ||
+					errorText.match('ENOTFOUND') ||
+					errorText.match('EHOSTDOWN') ||
+					errorText.match('ETIMEDOUT')
+				) {
+					this.updateStatus('connection_failure')
 				}
 			})
 	}
@@ -645,12 +692,17 @@ class BirdDogPTZInstance extends InstanceBase {
 						this.log('error', `Unable to connect to BirdDog PTZ Camera (Error: ${errorText?.split('reason:')[1]})`)
 					}
 				})
+		} else if (this.config.model === 'KBD') {
+			this.initializeKeyboard()
 		} else {
 			//this.camera.model = this.config.model
 			this.getCameraFW(this.config.model)
 		}
 	}
-
+	initializeKeyboard() {
+		this.initKBDActions()
+		this.updateStatus('ok')
+	}
 	getCameraFW(model) {
 		let url = `http://${this.config.host}:8080/about`
 		let options = {
