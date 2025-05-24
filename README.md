@@ -8,6 +8,13 @@ See [HELP.md](https://github.com/bitfocus/companion-module-birddog-ptz/blob/main
 
 ## Changelog
 
+### v3.4.0
+
+- New
+  - Add initial support for X5 Ultra and MAKI Ultra cameras
+- Fix
+  - Ensure MAX cameras are properly recognized
+
 ### v3.3.0
 
 - New
