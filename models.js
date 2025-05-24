@@ -586,7 +586,7 @@ export const MODEL_SPECS = {
 		],
 	},
 	tally_rest_state: {
-		camera: ['X1', 'X1Ultra', 'MAKIUltra'],
+		camera: ['X1', 'X1Ultra', 'MAKIUltra', 'MAX'],
 		firmware: ['6'],
 		store_state: true,
 		api_endpoint: ['tally'],
