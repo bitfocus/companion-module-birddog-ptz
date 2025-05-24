@@ -718,8 +718,9 @@ class BirdDogPTZInstance extends InstanceBase {
 			})
 			.then((data) => {
 				if (data.FirmwareVersion) {
-					let FW_major = data.FirmwareVersion.substring(data.FirmwareVersion.lastIndexOf(' ') + 1).substring(0, 1)
-					let FW_minor = data.FirmwareVersion.substring(data.FirmwareVersion.lastIndexOf(' ') + 2).substring(1, 2)
+					const FW_Match = data.FirmwareVersion.match(/(\d+)\.(\d+)\.(\d+)/)
+					let FW_major = FW_Match ? FW_Match[1] : ''
+					let FW_minor = FW_Match ? FW_Match[2] : ''
 
 					// Set Initial State for Camera
 					this.intializeState(model, data.HostName, FW_major, FW_minor)
@@ -727,7 +728,7 @@ class BirdDogPTZInstance extends InstanceBase {
 					// InitializeCamera
 					this.initializeCamera()
 				} else if (data.Version === '1.0') {
-					this.log('error', 'Please upgrade your BirdDog camera to the latest LTS firmware to use this module')
+					this.log('error', 'Please upgrade your BirdDog camera to the latest firmware to use this module')
 					this.updateStatus('connection_failure')
 					if (this.timers.pollCameraStatus !== undefined) {
 						clearInterval(this.timers.pollCameraStatus)
