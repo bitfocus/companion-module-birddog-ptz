@@ -2,27 +2,27 @@ import CHOICES from './choices.js'
 
 export const MODEL_QUERIES = {
 	//Basic Device Information
-	about: { camera: ['All'], firmware: ['4', '5', '6'] },
+	about: { camera: ['All'], firmware: ['4', '5', '6', '0'] },
 
 	//Device Settings
 	analogaudiosetup: { camera: ['All'], firmware: ['4', '5'] },
 	devicesettings: { camera: ['All'], firmware: ['5'] },
 	videooutputinterface: {
-		camera: ['P240', 'P400', 'P4K', 'X1', 'X1Ultra', 'X4Ultra', 'MAKIUltra', 'MAX'],
-		firmware: ['4', '5', '6'],
+		camera: ['P240', 'P400', 'P4K', 'X1', 'X1Ultra', 'X4Ultra', 'X5Ultra', 'MAKIUltra', 'MAX'],
+		firmware: ['4', '5', '6', '0'],
 	},
 
 	//NDI Encode
-	encodesetup: { camera: ['All'], firmware: ['4', '5', '6'] },
+	encodesetup: { camera: ['All'], firmware: ['4', '5', '6', '0'] },
 	encodetransport: { camera: ['All'], firmware: ['4', '5'] },
 
 	//NDI Finder
-	NDIDisServer: { camera: ['All'], firmware: ['4', '5', '6'] },
+	NDIDisServer: { camera: ['All'], firmware: ['4', '5', '6', '0'] },
 
 	//PTZ
-	birddogptzsetup: { camera: ['All'], firmware: ['4', '5', '6'] },
-	recallPost: { camera: ['All'], firmware: ['4', '5', '6'] },
-	savePost: { camera: ['All'], firmware: ['4', '5', '6'] },
+	birddogptzsetup: { camera: ['All'], firmware: ['4', '5', '6', '0'] },
+	recallPost: { camera: ['All'], firmware: ['4', '5', '6', '0'] },
+	savePost: { camera: ['All'], firmware: ['4', '5', '6', '0'] },
 	pt_pos: {
 		camera: [
 			'P100',
@@ -42,13 +42,13 @@ export const MODEL_QUERIES = {
 	},
 
 	//Exposure
-	birddogexpsetup: { camera: ['All'], firmware: ['4', '5', '6'] },
+	birddogexpsetup: { camera: ['All'], firmware: ['4', '5', '6', '0'] },
 
 	//White Balance
-	birddogwbsetup: { camera: ['All'], firmware: ['4', '5', '6'] },
+	birddogwbsetup: { camera: ['All'], firmware: ['4', '5', '6', '0'] },
 
 	//Picture Settings
-	birddogpicsetup: { camera: ['All'], firmware: ['4', '5', '6'] },
+	birddogpicsetup: { camera: ['All'], firmware: ['4', '5', '6', '0'] },
 	birddogcmsetup: {
 		camera: [
 			'P100',
@@ -64,6 +64,7 @@ export const MODEL_QUERIES = {
 			'X1',
 			'X1Ultra',
 			'X4Ultra',
+			'X5Ultra',
 			'MAKIUltra',
 			'MAX',
 		],
@@ -82,14 +83,15 @@ export const MODEL_QUERIES = {
 			'X1',
 			'X1Ultra',
 			'X4Ultra',
+			'X5Ultra',
 			'MAKIUltra',
 			'MAX',
 		],
 		firmware: ['4', '5', '6'],
 	},
 	tally: {
-		camera: ['X1', 'X1Ultra', 'X4Ultra', 'MAKIUltra', 'MAX'],
-		firmware: ['6'],
+		camera: ['X1', 'X1Ultra', 'X4Ultra', 'X5Ultra', 'MAKIUltra', 'MAX'],
+		firmware: ['6', '0'],
 	},
 
 	//External Settings
@@ -116,7 +118,7 @@ export const MODEL_SPECS = {
 	},
 	fallback_IP: {
 		camera: ['All'],
-		firmware: ['6'],
+		firmware: ['6', '0'],
 		api_endpoint: ['about'],
 		api_variable: ['FallbackIP'],
 		variableId: 'fallback_ip',
@@ -124,21 +126,21 @@ export const MODEL_SPECS = {
 	},
 	firmware_version: {
 		camera: ['All'],
-		firmware: ['5', '6'],
+		firmware: ['5', '6', '0'],
 		api_endpoint: ['about'],
 		api_variable: ['FirmwareVersion'],
 		store_state: true,
 	},
 	mcu_version: {
 		camera: ['All'],
-		firmware: ['5', '6'],
+		firmware: ['5', '6', '0'],
 		api_endpoint: ['about'],
 		api_variable: ['MCUVersion'],
 		store_state: true,
 	},
 	format: {
 		camera: ['All'],
-		firmware: ['5', '6'],
+		firmware: ['5', '6', '0'],
 		api_endpoint: ['about'],
 		api_variable: ['Format'],
 		store_state: true,
@@ -150,7 +152,7 @@ export const MODEL_SPECS = {
 	},
 	hardware_version: {
 		camera: ['All'],
-		firmware: ['4', '5', '6'],
+		firmware: ['4', '5', '6', '0'],
 		store_state: true,
 		api_endpoint: ['about'],
 		api_variable: ['HardwareVersion'],
@@ -159,7 +161,7 @@ export const MODEL_SPECS = {
 	},
 	hostname: {
 		camera: ['All'],
-		firmware: ['4', '5', '6'],
+		firmware: ['4', '5', '6', '0'],
 		store_state: true,
 		api_endpoint: ['about'],
 		api_variable: ['HostName'],
@@ -168,7 +170,7 @@ export const MODEL_SPECS = {
 	},
 	ipaddress: {
 		camera: ['All'],
-		firmware: ['4', '5', '6'],
+		firmware: ['4', '5', '6', '0'],
 		store_state: true,
 		api_endpoint: ['about'],
 		api_variable: ['IPAddress'],
@@ -177,7 +179,7 @@ export const MODEL_SPECS = {
 	},
 	gateway: {
 		camera: ['All'],
-		firmware: ['5', '6'],
+		firmware: ['5', '6', '0'],
 		api_endpoint: ['about'],
 		api_variable: ['GateWay'],
 		store_state: true,
@@ -191,7 +193,7 @@ export const MODEL_SPECS = {
 	},
 	netmask: {
 		camera: ['All'],
-		firmware: ['4', '5', '6'],
+		firmware: ['4', '5', '6', '0'],
 		store_state: true,
 		api_endpoint: ['about'],
 		api_variable: ['NetworkMask'],
@@ -200,7 +202,7 @@ export const MODEL_SPECS = {
 	},
 	network_config: {
 		camera: ['All'],
-		firmware: ['4', '5', '6'],
+		firmware: ['4', '5', '6', '0'],
 		store_state: true,
 		api_endpoint: ['about'],
 		api_variable: ['NetworkConfigMethod'],
@@ -208,8 +210,8 @@ export const MODEL_SPECS = {
 		name: 'General - Network Config Method',
 	},
 	dns: {
-		camera: ['X1', 'X1Ultra', 'X4Ultra', 'MAX'],
-		firmware: ['6'],
+		camera: ['X1', 'X1Ultra', 'X4Ultra', 'X5Ultra', 'MAX'],
+		firmware: ['6', '0'],
 		store_state: true,
 		api_endpoint: ['about'],
 		api_variable: ['Dns', 'DNS'],
@@ -217,8 +219,8 @@ export const MODEL_SPECS = {
 		name: 'General - DNS',
 	},
 	wifi_config_method: {
-		camera: ['X1', 'X1Ultra', 'X4Ultra', 'MAX'],
-		firmware: ['6'],
+		camera: ['X1', 'X1Ultra', 'X4Ultra', 'X5Ultra', 'MAX'],
+		firmware: ['6', '0'],
 		store_state: true,
 		api_endpoint: ['about'],
 		api_variable: ['WifiConfigMethod'],
@@ -226,8 +228,8 @@ export const MODEL_SPECS = {
 		name: 'General - Wifi Config Method',
 	},
 	wifi_ip_address: {
-		camera: ['X1', 'X1Ultra', 'X4Ultra', 'MAX'],
-		firmware: ['6'],
+		camera: ['X1', 'X1Ultra', 'X4Ultra', 'X5Ultra', 'MAX'],
+		firmware: ['6', '0'],
 		store_state: true,
 		api_endpoint: ['about'],
 		api_variable: ['WifiIPAddress'],
@@ -235,8 +237,8 @@ export const MODEL_SPECS = {
 		name: 'General - Wifi IP Address',
 	},
 	wifi_netmask: {
-		camera: ['X1', 'X1Ultra', 'X4Ultra', 'MAX'],
-		firmware: ['6'],
+		camera: ['X1', 'X1Ultra', 'X4Ultra', 'X5Ultra', 'MAX'],
+		firmware: ['6', '0'],
 		store_state: true,
 		api_endpoint: ['about'],
 		api_variable: ['WifiMask'],
@@ -245,7 +247,7 @@ export const MODEL_SPECS = {
 	},
 	serial_number: {
 		camera: ['All'],
-		firmware: ['4', '5', '6'],
+		firmware: ['4', '5', '6', '0'],
 		store_state: true,
 		api_endpoint: ['about'],
 		api_variable: ['SerialNumber'],
@@ -254,7 +256,7 @@ export const MODEL_SPECS = {
 	},
 	status: {
 		camera: ['All'],
-		firmware: ['4', '5', '6'],
+		firmware: ['4', '5', '6', '0'],
 		store_state: true,
 		api_endpoint: ['about'],
 		api_variable: ['Status'],
@@ -365,8 +367,8 @@ export const MODEL_SPECS = {
 		],
 	},
 	output_mode: {
-		camera: ['X1', 'X1Ultra', 'X4Ultra', 'MAKIUltra', 'MAX'],
-		firmware: ['6'],
+		camera: ['X1', 'X1Ultra', 'X4Ultra', 'X5Ultra', 'MAKIUltra', 'MAX'],
+		firmware: ['6', '0'],
 		store_state: true,
 		api_endpoint: ['videooutputinterface'],
 		api_variable: ['OutputMode'],
@@ -380,8 +382,8 @@ export const MODEL_SPECS = {
 		],
 	},
 	output_format: {
-		camera: ['X1', 'X1Ultra', 'X4Ultra', 'MAKIUltra', 'MAX'],
-		firmware: ['6'],
+		camera: ['X1', 'X1Ultra', 'X4Ultra', 'X5Ultra', 'MAKIUltra', 'MAX'],
+		firmware: ['6', '0'],
 		store_state: true,
 		api_endpoint: ['videooutputinterface'],
 		api_variable: ['OutputFormat'],
@@ -395,8 +397,8 @@ export const MODEL_SPECS = {
 		], */
 	},
 	privacy_mode: {
-		camera: ['X1', 'X1Ultra', 'X4Ultra', 'MAKIUltra', 'MAX'],
-		firmware: ['6'],
+		camera: ['X1', 'X1Ultra', 'X4Ultra', 'X5Ultra', 'MAKIUltra', 'MAX'],
+		firmware: ['6', '0'],
 		store_state: true,
 		api_endpoint: ['videooutputinterface'],
 		api_variable: ['PrivacyMode'],
@@ -443,7 +445,7 @@ export const MODEL_SPECS = {
 	},
 	capture_screensaver: {
 		camera: ['All'],
-		firmware: ['5', '6'],
+		firmware: ['5', '6', '0'],
 		name: 'Encode - Capture Screensaver',
 		action: [
 			{
@@ -492,7 +494,7 @@ export const MODEL_SPECS = {
 	},
 	ndiGroupEnable: {
 		camera: ['All'],
-		firmware: ['4', '5', '6'],
+		firmware: ['4', '5', '6', '0'],
 		store_state: true,
 		api_endpoint: ['encodesetup'],
 		api_variable: ['NDIGroup'],
@@ -507,7 +509,7 @@ export const MODEL_SPECS = {
 	},
 	ndi_group_name: {
 		camera: ['All'],
-		firmware: ['4', '5', '6'],
+		firmware: ['4', '5', '6', '0'],
 		store_state: true,
 		api_endpoint: ['encodesetup'],
 		api_variable: ['NDIGroupName'],
@@ -516,7 +518,7 @@ export const MODEL_SPECS = {
 	},
 	screensaver_mode: {
 		camera: ['All'],
-		firmware: ['5', '6'],
+		firmware: ['5', '6', '0'],
 		store_state: true,
 		api_endpoint: ['encodesetup'],
 		api_variable: ['ScreenSaverMode'],
@@ -531,7 +533,7 @@ export const MODEL_SPECS = {
 	},
 	stream_name: {
 		camera: ['All'],
-		firmware: ['4', '5', '6'],
+		firmware: ['4', '5', '6', '0'],
 		store_state: true,
 		api_endpoint: ['encodesetup'],
 		api_variable: ['StreamName'],
@@ -540,7 +542,7 @@ export const MODEL_SPECS = {
 	},
 	stream_to_network: {
 		camera: ['All'],
-		firmware: ['5', '6'],
+		firmware: ['5', '6', '0'],
 		store_state: true,
 		api_endpoint: ['encodesetup'],
 		api_variable: ['StreamToNetwork'],
@@ -609,7 +611,7 @@ export const MODEL_SPECS = {
 	},
 	video_format: {
 		camera: ['All'],
-		firmware: ['4', '5', '6'],
+		firmware: ['4', '5', '6', '0'],
 		store_state: true,
 		api_endpoint: ['encodesetup'],
 		api_variable: ['VideoFormat'],
@@ -673,7 +675,7 @@ export const MODEL_SPECS = {
 	// NDI Discovery
 	ndi_discovery_server: {
 		camera: ['All'],
-		firmware: ['4', '5', '6'],
+		firmware: ['4', '5', '6', '0'],
 		store_state: true,
 		api_endpoint: ['NDIDisServer'],
 		api_variable: ['NDIDisServ'],
@@ -688,7 +690,7 @@ export const MODEL_SPECS = {
 	},
 	ndi_discovery_server_ip: {
 		camera: ['All'],
-		firmware: ['4', '5', '6'],
+		firmware: ['4', '5', '6', '0'],
 		store_state: true,
 		api_endpoint: ['NDIDisServer'],
 		api_variable: ['NDIDisServIP'],
@@ -741,9 +743,10 @@ export const MODEL_SPECS = {
 			'X1',
 			'X1Ultra',
 			'X4Ultra',
+			'X5Ultra',
 			'MAX',
 		],
-		firmware: ['4', '5', '6'],
+		firmware: ['4', '5', '6', '0'],
 		store_state: false,
 		name: 'PTZ - Pan/Tilt',
 		action: [
@@ -824,9 +827,10 @@ export const MODEL_SPECS = {
 			'X1',
 			'X1Ultra',
 			'X4Ultra',
+			'X5Ultra',
 			'MAX',
 		],
-		firmware: ['4', '5', '6'],
+		firmware: ['4', '5', '6', '0'],
 		store_state: true,
 		api_endpoint: ['birddogptzsetup'],
 		api_variable: ['PanSpeed'],
@@ -851,14 +855,14 @@ export const MODEL_SPECS = {
 				action: { choices: CHOICES.SPEED_CHANGES, default: 'up', range: { min: 0, max: 21, default: 11 } },
 			},
 			{
-				camera: ['X1', 'X1Ultra', 'X4Ultra', 'MAX'],
+				camera: ['X1', 'X1Ultra', 'X4Ultra', 'X5Ultra', 'MAX'],
 				action: { choices: CHOICES.SPEED_CHANGES, default: 'up', range: { min: 0, max: 24, default: 12 } },
 			},
 		],
 	},
 	preset: {
 		camera: ['All'],
-		firmware: ['5', '6'],
+		firmware: ['5', '6', '0'],
 		store_state: true,
 		api_endpoint: ['birddogptzsetup'],
 		api_variable: ['Preset'],
@@ -873,7 +877,7 @@ export const MODEL_SPECS = {
 	},
 	preset_speed: {
 		camera: ['All'],
-		firmware: ['5', '6'],
+		firmware: ['5', '6', '0'],
 		store_state: true,
 		api_endpoint: ['birddogptzsetup'],
 		api_variable: ['PresetSpeed'],
@@ -885,14 +889,14 @@ export const MODEL_SPECS = {
 				action: { choices: CHOICES.SPEED_CHANGES, default: 'up', range: { min: 0, max: 21, default: 11 } },
 			},
 			{
-				camera: ['X1', 'X1Ultra', 'X4Ultra', 'MAKIUltra', 'MAX'],
+				camera: ['X1', 'X1Ultra', 'X4Ultra', 'X5Ultra', 'MAKIUltra', 'MAX'],
 				action: { choices: CHOICES.SPEED_CHANGES, default: 'up', range: { min: 1, max: 24, default: 12 } },
 			},
 		],
 	},
 	recallPset: {
 		camera: ['All'],
-		firmware: ['4', '5', '6'],
+		firmware: ['4', '5', '6', '0'],
 		store_state: false,
 		name: 'PTZ - Recall Preset',
 		action: [
@@ -904,7 +908,7 @@ export const MODEL_SPECS = {
 	},
 	savePset: {
 		camera: ['All'],
-		firmware: ['4', '5', '6'],
+		firmware: ['4', '5', '6', '0'],
 		store_state: false,
 		name: 'PTZ - Save Preset',
 		action: [
@@ -971,9 +975,10 @@ export const MODEL_SPECS = {
 			'X1',
 			'X1Ultra',
 			'X4Ultra',
+			'X5Ultra',
 			'MAX',
 		],
-		firmware: ['4', '5', '6'],
+		firmware: ['4', '5', '6', '0'],
 		store_state: true,
 		api_endpoint: ['birddogptzsetup'],
 		api_variable: ['TiltSpeed'],
@@ -998,14 +1003,14 @@ export const MODEL_SPECS = {
 				action: { choices: CHOICES.SPEED_CHANGES, default: 'up', range: { min: 0, max: 18, default: 9 } },
 			},
 			{
-				camera: ['X1', 'X1Ultra', 'X4Ultra', 'MAKIUltra', 'MAX'],
+				camera: ['X1', 'X1Ultra', 'X4Ultra', 'X5Ultra', 'MAKIUltra', 'MAX'],
 				action: { choices: CHOICES.SPEED_CHANGES, default: 'up', range: { min: 0, max: 24, default: 12 } },
 			},
 		],
 	},
 	zoom: {
 		camera: ['All'],
-		firmware: ['4', '5', '6'],
+		firmware: ['4', '5', '6', '0'],
 		store_state: false,
 		name: 'PTZ - Zoom',
 		action: [
@@ -1026,7 +1031,7 @@ export const MODEL_SPECS = {
 				action: { posZoomChoices: CHOICES.POS_ZOOM_10 },
 			},
 			{
-				camera: ['PF120', 'P120', 'P240', 'P400', 'X1', 'X4Ultra'],
+				camera: ['PF120', 'P120', 'P240', 'P400', 'X1', 'X4Ultra', 'X5Ultra'],
 				action: { posZoomChoices: CHOICES.POS_ZOOM_20 },
 			},
 			{
@@ -1051,7 +1056,7 @@ export const MODEL_SPECS = {
 	},
 	zoomSpeed: {
 		camera: ['All'],
-		firmware: ['4', '5', '6'],
+		firmware: ['4', '5', '6', '0'],
 		store_state: true,
 		api_endpoint: ['birddogptzsetup'],
 		api_variable: ['ZoomSpeed'],
@@ -1066,7 +1071,7 @@ export const MODEL_SPECS = {
 	},
 	onScreenMenu: {
 		camera: ['All'],
-		firmware: ['5', '6'],
+		firmware: ['5', '6', '0'],
 		store_state: false,
 		name: `PTZ - Toggle OSD Menu`,
 		action: [
@@ -1078,7 +1083,7 @@ export const MODEL_SPECS = {
 	},
 	speedControl: {
 		camera: ['All'],
-		firmware: ['5', '6'],
+		firmware: ['5', '6', '0'],
 		store_state: true,
 		api_endpoint: ['birddogptzsetup'],
 		api_variable: ['SpeedControl'],
@@ -1095,7 +1100,7 @@ export const MODEL_SPECS = {
 	// Focus
 	focus: {
 		camera: ['All'],
-		firmware: ['4', '5', '6'],
+		firmware: ['4', '5', '6', '0'],
 		store_state: false,
 		name: 'Focus - Focus Action',
 		action: [
@@ -1107,7 +1112,7 @@ export const MODEL_SPECS = {
 	},
 	focusM: {
 		camera: ['All'],
-		firmware: ['4', '5', '6'],
+		firmware: ['4', '5', '6', '0'],
 		store_state: true,
 		api_endpoint: ['birddogptzsetup'],
 		api_variable: ['FocusMode'],
@@ -1154,7 +1159,7 @@ export const MODEL_SPECS = {
 	},
 	bright_level: {
 		camera: ['All'],
-		firmware: ['4', '5', '6'],
+		firmware: ['4', '5', '6', '0'],
 		store_state: true,
 		api_endpoint: ['birddogexpsetup'],
 		api_variable: ['BrightLevel'],
@@ -1166,7 +1171,7 @@ export const MODEL_SPECS = {
 				action: { choices: CHOICES.UP_DOWN_VALUE, default: 'up' },
 			},
 			{
-				camera: ['X1', 'X1Ultra', 'X4Ultra', 'MAKIUltra', 'MAX'],
+				camera: ['X1', 'X1Ultra', 'X4Ultra', 'X5Ultra', 'MAKIUltra', 'MAX'],
 				action: { range: { min: 0, max: 17, default: 0 } },
 			},
 			{
@@ -1204,7 +1209,7 @@ export const MODEL_SPECS = {
 	},
 	expCompLvl: {
 		camera: ['All'],
-		firmware: ['4', '5', '6'],
+		firmware: ['4', '5', '6', '0'],
 		store_state: true,
 		api_endpoint: ['birddogexpsetup'],
 		api_variable: ['ExpCompLvl'],
@@ -1216,7 +1221,7 @@ export const MODEL_SPECS = {
 				action: { choices: CHOICES.UP_DOWN_VALUE, default: 'up' },
 			},
 			{
-				camera: ['P100', 'P110', 'P120', 'PF120', 'X1', 'X1Ultra', 'X4Ultra', 'MAKIUltra', 'MAX'],
+				camera: ['P100', 'P110', 'P120', 'PF120', 'X1', 'X1Ultra', 'X4Ultra', 'X5Ultra', 'MAKIUltra', 'MAX'],
 				action: { range: { min: -7, max: 7, default: 0 } },
 			},
 			{
@@ -1227,7 +1232,7 @@ export const MODEL_SPECS = {
 	},
 	exposure_mode: {
 		camera: ['All'],
-		firmware: ['4', '5', '6'],
+		firmware: ['4', '5', '6', '0'],
 		store_state: true,
 		api_endpoint: ['birddogexpsetup'],
 		api_variable: ['ExpMode'],
@@ -1252,6 +1257,7 @@ export const MODEL_SPECS = {
 					'X1',
 					'X1Ultra',
 					'X4Ultra',
+					'X5Ultra',
 				],
 				action: { choices: CHOICES.EXP_MODE_1 },
 			},
@@ -1267,7 +1273,7 @@ export const MODEL_SPECS = {
 	},
 	gain: {
 		camera: ['All'],
-		firmware: ['4', '5', '6'],
+		firmware: ['4', '5', '6', '0'],
 		store_state: true,
 		api_endpoint: ['birddogexpsetup'],
 		api_variable: ['GainLevel'],
@@ -1291,7 +1297,7 @@ export const MODEL_SPECS = {
 				action: { value: { choices: CHOICES.GAIN_3, default: 1 } },
 			},
 			{
-				camera: ['X1', 'X1Ultra', 'X4Ultra', 'MAKIUltra', 'MAX'],
+				camera: ['X1', 'X1Ultra', 'X4Ultra', 'X5Ultra', 'MAKIUltra', 'MAX'],
 				action: { value: { choices: CHOICES.GAIN_4, default: 0 } },
 			},
 		],
@@ -1360,7 +1366,7 @@ export const MODEL_SPECS = {
 	},
 	iris: {
 		camera: ['All'],
-		firmware: ['4', '5', '6'],
+		firmware: ['4', '5', '6', '0'],
 		store_state: true,
 		api_endpoint: ['birddogexpsetup'],
 		api_variable: ['IrisLevel'],
@@ -1372,7 +1378,7 @@ export const MODEL_SPECS = {
 				action: { choices: CHOICES.UP_DOWN_VALUE, default: 'up' },
 			},
 			{
-				camera: ['P100', 'P110', 'P120', 'PF120', 'X1', 'X1Ultra', 'X4Ultra', 'MAX'],
+				camera: ['P100', 'P110', 'P120', 'PF120', 'X1', 'X1Ultra', 'X4Ultra', 'X5Ultra', 'MAX'],
 				action: { value: { choices: CHOICES.IRIS_1, default: 8, range: { closed: 0, min: 1, max: 13 } } },
 			},
 			{
@@ -1436,7 +1442,7 @@ export const MODEL_SPECS = {
 	},
 	shutter_speed: {
 		camera: ['All'],
-		firmware: ['4', '5', '6'],
+		firmware: ['4', '5', '6', '0'],
 		store_state: true,
 		api_endpoint: ['birddogexpsetup'],
 		api_variable: ['ShutterSpeed'],
@@ -1462,6 +1468,7 @@ export const MODEL_SPECS = {
 					'X1',
 					'X1Ultra',
 					'X4Ultra',
+					'X5Ultra',
 				],
 				action: {
 					shutter_50: CHOICES.SHUTTER_50,
@@ -1624,8 +1631,8 @@ export const MODEL_SPECS = {
 		],
 	},
 	color_temp: {
-		camera: ['P100', 'P110', 'P120', 'PF120', 'X1', 'X1Ultra', 'X4Ultra', 'MAKIUltra', 'MAX'],
-		firmware: ['4', '5', '6'],
+		camera: ['P100', 'P110', 'P120', 'PF120', 'X1', 'X1Ultra', 'X4Ultra', 'X5Ultra', 'MAKIUltra', 'MAX'],
+		firmware: ['4', '5', '6', '0'],
 		store_state: true,
 		api_endpoint: ['birddogwbsetup'],
 		api_variable: ['ColorTemp'],
@@ -1642,7 +1649,7 @@ export const MODEL_SPECS = {
 				},
 			},
 			{
-				camera: ['X1', 'X1Ultra', 'X4Ultra', 'MAKIUltra', 'MAX'],
+				camera: ['X1', 'X1Ultra', 'X4Ultra', 'X5Ultra', 'MAKIUltra', 'MAX'],
 				action: {
 					choices: CHOICES.UP_DOWN_VALUE,
 					default: 'up',
@@ -1823,7 +1830,7 @@ export const MODEL_SPECS = {
 	},
 	wbOnePush: {
 		camera: ['All'],
-		firmware: ['5', '6'],
+		firmware: ['5', '6', '0'],
 		store_state: true,
 		api_endpoint: ['birddogwbsetup'],
 		api_variable: ['OnePushTrigger'],
@@ -1837,7 +1844,7 @@ export const MODEL_SPECS = {
 	},
 	wb_mode: {
 		camera: ['All'],
-		firmware: ['4', '5', '6'],
+		firmware: ['4', '5', '6', '0'],
 		store_state: true,
 		api_endpoint: ['birddogwbsetup'],
 		api_variable: ['WbMode'],
@@ -1853,7 +1860,7 @@ export const MODEL_SPECS = {
 				action: { choices: CHOICES.WB_MODE_1 },
 			},
 			{
-				camera: ['X1', 'X1Ultra', 'X4Ultra', 'MAKIUltra', 'MAX'],
+				camera: ['X1', 'X1Ultra', 'X4Ultra', 'X5Ultra', 'MAKIUltra', 'MAX'],
 				action: { choices: CHOICES.WB_MODE_1c },
 			},
 			{
@@ -1875,10 +1882,11 @@ export const MODEL_SPECS = {
 			'X1',
 			'X1Ultra',
 			'X4Ultra',
+			'X5Ultra',
 			'MAKIUltra',
 			'MAX',
 		],
-		firmware: ['4', '5', '6'],
+		firmware: ['4', '5', '6', '0'],
 		store_state: true,
 		api_endpoint: ['birddogpicsetup'],
 		api_variable: ['BackLightCom'],
@@ -1907,8 +1915,8 @@ export const MODEL_SPECS = {
 		],
 	},
 	contrast: {
-		camera: ['P100', 'P110', 'P120', 'PF120', 'X1', 'X1Ultra', 'X4Ultra', 'MAKIUltra', 'MAX'],
-		firmware: ['4', '5', '6'],
+		camera: ['P100', 'P110', 'P120', 'PF120', 'X1', 'X1Ultra', 'X4Ultra', 'X5Ultra', 'MAKIUltra', 'MAX'],
+		firmware: ['4', '5', '6', '0'],
 		store_state: true,
 		api_endpoint: ['birddogpicsetup'],
 		api_variable: ['Contrast'],
@@ -1920,7 +1928,7 @@ export const MODEL_SPECS = {
 				action: { choices: CHOICES.UP_DOWN_VALUE, default: 'up', range: { min: 0, max: 15, default: 8 } },
 			},
 			{
-				camera: ['X1', 'X1Ultra', 'X4Ultra', 'MAKIUltra', 'MAX'],
+				camera: ['X1', 'X1Ultra', 'X4Ultra', 'X5Ultra', 'MAKIUltra', 'MAX'],
 				action: { choices: CHOICES.UP_DOWN_VALUE, default: 'up', range: { min: 0, max: 100, default: 8 } },
 			},
 		],
@@ -1954,10 +1962,11 @@ export const MODEL_SPECS = {
 			'X1',
 			'X1Ultra',
 			'X4Ultra',
+			'X5Ultra',
 			'MAKIUltra',
 			'MAX',
 		],
-		firmware: ['4', '5', '6'],
+		firmware: ['4', '5', '6', '0'],
 		store_state: true,
 		api_endpoint: ['birddogpicsetup'],
 		api_variable: ['HighlightComp'],
@@ -1969,7 +1978,7 @@ export const MODEL_SPECS = {
 				action: { choices: CHOICES.OFF_L_M_H, default: 'OFF' },
 			},
 			{
-				camera: ['X1', 'X1Ultra', 'X4Ultra', 'MAKIUltra', 'MAX'],
+				camera: ['X1', 'X1Ultra', 'X4Ultra', 'X5Ultra', 'MAKIUltra', 'MAX'],
 				action: { choices: CHOICES.ON_OFF, default: 'Off' },
 			},
 		],
@@ -1990,8 +1999,8 @@ export const MODEL_SPECS = {
 		],
 	},
 	hue: {
-		camera: ['P100', 'P110', 'P120', 'PF120', 'X1', 'X1Ultra', 'X4Ultra', 'MAKIUltra', 'MAX'],
-		firmware: ['4', '5', '6'],
+		camera: ['P100', 'P110', 'P120', 'PF120', 'X1', 'X1Ultra', 'X4Ultra', 'X5Ultra', 'MAKIUltra', 'MAX'],
+		firmware: ['4', '5', '6', '0'],
 		store_state: true,
 		api_endpoint: ['birddogpicsetup'],
 		api_variable: ['Hue'],
@@ -2003,7 +2012,7 @@ export const MODEL_SPECS = {
 				action: { choices: CHOICES.UP_DOWN_VALUE, default: 'up', range: { min: 0, max: 15, default: 8 } },
 			},
 			{
-				camera: ['X1', 'X1Ultra', 'X4Ultra', 'MAKIUltra', 'MAX'],
+				camera: ['X1', 'X1Ultra', 'X4Ultra', 'X5Ultra', 'MAKIUltra', 'MAX'],
 				action: { choices: CHOICES.UP_DOWN_VALUE, default: 'up', range: { min: 0, max: 100, default: 50 } },
 			},
 		],
@@ -2083,7 +2092,7 @@ export const MODEL_SPECS = {
 	},
 	picFlip: {
 		camera: ['All'],
-		firmware: ['4', '5', '6'],
+		firmware: ['4', '5', '6', '0'],
 		store_state: true,
 		api_endpoint: ['birddogpicsetup'],
 		api_variable: ['Flip'],
@@ -2098,7 +2107,7 @@ export const MODEL_SPECS = {
 	},
 	picMirror: {
 		camera: ['All'],
-		firmware: ['4', '5', '6'],
+		firmware: ['4', '5', '6', '0'],
 		store_state: true,
 		api_endpoint: ['birddogpicsetup'],
 		api_variable: ['Mirror'],
@@ -2127,8 +2136,8 @@ export const MODEL_SPECS = {
 		],
 	},
 	saturation: {
-		camera: ['P100', 'P110', 'P120', 'PF120', 'X1', 'X1Ultra', 'X4Ultra', 'MAKIUltra', 'MAX'],
-		firmware: ['4', '5', '6'],
+		camera: ['P100', 'P110', 'P120', 'PF120', 'X1', 'X1Ultra', 'X4Ultra', 'X5Ultra', 'MAKIUltra', 'MAX'],
+		firmware: ['4', '5', '6', '0'],
 		store_state: true,
 		api_endpoint: ['birddogpicsetup'],
 		api_variable: ['Color'],
@@ -2140,7 +2149,7 @@ export const MODEL_SPECS = {
 				action: { choices: CHOICES.UP_DOWN_VALUE, default: 'up', range: { min: 0, max: 15, default: 8 } },
 			},
 			{
-				camera: ['X1', 'X1Ultra', 'X4Ultra', 'MAKIUltra', 'MAX'],
+				camera: ['X1', 'X1Ultra', 'X4Ultra', 'X5Ultra', 'MAKIUltra', 'MAX'],
 				action: { choices: CHOICES.UP_DOWN_VALUE, default: 'up', range: { min: 0, max: 100, default: 50 } },
 			},
 		],
@@ -2160,10 +2169,11 @@ export const MODEL_SPECS = {
 			'X1',
 			'X1Ultra',
 			'X4Ultra',
+			'X5Ultra',
 			'MAKIUltra',
 			'MAX',
 		],
-		firmware: ['4', '5', '6'],
+		firmware: ['4', '5', '6', '0'],
 		store_state: true,
 		api_endpoint: ['birddogpicsetup'],
 		api_variable: ['Sharpness'],
@@ -2183,7 +2193,7 @@ export const MODEL_SPECS = {
 				action: { range: { min: -128, max: 127, default: 0 } },
 			},
 			{
-				camera: ['X1', 'X1Ultra', 'X4Ultra', 'MAKIUltra', 'MAX'],
+				camera: ['X1', 'X1Ultra', 'X4Ultra', 'X5Ultra', 'MAKIUltra', 'MAX'],
 				action: { range: { min: 0, max: 100, default: 0 } },
 			},
 		],
@@ -2204,8 +2214,8 @@ export const MODEL_SPECS = {
 		],
 	},
 	threed_nr: {
-		camera: ['P240', 'P400', 'P4K', 'X1', 'X1Ultra', 'X4Ultra', 'MAKIUltra', 'MAX'],
-		firmware: ['4', '5', '6'],
+		camera: ['P240', 'P400', 'P4K', 'X1', 'X1Ultra', 'X4Ultra', 'X5Ultra', 'MAKIUltra', 'MAX'],
+		firmware: ['4', '5', '6', '0'],
 		store_state: true,
 		api_endpoint: ['birddogpicsetup'],
 		api_variable: ['ThreeDNR'],
@@ -2222,7 +2232,7 @@ export const MODEL_SPECS = {
 				},
 			},
 			{
-				camera: ['X1', 'X1Ultra', 'X4Ultra', 'MAKIUltra', 'MAX'],
+				camera: ['X1', 'X1Ultra', 'X4Ultra', 'X5Ultra', 'MAKIUltra', 'MAX'],
 				action: {
 					choices: CHOICES.UP_DOWN_VALUE,
 					default: 'up',
@@ -2233,8 +2243,8 @@ export const MODEL_SPECS = {
 		],
 	},
 	twod_nr: {
-		camera: ['P240', 'P400', 'P4K', 'X1', 'X1Ultra', 'X4Ultra', 'MAKIUltra', 'MAX'],
-		firmware: ['4', '5', '6'],
+		camera: ['P240', 'P400', 'P4K', 'X1', 'X1Ultra', 'X4Ultra', 'X5Ultra', 'MAKIUltra', 'MAX'],
+		firmware: ['4', '5', '6', '0'],
 		store_state: true,
 		api_endpoint: ['birddogpicsetup'],
 		api_variable: ['TWODNR', 'TwoDNR'],
@@ -2251,7 +2261,7 @@ export const MODEL_SPECS = {
 				},
 			},
 			{
-				camera: ['X1', 'X1Ultra', 'X4Ultra', 'MAKIUltra', 'MAX'],
+				camera: ['X1', 'X1Ultra', 'X4Ultra', 'X5Ultra', 'MAKIUltra', 'MAX'],
 				action: {
 					choices: CHOICES.UP_DOWN_VALUE,
 					default: 'up',
@@ -2282,8 +2292,8 @@ export const MODEL_SPECS = {
 		],
 	},
 	wdr_enable: {
-		camera: ['X1', 'X1Ultra', 'X4Ultra', 'MAKIUltra', 'MAX'],
-		firmware: ['6'],
+		camera: ['X1', 'X1Ultra', 'X4Ultra', 'X5Ultra', 'MAKIUltra', 'MAX'],
+		firmware: ['6', '0'],
 		store_state: true,
 		api_endpoint: ['birddogpicsetup'],
 		api_variable: ['WDREnable'],
@@ -2297,8 +2307,8 @@ export const MODEL_SPECS = {
 		],
 	},
 	brightnessPic: {
-		camera: ['X1', 'X1Ultra', 'X4Ultra', 'MAKIUltra', 'MAX'],
-		firmware: ['6'],
+		camera: ['X1', 'X1Ultra', 'X4Ultra', 'X5Ultra', 'MAKIUltra', 'MAX'],
+		firmware: ['6', '0'],
 		store_state: true,
 		api_endpoint: ['birddogpicsetup'],
 		api_variable: ['Brightness'],
@@ -2306,14 +2316,14 @@ export const MODEL_SPECS = {
 		name: 'Picture Setup - Brightness',
 		action: [
 			{
-				camera: ['X1', 'X1Ultra', 'X4Ultra', 'MAKIUltra', 'MAX'],
+				camera: ['X1', 'X1Ultra', 'X4Ultra', 'X5Ultra', 'MAKIUltra', 'MAX'],
 				action: { choices: CHOICES.UP_DOWN_VALUE, default: 'up', range: { min: 0, max: 100, default: 50 } },
 			},
 		],
 	},
 	deflicker: {
-		camera: ['X1', 'X1Ultra', 'X4Ultra', 'MAKIUltra', 'MAX'],
-		firmware: ['6'],
+		camera: ['X1', 'X1Ultra', 'X4Ultra', 'X5Ultra', 'MAKIUltra', 'MAX'],
+		firmware: ['6', '0'],
 		store_state: true,
 		api_endpoint: ['birddogpicsetup'],
 		api_variable: ['DeFlicker'],
@@ -2321,7 +2331,7 @@ export const MODEL_SPECS = {
 		name: 'Picture Setup - DeFlicker',
 		action: [
 			{
-				camera: ['X1', 'X1Ultra', 'X4Ultra', 'MAKIUltra', 'MAX'],
+				camera: ['X1', 'X1Ultra', 'X4Ultra', 'X5Ultra', 'MAKIUltra', 'MAX'],
 				action: { choices: CHOICES.DEFLICKER, default: 'default' },
 			},
 		],
@@ -2358,6 +2368,7 @@ export const MODEL_SPECS = {
 			'X1',
 			'X1Ultra',
 			'X4Ultra',
+			'X5Ultra',
 			'MAKIUltra',
 			'MAX',
 		],
@@ -2384,7 +2395,7 @@ export const MODEL_SPECS = {
 				action: { choices: CHOICES.UP_DOWN_VALUE, default: 'up', range: { min: 0, max: 64, default: 32 } },
 			},
 			{
-				camera: ['X1', 'X1Ultra', 'X4Ultra', 'MAKIUltra', 'MAX'],
+				camera: ['X1', 'X1Ultra', 'X4Ultra', 'X5Ultra', 'MAKIUltra', 'MAX'],
 				action: { choices: CHOICES.UP_DOWN_VALUE, default: 'up', range: { min: 0, max: 100, default: 50 } },
 			},
 		],
@@ -2434,6 +2445,7 @@ export const MODEL_SPECS = {
 			'X1',
 			'X1Ultra',
 			'X4Ultra',
+			'X5Ultra',
 			'MAKIUltra',
 			'MAX',
 		],
@@ -2460,7 +2472,7 @@ export const MODEL_SPECS = {
 				action: { choices: CHOICES.UP_DOWN_VALUE, default: 'up', range: { min: 0, max: 64, default: 32 } },
 			},
 			{
-				camera: ['X1', 'X1Ultra', 'X4Ultra', 'MAKIUltra', 'MAX'],
+				camera: ['X1', 'X1Ultra', 'X4Ultra', 'X5Ultra', 'MAKIUltra', 'MAX'],
 				action: { choices: CHOICES.UP_DOWN_VALUE, default: 'up', range: { min: 0, max: 100, default: 50 } },
 			},
 		],
@@ -2495,6 +2507,7 @@ export const MODEL_SPECS = {
 			'X1',
 			'X1Ultra',
 			'X4Ultra',
+			'X5Ultra',
 			'MAKIUltra',
 			'MAX',
 		],
@@ -2521,7 +2534,7 @@ export const MODEL_SPECS = {
 				action: { choices: CHOICES.UP_DOWN_VALUE, default: 'up', range: { min: 0, max: 64, default: 32 } },
 			},
 			{
-				camera: ['X1', 'X1Ultra', 'X4Ultra', 'MAKIUltra', 'MAX'],
+				camera: ['X1', 'X1Ultra', 'X4Ultra', 'X5Ultra', 'MAKIUltra', 'MAX'],
 				action: { choices: CHOICES.UP_DOWN_VALUE, default: 'up', range: { min: 0, max: 100, default: 50 } },
 			},
 		],
@@ -2571,6 +2584,7 @@ export const MODEL_SPECS = {
 			'X1',
 			'X1Ultra',
 			'X4Ultra',
+			'X5Ultra',
 			'MAKIUltra',
 			'MAX',
 		],
@@ -2597,7 +2611,7 @@ export const MODEL_SPECS = {
 				action: { choices: CHOICES.UP_DOWN_VALUE, default: 'up', range: { min: 0, max: 64, default: 32 } },
 			},
 			{
-				camera: ['X1', 'X1Ultra', 'X4Ultra', 'MAKIUltra', 'MAX'],
+				camera: ['X1', 'X1Ultra', 'X4Ultra', 'X5Ultra', 'MAKIUltra', 'MAX'],
 				action: { choices: CHOICES.UP_DOWN_VALUE, default: 'up', range: { min: 0, max: 100, default: 50 } },
 			},
 		],
@@ -2632,6 +2646,7 @@ export const MODEL_SPECS = {
 			'X1',
 			'X1Ultra',
 			'X4Ultra',
+			'X5Ultra',
 			'MAKIUltra',
 			'MAX',
 		],
@@ -2658,7 +2673,7 @@ export const MODEL_SPECS = {
 				action: { choices: CHOICES.UP_DOWN_VALUE, default: 'up', range: { min: 0, max: 64, default: 32 } },
 			},
 			{
-				camera: ['X1', 'X1Ultra', 'X4Ultra', 'MAKIUltra', 'MAX'],
+				camera: ['X1', 'X1Ultra', 'X4Ultra', 'X5Ultra', 'MAKIUltra', 'MAX'],
 				action: { choices: CHOICES.UP_DOWN_VALUE, default: 'up', range: { min: 0, max: 100, default: 50 } },
 			},
 		],
@@ -2693,6 +2708,7 @@ export const MODEL_SPECS = {
 			'X1',
 			'X1Ultra',
 			'X4Ultra',
+			'X5Ultra',
 			'MAKIUltra',
 			'MAX',
 		],
@@ -2719,7 +2735,7 @@ export const MODEL_SPECS = {
 				action: { choices: CHOICES.UP_DOWN_VALUE, default: 'up', range: { min: 0, max: 64, default: 32 } },
 			},
 			{
-				camera: ['X1', 'X1Ultra', 'X4Ultra', 'MAKIUltra', 'MAX'],
+				camera: ['X1', 'X1Ultra', 'X4Ultra', 'X5Ultra', 'MAKIUltra', 'MAX'],
 				action: { choices: CHOICES.UP_DOWN_VALUE, default: 'up', range: { min: 0, max: 100, default: 50 } },
 			},
 		],
@@ -2817,7 +2833,7 @@ export const MODEL_SPECS = {
 		],
 	},
 	af_zone: {
-		camera: ['X1', 'X1Ultra', 'X4Ultra', 'MAKIUltra', 'MAX'],
+		camera: ['X1', 'X1Ultra', 'X4Ultra', 'X5Ultra', 'MAKIUltra', 'MAX'],
 		firmware: ['6'],
 		store_state: true,
 		api_endpoint: ['birddogadvancesetup'],
@@ -2832,7 +2848,7 @@ export const MODEL_SPECS = {
 		],
 	},
 	scene: {
-		camera: ['X1', 'X1Ultra', 'X4Ultra', 'MAKIUltra', 'MAX'],
+		camera: ['X1', 'X1Ultra', 'X4Ultra', 'X5Ultra', 'MAKIUltra', 'MAX'],
 		firmware: ['6'],
 		store_state: true,
 		api_endpoint: ['birddogadvancesetup'],
@@ -2847,7 +2863,7 @@ export const MODEL_SPECS = {
 		],
 	},
 	af_sensitivity: {
-		camera: ['X1', 'X1Ultra', 'X4Ultra', 'MAKIUltra', 'MAX'],
+		camera: ['X1', 'X1Ultra', 'X4Ultra', 'X5Ultra', 'MAKIUltra', 'MAX'],
 		firmware: ['6'],
 		store_state: true,
 		api_endpoint: ['birddogadvancesetup'],
