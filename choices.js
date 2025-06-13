@@ -43,9 +43,9 @@ export default {
 		{ id: 'P400', label: 'P400', other: ['EYES P400', 'EYESP400'] },
 		{ id: 'P4K', label: 'P4K', other: ['EYES P4K', 'EYESP4K'] },
 		{ id: 'A200GEN1', label: 'A200 GEN1' },
-		{ id: 'A200GEN2', label: 'A200 GEN2' },
+		{ id: 'A200GEN2', label: 'A200 GEN2', other: ['A200'] },
 		{ id: 'A300GEN1', label: 'A300 GEN1' },
-		{ id: 'A300GEN2', label: 'A300 GEN2' },
+		{ id: 'A300GEN2', label: 'A300 GEN2', other: ['A300'] },
 		{ id: 'KBD', label: 'KBD' },
 	],
 
