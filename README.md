@@ -10,6 +10,11 @@ See [HELP.md](https://github.com/bitfocus/companion-module-birddog-ptz/blob/main
 
 ### v3.4.0
 
+- Fix
+  - Auto-detect certain A200 & A300 that are missing part of their model identifier
+
+### v3.4.0
+
 - New
   - Add initial support for X5 Ultra and MAKI Ultra cameras
 - Fix
