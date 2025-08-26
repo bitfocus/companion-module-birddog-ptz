@@ -8,6 +8,11 @@ See [HELP.md](https://github.com/bitfocus/companion-module-birddog-ptz/blob/main
 
 ## Changelog
 
+### v3.4.2
+
+- Fix
+  - Pan Position dropdown not providing values for X-series cameras in direct mode
+
 ### v3.4.1
 
 - Fix
@@ -88,7 +93,6 @@ See [HELP.md](https://github.com/bitfocus/companion-module-birddog-ptz/blob/main
 ### v3.0.0
 
 - Changes
-
   - Support for Companion v3
   - New variable to allow raw zoom integer to be used in triggers
 
@@ -99,7 +103,6 @@ See [HELP.md](https://github.com/bitfocus/companion-module-birddog-ptz/blob/main
 ### v2.3.3
 
 - Changes
-
   - Add 'Toggle' to appropriate actions
   - Added On Screen Menu Action
   - Changed WB Mode options for v5 Cameras
@@ -122,7 +125,6 @@ See [HELP.md](https://github.com/bitfocus/companion-module-birddog-ptz/blob/main
 ### v2.3.0
 
 - Changes
-
   - Refactored actions to use callbacks in prep for v3
   - Added Up/Down/Value to all appropriate actions
 
@@ -139,7 +141,6 @@ See [HELP.md](https://github.com/bitfocus/companion-module-birddog-ptz/blob/main
 ### v2.2.0
 
 - Changes
-
   - Added v5 FW API calls
   - Added Realtime variables from Camera dashboard
   - Added P110 & P120 model cameras
@@ -149,7 +150,6 @@ See [HELP.md](https://github.com/bitfocus/companion-module-birddog-ptz/blob/main
   - Improved backend to handle multiple models and firmware, and for storing device status
 
   New Actions
-
   - Capture Screensaver
   - Preset Mode
   - Preset Speed
@@ -166,7 +166,6 @@ See [HELP.md](https://github.com/bitfocus/companion-module-birddog-ptz/blob/main
 ### v2.1.3
 
 - Changes
-
   - Enable Camera model to be specified in config
 
 - Fixes
@@ -189,11 +188,9 @@ See [HELP.md](https://github.com/bitfocus/companion-module-birddog-ptz/blob/main
 ### v2.1.0
 
 - Changes
-
   - Changed Pan/Tilt/Zoom Speed inputs to numbers
 
 - New Actions / Feedback
-
   - Analog Audio
     - Analog Audio In Gain
     - Analog Audio Out Gain
@@ -315,7 +312,6 @@ See [HELP.md](https://github.com/bitfocus/companion-module-birddog-ptz/blob/main
 - Added ability to Pan/Tilt drive to a location
 - Added ability Zoom direct
 - Show values depending on model
-
   - Gain
   - Iris
   - Shutter
