@@ -768,6 +768,10 @@ export const MODEL_SPECS = {
 				camera: ['P200A2A3', 'P200A4A5', 'A200GEN1', 'A200GEN2', 'A300GEN1', 'A300GEN2', 'P240', 'P400', 'P4K'],
 				action: { posPanChoices: CHOICES.POS_PAN_P200 },
 			},
+			{
+				camera: ['X1', 'X1Ultra', 'X4Ultra', 'X5Ultra', 'MAX'],
+				action: { posPanChoices: CHOICES.POS_PAN_P200 },
+			},
 		],
 	},
 	pan_position: {
