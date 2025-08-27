@@ -571,8 +571,8 @@ export const MODEL_SPECS = {
 		],
 	},
 	tally_state: {
-		camera: ['X1', 'X1Ultra', 'X4Ultra', 'MAKIUltra', 'MAX'],
-		firmware: ['6'],
+		camera: ['X1', 'X1Ultra', 'X4Ultra', 'X5Ultra', 'MAKIUltra', 'MAX'],
+		firmware: ['6', '0'],
 		store_state: true,
 		api_endpoint: ['tally'],
 		api_variable: ['tally_state'],
@@ -586,8 +586,8 @@ export const MODEL_SPECS = {
 		],
 	},
 	tally_rest_state: {
-		camera: ['X1', 'X1Ultra', 'MAKIUltra', 'MAX'],
-		firmware: ['6'],
+		camera: ['X1', 'X1Ultra', 'X4Ultra', 'X5Ultra', 'MAKIUltra', 'MAX'],
+		firmware: ['6', '0'],
 		store_state: true,
 		api_endpoint: ['tally'],
 		api_variable: ['tally_rest_state'],

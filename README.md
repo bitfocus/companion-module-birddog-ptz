@@ -12,6 +12,7 @@ See [HELP.md](https://github.com/bitfocus/companion-module-birddog-ptz/blob/main
 
 - Fix
   - Pan Position dropdown not providing values for X-series cameras in direct mode
+  - Tally related actions, feedbacks, and variables not appearing for some X-series cameras
 
 ### v3.4.1
 
