@@ -932,7 +932,7 @@ export function getActions() {
 					return
 				}
 				if (presetNumber < MODEL_ACTIONS.savePset.range.min || presetNumber > MODEL_ACTIONS.savePset.range.max) {
-					this.log('error', 'Preset Number is out of range')
+					this.log('error', `Preset Number ${presetNumber} is out of range (${MODEL_ACTIONS.savePset.range.min}-${MODEL_ACTIONS.savePset.range.max})`)
 					return
 				}
 				body = {
