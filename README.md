@@ -11,7 +11,7 @@ See [HELP.md](https://github.com/bitfocus/companion-module-birddog-ptz/blob/main
 ### v3.5.0
 
 - New
-  - Add the ability to use a variable for preset recall
+  - Add the ability to use a variable for preset recall and save
 
 ### v3.4.2
 
