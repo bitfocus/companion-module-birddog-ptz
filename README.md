@@ -8,6 +8,11 @@ See [HELP.md](https://github.com/bitfocus/companion-module-birddog-ptz/blob/main
 
 ## Changelog
 
+### v3.5.0
+
+- New
+  - Add the ability to use a variable for preset recall
+
 ### v3.4.2
 
 - Fix
