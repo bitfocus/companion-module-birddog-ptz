@@ -886,17 +886,26 @@ export function getActions() {
 			name: MODEL_ACTIONS.recallPset?.name,
 			options: [
 				{
-					type: 'number',
+					type: 'textinput',
 					label: 'Preset Number (' + MODEL_ACTIONS.savePset.range.min + ' to ' + MODEL_ACTIONS.savePset.range.max + ')',
 					id: 'val',
-					default: MODEL_ACTIONS.savePset.range.default,
-					min: MODEL_ACTIONS.savePset.range.min,
-					max: MODEL_ACTIONS.savePset.range.max,
+					default: String(MODEL_ACTIONS.savePset.range.default),
+					useVariables: true,
 				},
 			],
-			callback: (action) => {
+			callback: async (action, context) => {
+				const presetNumberStr = await context.parseVariablesInString(action.options.val)
+				const presetNumber = Number(presetNumberStr)
+				if (isNaN(presetNumber)) {
+					this.log('error', 'Preset Number must be a valid number')
+					return
+				}
+				if (presetNumber < MODEL_ACTIONS.savePset.range.min || presetNumber > MODEL_ACTIONS.savePset.range.max) {
+					this.log('error', 'Preset Number is out of range')
+					return
+				}
 				body = {
-					Preset: String('Preset-' + action.options.val),
+					Preset: String('Preset-' + presetNumber),
 				}
 				this.sendCommand('recall', 'POST', body)
 			},
@@ -908,17 +917,26 @@ export function getActions() {
 			name: MODEL_ACTIONS.savePset?.name,
 			options: [
 				{
-					type: 'number',
+					type: 'textinput',
 					label: 'Preset Number (' + MODEL_ACTIONS.savePset.range.min + ' to ' + MODEL_ACTIONS.savePset.range.max + ')',
 					id: 'val',
-					default: MODEL_ACTIONS.savePset.range.default,
-					min: MODEL_ACTIONS.savePset.range.min,
-					max: MODEL_ACTIONS.savePset.range.max,
+					default: String(MODEL_ACTIONS.savePset.range.default),
+					useVariables: true,
 				},
 			],
-			callback: (action) => {
+			callback: async (action, context) => {
+				const presetNumberStr = await context.parseVariablesInString(action.options.val)
+				const presetNumber = Number(presetNumberStr)
+				if (isNaN(presetNumber)) {
+					this.log('error', 'Preset Number must be a valid number')
+					return
+				}
+				if (presetNumber < MODEL_ACTIONS.savePset.range.min || presetNumber > MODEL_ACTIONS.savePset.range.max) {
+					this.log('error', 'Preset Number is out of range')
+					return
+				}
 				body = {
-					Preset: String('Preset-' + action.options.val),
+					Preset: String('Preset-' + presetNumber),
 				}
 				this.sendCommand('save', 'POST', body)
 			},
