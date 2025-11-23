@@ -900,6 +900,10 @@ export function getActions() {
 					this.log('error', 'Preset Number must be a valid number')
 					return
 				}
+				if (!Number.isInteger(presetNumber)) {
+					this.log('error', 'Preset Number must be an integer')
+					return
+				}
 				if (presetNumber < MODEL_ACTIONS.savePset.range.min || presetNumber > MODEL_ACTIONS.savePset.range.max) {
 					this.log('error', 'Preset Number is out of range')
 					return
