@@ -887,9 +887,10 @@ export function getActions() {
 			options: [
 				{
 					type: 'textinput',
-					label: 'Preset Number (' + MODEL_ACTIONS.savePset.range.min + ' to ' + MODEL_ACTIONS.savePset.range.max + ')',
+					label:
+						'Preset Number (' + MODEL_ACTIONS.recallPset.range.min + ' to ' + MODEL_ACTIONS.recallPset.range.max + ')',
 					id: 'val',
-					default: String(MODEL_ACTIONS.savePset.range.default),
+					default: String(MODEL_ACTIONS.recallPset.range.default),
 					useVariables: true,
 				},
 			],
@@ -904,8 +905,11 @@ export function getActions() {
 					this.log('error', 'Preset Number must be an integer')
 					return
 				}
-				if (presetNumber < MODEL_ACTIONS.savePset.range.min || presetNumber > MODEL_ACTIONS.savePset.range.max) {
-					this.log('error', 'Preset Number is out of range')
+				if (presetNumber < MODEL_ACTIONS.recallPset.range.min || presetNumber > MODEL_ACTIONS.recallPset.range.max) {
+					this.log(
+						'error',
+						`Preset Number ${presetNumber} is out of range (${MODEL_ACTIONS.recallPset.range.min}-${MODEL_ACTIONS.recallPset.range.max})`,
+					)
 					return
 				}
 				body = {
@@ -931,12 +935,15 @@ export function getActions() {
 			callback: async (action, context) => {
 				const presetNumberStr = await context.parseVariablesInString(action.options.val)
 				const presetNumber = Number(presetNumberStr)
-				if (isNaN(presetNumber)) {
+				if (Number.isInteger(presetNumber)) {
 					this.log('error', 'Preset Number must be a valid number')
 					return
 				}
 				if (presetNumber < MODEL_ACTIONS.savePset.range.min || presetNumber > MODEL_ACTIONS.savePset.range.max) {
-					this.log('error', `Preset Number ${presetNumber} is out of range (${MODEL_ACTIONS.savePset.range.min}-${MODEL_ACTIONS.savePset.range.max})`)
+					this.log(
+						'error',
+						`Preset Number ${presetNumber} is out of range (${MODEL_ACTIONS.savePset.range.min}-${MODEL_ACTIONS.savePset.range.max})`,
+					)
 					return
 				}
 				body = {
