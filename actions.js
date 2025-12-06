@@ -5471,8 +5471,8 @@ export function getKBDActions() {
 				},
 			],
 			callback: (action) => {
-				let command = `cgi-bin/connTheDev.cgi?channel=${action.options.val}`
-				this.sendKBDCommand(command, 'GET')
+				let command = `cgi-bin/connTheDev.cgi/SelectCam?camera=${action.options.val}`
+				this.sendKBDCommand(command, 'POST')
 			},
 		},
 	}
