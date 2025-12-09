@@ -105,6 +105,9 @@ export const MODEL_QUERIES = {
 
 	//Scope Settings
 	birddogscope: { camera: ['All'], firmware: ['5'] },
+
+	//KBSettings
+	active_camera: { camera: ['KBD'], firmware: ['0'] }
 }
 
 export const MODEL_SPECS = {
@@ -3490,6 +3493,22 @@ export const MODEL_SPECS = {
 		api_variable: ['vid_str_name'],
 		variableId: 'vid_str_name',
 		name: `Dashboard - NDI Video Stream Name`,
+	},
+
+	// KBD
+	active_camera: {
+		camera: ['KBD'],
+		firmware: ['0'],
+		store_state: true,
+		api_endpoint: ['SelectCam'],
+		api_variable: ['camera'],
+		variableId: 'active_camera',
+		action: [
+			{
+				camera: ['KBD'],
+			},
+		],
+		name: "KBD - Active Camera"
 	},
 
 	// Other Actions

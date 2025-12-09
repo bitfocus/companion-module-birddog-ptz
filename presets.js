@@ -8,8 +8,9 @@ export function getPresets() {
 	const ColorGreen = combineRgb(0, 255, 0) // Green
 
 	let MODEL_ACTIONS = getModelActions(MODEL_SPECS, this.camera.firmware.major, this.camera.model)
+	this.log('debug', `get Presets Actions: ${JSON.stringify(MODEL_ACTIONS)}`)
 	let MODEL_VARIABLES = getModelVariables(MODEL_SPECS, this.camera.firmware.major, this.camera.model)
-
+	this.log('debug', `get Presets Variables: ${JSON.stringify(MODEL_VARIABLES)}`)
 	let presets = {}
 
 	// Variables for Base64 image data do not edit
