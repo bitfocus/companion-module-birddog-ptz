@@ -5459,7 +5459,7 @@ export function getActions() {
 			options: [
 				{
 					type: 'number',
-					label: `Channel`,
+					label: `Camera Number`,
 					id: 'val',
 					default: 1,
 					min: 1,

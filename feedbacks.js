@@ -3508,7 +3508,7 @@ export function getFeedbacks() {
 			options: [
 				{
 					type: 'number',
-					label: 'Camera Channel',
+					label: 'Camera Number',
 					id: 'val',
 					default: 1,
 					min: 1,
