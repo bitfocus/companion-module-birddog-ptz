@@ -137,6 +137,7 @@ class BirdDogPTZInstance extends InstanceBase {
 		if (type == 'PUT' || type == 'POST') {
 			options.body = params != undefined ? JSON.stringify(params) : null
 		}
+
 		fetch(url, options)
 			.then((res) => {
 				if (res.status == 200) {
@@ -626,6 +627,7 @@ class BirdDogPTZInstance extends InstanceBase {
 			fetch(url, options)
 				.then((res) => {
 					if (res.status == 200) {
+						//this.log('debug',res)
 						return res.text()
 					}
 				})
@@ -724,6 +726,7 @@ class BirdDogPTZInstance extends InstanceBase {
 	}
 
 	initializeCamera() {
+		// this.log('debug','---- in initializeCamera')
 		if (this.camera.firmware.major && this.camera.model) {
 			this.camera.connected = true
 			this.updateStatus('ok')
@@ -748,7 +751,7 @@ class BirdDogPTZInstance extends InstanceBase {
 	}
 
 	checkCameraModel(detectedModel) {
-		this.log('debug','---- In checkCameraModel with detectedModel as', detectedModel)
+		//this.log('debug','---- In checkCameraModel with detectedModel as', detectedModel)
 		let model = CHOICES.CAMERAS.find((element) => {
 			// this.log('debug','---- Checking element ', element)
 			if (element.id === detectedModel) {
@@ -778,6 +781,7 @@ class BirdDogPTZInstance extends InstanceBase {
 		// - FW matches
 		// - 'store_state' is true
 		// and add them to this.camera object
+
 		this.camera = {}
 
 		let filteredArray = Object.entries(MODEL_SPECS).filter(
@@ -799,6 +803,7 @@ class BirdDogPTZInstance extends InstanceBase {
 		this.camera.firmware.major = FW_major
 		this.camera.firmware.minor = FW_minor
 		if (model != "KBD") {
+			// This global initialization for cameras belongs elsewhere.
 			this.camera.shutter_table = 60 // Camera defaults to 59.94 on startup
 		}
 		this.camera.unknown = [] // Array to store unknown API variables
