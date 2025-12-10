@@ -16,7 +16,7 @@ export function updateVariableDefinitions() {
 export function updateVariables() {
 	let MODEL_VARIABLES = getModelVariables(MODEL_SPECS, this.camera.firmware.major, this.camera.model)
 	let MODEL_ACTIONS = getModelActions(MODEL_SPECS, this.camera.firmware.major, this.camera.model)
-	this.log('debug', `MODEL_VARIABLES ${JSON.stringify(MODEL_VARIABLES)}`)
+
 	let updatedVariables = {}
 
 	// General Camera Variables
@@ -824,7 +824,6 @@ export function updateVariables() {
 	}
 
 	if (MODEL_VARIABLES.some((variable) =>  variable.variableId === 'active_camera')) {
-		this.log('debug', `updating active_camera ${this.camera.active_camera}`)
 		updatedVariables.active_camera = this.camera.active_camera
 	}
 

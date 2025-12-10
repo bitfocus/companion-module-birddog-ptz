@@ -5467,8 +5467,7 @@ export function getActions() {
 				},
 			],
 			callback: (action) => {
-				let command = `SelectCam?camera=${action.options.val}`
-				this.sendCommand(command, 'POST', {})
+				this.sendCommand(`SelectCam?camera=${action.options.val}`, 'POST', {})
 			},
 		}
 	}
