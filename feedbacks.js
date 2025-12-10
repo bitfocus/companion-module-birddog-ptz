@@ -8,7 +8,7 @@ export function getFeedbacks() {
 	const ColorGreen = combineRgb(0, 255, 0) // Green
 
 	let MODEL_ACTIONS = getModelActions(MODEL_SPECS, this.camera.firmware.major, this.camera.model)
-	this.log('debug', `getFeedbacks MODEL_ACTIONS ${JSON.stringify(MODEL_ACTIONS)}`)
+
 	const feedbacks = {}
 
 	// General Camera Feedback
@@ -3516,51 +3516,14 @@ export function getFeedbacks() {
 				},
 			],
 			callback: (feedback) => {
-				this.log("comparing KBD feedback")
 				return this.camera?.active_camera == feedback.options.val
 			},
 		}
 	}
 
 	// Other Feedback
-	this.log('debug', `Setting feedbacks ${JSON.stringify(feedbacks)}`)
-	this.setFeedbackDefinitions(feedbacks)
-
-	return Object.fromEntries(Object.entries(feedbacks).sort(sortByLabel))
-}
-
-export function getKBDFeedbacks() {
-	const ColorBlack = combineRgb(0, 0, 0) // Black
-	const ColorGreen = combineRgb(0, 255, 0) // Green
-
-	const feedbacks = {}
-
-	feedbacks.active_camera = {
-		type: 'boolean',
-		name: "Active Camera",
-		description: "If the camera matches the current KBD camera, change the style of the button.",
-		defaultStyle: {
-			color: ColorBlack,
-			bgcolor: ColorGreen,
-		},
-		options: [
-			{
-				type: 'number',
-				label: 'Camera Channel',
-				id: 'val',
-				default: 1,
-				min: 1,
-				max: 256,
-			},
-		],
-		callback: (feedback) => {
-			return this.keyboard?.active_camera == feedback.options.val
-		},
-	}
 
 	this.setFeedbackDefinitions(feedbacks)
 
-
 	return Object.fromEntries(Object.entries(feedbacks).sort(sortByLabel))
-
 }

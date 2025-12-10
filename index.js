@@ -1,9 +1,9 @@
 import { InstanceBase, runEntrypoint, UDPHelper } from '@companion-module/base'
 
-import { getActions, getKBDActions } from './actions.js'
+import { getActions } from './actions.js'
 import { getPresets } from './presets.js'
 import { updateVariableDefinitions, updateVariables } from './variables.js'
-import { getFeedbacks, getKBDFeedbacks } from './feedbacks.js'
+import { getFeedbacks } from './feedbacks.js'
 import { upgradeScripts } from './upgrades.js'
 import { addStringToBinary, strToPQRS, getModelQueries } from './utils.js'
 import { VISCA } from './constants.js'
@@ -34,7 +34,6 @@ class BirdDogPTZInstance extends InstanceBase {
 		}
 
 		// Get Initial Camera Info
-		this.log('calling get camera model')
 		this.getCameraModel()
 	}
 
@@ -114,11 +113,6 @@ class BirdDogPTZInstance extends InstanceBase {
 		this.setFeedbackDefinitions(feedbacks)
 	}
 
-	initKBDFeedbacks() {
-		const feedbacks = getKBDFeedbacks.bind(this)()
-		this.setFeedbackDefinitions(feedbacks)
-	}
-
 	initPresets() {
 		const presets = getPresets.bind(this)()
 		this.setPresetDefinitions(presets)
@@ -135,7 +129,6 @@ class BirdDogPTZInstance extends InstanceBase {
 	}
 
 	sendCommand(cmd, type, params) {
-		// this.log('debug', `sendCommand host ${this.config.host}`)
 		let url = `http://${this.config.host}:8080/${cmd}`
 		let options = {
 			method: type,
@@ -144,28 +137,22 @@ class BirdDogPTZInstance extends InstanceBase {
 		if (type == 'PUT' || type == 'POST') {
 			options.body = params != undefined ? JSON.stringify(params) : null
 		}
-		this.log('debug', `sendCommand url ${url} options ${JSON.stringify(options)}`)
 		fetch(url, options)
 			.then((res) => {
-				this.log('debug', `sendCommand then 1 res ${JSON.stringify(res)} status ${res.status} camera ${this.camera}`)
 				if (res.status == 200) {
 					if (this.camera?.connected === false || this.camera?.connected === undefined) {
 						this.camera.connected = true
 						this.updateStatus('ok')
 					}
-					this.log('debug', `sendCommand returning json ${JSON.stringify(res.json)}`)
 					return res.json()
 				}
 			})
 			.then((json) => {
-				this.log('debug', `sendCommand then 2 json ${JSON.stringify(json)} camera ${this.camera}`)
 				let data = json
-				if (data && type == 'GET') { 
-					let uri = decodeURI(url)
-					this.log('debug', `uri ${uri}`)
+				if (data && type == 'GET') {
 					this.processData(decodeURI(url), data)
 				} else if ((data && type == 'PUT') || type == 'POST') {
-					this.log('debug', `PUT ${JSON.stringify(data)}`)
+					this.log('debug', `${data}`)
 				} else {
 					if (!url.match('birddogptzsetup')) {
 						//Suppress this log: this failure is due to a BirdDog firmware bug in v5.5.114
@@ -189,57 +176,7 @@ class BirdDogPTZInstance extends InstanceBase {
 			})
 	}
 
-	sendKBDCommand(cmd, type, params) {
-		let url = `http://${this.config.host}:8080/${cmd}`
-		let options = {
-			method: type,
-			headers: { 'Content-Type': 'application/json' },
-		}
-		if (type == 'PUT' || type == 'POST') {
-			options.body = params != undefined ? JSON.stringify(params) : null
-		}
-		this.log('debug', `sendKBDCommand() url ${url} options ${JSON.stringify(options)}`)
-		fetch(url, options)
-			.then((res) => {
-				if (res.status == 200) {
-					this.updateStatus('ok')
-					return res.json()
-				}
-			})
-			.then((json) => {
-				let data = json
-				if (data && type == 'GET') {
-					this.processKBDData(decodeURI(url), data)
-				} else if ((data && type == 'PUT') || type == 'POST') {
-					this.log('debug', `sendKBDCommand put data: ${data}`)
-				}
-			})
-			.catch((err) => {
-				this.log('debug', `Command Error: ${err}`)
-				let errorText = String(err)
-				if (
-					errorText.match('ECONNREFUSED') ||
-					errorText.match('ENOTFOUND') ||
-					errorText.match('EHOSTDOWN') ||
-					errorText.match('ETIMEDOUT')
-				) {
-					this.updateStatus('connection_failure')
-				}
-			})
-	}
-
-	processKBDData(cmd, data) {
-		let target = cmd.slice(cmd.lastIndexOf('/') + 1)
-		if (target == 'SelectCam') {
-			this.camera.active_camera = data.camera
-			//this.keyboard.active_camera = data.camera
-			this.checkFeedbacks()
-		}
-	}
-
 	processData(cmd, data) {
-		let index_str = cmd.slice(cmd.lastIndexOf('/') + 1)
-		this.log('debug', `Process Data cmd ${cmd} data ${JSON.stringify(data)}} index_str ${index_str}`)
 		let changed
 		switch (cmd.slice(cmd.lastIndexOf('/') + 1)) {
 			case 'about':
@@ -376,8 +313,8 @@ class BirdDogPTZInstance extends InstanceBase {
 				//this.camera.advancesetup = data
 				break
 			case 'SelectCam':
-				this.log('debug', "SelectCam decoded")
-				changed	 = this.storeState(data, 'SelectCam') 
+				changed = this.storeState(data, 'SelectCam')
+				//this.camera.active_camera = data
 				break
 		}
 		if (changed.length > 0) {
@@ -568,31 +505,6 @@ class BirdDogPTZInstance extends InstanceBase {
 		})
 	}
 
-	// Poll for BirdDog KBD status
-	startKBDPolling() {
-		this.stopKBDPolling()
-		this.pollKBDConfig()
-		this.timers.pollKBDConfig = setInterval(this.pollKBDConfig.bind(this), 1000)
-	}
-
-	stopKBDPolling() {
-		if (this.timers.pollKBDConfig) {
-			clearInterval(this.timers.pollKBDConfig)
-			this.timers.pollKDBConfig = null
-		}
-	}
-
-	pollKBDConfig() {
-		//let command = `cgi-bin/connTheDev.cgi/SelectCam`
-		let command = `SelectCam`
-		this.sendKBDCommand(command, 'GET')
-	}
-
-	sendKBDSelectLeft() {
-		let command = `cgi-bin/connTheDev.cgi/SelectCam?camera=1`
-		this.sendKBDCommand(command, 'POST')
-	}
-
 	// Poll for BirdDog camera configuration/status
 	startPolling() {
 		this.stopPolling()
@@ -697,28 +609,22 @@ class BirdDogPTZInstance extends InstanceBase {
 			this.sendCommand('birddogscope', 'GET')
 		}
 		if (MODEL_QRY?.active_camera) {
-			this.log('debug', "Sending Select Cam Query")
-			//let command = 'SelectCam'
-				// this.sendKBDCommand(command, 'POST')
 			this.sendCommand('SelectCam', 'GET')
-			//this.pollKBDConfig()
 		}
 
-//		this.log('debug', `polling ${JSON.stringify(MODEL_QRY)}`)
 		//this.log('debug', `----Camera Setup for - ${this.camera.model}`)
 		//this.log('debug', this.camera)
 	}
 
 	getCameraModel() {
 		if (this.config.model === 'Auto') {
-			let url = `http://${this.config.host}:8080/about`
+			let url = `http://${this.config.host}:8080/version`
 			let options = {
 				method: 'GET',
 				headers: { 'Content-Type': 'application/json' },
 			}
 			fetch(url, options)
 				.then((res) => {
-					this.log('debug', `first promise res ${JSON.stringify(res)}`)
 					if (res.status == 200) {
 						return res.text()
 					}
@@ -753,50 +659,34 @@ class BirdDogPTZInstance extends InstanceBase {
 						this.log('error', `Unable to connect to BirdDog PTZ Camera (Error: ${errorText?.split('reason:')[1]})`)
 					}
 				})
-			// }
-			//else if (this.config.model === 'KBD') {
-			//	this.initializeKeyboard()
-
 		} else {
 			//this.camera.model = this.config.model
 			this.getCameraFW(this.config.model)
 		}
 	}
-	initializeKeyboard() {
-		this.keyboard = {}
-		this.initKBDActions()
-		this.initKBDFeedbacks()
-		// this.startKBDPolling()
-		this.sendKBDSelectLeft()
-		this.updateStatus('ok')
-	}
 	getCameraFW(model) {
 		let url = `http://${this.config.host}:8080/about`
 		if (model == "KBD") {
+			// KBDs don't recognize /about and will disconnect if you send it
+			// so we send the only command it does know instead and recover later
 			url = `http://${this.config.host}:8080/SelectCam`
 		}
 		let options = {
 			method: 'GET',
 			headers: { 'Content-Type': 'application/json' },
 		}
-		this.log('debug', `getCameraFW: url ${url}`)
-		//this.sendKBDSelectLeft()
 		fetch(url, options)
 			.then((res) => {
-				this.log('debug', `then 1 model ${model} dres ${JSON.stringify(res)}`)
 				if (model == 'KBD') {
-					this.log('debug', "in KBD")
 					// This is a version of of KBD that doesn't support `about`,
 					// Call this version 0.0.0 of the firmware.
-					let r = {
+					return {
 						FirmwareVersion: '0.0.0',
 						HostName: this.config.host
 					}
-					this.log('debug', `returning r ${JSON.stringify(r)}`)
-					return r
 				}
 				if (res.status == 200) {
-					this.log('debug', `early return ${res}`)
+					//this.log('debug',res)
 					return res.json()
 				}
 			})
@@ -807,13 +697,9 @@ class BirdDogPTZInstance extends InstanceBase {
 					let FW_minor = FW_Match ? FW_Match[2] : ''
 
 					// Set Initial State for Camera
-					this.log('debug', '1')
 					this.initializeState(model, data.HostName, FW_major, FW_minor)
-					this.log('debug', `after init this.camera ${JSON.stringify(this.camera)}`)
 					// InitializeCamera
-					this.log('debug', '2')
 					this.initializeCamera()
-					this.log('debug', '3')
 				} else if (data.Version === '1.0') {
 					this.log('error', 'Please upgrade your BirdDog camera to the latest firmware to use this module')
 					this.updateStatus('connection_failure')
@@ -845,13 +731,9 @@ class BirdDogPTZInstance extends InstanceBase {
 			this.log('debug', `---- Connected to ${this.camera.hostname}`)
 
 			this.initActions()
-			this.log('debug', 'after actions')
 			this.initPresets()
-			this.log('debug', 'after presets')
 			this.initVariables()
-			this.log('debug', 'after variables')
 			this.initFeedbacks()
-			this.log('debug', 'after feedbacks')
 
 			this.startPolling()
 			this.init_udp()
@@ -866,7 +748,7 @@ class BirdDogPTZInstance extends InstanceBase {
 	}
 
 	checkCameraModel(detectedModel) {
-		//this.log('debug','---- In checkCameraModel with detectedModel as', detectedModel)
+		this.log('debug','---- In checkCameraModel with detectedModel as', detectedModel)
 		let model = CHOICES.CAMERAS.find((element) => {
 			// this.log('debug','---- Checking element ', element)
 			if (element.id === detectedModel) {
@@ -896,7 +778,6 @@ class BirdDogPTZInstance extends InstanceBase {
 		// - FW matches
 		// - 'store_state' is true
 		// and add them to this.camera object
-		this.log('debug', `initState: m ${model} h ${hostname}`)
 		this.camera = {}
 
 		let filteredArray = Object.entries(MODEL_SPECS).filter(
@@ -911,8 +792,6 @@ class BirdDogPTZInstance extends InstanceBase {
 			.sort()
 			.map((element) => (this.camera[element] = {}))
 
-		this.log('debug', `pre-default model ${model} hostname ${hostname} FW_major ${FW_major} FW_minor ${FW_minor}`)
-		this.log('debug', `pre default this.camera ${JSON.stringify(this.camera)}`)
 		// Set some defaults
 		this.camera.model = model
 		this.camera.hostname = hostname
@@ -924,11 +803,10 @@ class BirdDogPTZInstance extends InstanceBase {
 		}
 		this.camera.unknown = [] // Array to store unknown API variables
 
-		this.log('debug', `---- Initial State for  camera ${JSON.stringify(this.camera)}`)
+		//this.log('debug', '---- Initial State for camera', this.camera)
 	}
 
 	storeState(data, endpoint) {
-		this.log('debug', `storeState ${JSON.stringify(data)} endpoint ${endpoint}`)
 		// Returns an array of this.camera keys that have been changed
 		let changed = []
 		Object.entries(data).forEach((element) => {
@@ -941,7 +819,6 @@ class BirdDogPTZInstance extends InstanceBase {
 					array[1]?.api_endpoint?.includes(endpoint) &&
 					array[1]?.api_variable?.includes(element[0]),
 			)
-			this.log('debug', `stored ${JSON.stringify(stored)}`)
 			if (!stored) {
 				if (!this.camera.unknown.includes(element[0])) {
 					//Only warn about unknown API variables once
@@ -949,17 +826,10 @@ class BirdDogPTZInstance extends InstanceBase {
 					this.camera.unknown.push(element[0])
 				}
 			} else if (this.camera[stored[0]] !== element[1]) {
-				this.log('debug', 'storing')
 				changed.push(stored[0])
 				this.camera[stored[0]] = element[1]
-			} else {
-				this.log('debug', `camera stored ${this.camera[stored[0]]} element 1 ${element[1]}`)
-			}
-			if (stored) {
-				this.log('debug', `stored ${stored[0]} in camera ${JSON.stringify(this.camera[stored[0]])}`)
 			}
 		})
-		this.log('debug', `changed ${JSON.stringify(changed)}`)
 		return changed
 	}
 }

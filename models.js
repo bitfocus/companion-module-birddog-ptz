@@ -106,7 +106,7 @@ export const MODEL_QUERIES = {
 	//Scope Settings
 	birddogscope: { camera: ['All'], firmware: ['5'] },
 
-	//KBSettings
+	//KBB Settings
 	active_camera: { camera: ['KBD'], firmware: ['0'] }
 }
 

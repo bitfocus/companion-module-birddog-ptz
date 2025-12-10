@@ -8,9 +8,8 @@ export function getPresets() {
 	const ColorGreen = combineRgb(0, 255, 0) // Green
 
 	let MODEL_ACTIONS = getModelActions(MODEL_SPECS, this.camera.firmware.major, this.camera.model)
-	this.log('debug', `get Presets Actions: ${JSON.stringify(MODEL_ACTIONS)}`)
 	let MODEL_VARIABLES = getModelVariables(MODEL_SPECS, this.camera.firmware.major, this.camera.model)
-	this.log('debug', `get Presets Variables: ${JSON.stringify(MODEL_VARIABLES)}`)
+
 	let presets = {}
 
 	// Variables for Base64 image data do not edit
@@ -7486,6 +7485,47 @@ export function getPresets() {
 			},
 			steps: [{ down: [], up: [] }],
 			feedbacks: [],
+		}
+	}
+
+	if (MODEL_ACTIONS?.active_camera) {
+		let cam
+		for (cam = 1; cam < 6; cam++) {
+			presets[`activeCameraPset${cam}`] = {
+				type: 'button',
+				category: 'KBD_controller',
+				name: 'Set Active Camera',
+				options: {},
+				style: {
+					text: 'Preset Camera ' + parseInt(cam),
+					size: 'auto',
+					color: ColorWhite,
+					bgcolor: ColorBlack,
+				},
+				steps: [
+					{
+						down: [
+							{
+								actionId: 'active_camera',
+								options: {
+									val: parseInt(cam),
+								},
+							},
+						],
+						up: [],
+					},
+				],
+				feedbacks: [
+					{
+						feedbackId: 'active_camera',
+						options: { val: parseInt(cam) },
+						style: {
+							color: ColorBlack,
+							bgcolor: ColorGreen,
+						},
+					},
+				],
+			}
 		}
 	}
 

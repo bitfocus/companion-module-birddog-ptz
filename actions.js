@@ -10,7 +10,7 @@ export function getActions() {
 	let body = {}
 
 	let MODEL_ACTIONS = getModelActions(MODEL_SPECS, this.camera.firmware.major, this.camera.model)
-	this.log('debug', `model actions ${JSON.stringify(MODEL_ACTIONS)}`)
+
 	if (!MODEL_ACTIONS) {
 		this.log('error', `Unrecognized camera model: ${this.camera.model}`)
 		this.status(this.STATUS_ERROR)
@@ -5453,7 +5453,6 @@ export function getActions() {
 			},
 		}
 	}
-
 	if (MODEL_ACTIONS?.active_camera) {
 		actions['active_camera'] = {
 			name: 'Active Camera',
@@ -5468,36 +5467,10 @@ export function getActions() {
 				},
 			],
 			callback: (action) => {
-				this.log('debug', "Sending Select Cam")
 				let command = `SelectCam?camera=${action.options.val}`
-				// this.sendKBDCommand(command, 'POST')
 				this.sendCommand(command, 'POST', {})
 			},
 		}
 	}
-	this.log('debug', `end model actions ${JSON.stringify(MODEL_ACTIONS)}`)
-
 	return Object.fromEntries(Object.entries(actions).sort(sortByAction))
-}
-
-export function getKBDActions() {
-	return {
-		active_camera: {
-			name: 'Active Camera',
-			options: [
-				{
-					type: 'number',
-					label: `Channel`,
-					id: 'val',
-					default: 1,
-					min: 1,
-					max: 256,
-				},
-			],
-			callback: (action) => {
-				let command = `cgi-bin/connTheDev.cgi/SelectCam?camera=${action.options.val}`
-				this.sendKBDCommand(command, 'POST')
-			},
-		},
-	}
 }
