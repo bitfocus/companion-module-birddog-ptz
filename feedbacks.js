@@ -3496,6 +3496,31 @@ export function getFeedbacks() {
 		}
 	}
 
+	if (MODEL_ACTIONS?.active_camera) {
+		feedbacks.active_camera = {
+			type: 'boolean',
+			name: "Active Camera",
+			description: "If the camera matches the current KBD camera, change the style of the button.",
+			defaultStyle: {
+				color: ColorBlack,
+				bgcolor: ColorGreen,
+			},
+			options: [
+				{
+					type: 'number',
+					label: 'Camera Number',
+					id: 'val',
+					default: 1,
+					min: 1,
+					max: 256,
+				},
+			],
+			callback: (feedback) => {
+				return this.camera?.active_camera == feedback.options.val
+			},
+		}
+	}
+
 	// Other Feedback
 
 	this.setFeedbackDefinitions(feedbacks)
