@@ -1,6 +1,6 @@
 import { InstanceBase, runEntrypoint, UDPHelper } from '@companion-module/base'
 
-import { getActions, getKBDActions } from './actions.js'
+import { getActions } from './actions.js'
 import { getPresets } from './presets.js'
 import { updateVariableDefinitions, updateVariables } from './variables.js'
 import { getFeedbacks } from './feedbacks.js'
@@ -177,48 +177,6 @@ class BirdDogPTZInstance extends InstanceBase {
 			})
 	}
 
-	sendKBDCommand(cmd, type, params) {
-		let url = `http://${this.config.host}/${cmd}`
-		let options = {
-			method: type,
-			headers: { 'Content-Type': 'application/json' },
-		}
-		if (type == 'PUT' || type == 'POST') {
-			options.body = params != undefined ? JSON.stringify(params) : null
-		}
-
-		fetch(url, options)
-			.then((res) => {
-				if (res.status == 200) {
-					this.updateStatus('ok')
-					return res.json()
-				}
-			})
-			.then((json) => {
-				let data = json
-				if (data && type == 'GET') {
-					if (data.result === '0') {
-						this.updateStatus('ok')
-					} else {
-						this.updateStatus('connection_failure')
-						this.log('debug', `---- ${url} returned ${JSON.stringify(data)}`)
-					}
-				}
-			})
-			.catch((err) => {
-				this.log('debug', `Command Error: ${err}`)
-				let errorText = String(err)
-				if (
-					errorText.match('ECONNREFUSED') ||
-					errorText.match('ENOTFOUND') ||
-					errorText.match('EHOSTDOWN') ||
-					errorText.match('ETIMEDOUT')
-				) {
-					this.updateStatus('connection_failure')
-				}
-			})
-	}
-
 	processData(cmd, data) {
 		let changed
 		switch (cmd.slice(cmd.lastIndexOf('/') + 1)) {
@@ -354,6 +312,10 @@ class BirdDogPTZInstance extends InstanceBase {
 			case 'tally':
 				changed = this.storeState(data, 'tally')
 				//this.camera.advancesetup = data
+				break
+			case 'SelectCam':
+				changed = this.storeState(data, 'SelectCam')
+				//this.camera.active_camera = data
 				break
 		}
 		if (changed.length > 0) {
@@ -647,6 +609,9 @@ class BirdDogPTZInstance extends InstanceBase {
 		if (MODEL_QRY?.birddogscope) {
 			this.sendCommand('birddogscope', 'GET')
 		}
+		if (MODEL_QRY?.active_camera) {
+			this.sendCommand('SelectCam', 'GET')
+		}
 
 		//this.log('debug', `----Camera Setup for - ${this.camera.model}`)
 		//this.log('debug', this.camera)
@@ -672,7 +637,11 @@ class BirdDogPTZInstance extends InstanceBase {
 						model = model.replace(/BirdDog| |_/g, '')
 						this.getCameraFW(this.checkCameraModel(model))
 					} else if (!model) {
-						this.log('error', 'Please upgrade your BirdDog camera to the latest LTS firmware to use this module')
+						this.log('error',
+							'\'BirdDog Model` unrecognized:\n' +
+							'\tIf this device is a camera, please upgrade your BirdDog camera to the latest LTS firmware to use this module\n' +
+							'\tIf this device is a KBD, please select \'KBD\' for \'BirdDog Model\' when creating the connection'
+						)
 						this.updateStatus('connection_failure')
 						if (this.timers.pollCameraStatus !== undefined) {
 							clearInterval(this.timers.pollCameraStatus)
@@ -692,25 +661,32 @@ class BirdDogPTZInstance extends InstanceBase {
 						this.log('error', `Unable to connect to BirdDog PTZ Camera (Error: ${errorText?.split('reason:')[1]})`)
 					}
 				})
-		} else if (this.config.model === 'KBD') {
-			this.initializeKeyboard()
 		} else {
 			//this.camera.model = this.config.model
 			this.getCameraFW(this.config.model)
 		}
 	}
-	initializeKeyboard() {
-		this.initKBDActions()
-		this.updateStatus('ok')
-	}
 	getCameraFW(model) {
 		let url = `http://${this.config.host}:8080/about`
+		if (model == "KBD") {
+			// KBDs don't recognize /about and will disconnect if you send it
+			// so we send the only command it does know instead and recover later
+			url = `http://${this.config.host}:8080/SelectCam`
+		}
 		let options = {
 			method: 'GET',
 			headers: { 'Content-Type': 'application/json' },
 		}
 		fetch(url, options)
 			.then((res) => {
+				if (model == 'KBD') {
+					// This is a version of of KBD that doesn't support `about`,
+					// Call this version 0.0.0 of the firmware.
+					return {
+						FirmwareVersion: '0.0.0',
+						HostName: this.config.host
+					}
+				}
 				if (res.status == 200) {
 					//this.log('debug',res)
 					return res.json()
@@ -723,8 +699,7 @@ class BirdDogPTZInstance extends InstanceBase {
 					let FW_minor = FW_Match ? FW_Match[2] : ''
 
 					// Set Initial State for Camera
-					this.intializeState(model, data.HostName, FW_major, FW_minor)
-
+					this.initializeState(model, data.HostName, FW_major, FW_minor)
 					// InitializeCamera
 					this.initializeCamera()
 				} else if (data.Version === '1.0') {
@@ -800,7 +775,7 @@ class BirdDogPTZInstance extends InstanceBase {
 		}
 	}
 
-	intializeState(model, hostname, FW_major, FW_minor) {
+	initializeState(model, hostname, FW_major, FW_minor) {
 		// Take all level 1 elements from MODEL_SPECS filtered by;
 		// - All cameras or model matches
 		// - FW matches
@@ -812,7 +787,7 @@ class BirdDogPTZInstance extends InstanceBase {
 		let filteredArray = Object.entries(MODEL_SPECS).filter(
 			(array) =>
 				// filter array based on: All cameras or Model matches, and FW matches & has 'store_state' object
-				(array[1].camera.includes(model) || array[1].camera.includes('All')) &&
+				(array[1].camera.includes(model) || (array[1].camera.includes('All') && !model == "KBD")) &&
 				array[1].firmware.includes(FW_major) &&
 				array[1].store_state === true,
 		)
@@ -827,7 +802,10 @@ class BirdDogPTZInstance extends InstanceBase {
 		this.camera.firmware = {}
 		this.camera.firmware.major = FW_major
 		this.camera.firmware.minor = FW_minor
-		this.camera.shutter_table = 60 // Camera defaults to 59.94 on startup
+		if (model != "KBD") {
+			// This global initialization for cameras belongs elsewhere.
+			this.camera.shutter_table = 60 // Camera defaults to 59.94 on startup
+		}
 		this.camera.unknown = [] // Array to store unknown API variables
 
 		//this.log('debug', '---- Initial State for camera', this.camera)
@@ -841,7 +819,7 @@ class BirdDogPTZInstance extends InstanceBase {
 				(array) =>
 					// find location in this.camera to store API variable
 					// based on: All cameras or Model matches, FW matches, api_endpoint matches & api_variable matches API element
-					(array[1].camera.includes(this.camera.model) || array[1].camera.includes('All')) &&
+					(array[1].camera.includes(this.camera.model) || (array[1].camera.includes('All') && this.camera.model != "KBD")) &&
 					array[1].firmware.includes(this.camera.firmware.major) &&
 					array[1]?.api_endpoint?.includes(endpoint) &&
 					array[1]?.api_variable?.includes(element[0]),
