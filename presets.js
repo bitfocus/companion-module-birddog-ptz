@@ -7488,5 +7488,46 @@ export function getPresets() {
 		}
 	}
 
+	if (MODEL_ACTIONS?.active_camera) {
+		let cam
+		for (cam = 1; cam < 6; cam++) {
+			presets[`activeCameraPset${cam}`] = {
+				type: 'button',
+				category: 'KBD_controller',
+				name: 'Set Active Camera',
+				options: {},
+				style: {
+					text: 'Preset Camera ' + parseInt(cam),
+					size: 'auto',
+					color: ColorWhite,
+					bgcolor: ColorBlack,
+				},
+				steps: [
+					{
+						down: [
+							{
+								actionId: 'active_camera',
+								options: {
+									val: parseInt(cam),
+								},
+							},
+						],
+						up: [],
+					},
+				],
+				feedbacks: [
+					{
+						feedbackId: 'active_camera',
+						options: { val: parseInt(cam) },
+						style: {
+							color: ColorBlack,
+							bgcolor: ColorGreen,
+						},
+					},
+				],
+			}
+		}
+	}
+
 	return presets
 }

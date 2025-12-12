@@ -97,7 +97,7 @@ export function getModelVariables(array, FW, model) {
 	let filteredArray = tempArray.filter(
 		(array) =>
 			// filter array based on: All cameras or Model matches, and FW matches & has 'variable_name' object
-			(array[1].camera.includes(model) || array[1].camera.includes('All')) &&
+			(array[1].camera.includes(model) || (array[1].camera.includes('All') && (model != "KBD"))) &&
 			array[1].firmware.includes(FW) &&
 			array[1]?.variableId,
 	)
@@ -118,7 +118,7 @@ export function getModelActions(array, FW, model) {
 	let filteredArray = tempArray.filter(
 		(array) =>
 			// filter array based on: All cameras or Model matches, and FW matches & has 'action' object
-			(array[1].camera.includes(model) || array[1].camera.includes('All')) &&
+			(array[1].camera.includes(model) || (array[1].camera.includes('All') && model != "KBD")) &&
 			array[1].firmware.includes(FW) &&
 			array[1]?.action,
 	)
@@ -137,7 +137,7 @@ export function getModelActionDetails(array, FW, model) {
 	let commonActions = array.filter((array) => array.camera.includes('common'))
 	let modelActions = array.filter(
 		// filter array based on: All cameras or Model matches, and if it contains a FW filed, then if FW matches
-		(array) => (array.camera.includes(model) || array.camera.includes('All')) && (array.firmware?.includes(FW) ?? true),
+		(array) => (array.camera.includes(model) || (array.camera.includes('All') && (model != "KBD"))) && (array.firmware?.includes(FW) ?? true),
 	)
 	return merge(commonActions[0]?.action, modelActions[0]?.action)
 }
@@ -146,7 +146,7 @@ export function getModelQueries(array, model, FW) {
 	let asArray = Object.entries(array)
 	return Object.fromEntries(
 		asArray.filter(
-			(item) => (item[1].camera.includes(model) || item[1].camera.includes('All')) && item[1].firmware.includes(FW),
+			(item) => (item[1].camera.includes(model) || (item[1].camera.includes('All') && (model != "KBD"))) && item[1].firmware.includes(FW),
 		),
 	)
 }
