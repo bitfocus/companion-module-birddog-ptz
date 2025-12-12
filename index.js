@@ -637,10 +637,11 @@ class BirdDogPTZInstance extends InstanceBase {
 						model = model.replace(/BirdDog| |_/g, '')
 						this.getCameraFW(this.checkCameraModel(model))
 					} else if (!model) {
-						this.log('error',
-							'\'BirdDog Model` unrecognized:\n' +
-							'\tIf this device is a camera, please upgrade your BirdDog camera to the latest LTS firmware to use this module\n' +
-							'\tIf this device is a KBD, please select \'KBD\' for \'BirdDog Model\' when creating the connection'
+						this.log(
+							'error',
+							"'BirdDog Model` unrecognized:\n" +
+								'\tIf this device is a camera, please upgrade your BirdDog camera to the latest LTS firmware to use this module\n' +
+								"\tIf this device is a KBD, please select 'KBD' for 'BirdDog Model' when creating the connection",
 						)
 						this.updateStatus('connection_failure')
 						if (this.timers.pollCameraStatus !== undefined) {
@@ -668,7 +669,7 @@ class BirdDogPTZInstance extends InstanceBase {
 	}
 	getCameraFW(model) {
 		let url = `http://${this.config.host}:8080/about`
-		if (model == "KBD") {
+		if (model == 'KBD') {
 			// KBDs don't recognize /about and will disconnect if you send it
 			// so we send the only command it does know instead and recover later
 			url = `http://${this.config.host}:8080/SelectCam`
@@ -684,7 +685,7 @@ class BirdDogPTZInstance extends InstanceBase {
 					// Call this version 0.0.0 of the firmware.
 					return {
 						FirmwareVersion: '0.0.0',
-						HostName: this.config.host
+						HostName: this.config.host,
 					}
 				}
 				if (res.status == 200) {
@@ -787,7 +788,7 @@ class BirdDogPTZInstance extends InstanceBase {
 		let filteredArray = Object.entries(MODEL_SPECS).filter(
 			(array) =>
 				// filter array based on: All cameras or Model matches, and FW matches & has 'store_state' object
-				(array[1].camera.includes(model) || (array[1].camera.includes('All') && !model == "KBD")) &&
+				(array[1].camera.includes(model) || (array[1].camera.includes('All') && !model == 'KBD')) &&
 				array[1].firmware.includes(FW_major) &&
 				array[1].store_state === true,
 		)
@@ -802,7 +803,7 @@ class BirdDogPTZInstance extends InstanceBase {
 		this.camera.firmware = {}
 		this.camera.firmware.major = FW_major
 		this.camera.firmware.minor = FW_minor
-		if (model != "KBD") {
+		if (model != 'KBD') {
 			// This global initialization for cameras belongs elsewhere.
 			this.camera.shutter_table = 60 // Camera defaults to 59.94 on startup
 		}
@@ -819,7 +820,8 @@ class BirdDogPTZInstance extends InstanceBase {
 				(array) =>
 					// find location in this.camera to store API variable
 					// based on: All cameras or Model matches, FW matches, api_endpoint matches & api_variable matches API element
-					(array[1].camera.includes(this.camera.model) || (array[1].camera.includes('All') && this.camera.model != "KBD")) &&
+					(array[1].camera.includes(this.camera.model) ||
+						(array[1].camera.includes('All') && this.camera.model != 'KBD')) &&
 					array[1].firmware.includes(this.camera.firmware.major) &&
 					array[1]?.api_endpoint?.includes(endpoint) &&
 					array[1]?.api_variable?.includes(element[0]),

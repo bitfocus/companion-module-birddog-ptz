@@ -823,7 +823,7 @@ export function updateVariables() {
 		updatedVariables.vid_str_name = this.camera.vid_str_name
 	}
 
-	if (MODEL_VARIABLES.some((variable) =>  variable.variableId === 'active_camera')) {
+	if (MODEL_VARIABLES.some((variable) => variable.variableId === 'active_camera')) {
 		updatedVariables.active_camera = this.camera.active_camera
 	}
 
