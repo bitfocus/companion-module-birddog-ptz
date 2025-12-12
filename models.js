@@ -107,7 +107,7 @@ export const MODEL_QUERIES = {
 	birddogscope: { camera: ['All'], firmware: ['5'] },
 
 	//KBB Settings
-	active_camera: { camera: ['KBD'], firmware: ['0'] }
+	active_camera: { camera: ['KBD'], firmware: ['0'] },
 }
 
 export const MODEL_SPECS = {
@@ -3508,7 +3508,7 @@ export const MODEL_SPECS = {
 				camera: ['KBD'],
 			},
 		],
-		name: "KBD - Active Camera"
+		name: 'KBD - Active Camera',
 	},
 
 	// Other Actions

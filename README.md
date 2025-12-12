@@ -8,6 +8,14 @@ See [HELP.md](https://github.com/bitfocus/companion-module-birddog-ptz/blob/main
 
 ## Changelog
 
+### v3.6.0
+
+- New
+  - Feedback: Active Camera for use with the BirdDog KBD
+  - Variable: active_camera for use with the BirdDog KBD
+- Fix
+  - Connection error when attempting to set Active Camera with BirdDog KBD firmware 6.1.559
+
 ### v3.5.0
 
 - New

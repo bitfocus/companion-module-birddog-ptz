@@ -1,6 +1,6 @@
 {
 	"name": "birddog-ptz",
-	"version": "3.5.0",
+	"version": "3.6.0",
 	"main": "index.js",
 	"scripts": {
 		"format": "prettier -w .",
@@ -22,7 +22,7 @@
 	"devDependencies": {
 		"@companion-module/tools": "^2.4.2",
 		"eslint": "^9.39.1",
-		"prettier": "^3.6.2"
+		"prettier": "^3.7.4"
 	},
 	"engines": {
 		"node": "^22.12"

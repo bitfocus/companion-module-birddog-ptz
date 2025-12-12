@@ -3499,8 +3499,8 @@ export function getFeedbacks() {
 	if (MODEL_ACTIONS?.active_camera) {
 		feedbacks.active_camera = {
 			type: 'boolean',
-			name: "Active Camera",
-			description: "If the camera matches the current KBD camera, change the style of the button.",
+			name: 'Active Camera',
+			description: 'If the camera matches the current KBD camera, change the style of the button.',
 			defaultStyle: {
 				color: ColorBlack,
 				bgcolor: ColorGreen,
