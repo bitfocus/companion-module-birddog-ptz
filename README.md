@@ -8,6 +8,11 @@ See [HELP.md](https://github.com/bitfocus/companion-module-birddog-ptz/blob/main
 
 ## Changelog
 
+### v3.6.1
+
+- Fix
+  - Unable to save presets due to improper number validation
+
 ### v3.6.0
 
 - New
