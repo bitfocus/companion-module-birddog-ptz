@@ -123,11 +123,6 @@ class BirdDogPTZInstance extends InstanceBase {
 		this.setActionDefinitions(actions)
 	}
 
-	initKBDActions() {
-		const actions = getKBDActions.bind(this)()
-		this.setActionDefinitions(actions)
-	}
-
 	sendCommand(cmd, type, params) {
 		let url = `http://${this.config.host}:8080/${cmd}`
 		let options = {
