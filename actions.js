@@ -935,8 +935,12 @@ export function getActions() {
 			callback: async (action, context) => {
 				const presetNumberStr = await context.parseVariablesInString(action.options.val)
 				const presetNumber = Number(presetNumberStr)
-				if (Number.isInteger(presetNumber)) {
+				if (isNaN(presetNumber)) {
 					this.log('error', 'Preset Number must be a valid number')
+					return
+				}
+				if (!Number.isInteger(presetNumber)) {
+					this.log('error', 'Preset Number must be an integer')
 					return
 				}
 				if (presetNumber < MODEL_ACTIONS.savePset.range.min || presetNumber > MODEL_ACTIONS.savePset.range.max) {
