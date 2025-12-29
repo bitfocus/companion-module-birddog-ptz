@@ -8,6 +8,11 @@ See [HELP.md](https://github.com/bitfocus/companion-module-birddog-ptz/blob/main
 
 ## Changelog
 
+### v3.6.2
+
+- Fix
+  - Incorrect values for some actions when using X4 and X5 models
+
 ### v3.6.1
 
 - Fix
