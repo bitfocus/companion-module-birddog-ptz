@@ -862,8 +862,12 @@ export const MODEL_SPECS = {
 				action: { choices: CHOICES.SPEED_CHANGES, default: 'up', range: { min: 0, max: 21, default: 11 } },
 			},
 			{
-				camera: ['X1', 'X1Ultra', 'X4Ultra', 'X5Ultra', 'MAX'],
+				camera: ['X1', 'X1Ultra', 'X4Ultra', 'MAX'],
 				action: { choices: CHOICES.SPEED_CHANGES, default: 'up', range: { min: 0, max: 24, default: 12 } },
+			},
+			{
+				camera: ['X5Ultra'],
+				action: { choices: CHOICES.SPEED_CHANGES, default: 'up', range: { min: 0, max: 100, default: 50 } },
 			},
 		],
 	},
@@ -1010,8 +1014,16 @@ export const MODEL_SPECS = {
 				action: { choices: CHOICES.SPEED_CHANGES, default: 'up', range: { min: 0, max: 18, default: 9 } },
 			},
 			{
-				camera: ['X1', 'X1Ultra', 'X4Ultra', 'X5Ultra', 'MAKIUltra', 'MAX'],
+				camera: ['X1', 'X1Ultra', 'MAKIUltra', 'MAX'],
 				action: { choices: CHOICES.SPEED_CHANGES, default: 'up', range: { min: 0, max: 24, default: 12 } },
+			},
+			{
+				camera: ['X4Ultra'],
+				action: { choices: CHOICES.SPEED_CHANGES, default: 'up', range: { min: 0, max: 20, default: 10 } },
+			},
+			{
+				camera: ['X5Ultra'],
+				action: { choices: CHOICES.SPEED_CHANGES, default: 'up', range: { min: 0, max: 100, default: 50 } },
 			},
 		],
 	},
@@ -1178,8 +1190,12 @@ export const MODEL_SPECS = {
 				action: { choices: CHOICES.UP_DOWN_VALUE, default: 'up' },
 			},
 			{
-				camera: ['X1', 'X1Ultra', 'X4Ultra', 'X5Ultra', 'MAKIUltra', 'MAX'],
+				camera: ['X1', 'X1Ultra', 'X4Ultra', 'MAKIUltra', 'MAX'],
 				action: { range: { min: 0, max: 17, default: 0 } },
+			},
+			{
+				camera: ['X5Ultra'],
+				action: { range: { min: 0, max: 31, default: 0 } },
 			},
 			{
 				camera: ['P100', 'P110', 'P120', 'PF120'],
@@ -1304,8 +1320,16 @@ export const MODEL_SPECS = {
 				action: { value: { choices: CHOICES.GAIN_3, default: 1 } },
 			},
 			{
-				camera: ['X1', 'X1Ultra', 'X4Ultra', 'X5Ultra', 'MAKIUltra', 'MAX'],
+				camera: ['X1', 'X1Ultra', 'MAKIUltra', 'MAX'],
 				action: { value: { choices: CHOICES.GAIN_4, default: 0 } },
+			},
+			{
+				camera: ['X4Ultra'],
+				action: { value: { choices: CHOICES.GAIN_X4, default: 0 } },
+			},
+			{
+				camera: ['X5Ultra'],
+				action: { value: { choices: CHOICES.GAIN_X5, default: 0 } },
 			},
 		],
 	},
@@ -1385,8 +1409,16 @@ export const MODEL_SPECS = {
 				action: { choices: CHOICES.UP_DOWN_VALUE, default: 'up' },
 			},
 			{
-				camera: ['P100', 'P110', 'P120', 'PF120', 'X1', 'X1Ultra', 'X4Ultra', 'X5Ultra', 'MAX'],
+				camera: ['P100', 'P110', 'P120', 'PF120', 'X1', 'X1Ultra', 'MAX'],
 				action: { value: { choices: CHOICES.IRIS_1, default: 8, range: { closed: 0, min: 1, max: 13 } } },
+			},
+			{
+				camera: ['X4Ultra'],
+				action: { value: { choices: CHOICES.IRIS_X4, default: 8, range: { closed: 0, min: 6, max: 17 } } },
+			},
+			{
+				camera: ['X5Ultra'],
+				action: { value: { choices: CHOICES.IRIS_X5, default: 6, range: { closed: 0, min: 1, max: 13 } } },
 			},
 			{
 				camera: ['P200A2A3', 'P200A4A5', 'A200GEN1', 'A200GEN2', 'A300GEN1', 'A300GEN2', 'MAKIUltra'],
@@ -1474,7 +1506,6 @@ export const MODEL_SPECS = {
 					'A300GEN2',
 					'X1',
 					'X1Ultra',
-					'X4Ultra',
 					'X5Ultra',
 				],
 				action: {
@@ -1482,6 +1513,15 @@ export const MODEL_SPECS = {
 					shutter_60: CHOICES.SHUTTER_60,
 					shutter_default: 6,
 					range: { min: 0, max: 21 },
+				},
+			},
+			{
+				camera: ['X4Ultra'],
+				action: {
+					shutter_50: CHOICES.SHUTTER_X4,
+					shutter_60: CHOICES.SHUTTER_X4,
+					shutter_default: 6,
+					range: { min: 0, max: 16 },
 				},
 			},
 			{
@@ -1935,8 +1975,16 @@ export const MODEL_SPECS = {
 				action: { choices: CHOICES.UP_DOWN_VALUE, default: 'up', range: { min: 0, max: 15, default: 8 } },
 			},
 			{
-				camera: ['X1', 'X1Ultra', 'X4Ultra', 'X5Ultra', 'MAKIUltra', 'MAX'],
+				camera: ['X1', 'X1Ultra', 'MAKIUltra', 'MAX'],
 				action: { choices: CHOICES.UP_DOWN_VALUE, default: 'up', range: { min: 0, max: 100, default: 8 } },
+			},
+			{
+				camera: ['X4Ultra'],
+				action: { choices: CHOICES.UP_DOWN_VALUE, default: 'up', range: { min: 0, max: 14, default: 7 } },
+			},
+			{
+				camera: ['X5Ultra'],
+				action: { choices: CHOICES.UP_DOWN_VALUE, default: 'up', range: { min: 0, max: 4, default: 2 } },
 			},
 		],
 	},
@@ -2019,8 +2067,16 @@ export const MODEL_SPECS = {
 				action: { choices: CHOICES.UP_DOWN_VALUE, default: 'up', range: { min: 0, max: 15, default: 8 } },
 			},
 			{
-				camera: ['X1', 'X1Ultra', 'X4Ultra', 'X5Ultra', 'MAKIUltra', 'MAX'],
+				camera: ['X1', 'X1Ultra', 'MAKIUltra', 'MAX'],
 				action: { choices: CHOICES.UP_DOWN_VALUE, default: 'up', range: { min: 0, max: 100, default: 50 } },
+			},
+			{
+				camera: ['X4Ultra'],
+				action: { choices: CHOICES.UP_DOWN_VALUE, default: 'up', range: { min: 0, max: 14, default: 7 } },
+			},
+			{
+				camera: ['X5Ultra'],
+				action: { choices: CHOICES.UP_DOWN_VALUE, default: 'up', range: { min: 0, max: 15, default: 8 } },
 			},
 		],
 	},
@@ -2156,8 +2212,16 @@ export const MODEL_SPECS = {
 				action: { choices: CHOICES.UP_DOWN_VALUE, default: 'up', range: { min: 0, max: 15, default: 8 } },
 			},
 			{
-				camera: ['X1', 'X1Ultra', 'X4Ultra', 'X5Ultra', 'MAKIUltra', 'MAX'],
+				camera: ['X1', 'X1Ultra', 'MAKIUltra', 'MAX'],
 				action: { choices: CHOICES.UP_DOWN_VALUE, default: 'up', range: { min: 0, max: 100, default: 50 } },
+			},
+			{
+				camera: ['X4Ultra'],
+				action: { choices: CHOICES.UP_DOWN_VALUE, default: 'up', range: { min: 0, max: 14, default: 7 } },
+			},
+			{
+				camera: ['X5Ultra'],
+				action: { choices: CHOICES.UP_DOWN_VALUE, default: 'up', range: { min: 0, max: 10, default: 5 } },
 			},
 		],
 	},
@@ -2200,8 +2264,16 @@ export const MODEL_SPECS = {
 				action: { range: { min: -128, max: 127, default: 0 } },
 			},
 			{
-				camera: ['X1', 'X1Ultra', 'X4Ultra', 'X5Ultra', 'MAKIUltra', 'MAX'],
+				camera: ['X1', 'X1Ultra', 'MAKIUltra', 'MAX'],
 				action: { range: { min: 0, max: 100, default: 0 } },
+			},
+			{
+				camera: ['X4Ultra'],
+				action: { range: { min: 0, max: 11, default: 6 } },
+			},
+			{
+				camera: ['X5Ultra'],
+				action: { range: { min: 0, max: 3, default: 2 } },
 			},
 		],
 	},
@@ -2239,12 +2311,30 @@ export const MODEL_SPECS = {
 				},
 			},
 			{
-				camera: ['X1', 'X1Ultra', 'X4Ultra', 'X5Ultra', 'MAKIUltra', 'MAX'],
+				camera: ['X1', 'X1Ultra', 'MAKIUltra', 'MAX'],
 				action: {
 					choices: CHOICES.UP_DOWN_VALUE,
 					default: 'up',
 					value: { choices: CHOICES.OFF_1_to_5, default: '0' },
 					range: { min: 0, max: 100 },
+				},
+			},
+			{
+				camera: ['X4Ultra'],
+				action: {
+					choices: CHOICES.UP_DOWN_VALUE,
+					default: 'up',
+					value: { choices: CHOICES.OFF_1_to_5, default: '0' },
+					range: { min: 0, max: 9 },
+				},
+			},
+			{
+				camera: ['X5Ultra'],
+				action: {
+					choices: CHOICES.UP_DOWN_VALUE,
+					default: 'up',
+					value: { choices: CHOICES.OFF_1_to_5, default: '0' },
+					range: { min: 0, max: 3 },
 				},
 			},
 		],
@@ -2323,8 +2413,12 @@ export const MODEL_SPECS = {
 		name: 'Picture Setup - Brightness',
 		action: [
 			{
-				camera: ['X1', 'X1Ultra', 'X4Ultra', 'X5Ultra', 'MAKIUltra', 'MAX'],
+				camera: ['X1', 'X1Ultra', 'X5Ultra', 'MAKIUltra', 'MAX'],
 				action: { choices: CHOICES.UP_DOWN_VALUE, default: 'up', range: { min: 0, max: 100, default: 50 } },
+			},
+			{
+				camera: ['X4Ultra'],
+				action: { range: { min: 0, max: 14, default: 6 } },
 			},
 		],
 	},

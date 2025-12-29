@@ -189,6 +189,39 @@ export default {
 		{ id: '21', label: 'F2.8' },
 	],
 
+	IRIS_X4: [
+		{ id: '0', label: 'CLOSED' },
+		{ id: '6', label: 'F11.0' },
+		{ id: '7', label: 'F9.6' },
+		{ id: '8', label: 'F8.0' },
+		{ id: '9', label: 'F6.8' },
+		{ id: '10', label: 'F5.6' },
+		{ id: '11', label: 'F4.8' },
+		{ id: '12', label: 'F4.0' },
+		{ id: '13', label: 'F3.4' },
+		{ id: '14', label: 'F2.8' },
+		{ id: '15', label: 'F2.4' },
+		{ id: '16', label: 'F2.0' },
+		{ id: '17', label: 'F1.8' },
+	],
+
+	IRIS_X5: [
+		{ id: '0', label: 'CLOSED' },
+		{ id: '1', label: 'F14.0' },
+		{ id: '2', label: 'F11.0' },
+		{ id: '3', label: 'F9.6' },
+		{ id: '4', label: 'F8.0' },
+		{ id: '5', label: 'F6.8' },
+		{ id: '6', label: 'F5.6' },
+		{ id: '7', label: 'F4.8' },
+		{ id: '8', label: 'F4.0' },
+		{ id: '9', label: 'F3.4' },
+		{ id: '10', label: 'F2.8' },
+		{ id: '11', label: 'F2.4' },
+		{ id: '12', label: 'F2.0' },
+		{ id: '13', label: 'F1.6' },
+	],
+
 	// ############
 	// GAIN Look Ups
 	// ############
@@ -262,6 +295,32 @@ export default {
 		{ id: '12', label: '36 dB' },
 		{ id: '13', label: '39 dB' },
 		{ id: '14', label: '42 dB' },
+	],
+
+	GAIN_X4: [
+		{ id: '0', label: '0 dB' },
+		{ id: '1', label: '3 dB' },
+		{ id: '2', label: '6 dB' },
+		{ id: '3', label: '9 dB' },
+		{ id: '4', label: '12 dB' },
+		{ id: '5', label: '15 dB' },
+		{ id: '6', label: '18 dB' },
+		{ id: '7', label: '21 dB' },
+	],
+
+	GAIN_X5: [
+		{ id: '0', label: '0 dB' },
+		{ id: '1', label: '3 dB' },
+		{ id: '2', label: '6 dB' },
+		{ id: '3', label: '9 dB' },
+		{ id: '4', label: '12 dB' },
+		{ id: '5', label: '15 dB' },
+		{ id: '6', label: '18 dB' },
+		{ id: '7', label: '21 dB' },
+		{ id: '8', label: '24 dB' },
+		{ id: '9', label: '27 dB' },
+		{ id: '10', label: '30 dB' },
+		{ id: '11', label: '33 dB' },
 	],
 
 	// ############
@@ -472,6 +531,26 @@ export default {
 		{ id: '15', label: '1/24' },
 		{ id: '16', label: '1/25' },
 		{ id: '17', label: '1/40' },
+	],
+
+	SHUTTER_X4: [
+		{ id: '0', label: '1/30' },
+		{ id: '1', label: '1/60' },
+		{ id: '2', label: '1/90' },
+		{ id: '3', label: '1/100' },
+		{ id: '4', label: '1/125' },
+		{ id: '5', label: '1/180' },
+		{ id: '6', label: '1/250' },
+		{ id: '7', label: '1/350' },
+		{ id: '8', label: '1/500' },
+		{ id: '9', label: '1/725' },
+		{ id: '10', label: '1/1000' },
+		{ id: '11', label: '1/1500' },
+		{ id: '12', label: '1/2000' },
+		{ id: '13', label: '1/3000' },
+		{ id: '14', label: '1/4000' },
+		{ id: '15', label: '1/6000' },
+		{ id: '16', label: '1/10000' },
 	],
 
 	// ############
