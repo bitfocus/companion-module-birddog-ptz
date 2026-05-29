@@ -17,7 +17,7 @@
 	"dependencies": {
 		"@companion-module/base": "~1.12.1",
 		"node-fetch": "^3.3.2",
-		"ws": "^8.18.3"
+		"ws": "^8.20.1"
 	},
 	"devDependencies": {
 		"@companion-module/tools": "^2.6.1",
