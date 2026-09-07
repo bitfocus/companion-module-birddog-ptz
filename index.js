@@ -5,7 +5,7 @@ import { getPresets } from './presets.js'
 import { updateVariableDefinitions, updateVariables } from './variables.js'
 import { getFeedbacks } from './feedbacks.js'
 import { upgradeScripts } from './upgrades.js'
-import { addStringToBinary, strToPQRS, getModelQueries } from './utils.js'
+import { addStringToBinary, strToPQRS, getModelQueries, parseCompactPanTiltPosition } from './utils.js'
 import { VISCA } from './constants.js'
 import CHOICES from './choices.js'
 import { MODEL_QUERIES, MODEL_SPECS } from './models.js'
@@ -350,6 +350,18 @@ class BirdDogPTZInstance extends InstanceBase {
 	incomingData(data) {
 		let changed = null
 		//this.log('debug', '-----Incoming VISCA message: ' + Buffer.from(data, 'binary').toString('hex'))
+		const compactPosition = parseCompactPanTiltPosition(data)
+
+		if (compactPosition) {
+			if (this.camera.pan_position !== compactPosition.pan) {
+				changed = true
+				this.camera.pan_position = compactPosition.pan
+			}
+			if (this.camera.tilt_position !== compactPosition.tilt) {
+				changed = true
+				this.camera.tilt_position = compactPosition.tilt
+			}
+		}
 
 		if (data[8] == 0x90 && data[9] == 0x50 && data[10] == 0x17 && data[27] == 0xff && data.length == 28) {
 			let newPanVal = data[11].toString(16) + data[12].toString(16) + data[13].toString(16) + data[14].toString(16)

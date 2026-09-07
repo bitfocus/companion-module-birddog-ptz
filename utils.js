@@ -52,6 +52,26 @@ export function getPositionLabel(array, value) {
 	return closest.label
 }
 
+// BirdDog P100 firmware 5.5.114 replies to the 0x17 status inquiry with a
+// compact VISCA pan/tilt packet. Unlike the usual 0x17 reply it has no command
+// byte or zoom data; each position digit is a VISCA nibble.
+export function parseCompactPanTiltPosition(data) {
+	if (
+		data.length !== 19 ||
+		data[8] !== 0x90 ||
+		data[9] !== 0x50 ||
+		data[18] !== 0xff ||
+		!data.subarray(10, 18).every((value) => value <= 0x0f)
+	) {
+		return
+	}
+
+	return {
+		pan: [...data.subarray(10, 14)].map((value) => value.toString(16)).join(''),
+		tilt: [...data.subarray(14, 18)].map((value) => value.toString(16)).join(''),
+	}
+}
+
 export function strToPQRS(string) {
 	return (
 		addStringToBinary('\x00', string[0]) +

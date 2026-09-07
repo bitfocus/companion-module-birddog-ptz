@@ -5,6 +5,7 @@
 	"scripts": {
 		"format": "prettier -w .",
 		"package": "companion-module-build",
+		"test": "node --test test/*.test.js",
 		"lint:raw": "eslint",
 		"lint": "yarn lint:raw ."
 	},
