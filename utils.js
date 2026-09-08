@@ -72,6 +72,25 @@ export function parseCompactPanTiltPosition(data) {
 	}
 }
 
+// A standard zoom-position inquiry returns the position as four VISCA nibbles.
+// P100 responses observed on firmware 5.5.114 use a 15-byte VISCA-over-IP packet.
+export function parseCompactZoomPosition(data) {
+	if (
+		data.length !== 15 ||
+		data[0] !== 0x01 ||
+		data[1] !== 0x11 ||
+		data.readUInt16BE(2) !== 7 ||
+		data[8] !== 0x90 ||
+		data[9] !== 0x50 ||
+		data[14] !== 0xff ||
+		!data.subarray(10, 14).every((value) => value <= 0x0f)
+	) {
+		return
+	}
+
+	return [...data.subarray(10, 14)].map((value) => value.toString(16)).join('')
+}
+
 export function strToPQRS(string) {
 	return (
 		addStringToBinary('\x00', string[0]) +

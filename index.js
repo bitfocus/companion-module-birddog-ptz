@@ -5,7 +5,13 @@ import { getPresets } from './presets.js'
 import { updateVariableDefinitions, updateVariables } from './variables.js'
 import { getFeedbacks } from './feedbacks.js'
 import { upgradeScripts } from './upgrades.js'
-import { addStringToBinary, strToPQRS, getModelQueries, parseCompactPanTiltPosition } from './utils.js'
+import {
+	addStringToBinary,
+	strToPQRS,
+	getModelQueries,
+	parseCompactPanTiltPosition,
+	parseCompactZoomPosition,
+} from './utils.js'
 import { VISCA } from './constants.js'
 import CHOICES from './choices.js'
 import { MODEL_QUERIES, MODEL_SPECS } from './models.js'
@@ -351,6 +357,7 @@ class BirdDogPTZInstance extends InstanceBase {
 		let changed = null
 		//this.log('debug', '-----Incoming VISCA message: ' + Buffer.from(data, 'binary').toString('hex'))
 		const compactPosition = parseCompactPanTiltPosition(data)
+		const compactZoom = parseCompactZoomPosition(data)
 
 		if (compactPosition) {
 			if (this.camera.pan_position !== compactPosition.pan) {
@@ -361,6 +368,11 @@ class BirdDogPTZInstance extends InstanceBase {
 				changed = true
 				this.camera.tilt_position = compactPosition.tilt
 			}
+		}
+
+		if (compactZoom && this.camera.zoom_position !== compactZoom) {
+			changed = true
+			this.camera.zoom_position = compactZoom
 		}
 
 		if (data[8] == 0x90 && data[9] == 0x50 && data[10] == 0x17 && data[27] == 0xff && data.length == 28) {
@@ -589,7 +601,9 @@ class BirdDogPTZInstance extends InstanceBase {
 				//Sending this while camera is in standby makes it unable to wake-up
 				//this.sendVISCACommand(VISCA.MSG_QRY + VISCA.CAM_FOCUS_AUTO + VISCA.END_MSG, '\x5a') // Query Auto Focus Mode
 				//this.sendVISCACommand(VISCA.MSG_QRY + VISCA.CAM_FREEZE + VISCA.END_MSG, '\x5b') // Query Freeze
-				//this.sendVISCACommand(VISCA.MSG_QRY + VISCA.CAM_ZOOM_DIRECT + VISCA.END_MSG, '\x5c') // Query Zoom Position
+				if (this.camera.model === 'P100') {
+					this.sendVISCACommand(VISCA.MSG_QRY + VISCA.CAM_ZOOM_DIRECT + VISCA.END_MSG, '\x5c') // Query Zoom Position
+				}
 				//this.sendVISCACommand(VISCA.MSG_BLOCK_QRY + '\x15' + VISCA.END_MSG)
 				this.sendVISCACommand(VISCA.MSG_BLOCK_QRY + '\x17' + VISCA.END_MSG) // Query PTZ Position
 			}
